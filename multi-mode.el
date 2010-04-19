@@ -5,7 +5,7 @@
 ;; Author: Dave Love <fx@gnu.org>
 ;; Keywords: languages, extensions, files
 ;; Created: Sept 2003
-;; $Revision: 1.11 $
+;; $Revision: 1.13 $
 ;; URL: http://www.loveshack.ukfsn.org/emacs
 
 ;; This file is free software; you can redistribute it and/or modify
@@ -164,16 +164,15 @@ Buffer local.")
   "Original value of `imenu-create-index-function' for the buffer's mode.")
 (make-variable-buffer-local 'multi-late-index-function)
 
-;; This isn't called `multi-mode-alist', since that will get treated
-;; as risky in file variables.
-(defvar multi-alist nil
+(defvar multi-mode-alist nil
   "Alist of elements (MODE . FUNCTION) specifying a buffer's multiple modes.
 MODE is a major mode and FUNCTION is a function used as an element of
 `multi-chunk-fns' or nil.  Use nil if MODE is detected by another element
-of the alist.
+of the alist.")
 
-This is intended to be set as a file variable in a file which specifies
-`multi-mode' as its major mode.")
+(if (fboundp 'define-obsolete-variable-alias)
+    (define-obsolete-variable-alias 'multi-alist 'multi-mode-alist)
+  (make-obsolete-variable 'multi-alist 'multi-mode-alist))
 
 ;; See the commentary below.
 (defun multi-hack-local-variables ()
@@ -226,7 +225,7 @@ is the base mode."
 	      (fns (if chunk-fn
 		       (add-to-list 'multi-chunk-fns chunk-fn)
 		     multi-chunk-fns))
-	      (alist2 multi-alist)
+	      (alist2 multi-mode-alist)
 	      (file (buffer-file-name))
 	      (base-name (buffer-name))
 	      (coding buffer-file-coding-system)
@@ -293,7 +292,7 @@ is the base mode."
 	    (add-hook 'kill-buffer-hook
 		      '(lambda ()
 			 (setq kill-buffer-hook nil)
-			 (kill-buffer (buffer-base-buffer (current-buffer))))
+			 (kill-buffer (buffer-base-buffer)))
 		      t t)
 	    ;; This should probably be at the front of the hook list, so
 	    ;; that other hook functions get run in the (perhaps)
@@ -315,7 +314,7 @@ is the base mode."
 		(with-current-buffer (cdr x)
 		  (setq multi-chunk-fns fns)
 		  (setq multi-indirect-buffers-alist alist)
-		  (setq multi-alist alist2)
+		  (setq multi-mode-alist alist2)
 		  (run-hooks 'multi-indirect-buffer-hook)))))))))
 
 (defun multi-map-over-chunks (beg end thunk)
@@ -399,9 +398,13 @@ Assigned to `imenu-create-index-function'."
     (forward-char)
     t))
 
+(eval-when-compile (defvar syntax-ppss-last))
+
 (defun multi-narrow-to-chunk ()
   "Narrow to the current chunk."
   (interactive)
+  (if (boundp 'syntax-ppss-last)
+      (setq syntax-ppss-last nil))
   (unless (= (point-min) (point-max))
     (apply #'narrow-to-region (cdr (multi-find-mode-at)))))
 
@@ -481,21 +484,21 @@ mode is selected.  POS defaults to point."
 ;;   "Pseudo major mode controlling multiple major modes apparently in a buffer.
 ;; Actually maintains multiple views of the data in indirect buffers and
 ;; switches between them according to the context of point with a post-command
-;; hook.  Depends on a specification of `multi-alist' in file variables."
+;; hook.  Depends on a specification of `multi-mode-alist' in file variables."
 ;;   ;; We need to do the work after file variables have been processed so
-;;   ;; that we can use a specification of `multi-alist'.
+;;   ;; that we can use a specification of `multi-mode-alist'.
 ;;   (set (make-local-variable 'hack-local-variables-hook)
 ;;        #'multi-mode-install-modes))
 
 (defun multi-mode-install-modes ()
-  "Process `multi-alist' and create the appropriate buffers."
-  (if multi-alist
-      (let ((elt (pop multi-alist)))
+  "Process `multi-mode-alist' and create the appropriate buffers."
+  (if multi-mode-alist
+      (let ((elt (pop multi-mode-alist)))
 	(multi-install-mode (car elt) (cdr elt) t)
-	(dolist (elt multi-alist)
+	(dolist (elt multi-mode-alist)
 	  (multi-install-mode (car elt) (cdr elt))))
     (fundamental-mode)
-    (error "`multi-alist' not defined for multi-mode")))
+    (error "`multi-mode-alist' not defined for multi-mode")))
 
 ;; In 21.3, Flyspell breaks things, apparently by getting an error in
 ;; post-command-hook and thus clobbering it.  In development code it
@@ -519,6 +522,15 @@ mode is selected.  POS defaults to point."
 	  (if 'flyspell-mode
 	      (funcall ,(symbol-function 'flyspell-pre-command-hook)))))))
 
+;; This is useful in composite modes to determine whether a putative
+;; major mode is safe to invoke.
+(defun multi-mode-major-mode-p (value)
+  "Heuristic for VALUE being a symbol naming a major mode.
+Checks whether the symbol's documentation string starts with
+\"Major mode \"."
+  (and (symbolp value) (fboundp value)
+       (let ((doc (documentation value)))
+	 (and doc (string-match "\\`Major mode " doc) t))))
 (provide 'multi-mode)
 
 ;;; multi-mode.el ends here
