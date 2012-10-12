@@ -1,0 +1,30 @@
+[Default Applications]
+x-scheme-handler/http=chromium.desktop
+application/xhtml+xml=chromium.desktop;
+
+text/plain=emacs-client.desktop;
+application/x-shellscript=emacs-client.desktop;
+text/x-tex=emacs-client.desktop;
+text/x-c++src=emacs-client.desktop;
+text/x-chdr=emacs-client.desktop;
+text/x-csrc=emacs-client.desktop;
+
+image/jpeg=eog.desktop;
+image/png=eog.desktop;
+image/svg+xml=eog.desktop;
+
+application/pdf=zathura.desktop;
+application/postscript=zathura.desktop;
+image/vnd.djvu=zathura.desktop;
+
+audio/mpeg=smplayer.desktop;
+video/mp4=smplayer.desktop;
+video/x-msvideo=smplayer.desktop;
+video/x-flv=smplayer.desktop;
+video/x-matroska=smplayer.desktop
+video/x-ms-wmv=smplayer.desktop
+
+application/x-gcstar=gcstar.desktop
+
+[Added Associations]
+application/x-gcstar=emacs-client.desktop;gcstar.desktop;
