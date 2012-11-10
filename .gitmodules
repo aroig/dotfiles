@@ -1,0 +1,45 @@
+[submodule "themes/zenburn"]
+	path = themes/zenburn
+	url = https://github.com/bbatsov/zenburn-emacs.git
+[submodule "packages/undo-tree"]
+	path = packages/undo-tree
+	url = http://www.dr-qubit.org/git/undo-tree.git
+[submodule "packages/ibuffer-vc"]
+	path = packages/ibuffer-vc
+	url = https://github.com/purcell/ibuffer-vc.git
+[submodule "modes/git-commit-mode"]
+	path = modes/git-commit-mode
+	url = https://github.com/rafl/git-commit-mode.git
+[submodule "modes/pkgbuild-mode"]
+	path = modes/pkgbuild-mode
+	url = https://github.com/juergenhoetzel/pkgbuild-mode.git
+[submodule "modes/lua-mode"]
+	path = modes/lua-mode
+	url = https://github.com/immerrr/lua-mode.git
+[submodule "modes/yaml-mode"]
+	path = modes/yaml-mode
+	url = https://github.com/yoshiki/yaml-mode.git
+[submodule "modes/coffee-mode"]
+	path = modes/coffee-mode
+	url = https://github.com/defunkt/coffee-mode.git
+[submodule "modes/python-mode"]
+	path = modes/python-mode
+	url = https://github.com/emacsmirror/python-mode.git
+[submodule "themes/solarized"]
+	path = themes/solarized
+	url = https://github.com/sellout/emacs-color-theme-solarized.git
+[submodule "packages/vim-modeline"]
+	path = packages/vim-modeline
+	url = http://github.com/cinsk/emacs-vim-modeline.git
+[submodule "modes/rainbow-mode"]
+	path = modes/rainbow-mode
+	url = https://github.com/emacsmirror/rainbow-mode.git
+[submodule "packages/helm"]
+	path = packages/helm
+	url = https://github.com/emacs-helm/helm.git
+[submodule "packages/evil"]
+	path = packages/evil
+	url = https://git.gitorious.org/evil/evil.git
+[submodule "modes/sage-mode"]
+	path = modes/sage-mode
+	url = https://github.com/aroig/sage-mode.git
