@@ -53,20 +53,6 @@
   ;; evil keybindings
   ; (define-key evil-normal-state-map "\C-r" 'isearch-backward)
 
-  ;; Cursors
-  (setq evil-default-cursor `(,zenburn-fg box))
-
-  (setq evil-normal-state-cursor `(,zenburn-fg box))
-  (setq evil-insert-state-cursor `(,zenburn-sat-lightgreen bar))
-  (setq evil-emacs-state-cursor `(,zenburn-sat-yellow bar))
-
-  (setq evil-motion-state-cursor `(,zenburn-fg box))
-  (setq evil-visual-state-cursor `(,zenburn-fg box))
-
-  (setq evil-replace-state-cursor `(,zenburn-red-2 box))
-  (setq evil-operator-state-cursor `(,zenburn-red-2 box))
-
-
 
   ;; Misc config
   (setq evil-regexp-search t)                ; use regexps for searching

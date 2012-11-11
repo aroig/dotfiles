@@ -165,19 +165,6 @@
 
 ;; Emacs session handling
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; TODO: Set faces for save and commit.
-
-
-(defun y-or-n-color-p (query color)
-  (let (minibuffer-prompt-bak ans)
-    (copy-face 'minibuffer-prompt 'minibuffer-prompt-bak)
-    (unwind-protect
-	(progn
-	  (set-face-foreground 'minibuffer-prompt color)
-	  (setq ans (y-or-n-p query)))
-      (copy-face 'minibuffer-prompt-bak 'minibuffer-prompt))
-    ans))
 
 (defun abdo-path-contains-buffer (path)
   (delq nil (mapcar (lambda (buf)
@@ -194,7 +181,7 @@
   (setq buf (or buf (current-buffer)))
   (when (and (buffer-modified-p buf)
 	     (buffer-file-name buf)
-	     (y-or-n-color-p (concat "Save file " (buffer-file-name buf) "? ") zenburn-sat-lightgreen-1))
+	     (y-or-n-p (propertize (concat "Save file " (buffer-file-name buf) "? ") 'face 'abdo-save-question))
     (with-current-buffer buf (save-buffer)))
   (not (buffer-modified-p buf)))
 
@@ -207,7 +194,7 @@
 
   (let ((rootdir (abdo-vc-root path)))
     (if (and rootdir (not (abdo-path-contains-buffer rootdir))) ; only ask for commit on the last buffer
-	(if (y-or-n-color-p (concat "Commit changes to repo at " rootdir "? ") zenburn-sat-orange)
+	(if (y-or-n-p (propertize (concat "Commit changes to repo at " rootdir "? ") 'face 'abdo-commit-question))
 	    (progn (message "Preparing to commit") (abdo-vcs-status rootdir) t)
 	  (message "Not commiting") nil)
       nil)))

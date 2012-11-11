@@ -32,15 +32,14 @@
 (setq default-frame-alist '((menu-bar-lines . 0)
                             (tool-bar-lines . 0)))
 
-;; Theme tweaking
-(require 'zenburn-theme)               ;; Color theme
+;; Apply color theme
+(require 'zenburn-theme)
 
-;; Apply root colors if it is root
+;; Apply root colors if user is root
 (let ((username (substring (shell-command-to-string "id -n -u") 0 -1)))
   (when (string= username "root")
     (set-face-background 'mode-line "#4b0b0b")
     (set-face-background 'region "#4b0b0b")))
-
 
 
 ;; Paths
@@ -169,7 +168,6 @@
 ;; Emacsdaemon stuff
 ;; TODO: load only when launching daemon!
 (require 'abdo-emacsdaemon)
-
 
 
 ;; File associations

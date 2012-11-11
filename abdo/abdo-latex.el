@@ -62,7 +62,6 @@
 ;  (setq fixme-mode t)
 
   ;; Adjustments
-  (abdo-latex-color-tweaks)                      ;; My color tweaks
   (abdo-latex-personal-tweaks)                   ;; My latex adjustments
 
   ;; Delete trailing whitespaces before save
@@ -72,18 +71,6 @@
 
 ;; Tweaks
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;; Latex specific color tweaks.
-(defun abdo-latex-color-tweaks()
-  (interactive)
-  ;; beautiful colors. Also inherit sectioning font from default instead of variable-pitch.
-  (set-face-attribute 'font-latex-sectioning-5-face nil :inherit 'default :foreground zenburn-sat-orange-1)
-  (set-face-attribute 'font-latex-warning-face nil :inherit 'default :foreground zenburn-sat-red)
-  (set-face-attribute 'font-latex-math-face nil :foreground zenburn-wood)
-  (set-face-attribute 'font-lock-constant-face nil :foreground zenburn-sat-lightgreen-1)
-)
-
 
 ;; Latex personal stuff
 (defun abdo-latex-personal-tweaks ()

@@ -195,19 +195,13 @@
   ;; Agenda
   (setq org-agenda-start-with-follow-mode t) ;; Start agenda in follow mode
 
-
-  ;; Tweaking faces
+  ;; Priority faces
   (setq org-priority-faces `(
-    (?1 :foreground ,zenburn-sat-red-1)
-    (?2 :foreground ,zenburn-sat-orange-1)
-    (?3 :foreground ,zenburn-yellow-2)
-    (?4 :foreground ,zenburn-green+1)
-    (?5 :foreground ,zenburn-blue))
-  )
-
-  (custom-set-faces
-   `(org-hide ((t (:foreground ,zenburn-bg-1 :background ,zenburn-bg)))))
-
+    (?1 org-priority-level-1)
+    (?2 org-priority-level-2)
+    (?3 org-priority-level-3)
+    (?4 org-priority-level-4)
+    (?5 org-priority-level-5)))
 
   ;; I am going to use english by default
   (abdo-change-dictionary "english")
