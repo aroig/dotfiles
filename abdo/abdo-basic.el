@@ -166,6 +166,26 @@
 ;; Emacs session handling
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defface abdo-commit-question
+  '((t :inherit default))
+  "Face for commit question")
+
+(defface abdo-save-question
+  '((t :inherit default))
+  "Face for save question")
+
+
+(defun y-or-n-face-p (query face)
+  (let (minibuffer-prompt-bak ans)
+    (copy-face 'minibuffer-prompt 'minibuffer-prompt-bak)
+    (unwind-protect
+	(progn
+          (copy-face face 'minibuffer-prompt)
+	  (setq ans (y-or-n-p query)))
+      (copy-face 'minibuffer-prompt-bak 'minibuffer-prompt))
+    ans))
+
+
 (defun abdo-path-contains-buffer (path)
   (delq nil (mapcar (lambda (buf)
                       (if (and (buffer-file-name buf) (string-prefix-p path (buffer-file-name buf)))
@@ -181,7 +201,7 @@
   (setq buf (or buf (current-buffer)))
   (when (and (buffer-modified-p buf)
 	     (buffer-file-name buf)
-	     (y-or-n-p (propertize (concat "Save file " (buffer-file-name buf) "? ") 'face 'abdo-save-question))
+	     (y-or-n-face-p (concat "Save file " (buffer-file-name buf) "? ") 'abdo-save-question))
     (with-current-buffer buf (save-buffer)))
   (not (buffer-modified-p buf)))
 
@@ -194,7 +214,7 @@
 
   (let ((rootdir (abdo-vc-root path)))
     (if (and rootdir (not (abdo-path-contains-buffer rootdir))) ; only ask for commit on the last buffer
-	(if (y-or-n-p (propertize (concat "Commit changes to repo at " rootdir "? ") 'face 'abdo-commit-question))
+	(if (y-or-n-face-p (concat "Commit changes to repo at " rootdir "? ") 'abdo-commit-question)
 	    (progn (message "Preparing to commit") (abdo-vcs-status rootdir) t)
 	  (message "Not commiting") nil)
       nil)))
