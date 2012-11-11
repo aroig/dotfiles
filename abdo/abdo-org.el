@@ -196,6 +196,12 @@
   (setq org-agenda-start-with-follow-mode t) ;; Start agenda in follow mode
 
   ;; Priority faces
+  (defface org-priority-level-1 '((t :inherit default)) "Org priority level 1")
+  (defface org-priority-level-2 '((t :inherit default)) "Org priority level 2")
+  (defface org-priority-level-3 '((t :inherit default)) "Org priority level 3")
+  (defface org-priority-level-4 '((t :inherit default)) "Org priority level 4")
+  (defface org-priority-level-5 '((t :inherit default)) "Org priority level 5")
+
   (setq org-priority-faces `(
     (?1 org-priority-level-1)
     (?2 org-priority-level-2)
