@@ -28,9 +28,6 @@
 [submodule "themes/solarized"]
 	path = themes/solarized
 	url = https://github.com/sellout/emacs-color-theme-solarized.git
-[submodule "packages/vim-modeline"]
-	path = packages/vim-modeline
-	url = http://github.com/cinsk/emacs-vim-modeline.git
 [submodule "modes/rainbow-mode"]
 	path = modes/rainbow-mode
 	url = https://github.com/emacsmirror/rainbow-mode.git
@@ -43,3 +40,6 @@
 [submodule "modes/sage-mode"]
 	path = modes/sage-mode
 	url = https://github.com/aroig/sage-mode.git
+[submodule "packages/vim-modeline"]
+	path = packages/vim-modeline
+	url = https://github.com/aroig/emacs-vim-modeline.git
