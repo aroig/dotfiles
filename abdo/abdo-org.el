@@ -191,6 +191,8 @@
   (setq org-hide-leading-stars t)            ;; Hides leading stars
   (setq org-completion-use-ido t)            ;; Use ido for completion
 
+  ;; Just a little darker than background.
+  (custom-set-faces `(org-hide ((t (:foreground "#1f1f1f")))))
 
   ;; Agenda
   (setq org-agenda-start-with-follow-mode t) ;; Start agenda in follow mode
