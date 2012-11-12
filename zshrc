@@ -25,7 +25,7 @@ fi
 #------------------------------
 
 # if ssh outside tmux
-if [[ "${SSH_TTY}" != "" && "${TMUX}" == "" && "$NOTMUX" == "" ]]; then     
+if [[ "${SSH_TTY}" != "" && "${TMUX}" == "" && "$NOTMUX" == "" ]]; then
     if which tmux 2>&1 >/dev/null; then
 
 	if [[ "$(tmux has-session -t ssh 2> /dev/null; echo $?)" == "0" ]]; then
@@ -99,7 +99,8 @@ autoload -U add-zsh-hook
 #------------------------------
 
 if [ -d $HOME/.zshrc.d ]; then
-    for src in $HOME/.zshrc.d/*.sh; do
+    ZSHRCD="$HOME/.zshrc.d"
+    for src in $ZSHRCD/*.sh; do
 	source $src
     done
 fi
