@@ -1,0 +1,19 @@
+require("apps")
+
+return {
+   python2               = apps.docbrowser .. " file:///usr/share/doc/python2/html/index.html",
+   python3               = apps.docbrowser .. " file:///usr/share/doc/python/html/index.html",
+   sage                  = apps.docbrowser .. " file:///home/abdo/Software/sage/doc/reference/index.html",
+   awesome               = apps.docbrowser .. " file:///usr/share/doc/awesome/luadoc/index.html",
+   arch                  = apps.docbrowser .. " https://wiki.archlinux.org/index.php/Main_Page",
+   ["emacs-lisp"]        = apps.docbrowser .. " http://www.gnu.org/software/emacs/manual/html_mono/elisp.html",
+   emacs                 = apps.docbrowser .. " http://www.gnu.org/software/emacs/manual/html_node/emacs/index.html",
+   org                   = apps.docbrowser .. " file:///home/abdo/Software/emacs/org-mode/doc/org.html",
+   vim                   = apps.docbrowser .. " http://vimdoc.sourceforge.net/htmldoc/usr_toc.html",
+   lua                   = apps.docbrowser .. " file:///usr/share/doc/lua/contents.html",
+   zsh                   = apps.docbrowser .. " http://zsh.sourceforge.net/Doc/Release/zsh_toc.html",
+   zshwiki               = apps.docbrowser .. " http://zshwiki.org/home/start",
+   bashwiki              = apps.docbrowser .. " http://wiki.bash-hackers.org/doku.php",
+   mathscinet            = apps.docbrowser .. " http://www.ams.org/mathscinet/",
+   ["abdo-latex"]        = apps.pdfviewer  .. " /home/abdo/Documents/miscelania/2009-latex-refcard/abdo-refcard.pdf",
+}
