@@ -46,31 +46,29 @@ end
 globalkeys = awful.util.table.join(
     -- Programs
     -- I do the sleep thing because otherwise urxvt starts too fast and does not get focus.
-    awful.key({ modkey, "Control" }, "Return", function () shexec("sleep 0.1; " .. apps.terminal) end),
+    awful.key({ modkey, "Control" }, "Return", function () exec(apps.terminal) end),
     awful.key({ modkey, "Control" }, "f",      function () exec(apps.filemanager) end),
-    awful.key({ modkey, "Control" }, "g",      function () exec(apps.filemanager_alt) end),
     awful.key({ modkey, "Control" }, "e",      function () exec(apps.editor) end),
     awful.key({ modkey, metakey   }, "b",      function () exec(apps.browser) end),
-    awful.key({ modkey, "Control" }, "b",      function () exec("chromium") end),
+    awful.key({ modkey, "Control" }, "o",      function () exec(apps.orgmode) end),
+    awful.key({ modkey, "Control" }, "u",      function () exec(apps.mail) end),
     awful.key({ modkey, "Control" }, "k",      function () exec("keepassx") end),
-    awful.key({ modkey, "Control" }, "o",      function () exec("emacs -org") end),
-    awful.key({ modkey, "Control" }, "u",      function () exec("emacs -mail") end),
 --    awful.key({ modkey, "Control" }, "r",      function () exec("emacs -news") end),
 --    awful.key({ modkey, "Control" }, "h",      function () exec("calibre") end),
 --    awful.key({ modkey, "Control" }, "m",      function () exec("quodlibet") end),
 
 
     awful.key({ modkey, "Control" }, "d",      function () drop.toggle("goldendict", "goldendict",
-								"center", "right", 0.5, 1) end),
+                                                                       "center", "right", 0.5, 1) end),
 
     awful.key({ modkey, "Control" }, "h",      function () drop.toggle("calibre", "calibre",
-							     "center", "right", 1, 1) end),
+                                                                       "center", "right", 1, 1) end),
 
     awful.key({ modkey, "Control" }, "p",      function () drop.toggle("pidgin", "pidgin",
-								"center", "right", 300, 1) end),
+                                                                       "center", "right", 300, 1) end),
 
     awful.key({ modkey, "Control" }, "m",      function () drop.toggle("quodlibet", "quodlibet",
-								"center", "right", 0.6, 1) end),
+                                                                       "center", "right", 0.6, 1) end),
 
     -- Music
     awful.key({ modkey, "Control" }, "Home",      function () exec("quodlibet --play-pause") end),
@@ -90,25 +88,24 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F3",     syslog.toggle_syslog),
     awful.key({ modkey,           }, "F4",     naughtylog.toggle_naughtylog),
 
-    awful.key({ modkey,           }, "F9",     function () drop.toggle("desktop", apps.light_filemanager .. " Desktop",
-								"top", "center", 1, 0.4) end),
-    awful.key({ modkey, "Control" }, "F9",     function () drop.toggle("ranger", apps.terminal .. " -e ranger",
-								"top", "center", 1, 0.4) end),
+    awful.key({ modkey,           }, "F9",     function () drop.toggle("ranger", apps.terminal .. " -e ranger",
+                                                                       "top", "center", 1, 0.4) end),
 
     awful.key({ modkey,           }, "F10",    function () drop.toggle("notes", apps.notes,
-                                                                "top", "center", 1, 0.4) end),
+                                                                       "top", "center", 1, 0.4) end),
 
     awful.key({ modkey,           }, "F11",    function () drop.toggle("octave", apps.terminal .. " -e octave",
-								"top", "center", 1, 0.4) end),
+                                                                       "top", "center", 1, 0.4) end),
+
     awful.key({ modkey, "Control" }, "F11",    function () drop.toggle("sage", apps.terminal .. " -e sage",
-								"top", "center", 1, 0.4) end),
+                                                                       "top", "center", 1, 0.4) end),
 
     awful.key({ modkey,           }, "F12",    function () drop.toggle("terminal", apps.terminal,
-								"top", "center", 1, 0.4) end),
-
+                                                                       "top", "center", 1, 0.4) end),
 
     awful.key({ modkey,           }, "F8",     function () drop.toggle("doc", nil,
-								"center", "right", 0.7, 1) end),
+                                                                       "center", "right", 0.7, 1) end),
+
     awful.key({ modkey,           }, "F7",     prompt.docs),
     awful.key({ modkey,           }, "F6",     prompt.wikipedia),
 
