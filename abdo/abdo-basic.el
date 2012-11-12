@@ -230,7 +230,8 @@
     (when (processp proc)
       (let ((clientbuf (process-get proc 'buffers)))
         (when (not (memq buf clientbuf))
-          (add-hook 'kill-buffer-hook 'server-kill-buffer nil t)
+          ; Why this? I don't remember, but it makes the client crash.
+          ; (add-hook 'kill-buffer-hook 'server-kill-buffer nil t)
           (push proc server-buffer-clients)
           (process-put proc 'buffers (nconc (process-get proc 'buffers) `(,buf))))))))
 
