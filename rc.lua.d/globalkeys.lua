@@ -49,7 +49,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "Return", function () exec(apps.terminal) end),
     awful.key({ modkey, "Control" }, "f",      function () exec(apps.filemanager) end),
     awful.key({ modkey, "Control" }, "e",      function () exec(apps.editor) end),
-    awful.key({ modkey, metakey   }, "b",      function () exec(apps.browser) end),
+    awful.key({ modkey, "Control" }, "b",      function () exec(apps.browser) end),
     awful.key({ modkey, "Control" }, "o",      function () exec(apps.orgmode) end),
     awful.key({ modkey, "Control" }, "u",      function () exec(apps.mail) end),
     awful.key({ modkey, "Control" }, "k",      function () exec("keepassx") end),
