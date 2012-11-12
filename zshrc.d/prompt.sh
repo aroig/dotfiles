@@ -84,8 +84,8 @@ promptvcs () {
            stagedcol="$fg[green]"
           changedcol="$FG[166]"
         untrackedcol="$FG[166]"
-         conflictcol="$FG[124]"
-          unknowncol="$FG[124]"
+         conflictcol="$FG[166]"
+          unknowncol="$FG[166]"
     fi
 
     case $__CURRENT_VCS_STATUS in

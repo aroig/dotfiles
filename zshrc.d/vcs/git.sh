@@ -40,7 +40,7 @@ elif [[ ! "$(echo -n "$st\n" | grep '^\?' | wc -l)" == "0" ]]; then
 elif [[ ! "$(echo -n "$st\n" | grep '^ M' | wc -l)" == "0" ]]; then
     __CURRENT_VCS_STATUS='changed'
 
-elif [[ ! "$(echo -n "$st\n" | grep '^M' | wc -l)" == "0" ]]; then
+elif [[ ! "$(echo -n "$st\n" | grep '^[MA]' | wc -l)" == "0" ]]; then
     __CURRENT_VCS_STATUS='staged'
 
 elif [[ "$st" == "" ]]; then
