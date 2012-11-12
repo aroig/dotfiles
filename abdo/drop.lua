@@ -75,7 +75,7 @@ local function spawn_client_pid(prog, cmd, vert, horiz, width, height, sticky, s
       drop.data[prog].command=cmd
       drop.data[prog].time=time
       naughty.notify({title = "Spawning", text=prog, timeout=3})
-      drop.data[prog].pid = awful.util.spawn(cmd, false)
+      drop.data[prog].pid = awful.util.spawn_with_shell(cmd)
       drop.data[prog].callback = function (c)
 	 drop.data[prog].client=c
 
@@ -147,7 +147,7 @@ local function spawn_client(prog, cmd, vert, horiz, width, height, sticky, scree
 
    -- Add manage signal and spawn the program
    capi.client.connect_signal("manage", spawnw)
-   local pid = awful.util.spawn(cmd, false)
+   local pid = awful.util.spawn_with_shell(cmd)
    drop.data[prog].pid = pid
    naughty.notify({title = "Spawning", text=prog, timeout=3})
 end
