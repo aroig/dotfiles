@@ -30,16 +30,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun abdo-prog-mode-things()
-  ;; Delete trailing whitespaces before save
-  (add-to-list 'write-file-functions 'delete-trailing-whitespace)
-
   (setq-default indent-tabs-mode nil)            ;; No tabs on indent
 
   ;; Development tools
   (semantic-mode 1)
   (require 'semantic/sb)
 ;  (ede-minor-mode 1)
-
 )
 
 ;; Hook
@@ -68,6 +64,9 @@
   (setq python-python-command "ipython")
   (setq python-command "ipython")
 
+  ;; Delete trailing whitespaces before save
+  (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
+
 ;  (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
 ;  (abdo-change-dictionary "english")      ;; I always program in english
 
@@ -84,6 +83,9 @@
 
 (defun abdo-lua-mode-things()
   (setq lua-indent-level 4)              ;; indentation
+
+  ;; Delete trailing whitespaces before save
+  (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
 )
 
 ;; Hooks
@@ -95,6 +97,9 @@
 
 (defun abdo-emacs-lisp-mode-things()
   (abdo-compile-buffer-things)
+
+  ;; Delete trailing whitespaces before save
+  (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
 )
 
 ;; Hooks
@@ -106,17 +111,20 @@
 ;; C++ mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun abdo-c++-mode-things()
+(defun abdo-c-mode-things()
   (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
   (abdo-change-dictionary "english")      ;; I always program in english
+
+  ;; Delete trailing whitespaces before save
+  (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
 
   (abdo-compile-buffer-things)
 )
 
 
 ;; Hooks
-(add-hook 'c++-mode-hook 'abdo-c++-mode-things)
-(add-hook 'c-mode-hook 'abdo-c++-mode-things)
+(add-hook 'c++-mode-hook 'abdo-c-mode-things)
+(add-hook 'c-mode-hook 'abdo-c-mode-things)
 
 
 ;; gdb
