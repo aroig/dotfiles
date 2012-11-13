@@ -256,22 +256,22 @@ myw.rssicon = wibox.widget.imagebox()
 
 myw.rss = wibox.widget.textbox()
 
-vicious.register(myw.rss, sheval,
-		 function (widget, args)
-		    local color
-		    local num = tonumber(args[1])
-		    if num == nil then num = 0 end
-
-		    if num == 0 then
-		       color = beautiful.fg_green_widget
-		       myw.rssicon:set_image(beautiful.widget_rsse)
-		    else
-		       color = beautiful.fg_red_widget
-		       myw.rssicon:set_image(beautiful.widget_rssf)
-		    end
-
-		    return string.format("<span color='%s'>%d</span>", color, num)
-		 end, 60, "notmuch-news count tag:unread")
+--vicious.register(myw.rss, sheval,
+--		 function (widget, args)
+--		    local color
+--		    local num = tonumber(args[1])
+--		    if num == nil then num = 0 end
+--
+--		    if num == 0 then
+--		       color = beautiful.fg_green_widget
+--		       myw.rssicon:set_image(beautiful.widget_rsse)
+--		    else
+--		       color = beautiful.fg_red_widget
+--		       myw.rssicon:set_image(beautiful.widget_rssf)
+--		    end
+--
+--		    return string.format("<span color='%s'>%d</span>", color, num)
+--		 end, 60, "notmuch-news count tag:unread")
 
 
 -- Register buttons
