@@ -193,13 +193,14 @@ end
 
 -- Create a new window for the drop-down application when it doesn't
 -- exist, or toggle between hidden and visible states when it does
-function drop.toggle(prog, cmd, vert, horiz, width, height, sticky, screen)
+function drop.toggle(prog, cmd, vert, horiz, width, height, sticky, screen, matchcmd)
     vert   = vert   or "top"
     horiz  = horiz  or "center"
     width  = width  or 1
     height = height or 0.40
     sticky = sticky or false
     screen = screen or capi.mouse.screen
+    if matchcmd == nil then matchcmd = true end
 
      -- if cmd is nil, use the one of running client, if exist, otherwise do nothing
      if not cmd then
@@ -222,7 +223,8 @@ function drop.toggle(prog, cmd, vert, horiz, width, height, sticky, screen)
         c = drop.data[prog].client
 
         -- If running client was launched with same command as requested
-        if cmd == drop.data[prog].command then
+        -- or don't want to match the exact command
+        if cmd == drop.data[prog].command or not matchcmd then
 	   -- Switch the client to the current workspace
 	   if c:isvisible() == false then c.hidden = true
 	      awful.client.movetotag(awful.tag.selected(screen), c)
