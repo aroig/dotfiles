@@ -6,17 +6,25 @@
 
 local os = os
 
-local apps = {
-    terminal            = os.getenv("TERMCMD"),
-    editor              = os.getenv("EMACS"),
-    browser             = os.getenv("BROWSER"),
-    docbrowser          = "midori --private",
-    filemanager         = "nautilus",
-    pdfviewer           = "zathura",
-    orgmode             = "emacs -org",
-    mail                = "emacs -mail",
-    news                = "emacs -news",
-    notes               = "emacs -notes"
-}
+local apps = {}
+
+-- Apps from the environment
+apps.terminal            = os.getenv("TERMCMD")
+apps.editor              = os.getenv("EMACS")
+apps.browser             = os.getenv("BROWSER")
+
+-- Other apps
+apps.docbrowser          = "midori --private"
+apps.filemanager         = "nautilus"
+apps.pdfviewer           = "zathura"
+apps.music               = "quodlibet"
+apps.chat                = "pidgin"
+
+-- Emacs stuff
+apps.orgmode             = "emacs -org"
+apps.mail                = "emacs -mail"
+apps.news                = "emacs -news"
+apps.notes               = "emacs -notes"
+apps.irc                 = "emacs -irc"
 
 return apps

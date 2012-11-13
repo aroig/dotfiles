@@ -4,44 +4,15 @@
 -- Author: Abdó Roig<abdo.roig@gmail.com>                    --
 ---------------------------------------------------------------
 
-pickle = require("abdo.pickle")                -- Some crude pickling routines
-
-
-
 local capi =
 {
     client = client,
     mouse = mouse,
     screen = screen,
 }
+
 local ipairs = ipairs
-
---- Restore (=unminimize) a random client, and set focus to it.
--- @param s The screen to use.
--- @return True if some client was restored.
-
-local function restore_focus(s)
-   local s = s or (capi.client.focus and capi.client.focus.screen) or capi.mouse.screen
-   local cls = capi.client.get(s)
-   local tags = awful.tag.selectedlist(s)
-   local mcls = {}
-   for k, c in pairs(cls) do
-      local ctags = c:tags()
-      if c.minimized then
-         for k, t in ipairs(tags) do
-            if awful.util.table.hasitem(ctags, t) then
-               c.minimized = false
-               awful.client.focus.byidx(0, c)
-               return true
-            end
-         end
-      end
-   end
-   return false
-end
-
-
-
+local apps = apps
 
 globalkeys = awful.util.table.join(
     -- Programs
@@ -53,27 +24,18 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "o",      function () exec(apps.orgmode) end),
     awful.key({ modkey, "Control" }, "u",      function () exec(apps.mail) end),
     awful.key({ modkey, "Control" }, "k",      function () exec("keepassx") end),
---    awful.key({ modkey, "Control" }, "r",      function () exec("emacs -news") end),
---    awful.key({ modkey, "Control" }, "h",      function () exec("calibre") end),
---    awful.key({ modkey, "Control" }, "m",      function () exec("quodlibet") end),
+--    awful.key({ modkey, "Control" }, "r",      function () exec(apps.news) end),
 
-
-    awful.key({ modkey, "Control" }, "d",      function () drop.toggle("goldendict", "goldendict",
-                                                                       "center", "right", 0.5, 1) end),
-
-    awful.key({ modkey, "Control" }, "h",      function () drop.toggle("calibre", "calibre",
-                                                                       "center", "right", 1, 1) end),
-
-    awful.key({ modkey, "Control" }, "p",      function () drop.toggle("pidgin", "pidgin",
-                                                                       "center", "right", 300, 1) end),
-
-    awful.key({ modkey, "Control" }, "m",      function () drop.toggle("quodlibet", "quodlibet",
-                                                                       "center", "right", 0.6, 1) end),
+    awful.key({ modkey, "Control" }, "d",      dropdown.dict),
+    awful.key({ modkey, "Control" }, "h",      dropdown.calibre),
+    awful.key({ modkey, "Control" }, "p",      dropdown.pidgin),
+    awful.key({ modkey, "Control" }, "i",      dropdown.irc),
+    awful.key({ modkey, "Control" }, "m",      dropdown.music),
 
     -- Music
-    awful.key({ modkey, "Control" }, "Home",      function () exec("quodlibet --play-pause") end),
-    awful.key({ modkey, "Control" }, "Page_Up",   function () exec("quodlibet --previous") end),
-    awful.key({ modkey, "Control" }, "Page_Down", function () exec("quodlibet --next") end),
+    awful.key({ modkey, "Control" }, "Home",      function () exec(apps.music .. " --play-pause") end),
+    awful.key({ modkey, "Control" }, "Page_Up",   function () exec(apps.music .. " --previous") end),
+    awful.key({ modkey, "Control" }, "Page_Down", function () exec(apps.music .. " --next") end),
 
     awful.key({ modkey, "Control" }, "Insert",    function () exec("pvol +2db") end),
     awful.key({ modkey, "Control" }, "Delete",    function () exec("pvol -2db") end),
@@ -88,26 +50,15 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F3",     syslog.toggle_syslog),
     awful.key({ modkey,           }, "F4",     naughtylog.toggle_naughtylog),
 
-    awful.key({ modkey,           }, "F9",     function () drop.toggle("ranger", apps.terminal .. " -e ranger",
-                                                                       "top", "center", 1, 0.4) end),
+    awful.key({ modkey,           }, "F9",     dropdown.ranger),
+    awful.key({ modkey,           }, "F10",    dropdown.notes),
+    awful.key({ modkey,           }, "F11",    dropdown.octave),
+    awful.key({ modkey, "Control" }, "F11",    dropdown.sage),
+    awful.key({ modkey,           }, "F12",    dropdown.terminal),
 
-    awful.key({ modkey,           }, "F10",    function () drop.toggle("notes", apps.notes,
-                                                                       "top", "center", 1, 0.4) end),
-
-    awful.key({ modkey,           }, "F11",    function () drop.toggle("octave", apps.terminal .. " -e octave",
-                                                                       "top", "center", 1, 0.4) end),
-
-    awful.key({ modkey, "Control" }, "F11",    function () drop.toggle("sage", apps.terminal .. " -e sage",
-                                                                       "top", "center", 1, 0.4) end),
-
-    awful.key({ modkey,           }, "F12",    function () drop.toggle("terminal", apps.terminal,
-                                                                       "top", "center", 1, 0.4) end),
-
-    awful.key({ modkey,           }, "F8",     function () drop.toggle("doc", nil,
-                                                                       "center", "right", 0.7, 1) end),
-
-    awful.key({ modkey,           }, "F7",     prompt.docs),
     awful.key({ modkey,           }, "F6",     prompt.wikipedia),
+    awful.key({ modkey,           }, "F7",     prompt.docs),
+    awful.key({ modkey,           }, "F8",     dropdown.doc),
 
 
     -- Client cycling
@@ -203,11 +154,13 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx( 1)
             if client.focus then client.focus:raise() end
         end),
+
     awful.key({ modkey,           }, "k",
         function ()
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
+
 --    awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
 
     -- Layout manipulation
