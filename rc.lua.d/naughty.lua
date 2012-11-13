@@ -4,8 +4,8 @@
 -- Author: Abdó Roig<abdo.roig@gmail.com>                    --
 ---------------------------------------------------------------
 
-naughty   = require("naughty")    -- Slightly modified notification library
-beautiful = require("beautiful")       -- theme
+local naughty   = naughty
+local beautiful = beautiful
 
 -- Naugty Setup
 naughty.config.defaults = {
@@ -47,13 +47,3 @@ naughty.config.presets = {
         timeout = 0,
     }
 }
-
-
-
--- Naugty boxes
-
-
-orgtasks = require("abdo.box.orgtasks")      -- org todo list
-calendar = require("abdo.box.calendar")      -- calendar
-syslog = require("abdo.box.syslog")          -- system log
-naughtylog = require("abdo.box.naughtylog")  -- log naughty notifications

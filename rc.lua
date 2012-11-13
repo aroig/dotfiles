@@ -27,6 +27,12 @@ layout      = require("abdo.layout")         -- My layouts
 apps        = require("apps")                -- My preferred apps
 revelation  = require("abdo.revelation")     -- Tweaked expose
 
+-- Naugty boxes
+orgtasks   = require("abdo.box.orgtasks")    -- org todo list
+calendar   = require("abdo.box.calendar")    -- calendar
+syslog     = require("abdo.box.syslog")      -- system log
+naughtylog = require("abdo.box.naughtylog")  -- log naughty notifications
+
 
 -----------------------------------
 -- Error handling                --
@@ -79,7 +85,6 @@ end
 local cfgdir = awful.util.getdir("config")    -- Config dir
 
 -- Global
-
 hostname  = awful.util.pread("hostname"):gsub("\n", "")    -- Get hostname
 homedir   = os.getenv("HOME")
 
@@ -147,8 +152,6 @@ end
 -----------------------------------
 
 dofile(cfgdir .. "/rc.lua.d/autoload.lua")    -- Autoload
--- os.execute("sleep 1")                         -- Give it some time
-
 dofile(cfgdir .. "/rc.lua.d/naughty.lua")     -- Notifications
 dofile(cfgdir .. "/rc.lua.d/mywidgets.lua")   -- Widgets config
 dofile(cfgdir .. "/rc.lua.d/mywibox.lua")     -- Wibox config
