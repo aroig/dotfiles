@@ -30,16 +30,12 @@ prompthost () {
     local HOST="$(hostname -s)"
     local host_fmt=""
 
-    local orange
-    if [[ "$TERM" == "linux" ]]; then orange="%{$fg[yellow]%}"
-    else                              orange="$FX[bold]$FG[130]"
-    fi
-
     case $HOST in
-	grothendieck) host_fmt="%{$orange%}$HOST"           ;;
+	grothendieck) host_fmt="%{$fg[yellow]%}$HOST"  ;;
                hodge) host_fmt="%{$fg_bold[blue]%}$HOST"    ;;
               galois) host_fmt="%{$fg_bold[red]%}$HOST"     ;;
               skynet) host_fmt="%{$fg_bold[magenta]%}$HOST" ;;
+              turing) host_fmt="%{$fg_bold[cyan]%}$HOST"    ;;        
                    *) host_fmt="%{$fg_bold[white]%}$HOST"   ;;
     esac
     echo "$host_fmt%{$reset_color%}"
@@ -59,59 +55,35 @@ promptsymbol () {
     echo "%{$promptcol%}${psymb}%{$reset_color%}"
 }
 
+# Unicode symbols ↯ ☼ ☠ ☺ ☻ ✓ ⚡ ⚪ ⚬ ⚫ ☀ ⦁ √ ⋆ 
 
 promptvcs () {
     local vctimeline
     case $__CURRENT_VCS_TIMELINE in
-             sync) vctimeline="%{$fg_bold[green]%}=%{$reset_color%}" ;;
-	    ahead) vctimeline="%{$fg_bold[blue]%}>%{$reset_color%}"  ;;
-           behind) vctimeline="%{$fg_bold[red]%}<%{$reset_color%}"   ;;
- 	divergent) vctimeline="%{$fg[red]%}Y%{$reset_color%}"        ;;
+             sync) vctimeline="%{$fg[green]%}=%{$reset_color%}" ;;
+	    ahead) vctimeline="%{$fg[blue]%}>%{$reset_color%}"  ;;
+           behind) vctimeline="%{$fg[red]%}<%{$reset_color%}"   ;;
+ 	divergent) vctimeline="%{$fg[magenta]%}Y%{$reset_color%}"        ;;
                 *) vctimeline=""                                     ;;
     esac
 
     local vcstatus
-    local cleancol stagedcol changedcol untrackedcol conflictcol unknowncol
-    cleancol=$fg_bold[green]
-    if [[ "$TERM" == "linux" ]]; then
-           stagedcol="$fg[green]"
-          changedcol="$fg_bold[red]"
-        untrackedcol="$fg_bold[red]"
-         conflictcol="$fg_bold[red]"
-          unknowncol="$fg_bold[red]"
-
-    else
-           stagedcol="$fg[green]"
-          changedcol="$FG[166]"
-        untrackedcol="$FG[166]"
-         conflictcol="$FG[166]"
-          unknowncol="$FG[166]"
-    fi
 
     case $__CURRENT_VCS_STATUS in
-            clean) vcstatus="%{$cleancol%}√%{$reset_color%}"     ;;
- 	   staged) vcstatus="%{$stagedcol%}*%{$reset_color%}"    ;;
-          changed) vcstatus="%{$changedcol%}*%{$reset_color%}"   ;;
-        untracked) vcstatus="%{$untrackedcol%}+%{$reset_color%}" ;;
-	 conflict) vcstatus="%{$conflictcol%}X%{$reset_color%}"  ;;
-                *) vcstatus="%{$unknowncol%}?%{$reset_color%}"   ;;
+            clean) vcstatus="%{$fg_bold[green]%}√%{$reset_color%}" ;;
+ 	   staged) vcstatus="%{$fg[yellow]%}*%{$reset_color%}"      ;;
+          changed) vcstatus="%{$fg[red]%}*%{$reset_color%}"        ;;
+        untracked) vcstatus="%{$fg[red]%}+%{$reset_color%}"        ;;
+	 conflict) vcstatus="%{$fg[magenta]%}X%{$reset_color%}"        ;;
+                *) vcstatus="%{$fg[red]%}?%{$reset_color%}"        ;;
     esac
 
     local vcbranch="$__CURRENT_VCS_BRANCH"
     local vcrev="$__CURRENT_VCS_REV"
 
-    local gitcol hgcol
-    if [[ "$TERM" == "linux" ]]; then
-        gitcol="$fg_bold[blue]"
-         hgcol="$fg[red]"
-    else
-        gitcol="$fg[blue]"
-         hgcol="$fg[red]"
-    fi
-
     case $__CURRENT_VCS_PROGRAM in
-        git) echo "${vcstatus}%{$gitcol%}(${vcbranch})${vctimeline}%{$reset_color%}" ;;
-         hg) echo "${vcstatus}%{$hgcol%}(${vcrev})%{$reset_color%}"                  ;;
+        git) echo "${vcstatus}%{$fg[blue]%}(${vcbranch})${vctimeline}%{$reset_color%}" ;;
+         hg) echo "${vcstatus}%{$fg[blue]%}(${vcrev})%{$reset_color%}"                  ;;
           *) echo ""                                                                 ;;
     esac
 }
