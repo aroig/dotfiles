@@ -1,31 +1,27 @@
 
-local table    = require("table")
-local os       = require("os")
-local string   = require("string")
+local table = table
+local os = os
+local string = string
+local beautiful = beautiful
 
 local abdoutil = require("abdo.util")
 
-local theme = theme or {}
-
 local row_length = 130
-
-local font = theme.font_box
-local time_color = theme.fg_grey
-local origin_color = theme.fg_green
-local text_color = theme.fg_normal
-
-
 local num_entries = 20
 local ignore_titles = abdoutil.set({"Notification Log", "System Log", "Calendar", "Tasks", "Debug", "Status"})
-
 
 local naughtylog = {}
 naughtylog.nlog = nil
 naughtylog.log = {}
 
 
-
 local function generate_naughtylog(data)
+
+   local font = beautiful.font_box
+   local time_color = beautiful.fg_grey
+   local origin_color = beautiful.fg_green
+   local text_color = beautiful.fg_normal
+
    local text = "\n"
    local num = #data
 

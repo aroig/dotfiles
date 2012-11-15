@@ -1,22 +1,21 @@
-io       = require("io")
-string   = require("string")
-table    = require("table")
 
-local theme = theme or {}
+local io = io
+local string = string
+local table = table
+local beautiful = beautiful
 
-local font = theme.font_box
 local row_length = 130
 local num_entries = 30
-
-local time_color = theme.fg_grey
-local text_color = theme.fg_normal
-
-local daemon_color = {kernel = theme.fg_red, default = theme.fg_green}
 
 local syslog = {}
 syslog.syslog = nil
 
 local function generate_syslog()
+   local font = beautiful.font_box
+   local time_color = beautiful.fg_grey
+   local text_color = beautiful.fg_normal
+   local daemon_color = {kernel = beautiful.fg_red, default = beautiful.fg_green}
+
    local text = "\n"
    local fd = io.popen('sudo journalctl -a -n' .. tostring(100*num_entries) ..
                  ' | grep -v "NetworkManager\\|slim\\|sudo" | tail -n ' .. tostring(num_entries))

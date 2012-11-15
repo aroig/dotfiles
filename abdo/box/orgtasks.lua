@@ -6,22 +6,14 @@ local os = os
 local tonumber = tonumber
 local string = string
 local table = table
-local theme = theme or {}
+local beautiful = beautiful
+
 local util = require("awful.util")
 local abdoutil = require("abdo.util")
 
 local agenda_files = "/home/abdo/Work/wiki/etc/agenda-files"
 
 local char_width = 7.3
-
-local text_color = theme.fg_normal or "#FFFFFF"
-local today_color = theme.fg_focus or "#00FF00"
-local event_color = theme.fg_urgent or "#FF0000"
-local priority_color = theme.fg_org_priority
-
--- font = theme.font_mono or 'sans 8'
-local font = theme.font_box
-
 local parse_on_show = true
 local limit_todo_length = nil
 
@@ -49,6 +41,12 @@ local function pop_spaces(s1, s2, maxsize)
 end
 
 local function parse_agenda(files)
+   local text_color = beautiful.fg_normal or "#FFFFFF"
+   local today_color = beautiful.fg_focus or "#00FF00"
+   local event_color = beautiful.fg_urgent or "#FF0000"
+   local priority_color = beautiful.fg_org_priority
+   local font = beautiful.font_box
+
    local today = os.date("%Y-%m-%d")
    local data = { tasks = {}, dates = {}, maxlen = 30 }
 
@@ -104,6 +102,12 @@ end
 
 
 local function create_todo(data)
+   local text_color = beautiful.fg_normal or "#FFFFFF"
+   local today_color = beautiful.fg_focus or "#00FF00"
+   local event_color = beautiful.fg_urgent or "#FF0000"
+   local priority_color = beautiful.fg_org_priority
+   local font = beautiful.font_box
+
    local result = ""
    local maxlen = data.maxlen + 3
    if limit_todo_length and limit_todo_length < maxlen then

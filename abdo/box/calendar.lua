@@ -1,4 +1,4 @@
--- Calendar 
+-- Calendar
 
 local pairs = pairs
 local ipairs = ipairs
@@ -7,16 +7,10 @@ local os = os
 local tonumber = tonumber
 local string = string
 local table = table
-local theme = theme or {}
-local util = require("awful.util")
+local beautiful = beautiful
+local util = awful.util
 
 local char_width = 7.3
-local text_color = theme.fg_normal or "#FFFFFF"
-local today_color = theme.fg_urgent or "#00FF00"
-
--- font = theme.font_mono or 'sans 8'
-local font = theme.font_box
-
 local offset = 0
 
 local calendar = {}
@@ -24,6 +18,10 @@ calendar.cal = nil
 
 
 local function generate_calendar(offset)
+   local text_color = beautiful.fg_normal or "#FFFFFF"
+   local today_color = beautiful.fg_urgent or "#00FF00"
+   local font = beautiful.font_box
+
    local query = os.date("%Y-%m-%d")
    local _, _, cur_year, cur_month, cur_day = string.find(query,"(%d%d%d%d)%-(%d%d)%-(%d%d)")
    cur_month = tonumber(cur_month) + offset
@@ -39,15 +37,15 @@ local function generate_calendar(offset)
 
 
    local _, _, head, cal = string.find(cal,"(.+%d%d%d%d)%s*\n(.+)")
-  
+
    if string.sub(cur_day,1,1) == "0" then
       cur_day = string.sub(cur_day,2)
-   end 
+   end
    if offset == 0 then
-      cal = string.gsub(cal, "(" .. cur_day .."[%s/%lt;])", 
+      cal = string.gsub(cal, "(" .. cur_day .."[%s/%lt;])",
                         '<span weight="bold" foreground="'.. today_color ..'">%1</span>', 1)
    end
-  
+
    cal = head .. "\n" .. cal
    cal = "\n" .. cal
    cal = string.format('<span font="%s">%s</span>', font, cal)
