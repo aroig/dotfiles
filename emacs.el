@@ -52,7 +52,7 @@
 (setq org-directory "~/Work/wiki/")
 
 ;; Backups dir
-(setq abdo-emacs-backups "~/.emacs.d/backups/")
+(setq abdo-emacs-backups "~/.tmp/emacs/")
 
 
 
@@ -224,14 +224,6 @@
 
 (defun abdo-launch-news (arg)
   (abdo-notmuch nil "news"))
-
-(defun abdo-launch-gnus (arg)
-   (add-hook 'emacs-startup-hook 'gnus t)
-   (add-hook 'gnus-after-exiting-gnus-hook 'save-buffers-kill-emacs)
-
-   ;; Redefine C-x C-c
-   (global-set-key (kbd "C-x C-c") 'gnus-group-exit-save-buffers-kill-emacs))
-
 
 
 ;; Custom set stuff

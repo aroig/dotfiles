@@ -121,36 +121,39 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Store backups on to abdo-emacs-backups for 5 days.
 
-;; Create backup dir if inexistent
-(make-directory abdo-emacs-backups t)
+(when abdo-emacs-backups
+  ;; Create backup dir if inexistent
+  (make-directory abdo-emacs-backups t)
 
-(setq
-   backup-by-copying t                 ; don't clobber symlinks
-   backup-directory-alist
-    `(("." . ,abdo-emacs-backups))      ; don't litter my fs tree
-   delete-old-versions t
-   kept-new-versions 6
-   kept-old-versions 2
-   version-control t                   ; use versioned backups
-   make-backup-files t                 ; make backup files
-   vc-make-backup-files t              ; also for files under vc
+  (setq auto-save-file-name-transforms
+   `((".*" ,abdo-emacs-backups t)))               ; store autosave files away
+
+  (setq backup-directory-alist
+    `((".*" . ,abdo-emacs-backups)))            ; store backups away
+
+  ;; When using tramp with su or sudo, should store it for user root.
+  (setq tramp-backup-directory-alist
+        backup-directory-alist)                 ; also for tramp
+
+  (setq backup-by-copying t)                    ; don't clobber symlinks
+  (setq delete-old-versions t)
+  (setq kept-new-versions 6)
+  (setq kept-old-versions 2)
+  (setq version-control t)                      ; use versioned backups
+  (setq make-backup-files t)                    ; make backup files
+  (setq vc-make-backup-files t)                 ; also for files under vc
+
+  ;; Cleanup backup directory
+  (message "Deleting old backup files...")
+  (let ((week (* 60 60 24 7))
+        (current (float-time (current-time))))
+    (dolist (file (directory-files abdo-emacs-backups t))
+      (when (and (backup-file-name-p file)
+                 (> (- current (float-time (fifth (file-attributes file))))
+                    week))
+        (message "  %s" file)
+        (delete-file file))))
 )
-
-;; Store tramp backups the same way.
-;; When using tramp with su or sudo, should store it for user root.
-(setq tramp-backup-directory-alist backup-directory-alist)
-
-
-;; Cleanup backup directory
-(message "Deleting old backup files...")
-(let ((week (* 60 60 24 7))
-      (current (float-time (current-time))))
-  (dolist (file (directory-files abdo-emacs-backups t))
-    (when (and (backup-file-name-p file)
-               (> (- current (float-time (fifth (file-attributes file))))
-                  week))
-      (message "  %s" file)
-      (delete-file file))))
 
 
 ;; Disable backups for some files
