@@ -84,7 +84,7 @@ end
 
 function dropdown.irc()
     drop.toggle("irc", apps.irc,
-                "center", "right", 0.6, 1, nil, nil, false)
+                "center", "right", 0.5, 1, nil, nil, false)
 end
 
 function dropdown.music()
