@@ -19,39 +19,49 @@ then
 fi
 
 
+#------------------------------
+# TTY Setup 
+#------------------------------
+
+set_tty_colors() {
+    # Colors from .Xresources
+    _SEDCMD='s/urxvt\.color\([0-9]\{1,\}\).*#\([0-9a-fA-F]\{6\}\).*/\1 \2/p'
+    for i in $(sed -n "$_SEDCMD" $HOME/.Xresources | \
+               awk '$1 < 16 {printf "\\e]P%X%s", $1, $2}')
+    do
+        echo -en "$i"
+    done
+    echo -e "\\e]P0000000"
+}
+
+
+# Set tty colors on virtual console
+if [[ "$TERM" = "linux" ]]; then
+    set_tty_colors
+fi 
+    
+# Disable ^S ^Q to stop start the output
+stty stop undef
+stty start undef
+
 
 #------------------------------
 # Auto tmux
 #------------------------------
 
 # if ssh outside tmux
-if [[ "${SSH_TTY}" != "" && "${TMUX}" == "" && "$NOTMUX" == "" ]]; then
+if [[ "$SSH_TTY" != "" && "$TMUX" == "" && "$NOTMUX" == "" ]]; then
     if which tmux 2>&1 >/dev/null; then
-
 	if [[ "$(tmux has-session -t ssh 2> /dev/null; echo $?)" == "0" ]]; then
-	    tmux attach -t ssh
+            tmux new-session -t ssh \; set-option destroy-unattached        
 	else
-	    tmux new -s ssh
+	    tmux new-session -s ssh
 	fi
 
 	exit 0
     else
 	echo "tmux not installed. Starting zsh now"
     fi
-fi
-
-
-#------------------------------
-# TTY Colors from .Xresources
-#------------------------------
-
-if [[ "$TERM" = "linux" ]]; then
-    _SEDCMD='s/urxvt\.color\([0-9]\{1,\}\).*#\([0-9a-fA-F]\{6\}\).*/\1 \2/p'
-    for i in $(sed -n "$_SEDCMD" $HOME/.Xresources | \
-               awk '$1 < 16 {printf "\\e]P%X%s", $1, $2}'); do
-        echo -en "$i"
-    done
-    clear
 fi
 
 
