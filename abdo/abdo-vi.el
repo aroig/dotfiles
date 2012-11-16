@@ -39,6 +39,11 @@
 			     (make-local-variable 'evil-default-state)
 			     (setq evil-default-state 'normal)))
 
+  (add-hook 'rcirc-mode-hook (lambda ()
+                               (make-local-variable 'evil-default-state)
+                               (setq evil-default-state 'normal)))
+
+
   ;; I can setup initial state with evil-set-initial-state. But then I would
   ;; have to go mode by mode.  If I use hooks, I can use the fact that many
   ;; buffers derive from text-mode and run text-mode hook!

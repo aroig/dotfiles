@@ -35,15 +35,15 @@
 
 
 (defun abdo-rcirc-mode-things ()
-  (require 'rcirc-hacks)
-  ; (require 'rcirc-notify)  ;; Dunno what happens
-  ; (require 'rcirc-color)   ;; Crahses in daemon mode
+  ; (require 'rcirc-hacks)
+  (require 'rcirc-notify)  ;; Dunno what happens
+  (require 'rcirc-color)   ;; Crahses in daemon mode
 
   ;; Turn on spell checking.
   (flyspell-mode 1)
 
   ;; Timestamps
-  (setq rcirc-time-format "[%Y-%m-%d %H:%M] ")
+  (setq rcirc-time-format "[%Y-%m-%d][%H:%M] ")
 
   ;; Track
   (rcirc-track-minor-mode 1)
@@ -54,6 +54,12 @@
   ;; Logging
   (setq rcirc-log-flag t)
   (setq rcirc-log-directory "~/Documents/chat/rcirc/")
+
+  ;; Notify function
+  (defun my-page-me (msg)
+    (start-process "page-me" nil "notify-send" "-a" "rcirc"
+                   "-i" "/usr/share/icons/Faenza/actions/scalable/im-message-new.svg"
+                    "IRC notification" (replace-regexp-in-string "[^[:graph:] ]" "" msg)))
 )
 
 

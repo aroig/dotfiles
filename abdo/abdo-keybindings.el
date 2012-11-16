@@ -176,7 +176,10 @@
 (add-hook 'org-mode-hook 'abdo-org-mode-keybindings)
 (add-hook 'org-agenda-mode-hook 'abdo-org-mode-keybindings)
 
-
+;; rcirc mode
+(add-hook 'rcirc-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-x C-c") (lambda () (interactive) (rcirc-cmd-quit "bye")))))
 
 ;; mail and news
 (add-hook 'email-mode-hook
@@ -189,6 +192,7 @@
 	    (local-set-key (kbd "n") 'abdo-toggle-news)
 	    (local-unset-key (kbd "m"))))
 
+;; notmuch
 (add-hook 'notmuch-search-hook
 	   (lambda ()
 	     (local-set-key (kbd "C-c a") '(lambda ()

@@ -111,17 +111,14 @@ same person."
   :type 'integer
   :group 'rcirc-notify)
 
-(defun my-page-me (title msg)
+(defun my-page-me (msg)
   (cond
-    ((executable-find "notify")
-     (start-process "page-me" nil
-                    "notify" "-o" "rcirc" "-t" title msg))
     ((executable-find "notify-send")
      (start-process "page-me" nil
                     ;; 8640000 ms = 1 day
                     "notify-send" "-u" "normal" "-i" "gtk-dialog-info"
-                    "-t" "5000" "rcirc"
-                    msg-clean))
+                    "-t" "8640000" "rcirc"
+                    msg))
     ((executable-find "growlnotify.com")
      (start-process "page-me" "*debug*" "growlnotify.com" "/a:Emacs" "/n:IRC" msg))
     ((executable-find "growlnotify")
@@ -135,13 +132,12 @@ same person."
 					   msg "\" application name \"Emacs\"")
 			     "-e" "end tell")))
     (t (error "No method available to page you."))))
-  
 
 (defun my-rcirc-notify (sender &optional text)
   (when window-system
     ;; Set default dir to appease the notification gods
     (let ((default-directory "~/"))
-      (my-page-me "Message" (format my-rcirc-notify-message sender text)))))
+      (my-page-me (format my-rcirc-notify-message sender text)))))
 
 (defun my-rcirc-notify-keyword (sender &optional keyword text)
   (when window-system
@@ -149,13 +145,13 @@ same person."
     (let ((default-directory "~/"))
       (if (listp keyword)
           (setq keyword (mapconcat 'identity keyword ", ")))
-      (my-page-me "Keyword" (format my-rcirc-notify-keyword sender keyword text)))))
+      (my-page-me (format my-rcirc-notify-keyword sender keyword text)))))
 
 (defun my-rcirc-notify-private (sender &optional text)
   (when window-system
     ;; Set default dir to appease the notification gods
     (let ((default-directory "~/"))
-      (my-page-me "Private" (format my-rcirc-notify-message-private sender text)))))
+      (my-page-me (format my-rcirc-notify-message-private sender text)))))
 
 (defun my-rcirc-notify-allowed (nick &optional delay)
   "Return non-nil if a notification should be made for NICK.
