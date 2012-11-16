@@ -1,0 +1,34 @@
+"---------------------------------------------------------------------"
+" File:   .vimpagerrc                                                 "
+" Author: Abdó Roig-Maranges <abdo.roig@gmail.com                     "
+" Desc:   vimpager configuration                                      "
+"---------------------------------------------------------------------"
+
+
+" General options
+" --------------------
+set nocompatible                  " vim defaults. forget about vi compatibility!
+
+
+
+" vimpager options
+" --------------------
+let vimpager_scrolloff = 5
+" set noloadplugins
+
+
+
+" Source vimrc.d stuff
+" --------------------
+source ~/.vimrc.d/ui              " UI stuff
+source ~/.vimrc.d/mappings        " personal mappings
+
+
+" UI stuff
+" --------------------
+
+" statusline
+set statusline=\ %y        "filetype
+set statusline+=%=         "left/right separator
+set statusline+=%c,%l/%L   "cursor column,cursor line/total lines
+set statusline+=\ \ %P     "percent through file

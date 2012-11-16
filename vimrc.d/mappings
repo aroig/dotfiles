@@ -1,0 +1,11 @@
+"---------------------------------------------------------------------"
+" File:   .vimrc.d/mappings                                           "
+" Author: Abdó Roig-Maranges <abdo.roig@gmail.com                     "
+" Desc:   vimpager configuration                                      "
+"---------------------------------------------------------------------"
+
+
+" redraw screen + hide search highlights
+nnoremap <C-L> :nohl<CR><C-L>     
+
+
