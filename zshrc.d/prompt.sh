@@ -130,5 +130,5 @@ messagehello
 # Set the prompt
 setopt prompt_subst
 PROMPT='$(promptabdo) $(promptdir) $(promptsymbol $?) '
+PROMPT2='%{$fg_bold[yellow]%} %_%{$reset_color%}> '
 
-# PS2=$'%_>'
