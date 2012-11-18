@@ -31,28 +31,22 @@ __CURRENT_VCS_BRANCH="$br"
 __CURRENT_VCS_REV="$rev"
 # __CURRENT_VCS_TAGS="$(git describe --tags HEAD 2> /dev/null)"
 
-if [[ ! "$(echo -n "$st\n" | grep '^\s*U[UAD]' | wc -l)" == "0" ]]; then
-    __CURRENT_VCS_STATUS='conflict'
-
-elif [[ ! "$(echo -n "$st\n" | grep '^\?' | wc -l)" == "0" ]]; then
-    __CURRENT_VCS_STATUS='untracked'
-
-elif [[ ! "$(echo -n "$st\n" | grep '^ [MD]' | wc -l)" == "0" ]]; then
-    __CURRENT_VCS_STATUS='changed'
-
-elif [[ ! "$(echo -n "$st\n" | grep '^[MAD]' | wc -l)" == "0" ]]; then
-    __CURRENT_VCS_STATUS='staged'
-
-elif [[ "$st" == "" ]]; then
-    __CURRENT_VCS_STATUS='clean'
-
-else
-    __CURRENT_VCS_STATUS='unknown'
+if [[ ! "$(echo -n "$st\n" | grep '^\s*U' | wc -l)" == "0" ]]; then         __CURRENT_VCS_STATUS='conflict'
+elif [[ ! "$(echo -n "$st\n" | grep '^\s*.U' | wc -l)" == "0" ]]; then      __CURRENT_VCS_STATUS='conflict'
+elif [[ ! "$(echo -n "$st\n" | grep '^\s*AA' | wc -l)" == "0" ]]; then      __CURRENT_VCS_STATUS='conflict'
+elif [[ ! "$(echo -n "$st\n" | grep '^\s*DD' | wc -l)" == "0" ]]; then      __CURRENT_VCS_STATUS='conflict'      
+elif [[ ! "$(echo -n "$st\n" | grep '^?' | wc -l)" == "0" ]]; then          __CURRENT_VCS_STATUS='untracked'
+elif [[ ! "$(echo -n "$st\n" | grep '^[MARC ]D' | wc -l)" == "0" ]]; then   __CURRENT_VCS_STATUS='deleted'
+elif [[ ! "$(echo -n "$st\n" | grep '^[MADRC ]M' | wc -l)" == "0" ]]; then  __CURRENT_VCS_STATUS='changed'    
+elif [[ ! "$(echo -n "$st\n" | grep '^[MADRC].' | wc -l)" == "0" ]]; then   __CURRENT_VCS_STATUS='staged'
+elif [[ ! "$(echo -n "$st\n" | grep '^!' | wc -l)" == "0" ]]; then          __CURRENT_VCS_STATUS='ignored'    
+elif [[ "$st" == "" ]]; then                                                __CURRENT_VCS_STATUS='sync'
+else                                                                        __CURRENT_VCS_STATUS='unknown'
 fi
 
 
 local tbr="$(get_git_tracking_branch $br)"
-__CURRENT_VCS_TIMELINE=""
+__CURRENT_VCS_REMOTE_STATUS="none"
 
 if [ "$tbr" ]; then
     local commits="$(git rev-list --left-right $tbr...HEAD)"
@@ -60,16 +54,12 @@ if [ "$tbr" ]; then
     local headbehind="$(echo $commits | grep "^<" | wc -l)"
 
     if [[ "$headbehind" == "0" ]]; then
-	if [[ "$headahead" == "0" ]]; then
-	    __CURRENT_VCS_TIMELINE="sync"
-	else
-	    __CURRENT_VCS_TIMELINE="ahead"
+	if [[ "$headahead" == "0" ]]; then    __CURRENT_VCS_REMOTE_STATUS="sync"
+	else                                  __CURRENT_VCS_REMOTE_STATUS="ahead"
 	fi
     else
-	if [[ "$headahead" == "0" ]]; then
-	    __CURRENT_VCS_TIMELINE="behind"
-	else
-	    __CURRENT_VCS_TIMELINE="divergent"
+	if [[ "$headahead" == "0" ]]; then    __CURRENT_VCS_REMOTE_STATUS="behind"
+	else                                  __CURRENT_VCS_REMOTE_STATUS="divergent"
 	fi
     fi
 fi

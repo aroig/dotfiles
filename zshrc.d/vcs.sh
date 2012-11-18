@@ -17,6 +17,13 @@ function detect_current_vcs() {
 	return
     fi
 
+    local isbzr="$(bzr status &> /dev/null; echo "$?")"
+    if [[ "$isbzr" == "0" ]]; then
+	__CURRENT_VCS_PROGRAM="bzr"
+	return
+    fi
+
+    
     __CURRENT_VCS_PROGRAM="none"
 }
 
@@ -25,7 +32,7 @@ function refresh_current_vcs_vars() {
     unset __CURRENT_VCS_REV
     unset __CURRENT_VCS_BRANCH
     unset __CURRENT_VCS_STATUS
-    unset __CURRENT_VCS_TIMELINE
+    unset __CURRENT_VCS_REMOTE_STATUS
 
     # If empty means we have never detected
     if [[ "$__CURRENT_VCS_PROGRAM" == "" ]]; then detect_current_vcs; fi
@@ -33,6 +40,7 @@ function refresh_current_vcs_vars() {
     case $__CURRENT_VCS_PROGRAM in
 	git) source $ZSHRCD/vcs/git.sh ;;
          hg) source $ZSHRCD/vcs/hg.sh  ;;
+        bzr) source $ZSHRCD/vcs/bzr.sh ;;        
     esac
 }
 

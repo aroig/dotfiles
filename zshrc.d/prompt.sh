@@ -58,32 +58,36 @@ promptsymbol () {
 # Unicode symbols ↯ ☼ ☠ ☺ ☻ ✓ ⚡ ⚪ ⚬ ⚫ ☀ ⦁ √ ⋆ 
 
 promptvcs () {
-    local vctimeline
-    case $__CURRENT_VCS_TIMELINE in
-             sync) vctimeline="%{$fg[green]%}=%{$reset_color%}" ;;
-	    ahead) vctimeline="%{$fg[blue]%}>%{$reset_color%}"  ;;
-           behind) vctimeline="%{$fg[red]%}<%{$reset_color%}"   ;;
- 	divergent) vctimeline="%{$fg[magenta]%}Y%{$reset_color%}"        ;;
-                *) vctimeline=""                                     ;;
+    local vcremote
+    case $__CURRENT_VCS_REMOTE_STATUS in
+             sync) vcremote="%{$fg[green]%}=%{$reset_color%}"   ;;
+	    ahead) vcremote="%{$fg[blue]%}>%{$reset_color%}"    ;;
+           behind) vcremote="%{$fg[magenta]%}<%{$reset_color%}" ;;
+        divergent) vcremote="%{$fg[red]%}Y%{$reset_color%}"     ;;
+          unknown) vcremote="%{$fg[yellow]%}?%{$reset_color%}"  ;;        
+                *) vcremote=""                                  ;;
     esac
 
     local vcstatus
 
     case $__CURRENT_VCS_STATUS in
-            clean) vcstatus="%{$fg_bold[green]%}√%{$reset_color%}" ;;
- 	   staged) vcstatus="%{$fg[yellow]%}*%{$reset_color%}"      ;;
+             sync) vcstatus="%{$fg_bold[green]%}√%{$reset_color%}" ;;
+ 	   staged) vcstatus="%{$fg[green]%}*%{$reset_color%}"      ;;
           changed) vcstatus="%{$fg[red]%}*%{$reset_color%}"        ;;
         untracked) vcstatus="%{$fg[red]%}+%{$reset_color%}"        ;;
-	 conflict) vcstatus="%{$fg[magenta]%}X%{$reset_color%}"        ;;
-                *) vcstatus="%{$fg[red]%}?%{$reset_color%}"        ;;
+          deleted) vcstatus="%{$fg[red]%}-%{$reset_color%}"        ;;        
+	 conflict) vcstatus="%{$fg[red]%}X%{$reset_color%}"        ;;
+          ignored) vcstatus="%{$fg[white]%}·%{$reset_color%}"      ;;        
+                *) vcstatus="%{$fg[yellow]%}?%{$reset_color%}"     ;;
     esac
 
     local vcbranch="$__CURRENT_VCS_BRANCH"
     local vcrev="$__CURRENT_VCS_REV"
 
     case $__CURRENT_VCS_PROGRAM in
-        git) echo "${vcstatus}%{$fg[blue]%}(${vcbranch})${vctimeline}%{$reset_color%}" ;;
-         hg) echo "${vcstatus}%{$fg[blue]%}(${vcrev})%{$reset_color%}"                  ;;
+        git) echo "${vcstatus}%{$fg[blue]%}(${vcbranch})${vcremote}%{$reset_color%}" ;;
+         hg) echo "${vcstatus}%{$fg[blue]%}(${vcrev})%{$reset_color%}"               ;;
+        bzr) echo "${vcstatus}%{$fg[blue]%}(${vcrev})%{$reset_color%}"               ;;        
           *) echo ""                                                                 ;;
     esac
 }
@@ -92,7 +96,7 @@ promptabdo () {
 
     local prompt
     case $__CURRENT_VCS_PROGRAM in
-	git|hg) prompt="$(promptwindow)$(promptuser)@$(prompthost) $(promptvcs)"   ;;
+    git|hg|bzr) prompt="$(promptwindow)$(promptuser)@$(prompthost) $(promptvcs)"   ;;
 	none|*) prompt="$(promptwindow)$(promptuser)@$(prompthost)"                ;;
     esac
     echo "$prompt"
