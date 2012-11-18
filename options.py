@@ -37,6 +37,7 @@ use_preview_script = True
 # Be aware of version control systems and display information about their state.
 # Supported version control systems: Git, Mercurial.
 vcs_aware = True
+vcs_backends = ['git', 'hg', 'bzr']
 
 # Use a unicode "..." character to mark cut-off filenames?
 unicode_ellipsis = True
@@ -53,7 +54,7 @@ colorscheme = 'default'
 # And collapse (shrink) the last column if there is nothing to preview?
 preview_files = True
 preview_directories = True
-collapse_preview = True
+collapse_preview = False
 
 # Save the console history on exit?
 save_console_history = True
