@@ -179,7 +179,7 @@
 ;; rcirc mode
 (add-hook 'rcirc-mode-hook
           (lambda ()
-            (local-set-key (kbd "C-x C-c") (lambda () (interactive) (rcirc-cmd-quit "bye")))))
+            (local-set-key (kbd "C-c C-x") (lambda () (interactive) (rcirc-cmd-quit "bye")))))
 
 ;; mail and news
 (add-hook 'email-mode-hook
