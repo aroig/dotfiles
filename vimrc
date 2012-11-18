@@ -28,7 +28,6 @@ set directory=$HOME/.tmp/vim
 " --------------------
 filetype indent plugin on         " Smart indenting
 set autoindent                    " automatic indents
-set wrap                          " wrap long lines
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
@@ -43,6 +42,7 @@ set expandtab
 set statusline=%t                                         "tail of the filename
 set statusline+=\ [%{strlen(&fenc)?&fenc:'none'},%{&ff}]  "file encoding, file format
 set statusline+=\ %m%r                                    "modified, read only flags
+set statusline+=\ %{&fo}                                  "formatoptions
 set statusline+=\ %y                                      "filetype
 set statusline+=%=                                        "left/right separator
 set statusline+=%c,%l/%L                                  "column,line/total lines
