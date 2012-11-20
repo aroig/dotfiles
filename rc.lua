@@ -62,20 +62,6 @@ do
 end
 
 
------------------------------------
--- Functions                     --
------------------------------------
-
--- Execute an external program
-function exec (cmd, screen)
-   awful.util.spawn(cmd, false, screen)
-end
-
--- Execute an external program inside a shell
-function shexec (cmd, screen)
-   awful.util.spawn_with_shell(cmd, screen)
-end
-
 
 -----------------------------------
 -- Variables                     --
@@ -88,9 +74,10 @@ local cfgdir = awful.util.getdir("config")    -- Config dir
 hostname  = awful.util.pread("hostname"):gsub("\n", "")    -- Get hostname
 homedir   = os.getenv("HOME")
 
-modkey  = "Mod4"                                           -- Modkeys
-metakey = "Mod1"
-
+modkey   = "Mod4"                                          -- Modkeys
+metakey  = "Mod1"
+ctrlkey  = "Control"
+shiftkey = "Shift"
 
 -----------------------------------
 -- Initial stuff                 --
@@ -151,12 +138,13 @@ end
 -- Sourcing stuff                --
 -----------------------------------
 
-dofile(cfgdir .. "/rc.lua.d/autoload.lua")    -- Autoload
 dofile(cfgdir .. "/rc.lua.d/naughty.lua")     -- Notifications
+dofile(cfgdir .. "/rc.lua.d/launchers.lua")   -- Launcher functions
 dofile(cfgdir .. "/rc.lua.d/mywidgets.lua")   -- Widgets config
 dofile(cfgdir .. "/rc.lua.d/mywibox.lua")     -- Wibox config
 dofile(cfgdir .. "/rc.lua.d/mymenu.lua")      -- Menus
-dofile(cfgdir .. "/rc.lua.d/launchers.lua")   -- Launcher functions
 dofile(cfgdir .. "/rc.lua.d/globalkeys.lua")  -- Globak keys
 dofile(cfgdir .. "/rc.lua.d/client.lua")      -- Client rules
 dofile(cfgdir .. "/rc.lua.d/signals.lua")     -- Signals
+
+dofile(cfgdir .. "/rc.lua.d/autoload.lua")    -- Autoload
