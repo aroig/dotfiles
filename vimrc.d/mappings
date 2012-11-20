@@ -4,6 +4,11 @@
 " Desc:   vimpager configuration                                      "
 "---------------------------------------------------------------------"
 
+" aliases
+command! -bang -nargs=* -complete=file W w<bang> <args>
+command! -bang -nargs=* -complete=file Wq wq<bang> <args>
+command! -bang -nargs=* -complete=file WQ wq<bang> <args>
+command! -bang Q q<bang> 
 
 " redraw screen + hide search highlights
 nnoremap <C-L> :nohl<CR><C-L>     
