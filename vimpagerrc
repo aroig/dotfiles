@@ -28,7 +28,8 @@ source ~/.vimrc.d/mappings        " personal mappings
 " --------------------
 
 " statusline
-set statusline=\ %y        "filetype
+set statusline=\ [%{strlen(&fenc)?&fenc:'none'},%{&ff}]  "file encoding, file format
+set statusline+=\ %y        "filetype
 set statusline+=%=         "left/right separator
 set statusline+=%c,%l/%L   "cursor column,cursor line/total lines
 set statusline+=\ \ %P     "percent through file
