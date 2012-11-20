@@ -65,7 +65,7 @@
   (abdo-latex-personal-tweaks)                   ;; My latex adjustments
 
   ;; Delete trailing whitespaces before save
-  (add-to-list 'write-file-functions 'delete-trailing-whitespace)
+  (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
 )
 
 
