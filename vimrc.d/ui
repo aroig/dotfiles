@@ -1,5 +1,5 @@
 "---------------------------------------------------------------------"
-" File:   .vimrc.d/ui                                                 "
+" File:   .vim/vimrc.d/ui                                             "
 " Author: Abdó Roig-Maranges <abdo.roig@gmail.com                     "
 " Desc:   vim configuration                                           "
 "---------------------------------------------------------------------"
@@ -7,6 +7,9 @@
 
 " General options
 " --------------------
+colors zenburn                    " zenburn color theme
+set background=dark               " dark background
+
 syntax on                         " Enable syntax highlighting
 set hlsearch                      " Highlight searches
 set wildmenu                      " Better autocompletion

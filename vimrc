@@ -52,7 +52,7 @@ set statusline+=\ \ %P                                    "percent through file
 
 " Source vimrc.d stuff
 " --------------------
-source ~/.vimrc.d/ui              " UI stuff
-source ~/.vimrc.d/mappings        " personal mappings
+source ~/.vim/vimrc.d/ui              " UI stuff
+source ~/.vim/vimrc.d/mappings        " personal mappings
 
 
