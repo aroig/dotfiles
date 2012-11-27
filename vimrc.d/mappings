@@ -13,4 +13,8 @@ command! -bang Q q<bang>
 " redraw screen + hide search highlights
 nnoremap <C-L> :nohl<CR><C-L>     
 
+" interacting with X clipboard
+vmap <C-c> :w !xsel -i -b<CR><CR>
 
+" TODO: find better keybinding for this
+" vmap <C-v> :r !xsel -b<CR><CR>
