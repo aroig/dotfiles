@@ -1,6 +1,16 @@
 (provide 'abdo-devel)
 
 
+;; General things
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun abdo-insert-modeline ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-max))
+    (insert "\n# vim: expandtab:shiftwidth=4:tabstop=4:softtabstop=4:textwidth=80")))
+
+
 
 ;; Compile buffer
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -31,6 +41,7 @@
 
 (defun abdo-prog-mode-things()
   (setq-default indent-tabs-mode nil)            ;; No tabs on indent
+  (setq tab-width 4)
 
   ;; Development tools
   (semantic-mode 1)
