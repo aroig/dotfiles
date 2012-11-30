@@ -16,10 +16,10 @@
 
 # Load the deault rc.conf file?  If you've copied it to your configuration
 # direcory, then you should deactivate this option.
-load_default_rc = True
+load_default_rc = False
 
 # How many columns are there, and what are their relative widths?
-column_ratios = (1, 1, 3, 4)
+column_ratios = (2, 5, 5)
 
 # Which files should be hidden?  Toggle this by typing `zh' or
 # changing the setting `show_hidden'

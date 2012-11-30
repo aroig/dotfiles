@@ -27,12 +27,16 @@ maxln=200    # Stop after $maxln lines.  Can be used like ls | head -n $maxln
 # Find out something about the file:
 mimetype=$(file --mime-type -Lb "$path")
 extension=${path##*.}
+size=$(stat -c %s "$path")
+
 
 # Functions:
 # "have $1" succeeds if $1 is an existing command/installed program
 function have { type -P "$1" > /dev/null; }
-# "success" returns the exit code of the first program in the last pipe chain
-function success { test ${PIPESTATUS[0]} = 0; }
+
+# "success" checks for success of first command on the pipe.
+# 141 means broken pipe, which happens despite success when piping to head.
+function success { (( ${PIPESTATUS[0]}==0 || ${PIPESTATUS[0]}==141 )); }
 
 case "$extension" in
 	# Archive extensions:
@@ -41,14 +45,17 @@ case "$extension" in
 		als "$path" | head -n $maxln
 		success && exit 0 || acat "$path" | head -n $maxln && exit 3
 		exit 1;;
+
 	# PDF documents:
 	pdf)
 		pdftotext -l 10 -nopgbrk -q "$path" - | head -n $maxln | fmt -s -w $width
 		success && exit 0 || exit 1;;
+
 	# BitTorrent Files
 	torrent)
 		transmission-show "$path" | head -n $maxln && exit 3
 		success && exit 5 || exit 1;;
+
 	# HTML Pages:
 	htm|html|xhtml)
 		have w3m    && w3m    -dump "$path" | head -n $maxln | fmt -s -w $width && exit 4
@@ -60,11 +67,15 @@ esac
 case "$mimetype" in
 	# Syntax highlight for text files:
 	text/* | */xml)
-		highlight --out-format=ansi "$path" | head -n $maxln
-		success && exit 5 || exit 2;;
+#       highlight --out-format=ansi "$path" | head -n $maxln
+#      cat "$path" | head -n $maxln
+	   vimcat "$path" | head -n $maxln
+	   success && exit 5 || exit 2;;
+    
 	# Ascii-previews of images:
 	image/*)
 		img2txt --gamma=0.6 --width="$width" "$path" && exit 4 || exit 1;;
+
 	# Display information about media files:
 	video/* | audio/*)
 		have exiftool && exiftool "$path" && exit 5

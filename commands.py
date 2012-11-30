@@ -79,6 +79,7 @@
 from ranger.api.commands import *
 from ranger.ext.get_executables import get_executables
 from ranger.core.runner import ALLOWED_FLAGS
+from ranger.vcs import VcsError
 
 import tempfile
 
@@ -107,112 +108,6 @@ class trash(Command):
 
 
 # TODO: mount and umount
-
-
-# --------------------------------------
-# Version Control Commands
-# --------------------------------------
-
-class stage(Command):
-	"""
-	:stage
-
-	Stage selected files for the corresponding version control system
-	"""
-
-	def execute(self):
-		filelist = [f.path for f in self.fm.thistab.get_selection()]
-		try:
-			self.fm.thisdir.vcs.add(filelist)
-		except VcsError:
-			self.fm.notify("Could not stage files.")
-
-		try:
-			self.fm.thisdir.load_content()
-		except:
-			pass
-
-
-class unstage(Command):
-	"""
-	:unstage
-
-	Unstage selected files for the corresponding version control system
-	"""
-
-	def execute(self):
-		filelist = [f.path for f in self.fm.thistab.get_selection()]
-		try:
-			self.fm.thisdir.vcs.reset(filelist)
-		except VcsError:
-			self.fm.notify("Could not stage files.")
-
-		try:
-			self.fm.thisdir.load_content()
-		except:
-			pass
-
-
-
-# TODO: not sure how to approach this. It would be ideal to use an embedded vi, however seems tricky
-class commit(Command):
-	"""
-	:commit
-
-	Commit staged files
-	"""
-	pass
-
-
-class diff(Command):
-	"""
-	:diff
-
-	Displays a diff of selected files against last last commited version
-	"""
-	def execute(self):
-		L = self.fm.thistab.get_selection()
-		if len(L) == 0: return
-
-		filelist = [f.path for f in L]
-		vcs = L[0].vcs
-
-		diff = vcs.get_raw_diff(filelist=filelist)
-		if len(diff.strip()) > 0:
-			tmp = tempfile.NamedTemporaryFile()
-			tmp.write(diff.encode('utf-8'))
-			tmp.flush()
-
-			pager = os.environ.get('PAGER', ranger.DEFAULT_PAGER)
-			self.fm.run([pager, tmp.name])
-		else:
-			raise Exception("diff is empty")
-
-
-
-class log(Command):
-	"""
-	:log
-
-	Displays the log of the current repo or files
-	"""
-	def execute(self):
-		L = self.fm.thistab.get_selection()
-		if len(L) == 0: return
-
-		filelist = [f.path for f in L]
-		vcs = L[0].vcs
-
-		log = vcs.get_raw_log(filelist=filelist)
-		tmp = tempfile.NamedTemporaryFile()
-		tmp.write(log.encode('utf-8'))
-		tmp.flush()
-
-		pager = os.environ.get('PAGER', ranger.DEFAULT_PAGER)
-		self.fm.run([pager, tmp.name])
-
-
-
 
 
 
