@@ -7,7 +7,8 @@
 
 " General options
 " --------------------
-colors zenburn                    " zenburn color theme
+set t_Co=16                       " use 16 colors ansi for compatibility
+colors abdo                       " default color scheme
 set background=dark               " dark background
 
 syntax on                         " Enable syntax highlighting
