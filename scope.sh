@@ -38,6 +38,7 @@ function have { type -P "$1" > /dev/null; }
 # 141 means broken pipe, which happens despite success when piping to head.
 function success { (( ${PIPESTATUS[0]}==0 || ${PIPESTATUS[0]}==141 )); }
 
+
 case "$extension" in
 	# Archive extensions:
 	7z|a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|\
@@ -57,34 +58,31 @@ case "$extension" in
 		success && exit 5 || exit 1;;
 
 	# HTML Pages:
-	htm|html|xhtml)
-		have w3m    && w3m    -dump "$path" | head -n $maxln | fmt -s -w $width && exit 4
-		have lynx   && lynx   -dump "$path" | head -n $maxln | fmt -s -w $width && exit 4
-		have elinks && elinks -dump "$path" | head -n $maxln | fmt -s -w $width && exit 4
-		;; # fall back to highlight/cat if theres no lynx/elinks
+#	htm|html|xhtml)
+#		have w3m    && w3m    -dump "$path" | head -n $maxln | fmt -s -w $width && exit 4
+#		have lynx   && lynx   -dump "$path" | head -n $maxln | fmt -s -w $width && exit 4
+#		have elinks && elinks -dump "$path" | head -n $maxln | fmt -s -w $width && exit 4
+#		;; # fall back to highlight/cat if theres no lynx/elinks
 esac
+
 
 case "$mimetype" in
 	# Syntax highlight for text files:
 	text/* | */xml)
-#       highlight --out-format=ansi "$path" | head -n $maxln
-#      cat "$path" | head -n $maxln
-	   vimcat "$path" | head -n $maxln
-	   success && exit 5 || exit 2;;
-    
-	# Ascii-previews of images:
-	image/*)
-		img2txt --gamma=0.6 --width="$width" "$path" && exit 4 || exit 1;;
+       # don't preview big files
+       (( $size > 100000 )) && exit 1
 
+       if have vimcat; then
+	       vimcat "$path" | head -n $maxln
+       elif have highlight; then
+           highlight --out-format=ansi "$path" | head -n $maxln
+       fi
+       
+	   success && exit 5 || exit 2;;
+   
 	# Display information about media files:
-	video/* | audio/*)
-		have exiftool && exiftool "$path" && exit 5
-		# Use sed to remove spaces so the output fits into the narrow window
-		if have mediainfo; then
-			mediainfo "$path" | sed 's/  \+:/: /;'
-			success && exit 5
-		fi
-		exit 1;;
+	image/* | video/* | audio/*)
+		have exiftool && exiftool "$path" && exit 5 || exit 1;;
 esac
 
 exit 1
