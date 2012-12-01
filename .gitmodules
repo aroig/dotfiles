@@ -43,6 +43,3 @@
 [submodule "themes/zenburn"]
 	path = themes/zenburn
 	url = https://github.com/aroig/zenburn-emacs.git
-[submodule "packages/gist"]
-	path = packages/gist
-	url = git://github.com/defunkt/gist.el.git
