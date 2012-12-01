@@ -140,6 +140,9 @@
   (setq mu4e-headers-date-format "%d %b %Y")
   (setq mu4e-headers-time-format "%H:%M")
 
+  ;; show threds
+  (setq mu4e-headers-show-threads t)
+
   ;; fields in list view
   (setq mu4e-headers-fields
         '( (:human-date    .  15)
