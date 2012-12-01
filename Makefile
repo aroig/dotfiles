@@ -2,7 +2,7 @@ MAKE=emacs -Q --batch -f batch-byte-compile
 
 EMACS_LISP=emacs-lisp
 MODES=coffee-mode git-commit-mode lua-mode pkgbuild-mode python-mode rainbow-mode sage-mode yaml-mode
-PACKAGES=helm evil ibuffer-vc undo-tree vim-modeline
+PACKAGES=helm evil ibuffer-vc undo-tree vim-modeline gist
 THEMES=zenburn
 
 # All packages with relative path
