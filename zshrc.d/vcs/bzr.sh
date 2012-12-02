@@ -1,7 +1,7 @@
 
-local st="$(bzr status --short --no-classify)"
-local br="$(bzr nick)"
-local rev="$(bzr revno)"
+local st="$(BZR_LOG=/dev/null bzr status --short --no-classify)"
+local br="$(BZR_LOG=/dev/null bzr nick)"
+local rev="$(BZR_LOG=/dev/null bzr revno)"
 
 __CURRENT_VCS_BRANCH="$br"
 __CURRENT_VCS_REV="$rev"
@@ -15,7 +15,7 @@ else                                                                            
 fi
 
 # Don't get specific info about remote status because it is slow in mercurial
-local tbrurl="$(bzr config parent_location)"
+local tbrurl="$(BZR_LOG=/dev/null bzr config parent_location)"
 if [ "$tbrurl" ]; then    __CURRENT_VCS_REMOTE_STATUS="unknown"
 else                      __CURRENT_VCS_REMOTE_STATUS="none"
 fi

@@ -17,7 +17,7 @@ function detect_current_vcs() {
 	return
     fi
 
-    local isbzr="$(bzr status &> /dev/null; echo "$?")"
+    local isbzr="$(BZR_LOG=/dev/null bzr status &> /dev/null; echo "$?")"
     if [[ "$isbzr" == "0" ]]; then
 	__CURRENT_VCS_PROGRAM="bzr"
 	return
