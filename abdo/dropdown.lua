@@ -47,46 +47,48 @@ local dropdown = { mt = {}, data = {} }
 
 
 local function raise_client(run)
-    if run.client then
-        local geom = run.geom
-        local screengeom = capi.screen[run.screen].workarea
-        local width, height, x, y
-
-        -- move to the right tag
-        awful.client.movetotag(awful.tag.selected(run.screen), run.client)
-
-        -- if width or height values in the interval [0,1] represent a fraction of screen width or height.
-        if geom.width  <= 1 then width  = screengeom.width  * geom.width end
-        if geom.height <= 1 then height = screengeom.height * geom.height end
-
-        -- horizontal alignment: top, bottom, center
-        if     geom.horiz == "left"  then x = screengeom.x
-        elseif geom.horiz == "right" then x = screengeom.x + screengeom.width - width
-        else                              x =  screengeom.x + (screengeom.width - width)/2
-        end
-
-        -- vertical alignment: top, bottom, center
-        if     geom.vert == "bottom" then y = screengeom.y + screengeom.height - height
-        elseif geom.vert == "top" then    y = screengeom.y
-        else                              y = screengeom.y + (screengeom.height - height)/2
-        end
-
-        -- set the geometry of the client
-        local bw = run.client.border_width
-        run.client:geometry({ x = x, y = y, width = width - 2*bw, height = height - 2*bw })
-
-        -- raise the client
-        run.client.hidden = false
-        run.client:raise()
-        capi.client.focus = run.client
-
-        -- run onraise hook
-        if run.onraise_hook then
-            run:onraise_hook()
-        end
-
-        run.visible = true
+    if not run.client then
+        return
     end
+
+    local geom = run.geom
+    local screengeom = capi.screen[run.screen].workarea
+    local width, height, x, y
+
+    -- move to the right tag
+    awful.client.movetotag(awful.tag.selected(run.screen), run.client)
+
+    -- if width or height values in the interval [0,1] represent a fraction of screen width or height.
+    if geom.width  <= 1 then width  = screengeom.width  * geom.width end
+    if geom.height <= 1 then height = screengeom.height * geom.height end
+
+    -- horizontal alignment: top, bottom, center
+    if     geom.horiz == "left"  then x = screengeom.x
+    elseif geom.horiz == "right" then x = screengeom.x + screengeom.width - width
+    else                              x =  screengeom.x + (screengeom.width - width)/2
+    end
+
+    -- vertical alignment: top, bottom, center
+    if     geom.vert == "bottom" then y = screengeom.y + screengeom.height - height
+    elseif geom.vert == "top" then    y = screengeom.y
+    else                              y = screengeom.y + (screengeom.height - height)/2
+    end
+
+    -- set the geometry of the client
+    local bw = run.client.border_width
+    run.client:geometry({ x = x, y = y, width = width - 2*bw, height = height - 2*bw })
+
+    -- raise the client
+    run.client.hidden = false
+    run.client:raise()
+    capi.client.focus = run.client
+
+    -- run onraise hook
+    if run.onraise_hook then
+        run:onraise_hook()
+    end
+
+    run.visible = true
 end
 
 
@@ -151,24 +153,22 @@ function dropdown.show(dd, cmd, screen)
 
     refresh_state(dd.run)
 
-    -- raise an existing client if matches cmd. otherwise kill existing client
-    if dd.run.client then
-        if not cmd or (cmd and dd.run.cmd == cmd) then
-            dd.run.screen = screen
-            raise_client(dd.run)
-        else
-            dd.run.client:kill()
-            dd.run.client = nil
-        end
+    -- kill old client if necessary
+    if dd.kill_old and cmd and dd.run.cmd ~= cmd then
+        dd.run.client:kill()
+        dd.run.client = nil
+        dd.run.pid = nil
+        dd.run.cmd = nil
     end
 
-    -- spawn a new client if necessary
+    -- run command if need to
     local cmd = cmd or dd.cmd
-    if not dd.run.client then
+    if cmd and dd.run.cmd ~= cmd then
         naughty.notify({title = "Spawning", text=cmd, timeout=3})
+        local pid  = awful.util.spawn_with_shell(cmd)
 
-        if cmd then
-            dd.run.command  = cmd
+        if not dd.run.client then
+            dd.run.cmd      = cmd
             dd.run.geom     = dd.geom
             dd.run.sticky   = dd.sticky or false
             dd.run.time     = os.time()
@@ -176,12 +176,17 @@ function dropdown.show(dd, cmd, screen)
             dd.run.screen   = screen
             dd.run.visible  = false
 
-            local pid  = awful.util.spawn_with_shell(cmd)
             if not dd.run.pid then
                 dd.run.pid = pid
                 dropdown.data[dd.run.pid] = dd.run
             end
         end
+    end
+
+    -- raise an existing client.
+    if dd.run.client then
+        dd.run.screen = screen
+        raise_client(dd.run)
     end
 end
 
@@ -193,6 +198,7 @@ function dropdown.new(cmd, geom, sticky, screen)
     newdd.screen   = screen
     newdd.sticky   = sticky  or false
     newdd.run      = {}
+    newdd.kill_old = true
 
     newdd.geom = {}
     newdd.geom.vert   = geom.vert   or "top"
@@ -247,6 +253,7 @@ capi.client.connect_signal("unmanage",
                                    if run and run.client and run.client.window == c.window then
                                        run.client  = nil
                                        run.visible = false
+                                       run.cmd = nil
                                        break
                                    end
                                end
