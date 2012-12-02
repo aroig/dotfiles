@@ -57,21 +57,25 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey,           }, "F11",    function() ddclient.octave:show() end),
     awful.key({ ctrlkey           }, "F11",    function() ddclient.sage:show() end),
-    awful.key({                   }, "F11",    function()
+    awful.key({                   }, "F11",
+              function()
                   ddclient.octave:hide()
                   ddclient.sage:hide()
-                                               end),
+              end),
 
     awful.key({ modkey,           }, "F12",    function() ddclient.terminal:show() end),
     awful.key({ ctrlkey           }, "F12",    function() ddclient.ranger:show() end),
-    awful.key({                   }, "F12",    function()
+    awful.key({                   }, "F12",
+              function()
                   ddclient.terminal:hide()
                   ddclient.ranger:hide()
-                                               end),
+              end),
 
-    awful.key({ modkey,           }, "F6",     prompt.wikipedia),
+    awful.key({ modkey,           }, "F5",     prompt.wikipedia),
+    awful.key({ modkey,           }, "F6",     prompt.mathscinet),
     awful.key({ modkey,           }, "F7",     prompt.docs),
---    awful.key({ modkey,           }, "F8",     dropdown.doc),
+    awful.key({ modkey,           }, "F8",     function() ddclient.document:show() end),
+    awful.key({                   }, "F8",     function() ddclient.document:hide() end),
 
 
     -- Client cycling

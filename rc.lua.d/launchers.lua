@@ -107,24 +107,15 @@ end
 -- Dropdown apps on the right    --
 -----------------------------------
 
-ddclient.document = dropdown.new(nil,
-                                 {vert="center", horiz="right", width=0.7, height=1})
+ddclient.dict = dropdown.new("goldendict", {vert="center", horiz="right", width=0.5, height=1})
+ddclient.calibre = dropdown.new("calibre", {vert="center", horiz="right", width=1,   height=1})
+ddclient.chat = dropdown.new(apps.chat, {vert="center", horiz="right", width=300, height=1})
+ddclient.irc = dropdown.new(apps.irc, {vert="center", horiz="right", width=0.5, height=1})
+ddclient.music = dropdown.new(apps.music, {vert="center", horiz="right", width=0.6, height=1})
 
-ddclient.dict = dropdown.new("goldendict",
-                             {vert="center", horiz="right", width=0.5, height=1})
-
-ddclient.calibre = dropdown.new("calibre",
-                                {vert="center", horiz="right", width=1,   height=1})
-
-ddclient.chat = dropdown.new(apps.chat,
-                             {vert="center", horiz="right", width=300, height=1})
-
-ddclient.irc = dropdown.new(apps.irc,
-                            {vert="center", horiz="right", width=0.5, height=1})
-
-ddclient.music = dropdown.new(apps.music,
-                              {vert="center", horiz="right", width=0.6, height=1})
-
+ddclient.document = dropdown.new(nil, {vert="center", horiz="right", width=0.7, height=1})
+-- do not kill old client if command changes, as chromium opens new tab
+ddclient.document.kill_old = False
 
 
 -----------------------------------
@@ -146,10 +137,22 @@ function prompt.wikipedia()
                   "Wikipedia: ",
                   function (cmd)
                       local url = string.format("http://en.wikipedia.org/wiki/Special:Search?go=Go&search=\"%s\"", cmd)
-                      ddclient.document:show(apps.docbrowser .. " " .. url)
+                      ddclient.document:show(string.format("%s '%s'", apps.docbrowser, url))
                   end,
                   nil,
                   awful.util.getdir("cache") .. "/history_wikipedia")
+end
+
+
+function prompt.mathscinet()
+    idoprompt.run(myw.promptbox[mouse.screen].widget,
+                  "Mathscinet: ",
+                  function (cmd)
+                      local url = string.format("http://www.ams.org/mathscinet/search/publications.html?review_format=html&pg4=ALLF&s4=\"%s\"", cmd)
+                      ddclient.document:show(string.format("%s '%s'", apps.docbrowser, url))
+                  end,
+                  nil,
+                  awful.util.getdir("cache") .. "/history_mathscinet")
 end
 
 

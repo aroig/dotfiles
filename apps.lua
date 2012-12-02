@@ -14,7 +14,7 @@ apps.editor              = os.getenv("EMACS")
 apps.browser             = os.getenv("BROWSER")
 
 -- Other apps
-apps.docbrowser          = "midori --private"
+apps.docbrowser          = "chromium --user-data-dir=.config/chromium-docs"
 apps.filemanager         = "nautilus"
 apps.pdfviewer           = "zathura"
 apps.music               = "quodlibet"
