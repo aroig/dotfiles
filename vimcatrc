@@ -8,7 +8,7 @@
 " General options
 " --------------------
 set nocompatible                  " vim defaults. forget about vi compatibility!
-set viminfo=""                    " disables viminfo
+"set viminfo=""                    " disables viminfo
 
 
 
