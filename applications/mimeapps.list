@@ -15,6 +15,7 @@ image/jpeg=eog.desktop;
 image/png=eog.desktop;
 image/svg+xml=eog.desktop;
 
+application/epub=calibre-ebook-viewer.desktop;
 application/pdf=zathura.desktop;
 application/postscript=zathura.desktop;
 image/vnd.djvu=zathura.desktop;
