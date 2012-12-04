@@ -213,7 +213,7 @@ vicious.register(myw.mail, sheval,
 		    end
 
 		    return string.format("<span color='%s'>%d</span>", color, num)
-		 end, 60, "mutag -C -p mail -q 'flag:unread AND NOT flag:trashed'")
+		 end, 60, "mutag -C -p mail -q 'flag:unread AND tag:\\\\\\\\Inbox'")
 
 
 
