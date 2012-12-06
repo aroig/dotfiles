@@ -79,6 +79,7 @@
 from ranger.api.commands import *
 from ranger.ext.get_executables import get_executables
 from ranger.core.runner import ALLOWED_FLAGS
+from ranger.core.loader import CommandLoader
 from ranger.vcs import VcsError
 
 import tempfile
@@ -98,17 +99,35 @@ class trash(Command):
 	allow_abbrev = False
 
 	def execute(self):
-		self.fm.notify("Trashing!")
 		selected = self.fm.thistab.get_selection()
+		self.fm.notify("Trashing %d files" % len(selected))
 		self.fm.copy_buffer -= set(selected)
 		if selected:
 			self.fm.run("trash %s" % ' '.join(['"%s"' % f.path for f in selected]))
 		self.fm.thistab.ensure_correct_pointer()
 
 
+class calibre(Command):
+	"""
+	:calibre
 
-# TODO: mount and umount
+	Add selected books to calibre
+
+	"Selection" is defined as all the "marked files" (by default, you
+	can mark files with space or v). If there are no marked files,
+	use the "current file" (where the cursor is)
+	"""
+
+	allow_abbrev = False
+
+	def execute(self):
+		selected = self.fm.thistab.get_selection()
+		self.fm.notify("Adding %d files to calibre database" % len(selected))
+		if selected:
+			loadable = CommandLoader(["calibredb", "add", "-d"] + [f.path for f in selected],
+			                      "Adding %d files to calibre database" % len(selected))
+			self.fm.loader.add(loadable)
 
 
 
-# vim: noexpandtab:shiftwidth=8:tabstop=8:softtabstop=8:textwidth=80
+# vim: noexpandtab:shiftwidth=4:tabstop=4:softtabstop=4:textwidth=80
