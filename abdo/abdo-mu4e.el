@@ -28,22 +28,15 @@
 (defun abdo-mu4e-things ()
 
   ;; Fancy chars
-;  (setq mu4e-use-fancy-chars t)
+  ; (setq mu4e-use-fancy-chars t)
 
   ;; convert html messages to markdown syntax
   (setq mu4e-html2text-command "html2text_py | grep -v '&nbsp_place_holder;'")
 
   ;; Custom actions
-  (add-to-list 'mu4e-headers-actions
-        '("tRetag message" . abdo-mu4e-retag-message) t)
-
-  (add-to-list 'mu4e-view-actions
-               '("tRetag message" . (lambda (msg) (abdo-mu4e-retag-message msg)
-                                      ;; this does not work anymore
-                                      (set-buffer "*mu4e-headers*")
-                                      (mu4e-headers-view-message)  ;; hackish way to make it reload the message
-                                      ;; TODO: refresh the view!
-                                      )) t)
+  (setq mu4e-action-tags-header "X-Keywords")
+  (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
+  (add-to-list 'mu4e-view-actions '("tRetag message" . mu4e-action-retag-message) t)
 )
 
 
