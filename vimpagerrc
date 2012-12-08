@@ -17,6 +17,28 @@ let vimpager_scrolloff = 5
 " set noloadplugins
 
 
+" Filetype
+" --------------------
+function! GetVimAncestors()
+    let ancestors=""
+    let pid=getpid()        
+    while pid > 1
+        let pname = system("ps -o comm= -p " . pid)
+        let pid = system("ps -o ppid= -p " . pid)
+        let ancestors = ancestors . " " . substitute(pname, '^[ \n]*\(.\{-}\)[ \n]*$', '\1', '')
+    endwhile
+    return ancestors
+endfunction
+
+function! FTSage()
+    set ft=sagehelp
+endfunction 
+
+let ancestors = GetVimAncestors()
+if match(ancestors, "sage")
+    autocmd VimEnter * call FTSage()
+endif
+
 
 " Source vimrc.d stuff
 " --------------------
