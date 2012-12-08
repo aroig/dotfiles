@@ -53,6 +53,11 @@ hi Tag             ctermfg=Gray         cterm=none
 hi Debug           ctermfg=Gray         cterm=none
 
 
+" sage
+" ----------------------------------------------------------
+hi sagePrompt      ctermfg=DarkYellow   cterm=none
+
+
 " text
 " ----------------------------------------------------------
 hi Title           ctermfg=Cyan         cterm=bold
