@@ -30,6 +30,9 @@ set laststatus=2                  " always display status line
 set ignorecase                    " case insensitive searches 
 set smartcase
 
+" Use system clipboard. needs x-clipboard compiled in.
+set clipboard=unnamedplus
+
 " Quickly time out on keycodes, but never time out on mappings
 set notimeout ttimeout ttimeoutlen=200
 
