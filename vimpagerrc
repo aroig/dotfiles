@@ -20,12 +20,12 @@ let vimpager_scrolloff = 5
 " Filetype
 " --------------------
 function! GetVimAncestors()
-    let ancestors=""
+    let ancestors=[]
     let pid=getpid()        
     while pid > 1
         let pname = system("ps -o comm= -p " . pid)
         let pid = system("ps -o ppid= -p " . pid)
-        let ancestors = ancestors . " " . substitute(pname, '^[ \n]*\(.\{-}\)[ \n]*$', '\1', '')
+        call insert(ancestors, substitute(pname, '^[ \n]*\(.\{-}\)[ \n]*$', '\1', ''))
     endwhile
     return ancestors
 endfunction
@@ -35,7 +35,7 @@ function! FTSage()
 endfunction 
 
 let ancestors = GetVimAncestors()
-if match(ancestors, "sage")
+if match(ancestors, "sage") != -1
     autocmd VimEnter * call FTSage()
 endif
 
