@@ -30,13 +30,16 @@ function! GetVimAncestors()
     return ancestors
 endfunction
 
-function! FTSage()
-    set ft=sagehelp
-endfunction 
-
 let ancestors = GetVimAncestors()
 if match(ancestors, "sage") != -1
-    autocmd VimEnter * call FTSage()
+    autocmd VimEnter * set ft=sagehelp
+
+elseif match(ancestors, "git") != -1
+    autocmd VimEnter * set ft=git
+
+elseif match(ancestors, "hg") != -1
+    autocmd VimEnter * set ft=hg
+    
 endif
 
 
