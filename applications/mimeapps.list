@@ -10,6 +10,7 @@ text/x-tex=emacs-client.desktop;
 text/x-c++src=emacs-client.desktop;
 text/x-chdr=emacs-client.desktop;
 text/x-csrc=emacs-client.desktop;
+text/x-makefile=emacs-client.desktop;
 
 image/jpeg=eog.desktop;
 image/png=eog.desktop;
