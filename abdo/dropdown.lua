@@ -122,6 +122,16 @@ local function refresh_state(run)
 end
 
 
+local function kill_client(run)
+    if run.client then
+        run.client:kill()
+        run.client = nil
+        run.pid = nil
+        run.cmd = nil
+    end
+end
+
+
 
 function dropdown.hide_all()
     for pid, run in pairs(dropdown.data) do
@@ -134,6 +144,14 @@ end
 
 function dropdown.hide(dd)
     hide_client(dd.run)
+end
+
+
+
+function dropdown.kill_all()
+    for pid, run in pairs(dropdown.data) do
+        kill_client(run)
+    end
 end
 
 
@@ -155,10 +173,7 @@ function dropdown.show(dd, cmd, screen)
 
     -- kill old client if necessary
     if dd.kill_old and cmd and dd.run.cmd ~= cmd then
-        dd.run.client:kill()
-        dd.run.client = nil
-        dd.run.pid = nil
-        dd.run.cmd = nil
+        kill_client(dd.run)
     end
 
     -- run command if need to

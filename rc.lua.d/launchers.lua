@@ -126,6 +126,11 @@ function ddclient.hide_all()
     dropdown.hide_all()
 end
 
+function ddclient.kill_all()
+    dropdown.kill_all()
+end
+
+
 
 -----------------------------------
 -- Prompts                       --
