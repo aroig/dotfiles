@@ -18,12 +18,16 @@
   (setq ispell-program-name "aspell")
   (setq ispell-list-command "list")
 
-
   ;; Enable flyspell mode
   (flyspell-mode 1)
 )
 
-
+(defun abdo-change-dictionary (dictionary)
+  "Changes the language for ispell together with my personal dictionary"
+  (interactive "MNew Dictionary: ")
+  (setq ispell-personal-dictionary (concat abdo-personal-dicts-path "abdo-" dictionary ".dict"))
+  (ispell-change-dictionary dictionary)
+)
 
 (eval-after-load "ispell"
   (progn
@@ -31,7 +35,7 @@
     (run-hooks 'abdo-ispell-hooks)
 
     ;; Dictionary list in my way
-    (setq ispell-dictionary-alist 
+    (setq ispell-dictionary-alist
       '(("german" "[[:alpha:]]" "[^[:alpha:]]" "[']" t ("-d" "de") nil utf-8)
         ("spanish" "[[:alpha:]]" "[^[:alpha:]]" "" t ("-d" "es") nil utf-8)
         ("english" "[[:alpha:]]" "[^[:alpha:]]" "'" t ("-d" "en") nil utf-8)
@@ -42,20 +46,10 @@
       )
     )
     (setq ispell-dictionary "english")      ;; Default language
-    (setq abdo-change-dictionary "english")
+    (abdo-change-dictionary "english")
     (setq ispell-silently-savep t)          ;; Don't ask to save personal dict
   )
 )
-
-
-(defun abdo-change-dictionary (dictionary)
-  "Changes the language for ispell together with my personal dictionary"
-  (interactive "MNew Dictionary: ")
-  (setq ispell-personal-dictionary (concat abdo-personal-dicts-path "abdo-" dictionary ".dict"))
-  (ispell-change-dictionary dictionary)
-)
-
-
 
 ;; Enable flyspell on text modes
 (add-hook 'text-mode-hook 'abdo-flyspell-things)
@@ -67,9 +61,3 @@
 ;      (add-hook hook (lambda () (flyspell-mode 1))))
 ; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
 ;      (add-hook hook (lambda () (flyspell-mode -1))))
-
-
-
-
-
-
