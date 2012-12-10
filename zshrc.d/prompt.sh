@@ -31,11 +31,11 @@ prompthost () {
     local host_fmt=""
 
     case $HOST in
-	grothendieck) host_fmt="%{$fg[yellow]%}$HOST"  ;;
+	grothendieck) host_fmt="%{$fg[yellow]%}$HOST"           ;;
                hodge) host_fmt="%{$fg_bold[blue]%}$HOST"    ;;
               galois) host_fmt="%{$fg_bold[red]%}$HOST"     ;;
-              skynet) host_fmt="%{$fg_bold[magenta]%}$HOST" ;;
-              turing) host_fmt="%{$fg_bold[cyan]%}$HOST"    ;;        
+              skynet) host_fmt="%{$fg_bold[cyan]%}$HOST"    ;;
+                 ada) host_fmt="%{$fg_bold[magenta]%}$HOST" ;;        
                    *) host_fmt="%{$fg_bold[white]%}$HOST"   ;;
     esac
     echo "$host_fmt%{$reset_color%}"
