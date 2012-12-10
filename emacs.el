@@ -75,6 +75,7 @@
 (autoload 'sage-mode "sage-mode" "Sage mode." t)
 (autoload 'vala-mode "vala-mode" "Vala mode." t)
 (autoload 'rainbow-mode "rainbow-mode" "Rainbow mode." t)
+(autoload 'markdown-mode "markdown-mode.el" "Markdown files" t)
 
 ;; Rcirc
 (autoload 'rcirc "rcirc" "Rcirc irc client." t)
@@ -192,6 +193,9 @@
 
 ;; sage
 (add-to-list 'auto-mode-alist '("\\.sage$" . sage-mode))
+
+;; Markdown
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
 
 ;; Command line switches

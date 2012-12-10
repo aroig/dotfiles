@@ -31,7 +31,7 @@
   ; (setq mu4e-use-fancy-chars t)
 
   ;; convert html messages to markdown syntax
-  (setq mu4e-html2text-command "html2text_py | grep -v '&nbsp_place_holder;'")
+  (setq mu4e-html2text-command "html2text")
 
   ;; Custom actions
   (setq mu4e-action-tags-header "X-Keywords")
