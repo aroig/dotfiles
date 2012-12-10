@@ -43,3 +43,9 @@
 [submodule "themes/zenburn"]
 	path = themes/zenburn
 	url = https://github.com/aroig/zenburn-emacs.git
+[submodule "modes/multi-mode"]
+	path = modes/multi-mode
+	url = https://github.com/emacsmirror/multi-mode.git
+[submodule "modes/markdown-mode"]
+	path = modes/markdown-mode
+	url = git://jblevins.org/git/markdown-mode.git
