@@ -23,6 +23,7 @@
   (setq org-latex-preview-ltxpng-directory (concat org-directory "ltxpng/"))
 
   ;; Some org files
+  (setq abdo-org-devel-file "comp/devel.org")
   (setq abdo-org-math-ideas-file "math/ideas.org")
   (setq abdo-org-math-journal-file "math/log.org")
   (setq abdo-org-personal-journal-file "perso/log.org")
@@ -354,18 +355,39 @@
 
 (defun abdo-org-custom-agenda-setup ()
   (setq org-agenda-custom-commands
-    '(("p" tags "+project+LEVEL=1")
-      ("P" tags-todo "+project")
-      ("i" tags "+idea+LEVEL=2")
-      ("I" tags-todo "+idea")
-      ("r" tags "+paper+LEVEL=1")
-      ("R" tags-todo "+paper")
+    '(("p" "Projects"         tags "+project+LEVEL=1")
+
+      ("P" "Projects TODO"    tags-todo "+project")
+
+      ("d" "Development"      tags "+LEVEL=1"
+       ((org-agenda-files `(,(concat org-directory-wiki abdo-org-devel-file)))))
+
+      ("D" "Development TODO" tags-todo ""
+       ((org-agenda-files `(,(concat org-directory-wiki abdo-org-devel-file)))))
+
+      ("i" "Ideas"            tags "+LEVEL=2"
+       ((org-agenda-files `(,(concat org-directory-wiki abdo-org-math-ideas-file)))))
+
+      ("j" "Math log"         tags "+LEVEL=4"
+       ((org-agenda-files `(,(concat org-directory-wiki abdo-org-math-journal-file)))))
+
+      ("r" "Research"         tags "+paper+LEVEL=1")
+
+      ("R" "Research TODO"    tags-todo "+paper")
 ;      ("U" tags-tree "+boss-urgent")
 ;      ("f" occur-tree "\\<FIXME\\>")
     )
   )
 )
 
+
+(setq org-agenda-custom-commands
+      '(("c" "Desk Work" tags-todo "computer" ;; (1) (2) (3) (4)
+         ((org-agenda-files '("~/org/widgets.org" "~/org/clients.org")) ;; (5)
+          (org-agenda-sorting-strategy '(priority-up effort-down))) ;; (5) cont.
+         ("~/computer.html")) ;; (6)
+        ;; ...other commands here
+        ))
 
 
 ;; Appt
