@@ -2,8 +2,8 @@
 ;; Utility functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun abdo-directory-files-recursive (directory &optional regexp)
-  "List the .el files in DIRECTORY and in its sub-directories."
+(defun abdo-directory-files-rec (directory &optional regexp)
+  "List the files matching regexp in directory and its subdirectories."
   (interactive "DDirectory name: ")
   (let (el-files-list
 	(current-directory-list
@@ -25,7 +25,7 @@
 	  ;; else descend into the directory and repeat the process
 	  (setq el-files-list
 		(append
-		 (abdo-directory-files-recursive
+		 (abdo-directory-files-rec
 		  (car (car current-directory-list)) regexp)
 		 el-files-list)))))
 
@@ -33,29 +33,32 @@
     el-files-list))
 
 
-;; Helm sources
+;; Generic helm sources
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Highlighting stuff
-(defun abdo-helm-c-highlight-org-files (files source)
-  (loop for i in files
-        collect (propertize (file-relative-name i org-directory)
-                            'face 'helm-ff-file
-                            'help-echo (expand-file-name i))))
-
-
-; Org mode sources
-(defvar helm-c-source-org-files
-  `((name . "Org files")
-    (init . (lambda ()
-              (helm-init-candidates-in-buffer
-               "*org files*"
-               (abdo-directory-files-recursive org-directory-wiki ".*\\.org$"))))
-    (candidates-in-buffer)
-    ;; TODO: Why the following fails?
-;    (filtered-candidate-transformer abdo-helm-c-highlight-org-files)
-    (match helm-c-match-on-basename)
+;; files in preconfigured dir
+(defun helm-c-source-files-in-dir-rec (path regexp name)
+  `((name . ,name)
+    (candidates . (lambda ()
+                    (with-helm-current-buffer
+                      (when (file-accessible-directory-p ,path)
+                          (abdo-directory-files-rec ,path ,regexp)))))
+    (keymap . ,helm-generic-files-map)
+    (no-delay-on-input)
+    (help-message . helm-generic-file-help-message)
+    (mode-line . helm-generic-file-mode-line-string)
     (type . file)))
+
+
+
+
+;; org mode helm sources
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defvar helm-c-source-org-files (helm-c-source-files-in-dir-rec
+                                 org-directory-wiki
+                                 ".*\\.org$"
+                                 "Org files"))
 
 
 ;; Interface
@@ -63,13 +66,13 @@
 
 (defun abdo-helm-org-files ()
   (interactive)
-  (helm-other-buffer '(helm-c-source-org-files)
-                     "*helm org*"))
+  (helm-other-buffer 'helm-c-source-org-files "*helm org files*"))
+
 
 (defun abdo-helm-todos ()
   (interactive)
   (helm-other-buffer '(helm-c-source-fixme)
-                     "*helm org*"))
+                     "*helm TODO*"))
 
 
 (provide 'abdo-helm)
