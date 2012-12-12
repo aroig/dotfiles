@@ -37,6 +37,8 @@
   (setq mu4e-action-tags-header "X-Keywords")
   (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
   (add-to-list 'mu4e-view-actions '("tRetag message" . mu4e-action-retag-message) t)
+
+  (add-to-list 'mu4e-view-actions '("bView in browser" . mu4e-action-view-in-browser) t)
 )
 
 
