@@ -355,25 +355,36 @@
 
 (defun abdo-org-custom-agenda-setup ()
   (setq org-agenda-custom-commands
-    '(("p" "Projects"         tags "+project+LEVEL=1")
-
-      ("P" "Projects TODO"    tags-todo "+project")
-
-      ("d" "Development"      tags "+LEVEL=1"
-       ((org-agenda-files `(,(concat org-directory-wiki abdo-org-devel-file)))))
+    '(("d" "Development"      search ""
+       ((org-agenda-files `(,(concat org-directory-wiki abdo-org-devel-file)))
+        (org-agenda-search-view-max-outline-level 2)
+        (org-agenda-prefix-format "")))
 
       ("D" "Development TODO" tags-todo ""
        ((org-agenda-files `(,(concat org-directory-wiki abdo-org-devel-file)))))
 
-      ("i" "Ideas"            tags "+LEVEL=2"
-       ((org-agenda-files `(,(concat org-directory-wiki abdo-org-math-ideas-file)))))
 
-      ("j" "Math log"         tags "+LEVEL=4"
-       ((org-agenda-files `(,(concat org-directory-wiki abdo-org-math-journal-file)))))
+      ("i" "Ideas"            search ""
+       ((org-agenda-files `(,(concat org-directory-wiki abdo-org-math-ideas-file)))
+        (org-agenda-search-view-max-outline-level 2)
+        (org-agenda-prefix-format "")))
+
+      ("j" "Math log"         search ""
+       ((org-agenda-files `(,(concat org-directory-wiki abdo-org-math-journal-file)))
+        (org-agenda-search-view-max-outline-level 4)
+        (org-agenda-prefix-format "")))
+
 
       ("r" "Research"         tags "+paper+LEVEL=1")
 
       ("R" "Research TODO"    tags-todo "+paper")
+
+
+      ("p" "Projects"         tags "+project+LEVEL=1")
+
+      ("P" "Projects TODO"    tags-todo "+project")
+
+
 ;      ("U" tags-tree "+boss-urgent")
 ;      ("f" occur-tree "\\<FIXME\\>")
     )
