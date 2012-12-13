@@ -359,6 +359,23 @@
 
 
 
+;; outline magic
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;; when t, outline-cycle acts as tab on non-heading text
+(setq outline-cycle-emulate-tab nil)
+
+(add-hook 'outline-mode-hook
+          (lambda ()
+            (require 'outline-magic)))
+
+(add-hook 'outline-minor-mode-hook
+          (lambda ()
+            (require 'outline-magic)))
+
+
+
 ;; Version Control
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

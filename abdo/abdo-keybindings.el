@@ -118,6 +118,20 @@
 ;          (lambda ()
 ;            (local-set-key (kbd "C-x C-c") 'abdo-done)))
 
+
+;; Outline mode
+(defun outline-mode-keybindings ()
+  (local-set-key (kbd "<C-tab>") 'outline-cycle) ; Cycle outline
+
+  (local-set-key (kbd "H-<up>") 'outline-move-subtree-up)
+  (local-set-key (kbd "H-<down>") 'outline-move-subtree-down)
+  (local-set-key (kbd "H-<left>") 'outline-promote)
+  (local-set-key (kbd "H-<right>") 'outline-demote))
+
+(add-hook 'outline-mode-hook 'outline-mode-keybindings)
+(add-hook 'outline-minor-mode-hook 'outline-mode-keybindings)
+
+
 ;; text mode
 (add-hook 'text-mode-hook
 	  (lambda ()
