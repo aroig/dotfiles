@@ -19,8 +19,9 @@
   (setq-default indent-tabs-mode nil)            ;; No tabs on indent
   (set-fill-column 82)                           ;; In LaTeX I want it this way
 
+  (outline-minor-mode)                           ;; Outline mode
   (turn-on-reftex)                               ;; RefTex
-;  (turn-on-cdlatex)                              ;; CDLatex
+;  (turn-on-cdlatex)                             ;; CDLatex
   (setq reftex-auto-recenter-toc t)              ;; Enable reftex auto recentering
   (setq compilation-auto-jump-to-first-error t)  ;; Auto jump on error
   (setq use-file-dialog nil)                     ;; Disable dialog asking for a file on
@@ -51,6 +52,10 @@
   (add-to-list 'TeX-view-program-list '("evince-dbus" abdo-latex-evince-dbus-view))
   (add-to-list 'TeX-view-program-selection '(output-pdf "evince-dbus"))
 
+  ;; Set outline mode headings order
+  (setq outline-promotion-headings '("\\chapter" "\\section" "\\subsection"
+     "\\subsubsection" "\\paragraph" "\\subparagraph"))
+
   ;;(setq TeX-view-program-list (quote
   ;;   (("okular" "okular --unique '%o#src:%n %b'"))))
 
@@ -76,17 +81,25 @@
 (defun abdo-latex-personal-tweaks ()
   (interactive)
   ;; Add environments
-  (LaTeX-add-environments '("comdiag" LaTeX-env-label))
-  (LaTeX-add-environments '("align" LaTeX-env-label))
+
+  ;; label prefix for comdiag
+  (add-to-list 'LaTeX-label-alist '("comdiag" . LaTeX-equation-label))
+
+  ;; add environments
+  (add-to-list 'LaTeX-environment-list '("comdiag" LaTeX-env-label))
+  (add-to-list 'LaTeX-environment-list '("align" LaTeX-env-label))
+
+  ;; default environment
+  (setq LaTeX-default-environment "equation")
 
   ;; Keywords
-  (add-to-list 'font-latex-match-warning-keywords (quote "\&"))
+  ;(add-to-list 'font-latex-match-warning-keywords '("\&"))
 
   ;; Math environments
-  (add-to-list 'font-latex-math-environments (quote "comdiag"))
-  (add-to-list 'font-latex-math-environments (quote "comdiag*"))
-  (add-to-list 'font-latex-math-environments (quote "align"))
-  (add-to-list 'font-latex-math-environments (quote "align*"))
+  (add-to-list 'font-latex-math-environments "comdiag")
+  (add-to-list 'font-latex-math-environments "comdiag*")
+  (add-to-list 'font-latex-math-environments "align")
+  (add-to-list 'font-latex-math-environments "align*")
 
   ;; Disables fill inside some environments
   (add-to-list 'LaTeX-indent-environment-list '("comdiag"))
