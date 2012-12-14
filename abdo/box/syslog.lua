@@ -17,7 +17,7 @@ local function generate_syslog()
    local daemon_color = {kernel = beautiful.fg_red, default = beautiful.fg_green}
 
    local text = "\n"
-   local fd = io.popen('sudo journalctl -a -n' .. tostring(100*num_entries) ..
+   local fd = io.popen('sudo journalctl -a -n' .. tostring(10*num_entries) ..
                  ' | grep -v "NetworkManager\\|slim\\|sudo" | tail -n ' .. tostring(num_entries))
    local lines = {}
    for l in fd:lines() do
