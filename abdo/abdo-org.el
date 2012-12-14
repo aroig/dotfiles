@@ -23,7 +23,7 @@
   (setq org-latex-preview-ltxpng-directory (concat org-directory "ltxpng/"))
 
   ;; Some org files
-  (setq abdo-org-devel-file "comp/devel.org")
+  (setq abdo-org-devel-file-list '("comp/devel.org" "comp/software.org"))
   (setq abdo-org-math-ideas-file "math/ideas.org")
   (setq abdo-org-math-journal-file "math/log.org")
   (setq abdo-org-personal-journal-file "perso/log.org")
@@ -354,42 +354,35 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun abdo-org-custom-agenda-setup ()
-  (setq org-agenda-custom-commands
-    '(("d" "Development"      search ""
-       ((org-agenda-files `(,(concat org-directory-wiki abdo-org-devel-file)))
-        (org-agenda-search-view-max-outline-level 2)
-        (org-agenda-prefix-format "")))
+  (let ((devel-list   (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-devel-file-list))
+        (ideas-list   (list (concat org-directory-wiki abdo-org-math-ideas-file)))
+        (mathlog-list (list (concat org-directory-wiki abdo-org-math-journal-file))))
+    (setq org-agenda-custom-commands
+          `(("d" "Development"      search ""
+             ((org-agenda-files (quote ,devel-list))
+              (org-agenda-search-view-max-outline-level 2)))
 
-      ("D" "Development TODO" tags-todo ""
-       ((org-agenda-files `(,(concat org-directory-wiki abdo-org-devel-file)))))
+            ("D" "Development TODO" tags-todo ""
+             ((org-agenda-files (quote ,devel-list))))
 
+            ("i" "Ideas"            search ""
+             ((org-agenda-files (quote ,ideas-list))
+              (org-agenda-search-view-max-outline-level 2)
+              (org-agenda-prefix-format "")))
 
-      ("i" "Ideas"            search ""
-       ((org-agenda-files `(,(concat org-directory-wiki abdo-org-math-ideas-file)))
-        (org-agenda-search-view-max-outline-level 2)
-        (org-agenda-prefix-format "")))
+            ("j" "Math log"         search ""
+             ((org-agenda-files (quote ,mathlog-list))
+              (org-agenda-search-view-max-outline-level 4)
+              (org-agenda-prefix-format "")))
 
-      ("j" "Math log"         search ""
-       ((org-agenda-files `(,(concat org-directory-wiki abdo-org-math-journal-file)))
-        (org-agenda-search-view-max-outline-level 4)
-        (org-agenda-prefix-format "")))
+            ("r" "Research"         tags "+paper+LEVEL=1")
 
+            ("R" "Research TODO"    tags-todo "+paper")
 
-      ("r" "Research"         tags "+paper+LEVEL=1")
+            ("p" "Projects"         tags "+project+LEVEL=1")
 
-      ("R" "Research TODO"    tags-todo "+paper")
-
-
-      ("p" "Projects"         tags "+project+LEVEL=1")
-
-      ("P" "Projects TODO"    tags-todo "+project")
-
-
-;      ("U" tags-tree "+boss-urgent")
-;      ("f" occur-tree "\\<FIXME\\>")
-    )
-  )
-)
+            ("P" "Projects TODO"    tags-todo "+project")
+            ))))
 
 
 (setq org-agenda-custom-commands
