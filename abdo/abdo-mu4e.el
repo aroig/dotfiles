@@ -121,15 +121,20 @@
 
   ;; Bookmarks
   (setq mu4e-bookmarks
-       '( ("flag:unread AND NOT flag:trashed" "Unread messages"      ?u)
-          ("date:today..now"                  "Today's messages"     ?t)
-          ("date:7d..now"                     "Last 7 days"          ?w)
-          ("tag:\\\\Inbox"                    "Gmail Inbox"          ?i)
-          ("tag:research"                     "Research"             ?r)
-          ("tag:teaching"                     "Teaching"             ?g)
-          ("tag:upc"                          "University"           ?n)
-          ("tag:devel"                        "Development"          ?d)
-          ("mime:image/*"                     "Messages with images" ?p)))
+        '(("tag:\\\\Inbox AND flag:unread"     "New"                 ?n)
+          ("tag:\\\\Inbox AND date:30d..now"   "Inbox"               ?i)
+
+          ("tag:research AND date:30d..now"    "Research"            ?r)
+          ("tag:teaching AND date:30d..now"    "Teaching"            ?t)
+          ("tag:upc AND date:30d..now"         "University"          ?u)
+          ("tag:devel AND date:30d..now"       "Development"         ?d)
+          ("tag:list AND date:30d..now"        "Lists"               ?l)
+
+          ("tag:news AND date:30d..now"        "News"                ?s)
+          ("tag:arxiv AND date:30d..now"       "Arxiv"               ?a)
+          ("tag:blogs AND date:30d..now"       "Blogs"               ?b)
+          ("tag:watchlist"                     "Watchlist"           ?w)
+          ))
 
   ;; Times and dates
   (setq mu4e-headers-date-format "%d %b %Y")
