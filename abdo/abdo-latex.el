@@ -80,7 +80,9 @@
 ;; Latex personal stuff
 (defun abdo-latex-personal-tweaks ()
   (interactive)
-  ;; Add environments
+
+  ;; enable draftools active comments
+  (setq LaTeX-indent-comment-start-regexp "%\\|%!")
 
   ;; label prefix for comdiag
   (add-to-list 'LaTeX-label-alist '("comdiag" . LaTeX-equation-label))
