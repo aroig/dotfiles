@@ -358,16 +358,20 @@
         (ideas-list   (list (concat org-directory-wiki abdo-org-math-ideas-file)))
         (mathlog-list (list (concat org-directory-wiki abdo-org-math-journal-file))))
     (setq org-agenda-custom-commands
-          `(("d" "Development"      search ""
+          `(("d" "Search devel"     search ""
              ((org-agenda-files (quote ,devel-list))
               (org-agenda-search-view-max-outline-level 2)))
 
-            ("D" "Development TODO" tags-todo ""
+            ("D" "Tasks devel"      tags-todo ""
              ((org-agenda-files (quote ,devel-list))))
 
-            ("i" "Ideas"            search ""
+            ("i" "Search ideas"     search ""
              ((org-agenda-files (quote ,ideas-list))
               (org-agenda-search-view-max-outline-level 2)
+              (org-agenda-prefix-format "")))
+
+            ("I" "Tasks ideas"      tags "+LEVEL=2"
+             ((org-agenda-files (quote ,ideas-list))
               (org-agenda-prefix-format "")))
 
             ("j" "Math log"         search ""
