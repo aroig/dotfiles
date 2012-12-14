@@ -121,19 +121,19 @@
 
   ;; Bookmarks
   (setq mu4e-bookmarks
-        '(("tag:\\\\Inbox AND flag:unread"     "New"                 ?n)
-          ("tag:\\\\Inbox AND date:30d..now"   "Inbox"               ?i)
+        '(("(tag:\\\\Inbox OR tag:\\\\Sent) AND flag:unread"      "New"                 ?n)
+          ("(tag:\\\\Inbox OR tag:\\\\Sent) AND date:30d..now"    "Inbox"               ?i)
 
-          ("tag:research AND date:30d..now"    "Research"            ?r)
-          ("tag:teaching AND date:30d..now"    "Teaching"            ?t)
-          ("tag:upc AND date:30d..now"         "University"          ?u)
-          ("tag:devel AND date:30d..now"       "Development"         ?d)
-          ("tag:list AND date:30d..now"        "Lists"               ?l)
+          ("tag:research AND date:30d..now"                       "Research"            ?r)
+          ("tag:teaching AND date:30d..now"                       "Teaching"            ?t)
+          ("tag:upc AND date:30d..now"                            "University"          ?u)
+          ("tag:devel AND date:30d..now"                          "Development"         ?d)
+          ("tag:list AND date:30d..now"                           "Lists"               ?l)
 
-          ("tag:news AND date:30d..now"        "News"                ?s)
-          ("tag:arxiv AND date:30d..now"       "Arxiv"               ?a)
-          ("tag:blogs AND date:30d..now"       "Blogs"               ?b)
-          ("tag:watchlist"                     "Watchlist"           ?w)
+          ("tag:news AND date:30d..now"                           "News"                ?s)
+          ("tag:arxiv AND date:30d..now"                          "Arxiv"               ?a)
+          ("tag:blogs AND date:30d..now"                          "Blogs"               ?b)
+          ("tag:watchlist"                                        "Watchlist"           ?w)
           ))
 
   ;; Times and dates
