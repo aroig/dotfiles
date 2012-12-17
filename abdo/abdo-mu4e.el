@@ -122,15 +122,17 @@
   ;; Bookmarks
   (setq mu4e-bookmarks
         '(("flag:unread"                                          "New"                 ?n)
-          ("(tag:\\\\Inbox OR tag:\\\\Sent) AND date:30d..now"    "Inbox"               ?i)
+          ("(tag:\\\\Inbox OR tag:\\\\Sent) AND date:365d..now"   "Inbox"               ?i)
+          ("tag:\\\\Sent AND date:365d..now"                      "Sent"                ?s)
+          ("tag:\\\\Starred"                                      "Starred"             ?*)
 
-          ("tag:research AND date:30d..now"                       "Research"            ?r)
-          ("tag:teaching AND date:30d..now"                       "Teaching"            ?t)
-          ("tag:upc AND date:30d..now"                            "University"          ?u)
-          ("tag:devel AND date:30d..now"                          "Development"         ?d)
-          ("tag:list AND date:30d..now"                           "Lists"               ?l)
+          ("tag:research AND date:365d..now"                      "Research"            ?r)
+          ("tag:teaching AND date:365d..now"                      "Teaching"            ?t)
+          ("tag:upc AND date:365d..now"                           "University"          ?u)
+          ("tag:devel AND date:365d..now"                         "Development"         ?d)
+          ("tag:list AND date:365d..now"                          "Lists"               ?l)
 
-          ("tag:news AND date:30d..now"                           "News"                ?s)
+          ("tag:news AND date:30d..now"                           "News"                ?e)
           ("tag:arxiv AND date:30d..now"                          "Arxiv"               ?a)
           ("tag:blogs AND date:30d..now"                          "Blogs"               ?b)
           ("tag:watchlist"                                        "Watchlist"           ?w)
