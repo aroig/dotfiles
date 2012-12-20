@@ -46,26 +46,6 @@ stty start undef
 
 
 #------------------------------
-# Auto tmux
-#------------------------------
-
-# if ssh outside tmux
-if [[ "$SSH_TTY" != "" && "$TMUX" == "" && "$NOTMUX" == "" ]]; then
-    if which tmux 2>&1 >/dev/null; then
-	if [[ "$(tmux has-session -t ssh 2> /dev/null; echo $?)" == "0" ]]; then
-            tmux new-session -t ssh \; set-option destroy-unattached        
-	else
-	    tmux new-session -s ssh
-	fi
-
-	exit 0
-    else
-	echo "tmux not installed. Starting zsh now"
-    fi
-fi
-
-
-#------------------------------
 # History stuff
 #------------------------------
 HISTFILE=~/.histfile
@@ -94,6 +74,25 @@ if [ -f $HOME/.aliases ]; then
 fi
 
 
+#------------------------------
+# Auto tmux
+#------------------------------
+
+# if ssh outside tmux
+if [[ "$SSH_TTY" != "" && "$TMUX" == "" && "$NOTMUX" == "" ]]; then
+    if which tmux 2>&1 >/dev/null; then
+        tmux-session ssh
+	exit 0
+    else
+	echo "tmux not installed. Starting zsh now"
+    fi
+fi
+
+
+#------------------------------
+# Loading generic stuff
+#------------------------------
+
 # Stop here if unknown terminal
 case $TERM in
     rxvt*|screen*|xterm*|linux*)
@@ -104,10 +103,6 @@ case $TERM in
 	;;
 esac
 
-
-#------------------------------
-# Loading generic stuff
-#------------------------------
 
 # Load colors if possible
 autoload -U colors zsh/terminfo
