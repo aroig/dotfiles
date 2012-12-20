@@ -49,3 +49,6 @@
 [submodule "modes/markdown-mode"]
 	path = modes/markdown-mode
 	url = git://jblevins.org/git/markdown-mode.git
+[submodule "packages/powerline"]
+	path = packages/powerline
+	url = https://github.com/milkypostman/powerline.git
