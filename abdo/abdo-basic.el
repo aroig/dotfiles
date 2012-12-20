@@ -13,6 +13,9 @@
 (transient-mark-mode t)                       ;; Some text highlighting
 (show-paren-mode t)                           ;; Matching parenthesis
 
+;; Enable narrowing
+(put 'narrow-to-region 'disabled nil)
+
 ;; Default Fill column. This is overriden in latex or org-mode.
 (setq-default fill-column 80)
 

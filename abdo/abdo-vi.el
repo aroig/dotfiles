@@ -3,51 +3,28 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; http://www.emacswiki.org/emacs/Evil
 
-
 (defun evil-undefine ()
  (interactive)
  (let (evil-mode-map-alist)
    (call-interactively (key-binding (this-command-keys)))))
 
+
 (defun abdo-vi-things ()
   ;; by default, start with emacs state.
-  (setq evil-default-state 'emacs)
+  (setq evil-idefault-state 'emacs)
 
-  ;; Actions specific to certain modes. Mainly setup default state.
-  (add-hook 'text-mode-hook (lambda ()
-			      (make-local-variable 'evil-default-state)
-			      (setq evil-default-state 'normal)))
+  ;; initial state by mode
+  (evil-set-initial-state 'prog-mode 'normal)
+  (evil-set-initial-state 'text-mode 'normal)
+  (evil-set-initial-state 'org-mode  'normal)
+  (evil-set-initial-state 'rcirc-mode 'normal)
+  (evil-set-initial-state 'git-commit-mode 'insert)
+  (evil-set-initial-state 'inferior-python-mode 'emacs)
 
-  (add-hook 'prog-mode-hook (lambda ()
-			      (make-local-variable 'evil-default-state)
-			      (setq evil-default-state 'normal)))
 
-  (add-hook 'inferior-python-mode-hook (lambda ()
-			      (make-local-variable 'evil-default-state)
-			      (setq evil-default-state 'emacs)))
-
-  (add-hook 'lua-mode-hook (lambda ()
-			      (make-local-variable 'evil-default-state)
-			      (setq evil-default-state 'normal)))
-
-  (add-hook 'git-commit-mode-hook (lambda ()
-			      (make-local-variable 'evil-default-state)
-			      (setq evil-default-state 'insert)))
-
+  ;; org mode bindings
   (add-hook 'org-mode-hook (lambda ()
- 			     (define-key evil-normal-state-map (kbd "K") 'org-open-at-point)
-			     (make-local-variable 'evil-default-state)
-			     (setq evil-default-state 'normal)))
-
-  (add-hook 'rcirc-mode-hook (lambda ()
-                               (make-local-variable 'evil-default-state)
-                               (setq evil-default-state 'normal)))
-
-
-  ;; I can setup initial state with evil-set-initial-state. But then I would
-  ;; have to go mode by mode.  If I use hooks, I can use the fact that many
-  ;; buffers derive from text-mode and run text-mode hook!
-
+                             (define-key evil-normal-state-map (kbd "K") 'org-open-at-point)))
 
 
   ; preserve emacs keybindings.

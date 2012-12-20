@@ -35,6 +35,9 @@
 ;; Apply color theme
 (require 'zenburn-theme)
 
+;; modeline tweaks
+(require 'abdo-modeline)
+
 ;; Apply root colors if user is root
 (let ((username (substring (shell-command-to-string "id -n -u") 0 -1)))
   (when (string= username "root")
@@ -92,7 +95,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Basic stuff
-(require 'evil)
+(require 'evil)                        ;; vi-like keys
 (require 'ido)                         ;; Ido prompt
 (require 'uniquify)                    ;; Make buffer names unique
 (require 'ibuffer)                     ;; Nice buffer list
@@ -113,10 +116,6 @@
 (require 'git-commit)
 (require 'rebase-mode)
 (require 'vcs-hacks)
-
-;; powerline
-(when (eq window-system 'x)
-  (require 'powerline))
 
 ;; email
 (when (locate-library "mu4e")
@@ -151,7 +150,6 @@
 ;; Other personal stuff
 (require 'abdo-vi)                     ;; Settings for vi mode
 (require 'abdo-basic)                  ;; Basic emacs UI enhancements
-(require 'abdo-powerline)              ;; status line
 (require 'abdo-languages)              ;; Spell checking stuff
 (require 'abdo-utils)                  ;; Utility stuff
 (require 'abdo-helm)                   ;; Personal helm stuff
