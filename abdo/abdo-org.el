@@ -25,6 +25,7 @@
   ;; Some org files
   (setq abdo-org-devel-file-list '("comp/devel.org" "comp/software.org"))
   (setq abdo-org-math-ideas-file "math/ideas.org")
+  (setq abdo-org-math-notes-file "math/notes.org")
   (setq abdo-org-math-journal-file "math/log.org")
   (setq abdo-org-personal-journal-file "perso/log.org")
 
@@ -356,6 +357,7 @@
 (defun abdo-org-custom-agenda-setup ()
   (let ((devel-list   (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-devel-file-list))
         (ideas-list   (list (concat org-directory-wiki abdo-org-math-ideas-file)))
+        (notes-list   (list (concat org-directory-wiki abdo-org-math-notes-file)))
         (mathlog-list (list (concat org-directory-wiki abdo-org-math-journal-file))))
     (setq org-agenda-custom-commands
           `(("d" "Search devel"     search ""
@@ -377,6 +379,11 @@
             ("j" "Math log"         search ""
              ((org-agenda-files (quote ,mathlog-list))
               (org-agenda-search-view-max-outline-level 4)
+              (org-agenda-prefix-format "")))
+
+            ("n" "Math notes"     search ""
+             ((org-agenda-files (quote ,notes-list))
+              (org-agenda-search-view-max-outline-level 2)
               (org-agenda-prefix-format "")))
 
             ("r" "Research"         tags "+paper+LEVEL=1")
