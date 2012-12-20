@@ -114,6 +114,10 @@
 (require 'rebase-mode)
 (require 'vcs-hacks)
 
+;; powerline
+(when (eq window-system 'x)
+  (require 'powerline))
+
 ;; email
 (when (locate-library "mu4e")
   (require 'mu4e)                      ;; email client
@@ -147,6 +151,7 @@
 ;; Other personal stuff
 (require 'abdo-vi)                     ;; Settings for vi mode
 (require 'abdo-basic)                  ;; Basic emacs UI enhancements
+(require 'abdo-powerline)              ;; status line
 (require 'abdo-languages)              ;; Spell checking stuff
 (require 'abdo-utils)                  ;; Utility stuff
 (require 'abdo-helm)                   ;; Personal helm stuff
