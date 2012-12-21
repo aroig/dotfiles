@@ -21,6 +21,11 @@
   (evil-set-initial-state 'git-commit-mode 'insert)
   (evil-set-initial-state 'inferior-python-mode 'emacs)
 
+  (evil-set-initial-state 'special-mode 'emacs)
+  (evil-set-initial-state 'mu4e-main-mode 'emacs)
+  (evil-set-initial-state 'mu4e-headers-mode 'emacs)
+  (evil-set-initial-state 'mu4e-view-mode 'emacs)
+
 
   ;; org mode bindings
   (add-hook 'org-mode-hook (lambda ()
