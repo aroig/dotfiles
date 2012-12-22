@@ -98,7 +98,11 @@
 
 
 (defun powerline-mode-list (face)
-  (let ((major (propertize (format-mode-line (downcase mode-name))
+  (let ((major (propertize
+                 (format-mode-line
+                  (cond
+                   ((listp mode-name) (downcase (car mode-name)))
+                   ((stringp mode-name) (downcase mode-name))))
 
            'help-echo "Major mode\n\ mouse-1: Display major mode menu\n\ mouse-2: Show help for major mode\n\ mouse-3: Toggle minor modes"
 
@@ -122,7 +126,10 @@
                         map)))
                           (split-string (format-mode-line minor-mode-alist)) " ")))
 
-    (propertize (concat " " major " | " minor) 'face face)))
+    (if (not (string= minor ""))
+        (propertize (concat " " major " | " minor) 'face face)
+      (propertize (concat " " major) 'face face))))
+
 
 
 
