@@ -42,6 +42,11 @@
 (let ((username (substring (shell-command-to-string "id -n -u") 0 -1)))
   (when (string= username "root")
     (set-face-background 'mode-line "#4b0b0b")
+
+    (set-face-background 'powerline-active0 "#4b0b0b")
+    (set-face-background 'powerline-active1 "#872727")
+    (set-face-background 'powerline-active2 "#b74747")
+
     (set-face-background 'region "#4b0b0b")))
 
 

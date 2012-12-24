@@ -86,7 +86,7 @@
 
 (defun abdo-evil-face (&optional state)
     ;; Don't propertize if we're not in the selected buffer
-    (cond ((not (eq (current-buffer) (car (buffer-list)))) 'powerline-evil-inactive)
+    (cond ;((not (eq (current-buffer) (car (buffer-list)))) 'powerline-evil-inactive)
           ((evil-normal-state-p)   'powerline-evil-normal)
           ((evil-insert-state-p)   'powerline-evil-insert)
           ((evil-visual-state-p)   'powerline-evil-visual)
@@ -160,11 +160,11 @@
                         (face1     (if active 'powerline-active1 'powerline-inactive1))
                         (face2     (if active 'powerline-active2 'powerline-inactive2))
                         (evilstate (abdo-evil-state))
-                        (evilface  (abdo-evil-face evilstate))
+                        (evilface  (if active (abdo-evil-face evilstate) 'powerline-evil-inactive))
                         (lhs (list
                               ; evil state
                               (propertize (format " %s " evilstate) 'face evilface)
-                              (powerline-arrow-right evilface nil)
+                              (powerline-arrow-right evilface face0)
 
                               ; buffer id
                               (powerline-raw "%b " face0 'l)
