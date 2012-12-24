@@ -142,7 +142,7 @@
   (setq mu4e-headers-date-format "%d %b %Y")
   (setq mu4e-headers-time-format "%H:%M")
 
-  ;; show threds
+  ;; show threads
   (setq mu4e-headers-show-threads t)
 
   ;; fields in list view
@@ -155,7 +155,7 @@
 
   ;; Fields on message view
   (setq mu4e-view-fields
-        '(:from :to  :cc :subject :tags :flags :date :maildir :attachments :signature))
+        '(:from :to  :cc :subject :mailing-list :tags :flags :date :maildir :attachments :signature))
 
   ;; smtp mail setting
   (setq send-mail-function 'message-send-mail-with-sendmail)
