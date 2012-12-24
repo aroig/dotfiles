@@ -20,10 +20,12 @@ set showmatch                     " match parenthesis
 " Status line
 " --------------------
 set showcmd                       " show partial command 
-set ruler                         " show cursor position
 set laststatus=2                  " always display status line
 
+"set ruler                         " show cursor position
 
+"set statusline=%<\ %{mode()}\ >\ %f\ >\ %y%=
+"set statusline+=<\ %l:%-2c\ %P\ <\ %m%r%{strlen(&fenc)?&fenc:&enc}\ %{&ff}\ 
 
 " Usability
 " --------------------

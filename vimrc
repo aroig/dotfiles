@@ -35,24 +35,24 @@ set expandtab
 
 
 
-" UI stuff
-" --------------------
-
-" statusline
-set statusline=%t                                         "tail of the filename
-set statusline+=\ [%{strlen(&fenc)?&fenc:'none'},%{&ff}]  "file encoding, file format
-set statusline+=\ %m%r                                    "modified, read only flags
-set statusline+=\ %{&fo}                                  "formatoptions
-set statusline+=\ %y                                      "filetype
-set statusline+=%=                                        "left/right separator
-set statusline+=%c,%l/%L                                  "column,line/total lines
-set statusline+=\ \ %P                                    "percent through file
-
-
-
 " Source vimrc.d stuff
 " --------------------
 source ~/.vim/vimrc.d/ui              " UI stuff
 source ~/.vim/vimrc.d/mappings        " personal mappings
 
+
+
+" UI stuff
+" --------------------
+
+" statusline
+set statusline=\ %{toupper(mode())}\ \|                    "mode
+set statusline+=\ %t\ \|                                   "tail of the filename
+set statusline+=\ %{&fo}                                   "formatoptions
+set statusline+=\ %y                                       "filetype
+set statusline+=%=                                         "left/right separator
+set statusline+=%l:%-2c\ %P\ \|                            "line:column percent
+set statusline+=\ %m%r                                     "modified, read only flags
+set statusline+=\ %{strlen(&fenc)?&fenc:'none'}\ %{&ff}    "file encoding, file format
+set statusline+=\                 
 

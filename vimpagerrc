@@ -52,9 +52,14 @@ source ~/.vim/vimrc.d/mappings        " personal mappings
 " UI stuff
 " --------------------
 
+" disable mouse (can copy the urxvt way)
+set mouse=
+
+
 " statusline
-set statusline=\ [%{strlen(&fenc)?&fenc:'none'},%{&ff}]  "file encoding, file format
-set statusline+=\ %y        "filetype
-set statusline+=%=         "left/right separator
-set statusline+=%c,%l/%L   "cursor column,cursor line/total lines
-set statusline+=\ \ %P     "percent through file
+set statusline=\ %{toupper(mode())}\ \|                    "mode
+set statusline+=\ %y                                       "filetype
+set statusline+=%=                                         "left/right separator
+set statusline+=%l:%-2c\ %P\ \|                            "line:column percent
+set statusline+=\ %{strlen(&fenc)?&fenc:'none'}\ %{&ff}    "file encoding, file format
+set statusline+=\                 

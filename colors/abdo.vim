@@ -96,9 +96,19 @@ hi diffFile        ctermfg=Red          cterm=none
 hi diffLine        ctermfg=DarkCyan     cterm=none
 
 
+" Vim
+" ----------------------------------------------------------
+
+hi Cursor          ctermfg=White        cterm=bold
+hi StatusLine      ctermfg=Gray         cterm=reverse
+
+"hi StatusLineNC    guifg=#2e3330 guibg=#88b090
+
+
+
 " Other Stuff
 " ----------------------------------------------------------
-hi Cursor          ctermfg=White        cterm=bold
+
 
 hi Directory       ctermfg=cyan     cterm=bold
 hi ErrorMsg        ctermfg=red      cterm=bold
@@ -120,8 +130,6 @@ hi MoreMsg         ctermfg=white    cterm=none
 
 "hi SpecialKey      guifg=#9ece9e
 
-"hi StatusLine      ctermfg=white    cterm=reverse
-"hi StatusLineNC    guifg=#2e3330 guibg=#88b090
 
 hi StorageClass    ctermfg=cyan     cterm=none
 
