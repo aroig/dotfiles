@@ -142,8 +142,12 @@
   (setq mu4e-headers-date-format "%d %b %Y")
   (setq mu4e-headers-time-format "%H:%M")
 
-  ;; show threads
+  ;; threading and duplicates
   (setq mu4e-headers-show-threads t)
+  (setq mu4e-headers-results-limit 500)
+  (setq mu4e-headers-skip-duplicates t)
+  (setq mu4e-headers-include-related t)
+
 
   ;; fields in list view
   (setq mu4e-headers-fields
