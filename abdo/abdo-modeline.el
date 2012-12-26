@@ -127,8 +127,8 @@
                           (split-string (format-mode-line minor-mode-alist)) " ")))
 
     (if (not (string= minor ""))
-        (propertize (concat " " major " | " minor) 'face face)
-      (propertize (concat " " major) 'face face))))
+        (propertize (concat " " major " | " minor " ") 'face face)
+      (propertize (concat " " major " ") 'face face))))
 
 
 
@@ -172,8 +172,12 @@
 
                               ; modes
                               (powerline-mode-list face1)
-                              (powerline-raw mode-line-process face1 'l)
                               (powerline-arrow-right face1 face2)
+
+                              ; process
+                              (when mode-line-process
+                                (powerline-raw (format "%s " mode-line-process) face2 'l))
+
 
                               ; vcs
                               (powerline-vc face2)
