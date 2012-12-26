@@ -65,7 +65,7 @@
   (flyspell-mode 0)
 
   ;; Activate notifications
-  (abdo-org-activate-appt)
+  ;; (abdo-org-activate-appt)
 )
 
 (defun abdo-org-agenda-things()
@@ -418,6 +418,7 @@
   (display-time)                 ;; time display is required for this...
 
 
+  ;; this considerably slows down changes in agenda view
   (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 )
 
