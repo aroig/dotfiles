@@ -192,15 +192,23 @@ vicious.register(myw.mail, sheval,
 		    local color
 		    local num = tonumber(args[1])
 
-		    if num == 0 then
+		    if num == 0 or num == nil then
 		       color = beautiful.fg_green_widget
 		       myw.mailicon:set_image(beautiful.widget_maile)
+               if num == nil then
+                   color = beautiful.fg_red_widget
+                   myw.mailicon:set_image(beautiful.widget_mailf)
+                   num = "?"
+               else
+                   color = beautiful.fg_green_widget
+                   myw.mailicon:set_image(beautiful.widget_maile)
+               end
 		    else
 		       if num ~= myw.mail_count then
 			  local text
 			  if num == 1 then
 			     text = "There is one new message"
-			  else
+              else
 			     text = string.format("There are %d new messages", num)
 			  end
 			  naughty.notify({title = "New Mail",
@@ -212,7 +220,7 @@ vicious.register(myw.mail, sheval,
 		       myw.mailicon:set_image(beautiful.widget_mailf)
 		    end
 
-		    return string.format("<span color='%s'>%d</span>", color, num)
+		    return string.format("<span color='%s'>%s</span>", color, tostring(num))
 		 end, 60, "mutag -C -p mail -q 'flag:unread AND tag:\\\\\\\\Inbox'")
 
 
