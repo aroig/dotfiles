@@ -40,13 +40,14 @@
     ("zenburn-fg"       . "#DCDCCC")
     ("zenburn-fg-1"     . "#656555")
     ("zenburn-bg-2"     . "#000000")
-    ("zenburn-bg-1"     . "#2B2B2B")
-    ("zenburn-bg-05"    . "#383838")
-    ("zenburn-bg"       . "#3F3F3F")
-    ("zenburn-bg+05"    . "#494949")
-    ("zenburn-bg+1"     . "#4F4F4F")
-    ("zenburn-bg+2"     . "#5F5F5F")
-    ("zenburn-bg+3"     . "#6F6F6F")
+    ("zenburn-bg-1"     . "#1B1B1B")
+    ("zenburn-bg-05"    . "#282828")
+    ("zenburn-bg"       . "#2F2F2F")
+    ("zenburn-bg+05"    . "#393939")
+    ("zenburn-bg+1"     . "#3F3F3F")
+    ("zenburn-bg+2"     . "#4F4F4F")
+    ("zenburn-bg+3"     . "#5F5F5F")
+    ("zenburn-bg+4"     . "#6F6F6F")
     ("zenburn-red+1"    . "#DCA3A3")
     ("zenburn-red"      . "#CC9393")
     ("zenburn-red-1"    . "#BC8383")
@@ -74,7 +75,33 @@
     ("zenburn-blue-3"   . "#5C888B")
     ("zenburn-blue-4"   . "#4C7073")
     ("zenburn-blue-5"   . "#366060")
-    ("zenburn-magenta"  . "#DC8CC3"))
+    ("zenburn-magenta"  . "#DC8CC3")
+
+    ;; saturated colors
+    ("zenburn-sat-yellow"        . "#FFE241")
+    ("zenburn-sat-yellow-1"      . "#E1BB37")
+    ("zenburn-sat-orange"        . "#FF8F35")
+    ("zenburn-sat-orange-1"      . "#DD7621")
+    ("zenburn-sat-red"           . "#D54343")
+    ("zenburn-sat-red-1"         . "#B53333")
+    ("zenburn-sat-green"         . "#00CD66")  ;; SpringGreen3
+    ("zenburn-sat-green-1"       . "#008B45")  ;; SpringGreen4
+    ("zenburn-sat-lightgreen"    . "#9AFF9A")  ;; PaleGreen1
+    ("zenburn-sat-lightgreen-1"  . "#7CCD7C")  ;; PaleGreen3
+    ("zenburn-sat-blue"          . "#67B1F6")
+    ("zenburn-sat-blue-1"        . "#448CD0")
+    ("zenburn-sat-purple"        . "#9B30FF")  ;; purple1
+
+    ;; dark colors
+    ("zenburn-dark-brown"        . "#533319")
+    ("zenburn-dark-green"        . "#2D5842")
+    ("zenburn-dark-red"          . "#681313")
+    ("zenburn-dark-blue"         . "#2F4276")
+
+    ;; root colors
+    ("zenburn-root-1"            . "#4B0B0B")
+    ("zenburn-root"              . "#872727")
+    ("zenburn-root+1"            . "#B74747"))
   "List of Zenburn colors.
 Each element has the form (NAME . HEX).
 
