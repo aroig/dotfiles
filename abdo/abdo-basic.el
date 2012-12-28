@@ -37,6 +37,9 @@
 
 (setq column-number-mode t)
 
+;; don't raise frames when switching buffers
+(setq server-raise-frame nil)
+
 ;; All questions y-or-n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
