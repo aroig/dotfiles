@@ -244,8 +244,11 @@ Also bind `class' to ((class color) (min-colors 89))."
 ;;;;; auctex
    `(font-latex-bold-face ((t (:inherit bold))))
    `(font-latex-warning-face ((t (:inherit font-lock-warning-face))))
-   `(font-latex-sectioning-5-face ((t (:foreground ,zenburn-red :weight bold ))))
+   `(font-latex-sectioning-5-face ((t (:foreground ,zenburn-sat-orange-1 :weight bold :inherit fixed-pitch))))
    `(font-latex-sedate-face ((t (:foreground ,zenburn-yellow))))
+   `(font-latex-math-face ((t (:foreground ,zenburn-wood))))
+   `(font-latex-string-face ((t (:foreground ,zenburn-salmon))))
+   `(font-latex-slide-title-face ((t (:foreground ,zenburn-blue :weight bold))))
 ;;;;; auto-complete
    `(ac-candidate-face ((t (:background ,zenburn-bg+3 :foreground ,zenburn-bg-2))))
    `(ac-selection-face ((t (:background ,zenburn-blue-4 :foreground ,zenburn-fg))))
