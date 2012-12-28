@@ -7,6 +7,8 @@
 syn include @SAGE          syntax/sage.vim
 syn include @DOCSTRING     syntax/sagedocstr.vim
 
+" always sync from the start
+syn sync fromstart
 
 " Header from sage introspection output
 " ----------------------------------------------
