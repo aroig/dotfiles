@@ -45,6 +45,16 @@ source ~/.vim/vimrc.d/mappings        " personal mappings
 " UI stuff
 " --------------------
 
+" Use system clipboard. needs x-clipboard compiled in.
+set clipboard=unnamedplus
+
+
+" Enable mouse to scroll, select, etc
+set mouse=a
+set ttymouse=xterm2
+
+
+
 " statusline
 set statusline=\ %{toupper(mode())}\ \|                    "mode
 set statusline+=\ %t\ \|                                   "tail of the filename

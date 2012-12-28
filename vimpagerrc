@@ -55,6 +55,16 @@ source ~/.vim/vimrc.d/mappings        " personal mappings
 " disable mouse (can copy the urxvt way)
 set mouse=
 
+"enable mouse
+"set mouse=a
+"set ttymouse=xterm2
+
+" copy to clipboard on select
+" set clipboard=autoselect
+
+"map <C-c> :yank
+
+
 
 " statusline
 set statusline=\ %{toupper(mode())}\ \|                    "mode
