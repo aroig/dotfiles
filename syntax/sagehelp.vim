@@ -13,18 +13,15 @@ syn sync fromstart
 " Header from sage introspection output
 " ----------------------------------------------
 
-syn region sageHelpType  oneline matchgroup=sageHelpKey
-    \ start=/^Type:\s/
-    \ end=/$/
-    
-syn region sageHelpString    oneline matchgroup=sageHelpKey start=/^Base Class:\s/ end=/$/
-syn region sageHelpString    oneline matchgroup=sageHelpKey start=/^String Form:\s/ end=/$/
-syn region sageHelpNamespace oneline matchgroup=sageHelpKey start=/^Namespace:\s/ end=/$/
-syn region sageHelpFile      oneline matchgroup=sageHelpKey start=/^Loaded File:\s/ end=/$/
-syn region sageHelpFile      oneline matchgroup=sageHelpKey start=/^Source File:\s/ end=/$/
+syn region sageHelpType      oneline matchgroup=sageHelpKey start=/^Type:/        end=/$/    
+syn region sageHelpString    oneline matchgroup=sageHelpKey start=/^Base Class:/  end=/$/
+syn region sageHelpString    oneline matchgroup=sageHelpKey start=/^String Form:/ end=/$/
+syn region sageHelpNamespace oneline matchgroup=sageHelpKey start=/^Namespace:/   end=/$/
+syn region sageHelpFile      oneline matchgroup=sageHelpKey start=/^Loaded File:/ end=/$/
+syn region sageHelpFile      oneline matchgroup=sageHelpKey start=/^Source File:/ end=/$/
 
 syn region sageHelpDefinition oneline matchgroup=sageHelpKey
-    \ start=/^Definition:\s/
+    \ start=/^Definition:/
     \ end=/$/
     \ contains=@SAGE
 
@@ -41,8 +38,11 @@ syn region sageHelpDocstring matchgroup=sageHelpKey
       
 " Highlighting
 " ----------------------------------------------
+hi def link sageHelpNamespace    Identifier
+hi def link sageHelpType         Identifier
 hi def link sageHelpKey          Statement
 hi def link sageHelpString       String
 hi def link sageHelpFile         Identifier
+
 
 let b:current_syntax = "sagehelp"

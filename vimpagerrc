@@ -31,9 +31,13 @@ function! GetVimAncestors()
 endfunction
 
 let ancestors = GetVimAncestors()
+
 if match(ancestors, "sage") != -1
     autocmd VimEnter * set ft=sagehelp
 
+elseif match(ancestors, "ipython") != -1
+    autocmd VimEnter * set ft=ipythonhelp
+    
 elseif match(ancestors, "git") != -1
     autocmd VimEnter * set ft=git
 
