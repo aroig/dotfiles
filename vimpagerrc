@@ -24,13 +24,21 @@ function! GetVimAncestors()
     let pid=getpid()        
     while pid > 1
         let pname = system("ps -o comm= -p " . pid)
+        let pname = substitute(pname, '^[ \n]*\(.\{-}\)[ \n]*$', '\1', '')
+
+"        echo pid
+"        echo pname
+
         let pid = system("ps -o ppid= -p " . pid)
-        call insert(ancestors, substitute(pname, '^[ \n]*\(.\{-}\)[ \n]*$', '\1', ''))
+        let pid = substitute(pid, '^[ \n]*\(.\{-}\)[ \n]*$', '\1', '')        
+        
+        call insert(ancestors, pname)
     endwhile
     return ancestors
 endfunction
 
 let ancestors = GetVimAncestors()
+"echo ancestors
 
 if match(ancestors, "sage") != -1
     autocmd VimEnter * set ft=sagehelp
