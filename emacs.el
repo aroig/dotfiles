@@ -161,6 +161,7 @@
 (require 'abdo-irc)                    ;; Personal irc stuff
 (require 'abdo-devel)                  ;; Personal devel stuff
 (require 'abdo-keybindings)            ;; My personal keybindings
+(require 'abdo-yaml)                   ;; Yaml mode things
 
 ;; Unsure if I need it anymore
 ;; (require 'cl)                          ;; Common lisp
