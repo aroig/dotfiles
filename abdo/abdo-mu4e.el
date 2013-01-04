@@ -122,20 +122,21 @@
   ;; Bookmarks
   (setq mu4e-bookmarks
         '(("flag:unread"                                          "New"                 ?n)
-          ("(tag:\\\\Inbox OR tag:\\\\Sent) AND date:365d..now"   "Inbox"               ?i)
+          ("tag:\\\\Inbox AND date:365d..now"                     "Inbox"               ?i)
           ("tag:\\\\Sent AND date:365d..now"                      "Sent"                ?s)
           ("tag:\\\\Starred"                                      "Starred"             ?*)
 
           ("tag:research AND date:365d..now"                      "Research"            ?r)
           ("tag:teaching AND date:365d..now"                      "Teaching"            ?t)
           ("tag:upc AND date:365d..now"                           "University"          ?u)
-          ("tag:devel AND date:365d..now"                         "Development"         ?d)
-          ("tag:list AND date:365d..now"                          "Lists"               ?l)
 
-          ("tag:news AND date:30d..now"                           "News"                ?e)
-          ("tag:arxiv AND date:30d..now"                          "Arxiv"               ?a)
-          ("tag:blogs AND date:30d..now"                          "Blogs"               ?b)
+          ("tag:devel AND flag:unread"                            "Development"         ?d)
+          ("tag:list AND flag:unread"                             "Lists"               ?l)
+
           ("tag:watchlist"                                        "Watchlist"           ?w)
+          ("tag:news AND flag:unread"                             "News"                ?e)
+          ("tag:arxiv AND flag:unread"                            "Arxiv"               ?a)
+          ("tag:blogs AND flag:unread"                            "Blogs"               ?b)
           ))
 
   ;; Times and dates
@@ -145,7 +146,7 @@
   ;; threading and duplicates
   (setq mu4e-headers-show-threads t)
   (setq mu4e-headers-results-limit 500)
-  (setq mu4e-headers-skip-duplicates t)
+;  (setq mu4e-headers-skip-duplicates t)
   (setq mu4e-headers-include-related t)
 
 
