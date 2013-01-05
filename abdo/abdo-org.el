@@ -10,6 +10,7 @@
   ;; WARNING: I'm not sure I'm using attach-subdirectory right.
   (setq abdo-org-main-file "main.org")
   (setq abdo-org-notes-file "capture.org")
+
   (setq abdo-org-attach-subdirectory "data/")
   (setq abdo-org-dokuwiki-subdirectory "dokuwiki/")
   (setq abdo-org-templates-subdirectory "tpl/")
@@ -22,20 +23,47 @@
   ;; Where to store latex preview images
   (setq org-latex-preview-ltxpng-directory (concat org-directory "ltxpng/"))
 
+
+  ;; Reading file lists
+  (setq abdo-org-papers-file-list
+        (let ((default-directory org-directory-wiki))
+          (file-expand-wildcards "papers/*.org")))
+
+  (setq abdo-org-proj-file-list
+        (let ((default-directory org-directory-wiki))
+          (file-expand-wildcards "proj/*.org")))
+
+  (setq abdo-org-comp-file-list
+        (let ((default-directory org-directory-wiki))
+          (file-expand-wildcards "comp/*.org")))
+
+  (setq abdo-org-math-file-list
+        (let ((default-directory org-directory-wiki))
+          (file-expand-wildcards "math/*.org")))
+
+  (setq abdo-org-perso-file-list
+        (let ((default-directory org-directory-wiki))
+          (file-expand-wildcards "perso/*.org")))
+
+
   ;; Some org files
-  (setq abdo-org-devel-file-list '("comp/devel.org" "comp/software.org"))
-  (setq abdo-org-math-ideas-file "math/ideas.org")
+  (setq abdo-org-devel-notes-file "comp/notes.org")
+  (setq abdo-org-devel-ideas-file "comp/ideas.org")
+
   (setq abdo-org-math-notes-file "math/notes.org")
+  (setq abdo-org-math-ideas-file "math/ideas.org")
   (setq abdo-org-math-journal-file "math/log.org")
+
+  (setq abddo-org-personal-notes-file "perso/notes.org")
   (setq abdo-org-personal-journal-file "perso/log.org")
 
+
   ;; default place for notes
-  (setq org-default-notes-file (concat org-directory-wiki "lost-notes.org"))
+  (setq org-default-notes-file (concat org-directory-wiki "capture.org"))
 
   ;; Local Mobileorg directory. From within org I will only sync to this directory.
   (setq org-mobile-directory "/home/abdo/Devices/r2d2/sdcard/mobileorg")
   (setq org-mobile-inbox-for-pull (concat org-directory-wiki "mobile.org"))
-
 
   ;; Set agenda file list from a file.
   (setq org-agenda-files (concat org-directory abdo-org-agenda-file-list))
@@ -355,54 +383,93 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun abdo-org-custom-agenda-setup ()
-  (let ((devel-list   (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-devel-file-list))
-        (ideas-list   (list (concat org-directory-wiki abdo-org-math-ideas-file)))
-        (notes-list   (list (concat org-directory-wiki abdo-org-math-notes-file)))
-        (mathlog-list (list (concat org-directory-wiki abdo-org-math-journal-file))))
+  (let ((devel-list     (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-comp-file-list))
+        (research-list  (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-math-file-list))
+        (perso-list     (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-perso-file-list))
+        (papers-list     (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-papers-file-list))
+
+        (ideas-list     (list (concat org-directory-wiki abdo-org-math-ideas-file)))
+        (notes-list     (list (concat org-directory-wiki abdo-org-math-notes-file)))
+
+        (mathlog-list   (list (concat org-directory-wiki abdo-org-math-journal-file)))
+        (persolog-list   (list (concat org-directory-wiki abdo-org-personal-journal-file))))
     (setq org-agenda-custom-commands
-          `(("d" "Search devel"     search ""
+          `(
+            ("d" . "Development")
+
+            ("da" "Agenda"      agenda ""
+             ((org-agenda-files (quote ,devel-list))))
+
+            ("ds" "Search"      search ""
              ((org-agenda-files (quote ,devel-list))
               (org-agenda-search-view-max-outline-level 2)))
 
-            ("D" "Tasks devel"      tags-todo ""
+            ("dt" "Todo"        tags-todo ""
              ((org-agenda-files (quote ,devel-list))))
 
-            ("i" "Search ideas"     search ""
+
+;            ("dp" "Projects"         tags "+project+LEVEL=1")
+;            ("dP" "Projects TODO"    tags-todo "+project")
+
+
+
+            ("r" . "Research")
+
+            ("ra" "Agenda"          agenda ""
+             ((org-agenda-files (quote ,(append research-list papers-list)))))
+
+            ("rs" "Search"          search ""
+             ((org-agenda-files (quote ,(append research-list papers-list)))
+              (org-agenda-search-view-max-outline-level 2)))
+
+            ("ri" "Ideas"           search ""
              ((org-agenda-files (quote ,ideas-list))
               (org-agenda-search-view-max-outline-level 2)
               (org-agenda-prefix-format "")))
 
-            ("I" "Tasks ideas"      tags "+LEVEL=2"
-             ((org-agenda-files (quote ,ideas-list))
-              (org-agenda-prefix-format "")))
-
-            ("j" "Math log"         search ""
-             ((org-agenda-files (quote ,mathlog-list))
-              (org-agenda-search-view-max-outline-level 4)
-              (org-agenda-prefix-format "")))
-
-            ("n" "Math notes"     search ""
+            ("rn" "Notes"           search ""
              ((org-agenda-files (quote ,notes-list))
               (org-agenda-search-view-max-outline-level 2)
               (org-agenda-prefix-format "")))
 
-            ("r" "Research"         tags "+paper+LEVEL=1")
+            ("rj" "Journal"         search ""
+             ((org-agenda-files (quote ,mathlog-list))
+              (org-agenda-search-view-max-outline-level 4)
+              (org-agenda-prefix-format "")))
 
-            ("R" "Research TODO"    tags-todo "+paper")
+            ("rp" "Papers"          tags "+paper+LEVEL=1"
+             ((org-agenda-files (quote ,papers-list))
+              (org-agenda-search-view-max-outline-level 1)))
 
-            ("p" "Projects"         tags "+project+LEVEL=1")
+            ("ru" "Ideas"           tags "+LEVEL=2"
+             ((org-agenda-files (quote ,ideas-list))
+              (org-agenda-prefix-format "")))
 
-            ("P" "Projects TODO"    tags-todo "+project")
+            ("rt" "Todo"            tags-todo ""
+             ((org-agenda-files (quote ,(append research-list papers-list)))))
+
+
+
+            ("p" . "Personal")
+
+            ("pa" "Agenda"      agenda ""
+             ((org-agenda-files (quote ,perso-list))))
+
+            ("ps" "Search"      search ""
+             ((org-agenda-files (quote ,perso-list))
+              (org-agenda-search-view-max-outline-level 2)))
+
+            ("pt" "Todo"        tags-todo ""
+             ((org-agenda-files (quote ,perso-list))))
+
+            ("pj" "Journal"     search ""
+             ((org-agenda-files (quote ,persolog-list))
+              (org-agenda-search-view-max-outline-level 4)
+              (org-agenda-prefix-format "")))
+
+
             ))))
 
-
-(setq org-agenda-custom-commands
-      '(("c" "Desk Work" tags-todo "computer" ;; (1) (2) (3) (4)
-         ((org-agenda-files '("~/org/widgets.org" "~/org/clients.org")) ;; (5)
-          (org-agenda-sorting-strategy '(priority-up effort-down))) ;; (5) cont.
-         ("~/computer.html")) ;; (6)
-        ;; ...other commands here
-        ))
 
 
 ;; Appt
@@ -421,6 +488,7 @@
   ;; this considerably slows down changes in agenda view
   (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 )
+
 
 
 ;; Exports Projects
