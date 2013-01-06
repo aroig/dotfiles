@@ -150,14 +150,20 @@ myw.upicon:set_image(beautiful.widget_netup)
 
 -- Register widget
 vicious.register(myw.netwidget, vicious.widgets.net,
-		 function (widget, args)
-		    local up = args["{eth0 up_kb}"]
-		    local down = args["{eth0 down_kb}"]
+         function (widget, args)
+             local up = 0.0
+             local down = 0.0
 
-		    local downtxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_netdn_widget, down)
-		    local uptxt =   string.format('<span color="%s">%.0f</span>', beautiful.fg_netup_widget, up)
-		    local sep = string.format(' <span color="%s">\\</span> ', beautiful.fg_widget)
-		    return downtxt .. sep .. uptxt
+             if args["{eth0 up_kb}"] then  up = up + args["{eth0 up_kb}"] end
+             if args["{wlan0 up_kb}"] then up = up + args["{wlan0 up_kb}"] end
+
+             if args["{eth0 down_kb}"] then  down = down + args["{eth0 down_kb}"] end
+             if args["{wlan0 down_kb}"] then down = down + args["{wlan0 down_kb}"] end
+
+             local downtxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_netdn_widget, down)
+             local uptxt =   string.format('<span color="%s">%.0f</span>', beautiful.fg_netup_widget, up)
+             local sep = string.format(' <span color="%s">\\</span> ', beautiful.fg_widget)
+             return downtxt .. sep .. uptxt
 		 end, 3)
 
 --vicious.register(myw.nettooltip.widget, netcfg,
