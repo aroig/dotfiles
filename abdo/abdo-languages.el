@@ -12,11 +12,32 @@
 
   ;; Solve flyspell bug on maverick
   ;; http://stackoverflow.com/questions/1781762/enabling-flyspell-mode-gives-an-error
-  (setq flyspell-issue-welcome-flag nil)
+  ;(setq flyspell-issue-welcome-flag nil)
 
   ;; Use aspell instead of ispell. It's simply better !
   (setq ispell-program-name "aspell")
   (setq ispell-list-command "list")
+
+  ;; Dictionary list in my way
+  (setq ispell-dictionary-alist
+        '(("german" "[[:alpha:]]" "[^[:alpha:]]" "[']" t ("-d" "de") nil utf-8)
+          ("spanish" "[[:alpha:]]" "[^[:alpha:]]" "" t ("-d" "es") nil utf-8)
+          ("english" "[[:alpha:]]" "[^[:alpha:]]" "'" t ("-d" "en") nil utf-8)
+          ("british" "[[:alpha:]]" "[^[:alpha:]]" "'" t ("-d" "en_GB") nil utf-8)
+          ("american" "[[:alpha:]]" "[^[:alpha:]]" "'" t ("-d" "en_US") nil utf-8)
+          ("catalan" "[[:alpha:]]" "[^[:alpha:]]" "['·-]" t ("-d" "ca") nil utf-8)
+          ("french" "[[:alpha:]]" "[^[:alpha:]]" "['·-]" t ("-d" "fr") nil utf-8)
+          ))
+
+  ;; global default language
+  (setq ispell-dictionary "english")
+
+  ; (abdo-change-dictionary "english")
+  ;; Don't ask to save personal dict
+  (setq ispell-silently-savep t)
+
+  ;; Run hooks
+  (run-hooks 'abdo-ispell-hooks)
 
   ;; Enable flyspell mode
   (flyspell-mode 1)
@@ -29,31 +50,9 @@
   (ispell-change-dictionary dictionary)
 )
 
-(eval-after-load "ispell"
-  (progn
-    ;; Run hooks
-    (run-hooks 'abdo-ispell-hooks)
-
-    ;; Dictionary list in my way
-    (setq ispell-dictionary-alist
-      '(("german" "[[:alpha:]]" "[^[:alpha:]]" "[']" t ("-d" "de") nil utf-8)
-        ("spanish" "[[:alpha:]]" "[^[:alpha:]]" "" t ("-d" "es") nil utf-8)
-        ("english" "[[:alpha:]]" "[^[:alpha:]]" "'" t ("-d" "en") nil utf-8)
-        ("british" "[[:alpha:]]" "[^[:alpha:]]" "'" t ("-d" "en_GB") nil utf-8)
-        ("american" "[[:alpha:]]" "[^[:alpha:]]" "'" t ("-d" "en_US") nil utf-8)
-        ("catalan" "[[:alpha:]]" "[^[:alpha:]]" "['·-]" t ("-d" "ca") nil utf-8)
-        ("french" "[[:alpha:]]" "[^[:alpha:]]" "['·-]" t ("-d" "fr") nil utf-8)
-      )
-    )
-    (setq ispell-dictionary "english")      ;; Default language
-    (abdo-change-dictionary "english")
-    (setq ispell-silently-savep t)          ;; Don't ask to save personal dict
-  )
-)
 
 ;; Enable flyspell on text modes
 (add-hook 'text-mode-hook 'abdo-flyspell-things)
-
 
 
 
