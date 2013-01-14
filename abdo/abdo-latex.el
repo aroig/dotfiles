@@ -34,12 +34,14 @@
 
   (setq reftex-toc-shown nil)                    ;; Disable toc in reftex
 
-  (setq TeX-source-correlate-method 'synctex)    ;; Synctex
-  (setq TeX-source-correlate-mode t)
-  (setq TeX-source-correlate-start-server nil)   ;; Do not start server. Do not ask.
-  ; (setq TeX-source-correlate-start-server t)   ;; Not any more :)
+  ;; Don't need this the way I sync with zathura
 
-  (setq compilation-read-command nil)            ;; Don't ask the compilation command
+;  (setq TeX-source-correlate-method 'synctex)    ;; Synctex
+;  (setq TeX-source-correlate-mode t)
+;  (setq TeX-source-correlate-start-server t)     ;; Not any more :)
+
+  ;; Don't ask for the compilation command
+  (setq compilation-read-command nil)
 
   ;; Set PDF mode
   (TeX-PDF-mode t)
