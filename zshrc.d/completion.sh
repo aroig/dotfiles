@@ -53,5 +53,5 @@ zstyle ':completion::*:expand:*' tag-order all-expansions
 # SSH hosts                #
 #--------------------------#
 
-hosts=$(awk '/^Host / {printf("%s ",$2)}' ~/.ssh/config 2>/dev/null)
-zstyle ':completion:*:hosts' hosts $hosts
+#hosts=$(awk '/^Host / {printf("%s ",$2)}' ~/.ssh/config 2>/dev/null)
+#zstyle ':completion:*:hosts' hosts $hosts
