@@ -84,7 +84,8 @@
   (interactive)
 
   ;; enable draftools active comments
-  (setq LaTeX-indent-comment-start-regexp "%!\\|%")
+  (setq LaTeX-syntactic-comments nil)
+  ; (setq LaTeX-indent-comment-start-regexp "%!\\|%")  % only affects indentation, not filling
 
   ;; label prefix for comdiag
   (add-to-list 'LaTeX-label-alist '("comdiag" . LaTeX-equation-label))
