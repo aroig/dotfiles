@@ -266,6 +266,7 @@
   (setq org-src-fontify-natively t)
 
   ;; Adds extra packages on the header
+  (add-to-list 'org-export-latex-packages-alist '("" "abdofonts" t))
   (add-to-list 'org-export-latex-packages-alist '("" "abdoalias" t))
   (add-to-list 'org-export-latex-packages-alist '("" "comdiag" t))
 
