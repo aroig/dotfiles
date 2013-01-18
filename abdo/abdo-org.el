@@ -446,12 +446,12 @@
 
             ("ri" "Ideas"           search ""
              ((org-agenda-files (quote ,ideas-list))
-              (org-agenda-search-view-max-outline-level 2)
+              (org-agenda-search-view-max-outline-level 3)
               (org-agenda-prefix-format "")))
 
             ("rn" "Notes"           search ""
              ((org-agenda-files (quote ,notes-list))
-              (org-agenda-search-view-max-outline-level 2)
+              (org-agenda-search-view-max-outline-level 3)
               (org-agenda-prefix-format "")))
 
             ("rj" "Journal"         search ""
@@ -463,7 +463,7 @@
              ((org-agenda-files (quote ,papers-list))
               (org-agenda-search-view-max-outline-level 1)))
 
-            ("ru" "Ideas"           tags "+LEVEL=2"
+            ("ru" "Ideas"           tags "+LEVEL=3"
              ((org-agenda-files (quote ,ideas-list))
               (org-agenda-prefix-format "")))
 
