@@ -265,16 +265,37 @@
   (require 'ob-latex)
   (setq org-src-fontify-natively t)
 
-  ;; Adds extra packages on the header
-  (add-to-list 'org-export-latex-packages-alist '("" "abdofonts" t))
-  (add-to-list 'org-export-latex-packages-alist '("" "abdoalias" t))
-  (add-to-list 'org-export-latex-packages-alist '("" "comdiag" t))
+  ;; Sets packages on the header
+  (setq org-export-latex-default-packages-alist
+        '(
+          ; ("AUTO" "inputenc"  t)   ;; not on lualatex
+          ; ("T1"   "fontenc"   t)
+          ; (""     "fixltx2e"  nil)
+          ; (""     "graphicx"  t)
+          (""     "longtable" nil)
+          (""     "float"     nil)
+          (""     "wrapfig"   nil)
+          (""     "soul"      t)
+          (""     "textcomp"  t)
+          (""     "marvosym"  t)
+          (""     "wasysym"   t)
+          (""     "latexsym"  t)
+          (""     "amssymb"   t)
+          (""     "hyperref"  nil)
+
+          ("" "abdofonts" t)
+          ("" "abdoalias" t)
+          ("" "comdiag" t)
+
+          "\\tolerance=1000"
+          ))
 
   ;; Latex to pdf process. Two lines means run it two times.
   ;; A last sublist would be the command to do for previews!
   (setq org-latex-to-pdf-process
 	(list (concat org-directory "bin/lualatex-wiki.sh --output-directory=%o %f")
-	      (concat org-directory "bin/lualatex-wiki.sh --output-directory=%o %f")))
+	      ;(concat org-directory "bin/lualatex-wiki.sh --output-directory=%o %f")
+          ))
 
   ;; Sets environment variable such that latex finds my personal texmf.
   ;; It is nonlocal. Affects external latex processes when org mode is open. Not good.
@@ -334,7 +355,7 @@
   (interactive)
 
   ;; Update symlinks to projects and papers
-  (call-process-shell-command (concat org-directory "bin/mk-links.sh"))
+  (call-process-shell-command (concat org-directory "bin/update.sh"))
 
   ;; Produce the list of agenda files
   (call-process-shell-command (format "find %s -name '*.org' > %s " org-directory-wiki
