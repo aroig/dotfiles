@@ -99,10 +99,7 @@
 
 (defun powerline-mode-list (face)
   (let ((major (propertize
-                 (format-mode-line
-                  (cond
-                   ((listp mode-name) (downcase (car mode-name)))
-                   ((stringp mode-name) (downcase mode-name))))
+                 (downcase (format-mode-line mode-name))
 
            'help-echo "Major mode\n\ mouse-1: Display major mode menu\n\ mouse-2: Show help for major mode\n\ mouse-3: Toggle minor modes"
 
@@ -114,21 +111,23 @@
                         (define-key map [mode-line down-mouse-3] mode-line-mode-menu)
                         map)))
 
-        (minor (mapconcat (lambda (mm) (propertize (downcase mm)
+        (minor (mapconcat (lambda (mm)
+           (when mm (propertize (downcase mm)
 
-           'help-echo "Minor mode\n mouse-1: Display minor mode menu\n mouse-2: Show help for minor mode\n mouse-3: Toggle minor modes"
+             'help-echo "Minor mode\n mouse-1: Display minor mode menu\n mouse-2: Show help for minor mode\n mouse-3: Toggle minor modes"
 
-           'local-map (let ((map (make-sparse-keymap)))
-                        (define-key map [mode-line down-mouse-1]   (powerline-mouse 'minor 'menu mm))
-                        (define-key map [mode-line mouse-2]        (powerline-mouse 'minor 'help mm))
-                        (define-key map [mode-line down-mouse-3]   (powerline-mouse 'minor 'menu mm))
-                        (define-key map [header-line down-mouse-3] (powerline-mouse 'minor 'menu mm))
-                        map)))
-                          (split-string (format-mode-line minor-mode-alist)) " ")))
+             'local-map (let ((map (make-sparse-keymap)))
+                          (define-key map [mode-line down-mouse-1]   (powerline-mouse 'minor 'menu mm))
+                          (define-key map [mode-line mouse-2]        (powerline-mouse 'minor 'help mm))
+                          (define-key map [mode-line down-mouse-3]   (powerline-mouse 'minor 'menu mm))
+                          (define-key map [header-line down-mouse-3] (powerline-mouse 'minor 'menu mm))
+                          map))))
+          (split-string (format-mode-line minor-mode-alist)) " ")))
 
     (if (not (string= minor ""))
         (propertize (concat " " major " | " minor " ") 'face face)
-      (propertize (concat " " major " ") 'face face))))
+      (propertize (concat " " major " ") 'face face))
+    ))
 
 
 
@@ -147,8 +146,6 @@
 ;; Powerline
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; http://www.emacswiki.org/emacs/PowerLine
-
-
 
 (defun abdo-powerline-things ()
   (require 'powerline)
@@ -201,8 +198,7 @@
                    (concat
                     (powerline-render lhs)
                     (powerline-fill face2 (powerline-width rhs))
-                    (powerline-render rhs))))))
-)
+                    (powerline-render rhs)))))))
 
 
 ;; Tweaking
