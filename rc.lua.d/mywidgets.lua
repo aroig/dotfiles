@@ -47,7 +47,7 @@ myw = {}
 -----------------------------------
 
 myw.spacer = wibox.widget.textbox()
-myw.spacer:set_text("  ")
+myw.spacer:set_markup("<span>   </span>")
 
 myw.separator = wibox.widget.textbox()
 myw.separator:set_markup(string.format("<span color='%s'>  |  </span>", beautiful.fg_widget))

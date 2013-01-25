@@ -39,6 +39,7 @@ for s = 1, screen.count() do
 
    -- Left widgets
    local left_layout = wibox.layout.fixed.horizontal()
+
    left_layout:add(myw.layoutbox[s])
    left_layout:add(myw.taglist[s])
    left_layout:add(myw.spacer)
@@ -48,13 +49,7 @@ for s = 1, screen.count() do
    -- Right widgets
    local right_layout = wibox.layout.fixed.horizontal()
 
-   right_layout:add(myw.separator) 
-
-
---   right_layout:add(myw.cpuicon)
---   right_layout:add(myw.cpugraph)
---   right_layout:add(myw.tzwidget)
---   right_layout:add(myw.spacer)
+   right_layout:add(myw.separator)
 
    right_layout:add(myw.memicon)
    right_layout:add(myw.memused)
@@ -63,12 +58,10 @@ for s = 1, screen.count() do
    right_layout:add(myw.cpuicon)
    right_layout:add(myw.cpuload)
    right_layout:add(myw.spacer)
---   right_layout:add(myw.tempicon)
    right_layout:add(myw.cputemp)
 
-   right_layout:add(myw.separator) 
+   right_layout:add(myw.separator)
 
---  right_layout:add(myw.neticon)
    right_layout:add(myw.dnicon)
    right_layout:add(myw.netwidget)
    right_layout:add(myw.upicon)
@@ -80,13 +73,11 @@ for s = 1, screen.count() do
 
    right_layout:add(myw.rssicon)
    right_layout:add(myw.rss)
-    
-   right_layout:add(myw.separator) 
+
+   right_layout:add(myw.separator)
 
    right_layout:add(myw.volicon)
    right_layout:add(myw.volwidget)
---   right_layout:add(myw.volbar) 
---   right_layout:add(myw.spacer)
 
 
    if util.file_exists("/sys/class/power_supply/BAT0/status") then
@@ -94,8 +85,8 @@ for s = 1, screen.count() do
       right_layout:add(myw.baticon)
       right_layout:add(myw.batwidget)
    end
-      
-   right_layout:add(myw.separator) 
+
+   right_layout:add(myw.separator)
 
    if s == 1 then
       right_layout:add(myw.spacer)
@@ -105,9 +96,12 @@ for s = 1, screen.count() do
 
    right_layout:add(myw.textclock)
 
+   local middle_layout = wibox.layout.fixed.horizontal()
+   middle_layout:add(myw.tasklist[s])
+
    -- Put it all together
    layout:set_left(left_layout)
-   layout:set_middle(myw.tasklist[s])
+   layout:set_middle(middle_layout)
    layout:set_right(right_layout)
 
    mywibox[s]:set_widget(layout)
