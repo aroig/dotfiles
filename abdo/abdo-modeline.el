@@ -140,7 +140,9 @@
   (setq eol-mnemonic-dos       "d")
   (setq eol-mnemonic-mac       "m")
   (setq eol-mnemonic-undecided "?")
-)
+
+  (when (eq window-system 'x)
+      (abdo-powerline-things)))
 
 
 ;; Powerline
@@ -205,4 +207,3 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (abdo-modeline-things)
-(abdo-powerline-things)
