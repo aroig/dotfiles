@@ -160,14 +160,6 @@
   ;; Drawers
   (setq org-drawers  '("PROPERTIES" "CLOCK" "LOGBOOK"))
 
-  ;; Link abbreviations
-  (setq org-link-abbrev-alist
-    `(("google"    . "http://www.google.com/search?q=")
-      ("gmap"      . "http://maps.google.com/maps?q=%s")
-      ("wikipedia" . "http://en.wikipedia.org/wiki/%s")
-    )
-  )
-
   ;; Setup a logging drawer and make keywords log tiemstamp (!)
   (setq org-log-into-drawer "LOGBOOK")
 
@@ -633,6 +625,15 @@
 
 ;; Need link types for org, proj, paper.
 (defun abdo-org-hyperlinks-setup ()
+  ;; Link abbreviations
+  (setq org-link-abbrev-alist
+    `(("google"    . "http://www.google.com/search?q=")
+      ("gmap"      . "http://maps.google.com/maps?q=%s")
+      ("wikipedia" . "http://en.wikipedia.org/wiki/%s")
+      ("arxiv"     . "http://arxiv.org/abs/%s")
+    )
+  )
+
   ;; Links to files in my org-tree of the form [[org:math/journal]]
   (org-add-link-type "org" 'abdo-org-org-open)
 ;;  (add-hook 'org-store-link-functions 'abdo-org-org-store-link)
@@ -691,8 +692,8 @@
           (pos (match-string 3 path)))
       (if pos
 ;        (shell-command "evince &")
-        (call-process "calibre-open" nil 0 nil "-s" query "-p" pos)
-        (call-process "calibre-open" nil 0 nil "-s" query)
+        (call-process "cali" nil 0 nil "view" query "-p" pos)
+        (call-process "cali" nil 0 nil "view" query)
       )
     )
   )
