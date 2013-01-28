@@ -43,7 +43,7 @@
                     (with-helm-current-buffer
                       (when (file-accessible-directory-p ,path)
                           (abdo-directory-files-rec ,path ,regexp)))))
-    (keymap . ,helm-generic-files-map)
+;    (keymap . ,helm-generic-files-map)
     (no-delay-on-input)
     (help-message . helm-generic-file-help-message)
     (mode-line . helm-generic-file-mode-line-string)
