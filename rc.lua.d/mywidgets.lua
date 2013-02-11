@@ -14,11 +14,16 @@
 local wibox = require("wibox")
 local vicious = require("vicious")
 
-local netcfg  = require("vicious.contrib.netcfg")
+local widget = {}
+widget.netcfg  = require("abdo.widget.netcfg")
+widget.cpu = require("abdo.widget.cpu")
+widget.bat = require("abdo.widget.bat")
+widget.mem = require("abdo.widget.mem")
+widget.net = require("abdo.widget.net")
 
-local thermal = require("abdo.widget.thermal")     -- My thermal widget
-local pvol    = require("abdo.widget.pvol")        -- My volume widget
-local sheval = require("abdo.widget.sheval")      -- Get value from a file
+widget.thermal = require("abdo.widget.thermal")     -- My thermal widget
+widget.pvol    = require("abdo.widget.pvol")        -- My volume widget
+widget.sheval = require("abdo.widget.sheval")      -- Get value from a file
 
 local naughty = require("naughty")
 
@@ -62,7 +67,7 @@ myw.tempicon:set_image(beautiful.widget_temp)
 
 
 myw.cputemp = wibox.widget.textbox()
-vicious.register(myw.cputemp, thermal,
+vicious.register(myw.cputemp, widget.thermal,
 		 function (widget, args)
 		    local color = util.gradient(gradcols, 35, 70, args[1])
 		    return string.format("<span color='%s'>%sºC</span>", color, args[1])
@@ -80,7 +85,7 @@ myw.cpuicon:set_image(beautiful.widget_cpu)
 
 myw.cpuload = wibox.widget.textbox()
 
-vicious.register(myw.cpuload,   vicious.widgets.cpu,
+vicious.register(myw.cpuload, widget.cpu,
 		 function (widget, args)
 		    local color = util.gradient(gradcols, 0, 100, args[1])
 		    return string.format("<span color='%s'>%s%%</span>", color, args[1])
@@ -98,7 +103,7 @@ myw.batwidget = wibox.widget.textbox()
 -- myw.battooltip = awful.tooltip({ objects = {myw.batwidget, myw.baticon}})
 
 -- Register widget
-vicious.register(myw.batwidget, vicious.widgets.bat,
+vicious.register(myw.batwidget, widget.bat,
 		 function (widget, args)
 --		    myw.battooltip:set_text(args[3])
 
@@ -124,7 +129,7 @@ myw.memicon = wibox.widget.imagebox()
 myw.memicon:set_image(beautiful.widget_mem)
 myw.memused = wibox.widget.textbox()
 
-vicious.register(myw.memused, vicious.widgets.mem,
+vicious.register(myw.memused, widget.mem,
 		 function (widget, args)
 		    local color = util.gradient(gradcols, 0, 100, args[1])
 		    return string.format("<span color='%s'>%s%%</span>", color, args[1])
@@ -149,7 +154,7 @@ myw.dnicon:set_image(beautiful.widget_netdw)
 myw.upicon:set_image(beautiful.widget_netup)
 
 -- Register widget
-vicious.register(myw.netwidget, vicious.widgets.net,
+vicious.register(myw.netwidget, widget.net,
          function (widget, args)
              local up = 0.0
              local down = 0.0
@@ -166,7 +171,7 @@ vicious.register(myw.netwidget, vicious.widgets.net,
              return downtxt .. sep .. uptxt
 		 end, 3)
 
---vicious.register(myw.nettooltip.widget, netcfg,
+--vicious.register(myw.nettooltip.widget, widget.netcfg,
 --		 function (widget, args)
 --		    prf = ""
 --		    for _,line in ipairs(args) do
@@ -193,7 +198,7 @@ myw.mailicon:set_image(beautiful.widget_maile)
 
 myw.mail_count = 0
 
-vicious.register(myw.mail, sheval,
+vicious.register(myw.mail, widget.sheval,
 		 function (widget, args)
 		    local color
 		    local num = tonumber(args[1])
@@ -231,7 +236,7 @@ vicious.register(myw.mail, sheval,
 
 
 
---Vicious.register(myw.mail, gmail,
+--Vicious.register(myw.mail, widget.gmail,
 --		 function (widget, args)
 --		    if args["{id}"] ~= myw.mail_lastid then
 --		       myw.mail_lastid = args["{id}"]
@@ -270,7 +275,7 @@ myw.rssicon = wibox.widget.imagebox()
 
 myw.rss = wibox.widget.textbox()
 
---vicious.register(myw.rss, sheval,
+--vicious.register(myw.rss, widget.sheval,
 --		 function (widget, args)
 --		    local color
 --		    local num = tonumber(args[1])
@@ -319,18 +324,14 @@ myw.volbar:set_color(beautiful.fg_widget)
 
 
 
--- Enable caching
--- vicious.cache(vicious.widgets.volume)
--- Register widgets
-
-vicious.register(myw.volwidget, pvol,
+vicious.register(myw.volwidget, widget.pvol,
 		 function (widget, args)
 		    local color = util.gradient(gradcols, 0, 100, args[1])
 		    return string.format("<span color='%s'>%s%%</span>", color, args[1])
 		 end,
 		 2)
 
-vicious.register(myw.volbar,    pvol,  "$1",  2)
+vicious.register(myw.volbar, widget.pvol,  "$1",  2)
 
 -- Register buttons
 myw.volwidget:buttons(awful.util.table.join(
