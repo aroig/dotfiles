@@ -68,11 +68,11 @@ myw.tempicon:set_image(beautiful.widget_temp)
 
 myw.cputemp = wibox.widget.textbox()
 vicious.register(myw.cputemp, widget.thermal,
-		 function (widget, args)
-		    local color = util.gradient(gradcols, 35, 70, args[1])
-		    return string.format("<span color='%s'>%sºC</span>", color, args[1])
-		 end,
-                 19, {"coretemp.0", "core"})
+                 function (widget, args)
+                     local color = util.gradient(gradcols, 35, 70, args[1])
+                     return string.format("<span color='%s'>%sºC</span>", color, args[1])
+                 end,
+                 2, {"coretemp.0", "core"})
 
 
 
@@ -86,10 +86,10 @@ myw.cpuicon:set_image(beautiful.widget_cpu)
 myw.cpuload = wibox.widget.textbox()
 
 vicious.register(myw.cpuload, widget.cpu,
-		 function (widget, args)
-		    local color = util.gradient(gradcols, 0, 100, args[1])
-		    return string.format("<span color='%s'>%s%%</span>", color, args[1])
-		 end)
+                 function (widget, args)
+                     local color = util.gradient(gradcols, 0, 100, args[1])
+                     return string.format("<span color='%s'>%s%%</span>", color, args[1])
+                 end, 2)
 
 
 
@@ -100,23 +100,29 @@ vicious.register(myw.cpuload, widget.cpu,
 myw.baticon = wibox.widget.imagebox()
 myw.baticon:set_image(beautiful.widget_bat)
 myw.batwidget = wibox.widget.textbox()
--- myw.battooltip = awful.tooltip({ objects = {myw.batwidget, myw.baticon}})
+myw.battooltip = awful.tooltip({ objects = {myw.batwidget, myw.baticon}})
 
 -- Register widget
 vicious.register(myw.batwidget, widget.bat,
 		 function (widget, args)
---		    myw.battooltip:set_text(args[3])
+		    myw.battooltip:set_text("Time remaining: " .. args.time)
 
-		    local color = util.gradient(gradcols_rev, 0, 100, args[2])
-		    return string.format("<span color='%s'>%s%s%%</span>", color, args[1], args[2])
+		    local color_percent = util.gradient(gradcols_rev, 0, 100, args.percent)
+            local color_rate = beautiful.fg_green
+            if args.state == '+' then
+                color_rate = util.gradient(gradcols_rev, 0, 40, args.rate)
+            else
+                color_rate = util.gradient(gradcols, 7, 30, args.rate)
+            end
+		    local stringA = string.format("<span color='%s'>%s%s%%</span>", color_percent, args.state, args.percent)
+            local stringB = string.format("<span color='%s'>%4.1fW</span>", color_rate, args.rate)
+            return stringA .. ' ' .. stringB
 		 end,
-		 61, "BAT0")
+		 4, "BAT0")
 
 -- Register buttons
 myw.batwidget:buttons(awful.util.table.join(
-   awful.button({ }, 1, function () exec("gnome-power-statistics") end)
---   , awful.button({ }, 3, function () exec("gnome-power-statistics") end)
-))
+   awful.button({ }, 1, function () exec("gnome-power-statistics") end)))
 myw.baticon:buttons(myw.batwidget:buttons())
 
 
@@ -130,11 +136,11 @@ myw.memicon:set_image(beautiful.widget_mem)
 myw.memused = wibox.widget.textbox()
 
 vicious.register(myw.memused, widget.mem,
-		 function (widget, args)
-		    local color = util.gradient(gradcols, 0, 100, args[1])
-		    return string.format("<span color='%s'>%s%%</span>", color, args[1])
-		 end,
-		 13)
+                 function (widget, args)
+                     local color = util.gradient(gradcols, 0, 100, args[1])
+                     return string.format("<span color='%s'>%s%%</span>", color, args[1])
+                 end,
+                 4)
 
 
 
@@ -147,7 +153,7 @@ myw.dnicon = wibox.widget.imagebox()
 myw.upicon = wibox.widget.imagebox()
 myw.netwidget = wibox.widget.textbox()
 
--- myw.nettooltip = awful.tooltip({objects = {myw.neticon, myw.dnicon, myw.upicon, myw.netwidget}})
+myw.nettooltip = awful.tooltip({objects = {myw.neticon, myw.dnicon, myw.upicon, myw.netwidget}})
 
 myw.neticon:set_image(beautiful.widget_net)
 myw.dnicon:set_image(beautiful.widget_netdw)
@@ -155,33 +161,34 @@ myw.upicon:set_image(beautiful.widget_netup)
 
 -- Register widget
 vicious.register(myw.netwidget, widget.net,
-         function (widget, args)
-             local up = 0.0
-             local down = 0.0
+                 function (widget, args)
+                     local up = 0.0
+                     local down = 0.0
 
-             if args["{eth0 up_kb}"] then  up = up + args["{eth0 up_kb}"] end
-             if args["{wlan0 up_kb}"] then up = up + args["{wlan0 up_kb}"] end
+                     if args["{eth0 up_kb}"] then  up = up + args["{eth0 up_kb}"] end
+                     if args["{wlan0 up_kb}"] then up = up + args["{wlan0 up_kb}"] end
 
-             if args["{eth0 down_kb}"] then  down = down + args["{eth0 down_kb}"] end
-             if args["{wlan0 down_kb}"] then down = down + args["{wlan0 down_kb}"] end
+                     if args["{eth0 down_kb}"] then  down = down + args["{eth0 down_kb}"] end
+                     if args["{wlan0 down_kb}"] then down = down + args["{wlan0 down_kb}"] end
 
-             local downtxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_netdn_widget, down)
-             local uptxt =   string.format('<span color="%s">%.0f</span>', beautiful.fg_netup_widget, up)
-             local sep = string.format(' <span color="%s">\\</span> ', beautiful.fg_widget)
-             return downtxt .. sep .. uptxt
-		 end, 3)
+                     local downtxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_netdn_widget, down)
+                     local uptxt =   string.format('<span color="%s">%.0f</span>', beautiful.fg_netup_widget, up)
+                     local sep = string.format(' <span color="%s">\\</span> ', beautiful.fg_widget)
+                     return downtxt .. sep .. uptxt
+                 end, 2)
 
---vicious.register(myw.nettooltip.widget, widget.netcfg,
---		 function (widget, args)
---		    prf = ""
---		    for _,line in ipairs(args) do
---		       if prf ~= "" then
---			  prf = prf .. "\n"
---		       end
---		       prf = prf .. line
---		    end
---		    return prf
---		 end, 5)
+vicious.register(myw.nettooltip.widget, widget.netcfg,
+                 function (widget, args)
+                     prf = ""
+                     for _,line in ipairs(args) do
+                         if prf ~= "" then
+                             prf = prf .. "\n"
+                         end
+                         prf = prf .. line
+                     end
+                     return "Network: " .. prf
+                 end,
+                 4)
 
 
 
@@ -199,40 +206,41 @@ myw.mailicon:set_image(beautiful.widget_maile)
 myw.mail_count = 0
 
 vicious.register(myw.mail, widget.sheval,
-		 function (widget, args)
-		    local color
-		    local num = tonumber(args[1])
+                 function (widget, args)
+                     local color
+                     local num = tonumber(args[1])
 
-		    if num == 0 or num == nil then
-		       color = beautiful.fg_green_widget
-		       myw.mailicon:set_image(beautiful.widget_maile)
-               if num == nil then
-                   color = beautiful.fg_red_widget
-                   myw.mailicon:set_image(beautiful.widget_mailf)
-                   num = "?"
-               else
-                   color = beautiful.fg_green_widget
-                   myw.mailicon:set_image(beautiful.widget_maile)
-               end
-		    else
-		       if num ~= myw.mail_count then
-			  local text
-			  if num == 1 then
-			     text = "There is one new message"
-              else
-			     text = string.format("There are %d new messages", num)
-			  end
-			  naughty.notify({title = "New Mail",
-					  text  = text,
-					  icon  = beautiful.naughty_mail_icon})
-		       end
-		       myw.mail_count = num
-		       color = beautiful.fg_red_widget
-		       myw.mailicon:set_image(beautiful.widget_mailf)
-		    end
+                     if num == 0 or num == nil then
+                         color = beautiful.fg_green_widget
+                         myw.mailicon:set_image(beautiful.widget_maile)
+                         if num == nil then
+                             color = beautiful.fg_red_widget
+                             myw.mailicon:set_image(beautiful.widget_mailf)
+                             num = "?"
+                         else
+                             color = beautiful.fg_green_widget
+                             myw.mailicon:set_image(beautiful.widget_maile)
+                         end
+                     else
+                         if num ~= myw.mail_count then
+                             local text
+                             if num == 1 then
+                                 text = "There is one new message"
+                             else
+                                 text = string.format("There are %d new messages", num)
+                             end
+                             naughty.notify({title = "New Mail",
+                                             text  = text,
+                                             icon  = beautiful.naughty_mail_icon})
+                         end
+                         myw.mail_count = num
+                         color = beautiful.fg_red_widget
+                         myw.mailicon:set_image(beautiful.widget_mailf)
+                     end
 
-		    return string.format("<span color='%s'>%s</span>", color, tostring(num))
-		 end, 60, "mutag -C -p mail -q 'flag:unread AND tag:\\\\\\\\Inbox'")
+                     return string.format("<span color='%s'>%s</span>", color, tostring(num))
+                 end,
+                 60, "mutag -C -p mail -q 'flag:unread AND tag:\\\\\\\\Inbox'")
 
 
 

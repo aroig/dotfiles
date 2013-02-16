@@ -33,57 +33,59 @@ local function worker(format, warg)
         ["Discharging\n"] = "-"
     }
 
+    local state = battery_state["Unknown\n"]
+    local rate = 0
+    local percent = 0
+    local time = "?"
+
+    local timeleft = nil
+    local remaining = nil
+    local capacity = nil
+
     -- Check if the battery is present
     if battery.present ~= "1\n" then
-        return {battery_state["Unknown\n"], 0, "N/A"}
+        return {state=state, percent=percent, rate=rate, time=time}
     end
 
-
     -- Get state information
-    local state = battery_state[battery.status] or battery_state["Unknown\n"]
+    state = battery_state[battery.status] or battery_state["Unknown\n"]
 
     -- Get capacity information
     if battery.charge_now then
         remaining, capacity = battery.charge_now, battery.charge_full
     elseif battery.energy_now then
         remaining, capacity = battery.energy_now, battery.energy_full
-    else
-        return {battery_state["Unknown\n"], 0, "N/A"}
     end
-
-    -- Calculate percentage (but work around broken BAT/ACPI implementations)
-    local percent = math.min(math.floor(remaining / capacity * 100), 100)
-
 
     -- Get charge information
     if battery.current_now then
         rate = tonumber(battery.current_now)
     elseif battery.power_now then
         rate = tonumber(battery.power_now)
-    else
-        return {state, percent, "N/A"}
+    end
+
+    -- Calculate percentage (but work around broken BAT/ACPI implementations)
+    if remaining ~= nil and capacity ~= nil then
+        percent = math.min(math.floor(remaining / capacity * 100), 100)
     end
 
     -- Calculate remaining (charging or discharging) time
-    local time = "N/A"
-
-    if rate ~= nil and rate ~= 0 then
+    if remaining ~= nil and capacity ~= nil and rate ~= nil and rate ~= 0 then
         if state == "+" then
             timeleft = (tonumber(capacity) - tonumber(remaining)) / tonumber(rate)
         elseif state == "-" then
             timeleft = tonumber(remaining) / tonumber(rate)
-        else
-            return {state, percent, time}
         end
 
         -- Calculate time
-        local hoursleft   = math.floor(timeleft)
-        local minutesleft = math.floor((timeleft - hoursleft) * 60 )
-
-        time = string.format("%02d:%02d", hoursleft, minutesleft)
+        if timeleft ~= nil then
+            local hoursleft   = math.floor(timeleft)
+            local minutesleft = math.floor((timeleft - hoursleft) * 60 )
+            time = string.format("%02d:%02d", hoursleft, minutesleft)
+        end
     end
 
-    return {state, percent, time}
+    return {state=state, percent=percent, rate=rate/1000000, time=time}
 end
 -- }}}
 

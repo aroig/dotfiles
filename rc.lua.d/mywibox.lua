@@ -51,14 +51,15 @@ for s = 1, screen.count() do
 
    right_layout:add(myw.separator)
 
-   right_layout:add(myw.memicon)
-   right_layout:add(myw.memused)
-   right_layout:add(myw.spacer)
-
    right_layout:add(myw.cpuicon)
    right_layout:add(myw.cpuload)
    right_layout:add(myw.spacer)
+
    right_layout:add(myw.cputemp)
+   right_layout:add(myw.spacer)
+
+   right_layout:add(myw.memicon)
+   right_layout:add(myw.memused)
 
    right_layout:add(myw.separator)
 
@@ -69,22 +70,21 @@ for s = 1, screen.count() do
 
    right_layout:add(myw.mailicon)
    right_layout:add(myw.mail)
-   right_layout:add(myw.spacer)
+--   right_layout:add(myw.spacer)
 
-   right_layout:add(myw.rssicon)
-   right_layout:add(myw.rss)
+--   right_layout:add(myw.rssicon)
+--   right_layout:add(myw.rss)
 
    right_layout:add(myw.separator)
 
-   right_layout:add(myw.volicon)
-   right_layout:add(myw.volwidget)
-
-
    if util.file_exists("/sys/class/power_supply/BAT0/status") then
-      right_layout:add(myw.spacer)
       right_layout:add(myw.baticon)
       right_layout:add(myw.batwidget)
+      right_layout:add(myw.spacer)
    end
+
+   right_layout:add(myw.volicon)
+   right_layout:add(myw.volwidget)
 
    right_layout:add(myw.separator)
 
