@@ -81,6 +81,8 @@ for s = 1, screen.count() do
       right_layout:add(myw.baticon)
       right_layout:add(myw.batwidget)
       right_layout:add(myw.spacer)
+      right_layout:add(myw.ratewidget)
+      right_layout:add(myw.spacer)
    end
 
    right_layout:add(myw.volicon)

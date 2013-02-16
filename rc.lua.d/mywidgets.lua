@@ -100,7 +100,8 @@ vicious.register(myw.cpuload, widget.cpu,
 myw.baticon = wibox.widget.imagebox()
 myw.baticon:set_image(beautiful.widget_bat)
 myw.batwidget = wibox.widget.textbox()
-myw.battooltip = awful.tooltip({ objects = {myw.batwidget, myw.baticon}})
+myw.ratewidget = wibox.widget.textbox()
+myw.battooltip = awful.tooltip({ objects = {myw.batwidget, myw.ratewidget, myw.baticon}})
 
 -- Register widget
 vicious.register(myw.batwidget, widget.bat,
@@ -108,23 +109,28 @@ vicious.register(myw.batwidget, widget.bat,
 		    myw.battooltip:set_text("Time remaining: " .. args.time)
 
 		    local color_percent = util.gradient(gradcols_rev, 0, 100, args.percent)
+		    return string.format("<span color='%s'>%s%s%%</span>", color_percent, args.state, args.percent)
+		 end,
+		 4, "BAT0")
+
+vicious.register(myw.ratewidget, widget.bat,
+		 function (widget, args)
             local color_rate = beautiful.fg_green
             if args.state == '+' then
                 color_rate = util.gradient(gradcols_rev, 0, 40, args.rate)
             else
                 color_rate = util.gradient(gradcols, 7, 30, args.rate)
             end
-		    local stringA = string.format("<span color='%s'>%s%s%%</span>", color_percent, args.state, args.percent)
-            local stringB = string.format("<span color='%s'>%4.1fW</span>", color_rate, args.rate)
-            return stringA .. ' ' .. stringB
+            return string.format("<span color='%s'>%4.1fW</span>", color_rate, args.rate)
 		 end,
 		 4, "BAT0")
+
 
 -- Register buttons
 myw.batwidget:buttons(awful.util.table.join(
    awful.button({ }, 1, function () exec("gnome-power-statistics") end)))
 myw.baticon:buttons(myw.batwidget:buttons())
-
+myw.ratewidget:buttons(myw.batwidget:buttons())
 
 
 -----------------------------------
