@@ -11,7 +11,8 @@ return {
    elisp                 = apps.docbrowser .. " file:///usr/share/doc/elisp/index.html",
    emacs                 = apps.docbrowser .. " file:///usr/share/doc/emacs/index.html",
    mu4e                  = apps.docbrowser .. " file:///usr/share/doc/mu4e/index.html",
-     
+   scipy                 = apps.docbrowser .. " file:///usr/share/doc/python-scipy/html",
+
    archwiki              = apps.docbrowser .. " https://wiki.archlinux.org/index.php/Main_Page",
    zshwiki               = apps.docbrowser .. " http://zshwiki.org/home/start",
    bashwiki              = apps.docbrowser .. " http://wiki.bash-hackers.org/doku.php",
