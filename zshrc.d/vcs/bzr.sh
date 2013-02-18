@@ -15,7 +15,7 @@ else                                                                            
 fi
 
 # Don't get specific info about remote status because it is slow in mercurial
-local tbrurl="$(BZR_LOG=/dev/null bzr config parent_location)"
+local tbrurl="$(BZR_LOG=/dev/null bzr config parent_location 2> /dev/null)"
 if [ "$tbrurl" ]; then    __CURRENT_VCS_REMOTE_STATUS="unknown"
 else                      __CURRENT_VCS_REMOTE_STATUS="none"
 fi
