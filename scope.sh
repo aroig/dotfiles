@@ -70,14 +70,16 @@ case "$mimetype" in
 	# Syntax highlight for text files:
 	text/* | */xml)
        # don't preview big files
-       (( $size > 100000 )) && exit 1
+       # (( $size > 100000 )) && exit 1
 
-       if have vimcat; then
-	       vimcat "$path" | head -n $maxln
-       elif have highlight; then
-           highlight --out-format=ansi "$path" | head -n $maxln
-       fi
+       fname=$(basename "$path")
+       tmpfile="/tmp/vimcat/$fname"
+       mkdir -p /tmp/vimcat
+       cat "$path" | head -n $maxln > "$tmpfile"
+       vimcat "$tmpfile"
        
+       # highlight --out-format=ansi "$path" | head -n $maxln
+      
 	   success && exit 5 || exit 2;;
    
 	# Display information about media files:
