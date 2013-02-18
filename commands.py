@@ -103,7 +103,7 @@ class trash(Command):
 		self.fm.notify("Trashing %d files" % len(selected))
 		self.fm.copy_buffer -= set(selected)
 		if selected:
-			self.fm.run("trash %s" % ' '.join(['"%s"' % f.path for f in selected]))
+			self.fm.run("gvfs-trash %s" % ' '.join(['"%s"' % f.path for f in selected]))
 		self.fm.thistab.ensure_correct_pointer()
 
 
