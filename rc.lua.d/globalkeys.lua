@@ -42,8 +42,12 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "Delete",    function () exec("pvol -2db") end),
 
     -- Desktop
-    awful.key({ metakey, ctrlkey  }, "l",      function () exec("slimlock") end),
-    awful.key({ modkey,           }, "Print",  function () exec("scrot -s -e 'mv $f ~/Downloads/'") end),
+    awful.key({ metakey, ctrlkey  }, "l",      function () exec("asym screen lock") end),
+    awful.key({ modkey,           }, "Print",  function ()
+                                                   exec("scrot -e 'mv $f ~/Downloads/'")
+                                                   naughty.notify({title = "Screenshot",
+                                                                   text = "Saved in ~/Downloads"})
+                                               end),
     awful.key({ modkey,           }, "t",      awful.client.floating.toggle),
 
     awful.key({ modkey,           }, "F1",     calendar.toggle_calendar),
