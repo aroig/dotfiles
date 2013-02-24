@@ -13,9 +13,9 @@ let g:colors_name = "abdo"
 " general
 " ----------------------------------------------------------
 hi Error           ctermfg=Red          cterm=bold
-hi Normal          ctermfg=Gray         cterm=none
+hi Normal          ctermfg=none         cterm=none
 hi Todo            ctermfg=Red          cterm=bold          ctermbg=Black
-hi Underlined      ctermfg=Gray         cterm=underline
+hi Underlined      ctermfg=none         cterm=underline
 hi Ignore          ctermfg=Black 
 
 
