@@ -51,6 +51,7 @@ return {
    pdfeditor                 = "pdfeditor",
    k3dsurf                   = "k3dsurf",
    kpovmodeler               = "kpovmodeler",
+   openoffice                = "soffice",
 
    ardour                    = "ardour2",
    rosegarden                = "rosegarden",
