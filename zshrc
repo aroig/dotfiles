@@ -5,9 +5,9 @@
 #------------------------------------------------------------------#
 
 
-#------------------------------
+# ----------------------------
 # In case of tramp login
-#------------------------------
+# ----------------------------
 
 if [[ "$TERM" == "dumb" ]]
 then
@@ -19,9 +19,9 @@ then
 fi
 
 
-#------------------------------
+# ----------------------------
 # TTY Setup 
-#------------------------------
+# ----------------------------
 
 set_tty_colors() {
     # Colors from .Xresources
@@ -53,15 +53,15 @@ HISTSIZE=1000
 SAVEHIST=1000
 
 
-#------------------------------
+# ----------------------------
 # Modifying fpath
-#------------------------------
+# ----------------------------
 fpath=($HOME/.zshrc.d/completions $fpath)
 
 
-#------------------------------
+# ----------------------------
 # Set environment and aliases
-#------------------------------
+# ----------------------------
 
 # Environment
 if [ -f $HOME/.environment ]; then
@@ -74,9 +74,9 @@ if [ -f $HOME/.aliases ]; then
 fi
 
 
-#------------------------------
+# ----------------------------
 # Auto tmux
-#------------------------------
+# ----------------------------
 
 # if ssh outside tmux
 if [[ "$SSH_TTY" != "" && "$TMUX" == "" && "$NOTMUX" == "" ]]; then
@@ -89,9 +89,9 @@ if [[ "$SSH_TTY" != "" && "$TMUX" == "" && "$NOTMUX" == "" ]]; then
 fi
 
 
-#------------------------------
+# ----------------------------
 # Loading generic stuff
-#------------------------------
+# ----------------------------
 
 # Stop here if unknown terminal
 case $TERM in
@@ -113,9 +113,9 @@ fi
 autoload -U add-zsh-hook
 
 
-#------------------------------
+# ----------------------------
 # Source files in .zshrc.d
-#------------------------------
+# ----------------------------
 
 if [ -d $HOME/.zshrc.d ]; then
     ZSHRCD="$HOME/.zshrc.d"
@@ -123,3 +123,23 @@ if [ -d $HOME/.zshrc.d ]; then
 	source $src
     done
 fi
+
+
+# ----------------------------
+# Hooks
+# ----------------------------
+
+add-zsh-hook precmd save_return_value          # catch the return value
+
+add-zsh-hook chpwd update_current_vcs_vars     # update vcs info
+add-zsh-hook precmd refresh_current_vcs_vars
+
+add-zsh-hook precmd set-window-title           # set window title
+# add-zsh-hook preexec set-window-title
+
+
+# ----------------------------
+# Startup actions
+# ----------------------------
+
+messagehello                   # Print a welcome message

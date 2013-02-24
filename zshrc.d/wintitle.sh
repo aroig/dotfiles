@@ -16,6 +16,4 @@ set-window-title () {
     print -Pn "\e]0;%n@%m: %c${cmd}\a"
 }
 
-add-zsh-hook precmd set-window-title
-# add-zsh-hook preexec set-window-title
 

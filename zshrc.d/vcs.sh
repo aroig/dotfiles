@@ -51,5 +51,3 @@ function update_current_vcs_vars() {
     refresh_current_vcs_vars
 }
 
-add-zsh-hook chpwd update_current_vcs_vars
-add-zsh-hook precmd refresh_current_vcs_vars
