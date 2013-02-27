@@ -123,7 +123,7 @@ ddclient.music   = dropdown.new(apps.music,
                                 {vert="center", horiz="right", width=0.6, height=1})
 
 ddclient.twitter = dropdown.new(apps.twitter,
-                                {vert="center", horiz="right", width=0.4, height=1})
+                                {vert="center", horiz="right", width=600, height=1})
 
 ddclient.document = dropdown.new(nil, {vert="center", horiz="right", width=0.7, height=1})
 -- do not kill old client if command changes, as chromium opens new tab
