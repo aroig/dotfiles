@@ -19,6 +19,10 @@ apps.filemanager         = "nautilus"
 apps.pdfviewer           = "zathura"
 apps.music               = "quodlibet"
 apps.chat                = "pidgin"
+apps.twitter             = "urxvt -e tyrs"
+apps.passwordsafe        = "keepassx"
+apps.dictionary          = "goldendict"
+apps.library             = "calibre"
 
 -- Emacs stuff
 apps.orgmode             = "emacs -org"

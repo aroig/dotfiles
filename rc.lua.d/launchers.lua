@@ -107,11 +107,23 @@ end
 -- Dropdown apps on the right    --
 -----------------------------------
 
-ddclient.dict = dropdown.new("goldendict", {vert="center", horiz="right", width=0.5, height=1})
-ddclient.calibre = dropdown.new("calibre", {vert="center", horiz="right", width=1,   height=1})
-ddclient.chat = dropdown.new(apps.chat, {vert="center", horiz="right", width=300, height=1})
-ddclient.irc = dropdown.new(apps.irc, {vert="center", horiz="right", width=0.5, height=1})
-ddclient.music = dropdown.new(apps.music, {vert="center", horiz="right", width=0.6, height=1})
+ddclient.dict    = dropdown.new(apps.dictionary,
+                                {vert="center", horiz="right", width=0.5, height=1})
+
+ddclient.calibre = dropdown.new(apps.library,
+                                {vert="center", horiz="right", width=1,   height=1})
+
+ddclient.chat    = dropdown.new(apps.chat,
+                                {vert="center", horiz="right", width=300, height=1})
+
+ddclient.irc     = dropdown.new(apps.irc,
+                                {vert="center", horiz="right", width=0.5, height=1})
+
+ddclient.music   = dropdown.new(apps.music,
+                                {vert="center", horiz="right", width=0.6, height=1})
+
+ddclient.twitter = dropdown.new(apps.twitter,
+                                {vert="center", horiz="right", width=0.4, height=1})
 
 ddclient.document = dropdown.new(nil, {vert="center", horiz="right", width=0.7, height=1})
 -- do not kill old client if command changes, as chromium opens new tab
