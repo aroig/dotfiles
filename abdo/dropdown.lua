@@ -59,8 +59,13 @@ local function raise_client(run)
     awful.client.movetotag(awful.tag.selected(run.screen), run.client)
 
     -- if width or height values in the interval [0,1] represent a fraction of screen width or height.
-    if geom.width  <= 1 then width  = screengeom.width  * geom.width end
-    if geom.height <= 1 then height = screengeom.height * geom.height end
+    if geom.width  <= 1 then width  = screengeom.width  * geom.width
+    else                     width  = geom.width
+    end
+
+    if geom.height <= 1 then height = screengeom.height * geom.height
+    else                     height = geom.height
+    end
 
     -- horizontal alignment: top, bottom, center
     if     geom.horiz == "left"  then x = screengeom.x
