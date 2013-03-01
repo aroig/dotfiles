@@ -55,3 +55,6 @@
 [submodule "packages/o-blog"]
 	path = packages/o-blog
 	url = https://github.com/renard/o-blog.git
+[submodule "modes/git-modes"]
+	path = modes/git-modes
+	url = https://github.com/lunaryorn/git-modes.git

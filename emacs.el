@@ -118,7 +118,10 @@
 ;; Version Control
 (require 'vc)
 (require 'magit)
-(require 'git-commit)
+(require 'git-commit-mode)
+(require 'gitignore-mode)
+(require 'gitconfig-mode)
+
 (require 'rebase-mode)
 (require 'vcs-hacks)
 
