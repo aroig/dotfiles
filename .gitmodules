@@ -4,9 +4,6 @@
 [submodule "packages/ibuffer-vc"]
 	path = packages/ibuffer-vc
 	url = https://github.com/purcell/ibuffer-vc.git
-[submodule "modes/git-commit-mode"]
-	path = modes/git-commit-mode
-	url = https://github.com/rafl/git-commit-mode.git
 [submodule "modes/pkgbuild-mode"]
 	path = modes/pkgbuild-mode
 	url = https://github.com/juergenhoetzel/pkgbuild-mode.git
