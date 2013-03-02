@@ -130,12 +130,13 @@
           ("tag:teaching AND date:365d..now"                      "Teaching"            ?t)
           ("tag:upc AND date:365d..now"                           "University"          ?u)
 
+          ("tag:arch AND flag:unread"                             "Arch"                ?a)
           ("tag:devel AND flag:unread"                            "Development"         ?d)
           ("tag:list AND flag:unread"                             "Lists"               ?l)
 
           ("tag:watchlist"                                        "Watchlist"           ?w)
           ("tag:news AND flag:unread"                             "News"                ?e)
-          ("tag:arxiv AND flag:unread"                            "Arxiv"               ?a)
+          ("tag:arxiv AND flag:unread"                            "Arxiv"               ?x)
           ("tag:blogs AND flag:unread"                            "Blogs"               ?b)
           ))
 
