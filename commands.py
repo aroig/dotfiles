@@ -83,7 +83,7 @@ from ranger.core.loader import CommandLoader
 from ranger.ext.vcs import VcsError
 
 import tempfile
-
+import subprocess
 
 class trash(Command):
 	"""
@@ -103,7 +103,7 @@ class trash(Command):
 		self.fm.notify("Trashing %d files" % len(selected))
 		self.fm.copy_buffer -= set(selected)
 		if selected:
-			self.fm.run("gvfs-trash %s" % ' '.join(['"%s"' % f.path for f in selected]))
+			subprocess.call(["gvfs-trash"] + [str(f.path) for f in selected])
 		self.fm.thistab.ensure_correct_pointer()
 
 
