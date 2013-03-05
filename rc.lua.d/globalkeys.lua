@@ -171,33 +171,27 @@ globalkeys = awful.util.table.join(
     -- Awesome defaults
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
 
-    awful.key({ modkey,           }, "j",
-        function ()
-            awful.client.focus.byidx( 1)
-            if client.focus then client.focus:raise() end
-        end),
-
-    awful.key({ modkey,           }, "k",
-        function ()
-            awful.client.focus.byidx(-1)
-            if client.focus then client.focus:raise() end
-        end),
+    awful.key({ modkey,           }, "j",   function () awful.client.focus.byidx( 1) end),
+    awful.key({ modkey,           }, "k",   function () awful.client.focus.byidx(-1) end),
 
 --    awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
 
     -- Layout manipulation
-    awful.key({ modkey, shiftkey  }, "j", function () awful.client.swap.byidx(  1)    end),
-    awful.key({ modkey, shiftkey  }, "k", function () awful.client.swap.byidx( -1)    end),
-    awful.key({ modkey, ctrlkey   }, "j", function () awful.screen.focus_relative( 1) end),
-    awful.key({ modkey, ctrlkey   }, "k", function () awful.screen.focus_relative(-1) end),
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
-    awful.key({ modkey,           }, "Tab",
-        function ()
-            awful.client.focus.history.previous()
-            if client.focus then
-                client.focus:raise()
-            end
-        end),
+    awful.key({ modkey, shiftkey  }, "j",   function () awful.client.swap.byidx(  1)    end),
+    awful.key({ modkey, shiftkey  }, "k",   function () awful.client.swap.byidx( -1)    end),
+    awful.key({ modkey, ctrlkey   }, "j",   function () awful.screen.focus_relative( 1) end),
+    awful.key({ modkey, ctrlkey   }, "k",   function () awful.screen.focus_relative(-1) end),
+    awful.key({ modkey,           }, "u",   awful.client.urgent.jumpto),
+
+    awful.key({ modkey,           }, "Tab", function () awful.client.focus.byidx( 1) end),
+    awful.key({ modkey, shiftkey  }, "Tab", function () awful.client.focus.byidx(-1) end),
+    awful.key({ modkey,           }, "r",   function () if client.focus then client.focus:raise() end end),
+
+    awful.key({ modkey, ctrlkey   }, "Tab",
+              function ()
+                  awful.client.focus.history.previous()
+                  if client.focus then client.focus:raise() end
+              end),
 
     -- Prompt
     awful.key({ modkey, ctrlkey   }, "x",     prompt.lua),
@@ -217,9 +211,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "n",
               function ()
                   c = awful.client.restore()
-                  if c then
-                      awful.client.focus.byidx(0, c)
-                  end
+                  if c then awful.client.focus.byidx(0, c) end
               end)
 )
 
