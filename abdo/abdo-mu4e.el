@@ -137,7 +137,7 @@
           ("tag:watchlist"                                        "Watchlist"           ?w)
           ("tag:news AND flag:unread"                             "News"                ?e)
           ("tag:arxiv AND flag:unread"                            "Arxiv"               ?x)
-          ("tag:blogs AND flag:unread"                            "Blogs"               ?b)
+          ("tag:blog AND flag:unread"                             "Blogs"               ?b)
           ))
 
   ;; Times and dates
