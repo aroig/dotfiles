@@ -31,7 +31,11 @@
   ; (setq mu4e-use-fancy-chars t)
 
   ;; convert html messages to markdown syntax
-  (setq mu4e-html2text-command "html2text")
+  ; (setq mu4e-html2text-command "html2text")                         ; python-html2text
+  ; (setq mu4e-html2text-command "html2text -utf8 -width 80")         ; html2text with utf8
+  ; (setq mu4e-html2text-command "lynx -dump -stdin -width=100 -display_charset=utf-8")    ; lynx
+  ; (setq mu4e-html2text-command "elinks -dump -dump-color-mode 1")    ; elinks
+  (setq mu4e-html2text-command "w3m -dump -cols 100 -T text/html")    ; w3m
 
   ;; Custom actions
   (setq mu4e-action-tags-header "X-Keywords")
