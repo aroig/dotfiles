@@ -134,14 +134,16 @@
           ("tag:teaching AND date:365d..now"                      "Teaching"            ?t)
           ("tag:upc AND date:365d..now"                           "University"          ?u)
 
-          ("tag:arch AND flag:unread"                             "Arch"                ?a)
-          ("tag:devel AND flag:unread"                            "Development"         ?d)
-          ("tag:list AND flag:unread"                             "Lists"               ?l)
+          ("tag:arch"                                             "Arch"                ?a)
+          ("tag:devel"                                            "Development"         ?d)
+          ("tag:list"                                             "Lists"               ?l)
 
           ("tag:watchlist"                                        "Watchlist"           ?w)
-          ("tag:news AND flag:unread"                             "News"                ?e)
-          ("tag:arxiv AND flag:unread"                            "Arxiv"               ?x)
-          ("tag:blog AND flag:unread"                             "Blogs"               ?b)
+          ("tag:mathoverflow"                                     "Mathoverflow"        ?o)
+          ("tag:news"                                             "News"                ?e)
+          ("tag:arxiv"                                            "Arxiv"               ?x)
+          ("tag:blog"                                             "Blogs"               ?b)
+          ("tag:fun"                                              "Fun"                 ?f)
           ))
 
   ;; Times and dates
