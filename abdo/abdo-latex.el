@@ -48,7 +48,7 @@
 
   ;; Setup D-bus interface with evince
   ;; (abdo-latex-dbus-evince-setup)
-  (abdo-latex-dbus-zathura-setup)
+  ;; (abdo-latex-dbus-zathura-setup)
 
   ;; evince with dbus in viewers
   (add-to-list 'TeX-view-program-list '("evince-dbus" abdo-latex-evince-dbus-view))
@@ -257,61 +257,76 @@
 ;; Setup D-bus interface for zathura reverse sync
 (defun abdo-latex-dbus-zathura-setup()
   (when (and (eq window-system 'x) (fboundp 'dbus-register-signal))
+    (message "Registering dbus method for zathura")
+
+    ;; service
+    ; (dbus-register-service :session "org.gnu.Emacs")
 
     ;; Reverse sync method
-    (dbus-register-method :session "org.gnu.Emacs" "/synctex" "org.gnu.Emacs"
-      "reverse_sync" 'abdo-latex-zathura-reverse-sync)
+    (dbus-register-method :session "org.gnu.Emacs" "/synctex"
+                          "org.gnu.Emacs" "reverse_sync"
+                          'abdo-latex-zathura-reverse-sync)
 
     ;; Make stuff introspectable
-    (dbus-register-method :session "org.gnu.Emacs" "/" dbus-interface-introspectable
-		      "Introspect" 'abdo-latex-dbus-slash-introspect)
+    (dbus-register-method :session "org.gnu.Emacs" "/"
+                          dbus-interface-introspectable "Introspect"
+                          'abdo-latex-dbus-slash-introspect)
 
-    (dbus-register-method :session "org.gnu.Emacs" "/synctex" dbus-interface-introspectable
-		      "Introspect" 'abdo-latex-dbus-slash-synctex-introspect)
+    (dbus-register-method :session "org.gnu.Emacs" "/synctex"
+                          dbus-interface-introspectable "Introspect"
+                          'abdo-latex-dbus-slash-synctex-introspect)
 
     ))
 
 
 ;; Introspection methods
 (defun abdo-latex-dbus-slash-introspect ()
-  "<node name='/'>
-  <interface name='org.freedesktop.DBus.Introspectable'>
-  <method name='Introspect'>
-  <arg name='xml_data' type='s' direction='out'/>
-  </method>
-  </interface>
-  <node name='synctex'>
-  </node>
+  "<!DOCTYPE node PUBLIC \"-//freedesktop//DTD D-BUS Object Introspection 1.0//EN\"
+  \"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd\">
+  <node name='/'>
+    <interface name='org.freedesktop.DBus.Introspectable'>
+    <method name='Introspect'>
+    <arg name='xml_data' type='s' direction='out'/>
+    </method>
+    </interface>
+    <node name='synctex'>
+    </node>
   </node>")
 
 
 (defun abdo-latex-dbus-slash-synctex-introspect ()
-  "<node name='/synctex'>
-  <interface name='org.freedesktop.DBus.Introspectable'>
-  <method name='Introspect'>
-  <arg name='xml_data' type='s' direction='out'/>
-  </method>
-  </interface>
-  <interface name='org.gnu.Emacs'>
-  <method name='reverse_sync'>
-  <arg name='' direction='out' type='s' />
-  </method>
-  </interface>
+"<!DOCTYPE node PUBLIC \"-//freedesktop//DTD D-BUS Object Introspection 1.0//EN\"
+  \"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd\">
+  <node name='/synctex'>
+    <interface name='org.freedesktop.DBus.Introspectable'>
+    <method name='Introspect'>
+    <arg name='xml_data' type='s' direction='out'/>
+    </method>
+    </interface>
+    <interface name='org.gnu.Emacs.synctex'>
+      <method name='reverse_sync'>
+        <arg name='tex' direction='in' type='s' />
+        <arg name='line' direction='in' type='i' />
+        <arg name='col' direction='in' type='i' />
+        <arg name='ret' direction='out' type='b' />
+      </method>
+    </interface>
   </node>")
 
 
 ;; Handler for zathura reverse sync
 (defun abdo-latex-zathura-reverse-sync (file line col)
   (let
-    ((buf (get-buffer (file-name-nondirectory file))))
+    ((buf (get-buffer (file-name-nondirectory file)))
+     (ret '(:boolean nil)))
     (if (null buf)
-      (message "Sorry, %s is not opened..." file)
+        (message "Sorry, %s is not opened..." file)
+      (message "Jumping to %s, line %d" file line)
       (switch-to-buffer buf)
       (goto-line line)
       (unless (= col -1) (move-to-column col))
-    )
-  )
-)
+      (setq ret '(:boolean t)))
+    ret))
 
 
 
