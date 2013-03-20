@@ -29,6 +29,6 @@ apps.orgmode             = "emacs -org"
 apps.mail                = "emacs -mail"
 apps.news                = "emacs -news"
 apps.notes               = "emacs -notes"
-apps.irc                 = "emacs -irc"
+apps.irc                 = "urxvt -e irssi"
 
 return apps
