@@ -85,8 +85,9 @@
 (autoload 'rainbow-mode "rainbow-mode" "Rainbow mode." t)
 (autoload 'markdown-mode "markdown-mode.el" "Markdown files" t)
 
-;; Rcirc
+;; Chat stuff
 (autoload 'rcirc "rcirc" "Rcirc irc client." t)
+(autoload 'twit "twittering-mode" "Twitter client." t)
 
 ;; Calibre
 (autoload 'calibre-find "calibre" "Calibre interface." t)
@@ -132,6 +133,11 @@
   (require 'abdo-mu4e)                 ;; personal mu4e stuff
 )
 
+;; chat
+(when (locate-library "jabber")
+  (require 'jabber-autoloads)
+)
+
 ;; org
 (when (locate-library "org")
   (require 'org)                       ;; org
@@ -161,7 +167,7 @@
 (require 'abdo-languages)              ;; Spell checking stuff
 (require 'abdo-utils)                  ;; Utility stuff
 (require 'abdo-helm)                   ;; Personal helm stuff
-(require 'abdo-irc)                    ;; Personal irc stuff
+(require 'abdo-chat)                   ;; Personal irc stuff
 (require 'abdo-devel)                  ;; Personal devel stuff
 (require 'abdo-keybindings)            ;; My personal keybindings
 (require 'abdo-yaml)                   ;; Yaml mode things
@@ -214,10 +220,8 @@
 (add-to-list 'command-switch-alist '("merge" . abdo-command-line-merge))
 (add-to-list 'command-switch-alist '("org" . abdo-launch-org))
 (add-to-list 'command-switch-alist '("notes" . abdo-launch-notes))
-; (add-to-list 'command-switch-alist '("gnus" . abdo-launch-gnus))
 (add-to-list 'command-switch-alist '("mail" . abdo-launch-mail))
-(add-to-list 'command-switch-alist '("news" . abdo-launch-news))
-(add-to-list 'command-switch-alist '("irc" . abdo-launch-irc))
+(add-to-list 'command-switch-alist '("chat" . abdo-launch-chat))
 (add-to-list 'command-switch-alist '("sage" . abdo-launch-sage))
 
 (defun abdo-launch-org (arg)
@@ -229,14 +233,14 @@
 (defun abdo-launch-sage (arg)
   (sage))
 
-(defun abdo-launch-irc (arg)
-  (rcirc nil))
+(defun abdo-launch-chat (arg)
+  (rcirc nil)
+  ; (twit)  ;; need to handle oauth thing
+  ; Jabber
+  )
 
 (defun abdo-launch-mail (arg)
   (abdo-mu4e "mail"))
-
-(defun abdo-launch-news (arg)
-  (abdo-notmuch nil "news"))
 
 
 ;; Custom set stuff
