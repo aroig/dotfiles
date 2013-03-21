@@ -55,3 +55,9 @@
 [submodule "modes/git-modes"]
 	path = modes/git-modes
 	url = https://github.com/lunaryorn/git-modes.git
+[submodule "packages/jabber"]
+	path = packages/jabber
+	url = git://emacs-jabber.git.sourceforge.net/gitroot/emacs-jabber/emacs-jabber
+[submodule "packages/twittering"]
+	path = packages/twittering
+	url = https://github.com/hayamiz/twittering-mode.git
