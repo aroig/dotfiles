@@ -18,30 +18,27 @@
       " News"                               ;; The indicator for the mode line.
       :group 'abdo)
 
+
+
 ;; Hooks
 (add-hook 'news-mode-hook 'abdo-mu4e-news-things)
 (add-hook 'email-mode-hook 'abdo-mu4e-mail-things)
+(add-hook 'mu4e-view-mode-hook 'abdo-mu4e-ansi-colorize)
+
+
 
 ;; settings
 ;; -----------------------------------------------
 
 (defun abdo-mu4e-things ()
 
-  ;; Fancy chars
-  ; (setq mu4e-use-fancy-chars t)
-
-  ;; convert html messages to markdown syntax
-  ; (setq mu4e-html2text-command "html2text")                         ; python-html2text
-  ; (setq mu4e-html2text-command "html2text -utf8 -width 80")         ; html2text with utf8
-  ; (setq mu4e-html2text-command "lynx -dump -stdin -width=100 -display_charset=utf-8")    ; lynx
-  ; (setq mu4e-html2text-command "elinks -dump -dump-color-mode 1")    ; elinks
-  (setq mu4e-html2text-command "w3m -dump -cols 100 -T text/html")    ; w3m
+  ; tweaking visual appearence
+  (abdo-mu4e-message-appearence)
 
   ;; Custom actions
   (setq mu4e-action-tags-header "X-Keywords")
   (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
   (add-to-list 'mu4e-view-actions '("tRetag message" . mu4e-action-retag-message) t)
-
   (add-to-list 'mu4e-view-actions '("bView in browser" . mu4e-action-view-in-browser) t)
 )
 
@@ -267,3 +264,52 @@
 
                 (t
                  (error (format "Can't recognise address in from field: %s" from))))))))
+
+
+;; Message view tweaks
+;; -----------------------------------------------
+
+(defun abdo-mu4e-message-appearence ()
+  ;; Fancy chars
+  ; (setq mu4e-use-fancy-chars t)
+
+  ;; convert html messages to markdown syntax
+  ; (setq mu4e-html2text-command "html2text")                         ; python-html2text
+  ; (setq mu4e-html2text-command "html2text -utf8 -width 80")         ; html2text with utf8
+  ; (setq mu4e-html2text-command "lynx -dump -stdin -width=100 -display_charset=utf-8")    ; lynx
+  ; (setq mu4e-html2text-command "w3m -dump -cols 100 -T text/html")    ; w3m
+  (setq mu4e-html2text-command "elinks -dump -force-html -dump-color-mode 1")    ; elinks
+
+)
+
+(defun abdo-mu4e-ansi-colorize ()
+  "Replace ansi color codes with propertized text"
+  (interactive)
+  (let ((inhibit-read-only t))
+    (ansi-color-apply-on-region (point-min) (point-max))))
+
+
+(defun mu4e~view-make-urls-clickable ()
+  "Turn references at the end into clickable urls that can be
+   opened using `mu4e-view-go-to-url'. Monkey patched from
+   mu4e-view.el"
+  (let ((num 0))
+    (save-excursion
+      (setq mu4e~view-link-map ;; buffer local
+	(make-hash-table :size 32 :weakness nil))
+      (re-search-forward "^References$" nil t)
+;      (goto-char (point-min))
+      (while (re-search-forward mu4e~view-url-regexp nil t)
+	(let ((url (match-string 0))
+	       (map (make-sparse-keymap)))
+	  (define-key map [mouse-1] (mu4e~view-browse-url-func url))
+	  (define-key map [?\M-\r] (mu4e~view-browse-url-func url))
+      (setq num (+ num 1))
+	  (puthash num url mu4e~view-link-map)
+	  (add-text-properties 0 (length url)
+	    `(face mu4e-view-link-face
+	       mouse-face highlight
+	       keymap ,map
+	       help-echo
+	       ("[mouse-1] or [M-RET] to open the link")) url)
+	  (replace-match (propertize url 'face 'mu4e-view-url-number-face)))))))
