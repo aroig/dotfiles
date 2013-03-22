@@ -16,6 +16,11 @@
   "Powerline face 2."
   :group 'powerline)
 
+(defface powerline-active-alert
+  '((t (:foreground "red" :inherit mode-line-active2)))
+  "Powerline alert"
+  :group 'powerline)
+
 (defface powerline-inactive0
   '((t (:background "grey11" :inherit mode-line-inactive)))
   "Powerline face 1."
@@ -29,6 +34,11 @@
 (defface powerline-inactive2
   '((t (:background "grey20" :inherit mode-line-inactive)))
   "Powerline face 2."
+  :group 'powerline)
+
+(defface powerline-inactive-alert
+  '((t (:foreground "red" :inherit mode-line-inactive2)))
+  "Powerline alert"
   :group 'powerline)
 
 
@@ -129,7 +139,26 @@
       (propertize (concat " " major " ") 'face face))
     ))
 
+(defun powerline-buffer-alerts (face)
+  (abdo-modeline-buffer-visit (current-buffer))
+  (let ((alert-list abdo-modeline-buffer-alert-list))
+    (propertize
+     (mapconcat (lambda (buf) (buffer-name buf)) alert-list " ")
+     'face face)))
 
+
+(defvar abdo-modeline-buffer-alert-list  '()
+  "List of buffers in need of attention")
+
+(defun abdo-modeline-buffer-alert (buffer-or-name)
+  (interactive)
+  (add-to-list 'abdo-modeline-buffer-alert-list (get-buffer buffer-or-name)))
+
+(defun abdo-modeline-buffer-visit (buffer-or-name)
+  (setq abdo-modeline-buffer-alert-list
+        (or (delete (get-buffer buffer-or-name) abdo-modeline-buffer-alert-list) '())))
+
+(add-hook 'kill-buffer-hook (lambda () (abdo-modeline-buffer-visit (current-buffer))))
 
 
 ;; Modeline tweaking
@@ -158,6 +187,7 @@
                         (face0     (if active 'powerline-active0 'powerline-inactive0))
                         (face1     (if active 'powerline-active1 'powerline-inactive1))
                         (face2     (if active 'powerline-active2 'powerline-inactive2))
+                        (facealert (if active 'powerline-active-alert 'powerline-inactive-alert))
                         (evilstate (abdo-evil-state))
                         (evilface  (if active (abdo-evil-face evilstate) 'powerline-evil-inactive))
                         (lhs (list
@@ -183,6 +213,9 @@
                               ))
 
                         (rhs (list
+                              ; buffer alerts
+                              (powerline-buffer-alerts facealert)
+
                               ; mode string
                               (powerline-raw global-mode-string face2 'r)
                               (powerline-arrow-left face2 face1)
