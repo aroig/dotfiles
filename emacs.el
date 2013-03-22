@@ -235,8 +235,18 @@
 
 (defun abdo-launch-chat (arg)
   (rcirc nil)
-  ; (twit)  ;; need to handle oauth thing
-  ; Jabber
+;  (jabber-connect-all)
+  ; (twit)
+
+  ;; kill connections before exit
+  (global-set-key (kbd "C-x C-c")
+                  '(lambda ()
+                     (interactive)
+;                     (when (fboundp 'jabber-disconnect) (jabber-disconnect))
+                     (abdo-close-rcirc)
+                     (sleep-for 1)      ; give time for the processes to shutdown
+; TODO: for some reason process does not get killed before reaching kill-emacs function.
+                     (abdo-exit)))
   )
 
 (defun abdo-launch-mail (arg)
