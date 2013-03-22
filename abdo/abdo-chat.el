@@ -28,8 +28,8 @@
   (when
     (abdo-notify-message serv (format "%s: %s" serv nick) text)
     (abdo-urgency-hint (selected-frame) t)
+    (when buf (abdo-modeline-buffer-alert buf))
     ;; TODO: ding!
-    ;; TODO: put something on the modeline
     ))
 
 
@@ -118,6 +118,29 @@
   ;; Turn on spell checking.
   (flyspell-mode 1)
 )
+
+
+;; Source: http://chinmaykamat.wordpress.com/2010/01/22/google-talk-invisible-mode-in-pidgin/
+
+(defun jabber-hide ()
+  (interactive)
+  (let* ((jc jabber-buffer-connection)
+         (jid (jabber-connection-bare-jid jc)))
+    (jabber-send-sexp jc
+                      `(iq ((type . "set") (to . ,jid) (id . "ss-2"))
+                           (query ((xmlns . "google:shared-status") (version . "2"))
+                                  (invisible ((value . "true"))))))))
+
+(defun jabber-unhide ()
+  (interactive)
+  (let* ((jc jabber-buffer-connection)
+         (jid (jabber-connection-bare-jid jc)))
+    (jabber-send-sexp jc
+                      `(iq ((type . "set") (to . ,jid) (id . "ss-2"))
+                           (query ((xmlns . "google:shared-status") (version . "2"))
+                                  (invisible ((value . "false"))))))))
+
+
 
 ;; rcirc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
