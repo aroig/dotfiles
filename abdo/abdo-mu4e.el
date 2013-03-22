@@ -23,7 +23,7 @@
 ;; Hooks
 (add-hook 'news-mode-hook 'abdo-mu4e-news-things)
 (add-hook 'email-mode-hook 'abdo-mu4e-mail-things)
-(add-hook 'mu4e-view-mode-hook 'abdo-mu4e-ansi-colorize)
+;(add-hook 'mu4e-view-mode-hook 'abdo-mu4e-ansi-colorize)
 
 
 
@@ -274,11 +274,12 @@
   ; (setq mu4e-use-fancy-chars t)
 
   ;; convert html messages to markdown syntax
-  ; (setq mu4e-html2text-command "html2text")                         ; python-html2text
-  ; (setq mu4e-html2text-command "html2text -utf8 -width 80")         ; html2text with utf8
-  ; (setq mu4e-html2text-command "lynx -dump -stdin -width=100 -display_charset=utf-8")    ; lynx
-  ; (setq mu4e-html2text-command "w3m -dump -cols 100 -T text/html")    ; w3m
-  (setq mu4e-html2text-command "elinks -dump -force-html -dump-color-mode 1")    ; elinks
+  ; (setq mu4e-html2text-command "html2text")                                             ; python-html2text
+  ; (setq mu4e-html2text-command "html2text -utf8 -width 80")                             ; html2text with utf8
+  ; (setq mu4e-html2text-command "lynx -dump -stdin -width=100 -display_charset=utf-8")   ; lynx
+  ; (setq mu4e-html2text-command "w3m -dump -cols 100 -T text/html")                      ; w3m
+  ; (setq mu4e-html2text-command "elinks -dump -force-html -dump-color-mode 1")           ; elinks color
+  (setq mu4e-html2text-command "elinks -dump -force-html")                                ; elinks
 
 )
 
