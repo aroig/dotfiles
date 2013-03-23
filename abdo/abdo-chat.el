@@ -2,7 +2,7 @@
 ;; Some functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defvar abdo-chat-alert-keyword-regexp "abtwo\\|ab2\\|Abdó\\|Abdo\\|abdo\\|abdó")
+(defvar abdo-chat-alert-keyword-regexp "\\b\\(abtwo\\|ab2\\|Abdó\\|Abdo\\|abdo\\|abdó\\)\\b")
 (defvar abdo-chat-alert-ignore-user-regexp "NickServ")
 
 (defun abdo-notify-message (who title msg)
@@ -183,21 +183,21 @@
 
 
 (defun abdo-rcirc-notify (proc sender response target text)
-
   ;; TODO: check that target is not current window
-  (let ((textclean (replace-regexp-in-string "[^[:graph:] ]" "" text)))
+  (let ((textclean (replace-regexp-in-string "[^[:graph:] ]" "" text))
+        (buf (when target (rcirc-get-buffer proc target))))
     (cond
      ((and (string= response "PRIVMSG")
            (not (rcirc-channel-p target))
            (not (string= sender (rcirc-nick proc)))
            (not (string-match abdo-chat-alert-ignore-user-regexp sender)))
-      (abdo-chat-notify "rcirc" sender sender textclean nil))
+      (abdo-chat-notify "rcirc" sender sender textclean buf))
 
      ((and (not (string= response "PRIVMSG"))
            (not (string= sender (rcirc-nick proc)))
            (string-match abdo-chat-alert-keyword-regexp text)
            (not (string-match abdo-chat-alert-ignore-user-regexp sender)))
-      (abdo-chat-notify "rcirc" sender sender textclean nil)))))
+      (abdo-chat-notify "rcirc" sender sender textclean buf)))))
 
 
 (defun abdo-rcirc-mode-things ()
