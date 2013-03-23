@@ -80,7 +80,7 @@
 
 
 
-;; Functions
+;; Powerline fragments
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun abdo-evil-state ()
@@ -93,22 +93,41 @@
         ((evil-emacs-state-p)    "E")
         (t                       "U")))
 
+(defun abdo-powerline-evil-state ()
+  (let* ((active (eq (frame-selected-window) (selected-window)))
+         (face0 (if active 'powerline-active0 'powerline-inactive0))
+         (evilstate (abdo-evil-state))
+         (evilface (cond
+                    ((not active)            'powerline-evil-inactive)
+                    ((evil-normal-state-p)   'powerline-evil-normal)
+                    ((evil-insert-state-p)   'powerline-evil-insert)
+                    ((evil-visual-state-p)   'powerline-evil-visual)
+                    ((evil-operator-state-p) 'powerline-evil-operator)
+                    ((evil-motion-state-p)   'powerline-evil-motion)
+                    ((evil-replace-state-p)  'powerline-evil-replace)
+                    ((evil-emacs-state-p)    'powerline-evil-emacs)
+                    (t                       'powerline-evil-unknown))))
+    (powerline-render
+     (list
+      (propertize (format " %s " evilstate) 'face evilface)
+      (powerline-arrow-right evilface face0)))))
 
-(defun abdo-evil-face (&optional state)
-    ;; Don't propertize if we're not in the selected buffer
-    (cond ;((not (eq (current-buffer) (car (buffer-list)))) 'powerline-evil-inactive)
-          ((evil-normal-state-p)   'powerline-evil-normal)
-          ((evil-insert-state-p)   'powerline-evil-insert)
-          ((evil-visual-state-p)   'powerline-evil-visual)
-          ((evil-operator-state-p) 'powerline-evil-operator)
-          ((evil-motion-state-p)   'powerline-evil-motion)
-          ((evil-replace-state-p)  'powerline-evil-replace)
-          ((evil-emacs-state-p)    'powerline-evil-emacs)
-          (t                       'powerline-evil-unknown)))
+
+(defun abdo-powerline-buffer-name ()
+  (let* ((active (eq (frame-selected-window) (selected-window)))
+         (face0 (if active 'powerline-active0 'powerline-inactive0))
+         (face1 (if active 'powerline-active1 'powerline-inactive1)))
+    (powerline-render
+     (list
+      (powerline-raw "%b " face0 'l)
+      (powerline-arrow-right face0 face1)))))
 
 
-(defun powerline-mode-list (face)
-  (let ((major (propertize
+(defun abdo-powerline-mode-list ()
+  (let* ((active (eq (frame-selected-window) (selected-window)))
+         (face1 (if active 'powerline-active1 'powerline-inactive1))
+         (face2 (if active 'powerline-active2 'powerline-inactive2))
+         (major (propertize
                  (downcase (format-mode-line mode-name))
 
            'help-echo "Major mode\n\ mouse-1: Display major mode menu\n\ mouse-2: Show help for major mode\n\ mouse-3: Toggle minor modes"
@@ -121,25 +140,73 @@
                         (define-key map [mode-line down-mouse-3] mode-line-mode-menu)
                         map)))
 
-        (minor (mapconcat (lambda (mm)
-           (when mm (propertize (downcase mm)
+        (minor (mapconcat
+                (lambda (mm)
+                  (when mm
+                    (propertize
+                     (downcase mm)
+                     'help-echo "Minor mode\n mouse-1: Display minor mode menu\n mouse-2: Show help for minor mode\n mouse-3: Toggle minor modes"
 
-             'help-echo "Minor mode\n mouse-1: Display minor mode menu\n mouse-2: Show help for minor mode\n mouse-3: Toggle minor modes"
+                     'local-map (let ((map (make-sparse-keymap)))
+                                  (define-key map [mode-line down-mouse-1]   (powerline-mouse 'minor 'menu mm))
+                                  (define-key map [mode-line mouse-2]        (powerline-mouse 'minor 'help mm))
+                                  (define-key map [mode-line down-mouse-3]   (powerline-mouse 'minor 'menu mm))
+                                  (define-key map [header-line down-mouse-3] (powerline-mouse 'minor 'menu mm))
+                                  map))))
+                (split-string (format-mode-line minor-mode-alist)) " ")))
 
-             'local-map (let ((map (make-sparse-keymap)))
-                          (define-key map [mode-line down-mouse-1]   (powerline-mouse 'minor 'menu mm))
-                          (define-key map [mode-line mouse-2]        (powerline-mouse 'minor 'help mm))
-                          (define-key map [mode-line down-mouse-3]   (powerline-mouse 'minor 'menu mm))
-                          (define-key map [header-line down-mouse-3] (powerline-mouse 'minor 'menu mm))
-                          map))))
-          (split-string (format-mode-line minor-mode-alist)) " ")))
+    (powerline-render
+     (list
+      (if (not (string= minor ""))
+          (propertize (concat " " major " | " minor " ") 'face face1)
+        (propertize (concat " " major " ") 'face face1))
+      (powerline-arrow-right face1 face2)))))
 
-    (if (not (string= minor ""))
-        (propertize (concat " " major " | " minor " ") 'face face)
-      (propertize (concat " " major " ") 'face face))
-    ))
 
-(defun powerline-buffer-alerts (face)
+(defun abdo-powerline-middle ()
+  (let* ((active (eq (frame-selected-window) (selected-window)))
+         (face2 (if active 'powerline-active2 'powerline-inactive2))
+         (facealert (if active 'powerline-active-alert 'powerline-inactive-alert)))
+    (powerline-render
+     (list
+     (abdo-powerline-buffer-alerts facealert)
+     (when mode-line-process
+       (powerline-raw (format "%s " mode-line-process) face2 'l))
+      (powerline-vc face2)
+     (powerline-raw global-mode-string face2 'r)
+     (powerline-fill face2 25)     ; everything on the right is fixed width
+     ;; TODO: truncate this if it gets too long
+     ))))
+
+
+
+(defun abdo-powerline-position ()
+  (let* ((active (eq (frame-selected-window) (selected-window)))
+         (face0 (if active 'powerline-active0 'powerline-inactive0))
+         (face1 (if active 'powerline-active1 'powerline-inactive1)))
+    (powerline-render
+     (list
+      (powerline-arrow-left face1 face0)
+      (powerline-raw "%5l:%3c  %p" face0 'r)
+      (powerline-narrow face0 'r)))))
+
+
+(defun abdo-powerline-state ()
+  (let* ((active (eq (frame-selected-window) (selected-window)))
+         (face1 (if active 'powerline-active1 'powerline-inactive1))
+         (face2 (if active 'powerline-active2 'powerline-inactive2)))
+    (powerline-render
+     (list
+      (powerline-arrow-left face2 face1)
+      (powerline-raw " %*%Z" face1 'r)))))
+
+
+
+
+;; Buffer alerts
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun abdo-powerline-buffer-alerts (face)
   (abdo-modeline-buffer-visit (current-buffer))
   (let ((alert-list abdo-modeline-buffer-alert-list))
     (propertize
@@ -161,6 +228,25 @@
 (add-hook 'kill-buffer-hook (lambda () (abdo-modeline-buffer-visit (current-buffer))))
 
 
+(defun abdo-modeline-truncate-to (str-val maxlen &optional ellipsis)
+  "Truncate STRING to MAXLEN.
+
+The returned value is of length MAXLEN or less, including
+ELLIPSIS.
+
+ELLIPSIS is a string inserted wherever characters were removed.
+It defaults to the UCS character \"Horizontal Ellipsis\", or
+\"...\" if extended characters are not displayable."
+  ;; character x2026 = Horizontal Ellipsis
+  (callf or ellipsis (if (char-displayable-p (decode-char 'ucs #x2026)) (string (decode-char 'ucs #x2026)) "..."))
+  (when (> (length str-val) maxlen)
+    (if (>= (length ellipsis) maxlen)
+        (setq str-val ellipsis)
+      (callf substring str-val 0 (- maxlen (length ellipsis)))
+      (callf concat str-val ellipsis))
+    (callf substring str-val 0 maxlen))
+  str-val)
+
 ;; Modeline tweaking
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -180,61 +266,16 @@
 
 (defun abdo-powerline-things ()
   (require 'powerline)
+
   (setq-default mode-line-format
-              '("%e"
-                (:eval
-                 (let* ((active    (eq (frame-selected-window) (selected-window)))
-                        (face0     (if active 'powerline-active0 'powerline-inactive0))
-                        (face1     (if active 'powerline-active1 'powerline-inactive1))
-                        (face2     (if active 'powerline-active2 'powerline-inactive2))
-                        (facealert (if active 'powerline-active-alert 'powerline-inactive-alert))
-                        (evilstate (abdo-evil-state))
-                        (evilface  (if active (abdo-evil-face evilstate) 'powerline-evil-inactive))
-                        (lhs (list
-                              ; evil state
-                              (propertize (format " %s " evilstate) 'face evilface)
-                              (powerline-arrow-right evilface face0)
-
-                              ; buffer id
-                              (powerline-raw "%b " face0 'l)
-                              (powerline-arrow-right face0 face1)
-
-                              ; modes
-                              (powerline-mode-list face1)
-                              (powerline-arrow-right face1 face2)
-
-                              ; process
-                              (when mode-line-process
-                                (powerline-raw (format "%s " mode-line-process) face2 'l))
-
-
-                              ; vcs
-                              (powerline-vc face2)
-                              ))
-
-                        (rhs (list
-                              ; buffer alerts
-                              (powerline-buffer-alerts facealert)
-
-                              ; mode string
-                              (powerline-raw global-mode-string face2 'r)
-                              (powerline-arrow-left face2 face1)
-
-                              ; position
-                              (powerline-raw " %l:%2c %p" face1 'r)
-                              (powerline-narrow face1 'r)
-                              (powerline-arrow-left face1 face0)
-
-                              ; state
-                              (powerline-raw " %*%Z " face0 'r)
-                              (powerline-hud face2 face1)
-                              )))
-
-                   (concat
-                    (powerline-render lhs)
-                    (powerline-fill face2 (powerline-width rhs))
-                    (powerline-render rhs)))))))
-
+                (list
+                 '(:eval (abdo-powerline-evil-state))       ; evil state
+                 '(:eval (abdo-powerline-buffer-name))      ; buffer name
+                 '(:eval (abdo-powerline-mode-list))        ; mode list
+                 '(:eval (abdo-powerline-middle))
+                 '(:eval (abdo-powerline-state))            ; state
+                 '(:eval (abdo-powerline-position))         ; position
+                 )))
 
 ;; Tweaking
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
