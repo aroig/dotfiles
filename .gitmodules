@@ -55,6 +55,3 @@
 [submodule "modes/git-modes"]
 	path = modes/git-modes
 	url = https://github.com/lunaryorn/git-modes.git
-[submodule "packages/twittering"]
-	path = packages/twittering
-	url = https://github.com/hayamiz/twittering-mode.git
