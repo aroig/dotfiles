@@ -234,7 +234,8 @@
 ;                     (when (fboundp 'jabber-disconnect) (jabber-disconnect))
                      (abdo-close-rcirc)
                      (sleep-for 1)      ; give time for the processes to shutdown
-; TODO: for some reason process does not get killed before reaching kill-emacs function.
+                     ; TODO: for some reason process does not get killed before
+                     ; reaching kill-emacs function.
                      (abdo-exit)))
   )
 

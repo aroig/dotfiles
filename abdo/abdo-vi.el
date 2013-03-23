@@ -17,7 +17,7 @@
   (evil-set-initial-state 'prog-mode 'normal)
   (evil-set-initial-state 'text-mode 'normal)
   (evil-set-initial-state 'org-mode  'normal)
-  (evil-set-initial-state 'rcirc-mode 'normal)
+  (evil-set-initial-state 'rcirc-mode 'emacs)
   (evil-set-initial-state 'git-commit-mode 'insert)
   (evil-set-initial-state 'inferior-python-mode 'emacs)
 
