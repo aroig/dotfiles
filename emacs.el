@@ -5,7 +5,6 @@
 ;; Path of local emacs stuff
 (setq abdo-emacs-directory "/home/abdo/Software/conf/emacs/")
 
-
 ;; Adds subdirectories at the begining of path
 (let ((default-directory (concat abdo-emacs-directory "emacs-lisp/")))
   (setq load-path
@@ -13,13 +12,14 @@
       (let ((load-path (copy-sequence load-path))) ;; Shadow
         (append
           (copy-sequence (normal-top-level-add-to-load-path '(".")))
-          (normal-top-level-add-subdirs-to-load-path)
-        )
-      )
-      load-path
-    )
-  )
-)
+          (normal-top-level-add-subdirs-to-load-path)))
+      load-path)))
+
+;; theme paths
+(let* ((theme-base (concat abdo-emacs-directory "themes/"))
+       (theme-dirs (mapcar (lambda (d) (concat theme-base d))
+                       (directory-files theme-base nil "[^.].*"))))
+  (setq custom-theme-load-path (append theme-dirs custom-theme-load-path)))
 
 
 ;; Startup and window tweaking
@@ -33,21 +33,10 @@
                             (tool-bar-lines . 0)))
 
 ;; Apply color theme
-(require 'zenburn-theme)
+(load-theme 'zenburn t)
 
 ;; modeline tweaks
 (require 'abdo-modeline)
-
-;; Apply root colors if user is root
-(let ((username (substring (shell-command-to-string "id -n -u") 0 -1)))
-  (when (string= username "root")
-    (set-face-background 'mode-line "#4b0b0b")
-
-    (set-face-background 'powerline-active0 "#4b0b0b")
-    (set-face-background 'powerline-active1 "#872727")
-    (set-face-background 'powerline-active2 "#b74747")
-
-    (set-face-background 'region "#4b0b0b")))
 
 
 ;; Paths
