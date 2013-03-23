@@ -53,7 +53,8 @@ be prompted."
     ; subtract 1 from the clients for this client.
     ; subtract 2 from the frames this frame (that we just created) and the default frame.
     (when ( or (not active-clients-or-frames)
-	       (yes-or-no-p (format "There are currently %d clients and %d frames. Exit anyway?" (- (length server-clients) 1) (- (length (frame-list)) 2))))
+	       (yes-or-no-p (format "There are currently %d clients and %d frames. Exit anyway?"
+                                (- (length server-clients) 1) (- (length (frame-list)) 2))))
 
       ; If the user quits during the save dialog then don't exit emacs.
       ; Still close the terminal though.
