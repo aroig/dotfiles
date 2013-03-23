@@ -140,10 +140,10 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(default ((t (:foreground ,zenburn-fg :background ,zenburn-bg))))
    `(cursor ((t (:foreground ,zenburn-fg :background "white"))))
    `(escape-glyph ((t (:foreground ,zenburn-yellow :bold t))))
-   `(fringe ((t (:foreground ,zenburn-fg :background ,zenburn-bg+1))))
+   `(fringe ((t (:foreground ,zenburn-fg :background ,zenburn-bg))))
    `(header-line ((t (:foreground ,zenburn-yellow
                                   :background ,zenburn-bg-1
-                                  :box (:line-width -1 :style released-button)))))
+                                  :box nil))))
    `(highlight ((t (:background ,zenburn-bg-05))))
    `(success ((t (:foreground ,zenburn-green :weight bold))))
    `(warning ((t (:foreground ,zenburn-orange :weight bold))))
@@ -178,13 +178,13 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(mode-line
      ((,class (:foreground ,zenburn-green+1
                            :background ,zenburn-bg-1
-                           :box (:line-width -1 :style released-button)))
+                           :box nil))
       (t :inverse-video t)))
    `(mode-line-buffer-id ((t (:foreground ,zenburn-yellow :weight bold))))
    `(mode-line-inactive
      ((t (:foreground ,zenburn-green-1
                       :background ,zenburn-bg-05
-                      :box (:line-width -1 :style released-button)))))
+                      :box nil))))
    `(region ((,class (:background ,zenburn-bg-1))
              (t :inverse-video t)))
    `(secondary-selection ((t (:background ,zenburn-bg+2))))
@@ -484,7 +484,7 @@ Also bind `class' to ((class color) (min-colors 89))."
                       :background ,zenburn-bg-1
                       :underline nil
                       :weight bold
-                      :box (:line-width -1 :style released-button)))))
+                      :box nil))))
    `(helm-selection ((t (:background ,zenburn-bg+1 :underline nil))))
    `(helm-selection-line ((t (:background ,zenburn-bg+1))))
    `(helm-visible-mark ((t (:foreground ,zenburn-bg :background ,zenburn-yellow-2))))
@@ -637,7 +637,7 @@ Also bind `class' to ((class color) (min-colors 89))."
      ((t (:inherit font-lock-comment-face))))
    `(org-archived ((t (:foreground ,zenburn-fg :weight bold))))
    `(org-checkbox ((t (:background ,zenburn-bg+2 :foreground "white"
-                                   :box (:line-width 1 :style released-button)))))
+                                   :box nil))))
    `(org-date ((t (:foreground ,zenburn-blue :underline t))))
    `(org-deadline-announce ((t (:foreground ,zenburn-red-1))))
    `(org-done ((t (:bold t :weight bold :foreground ,zenburn-green+3))))
@@ -750,10 +750,10 @@ Also bind `class' to ((class color) (min-colors 89))."
                                     :background ,zenburn-bg))))
    `(tabbar-selected ((t (:foreground ,zenburn-fg
                                       :background ,zenburn-bg
-                                      :box (:line-width -1 :style pressed-button)))))
+                                      :box nil))))
    `(tabbar-unselected ((t (:foreground ,zenburn-fg
                                         :background ,zenburn-bg+1
-                                        :box (:line-width -1 :style released-button)))))
+                                        :box nil))))
 ;;;;; term
    `(term-color-black ((t (:foreground ,zenburn-bg
                                        :background ,zenburn-bg-1))))
