@@ -128,7 +128,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(link ((t (:foreground ,zenburn-yellow :underline t :weight bold))))
    `(link-visited ((t (:foreground ,zenburn-yellow-2 :underline t :weight normal))))
    `(default ((t (:foreground ,zenburn-fg :background ,zenburn-bg))))
-   `(cursor ((t (:foreground ,zenburn-fg :background ,zenburn-fg+1))))
+   `(cursor ((t  (:foreground ,zenburn-fg :background ,zenburn-fg))))
    `(escape-glyph ((t (:foreground ,zenburn-red))))
    `(fringe ((t (:foreground ,zenburn-fg :background ,zenburn-bg))))
    `(header-line ((t (:foreground ,zenburn-yellow
@@ -242,9 +242,9 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(font-latex-string-face ((t (:foreground ,zenburn-salmon))))
    `(font-latex-slide-title-face ((t (:foreground ,zenburn-blue :weight bold))))
 ;;;;; auto-complete
-   `(ac-candidate-face ((t (:background ,zenburn-bg+3 :foreground ,zenburn-bg-2))))
+   `(ac-candidate-face ((t (:background ,zenburn-bg+3 :foreground ,zenburn-bg-1))))
    `(ac-selection-face ((t (:background ,zenburn-blue-4 :foreground ,zenburn-fg))))
-   `(popup-tip-face ((t (:background ,zenburn-yellow-2 :foreground ,zenburn-bg-2))))
+   `(popup-tip-face ((t (:background ,zenburn-yellow-2 :foreground ,zenburn-bg-1))))
    `(popup-scroll-bar-foreground-face ((t (:background ,zenburn-blue-5))))
    `(popup-scroll-bar-background-face ((t (:background ,zenburn-bg-1))))
    `(popup-isearch-match ((t (:background ,zenburn-bg :foreground ,zenburn-fg))))
