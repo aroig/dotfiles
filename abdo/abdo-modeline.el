@@ -217,19 +217,38 @@
 (defun abdo-powerline-buffer-alerts ()
   (abdo-modeline-buffer-visit (current-buffer))
   (let ((alert-list abdo-modeline-buffer-alert-list))
-    (mapconcat (lambda (buf) (buffer-name buf)) alert-list " ")))
+    (mapconcat
+     (lambda (pair)
+       (let ((short (car pair))
+             (buf (car (cdr pair))))
+         (propertize short
+                     'local-map (when (fboundp 'make-mode-line-mouse-map)
+                                  (make-mode-line-mouse-map
+                                   'mouse-1 `(lambda ()
+                                               (interactive "@")
+                                               (switch-to-buffer ,buf))))
+                     'help-echo (concat "Jump to " (buffer-name buf) " buffer"))))
+       alert-list " ")))
 
 
 (defvar abdo-modeline-buffer-alert-list  '()
   "List of buffers in need of attention")
 
-(defun abdo-modeline-buffer-alert (buffer-or-name)
+
+(defun abdo-modeline-buffer-alert (buffer-or-name &optional short-name)
   (interactive)
-  (add-to-list 'abdo-modeline-buffer-alert-list (get-buffer buffer-or-name)))
+  (let* ((buf (get-buffer buffer-or-name))
+         (short (or short-name (buffer-name buf))))
+    (add-to-list 'abdo-modeline-buffer-alert-list (list short buf))))
+
 
 (defun abdo-modeline-buffer-visit (buffer-or-name)
-  (setq abdo-modeline-buffer-alert-list
-        (or (delete (get-buffer buffer-or-name) abdo-modeline-buffer-alert-list) '())))
+  (let ((buf (get-buffer buffer-or-name)))
+    (setq abdo-modeline-buffer-alert-list
+          (delq nil
+                (mapcar (lambda (pair)
+                          (if (eq (car (cdr pair)) buf) nil pair))
+                        abdo-modeline-buffer-alert-list)))))
 
 (add-hook 'kill-buffer-hook (lambda () (abdo-modeline-buffer-visit (current-buffer))))
 
