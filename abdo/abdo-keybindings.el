@@ -132,19 +132,26 @@
 (add-hook 'outline-minor-mode-hook 'outline-mode-keybindings)
 
 
+;; ediff
+(add-hook 'ediff-load-hook
+          (lambda ()
+            ;; Don't want to be asked for commit when merging, etc.
+            (make-local-variable 'abdo-commit-on-kill)
+            (setq abdo-commit-on-kill nil)))
+
+
 ;; text mode
 (add-hook 'text-mode-hook
 	  (lambda ()
 	    (local-set-key (kbd "s-c d") 'abdo-change-dictionary)))
 
 
-
 ;; Git commit
 (add-hook 'git-commit-mode-hook
 	  (lambda ()
 	    ;; Don't want to be asked for commit when commiting!
-            (make-local-variable 'abdo-commit-on-kill)
-            (setq abdo-commit-on-kill nil)))
+        (make-local-variable 'abdo-commit-on-kill)
+        (setq abdo-commit-on-kill nil)))
 
 ;; Git rebase
 (add-hook 'rebase-mode-hook
