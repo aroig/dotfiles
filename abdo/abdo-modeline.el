@@ -169,15 +169,23 @@
          (facealert (if active 'powerline-active-alert 'powerline-inactive-alert)))
     (powerline-render
      (list
-     (abdo-powerline-buffer-alerts facealert)
-     (when mode-line-process
-       (powerline-raw (format "%s " mode-line-process) face2 'l))
-      (powerline-vc face2)
-     (powerline-raw global-mode-string face2 'r)
-     (powerline-fill face2 25)     ; everything on the right is fixed width
-     ;; TODO: truncate this if it gets too long
-     ))))
+      (when (and (buffer-file-name (current-buffer)) vc-mode)
+        (powerline-raw (format "%s " (format-mode-line '(vc-mode vc-mode))) face2 'l))
 
+      (when (> (length abdo-modeline-buffer-alert-list) 0)
+        (powerline-raw (format "%s " (abdo-powerline-buffer-alerts)) facealert 'l))
+
+      (when mode-line-process
+        (powerline-raw (format "%s " mode-line-process) face2 'l))
+
+      (when global-mode-string
+        (powerline-raw (format-mode-line '(global-mode-string global-mode-string)) face2 'r))
+
+
+
+      (powerline-fill face2 25)     ; everything on the right is fixed width
+      ;; TODO: truncate this if it gets too long
+     ))))
 
 
 (defun abdo-powerline-position ()
@@ -187,7 +195,7 @@
     (powerline-render
      (list
       (powerline-arrow-left face1 face0)
-      (powerline-raw "%5l:%3c  %p" face0 'r)
+      (powerline-raw "%5l %3c  %p" face0 'r)
       (powerline-narrow face0 'r)))))
 
 
@@ -206,12 +214,10 @@
 ;; Buffer alerts
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun abdo-powerline-buffer-alerts (face)
+(defun abdo-powerline-buffer-alerts ()
   (abdo-modeline-buffer-visit (current-buffer))
   (let ((alert-list abdo-modeline-buffer-alert-list))
-    (propertize
-     (mapconcat (lambda (buf) (buffer-name buf)) alert-list " ")
-     'face face)))
+    (mapconcat (lambda (buf) (buffer-name buf)) alert-list " ")))
 
 
 (defvar abdo-modeline-buffer-alert-list  '()
@@ -274,7 +280,7 @@ It defaults to the UCS character \"Horizontal Ellipsis\", or
                  '(:eval (abdo-powerline-mode-list))        ; mode list
                  '(:eval (abdo-powerline-middle))
                  '(:eval (abdo-powerline-state))            ; state
-                 '(:eval (abdo-powerline-position))         ; position
+                 '(-15 (:eval (abdo-powerline-position)))    ; position
                  )))
 
 ;; Tweaking
