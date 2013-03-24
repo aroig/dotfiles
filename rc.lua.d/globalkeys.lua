@@ -29,8 +29,7 @@ globalkeys = awful.util.table.join(
     -- Right dropdown clients
     awful.key({ modkey, ctrlkey   }, "d",      function () ddclient.dict:toggle() end),
     awful.key({ modkey, ctrlkey   }, "h",      function () ddclient.calibre:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "p",      function () ddclient.chat:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "i",      function () ddclient.irc:toggle() end),
+    awful.key({ modkey, ctrlkey   }, "i",      function () ddclient.chat:toggle() end),
     awful.key({ modkey, ctrlkey   }, "m",      function () ddclient.music:toggle() end),
     awful.key({ modkey, ctrlkey   }, "t",      function () ddclient.twitter:toggle() end),
 
