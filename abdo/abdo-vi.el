@@ -17,9 +17,12 @@
   (evil-set-initial-state 'prog-mode 'normal)
   (evil-set-initial-state 'text-mode 'normal)
   (evil-set-initial-state 'org-mode  'normal)
-  (evil-set-initial-state 'rcirc-mode 'emacs)
   (evil-set-initial-state 'git-commit-mode 'insert)
   (evil-set-initial-state 'inferior-python-mode 'emacs)
+
+  (evil-set-initial-state 'rcirc-mode 'emacs)
+  (evil-set-initial-state 'jabber-roster-mode 'emacs)
+  (evil-set-initial-state 'jabber-chat-mode 'emacs)
 
   (evil-set-initial-state 'special-mode 'emacs)
   (evil-set-initial-state 'mu4e-main-mode 'emacs)

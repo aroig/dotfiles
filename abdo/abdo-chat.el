@@ -24,24 +24,13 @@
 
 (defun abdo-chat-notify (serv user nick text buf)
   "Notify a chat event"
-  (message (format "Chat: notification from %s" nick))
+  (message (format "%s: notification from %s" serv nick))
   (when
     (abdo-notify-message serv (format "%s: %s" serv nick) text)
     (abdo-urgency-hint (selected-frame) t)
-    (when buf (abdo-modeline-buffer-alert buf))
+    (when buf (abdo-modeline-buffer-alert buf user))
     ;; TODO: ding!
     ))
-
-
-
-;; twitter
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;; twittering
-(defun abdo-twittering-global-things ()
-
-)
 
 
 
@@ -81,11 +70,26 @@
   (setq jabber-backlog-number 10)
   (setq jabber-backlog-days 3)
 
+  (setq jabber-chat-local-prompt-format "%t %n: ")
+  (setq jabber-chat-foreign-prompt-format "%t %n: ")
+  (setq jabber-chat-system-prompt-format  "%t *** ")
+
+  (setq jabber-chat-time-format "[%H:%M:%S]")
+  (setq jabber-chat-delayed-time-format "[%Y-%m-%d][%H:%M:%S]")
+
+  (setq jabber-print-rare-time t)
+  (setq jabber-rare-time-format "%a %e %b %Y %H:00")
+
+  ; TODO: if I change buffer formats, notifications cease to work!
+;  (setq jabber-chat-buffer-format "%j")
+;  (setq jabber-groupchat-buffer-format "%j")
+;  (setq jabber-muc-private-buffer-format "%j")
+
   ; roster buffer
-  (setq jabber-roster-buffer "*roster*")
+  (setq jabber-roster-buffer "*jabber*")
 
   ; notifications
-  (setq jabber-message-alert-same-buffer nil)
+  (setq jabber-message-alert-same-buffer nil)  ; don't display alerts for current buffer
 
   ; avatar settings
   (setq jabber-vcard-avatars-retrieve nil)
@@ -112,33 +116,73 @@
   ; notifications
   (add-hook 'jabber-alert-message-hooks 'abdo-jabber-notify)
   (add-hook 'jabber-chat-mode-hook 'abdo-jabber-chat-mode-things)
+
+  ; hide on connection.
+  ; This hook is run before jabber-send-current-presence
+  (add-hook 'jabber-post-connect-hook 'jabber-hide)
+  ; (remove-hook 'jabber-post-connect-hook 'jabber-send-current-presence)
+
 )
 
 (defun abdo-jabber-chat-mode-things ()
   ;; Turn on spell checking.
   (flyspell-mode 1)
+  (jabber-activity-mode 0)   ; I have my own, thanks
 )
+
+(defun abdo-close-jabber ()
+  (interactive)
+  (jabber-disconnect))
 
 
 ;; Source: http://chinmaykamat.wordpress.com/2010/01/22/google-talk-invisible-mode-in-pidgin/
-
-(defun jabber-hide ()
+(defun jabber-hide (&optional con)
   (interactive)
-  (let* ((jc jabber-buffer-connection)
-         (jid (jabber-connection-bare-jid jc)))
-    (jabber-send-sexp jc
-                      `(iq ((type . "set") (to . ,jid) (id . "ss-2"))
-                           (query ((xmlns . "google:shared-status") (version . "2"))
-                                  (invisible ((value . "true"))))))))
+  (message "Jabber: hiding")
+  (jabber-ask-capabilities)             ; for some reason, without this it doesn't work
+  (dolist (jc (if con '(con) jabber-connections))
+    (let ((jid (jabber-connection-bare-jid jc)))
+      (jabber-send-iq
+       jc jid "set"
+       '(query ((xmlns . "google:shared-status") (version . "2"))
+              (invisible ((value . "true"))))
+       nil nil nil "Setting invisibility failed"))))
 
-(defun jabber-unhide ()
+(defun jabber-unhide (&optional con)
   (interactive)
-  (let* ((jc jabber-buffer-connection)
-         (jid (jabber-connection-bare-jid jc)))
-    (jabber-send-sexp jc
-                      `(iq ((type . "set") (to . ,jid) (id . "ss-2"))
-                           (query ((xmlns . "google:shared-status") (version . "2"))
-                                  (invisible ((value . "false"))))))))
+  (message "Jabber: unhiding")
+  (dolist (jc (if con '(con) jabber-connections))
+    (let ((jid (jabber-connection-bare-jid jc)))
+      (jabber-send-iq
+       jc jid "set"
+       '(query ((xmlns . "google:shared-status") (version . "2"))
+              (invisible ((value . "false"))))
+       nil nil nil "Clearing invisibility failed"))))
+
+(defun jabber-ask-capabilities (&optional con)
+  (interactive)
+  (dolist (jc (if con '(con) jabber-connections))
+    (let ((jid (jabber-connection-bare-jid jc)))
+      (jabber-send-iq
+       jc jid "get"
+       '(query ((xmlns . "google:shared-status")(version . "2")))
+       nil nil
+       nil "Investigation failed"))))
+
+
+;      (jabber-send-sexp jc
+;                        `(iq ((type . "set") (id . "ss-2"))
+;                             (query ((xmlns . "google:shared-status") (version . "2"))
+;                                    (invisible ((value . "true"))))))
+
+
+;  (dolist (jc jabber-connections)
+;    (let ((jid (jabber-connection-bare-jid jc)))
+;      (jabber-send-iq
+;       jc jid "get"
+;       '(query ((xmlns . "google:shared-status")(version . "2")))
+;       'jabber-process-data nil
+;       'jabber-process-data "Investigation failed")))
 
 
 
@@ -197,6 +241,7 @@
            (not (string= sender (rcirc-nick proc)))
            (string-match abdo-chat-alert-keyword-regexp text)
            (not (string-match abdo-chat-alert-ignore-user-regexp sender)))
+      ; TODO: may want to use rcirc-short-buffer-name to get shorter buffer names!
       (abdo-chat-notify "rcirc" sender sender textclean buf)))))
 
 
@@ -205,7 +250,7 @@
   (flyspell-mode 1)
 
   ;; Timestamps
-  (setq rcirc-time-format "[%Y-%m-%d][%H:%M] ")
+  (setq rcirc-time-format "[%Y-%m-%d][%H:%M:%S] ")
 
   ;; Track
   ; (rcirc-track-minor-mode 1)
@@ -222,7 +267,6 @@
 )
 
 (abdo-rcirc-global-things)
-(abdo-twittering-global-things)
 (abdo-jabber-global-things)
 
 (provide 'abdo-chat)

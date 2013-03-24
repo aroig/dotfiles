@@ -224,20 +224,18 @@
 
 (defun abdo-launch-chat (arg)
   (rcirc nil)
-;  (jabber-connect-all)
-  ; (twit)
+  (jabber-connect-all)
 
-  ;; kill connections before exit
-  (global-set-key (kbd "C-x C-c")
+  ;; kill all connections
+  (global-set-key (kbd "C-c C-x")
                   '(lambda ()
                      (interactive)
-;                     (when (fboundp 'jabber-disconnect) (jabber-disconnect))
                      (abdo-close-rcirc)
-                     (sleep-for 1)      ; give time for the processes to shutdown
+                     (abdo-close-jabber)
                      ; TODO: for some reason process does not get killed before
                      ; reaching kill-emacs function.
-                     (abdo-exit)))
-  )
+                     ; (abdo-exit)
+                     )))
 
 (defun abdo-launch-mail (arg)
   (abdo-mu4e "mail"))
