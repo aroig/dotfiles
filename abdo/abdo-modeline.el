@@ -179,16 +179,16 @@
     (powerline-render
      (list
       (when (and (buffer-file-name (current-buffer)) vc-mode)
-        (powerline-raw (format "%s " (format-mode-line '(vc-mode vc-mode))) face2 'l))
+        (powerline-raw (format-mode-line '(vc-mode vc-mode)) face2 'l))
 
       (when (> (length abdo-modeline-buffer-alert-list) 0)
-        (powerline-raw (format "%s " (abdo-powerline-buffer-alerts)) facealert 'l))
+        (powerline-raw (format " %s" (abdo-powerline-buffer-alerts)) facealert 'l))
 
       (when mode-line-process
-        (powerline-raw (format "%s " mode-line-process) face2 'l))
+        (powerline-raw (format " %s" mode-line-process) face2 'l))
 
       (when global-mode-string
-        (powerline-raw (format-mode-line '(global-mode-string global-mode-string)) face2 'r))
+        (powerline-raw (format " %s" (format-mode-line '(global-mode-string global-mode-string))) face2 'r))
 
       (powerline-fill face2 25)     ; everything on the right is fixed width
       ;; TODO: truncate this if it gets too long
