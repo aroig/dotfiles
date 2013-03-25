@@ -388,14 +388,12 @@
 ;; Follow symlinks
 (setq vc-follow-symlinks t)
 
-
 ;; TODO: check if hg or git, and call the right function
 (defun abdo-vcs-status (&optional rootdir)
   (interactive)
   ;; Default rootdir
   (unless rootdir (setq rootdir default-directory))
-  (magit-status rootdir)
-)
+  (magit-status rootdir))
 
 
 (defun abdo-responsible-backend (file)
@@ -418,6 +416,44 @@
 ;;  (let ((backend (vc-backend file)))
     (let ((backend (abdo-responsible-backend file)))
       (when backend (vc-call-backend backend 'root file)))))
+
+
+;; monkeypatch vc-mode-line in vc-hooks.el so I get the modeline string I want
+(defun vc-mode-line (file &optional backend)
+  "Set `vc-mode' to display type of version control for FILE.
+The value is set in the current buffer, which should be the buffer
+visiting FILE.
+If BACKEND is passed use it as the VC backend when computing the result."
+  (interactive (list buffer-file-name))
+  (setq backend (or backend (vc-backend file)))
+  (if (not backend)
+      (setq vc-mode nil)
+    (let* ((ml-string (vc-call-backend backend 'mode-line-string file))
+	   (ml-echo (get-text-property 0 'help-echo ml-string)))
+      (setq vc-mode
+	    (concat
+	     (if (null vc-display-status)
+		 (downcase (symbol-name backend))
+	       (propertize
+		(downcase ml-string)
+		'mouse-face 'mode-line-highlight
+		'help-echo
+		(concat (or ml-echo
+			    (format "File under the %s version control system"
+				    backend))
+			"\nmouse-1: Version Control menu")
+		'local-map vc-mode-line-map)))))
+    ;; If the user is root, and the file is not owner-writable,
+    ;; then pretend that we can't write it
+    ;; even though we can (because root can write anything).
+    ;; This way, even root cannot modify a file that isn't locked.
+    (and (equal file buffer-file-name)
+	 (not buffer-read-only)
+	 (zerop (user-real-uid))
+	 (zerop (logand (file-modes buffer-file-name) 128))
+	 (setq buffer-read-only t)))
+  (force-mode-line-update)
+  backend)
 
 
 ;; Speedbar
