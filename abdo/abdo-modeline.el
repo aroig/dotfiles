@@ -1,5 +1,11 @@
 (provide 'abdo-modeline)
 
+;; Settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defvar abdo-modeline-skip-modes-regexp "undo-tree\\|fill"
+  "Regexp matching minor modes I want to hide from the modeline")
+
 
 ;; Faces
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -141,19 +147,22 @@
                         map)))
 
         (minor (mapconcat
-                (lambda (mm)
-                  (when mm
-                    (propertize
-                     (downcase mm)
-                     'help-echo "Minor mode\n mouse-1: Display minor mode menu\n mouse-2: Show help for minor mode\n mouse-3: Toggle minor modes"
+                'identity
+                (delq nil
+                      (mapcar
+                       (lambda (mm)
+                         (when (and mm (not (string-match abdo-modeline-skip-modes-regexp (downcase mm))))
+                           (propertize
+                            (downcase mm)
+                            'help-echo "Minor mode\n mouse-1: Display minor mode menu\n mouse-2: Show help for minor mode\n mouse-3: Toggle minor modes"
 
-                     'local-map (let ((map (make-sparse-keymap)))
-                                  (define-key map [mode-line down-mouse-1]   (powerline-mouse 'minor 'menu mm))
-                                  (define-key map [mode-line mouse-2]        (powerline-mouse 'minor 'help mm))
-                                  (define-key map [mode-line down-mouse-3]   (powerline-mouse 'minor 'menu mm))
-                                  (define-key map [header-line down-mouse-3] (powerline-mouse 'minor 'menu mm))
-                                  map))))
-                (split-string (format-mode-line minor-mode-alist)) " ")))
+                            'local-map (let ((map (make-sparse-keymap)))
+                                         (define-key map [mode-line down-mouse-1]   (powerline-mouse 'minor 'menu mm))
+                                         (define-key map [mode-line mouse-2]        (powerline-mouse 'minor 'help mm))
+                                         (define-key map [mode-line down-mouse-3]   (powerline-mouse 'minor 'menu mm))
+                                         (define-key map [header-line down-mouse-3] (powerline-mouse 'minor 'menu mm))
+                                         map))))
+                (split-string (format-mode-line minor-mode-alist)))) " ")))
 
     (powerline-render
      (list
@@ -180,8 +189,6 @@
 
       (when global-mode-string
         (powerline-raw (format-mode-line '(global-mode-string global-mode-string)) face2 'r))
-
-
 
       (powerline-fill face2 25)     ; everything on the right is fixed width
       ;; TODO: truncate this if it gets too long
