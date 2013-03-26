@@ -11,83 +11,85 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defface powerline-active0 '((t (:background "grey22" :inherit mode-line)))
-  "Powerline face 1."
-  :group 'powerline)
+  "Powerline face 1." :group 'powerline)
 
 (defface powerline-active1 '((t (:background "grey22" :inherit mode-line)))
-  "Powerline face 1."
-  :group 'powerline)
+  "Powerline face 1." :group 'powerline)
 
 (defface powerline-active2 '((t (:background "grey40" :inherit mode-line)))
-  "Powerline face 2."
-  :group 'powerline)
+  "Powerline face 2." :group 'powerline)
 
-(defface powerline-active-alert
-  '((t (:foreground "red" :inherit mode-line-active2)))
-  "Powerline alert"
-  :group 'powerline)
+(defface powerline-active-alert '((t (:foreground "red" :inherit powerline-active2)))
+  "Powerline alert" :group 'powerline)
 
-(defface powerline-inactive0
-  '((t (:background "grey11" :inherit mode-line-inactive)))
-  "Powerline face 1."
-  :group 'powerline)
 
-(defface powerline-inactive1
-  '((t (:background "grey11" :inherit mode-line-inactive)))
-  "Powerline face 1."
-  :group 'powerline)
+(defface powerline-root0 '((t (:inherit powerline-active0)))
+  "Powerline face 1." :group 'powerline)
 
-(defface powerline-inactive2
-  '((t (:background "grey20" :inherit mode-line-inactive)))
-  "Powerline face 2."
-  :group 'powerline)
+(defface powerline-root1 '((t (:inherit powerline-active1)))
+  "Powerline face 1." :group 'powerline)
 
-(defface powerline-inactive-alert
-  '((t (:foreground "red" :inherit mode-line-inactive2)))
-  "Powerline alert"
-  :group 'powerline)
+(defface powerline-root2 '((t (:inherit powerline-active2)))
+  "Powerline face 2." :group 'powerline)
+
+(defface powerline-root-alert '((t (:inherit powerline-active-alert)))
+  "Powerline alert" :group 'powerline)
+
+
+(defface powerline-inactive0 '((t (:background "grey11" :inherit mode-line-inactive)))
+  "Powerline face 1." :group 'powerline)
+
+(defface powerline-inactive1 '((t (:background "grey11" :inherit mode-line-inactive)))
+  "Powerline face 1." :group 'powerline)
+
+(defface powerline-inactive2 '((t (:background "grey20" :inherit mode-line-inactive)))
+  "Powerline face 2." :group 'powerline)
+
+(defface powerline-inactive-alert '((t (:foreground "red" :inherit powerline-inactive2)))
+  "Powerline alert" :group 'powerline)
 
 
 (defface powerline-evil-inactive '((t (:background "black" :inherit mode-line)))
-  "Powerline evil inactive state face."
-  :group 'powerline)
+  "Powerline evil inactive state face." :group 'powerline)
 
 (defface powerline-evil-normal '((t (:background "black" :inherit mode-line)))
-  "Powerline evil normal state face."
-  :group 'powerline)
+  "Powerline evil normal state face." :group 'powerline)
 
 (defface powerline-evil-insert '((t (:background "green" :inherit mode-line)))
-  "Powerline evil insert state face."
-  :group 'powerline)
+  "Powerline evil insert state face." :group 'powerline)
 
 (defface powerline-evil-visual '((t (:background "black" :inherit mode-line)))
-  "Powerline evil visual state face."
-  :group 'powerline)
+  "Powerline evil visual state face." :group 'powerline)
 
 (defface powerline-evil-operator '((t (:background "red" :inherit mode-line)))
-  "Powerline evil operator state face."
-  :group 'powerline)
+  "Powerline evil operator state face." :group 'powerline)
 
 (defface powerline-evil-motion '((t (:background "black" :inherit mode-line)))
-  "Powerline evil motion state face."
-  :group 'powerline)
+  "Powerline evil motion state face." :group 'powerline)
 
 (defface powerline-evil-replace '((t (:background "red" :inherit mode-line)))
-  "Powerline evil replace state face."
-  :group 'powerline)
+  "Powerline evil replace state face." :group 'powerline)
 
 (defface powerline-evil-emacs '((t (:background "yellow" :inherit mode-line)))
-  "Powerline evil emacs state face."
-  :group 'powerline)
+  "Powerline evil emacs state face." :group 'powerline)
 
 (defface powerline-evil-unknown '((t (:background "red" :inherit mode-line)))
-  "Powerline evil unknown state face."
-  :group 'powerline)
+  "Powerline evil unknown state face." :group 'powerline)
 
 
 
 ;; Powerline fragments
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun abdo-powerline-face (face)
+  (let* ((active (eq (frame-selected-window) (selected-window)))
+         (root (string= (user-login-name) "root")))
+    (cond
+     ((eq face 'face0) (if active (if root 'powerline-root0 'powerline-active0) 'powerline-inactive0))
+     ((eq face 'face1) (if active (if root 'powerline-root1 'powerline-active1) 'powerline-inactive1))
+     ((eq face 'face2) (if active (if root 'powerline-root2 'powerline-active2) 'powerline-inactive2))
+     ((eq face 'alert) (if active (if root 'powerline-root-alert 'powerline-active-alert) 'powerline-inactive-alert)))))
+
 
 (defun abdo-evil-state ()
   (cond ((evil-normal-state-p)   "N")
@@ -101,7 +103,7 @@
 
 (defun abdo-powerline-evil-state ()
   (let* ((active (eq (frame-selected-window) (selected-window)))
-         (face0 (if active 'powerline-active0 'powerline-inactive0))
+         (face0 (abdo-powerline-face 'face0))
          (evilstate (abdo-evil-state))
          (evilface (cond
                     ((not active)            'powerline-evil-inactive)
@@ -120,9 +122,8 @@
 
 
 (defun abdo-powerline-buffer-name ()
-  (let* ((active (eq (frame-selected-window) (selected-window)))
-         (face0 (if active 'powerline-active0 'powerline-inactive0))
-         (face1 (if active 'powerline-active1 'powerline-inactive1)))
+  (let* ((face0 (abdo-powerline-face 'face0))
+         (face1 (abdo-powerline-face 'face1)))
     (powerline-render
      (list
       (powerline-raw "%b " face0 'l)
@@ -130,9 +131,8 @@
 
 
 (defun abdo-powerline-mode-list ()
-  (let* ((active (eq (frame-selected-window) (selected-window)))
-         (face1 (if active 'powerline-active1 'powerline-inactive1))
-         (face2 (if active 'powerline-active2 'powerline-inactive2))
+  (let* ((face1 (abdo-powerline-face 'face1))
+         (face2 (abdo-powerline-face 'face2))
          (major (propertize
                  (downcase (format-mode-line mode-name))
 
@@ -173,9 +173,8 @@
 
 
 (defun abdo-powerline-middle ()
-  (let* ((active (eq (frame-selected-window) (selected-window)))
-         (face2 (if active 'powerline-active2 'powerline-inactive2))
-         (facealert (if active 'powerline-active-alert 'powerline-inactive-alert)))
+  (let* ((face2 (abdo-powerline-face 'face2))
+         (facealert (abdo-powerline-face 'alert)))
     (powerline-render
      (list
       (when (and (buffer-file-name (current-buffer)) vc-mode)
@@ -196,9 +195,8 @@
 
 
 (defun abdo-powerline-position ()
-  (let* ((active (eq (frame-selected-window) (selected-window)))
-         (face0 (if active 'powerline-active0 'powerline-inactive0))
-         (face1 (if active 'powerline-active1 'powerline-inactive1)))
+  (let* ((face0 (abdo-powerline-face 'face0))
+         (face1 (abdo-powerline-face 'face1)))
     (powerline-render
      (list
       (powerline-arrow-left face1 face0)
@@ -207,9 +205,8 @@
 
 
 (defun abdo-powerline-state ()
-  (let* ((active (eq (frame-selected-window) (selected-window)))
-         (face1 (if active 'powerline-active1 'powerline-inactive1))
-         (face2 (if active 'powerline-active2 'powerline-inactive2)))
+  (let* ((face1 (abdo-powerline-face 'face1))
+         (face2 (abdo-powerline-face 'face2)))
     (powerline-render
      (list
       (powerline-arrow-left face2 face1)
