@@ -34,9 +34,6 @@
 [submodule "modes/sage-mode"]
 	path = modes/sage-mode
 	url = https://github.com/aroig/sage-mode.git
-[submodule "packages/vim-modeline"]
-	path = packages/vim-modeline
-	url = https://github.com/aroig/emacs-vim-modeline.git
 [submodule "themes/zenburn"]
 	path = themes/zenburn
 	url = https://github.com/aroig/zenburn-emacs.git
