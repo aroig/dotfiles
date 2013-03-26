@@ -23,8 +23,6 @@
 ;; Hooks
 (add-hook 'news-mode-hook 'abdo-mu4e-news-things)
 (add-hook 'email-mode-hook 'abdo-mu4e-mail-things)
-;(add-hook 'mu4e-view-mode-hook 'abdo-mu4e-ansi-colorize)
-
 
 
 ;; settings
@@ -279,21 +277,31 @@
   ; (setq mu4e-html2text-command "lynx -dump -stdin -width=100 -display_charset=utf-8")   ; lynx
   ; (setq mu4e-html2text-command "w3m -dump -cols 100 -T text/html")                      ; w3m
   ; (setq mu4e-html2text-command "elinks -dump -force-html -dump-color-mode 1")           ; elinks color
-  (setq mu4e-html2text-command "elinks -dump -force-html")                                ; elinks
 
+  ; elinks
+  (setq mu4e-html2text-command (concat
+                                "elinks" " -dump" " -force-html"
+                                " -dump-color-mode 1"))
 )
 
-(defun abdo-mu4e-ansi-colorize ()
-  "Replace ansi color codes with propertized text"
-  (interactive)
-  (let ((inhibit-read-only t))
-    (ansi-color-apply-on-region (point-min) (point-max))))
+
+;; For some reason, this does not always work
+; (add-hook 'mu4e-view-mode-hook 'abdo-mu4e-ansi-colorize)
+
+;; So I advice mu4e-view-message-text to propertize ansi colors
+(defadvice mu4e-view-message-text (after mu4e-view-message-text-ansi (msg))
+  "Replace ansi codes by propertized text"
+  (setq ad-return-value (ansi-color-apply ad-return-value)))
+
+(ad-activate 'mu4e-view-message-text)
+
+
 
 
 (defun mu4e~view-make-urls-clickable ()
   "Turn references at the end into clickable urls that can be
    opened using `mu4e-view-go-to-url'. Monkey patched from
-   mu4e-view.el"
+   mu4e-view.el so it only propertizes References section."
   (let ((num 0))
     (save-excursion
       (setq mu4e~view-link-map ;; buffer local
