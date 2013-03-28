@@ -246,7 +246,7 @@ vicious.register(myw.mail, widget.sheval,
 
                      return string.format("<span color='%s'>%s</span>", color, tostring(num))
                  end,
-                 60, "mutag -C -p mail -q 'flag:unread AND tag:\\\\\\\\Inbox'")
+                 60, "mutag -C -p mail -q 'flag:unread AND tag:\\\\Inbox'")
 
 
 
