@@ -3,3 +3,6 @@
 *.pyc
 *.bak
 __pycache__
+bookmarks
+history
+tagged
