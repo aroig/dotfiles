@@ -50,7 +50,6 @@
   ;; evil keybindings
 
   ;; Preserve some emacs keybindings
-  (define-key evil-normal-state-map (kbd "TAB") 'evil-undefine)
   (define-key evil-normal-state-map (kbd "C-y") 'yank)
   (define-key evil-insert-state-map (kbd "C-y") 'yank)
   (define-key evil-visual-state-map (kbd "C-y") 'yank)
@@ -59,7 +58,13 @@
   (define-key evil-insert-state-map (kbd "C-w") 'kill-region)
   (define-key evil-visual-state-map (kbd "C-w") 'kill-region)
 
+  ;; get rid of annoying bindings
+  ; (define-key evil-normal-state-map (kbd "TAB") 'evil-undefine)
+  (define-key evil-normal-state-map (kbd "~") (lambda ()(interactive)))
 
+  ;; jumplist
+  (define-key evil-normal-state-map (kbd "C-o") 'evil-jump-backward)
+  (define-key evil-normal-state-map (kbd "C-i") 'evil-jump-forward)
 
   ;; Bind esc to H-a
   (define-key evil-normal-state-map (kbd "H-a") 'evil-force-normal-state)

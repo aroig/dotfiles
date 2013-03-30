@@ -2,6 +2,19 @@
 ;; Global key bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Adjusting key mappings
+
+; For some reason this does not work! I'd want to separate C-i from TAB
+; (add-hook 'term-setup-hook
+;          (lambda ()
+  ;; Mappings
+  ; don't map C-i to TAB!
+  ; http://stackoverflow.com/questions/1792326/how-do-i-bind-a-command-to-c-i-without-changing-tab
+  ; http://www.gnu.org/savannah-checkouts/gnu/emacs/manual/html_node/elisp/Function-Keys.html
+;            (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
+;            (global-set-key (kbd "C-i") 'forward-word)))
+
+
 ;; Helm
 (global-set-key (kbd "H-y f") 'helm-mini)
 (global-set-key (kbd "H-y t") 'abdo-helm-todos)
