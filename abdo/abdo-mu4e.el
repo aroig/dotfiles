@@ -123,7 +123,7 @@
         '(("flag:unread"                                          "New"                 ?n)
           ("tag:\\\\Inbox AND date:365d..now"                     "Inbox"               ?i)
           ("tag:\\\\Sent AND date:365d..now"                      "Sent"                ?s)
-          ("tag:\\\\Starred"                                      "Starred"             ?*)
+          ("tag:\\\\Starred OR flag:flagged"                      "Starred"             ?r)
 
           ("tag:research AND date:365d..now"                      "Research"            ?r)
           ("tag:teaching AND date:365d..now"                      "Teaching"            ?t)
