@@ -61,47 +61,26 @@
   ;; to detect my mail
   (setq mu4e-user-mail-address-list '("abdo.roig@gmail.com" "abdo.roig@upc.edu"))
 
-  ;; overriden in abdo-mu4e-feed-smtp
-  (setq user-mail-address "abdo.roig@gmail.com")
-  (setq user-full-name  "Abdó Roig-Maranges")
-
-
   ;; include in message with C-c C-w
 ;  (setq message-signature
-;        "Abdó Roig-Maranges\nhttp://www.ma1.upc.edu/~abdo\n")
+;        "Abdó Roig-Maranges\nhttp://www.abdoroig.net\n")
 
   ;; Copy messages to sent folder. I'll remove the fcc for gmail on abdo-mu4e-feed-msmtp
   (setq mu4e-sent-messages-behavior 'sent)
 
-  ;; identities using gnus alias
-  ; TODO: gnus-alias does not work well with mu4e-compose mode
-;  (require 'gnus-alias)
-;  (gnus-alias-init)
-;  (add-hook 'message-setup-hook 'gnus-alias-determine-identity)
+  ;; default values
+  (setq user-mail-address "abdo.roig@gmail.com")
+  (setq user-full-name  "Abdó Roig-Maranges")
 
-  (setq gnus-alias-identity-alist
+  ;; accounts to chose when composing or replying
+  (setq abdo-mu4e-account-alist
         '(("gmail"
-           nil
-           "Abdó Roig-Maranges <abdo.roig@gmail.com>"
-           nil ;; No organization header
-           nil ;; No extra headers
-           nil ;; No extra body text
-           nil ;; No signature
-           )
+           (user-mail-address "abdo.roig@gmail.com")
+           (user-full-name "Abdó Roig-Maranges"))
+
           ("upc"
-           nil
-           "Abdó Roig-Maranges <abdo.roig@upc.edu>"
-           nil ;; No organization header
-           nil ;; No extra headers
-           nil ;; No extra body text
-           nil ;; No signature
-           )))
-
-  (setq gnus-alias-default-identity "gmail")
-
-  (setq gnus-alias-identity-rules
-        '(("gmail" ("to" "abdo.roig@gmail.com" both) "upc")
-          ("upc" ("to" "abdo.roig@upc.edu" both) "upc")))
+           (user-mail-address "abdo.roig@upc.edu")
+           (user-full-name "Abdó Roig-Maranges"))))
 
   ;; Set mu4e as default emacs email program
   (setq mail-user-agent 'mu4e-user-agent)
@@ -173,6 +152,7 @@
 
   ;; Hooks
   (add-hook 'message-send-hook 'abdo-mu4e-feed-msmtp)
+  (add-hook 'mu4e-compose-pre-hook 'abdo-mu4e-set-account)
 
   ;; Launch mu4e
   (mu4e)
@@ -201,6 +181,7 @@
   ; disable send-mail function
   (setq send-mail-function '(lambda (arg)))
 )
+
 
 ;; Custom actions
 ;; -----------------------------------------------
@@ -235,6 +216,30 @@
     (mu4e~proc-add path maildir)))
 
 
+;; Functions
+;; -----------------------------------------------
+
+(defun abdo-mu4e-set-account ()
+  "Set the account for composing a message. If composing new,
+   let's the user chose, and otherwise us the to field"
+  (let* ((account
+          (if nil nil
+               ; TODO: get the appropriate account from 'to' and 'cc' fields.
+;              mu4e-compose-parent-message
+;              (let ((to (mu4e-msg-field mu4e-compose-parent-message :to)))
+;                (string-match "/\\(.*?\\)/" maildir)
+;                (match-string 1 maildir))
+
+            (ido-completing-read
+             "Compose with account: "
+             (mapcar #'(lambda (var) (car var)) abdo-mu4e-account-alist)
+             nil t nil nil (caar abdo-mu4e-account-alist))))
+         (account-vars (cdr (assoc account abdo-mu4e-account-alist))))
+    (if account-vars
+        (mapc #'(lambda (var)
+                  (set (car var) (cadr var)))
+              account-vars))))
+
 
 (defun abdo-mu4e-feed-msmtp ()
  "Choose account label to feed msmtp -a option based on From header in Message buffer;
@@ -249,16 +254,12 @@
                  (message "msmtp account: gmail")
                  (setq message-sendmail-extra-arguments '("-a" "gmail"))
                  (message-remove-header "Fcc")
-                 (setq mail-host-address "gmail.com")
-                 (setq user-mail-address "abdo.roig@gmail.com")
-                 (setq user-full-name "Abdó Roig-Maranges"))
+                 (setq user-mail-address "abdo.roig@gmail.com"))
 
                 ((string-match "abdo.roig@upc.edu" from)
                  (message "msmtp account: upc")
                  (setq message-sendmail-extra-arguments '("-a" "upc"))
-                 (setq mail-host-address "upc.edu")
-                 (setq user-mail-address "abdo.roig@upc.edu")
-                 (setq user-full-name "Abdó Roig-Maranges"))
+                 (setq user-mail-address "abdo.roig@upc.edu"))
 
                 (t
                  (error (format "Can't recognise address in from field: %s" from))))))))
