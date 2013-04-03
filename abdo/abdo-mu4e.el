@@ -108,16 +108,16 @@
           ("tag:teaching AND date:365d..now"                      "Teaching"            ?t)
           ("tag:upc AND date:365d..now"                           "University"          ?u)
 
-          ("tag:arch"                                             "Arch"                ?a)
-          ("tag:devel"                                            "Development"         ?d)
-          ("tag:list"                                             "Lists"               ?l)
+          ("tag:arch AND date:100d..now"                          "Arch"                ?a)
+          ("tag:devel AND date:100d..now"                         "Development"         ?d)
+          ("tag:list AND date:100d..now"                          "Lists"               ?l)
 
           ("tag:watchlist"                                        "Watchlist"           ?w)
-          ("tag:mathoverflow"                                     "Mathoverflow"        ?o)
-          ("tag:news"                                             "News"                ?e)
-          ("tag:arxiv"                                            "Arxiv"               ?x)
-          ("tag:blog"                                             "Blogs"               ?b)
-          ("tag:fun"                                              "Fun"                 ?f)
+          ("tag:mathoverflow AND date:100d..now"                  "Mathoverflow"        ?o)
+          ("tag:news AND date:100d..now"                          "News"                ?e)
+          ("tag:arxiv AND date:100d..now"                         "Arxiv"               ?x)
+          ("tag:blog AND date:100d..now"                          "Blogs"               ?b)
+          ("tag:fun AND date:100d..now"                           "Fun"                 ?f)
           ))
 
   ;; Times and dates
