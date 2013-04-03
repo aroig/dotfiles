@@ -201,6 +201,9 @@
 ;; Markdown
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
+;; latex
+(add-to-list 'auto-mode-alist '("\\.ltb$" . latex-mode))
+
 
 ;; Command line switches
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
