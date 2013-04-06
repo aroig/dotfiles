@@ -73,6 +73,9 @@
 
   ;; Custom agenda commands
   (abdo-org-custom-agenda-setup)
+
+  ;; Interface adjustments
+  (abdo-org-interface-tweaks)
 )
 
 
@@ -115,11 +118,14 @@
   ;; Tags column (negative means flush-right)
   (setq org-tags-column (- fill-column))
 
-  ;; Interface adjustments
-  (abdo-org-interface-tweaks)
-
   ;; Confirm elisp code execution with y or n.
   (setq org-confirm-elisp-link-function 'y-or-n-p)
+
+  ;; I am going to use english by default
+  (abdo-change-dictionary "english")
+
+  ;; TODO: should change this once I have automated on abdo-languages.el
+;  (setq ispell-personal-dictionary (concat abdo-personal-dicts-path "abdo-english.dict"))
 
   ;; Latex mode
   (turn-on-org-cdlatex)
@@ -131,9 +137,14 @@
       ("\\.pdf\\'" . "evince %s")
       ("\\.pdf::\\([[:digit:]]+\\)\\'" . "evince -p %1 %s")
       ("\\.x?html\\'" . "chromium %s")
-    )
-  )
+    ))
+
+  ;; Just a little darker than background.
+  ;; For some reason, I can't set this on the emacs theme
+  (custom-set-faces `(org-hide ((t (:foreground "#1f1f1f")))))
 )
+
+
 
 (defun abdo-org-load-things()
 
@@ -213,9 +224,6 @@
   (setq org-hide-leading-stars t)            ;; Hides leading stars
   (setq org-completion-use-ido t)            ;; Use ido for completion
 
-  ;; Just a little darker than background.
-  (custom-set-faces `(org-hide ((t (:foreground "#1f1f1f")))))
-
   ;; Agenda
   (setq org-agenda-start-with-follow-mode t) ;; Start agenda in follow mode
 
@@ -232,12 +240,6 @@
     (?3 org-priority-level-3)
     (?4 org-priority-level-4)
     (?5 org-priority-level-5)))
-
-  ;; I am going to use english by default
-  (abdo-change-dictionary "english")
-
-  ;; TODO: should change this once I have automated on abdo-languages.el
-;  (setq ispell-personal-dictionary (concat abdo-personal-dicts-path "abdo-english.dict"))
 )
 
 
