@@ -81,6 +81,7 @@
 ;; Powerline fragments
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
 (defun abdo-powerline-face (face)
   (let* ((active (eq (frame-selected-window) (selected-window)))
          (root (string= (user-login-name) "root")))
@@ -104,6 +105,9 @@
 (defun abdo-powerline-evil-state ()
   (let* ((active (eq (frame-selected-window) (selected-window)))
          (face0 (abdo-powerline-face 'face0))
+         (separator
+          (intern (format "powerline-%s-%s" powerline-default-separator
+                          (car powerline-default-separator-dir))))
          (evilstate (abdo-evil-state))
          (evilface (cond
                     ((not active)            'powerline-evil-inactive)
@@ -118,21 +122,28 @@
     (powerline-render
      (list
       (propertize (format " %s " evilstate) 'face evilface)
-      (powerline-arrow-right evilface face0)))))
+      (funcall separator evilface face0)
+      ))))
 
 
 (defun abdo-powerline-buffer-name ()
   (let* ((face0 (abdo-powerline-face 'face0))
-         (face1 (abdo-powerline-face 'face1)))
+         (face1 (abdo-powerline-face 'face1))
+         (separator
+          (intern (format "powerline-%s-%s" powerline-default-separator
+                          (car powerline-default-separator-dir)))))
     (powerline-render
      (list
       (powerline-raw "%b " face0 'l)
-      (powerline-arrow-right face0 face1)))))
+      (funcall separator face0 face1)))))
 
 
 (defun abdo-powerline-mode-list ()
   (let* ((face1 (abdo-powerline-face 'face1))
          (face2 (abdo-powerline-face 'face2))
+         (separator
+          (intern (format "powerline-%s-%s" powerline-default-separator
+                          (car powerline-default-separator-dir))))
          (major (propertize
                  (downcase (format-mode-line mode-name))
 
@@ -169,7 +180,7 @@
       (if (not (string= minor ""))
           (propertize (concat " " major " | " minor " ") 'face face1)
         (propertize (concat " " major " ") 'face face1))
-      (powerline-arrow-right face1 face2)))))
+      (funcall separator face1 face2)))))
 
 
 (defun abdo-powerline-middle ()
@@ -196,20 +207,26 @@
 
 (defun abdo-powerline-position ()
   (let* ((face0 (abdo-powerline-face 'face0))
-         (face1 (abdo-powerline-face 'face1)))
+         (face1 (abdo-powerline-face 'face1))
+         (separator
+          (intern (format "powerline-%s-%s" powerline-default-separator
+                          (cdr powerline-default-separator-dir)))))
     (powerline-render
      (list
-      (powerline-arrow-left face1 face0)
+      (funcall separator face1 face0)
       (powerline-raw "%5l %3c  %p" face0 'r)
       (powerline-narrow face0 'r)))))
 
 
 (defun abdo-powerline-state ()
   (let* ((face1 (abdo-powerline-face 'face1))
-         (face2 (abdo-powerline-face 'face2)))
+         (face2 (abdo-powerline-face 'face2))
+         (separator
+          (intern (format "powerline-%s-%s" powerline-default-separator
+                          (cdr powerline-default-separator-dir)))))
     (powerline-render
      (list
-      (powerline-arrow-left face2 face1)
+      (funcall separator face2 face1)
       (powerline-raw " %*%Z" face1 'r)))))
 
 
@@ -295,6 +312,11 @@ It defaults to the UCS character \"Horizontal Ellipsis\", or
 
 (defun abdo-powerline-things ()
   (require 'powerline)
+
+  ;; Values: arrow-fade, slant, chamfer, alternate, bar, nil, wave, brace,
+  ;; roundstub, zigzag, butt, rounded, contour, curve
+  (setq powerline-default-separator 'arrow)
+  (setq powerline-default-separator-dir '(left . right))
 
   (setq-default mode-line-format
                 (list
