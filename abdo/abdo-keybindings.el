@@ -205,10 +205,9 @@
 
 (defun abdo-org-mode-keybindings ()
   (local-set-key (kbd "s-c y") 'doku-import-yank)
-  (local-set-key (kbd "C-o p") 'abdo-org-latex-preview-all))
+  (local-set-key (kbd "H-o p") 'abdo-org-latex-preview-all))
 
 (add-hook 'org-mode-hook 'abdo-org-mode-keybindings)
-(add-hook 'org-agenda-mode-hook 'abdo-org-mode-keybindings)
 
 ;; rcirc mode
 (add-hook 'rcirc-mode-hook
