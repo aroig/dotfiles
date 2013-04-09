@@ -21,7 +21,7 @@ return {
 
    keepass                   = "keepassx",
    ["gnome-control-center"]  = "gnome-control-center",
-   ["disk-utility"]          = "palimpsest",
+   ["disk-utility"]          = "gnome-disks",
    ["cairo-compmgr"]         = "cairo-compmgr --configure",
    unison                    = "unison-gtk2",
    virtualbox                = "virtualbox",
