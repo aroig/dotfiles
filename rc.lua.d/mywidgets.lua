@@ -15,7 +15,7 @@ local wibox = require("wibox")
 local vicious = require("vicious")
 
 local widget = {}
-widget.netcfg  = require("abdo.widget.netcfg")
+widget.netctl  = require("abdo.widget.netctl")
 widget.cpu = require("abdo.widget.cpu")
 widget.bat = require("abdo.widget.bat")
 widget.mem = require("abdo.widget.mem")
@@ -183,16 +183,16 @@ vicious.register(myw.netwidget, widget.net,
                      return downtxt .. sep .. uptxt
                  end, 2)
 
-vicious.register(myw.nettooltip.widget, widget.netcfg,
+vicious.register(myw.nettooltip.widget, widget.netctl,
                  function (widget, args)
                      prf = ""
                      for _,line in ipairs(args) do
                          if prf ~= "" then
-                             prf = prf .. "\n"
+                             prf = prf .. ", "
                          end
                          prf = prf .. line
                      end
-                     return "Network: " .. prf
+                     return "Networks: " .. prf
                  end,
                  4)
 

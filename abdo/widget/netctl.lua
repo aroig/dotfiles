@@ -10,20 +10,20 @@ local table = { insert = table.insert }
 -- }}}
 
 
--- Netcfg: provides active netcfg network profiles
--- vicious.contrib.netcfg
-local netcfg = {}
+-- Netctl: provides active netctl network profiles
+-- vicious.contrib.netctl
+local netctl = {}
 
 
--- {{{ Netcfg widget type
+-- {{{ Netctl widget type
 local function worker(format)
     -- Initialize counters
     local profiles = {}
 
-    local f = io.popen("ls -1 /var/run/network/profiles")
+    local f = io.popen("netctl list")
     for line in f:lines() do
-        if line ~= nil then
-            table.insert(profiles, line)
+        if line ~= nil and line ~= "" and string.sub(line, 1, 1) == "*" then
+            table.insert(profiles, string.sub(line, 3))
         end
     end
     f:close()
@@ -32,4 +32,4 @@ local function worker(format)
 end
 -- }}}
 
-return setmetatable(netcfg, { __call = function(_, ...) return worker(...) end })
+return setmetatable(netctl, { __call = function(_, ...) return worker(...) end })
