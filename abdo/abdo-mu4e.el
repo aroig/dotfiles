@@ -114,8 +114,10 @@
 
           ("tag:watchlist"                                        "Watchlist"           ?w)
           ("tag:mathoverflow AND date:100d..now"                  "Mathoverflow"        ?o)
-          ("tag:news AND date:100d..now"                          "News"                ?e)
+          ("tag:maths AND date:100d..now"                         "Mathematics"         ?m)
           ("tag:arxiv AND date:100d..now"                         "Arxiv"               ?x)
+
+          ("tag:news AND date:100d..now"                          "News"                ?e)
           ("tag:blog AND date:100d..now"                          "Blogs"               ?b)
           ("tag:fun AND date:100d..now"                           "Fun"                 ?f)
           ))
