@@ -25,8 +25,6 @@ widget.thermal = require("abdo.widget.thermal")     -- My thermal widget
 widget.pvol    = require("abdo.widget.pvol")        -- My volume widget
 widget.sheval = require("abdo.widget.sheval")      -- Get value from a file
 
-local naughty = require("naughty")
-
 local beautiful = beautiful
 
 
@@ -235,9 +233,6 @@ vicious.register(myw.mail, widget.sheval,
                              else
                                  text = string.format("There are %d new messages", num)
                              end
-                             naughty.notify({title = "New Mail",
-                                             text  = text,
-                                             icon  = beautiful.naughty_mail_icon})
                          end
                          myw.mail_count = num
                          color = beautiful.fg_red_widget
@@ -254,9 +249,6 @@ vicious.register(myw.mail, widget.sheval,
 --		 function (widget, args)
 --		    if args["{id}"] ~= myw.mail_lastid then
 --		       myw.mail_lastid = args["{id}"]
---		       naughty.notify({title = "New Mail",
---				       text  = string.format("%s\n%s", args["{from}"], args["{subject}"]),
---				       icon  = beautiful.naughty_mail_icon})
 --		       myw.mailtooltip:set_text(args["{subject}"])
 --		       myw.mailtooltip:add_to_object(myw.mailicon)
 --		       myw.mailtooltip:add_to_object(myw.mail)
