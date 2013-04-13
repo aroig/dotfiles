@@ -7,7 +7,6 @@
 
 (defun abdo-notify-message (who title msg)
   (start-process "notify" nil "notify-send" "-a" (format "%s" who)
-                 "-i" "/usr/share/icons/Faenza/actions/scalable/im-message-new.svg"
                  (format "%s" title) (format "%s" msg)))
 
 
