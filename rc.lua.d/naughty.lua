@@ -29,8 +29,22 @@ naughty.config.defaults = {
    hover_timeout    = nil
 }
 
--- Naughty log
-naughty.config.notify_callback  = function (args) naughtylog.append(args) return args end
+
+local sound = {
+    gnoti           = beautiful.naughty_mail_sound,
+    gchat           = beautiful.naughty_chat_sound,
+    rcirc           = beautiful.naughty_chat_sound,
+    ["notify-send"] = beautiful.naughty_alert_sound,
+}
+
+
+local icon = {
+    gnoti           = beautiful.naughty_mail_icon,
+    gchat           = beautiful.naughty_chat_icon,
+    rcirc           = beautiful.naughty_chat_icon,
+    ["notify-send"] = beautiful.naughty_alert_icon,
+}
+
 
 -- It appears there's no svg support :(
 -- naughty.config.default_preset.icon_formats = { "png", "gif", "svg"}
@@ -47,3 +61,24 @@ naughty.config.presets = {
         timeout = 0,
     }
 }
+
+
+-- Naughty callback
+function naughty_callback (args)
+    -- log notification
+    naughtylog.append(args)
+
+    -- play sound
+    if sound[args.appname] then
+        exec(string.format("play \"%s\"", sound[args.appname]))
+    end
+
+    -- change icon
+    if icon[args.appname] and not args.icon then
+        args.icon = icon[args.appname]
+    end
+
+    return args
+end
+
+naughty.config.notify_callback  = naughty_callback
