@@ -27,8 +27,7 @@
   (when
     (abdo-notify-message serv (format "%s: %s" serv nick) text)
     (abdo-urgency-hint (selected-frame) t)
-    (when buf (abdo-modeline-buffer-alert buf user))
-    ;; TODO: ding!
+    (when buf (abdo-modeline-buffer-alert buf nick))
     ))
 
 
@@ -79,13 +78,15 @@
   (setq jabber-print-rare-time t)
   (setq jabber-rare-time-format "%a %e %b %Y %H:00")
 
-  ; TODO: if I change buffer formats, notifications cease to work!
-;  (setq jabber-chat-buffer-format "%j")
-;  (setq jabber-groupchat-buffer-format "%j")
-;  (setq jabber-muc-private-buffer-format "%j")
+  ; buffer names
+  (setq jabber-chat-buffer-format "*browse-%n*")
+  (setq jabber-chat-buffer-format "*gtalk-%n*")
+  (setq jabber-groupchat-buffer-format "*gtalk-%n*")
+  (setq jabber-muc-private-buffer-format "*gtalk-%n*")
 
   ; roster buffer
-  (setq jabber-roster-buffer "*jabber*")
+  (setq jabber-roster-buffer "*google-talk*")
+  (setq jabber-show-resources nil)
 
   ; notifications
   (setq jabber-message-alert-same-buffer nil)  ; don't display alerts for current buffer
@@ -207,8 +208,8 @@
 
   ;; (add-to-list 'rcirc-authinfo '("localhost" bitlbee "abdo" "*****"))
 
-  (let ((freenode (netrc-machine (netrc-parse "~/.netrc") "irc.freenode.net")))
-    (add-to-list 'rcirc-authinfo `("irc.freenode.net" nickserv
+  (let ((freenode (netrc-machine (netrc-parse "~/.netrc") "chat.freenode.net")))
+    (add-to-list 'rcirc-authinfo `("chat.freenode.net" nickserv
                                    ,(netrc-get freenode "login")
                                    ,(netrc-get freenode "password"))))
 
