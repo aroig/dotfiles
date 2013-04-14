@@ -87,6 +87,7 @@
   ; roster buffer
   (setq jabber-roster-buffer "*google-talk*")
   (setq jabber-show-resources nil)
+  (setq jabber-roster-line-format " %c %-30n %u %-15s  %S")
 
   ; notifications
   (setq jabber-message-alert-same-buffer nil)  ; don't display alerts for current buffer
