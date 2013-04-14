@@ -45,10 +45,9 @@
 
 (defun abdo-change-dictionary (dictionary)
   "Changes the language for ispell together with my personal dictionary"
-  (interactive "MNew Dictionary: ")
+  (interactive (list (ido-completing-read "New Dictionary: " '("catalan" "english" "spanish" "german"))))
   (setq ispell-personal-dictionary (concat abdo-personal-dicts-path "abdo-" dictionary ".dict"))
-  (ispell-change-dictionary dictionary)
-)
+  (ispell-change-dictionary dictionary))
 
 
 ;; Enable flyspell on text modes
