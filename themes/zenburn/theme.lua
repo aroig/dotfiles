@@ -129,8 +129,8 @@ theme.taglist_squares_unsel = theme.confdir .. "/icons/taglist/squareza.png"
 -- }}}
 
 -- {{{ Misc icons
-theme.awesome_icon           = theme.confdir .. "/icons/awesome.png"
-theme.menu_submenu_icon      = theme.confdir .. "/icons/submenu.png"
+theme.awesome_icon           = theme.confdir .. "/icons/wibox/awesome.png"
+theme.menu_submenu_icon      = theme.confdir .. "/icons/menu/submenu.png"
 theme.tasklist_floating_icon = theme.confdir .. "/icons/tasklist/floatingw.png"
 -- }}}
 
@@ -150,22 +150,22 @@ theme.layout_floating   = theme.confdir .. "/icons/layouts/floating.png"
 -- }}}
 
 -- {{{ Widget icons
-theme.widget_temp   = theme.confdir .. "/icons/temp.png"
-theme.widget_cpu    = theme.confdir .. "/icons/cpu.png"
-theme.widget_bat    = theme.confdir .. "/icons/bat.png"
-theme.widget_mem    = theme.confdir .. "/icons/mem.png"
-theme.widget_fs     = theme.confdir .. "/icons/disk.png"
-theme.widget_netdw  = theme.confdir .. "/icons/down.png"
-theme.widget_netup  = theme.confdir .. "/icons/up.png"
-theme.widget_net    = theme.confdir .. "/icons/sat.png"
-theme.widget_maile  = theme.confdir .. "/icons/mailg.png"
-theme.widget_mailf  = theme.confdir .. "/icons/mailr.png"
-theme.widget_rsse   = theme.confdir .. "/icons/rssg.png"
-theme.widget_rssf   = theme.confdir .. "/icons/rssr.png"
-theme.widget_vol    = theme.confdir .. "/icons/vol.png"
-theme.widget_org    = theme.confdir .. "/icons/cal.png"
-theme.widget_date   = theme.confdir .. "/icons/time.png"
-theme.widget_crypto = theme.confdir .. "/icons/crypto.png"
+theme.widget_temp   = theme.confdir .. "/icons/wibox/temp.png"
+theme.widget_cpu    = theme.confdir .. "/icons/wibox/cpu.png"
+theme.widget_bat    = theme.confdir .. "/icons/wibox/bat.png"
+theme.widget_mem    = theme.confdir .. "/icons/wibox/mem.png"
+theme.widget_fs     = theme.confdir .. "/icons/wibox/disk.png"
+theme.widget_netdw  = theme.confdir .. "/icons/wibox/down.png"
+theme.widget_netup  = theme.confdir .. "/icons/wibox/up.png"
+theme.widget_net    = theme.confdir .. "/icons/wibox/sat.png"
+theme.widget_maile  = theme.confdir .. "/icons/wibox/mailg.png"
+theme.widget_mailf  = theme.confdir .. "/icons/wibox/mailr.png"
+theme.widget_rsse   = theme.confdir .. "/icons/wibox/rssg.png"
+theme.widget_rssf   = theme.confdir .. "/icons/wibox/rssr.png"
+theme.widget_vol    = theme.confdir .. "/icons/wibox/vol.png"
+theme.widget_org    = theme.confdir .. "/icons/wibox/cal.png"
+theme.widget_date   = theme.confdir .. "/icons/wibox/time.png"
+theme.widget_crypto = theme.confdir .. "/icons/wibox/crypto.png"
 -- }}}
 
 -- {{{ Titlebar icons
