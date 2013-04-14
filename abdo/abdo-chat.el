@@ -1,4 +1,38 @@
 
+;; Interface
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun abdo-chat-status (status)
+  (interactive (list (ido-completing-read "Status: " '("online" "away" "dnd"))))
+
+  (cond
+   ((string= status "online")
+    (jabber-send-presence "" "" jabber-default-priority)
+    (abdo-rcirc-away ""))
+
+   ((string= status "away")
+    (jabber-send-presence "away" "" jabber-default-priority)
+    (abdo-rcirc-away "away"))
+
+   ((string= status "away")
+    (jabber-send-presence "dnd" "" jabber-default-priority)
+    (abdo-rcirc-away "do not disturb"))
+
+   ))
+
+
+(defun abdo-chat-connect ()
+  (interactive)
+  (rcirc nil)
+  (jabber-connect-all))
+
+
+(defun abdo-chat-disconnect ()
+  (interactive)
+  (abdo-close-rcirc)
+  (abdo-close-jabber))
+
+
 ;; Some functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -225,6 +259,11 @@
     (when (eq (with-current-buffer buf major-mode) 'rcirc-mode)
       (with-current-buffer buf (ignore-errors (rcirc-cmd-quit "bye")))
       (kill-buffer buf))))
+
+
+(defun abdo-rcirc-away (reason)
+  (dolist (process (rcirc-process-list))
+	(rcirc-send-string process (concat "AWAY :" reason))))
 
 
 (defun abdo-rcirc-notify (proc sender response target text)
