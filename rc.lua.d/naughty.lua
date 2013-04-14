@@ -33,7 +33,7 @@ naughty.config.defaults = {
 local sound = {
     gnoti           = beautiful.naughty_mail_sound,
     weechat         = beautiful.naughty_chat_sound,
-    gchat           = beautiful.naughty_chat_sound,
+    gtalk           = beautiful.naughty_chat_sound,
     rcirc           = beautiful.naughty_chat_sound,
     ["notify-send"] = beautiful.naughty_alert_sound,
 }
@@ -42,7 +42,7 @@ local sound = {
 local icon = {
     gnoti           = beautiful.naughty_mail_icon,
     weechat         = beautiful.naughty_chat_icon,
-    gchat           = beautiful.naughty_chat_icon,
+    gtalk           = beautiful.naughty_chat_icon,
     rcirc           = beautiful.naughty_chat_icon,
     ["notify-send"] = beautiful.naughty_alert_icon,
 }
