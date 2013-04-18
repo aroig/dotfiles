@@ -114,7 +114,7 @@ ddclient.calibre = dropdown.new(apps.library,
                                 {vert="center", horiz="right", width=1,   height=1})
 
 ddclient.chat    = dropdown.new(apps.chat,
-                                {vert="center", horiz="right", width=0.5, height=1})
+                                {vert="center", horiz="left", width=0.6, height=1})
 
 ddclient.music   = dropdown.new(apps.music,
                                 {vert="center", horiz="right", width=0.6, height=1})
