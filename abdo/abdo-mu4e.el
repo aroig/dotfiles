@@ -46,7 +46,7 @@
 
   ;; Paths
   (setq mu4e-maildir "~/Documents/mail")
-  (setq mu4e-mu-home "~/.mu-mail")
+  (setq mu4e-mu-home "~/.mu")
   (setq mu4e-attachment-dir  "~/Downloads")
 
   (setq mu4e-drafts-folder "/Drafts")
