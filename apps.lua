@@ -15,7 +15,7 @@ apps.browser             = os.getenv("BROWSER")
 
 -- Other apps
 apps.docbrowser          = "chromium --user-data-dir=.config/chromium-docs"
-apps.filemanager         = "nautilus"
+apps.filemanager         = "nautilus -w"
 apps.pdfviewer           = "zathura"
 apps.music               = "quodlibet"
 apps.twitter             = "urxvt -e turses"
