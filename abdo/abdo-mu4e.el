@@ -115,7 +115,7 @@
           ("tag:watchlist"                                        "Watchlist"           ?w)
           ("tag:mathoverflow AND date:100d..now"                  "Mathoverflow"        ?o)
           ("tag:maths AND date:100d..now"                         "Mathematics"         ?m)
-          ("tag:arxiv AND date:100d..now"                         "Arxiv"               ?x)
+          ("tag:arxiv AND flag:unread AND date:100d..now"         "Arxiv"               ?x)
 
           ("tag:news AND date:100d..now"                          "News"                ?e)
           ("tag:blog AND date:100d..now"                          "Blogs"               ?b)
@@ -140,7 +140,6 @@
            (:from          .  30)
            (:subject       .  nil)))
 
-
   ;; Fields on message view
   (setq mu4e-view-fields
         '(:from :to  :cc :subject :mailing-list :tags :flags :date :maildir :attachments :signature))
@@ -155,6 +154,10 @@
   ;; Hooks
   (add-hook 'message-send-hook 'abdo-mu4e-feed-msmtp)
   (add-hook 'mu4e-compose-pre-hook 'abdo-mu4e-set-account)
+
+  (add-hook 'mu4e-compose-mode-hook
+        (lambda ()
+          (set-fill-column 80)))
 
   ;; Launch mu4e
   (mu4e)
