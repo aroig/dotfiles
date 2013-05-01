@@ -59,6 +59,7 @@ return {
    avidemux                  = "avidemux2_gtk",
    subtitleeditor            = "subtitleeditor",
    tagtool                   = "tagtool",
+   puddletag                 = "puddletag",
    brasero                   = "brasero",
 
    nautilus                  = "nautilus",
