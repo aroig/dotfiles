@@ -2,7 +2,7 @@ MAKE=emacs -Q --batch -f batch-byte-compile
 
 EMACS_LISP=emacs-lisp
 MODES=coffee-mode git-modes lua-mode markdown-mode multi-mode pkgbuild-mode python-mode rainbow-mode sage-mode yaml-mode
-PACKAGES=evil helm ibuffer-vc powerline undo-tree popup fuzzy auto-complete
+PACKAGES=evil helm ibuffer-vc powerline undo-tree auto-complete
 THEMES=zenburn
 
 # All packages with relative path
@@ -17,6 +17,9 @@ GITPKG=$(patsubst %,modes/%,$(MODES)) $(patsubst %,packages/%,$(PACKAGES)) $(pat
 .PHONY: all links $(COMPPKG)
 
 all: $(COMPPKG)
+
+packages/auto-complete:
+	cd $@; make byte-compile
 
 $(COMPPKG): %:
 	cd $@; if [ -f Makefile ]; then make; fi
