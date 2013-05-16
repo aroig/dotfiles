@@ -595,8 +595,8 @@ If BACKEND is passed use it as the VC backend when computing the result."
 ;; autocomplete:        http://www.emacswiki.org/emacs/AutoComplete
 
 (ac-config-default)
-(setq ac-auto-start nil)     ; Do not automatically auto-complete
-(ac-set-trigger-key "TAB")   ; Set trigger key
+(setq ac-auto-start nil)             ; Do not automatically auto-complete
+; (ac-set-trigger-key "TAB")       ; Set trigger
 
 
 ;; Emacs 1on1. Disabled because seems quite unmantained

@@ -52,6 +52,9 @@
 ;; ido buffer
 (global-set-key (kbd "C-x C-b") 'abdo-ibuffer)
 
+;; auto-complete
+(global-set-key (kbd "<backtab>") 'auto-complete)     ; backtab is shift + tab
+
 ;; Undo-Tree
 (global-set-key (kbd "H-C-<prior>")  'undo-tree-undo)
 (global-set-key (kbd "H-C-<next>")   'undo-tree-redo)
