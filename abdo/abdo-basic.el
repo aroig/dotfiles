@@ -590,13 +590,13 @@ If BACKEND is passed use it as the VC backend when computing the result."
 (setq recentf-max-saved-items 500)
 
 
+;; autocomplete
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; autocomplete:        http://www.emacswiki.org/emacs/AutoComplete
 
-;; Autocomplete:        http://www.emacswiki.org/emacs/AutoComplete
-;; Disabled. Made me nervous
-
-;; (ac-config-default)
-;; (setq ac-auto-start nil)     ; Do not automatically auto-complete
-;; (ac-set-trigger-key "TAB")   ; Set trigger key
+(ac-config-default)
+(setq ac-auto-start nil)     ; Do not automatically auto-complete
+(ac-set-trigger-key "TAB")   ; Set trigger key
 
 
 ;; Emacs 1on1. Disabled because seems quite unmantained
