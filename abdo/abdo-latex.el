@@ -73,6 +73,12 @@
 
   ;; Delete trailing whitespaces before save
   (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
+
+
+  ;; ac-math sources for auto-complete
+  (setq ac-sources
+        (append '(ac-source-math-unicode ac-source-math-latex ac-source-latex-commands)
+                ac-sources))
 )
 
 

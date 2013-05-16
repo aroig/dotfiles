@@ -100,7 +100,10 @@
 (require 'sensitive-mode)              ;; Mode for sensitive data (disable backups)
 (require 'netrc)                       ;; read passwords from .netrc
 (require 'sr-speedbar)                 ;; speedbar as a window
-(require 'auto-complete-config)        ;; autocompletion
+
+;; autocompletion
+(require 'auto-complete-config)
+(require 'ac-math)
 
 ;; Helm
 (require 'helm-config)
