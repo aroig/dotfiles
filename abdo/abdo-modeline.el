@@ -3,7 +3,7 @@
 ;; Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defvar abdo-modeline-skip-modes-regexp "undo-tree\\|fill"
+(defvar abdo-modeline-skip-modes-regexp "undo-tree\\|fill\\|server"
   "Regexp matching minor modes I want to hide from the modeline")
 
 
