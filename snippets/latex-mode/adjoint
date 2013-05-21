@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+# name: adjoint pair
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: adjoint
+# --
+\\begin{comdiag} \\label{eq:${1:bla}}
+  \\obj(m){${2:A} \\& ${3:B}\\\\};
+  \\mor(m){
+    (1-1)-->(1-2) [bend left=20]^{${4:f}};
+    (1-2)-->(1-1) [bend left=20]^{${5:g}};
+  };
+\\end{comdiag}

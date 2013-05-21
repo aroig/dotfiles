@@ -1,0 +1,18 @@
+# -*- coding: utf-8 -*-
+# name: ladder diagram
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: ladder
+# --
+\\begin{comdiag} \\label{eq:${1:bla}}
+  \\obj(m){
+    \\cdots \\& ${2:A_1} \\& ${3:A_2} \\& ${4:A_3} \\& \\cdots \\\\
+    \\cdots \\& ${5:B_1} \\& ${6:B_2} \\& ${7:B_3} \\& \\cdots \\\\
+  };
+  \\mor(m){
+    (1-1) --> (1-2) --> (1-3) --> (1-4) --> (1-5);
+    (2-1) --> (2-2) --> (2-3) --> (2-4) --> (2-5);
+    (1-2) --> (2-2);
+    (1-3) --> (2-4);
+    (1-4) --> (2-5);
+  };
+\\end{comdiag}
