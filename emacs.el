@@ -52,6 +52,13 @@
 (setq abdo-emacs-backups "~/.tmp/emacs/")
 
 
+;; Variables
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq abdo-user-full-name    "Abdó Roig-Maranges")
+(setq abdo-user-mail-address "abdo.roig@gmail.com")
+
+
 
 ;; Machine specific configs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -82,8 +89,6 @@
 (autoload 'calibre-find "calibre" "Calibre interface." t)
 
 ;; autoloads for org and tex
-
-
 
 
 ;; Loading stuff
