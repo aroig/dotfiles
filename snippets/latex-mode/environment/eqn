@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # name: equation block
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: equation
+# key: eqn
 # --
 \\begin{equation} \\label{eq:${1:bla}}
   $0
