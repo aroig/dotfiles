@@ -1,0 +1,7 @@
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# name: source block
+# key: src
+# --
+#+BEGIN_SRC
+$0
+#+END_SRC
