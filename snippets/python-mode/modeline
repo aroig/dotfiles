@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: vim modeline
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: modeline
+# --
+# vim: expandtab:shiftwidth=4:tabstop=4:softtabstop=4:textwidth=80
