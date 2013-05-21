@@ -77,7 +77,9 @@
 
   ;; ac-math sources for auto-complete
   (setq ac-sources
-        (append '(ac-source-math-unicode ac-source-math-latex ac-source-latex-commands)
+        (append '(ac-source-math-unicode
+                  ac-source-math-latex
+                  ac-source-latex-commands)
                 ac-sources))
 )
 
