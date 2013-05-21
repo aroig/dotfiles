@@ -81,7 +81,7 @@
 ;  (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
 ;  (abdo-change-dictionary "english")      ;; I always program in english
 
-  (setq python-indent 2)                   ;; indentation
+  (setq python-indent 4)                   ;; indentation
   (abdo-compile-buffer-things)
 )
 
@@ -125,6 +125,9 @@
 (defun abdo-c-mode-things()
   (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
   (abdo-change-dictionary "english")      ;; I always program in english
+
+  ;; indentation
+  (setq c-basic-offset 4)
 
   ;; Delete trailing whitespaces before save
   (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)

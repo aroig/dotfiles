@@ -104,6 +104,7 @@
 ;; autocompletion
 (require 'auto-complete-config)
 (require 'ac-math)
+(require 'yasnippet)
 
 ;; Helm
 (require 'helm-config)
@@ -157,6 +158,7 @@
 ;; Other personal stuff
 (require 'abdo-vi)                     ;; Settings for vi mode
 (require 'abdo-basic)                  ;; Basic emacs UI enhancements
+(require 'abdo-edit)                   ;; Basic editing settings
 (require 'abdo-languages)              ;; Spell checking stuff
 (require 'abdo-utils)                  ;; Utility stuff
 (require 'abdo-helm)                   ;; Personal helm stuff
