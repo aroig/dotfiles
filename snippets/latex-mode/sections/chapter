@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# name: derivative
+# name: chapter
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: der
+# key: chap
 # --
-\\frac{d ${1:f}}{d ${2:x}}
+\\chapter{$1}

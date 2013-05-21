@@ -1,0 +1,9 @@
+# -*- coding: utf-8 -*-
+# name: tikz picture
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: tikz
+# --
+\\begin{tikzpicture}[scale=1.0]
+  \\label{pic:${1:bla}}
+  $0
+\\end{tikzpicture}

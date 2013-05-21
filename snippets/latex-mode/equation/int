@@ -3,4 +3,4 @@
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
 # key: int
 # --
-\int_{${1:X}} ${2:f(x)}\, d $3
+\\int_{${1:X}} ${2:f(x)}\\, d $3

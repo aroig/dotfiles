@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# name: derivative
+# name: section
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: der
+# key: sec
 # --
-\\frac{d ${1:f}}{d ${2:x}}
+\\section{$1}

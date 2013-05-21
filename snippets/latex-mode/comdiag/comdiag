@@ -6,6 +6,6 @@
 \\begin{comdiag} \\label{eq:${1:bla}}
   \\obj(m){$2 \\\\};
   \\mor(m){
-    $2;
+    $3;
   };
 \\end{comdiag}
