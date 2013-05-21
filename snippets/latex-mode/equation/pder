@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: partial derivative
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: pder
+# --
+\frac{\partial ${1:f}}{\partial ${2:x}}

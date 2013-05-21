@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: path integral
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: pathint
+# --
+\int e^{-i/\hbar S[${1:\psi}]}\,\caD $1
