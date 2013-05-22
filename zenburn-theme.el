@@ -866,6 +866,5 @@ This requires library `rainbow-mode'.")
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; indent-tabs-mode: nil
-;; eval: (when (require 'rainbow-mode nil t) (rainbow-mode 1))
 ;; End:
 ;;; zenburn-theme.el ends here
