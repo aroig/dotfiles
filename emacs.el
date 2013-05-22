@@ -34,6 +34,7 @@
 
 ;; Apply color theme
 (load-theme 'zenburn t)
+(require 'abdo-zenburn)
 
 ;; modeline tweaks
 (require 'abdo-modeline)
