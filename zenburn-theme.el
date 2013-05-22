@@ -139,7 +139,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(link-visited ((t (:foreground ,zenburn-yellow-2 :underline t :weight normal))))
    `(default ((t (:foreground ,zenburn-fg :background ,zenburn-bg))))
    `(cursor ((t (:foreground ,zenburn-fg :background "white"))))
-   `(escape-glyph ((t (:foreground ,zenburn-yellow :bold t))))
+   `(escape-glyph ((t (:foreground ,zenburn-red))))
    `(fringe ((t (:foreground ,zenburn-fg :background ,zenburn-bg))))
    `(header-line ((t (:foreground ,zenburn-yellow
                                   :background ,zenburn-bg-1
@@ -194,7 +194,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(font-lock-builtin-face ((t (:foreground ,zenburn-cyan))))
    `(font-lock-comment-face ((t (:foreground ,zenburn-green))))
    `(font-lock-comment-delimiter-face ((t (:foreground ,zenburn-green))))
-   `(font-lock-constant-face ((t (:foreground ,zenburn-green+4))))
+   `(font-lock-constant-face ((t (:foreground , zenburn-sat-lightgreen-1))))
    `(font-lock-doc-face ((t (:foreground ,zenburn-green+1))))
    `(font-lock-doc-string-face ((t (:foreground ,zenburn-blue-2))))
    `(font-lock-function-name-face ((t (:foreground ,zenburn-blue))))
@@ -204,7 +204,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(font-lock-string-face ((t (:foreground ,zenburn-red))))
    `(font-lock-type-face ((t (:foreground ,zenburn-blue-1))))
    `(font-lock-variable-name-face ((t (:foreground ,zenburn-orange))))
-   `(font-lock-warning-face ((t (:foreground ,zenburn-yellow-2 :weight bold))))
+   `(font-lock-warning-face ((t (:foreground ,zenburn-orange :weight bold))))
 
    `(c-annotation-face ((t (:inherit font-lock-constant-face))))
 ;;;;; newsticker
