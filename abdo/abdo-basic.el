@@ -27,6 +27,9 @@
 ;; Default major mode
 (setq-default major-mode 'text-mode)
 
+;; save bookmarks immediately
+(setq bookmark-save-flag 1)
+
 ;; Set web browser to desktop default
  (setq browse-url-generic-program "xdg-open"
       browse-url-browser-function 'browse-url-generic)

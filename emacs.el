@@ -52,6 +52,9 @@
 ;; Backups dir
 (setq abdo-emacs-backups "~/.tmp/emacs/")
 
+;; Setup bookmarks file
+(setq bookmark-default-file "~/.emacs.d/bookmarks")
+
 
 ;; Variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
