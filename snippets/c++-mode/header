@@ -4,7 +4,7 @@
 # key: header
 # --
 /* ${1:proj - description} ${1:$(make-string (- 73 (string-width text)) ? )} */
-/* Copyright `(format-time-string "%Y")` Abdó Roig-Maranges<abdo.roig@gmail.com>                     */
+/* Copyright `(format-time-string "%Y")` `(format "%-60s" abdo-name-and-mail)`*/
 /*                                                                            */
 /*   This program is free software: you can redistribute it and/or modify     */
 /*   it under the terms of the GNU General Public License as published by     */

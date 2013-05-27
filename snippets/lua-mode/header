@@ -6,7 +6,7 @@
 #!/usr/bin/env lua
 --
 -- ${1:proj} - ${2:description}
--- Copyright `(format-time-string "%Y")` Abdó Roig-Maranges <abdo.roig@gmail.com>
+-- Copyright `(format-time-string "%Y")` `abdo-name-and-mail`
 --
 --   This program is free software: you can redistribute it and/or modify
 --   it under the terms of the GNU General Public License as published by

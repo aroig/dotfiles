@@ -61,7 +61,9 @@
 
 (setq abdo-user-full-name    "Abdó Roig-Maranges")
 (setq abdo-user-mail-address "abdo.roig@gmail.com")
-
+(setq abdo-name-and-mail (format "%s <%s>"
+                                 abdo-user-full-name
+                                 abdo-user-mail-address))
 
 
 ;; Machine specific configs

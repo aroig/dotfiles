@@ -1,0 +1,13 @@
+# -*- coding: utf-8 -*-
+# name: dev pkgbuild
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: devgit
+# --
+pkgver() {
+  git --git-dir="${srcdir}/${_gitname}/.git" paur-ver
+}
+
+prepare() {
+  rsync -avq --delete --exclude=.git "${srcdir}/${_gitname}/" "${srcdir}/${_gitname}-build/"
+  cd "${srcdir}/${_gitname}-build"
+}
