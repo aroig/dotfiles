@@ -92,7 +92,8 @@
 ;; Calibre
 (autoload 'calibre-find "calibre" "Calibre interface." t)
 
-;; autoloads for org and tex
+;; autoloads for haskell
+(load "haskell-mode/haskell-site-file.el")
 
 
 ;; Loading stuff
