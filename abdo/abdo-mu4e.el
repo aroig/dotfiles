@@ -56,14 +56,11 @@
   ;; profile to use for mutag commands
   (setq abdo-mu4e-mutag-profile "mail")
 
-  (setq mu4e-get-mail-command "offlineimap")
+  ;; disable get-mail
+  (setq mu4e-get-mail-command nil)
 
   ;; to detect my mail
   (setq mu4e-user-mail-address-list '("abdo.roig@gmail.com" "abdo.roig@upc.edu"))
-
-  ;; include in message with C-c C-w
-;  (setq message-signature
-;        "Abdó Roig-Maranges\nhttp://www.abdoroig.net\n")
 
   ;; Copy messages to sent folder. I'll remove the fcc for gmail on abdo-mu4e-feed-msmtp
   (setq mu4e-sent-messages-behavior 'sent)
@@ -97,29 +94,35 @@
            ("/Trash"       . ?t)
            ("/All Mail"    . ?a)))
 
+  ;; sorting field and order
+  (setq mu4e~headers-sort-field :date)
+  (setq mu4e~headers-sort-direction 'ascending)
+
   ;; Bookmarks
   (setq mu4e-bookmarks
         '(("flag:unread"                                          "New"                 ?n)
-          ("tag:\\\\Inbox AND date:365d..now"                     "Inbox"               ?i)
-          ("tag:\\\\Sent AND date:365d..now"                      "Sent"                ?s)
-          ("tag:\\\\Starred OR flag:flagged"                      "Starred"             ?r)
+          ("flag:flagged"                                         "Flagged"             ?g)
+        ; ("tag:\\\\Inbox AND date:365d..now"                     "Inbox"               ?i)
+        ; ("tag:\\\\Sent AND date:365d..now"                      "Sent"                ?s)
 
-          ("tag:research AND date:365d..now"                      "Research"            ?r)
-          ("tag:teaching AND date:365d..now"                      "Teaching"            ?t)
-          ("tag:upc AND date:365d..now"                           "University"          ?u)
+          ("tag:research AND flag:unread"                         "Research"            ?r)
+          ("tag:teaching AND flag:unread"                         "Teaching"            ?t)
+          ("tag:upc AND flag:unread"                              "University"          ?u)
+          ("tag:list AND flag:unread"                             "Lists"               ?l)
 
-          ("tag:arch AND date:100d..now"                          "Arch"                ?a)
-          ("tag:devel AND date:100d..now"                         "Development"         ?d)
-          ("tag:list AND date:100d..now"                          "Lists"               ?l)
+          ("tag:arch AND flag:unread"                             "Arch"                ?a)
+          ("tag:sage AND flag:unread"                             "Sage"                ?s)
+          ("tag:org AND flag:unread"                              "Org"                 ?o)
+          ("tag:devel AND flag:unread"                            "Development"         ?d)
 
-          ("tag:watchlist"                                        "Watchlist"           ?w)
-          ("tag:mathoverflow AND date:100d..now"                  "Mathoverflow"        ?o)
-          ("tag:maths AND date:100d..now"                         "Mathematics"         ?m)
-          ("tag:arxiv AND flag:unread AND date:100d..now"         "Arxiv"               ?x)
+          ("tag:watchlist AND flag:unread"                        "Watchlist"           ?w)
+          ("tag:mathoverflow AND flag:unread"                     "Mathoverflow"        ?v)
+          ("tag:maths AND flag:unread"                            "Mathematics"         ?m)
+          ("tag:arxiv AND flag:unread"                            "Arxiv"               ?x)
 
-          ("tag:news AND date:100d..now"                          "News"                ?e)
-          ("tag:blog AND date:100d..now"                          "Blogs"               ?b)
-          ("tag:fun AND date:100d..now"                           "Fun"                 ?f)
+          ("tag:news AND flag:unread"                             "News"                ?e)
+          ("tag:blog AND flag:unread"                             "Blogs"               ?b)
+          ("tag:fun AND flag:unread"                              "Fun"                 ?f)
           ))
 
   ;; Times and dates
@@ -129,9 +132,9 @@
   ;; threading and duplicates
   (setq mu4e-headers-show-threads t)
   (setq mu4e-headers-results-limit 500)
-;  (setq mu4e-headers-skip-duplicates t)
-;  (setq mu4e-headers-include-related t)
 
+  (setq mu4e-headers-include-related t)
+  (setq mu4e-headers-skip-duplicates t)
 
   ;; fields in list view
   (setq mu4e-headers-fields
