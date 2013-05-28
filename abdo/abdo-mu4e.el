@@ -130,11 +130,9 @@
   (setq mu4e-headers-time-format "%H:%M")
 
   ;; threading and duplicates
-  (setq mu4e-headers-show-threads t)
   (setq mu4e-headers-results-limit 500)
-
-  (setq mu4e-headers-include-related t)
-  (setq mu4e-headers-skip-duplicates t)
+  (setq mu4e-headers-show-threads t)
+  ; (setq mu4e-headers-skip-duplicates t)
 
   ;; fields in list view
   (setq mu4e-headers-fields
