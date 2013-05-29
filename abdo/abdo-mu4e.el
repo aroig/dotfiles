@@ -53,6 +53,9 @@
   (setq mu4e-sent-folder   "/All Mail")
   (setq mu4e-trash-folder  "/Trash")
 
+  ;; respect offlineimap filenames when moving files around
+  (setq mu4e-change-filenames-when-moving nil)
+
   ;; profile to use for mutag commands
   (setq abdo-mu4e-mutag-profile "mail")
 
