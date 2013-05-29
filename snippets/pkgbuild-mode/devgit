@@ -4,10 +4,10 @@
 # key: devgit
 # --
 pkgver() {
-  git --git-dir="${srcdir}/${_gitname}/.git" paur-ver
+  git --git-dir="\${srcdir}/\${_gitname}/.git" paur-ver
 }
 
 prepare() {
-  rsync -avq --delete --exclude=.git "${srcdir}/${_gitname}/" "${srcdir}/${_gitname}-build/"
-  cd "${srcdir}/${_gitname}-build"
+  rsync -avq --delete --exclude=.git "\${srcdir}/\${_gitname}/" "\${srcdir}/\${_gitname}-build/"
+  cd "\${srcdir}/\${_gitname}-build"
 }
