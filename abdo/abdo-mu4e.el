@@ -1,48 +1,10 @@
 (provide 'abdo-mu4e)
 
-;; minor modes
-;; -----------------------------------------------
-;; TODO: can I make this work nicely, like with notmuch?
-;; maybe better!
-
-(define-minor-mode email-mode
-       "Email mode. When email mode is enabled, mu4e functions as email client."
-      nil                                   ;; The initial value.
-      " Email"                              ;; The indicator for the mode line.
-      :group 'abdo)
-
-
-(define-minor-mode news-mode
-       "Email mode. When news mode is enabled, mu4e functions as rss reader."
-      nil                                   ;; The initial value.
-      " News"                               ;; The indicator for the mode line.
-      :group 'abdo)
-
-
-
-;; Hooks
-(add-hook 'news-mode-hook 'abdo-mu4e-news-things)
-(add-hook 'email-mode-hook 'abdo-mu4e-mail-things)
-
 
 ;; settings
 ;; -----------------------------------------------
 
 (defun abdo-mu4e-things ()
-
-  ; tweaking visual appearence
-  (abdo-mu4e-message-appearence)
-
-  ;; Custom actions
-  (setq mu4e-action-tags-header "X-Keywords")
-  (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
-  (add-to-list 'mu4e-view-actions '("tRetag message" . mu4e-action-retag-message) t)
-  (add-to-list 'mu4e-view-actions '("bView in browser" . mu4e-action-view-in-browser) t)
-)
-
-
-(defun abdo-mu4e-mail-things ()
-  (abdo-mu4e-things)
 
   ;; Paths
   (setq mu4e-maildir "~/Documents/mail")
@@ -132,6 +94,13 @@
   (setq mu4e-headers-date-format "%d %b %Y")
   (setq mu4e-headers-time-format "%H:%M")
 
+  ;; Custom actions
+  (setq mu4e-action-tags-header "X-Keywords")
+  (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
+  (add-to-list 'mu4e-view-actions '("tRetag message" . mu4e-action-retag-message) t)
+  (add-to-list 'mu4e-view-actions '("bView in browser" . mu4e-action-view-in-browser) t)
+
+
   ;; threading and duplicates
   (setq mu4e-headers-results-limit 500)
   (setq mu4e-headers-show-threads t)
@@ -163,48 +132,35 @@
         (lambda ()
           (set-fill-column 80)))
 
-  ;; Launch mu4e
-  (mu4e)
+
+  ;; Fancy chars
+  ; (setq mu4e-use-fancy-chars t)
+
+  ;; convert html messages to markdown syntax
+  ; (setq mu4e-html2text-command "html2text")                                             ; python-html2text
+  ; (setq mu4e-html2text-command "html2text -utf8 -width 80")                             ; html2text with utf8
+  ; (setq mu4e-html2text-command "lynx -dump -stdin -width=100 -display_charset=utf-8")   ; lynx
+  ; (setq mu4e-html2text-command "w3m -dump -cols 100 -T text/html")                      ; w3m
+  ; (setq mu4e-html2text-command "elinks -dump -force-html -dump-color-mode 1")           ; elinks color
+
+  ; elinks
+  (setq mu4e-html2text-command (concat
+                                "elinks" " -dump" " -force-html"
+                                " -dump-color-mode 1"))
 )
 
 
-(defun abdo-mu4e-news-things ()
-  (abdo-mu4e-things)
-
-  ;; Paths
-  (setq mu4e-maildir nil)
-  ; (setq mu4e-mu-home "~/.mu-news")
-
-  (setq mu4e-get-mail-command "offlinegreader")
-
-  ;; profile to use for mutag commands
-  (setq abdo-mu4e-mutag-profile "news")
-
-
-  ;; enable inline images
-  (setq mu4e-view-show-images t)
-  ;; use imagemagick, if available
-  (when (fboundp 'imagemagick-register-types)
-    (imagemagick-register-types))
-
-  ; disable send-mail function
-  (setq send-mail-function '(lambda (arg)))
-)
 
 
 ;; Custom actions
 ;; -----------------------------------------------
 
-(defun abdo-mu4e (mode)
+(defun abdo-mu4e ()
   (interactive)
-  (cond
-   ((string= mode "mail") (abdo-mu4e-mail-things))
-   ((string= mode "news") (abdo-mu4e-news-things))
-   (t (return)))
-
-  ;; Launch mu4e
+  (abdo-mu4e-things)
   (mu4e)
 )
+
 
 (defun abdo-mu4e-retag-message (msg)
   (let ((retag (read-string "Tags: "))
@@ -223,6 +179,7 @@
     (apply 'call-process "mutag" nil 0 nil "-p" abdo-mu4e-mutag-profile "-t" path "-A")
     (mu4e~proc-index path mu4e-user-mail-address-list)
     (mu4e~proc-add path maildir)))
+
 
 
 ;; Functions
@@ -277,23 +234,6 @@
 ;; Message view tweaks
 ;; -----------------------------------------------
 
-(defun abdo-mu4e-message-appearence ()
-  ;; Fancy chars
-  ; (setq mu4e-use-fancy-chars t)
-
-  ;; convert html messages to markdown syntax
-  ; (setq mu4e-html2text-command "html2text")                                             ; python-html2text
-  ; (setq mu4e-html2text-command "html2text -utf8 -width 80")                             ; html2text with utf8
-  ; (setq mu4e-html2text-command "lynx -dump -stdin -width=100 -display_charset=utf-8")   ; lynx
-  ; (setq mu4e-html2text-command "w3m -dump -cols 100 -T text/html")                      ; w3m
-  ; (setq mu4e-html2text-command "elinks -dump -force-html -dump-color-mode 1")           ; elinks color
-
-  ; elinks
-  (setq mu4e-html2text-command (concat
-                                "elinks" " -dump" " -force-html"
-                                " -dump-color-mode 1"))
-)
-
 
 ;; For some reason, this does not always work
 ; (add-hook 'mu4e-view-mode-hook 'abdo-mu4e-ansi-colorize)
@@ -304,7 +244,6 @@
   (setq ad-return-value (ansi-color-apply ad-return-value)))
 
 (ad-activate 'mu4e-view-message-text)
-
 
 
 

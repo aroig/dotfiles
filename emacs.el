@@ -248,7 +248,7 @@
   (global-set-key (kbd "C-c C-x") 'abdo-chat-disconnect))
 
 (defun abdo-launch-mail (arg)
-  (abdo-mu4e "mail"))
+  (abdo-mu4e))
 
 
 ;; Custom set stuff
