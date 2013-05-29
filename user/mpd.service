@@ -1,0 +1,10 @@
+[Unit]
+Description=Music Player Daemon
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/mpd
+ExecStop=/usr/bin/mpd --kill
+
+[Install]
+WantedBy=default.target
