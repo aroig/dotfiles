@@ -5,7 +5,7 @@ After=xorg.service
 
 [Service]
 Type=oneshot
-Environment=DISPLAY=:0
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
 ExecStart=/usr/bin/xmodmap %h/.config/systemd/conf/Xmodmap
 
 [Install]

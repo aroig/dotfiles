@@ -4,7 +4,7 @@ After=xorg.service
 
 [Service]
 Type=oneshot
-Environment=DISPLAY=:0
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
 ExecStart=/usr/bin/setxkbmap -option terminate:ctrl_alt_bksp 
 ExecStart=/usr/bin/xset r rate 500 40  
 
