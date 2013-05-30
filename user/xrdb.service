@@ -5,6 +5,7 @@ After=xorg.service
 
 [Service]
 Type=oneshot
+Environment=DISPLAY=:0
 ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources
 ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources.d/%H
 
