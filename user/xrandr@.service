@@ -1,0 +1,10 @@
+[Unit]
+Description=X screen setup with randr
+After=xorg.service
+
+[Service]
+Type=oneshot
+ExecStart=%h/.config/systemd/scripts/screen.sh %i
+
+[Install]
+WantedBy=xorg.target
