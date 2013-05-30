@@ -1,0 +1,5 @@
+
+[Unit]
+Description=Awesome Window Manager
+Requires=dbus.socket
+AllowIsolate=true

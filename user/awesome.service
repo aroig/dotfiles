@@ -1,0 +1,13 @@
+
+[Unit]
+Description=The Awesome Window Manager
+After=xorg.target
+Requires=dbus.socket
+
+[Service]
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/awesome
+Restart=on-failure
+
+[Install]
+WantedBy=awesome.target
