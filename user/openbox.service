@@ -1,15 +1,14 @@
 
 [Unit]
-Description=The Awesome Window Manager
+Description=The Openbox Window Manager
 After=xorg.target
-Requires=xorg.target
+Requires=xorg.service
 Requires=dbus.socket
 
 [Service]
-Type=forking
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-ExecStart=/usr/bin/awesome
+ExecStart=/usr/bin/openbox
 Restart=on-failure
 
 [Install]
-WantedBy=awesome.target
+WantedBy=openbox.target

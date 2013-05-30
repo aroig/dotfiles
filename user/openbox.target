@@ -1,0 +1,5 @@
+
+[Unit]
+Description=A Desktop Environment built on Openbox
+Requires=dbus.socket
+AllowIsolate=true
