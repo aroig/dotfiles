@@ -1,0 +1,11 @@
+[Unit]
+Description=X resource setting
+Documentation=man:xrdb(1)
+After=xorg.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/xmodmap %h/.config/systemd/conf/Xmodmap
+
+[Install]
+WantedBy=xorg.target
