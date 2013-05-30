@@ -6,7 +6,7 @@ After=xorg.service
 Type=oneshot
 Environment=DISPLAY=:0
 ExecStart=/usr/bin/setxkbmap -option terminate:ctrl_alt_bksp 
-ExecStart=/usr/bin/Xset r rate 500 40  
+ExecStart=/usr/bin/xset r rate 500 40  
 
 [Install]
 WantedBy=xorg.target
