@@ -3,3 +3,6 @@ Description=X.org
 Requires=dbus.socket
 AllowIsolate=true
 
+[Install]
+WantedBy=awesome.target
+WantedBy=openbox.target
