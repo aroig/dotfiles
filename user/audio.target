@@ -1,0 +1,7 @@
+[Unit]
+Description=Audio servers
+Requires=dbus.socket
+AllowIsolate=true
+
+[Install]
+WantedBy=default.target
