@@ -45,14 +45,6 @@ stty stop undef
 stty start undef
 
 
-#------------------------------
-# History stuff
-#------------------------------
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-
-
 # ----------------------------
 # Modifying fpath
 # ----------------------------

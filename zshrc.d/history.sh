@@ -4,7 +4,7 @@
 # Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
 #------------------------------------------------------------------#
 
-HISTFILE=~/.zhistory
+HISTFILE=/tmp/$USER-zhistory
 HISTSIZE=1000
 SAVEHIST=1000
 
