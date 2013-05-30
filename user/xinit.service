@@ -1,6 +1,8 @@
 [Unit]
 Description=X initialization commands
 After=xorg.service
+BindsTo=xorg.service
+PropagatesReloadFrom=xorg.service
 
 [Service]
 Type=oneshot
