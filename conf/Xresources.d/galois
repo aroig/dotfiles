@@ -1,0 +1,11 @@
+!! urxvt
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+urxvt.font: xft:monospace-11
+urxvt.letterSpace: 0
+
+
+!! Emacs
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Emacs.font: monospace-11
