@@ -1,0 +1,192 @@
+#!/bin/zsh
+
+#------------------------------------------------------------------#
+# File:     alias.sh   Aliases                                     #
+# Version:                                                         #
+# Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
+#------------------------------------------------------------------#
+
+
+#------------------------------
+# Coloring stuff
+#------------------------------
+alias ls='ls --color=auto -F'
+alias ll='ls++ --potsf'
+alias diff='diff -u -d'
+alias top='htop'
+alias tree='tree -C'
+alias df='dfc'
+# alias ping='$HOME/Software/conf/color-wrappers/ping'
+# alias unisonb='$HOME/Software/conf/color-wrappers/unison -batch'
+alias alsi='alsi -a -u'
+
+
+#------------------------------
+# Compatibility aliases
+#------------------------------
+alias less=vimpager
+alias zless=vimpager
+
+
+#------------------------------
+# Wine aliases
+#------------------------------
+alias kindle='wine "$HOME/.wine/drive_c/Program Files (x86)/Amazon/Kindle/Kindle.exe"'
+alias digitaleditions='wine "$HOME/.wine/drive_c/Program Files (x86)/Adobe/Adobe Digital Editions/digitaleditions.exe"'
+
+#------------------------------
+# Utility aliases
+#------------------------------
+alias trash='gvfs-trash'
+alias vp='vimpager'
+alias rsy='rsync -avz --progress'
+alias ediff='emacs -diff'
+
+alias sctl='sudo systemctl'
+alias jctl='sudo journalctl'
+alias nctl='sudo netctl'
+
+alias usctl='systemctl --user'
+alias ujctl='journalctl --user'
+
+alias ahi='asym hi'
+alias abye='asym bye'
+
+alias feh='feh --magick-timeout 2 --fontpath /usr/share/fonts/TTF/ --font DejaVuSans/10'
+alias ipy='ipython'
+alias ipy2='ipython2'
+
+alias wee='weechat-curses'
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+
+
+#------------------------------
+# text manipulation
+#------------------------------
+
+# remove trailing newline.
+trimtrail() {
+    cat "$1" | awk '{a = $0; while (getline > 0) {print a; a = $0}} END {printf("%s", a)}' -
+}
+
+
+#------------------------------
+# development
+#------------------------------
+
+case $(hostname -s) in
+    grothendieck)
+        threads=10
+        ;;
+    galois|hodge)
+        threads=3
+        ;;
+    *)
+        threads=1
+        ;;
+esac
+
+alias pmake="colormake -j$threads"
+alias gan="git annex"
+
+
+#------------------------------
+# Sudo aliases
+#------------------------------
+
+# If the argument has an alias, expand it, if it has a function, run it on a root shell
+# and if no arguments given, go to a root prompt.
+sudo () {
+    sudo=/usr/bin/sudo
+    sudo_pr=$(echo -n -e "\e[31m[sudo]\e[0m password for %u: ")
+    
+    if [[ -n "$1" ]]; then
+        if [[ -n "${=aliases[$1]}" ]]; then
+            $sudo -p "$sudo_pr" ${=aliases[$1]} $argv[2,-1]
+        elif [[ -n "${=functions[$1]}" ]]; then
+            # TODO: need to escape $argv
+            $sudo -p "$sudo_pr" zsh -ic "$argv"
+        else
+            $sudo -p "$sudo_pr" $argv
+        fi
+    else
+        $sudo -p "$sudo_pr" zsh
+    fi
+}
+
+# alias sudo='sudo '        # Enables expanding aliases for next command. not functions though :(
+
+
+#------------------------------
+# Program shortcuts
+#------------------------------
+
+vi()  { eval "$EDITOR \"\$@\""; }
+op()  { xdg-open "$@" &> /dev/null &!; }
+# stx() { startx awesome -- vt$(fgconsole 2>/dev/null); }
+stx() { systemctl --user start awesome.target; }
+
+
+# The following commands are aware of the type of terminal they are on. For
+# example ed launches GTK emacs on any terminal except tty's or remote logins
+
+ee() {
+    case "$TERM" in
+        screen*|linux) eval "$EMACS -nw  &> /dev/null \"\$@\"" ;;
+        *)             eval "$EMACS &> /dev/null \"\$@\" &!" ;;
+    esac
+}
+
+tx() {
+    if [ "$TMUX" ]; then
+        tmux new-window
+    else
+        if [[ "$(tmux has-session -t term 2> /dev/null; echo $?)" == "0" ]]; then
+	    tmux new-session -t term \; set-option destroy-unattached
+        else
+            tmux new-session -s term
+        fi
+    fi
+}
+
+tm()  {
+    case "$TERM" in
+        screen*|linux) tx ;;
+        *)             eval "$TERMCMD -cd \"\$PWD\" \"\$@\" &!" ;;
+    esac
+}
+
+rg()  {
+    case "$TERM" in
+        screen*|linux) eval "ranger \"\$@\"" ;;
+        *)             eval "$TERMCMD -cd \"\$PWD\" -e ranger \"\$@\" &!" ;;
+    esac
+}
+
+fm()  {
+    case "$TERM" in
+        screen*|linux) eval "ranger \"\$@\"" ;;
+        *)             eval "nautilus \"$PWD\" &> /dev/null &!" ;;
+    esac
+}
+
+
+
+# These commands open awesome dropdown clients
+rgd() { echo "ddclient.ranger:newtab('$PWD')"   | awesome-client; }
+tmd() { echo "ddclient.terminal:newtab('$PWD')" | awesome-client; }
+
+
+
+
+#------------------------------
+# Rebooting and halting
+#------------------------------
+reboot()   { sudo systemctl reboot;   }
+poweroff() { sudo systemctl poweroff; }
+suspend()  { sudo systemctl suspend;  }
