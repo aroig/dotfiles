@@ -18,6 +18,4 @@ Before=xorg.target
 [Service]
 Type=notify
 ExecStart=/usr/bin/xorg-launch-helper :0 -nolisten tcp -noreset vt7
-Restart=always
-RestartSec=10
 
