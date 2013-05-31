@@ -38,11 +38,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "Page_Up",   function () exec("mpc prev") end),
     awful.key({ modkey, ctrlkey   }, "Page_Down", function () exec("mpc next") end),
 
-    awful.key({ modkey, ctrlkey   }, "Insert",    function () exec("pvol +2db") end),
-    awful.key({ modkey, ctrlkey   }, "Delete",    function () exec("pvol -2db") end),
+    awful.key({ modkey, ctrlkey   }, "Insert",    function () exec("/home/abdo/bin/pvol +2db") end),
+    awful.key({ modkey, ctrlkey   }, "Delete",    function () exec("/home/abdo/bin/pvol -2db") end),
 
     -- Desktop
-    awful.key({ metakey, ctrlkey  }, "l",      function () exec("asym screen lock") end),
+    awful.key({ metakey, ctrlkey  }, "l",      function () exec("/home/abdo/bin/lock") end),
     awful.key({ modkey,           }, "Print",  function ()
                                                    exec("scrot -e 'mv $f ~/Downloads/'")
                                                    naughty.notify({title = "Screenshot",
@@ -163,9 +163,9 @@ globalkeys = awful.util.table.join(
     awful.key({metakey, ctrlkey, shiftkey }, "q",     awesome.quit),
 
     -- System stuff
-    awful.key({metakey, ctrlkey, shiftkey }, "z",     function () exec("systemctl suspend") end),
-    awful.key({metakey, ctrlkey, shiftkey }, "h",     function () exec("systemctl poweroff") end),
-    awful.key({metakey, ctrlkey, shiftkey }, "r",     function () exec("systemctl reboot") end),
+    awful.key({metakey, ctrlkey, shiftkey }, "z",     function () exec("sudo systemctl suspend") end),
+    awful.key({metakey, ctrlkey, shiftkey }, "h",     function () exec("sudo systemctl poweroff") end),
+    awful.key({metakey, ctrlkey, shiftkey }, "r",     function () exec("sudo systemctl reboot") end),
 
     -- Awesome defaults
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
