@@ -2,6 +2,8 @@
 Description=X resource setting
 Documentation=man:xmodmap(1)
 After=xorg.service
+After=xinit.service
+After=xrdb.serivce
 BindsTo=xorg.service
 PropagatesReloadFrom=xorg.service
 
