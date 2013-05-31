@@ -53,9 +53,9 @@ fi
 
 if [ "$action" == "default" ]; then
     case $action in
-        galois) action=xinerama ;;
-        hodge)  action=single   ;;
-        galois) action=single   ;;
+        grothendieck) action=xinerama ;;
+        hodge)        action=single   ;;
+        galois)       action=single   ;;
     esac
 fi
 
