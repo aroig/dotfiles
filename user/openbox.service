@@ -9,7 +9,7 @@ Conflicts=xmonad.service
 
 [Service]
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-ExecStart=/home/abdo/.config/systemd/scripts/launch-with-environment.sh /usr/bin/openbox
+ExecStart=/usr/bin/bash %h/.config/systemd/scripts/openbox.sh
 
 [Install]
 WantedBy=openbox.target
