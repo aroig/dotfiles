@@ -4,11 +4,12 @@ Description=The Openbox Window Manager
 After=xorg.target
 Requires=xorg.service
 Requires=dbus.socket
+Conflicts=awesome.service
+Conflicts=xmonad.service
 
 [Service]
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-ExecStart=/usr/bin/openbox
-Restart=on-failure
+ExecStart=/home/abdo/.config/systemd/scripts/launch-with-environment.sh /usr/bin/openbox
 
 [Install]
 WantedBy=openbox.target
