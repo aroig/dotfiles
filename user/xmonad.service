@@ -1,0 +1,14 @@
+
+[Unit]
+Description=The Xmonad Window Manager
+After=xorg.target
+Requires=xorg.target
+Requires=dbus.socket
+
+[Service]
+Type=forking
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
+ExecStart=/bin/bash --login %h/.config/systemd/scripts/xmonad.sh
+
+[Install]
+WantedBy=xmonad.target
