@@ -1,6 +1,7 @@
 [Unit]
 Description=X.org
 Requires=dbus.socket
+BindsTo=xorg.service
 AllowIsolate=true
 
 [Install]

@@ -2,4 +2,5 @@
 [Unit]
 Description=Awesome Window Manager
 Requires=dbus.socket
+BindsTo=awesome.service
 AllowIsolate=true
