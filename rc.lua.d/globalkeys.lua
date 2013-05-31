@@ -34,9 +34,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "t",      function () ddclient.twitter:toggle() end),
 
     -- Music
-    awful.key({ modkey, ctrlkey   }, "Home",      function () exec(apps.music .. " --play-pause") end),
-    awful.key({ modkey, ctrlkey   }, "Page_Up",   function () exec(apps.music .. " --previous") end),
-    awful.key({ modkey, ctrlkey   }, "Page_Down", function () exec(apps.music .. " --next") end),
+    awful.key({ modkey, ctrlkey   }, "Home",      function () exec("mpc toggle") end),
+    awful.key({ modkey, ctrlkey   }, "Page_Up",   function () exec("mpc prev") end),
+    awful.key({ modkey, ctrlkey   }, "Page_Down", function () exec("mpc next") end),
 
     awful.key({ modkey, ctrlkey   }, "Insert",    function () exec("pvol +2db") end),
     awful.key({ modkey, ctrlkey   }, "Delete",    function () exec("pvol -2db") end),
