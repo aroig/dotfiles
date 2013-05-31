@@ -8,8 +8,7 @@ Requires=dbus.socket
 [Service]
 Type=forking
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-ExecStart=/usr/bin/awesome
-Restart=on-failure
+ExecStart=/bin/bash --login %h/.config/systemd/scripts/awesome.sh
 
 [Install]
 WantedBy=awesome.target
