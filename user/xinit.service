@@ -9,6 +9,7 @@ Type=oneshot
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
 ExecStart=/usr/bin/setxkbmap -option terminate:ctrl_alt_bksp 
 ExecStart=/usr/bin/xset r rate 500 40  
+ExecStart=/bin/bash %h/.config/systemd/conf/xinitrc.d/%H
 
 [Install]
 WantedBy=xorg.target

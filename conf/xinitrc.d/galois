@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# kill all radios but wifi
+rfkill block bluetooth       
+rfkill block wimax
+rfkill block wwan
+
+# backlight
+xbacklight -set 15
