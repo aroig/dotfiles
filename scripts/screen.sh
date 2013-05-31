@@ -52,7 +52,7 @@ if [ ! "$action" ]; then
 fi
 
 if [ "$action" == "default" ]; then
-    case $action in
+    case "$host" in
         grothendieck) action=xinerama ;;
         hodge)        action=single   ;;
         galois)       action=single   ;;
