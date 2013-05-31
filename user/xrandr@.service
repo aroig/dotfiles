@@ -6,7 +6,7 @@ PropagatesReloadFrom=xorg.service
 
 [Service]
 Type=oneshot
-ExecStart=%h/.config/systemd/scripts/screen.sh %i
+ExecStart=/home/abdo/.config/systemd/scripts/screen.sh %i
 
 [Install]
 WantedBy=xorg.target

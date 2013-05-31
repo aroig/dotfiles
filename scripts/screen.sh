@@ -51,6 +51,14 @@ if [ ! "$action" ]; then
     action=single
 fi
 
+if [ "$action" == "default" ]; then
+    case $action in
+        galois) action=xinerama ;;
+        hodge)  action=single   ;;
+        galois) action=single   ;;
+    esac
+fi
+
 # screen options
 case $action in 
     xinerama)
