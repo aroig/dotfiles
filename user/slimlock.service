@@ -1,0 +1,15 @@
+
+[Unit]
+Description=Lock screen with slimlock
+Requires=dbus.socket
+Requisite=xorg.service
+
+[Service]
+Type=simple
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
+ExecStartPre=/bin/bash %h/.config/systemd/scripts/mouse.sh lock
+ExecStart=/usr/bin/slimlock
+ExecStopPost=/bin/bash %h/.config/systemd/scripts/mouse.sh unlock
+
+[Install]
+WantedBy=lock.target
