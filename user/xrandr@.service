@@ -2,7 +2,6 @@
 Description=X screen setup with randr
 After=xorg.service
 BindsTo=xorg.service
-PropagatesReloadFrom=xorg.service
 
 [Service]
 Type=oneshot

@@ -3,7 +3,6 @@ Description=X resource setting
 Documentation=man:xrdb(1)
 After=xorg.service
 BindsTo=xorg.service
-PropagatesReloadFrom=xorg.service
 
 [Service]
 Type=oneshot
