@@ -5,7 +5,7 @@ source /home/abdo/.aliases
 
 case "$1" in 
     start)
-        /usr/bin/awesome &
+        /usr/bin/awesome
     ;;
 
     stop)

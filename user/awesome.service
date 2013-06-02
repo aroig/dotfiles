@@ -6,10 +6,9 @@ Requires=xorg.target
 Requires=dbus.socket
 
 [Service]
-Type=forking
+Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-ExecStart=/bin/bash --login %h/.config/systemd/scripts/awesome.sh start
-ExecStop=/bin/bash %h/.config/systemd/scripts/awesome.sh stop
+ExecStart=/usr/bin/awesome
 
 [Install]
 WantedBy=awesome.target

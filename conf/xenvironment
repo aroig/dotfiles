@@ -1,1 +1,2 @@
 DISPLAY=:0
+SHELL=/bin/zsh
