@@ -9,9 +9,9 @@ local os = os
 local apps = {}
 
 -- Apps from the environment
-apps.terminal            = os.getenv("TERMCMD")
-apps.editor              = os.getenv("EMACS")
-apps.browser             = os.getenv("BROWSER")
+apps.terminal            = "urxvt"
+apps.editor              = "emacsclient -c -a emacs"
+apps.browser             = "chromium"
 
 -- Other apps
 apps.docbrowser          = "chromium --user-data-dir=.config/chromium-docs"
