@@ -8,7 +8,7 @@ Requires=dbus.socket
 Type=forking
 BusName=org.pulseaudio.Server
 ExecStart=/usr/bin/pulseaudio --start --daemonize --fail
-ExecStop=/usr/bin/pulseaudio --kill
+PIDFile=/run/user/%U/pulse/pid
 Restart=always
 RestartSec=1
 

@@ -4,8 +4,9 @@ After=pulseaudio.service
 
 [Service]
 Type=forking
+ExecStartPre=/usr/bin/mkdir -p /run/user/%U/mpd
 ExecStart=/usr/bin/mpd
-ExecStop=/usr/bin/mpd --kill
+PIDFile=/run/user/%U/mpd/pid
 
 [Install]
 WantedBy=audio.target
