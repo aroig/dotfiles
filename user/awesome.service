@@ -8,7 +8,8 @@ Requires=dbus.socket
 [Service]
 Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-ExecStart=/usr/bin/awesome
+# ExecStart=/usr/bin/awesome
+ExecStart=/bin/bash -c "%h/.config/systemd/scripts/awesome.sh start"
 
 [Install]
 WantedBy=awesome.target
