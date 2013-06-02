@@ -38,15 +38,15 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "Page_Up",   function () exec("mpc prev") end),
     awful.key({ modkey, ctrlkey   }, "Page_Down", function () exec("mpc next") end),
 
-    awful.key({ modkey, ctrlkey   }, "Insert",    function () exec("/home/abdo/bin/pvol +2db") end),
-    awful.key({ modkey, ctrlkey   }, "Delete",    function () exec("/home/abdo/bin/pvol -2db") end),
+    awful.key({ modkey, ctrlkey   }, "Insert",    function () exec("pvol +2db") end),
+    awful.key({ modkey, ctrlkey   }, "Delete",    function () exec("pvol -2db") end),
 
     -- Desktop
-    awful.key({ metakey, ctrlkey  }, "l",      function () exec("/home/abdo/bin/lock") end),
+    awful.key({ metakey, ctrlkey  }, "l",      function () exec("lock") end),
     awful.key({ modkey,           }, "Print",  function ()
-                                                   exec("scrot -e 'mv $f ~/Downloads/'")
+                                                   exec("scrot -e 'mv $f ~/down/'")
                                                    naughty.notify({title = "Screenshot",
-                                                                   text = "Saved in ~/Downloads"})
+                                                                   text = "Saved in ~/down"})
                                                end),
     awful.key({ modkey,           }, "t",      awful.client.floating.toggle),
 
