@@ -2,4 +2,6 @@
 
 source /home/abdo/.environment
 source /home/abdo/.aliases
-/usr/bin/openbox &
+
+/usr/bin/openbox
+
