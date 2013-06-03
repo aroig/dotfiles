@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# get the environment
+source /home/abdo/.environment
+source /home/abdo/.aliases
+
+wm="$1"
+cmd="$2"
+
+case "$wm" in 
+    awesome)
+        case "$cmd" in 
+            start)   /usr/bin/awesome  ;;
+            stop)    echo "awesome.quit()" | /usr/bin/awesome-client ;;
+            restart) echo "awesome.restart()" | /usr/bin/awesome-client ;;
+        esac
+        ;;
+    
+
+    openbox)
+        case "$cmd" in 
+            start)   /usr/bin/openbox  ;;
+            stop)    ;;
+            restart) ;;
+        esac
+        ;;
+
+    openbox)
+        case "$cmd" in 
+            start)   /usr/bin/xmonad  ;;
+            stop)    ;;
+            restart) ;;
+        esac
+        ;;
+esac
+        
