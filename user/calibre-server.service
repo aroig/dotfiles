@@ -1,0 +1,8 @@
+[Unit]
+Description=Calibre Server
+Requires=dbus.socket
+
+[Service]
+Type=simple
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
+ExecStart=/usr/bin/calibre-server
