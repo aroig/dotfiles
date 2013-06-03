@@ -9,7 +9,8 @@ Conflicts=xmonad.service
 
 [Service]
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-ExecStart=/usr/bin/bash %h/.config/systemd/scripts/openbox
+ExecStart=/usr/bin/bash %h/.config/systemd/scripts/wm-launch openbox start
+ExecStop=/usr/bin/bash %h/.config/systemd/scripts/wm-launch openbox stop
 
 [Install]
 WantedBy=openbox.target

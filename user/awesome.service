@@ -9,8 +9,8 @@ Requires=dbus.socket
 Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
 # ExecStart=/usr/bin/awesome
-ExecStart=/bin/bash -c "%h/.config/systemd/scripts/awesome start"
-ExecStop=/bin/bash -c "%h/.config/systemd/scripts/awesome stop"
+ExecStart=/bin/bash -login -c "%h/.config/systemd/scripts/wm-launch awesome start"
+ExecStop=/bin/bash -c "%h/.config/systemd/scripts/wm-launch awesome stop"
 
 [Install]
 WantedBy=awesome.target
