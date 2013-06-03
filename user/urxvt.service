@@ -1,0 +1,14 @@
+[Unit]
+Description=urxvt daemon
+Documentation=man:urxvtd(1) man:urxvt(1)
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/urxvtd -o
+KillMode=control-group
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=xinitrc.target
+
