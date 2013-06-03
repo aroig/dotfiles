@@ -26,7 +26,6 @@ apps.library             = "calibre"
 -- Emacs stuff
 apps.orgmode             = "emacs -org"
 apps.mail                = "emacs -mail"
-apps.news                = "emacs -news"
 apps.notes               = "emacs -notes"
 apps.chat                = "emacs -chat"
 
