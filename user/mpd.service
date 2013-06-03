@@ -4,10 +4,11 @@ StopWhenUnneeded=true
 After=pulseaudio.service
 
 [Service]
-Type=forking
-ExecStartPre=/usr/bin/mkdir -p /run/user/%U/mpd
-ExecStart=/usr/bin/mpd
-PIDFile=/run/user/%U/mpd/pid
+Type=simple
+# ExecStartPre=/usr/bin/mkdir -p /run/user/%U/mpd
+# ExecStart=/usr/bin/mpd
+# PIDFile=/run/user/%U/mpd/pid
+ExecStart=/usr/bin/mpd --no-daemon
 
 [Install]
 WantedBy=audio.target
