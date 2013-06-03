@@ -168,6 +168,7 @@
 ;; Disable backups for some files
 (add-to-list 'auto-mode-alist '("\\.gpg$" . sensitive-mode))
 (add-to-list 'auto-mode-alist `(,(file-truename "~/Private") . sensitive-mode))
+(add-to-list 'auto-mode-alist `(,(file-truename "~/priv") . sensitive-mode))
 (add-to-list 'auto-mode-alist `(,(file-truename "~/\\.ssh") . sensitive-mode))
 
 (add-to-list 'auto-mode-alist '("\\.ido\\.last" . sensitive-mode))
