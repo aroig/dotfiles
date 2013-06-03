@@ -213,32 +213,37 @@ myw.mail_count = 0
 vicious.register(myw.mail, widget.sheval,
                  function (widget, args)
                      local color
+                     local icon
+                     local text
                      local num = tonumber(args[1])
 
                      if num == 0 or num == nil then
                          color = beautiful.fg_green_widget
-                         myw.mailicon:set_image(beautiful.widget_maile)
                          if num == nil then
                              color = beautiful.fg_red_widget
-                             myw.mailicon:set_image(beautiful.widget_mailf)
+                             icon = beautiful.widget_mailf
                              num = "?"
                          else
                              color = beautiful.fg_green_widget
-                             myw.mailicon:set_image(beautiful.widget_maile)
+                             icon = beautiful.widget_maile
                          end
                      else
                          if num ~= myw.mail_count then
-                             local text
                              if num == 1 then
                                  text = "There is one new message"
                              else
                                  text = string.format("There are %d new messages", num)
                              end
                          end
-                         myw.mail_count = num
+                         icon = beautiful.widget_mailf
                          color = beautiful.fg_red_widget
-                         myw.mailicon:set_image(beautiful.widget_mailf)
                      end
+
+                     if num ~= myw.mail_count then
+                         myw.mailicon:set_image(icon)
+                     end
+
+                     myw.mail_count = num
 
                      return string.format("<span color='%s'>%s</span>", color, tostring(num))
                  end,
