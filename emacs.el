@@ -43,22 +43,16 @@
 ;; Paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Personal dictionaries
-(setq abdo-personal-dicts-path "~/Documents/dicts/aspell/")
+(setq abdo-personal-dicts-path "~/var/dicts/aspell/")        ;; dictionaries
+(setq org-directory "~/work/wiki/")                          ;; Org mode paths
 
-;; Org mode paths
-(setq org-directory "~/Work/wiki/")
+(setq abdo-emacs-backups "~/var/bak/emacs/")                 ;; Backups dir
+(setq bookmark-default-file "~/.emacs.d/bookmarks")          ;; bookmarks file
 
-;; Backups dir
-(setq abdo-emacs-backups "~/.tmp/emacs/")
+(setq abdo-mail-directory     "~/mail/")                     ;; email
+(setq abdo-chat-directory     "~/var/chat/")                 ;; chat logs
+(setq abdo-download-directory "~/down/")                     ;; downloads
 
-;; Setup bookmarks file
-(setq bookmark-default-file "~/.emacs.d/bookmarks")
-
-;; email and chats
-(setq abdo-mail-directory     "~/mail/")
-(setq abdo-chat-directory     "~/var/chat/")
-(setq abdo-download-directory "~/down/")
 
 ;; Variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
