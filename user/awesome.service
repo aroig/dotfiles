@@ -4,6 +4,7 @@ Description=The Awesome Window Manager
 After=xorg.target
 Requires=xorg.target
 Requires=dbus.socket
+Conflicts=xmonad.service openbox.service
 
 [Service]
 Type=simple

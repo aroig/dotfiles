@@ -3,8 +3,7 @@ Description=The Openbox Window Manager
 After=xorg.target
 Requires=xorg.service
 Requires=dbus.socket
-Conflicts=awesome.service
-Conflicts=xmonad.service
+Conflicts=awesome.service xmonad.service
 
 [Service]
 EnvironmentFile=%h/.config/systemd/conf/xenvironment

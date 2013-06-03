@@ -3,6 +3,7 @@ Description=The Xmonad Window Manager
 After=xorg.target
 Requires=xorg.target
 Requires=dbus.socket
+Conflicts=awesome.service openbox.service
 
 [Service]
 Type=forking
