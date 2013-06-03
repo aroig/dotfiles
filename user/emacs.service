@@ -1,5 +1,7 @@
 [Unit]
 Description=Emacs daemon
+Requisite=xorg.target
+After=xorg.service
 
 [Service]
 Type=forking
