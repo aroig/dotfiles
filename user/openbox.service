@@ -1,4 +1,3 @@
-
 [Unit]
 Description=The Openbox Window Manager
 After=xorg.target
@@ -9,8 +8,8 @@ Conflicts=xmonad.service
 
 [Service]
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-ExecStart=/usr/bin/bash %h/.config/systemd/scripts/wm-launch openbox start
-ExecStop=/usr/bin/bash %h/.config/systemd/scripts/wm-launch openbox stop
+ExecStart=/home/abdo/.config/systemd/scripts/openbox start
+# ExecStop=/home/abdo/.config/systemd/scripts/openbox stop
 
 [Install]
 WantedBy=openbox.target

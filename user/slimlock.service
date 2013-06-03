@@ -7,9 +7,9 @@ Requisite=xorg.service
 [Service]
 Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-ExecStartPre=/bin/bash %h/.config/systemd/scripts/mouse lock
+ExecStartPre=/home/abdo/.config/systemd/scripts/mouse lock
 ExecStart=/usr/bin/slimlock
-ExecStopPost=/bin/bash %h/.config/systemd/scripts/mouse unlock
+ExecStopPost=/home/abdo/.config/systemd/scripts/mouse unlock
 
 [Install]
 WantedBy=lock.target

@@ -5,7 +5,7 @@ BindsTo=xorg.service
 
 [Service]
 Type=oneshot
-ExecStart=/home/abdo/.config/systemd/scripts/screen %i
+ExecStart=/home/abdo/.config/systemd/scripts/xrandr %i
 
 [Install]
 WantedBy=xorg.target
