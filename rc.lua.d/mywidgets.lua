@@ -345,17 +345,17 @@ vicious.register(myw.mpdwidget, widget.mpd,
 
                      local icon = beautiful.widget_stop
 
-                     if args['{state}'] == 'Play' then
+                     if args['{state}'] == 'play' then
                          icon = beautiful.widget_play
-                     elseif args['{state}'] == 'Stop' then
+                     elseif args['{state}'] == 'stop' then
                          icon = beautiful.widget_stop
-                     elseif args['{state}'] == 'Pause' then
+                     elseif args['{state}'] == 'pause' then
                          icon = beautiful.widget_pause
                      end
 
                      if myw.mpd_current['{file}'] ~= args['{file}'] or
                      myw.mpd_current['{state}'] ~= args['{state}'] then
-                         if args['{state}'] == "Play" then
+                         if args['{state}'] == "play" then
                              mpd_notify_song(args)
                          end
 
