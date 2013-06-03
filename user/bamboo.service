@@ -1,0 +1,14 @@
+[Unit]
+Description=Setup bamboo tablet coordinates
+After=xorg.service
+BindsTo=xorg.service
+ConditionHost=grothendieck
+
+[Service]
+Type=oneshot
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
+ExecStart=/usr/bin/xsetwacom --set "Wacom Bamboo Pen Pen stylus" Area 0 0 29440 9200
+ExecStart=/usr/bin/xsetwacom --set "Wacom Bamboo Pen Pen eraser" Area 0 0 29440 9200
+
+[Install]
+WantedBy=xorg.target
