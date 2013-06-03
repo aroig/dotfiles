@@ -42,7 +42,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "Delete",    function () exec("pvol -2db") end),
 
     -- Desktop
-    awful.key({ metakey, ctrlkey  }, "l",      function () exec("lock") end),
+    awful.key({ metakey, ctrlkey  }, "l",      function () exec("systemctl --user start lock.target") end),
     awful.key({ modkey,           }, "Print",  function ()
                                                    exec("scrot -e 'mv $f ~/down/'")
                                                    naughty.notify({title = "Screenshot",
