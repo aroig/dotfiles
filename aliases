@@ -129,8 +129,6 @@ sudo () {
 
 vi()  { eval "$EDITOR \"\$@\""; }
 op()  { xdg-open "$@" &> /dev/null &!; }
-# stx() { startx awesome -- vt$(fgconsole 2>/dev/null); }
-stx() { systemctl --user start awesome.target; }
 
 
 # The following commands are aware of the type of terminal they are on. For
@@ -188,6 +186,11 @@ tmd() { echo "ddclient.terminal:newtab('$PWD')" | awesome-client; }
 #------------------------------
 # Rebooting and halting
 #------------------------------
-reboot()   { sudo systemctl reboot;   }
-poweroff() { sudo systemctl poweroff; }
+
+# stx() { startx awesome -- vt$(fgconsole 2>/dev/null); }
+stx() { systemctl --user start awesome.target; }
+klx() { systemctl --user stop awesome.target; }
+
+reboot()   { systemctl --user exit; sudo systemctl reboot;   }
+poweroff() { systemctl --user exit; sudo systemctl poweroff; }
 suspend()  { sudo systemctl suspend;  }
