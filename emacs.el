@@ -55,6 +55,10 @@
 ;; Setup bookmarks file
 (setq bookmark-default-file "~/.emacs.d/bookmarks")
 
+;; email and chats
+(setq abdo-mail-directory     "~/mail/")
+(setq abdo-chat-directory     "~/var/chat/")
+(setq abdo-download-directory "~/down/")
 
 ;; Variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

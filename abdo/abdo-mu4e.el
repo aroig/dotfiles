@@ -7,9 +7,9 @@
 (defun abdo-mu4e-things ()
 
   ;; Paths
-  (setq mu4e-maildir "~/Documents/mail")
   (setq mu4e-mu-home "~/.mu")
-  (setq mu4e-attachment-dir  "~/Downloads")
+  (setq mu4e-maildir abdo-mail-directory)
+  (setq mu4e-attachment-dir  abdo-download-directory)
 
   (setq mu4e-drafts-folder "/Drafts")
   (setq mu4e-sent-folder   "/All Mail")

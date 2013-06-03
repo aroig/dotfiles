@@ -91,8 +91,8 @@
 (defun abdo-jabber-global-things ()
 
   ; paths
-  (setq jabber-history-dir "~/Documents/chat/emacs/jabber")
-  (setq jabber-avatar-cache-directory "~/Documents/chat/emacs/avatars")
+  (setq jabber-history-dir (concat abdo-chat-directory "emacs/jabber"))
+  (setq jabber-avatar-cache-directory (concat abdo-chat-directory "emacs/avatars"))
 
   ; logs
   (setq jabber-history-enabled t)
@@ -300,7 +300,7 @@
 
   ;; Logging
   (setq rcirc-log-flag t)
-  (setq rcirc-log-directory "~/Documents/chat/emacs/rcirc/")
+  (setq rcirc-log-directory (concat abdo-chat-directory "emacs/rcirc/"))
 
   ;; colorize nicks
   (require 'rcirc-color)   ;; Crahses in daemon mode
