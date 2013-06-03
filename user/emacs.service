@@ -1,5 +1,6 @@
 [Unit]
 Description=Emacs daemon
+StopWhenUnneeded=true
 Requisite=xorg.target
 After=xorg.service
 

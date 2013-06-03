@@ -1,6 +1,7 @@
 [Unit]
-Description=The Xmonad Window Manager
+Description=Xmonad Window Manager
 After=xorg.target
+StopWhenUnneeded=true
 Requires=xorg.target
 Requires=dbus.socket
 Conflicts=awesome.service openbox.service

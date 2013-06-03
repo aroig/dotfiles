@@ -1,7 +1,7 @@
-
 [Unit]
-Description=The Awesome Window Manager
+Description=Awesome Window Manager
 After=xorg.target
+StopWhenUnneeded=true
 Requires=xorg.target
 Requires=dbus.socket
 Conflicts=xmonad.service openbox.service
@@ -11,7 +11,7 @@ Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
 # ExecStart=/usr/bin/awesome
 ExecStart=/home/abdo/.config/systemd/scripts/awesome start
-ExecStop=/home/abdo/.config/systemd/scripts/awesome stop
+# ExecStop=/home/abdo/.config/systemd/scripts/awesome stop
 
 [Install]
 WantedBy=awesome.target

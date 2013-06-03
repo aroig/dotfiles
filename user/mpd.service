@@ -1,5 +1,6 @@
 [Unit]
 Description=Music Player Daemon
+StopWhenUnneeded=true
 After=pulseaudio.service
 
 [Service]
