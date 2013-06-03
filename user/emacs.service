@@ -3,9 +3,8 @@ Description=Emacs daemon
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/emacs --daemon
-ExecStop=/usr/bin/emacsclient --eval "(progn (setq kill-emacs-hook 'nil) (kill-emacs))"
-#ExecStop=/usr/bin/emacsclient --eval "(client-save-kill-emacs)"
+ExecStart=/home/abdo/.config/systemd/scripts/emacs start
+ExecStop=/home/abdo/.config/systemd/scripts/emacs stop
 Restart=always
 RestartSec=2
 SuccessExitStatus=0 15
