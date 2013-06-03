@@ -48,6 +48,8 @@ alias jctl='sudo journalctl'
 alias nctl='sudo netctl'
 alias uctl='systemctl --user'
 
+alias lock='systemctl --user lock.target'
+
 alias ahi='asym hi'
 alias abye='asym bye'
 
