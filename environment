@@ -35,6 +35,16 @@ export SHELL=zsh
 
 
 #------------------------------
+# Some paths
+#------------------------------
+
+export WORK_DIR=~/work
+export PRIV_DIR=~/priv
+export DEVEL_DIR=~/devel
+export SHARE_DIR=~/share
+
+
+#------------------------------
 # Development environment
 #------------------------------
 
