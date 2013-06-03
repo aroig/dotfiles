@@ -1,6 +1,5 @@
 [Unit]
 Description=Audio servers
-StopWhenUnneeded=true
 Requires=dbus.socket
 AllowIsolate=true
 
