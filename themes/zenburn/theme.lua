@@ -166,6 +166,10 @@ theme.widget_vol    = theme.confdir .. "/icons/wibox/vol.png"
 theme.widget_org    = theme.confdir .. "/icons/wibox/cal.png"
 theme.widget_date   = theme.confdir .. "/icons/wibox/time.png"
 theme.widget_crypto = theme.confdir .. "/icons/wibox/crypto.png"
+theme.widget_music  = theme.confdir .. "/icons/wibox/music.png"
+theme.widget_pause  = theme.confdir .. "/icons/wibox/pause.png"
+theme.widget_play   = theme.confdir .. "/icons/wibox/play.png"
+theme.widget_stop   = theme.confdir .. "/icons/wibox/stop.png"
 -- }}}
 
 -- {{{ Titlebar icons

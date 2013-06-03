@@ -82,12 +82,16 @@ for s = 1, screen.count() do
       right_layout:add(myw.batwidget)
       right_layout:add(myw.spacer)
       right_layout:add(myw.ratewidget)
-      right_layout:add(myw.spacer)
+      right_layout:add(myw.separator)
    end
+
+   right_layout:add(myw.mpdicon)
+   right_layout:add(myw.mpdstateicon)
+   right_layout:add(myw.mpdwidget)
+   right_layout:add(myw.spacer)
 
    right_layout:add(myw.volicon)
    right_layout:add(myw.volwidget)
-
    right_layout:add(myw.separator)
 
    if s == 1 then

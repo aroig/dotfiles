@@ -20,6 +20,7 @@ widget.cpu = require("abdo.widget.cpu")
 widget.bat = require("abdo.widget.bat")
 widget.mem = require("abdo.widget.mem")
 widget.net = require("abdo.widget.net")
+widget.mpd = require("abdo.widget.mpd")
 
 widget.thermal = require("abdo.widget.thermal")     -- My thermal widget
 widget.pvol    = require("abdo.widget.pvol")        -- My volume widget
@@ -306,6 +307,68 @@ myw.rss:buttons(awful.util.table.join(
 myw.rssicon:buttons(myw.rss:buttons())
 
 
+-----------------------------------
+-- Music                         --
+-----------------------------------
+
+musicdir="/home/abdo/music/"
+
+function mpd_notify_song(args)
+    if args['{file}'] ~= nil then
+        local parentdir=string.gsub(args['{file}'], '/[^/]+$', '')
+        local cover=parentdir .. '/' .. 'cover.jpg'
+
+        naughty.notify({title = args['{Title}'],
+                        text = string.format("%s\n%s",
+                                             args['{Album}'],
+                                             args['{Artist}']),
+                        icon = musicdir .. '/' .. cover})
+    end
+end
+
+myw.mpdicon = wibox.widget.imagebox()
+myw.mpdstateicon = wibox.widget.imagebox()
+myw.mpdwidget = wibox.widget.textbox()
+myw.mpdicon:set_image(beautiful.widget_music)
+myw.mpdstateicon:set_image(beautiful.widget_stop)
+
+myw.mpd_current = { ['{file}'] = nil,
+                    ['{state}'] = nil}
+
+vicious.register(myw.mpdwidget, widget.mpd,
+                 function (widget, args)
+
+                     local icon = beautiful.widget_stop
+
+                     if args['{state}'] == 'Play' then
+                         icon = beautiful.widget_play
+                     elseif args['{state}'] == 'Stop' then
+                         icon = beautiful.widget_stop
+                     elseif args['{state}'] == 'Pause' then
+                         icon = beautiful.widget_pause
+                     end
+
+                     if myw.mpd_current['{file}'] ~= args['{file}'] or
+                     myw.mpd_current['{state}'] ~= args['{state}'] then
+                         if args['{state}'] == "Play" then
+                             mpd_notify_song(args)
+                         end
+
+                         if myw.mpd_current['{state}'] ~= args['{state}'] then
+                             myw.mpdstateicon:set_image(icon)
+                         end
+                     end
+
+                     myw.mpd_current = args
+
+                     return ""
+                 end,
+                 2)
+
+-- buttons
+myw.mpdwidget:buttons(
+    awful.util.table.join( awful.button({ }, 1,          function () mpd_notify_song(myw.mpd_current) end)))
+myw.mpdicon:buttons(myw.mpdwidget:buttons())
 
 -----------------------------------
 -- Volume                        --
