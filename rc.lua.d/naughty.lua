@@ -72,7 +72,7 @@ function naughty_callback (args)
 
     -- play sound
     if sound[args.appname] then
-        exec(string.format("play \"%s\"", sound[args.appname]))
+        exec(string.format("play -q \"%s\"", sound[args.appname]))
     end
 
     -- change icon
