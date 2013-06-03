@@ -41,13 +41,12 @@ alias trash='gvfs-trash'
 alias vp='vimpager'
 alias rsy='rsync -avz --progress'
 alias ediff='emacs -diff'
+alias du='ncdu'
 
 alias sctl='sudo systemctl'
 alias jctl='sudo journalctl'
 alias nctl='sudo netctl'
-
-alias usctl='systemctl --user'
-alias ujctl='journalctl --user'
+alias uctl='systemctl --user'
 
 alias ahi='asym hi'
 alias abye='asym bye'
