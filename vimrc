@@ -19,8 +19,8 @@ set ffs=unix,dos,mac              " file type preference
 
 " sets alternative backup and swap file locations
 set nobackup
-set backupdir=$HOME/.tmp/vim
-set directory=$HOME/.tmp/vim
+set backupdir=~/var/bak/vim
+set directory=~/var/bak/vim
 
 
 
