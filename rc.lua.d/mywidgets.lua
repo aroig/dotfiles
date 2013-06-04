@@ -10,24 +10,33 @@
 -----------------------------------
 
 -- require("awful")
+local capi  = { timer = timer }
 
 local wibox = require("wibox")
-local vicious = require("vicious")
-
-local source = {}
-source.cpu    = require("abdo.widget.cpu")
-source.bat    = require("abdo.widget.bat")
-source.mem    = require("abdo.widget.mem")
-source.net    = require("abdo.widget.net")
-source.netctl = require("abdo.widget.netctl")
-source.mpd    = require("abdo.widget.mpd")
-
-source.temp   = require("abdo.widget.thermal")     -- My thermal widget
-source.pvol   = require("abdo.widget.pvol")        -- My volume widget
-source.sheval = require("abdo.widget.sheval")      -- Get value from a file
-
 local beautiful = beautiful
 
+
+-----------------------------------
+-- Timers                        --
+-----------------------------------
+
+local timers = {}
+timers.slow    = timer({ timeout = 60 })
+timers.normal  = timer({ timeout = 10 })
+timers.fast    = timer({ timeout = 2 })
+
+function start_widgets()
+    for _,t in pairs(timers) do
+        t:start()
+        t:emit_signal("timeout")
+    end
+end
+
+function stop_widgets()
+    for _,t in pairs(timers) do
+        t:stop()
+    end
+end
 
 -----------------------------------
 -- Convenience stuff             --
@@ -40,8 +49,6 @@ local gradcols = {beautiful.fg_grad1_widget, beautiful.fg_grad2_widget,
 
 local gradcols_rev = {beautiful.fg_grad4_widget, beautiful.fg_grad3_widget,
 		      beautiful.fg_grad2_widget, beautiful.fg_grad1_widget}
-
-
 
 myw = {}
 
@@ -62,20 +69,25 @@ myw.separator:set_markup(string.format("<span color='%s'>  |  </span>", beautifu
 -----------------------------------
 
 myw.temp = {}
+myw.temp.src = require("abdo.widget.thermal")
 
 myw.temp.icon = wibox.widget.imagebox()
 myw.temp.icon:set_image(beautiful.widget_temp)
 
-myw.temp.text = wibox.widget.textbox()
-myw.temp.refresh = 2
+myw.temp.widget = wibox.widget.textbox()
+myw.temp.value = '?'
 
-function myw.temp.callback(widget, args)
-    local color = util.gradient(gradcols, 35, 70, args[1])
-    return string.format("<span color='%s'>%sºC</span>", color, args[1])
+function myw.temp.update()
+    local args = myw.temp.src(nil, {"coretemp.0", "core"})
+    if args[1] ~= myw.temp.value then
+        local color = util.gradient(gradcols, 35, 70, args[1])
+        local text = string.format("<span color='%s'>%sºC</span>", color, args[1])
+        myw.temp.widget:set_markup(text)
+    end
+    myw.temp.value = args[1]
 end
 
-vicious.register(myw.temp.text, source.temp, myw.temp.callback, myw.temp.refresh,
-                 {"coretemp.0", "core"})
+timers.fast:connect_signal("timeout", myw.temp.update)
 
 
 -----------------------------------
@@ -83,19 +95,25 @@ vicious.register(myw.temp.text, source.temp, myw.temp.callback, myw.temp.refresh
 -----------------------------------
 
 myw.cpu = {}
+myw.cpu.src = require("abdo.widget.cpu")
 
 myw.cpu.icon = wibox.widget.imagebox()
 myw.cpu.icon:set_image(beautiful.widget_cpu)
 
-myw.cpu.text = wibox.widget.textbox()
-myw.cpu.refresh = 2
+myw.cpu.widget = wibox.widget.textbox()
+myw.cpu.value = "?"
 
-function myw.cpu.callback(widget, args)
-    local color = util.gradient(gradcols, 0, 100, args[1])
-    return string.format("<span color='%s'>%s%%</span>", color, args[1])
+function myw.cpu.update()
+    local args = myw.cpu.src(nil)
+    if args[1] ~= myw.cpu.value then
+        local color = util.gradient(gradcols, 0, 100, args[1])
+        local text = string.format("<span color='%s'>%s%%</span>", color, args[1])
+        myw.cpu.widget:set_markup(text)
+    end
+    myw.cpu.value = args[1]
 end
 
-vicious.register(myw.cpu.text,  source.cpu,  myw.cpu.callback,  myw.cpu.refresh)
+timers.fast:connect_signal("timeout", myw.cpu.update)
 
 
 -----------------------------------
@@ -103,18 +121,25 @@ vicious.register(myw.cpu.text,  source.cpu,  myw.cpu.callback,  myw.cpu.refresh)
 -----------------------------------
 
 myw.mem = {}
+myw.mem.src = require("abdo.widget.mem")
+
 myw.mem.icon = wibox.widget.imagebox()
 myw.mem.icon:set_image(beautiful.widget_mem)
 
-myw.mem.text = wibox.widget.textbox()
-myw.mem.refresh = 4
+myw.mem.widget = wibox.widget.textbox()
+myw.mem.value = "?"
 
-function myw.mem.callback(widget, args)
-    local color = util.gradient(gradcols, 0, 100, args[1])
-    return string.format("<span color='%s'>%s%%</span>", color, args[1])
+function myw.mem.update()
+    local args = myw.mem.src(nil)
+    if args[1] ~= myw.mem.value then
+        local color = util.gradient(gradcols, 0, 100, args[1])
+        local text = string.format("<span color='%s'>%s%%</span>", color, args[1])
+        myw.mem.widget:set_markup(text)
+    end
+    myw.mem.value = args[1]
 end
 
-vicious.register(myw.mem.text,  source.mem,  myw.mem.callback,  myw.mem.refresh)
+timers.fast:connect_signal("timeout", myw.mem.update)
 
 
 -----------------------------------
@@ -122,20 +147,21 @@ vicious.register(myw.mem.text,  source.mem,  myw.mem.callback,  myw.mem.refresh)
 -----------------------------------
 
 myw.net = {}
+myw.net.src = require("abdo.widget.net")
 
-myw.net.icon = wibox.widget.imagebox()
+-- myw.net.icon = wibox.widget.imagebox()
 myw.net.dnicon = wibox.widget.imagebox()
 myw.net.upicon = wibox.widget.imagebox()
 
-myw.net.icon:set_image(beautiful.widget_net)
+-- myw.net.icon:set_image(beautiful.widget_net)
 myw.net.dnicon:set_image(beautiful.widget_netdw)
 myw.net.upicon:set_image(beautiful.widget_netup)
 
-myw.net.text = wibox.widget.textbox()
-myw.net.tooltip = awful.tooltip({objects = {myw.net.icon, myw.net.dnicon, myw.net.upicon, myw.net.text}})
-myw.refresh = 4
+myw.net.widget = wibox.widget.textbox()
+myw.net.value = { up=-1, down=-1 }
 
-function myw.net.callback(widget, args)
+function myw.net.update()
+    local args = myw.net.src(nil)
     local up = 0.0
     local down = 0.0
 
@@ -145,13 +171,26 @@ function myw.net.callback(widget, args)
     if args["{eth0 down_kb}"] then  down = down + args["{eth0 down_kb}"] end
     if args["{wlan0 down_kb}"] then down = down + args["{wlan0 down_kb}"] end
 
-    local downtxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_netdn_widget, down)
-    local uptxt =   string.format('<span color="%s">%.0f</span>', beautiful.fg_netup_widget, up)
-    local sep = string.format(' <span color="%s">\\</span> ', beautiful.fg_widget)
-    return downtxt .. sep .. uptxt
+    if up ~= myw.net.value.up or down ~= myw.net.value.down then
+        local uptxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_netup_widget, up)
+
+        local downtxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_netdn_widget, down)
+
+        local sep = string.format(' <span color="%s">\\</span> ', beautiful.fg_widget)
+        myw.net.widget:set_markup(downtxt .. sep .. uptxt)
+    end
+    myw.net.value.up = up
+    myw.net.value.down = down
 end
 
-function myw.net.tooltip_callback(widget, args)
+myw.netctl = {}
+myw.netctl.src = require("abdo.widget.netctl")
+
+myw.netctl.tooltip = awful.tooltip({objects = {myw.net.dnicon, myw.net.upicon, myw.net.widget}})
+myw.netctl.value = ""
+
+function myw.netctl.update()
+    local args = myw.netctl.src(nil)
     local prf = ""
     local line
     for _,line in ipairs(args) do
@@ -160,11 +199,14 @@ function myw.net.tooltip_callback(widget, args)
         end
         prf = prf .. line
     end
-    return "Networks: " .. prf
+    if myw.netctl.value ~= prf then
+        myw.netctl.tooltip.widget:set_markup("<b>Networks:</b> " .. prf)
+    end
+    myw.netctl.value = prf
 end
 
-vicious.register(myw.net.text, source.net, myw.net.callback, myw.net.refresh)
-vicious.register(myw.net.tooltip.widget, source.netctl, myw.net.tooltip_callback, myw.net.refresh)
+timers.fast:connect_signal("timeout", myw.net.update)
+timers.normal:connect_signal("timeout", myw.netctl.update)
 
 
 -----------------------------------
@@ -172,57 +214,57 @@ vicious.register(myw.net.tooltip.widget, source.netctl, myw.net.tooltip_callback
 -----------------------------------
 
 myw.mail = {}
-myw.mail.text = wibox.widget.textbox()
+myw.mail.src = require("abdo.widget.sheval")
 
 myw.mail.icon = wibox.widget.imagebox()
 myw.mail.icon:set_image(beautiful.widget_maile)
 
-myw.mail.count = 0
-myw.mail.refresh = 60
+myw.mail.widget = wibox.widget.textbox()
+myw.mail.count = -1
 
-function myw.mail.callback(widget, args)
+function myw.mail.update()
+    local args = myw.mail.src(nil, "mutag -C -p mail -q 'flag:unread AND tag:\\\\Inbox'")
+
+    local num = tonumber(args[1])
     local color
     local icon
     local text
-    local num = tonumber(args[1])
-
-    if num == 0 or num == nil then
-        color = beautiful.fg_green_widget
-        if num == nil then
-            color = beautiful.fg_red_widget
-            icon = beautiful.widget_mailf
-            num = "?"
-        else
-            color = beautiful.fg_green_widget
-            icon = beautiful.widget_maile
-        end
-    else
-        if num ~= myw.mail.count then
-            if num == 1 then
-                text = "There is one new message"
-            else
-                text = string.format("There are %d new messages", num)
-            end
-        end
-        icon = beautiful.widget_mailf
-        color = beautiful.fg_red_widget
-    end
 
     if num ~= myw.mail.count then
+        if num == 0 or num == nil then
+            color = beautiful.fg_green_widget
+            if num == nil then
+                color = beautiful.fg_red_widget
+                icon = beautiful.widget_mailf
+                num = "?"
+            else
+                color = beautiful.fg_green_widget
+                icon = beautiful.widget_maile
+            end
+        else
+            if num ~= myw.mail.count then
+                if num == 1 then
+                    text = "There is one new message"
+                else
+                    text = string.format("There are %d new messages", num)
+                end
+            end
+            icon = beautiful.widget_mailf
+            color = beautiful.fg_red_widget
+        end
+
+        local text = string.format("<span color='%s'>%s</span>", color, tostring(num))
         myw.mail.icon:set_image(icon)
+        myw.mail.widget:set_markup(text)
     end
-
     myw.mail.count = num
-
-    return string.format("<span color='%s'>%s</span>", color, tostring(num))
 end
 
-vicious.register(myw.mail.text, source.sheval, myw.mail.callback, myw.mail.refresh,
-                 "mutag -C -p mail -q 'flag:unread AND tag:\\\\Inbox'")
+myw.mail.widget:buttons(awful.util.table.join(awful.button({ }, 1,
+    function () exec(apps.mail) end)))
+myw.mail.widget:buttons(myw.mail.widget:buttons())
 
-myw.mail.text:buttons(awful.util.table.join(awful.button({ }, 1,
-                      function () exec(apps.mail) end)))
-myw.mail.icon:buttons(myw.mail.text:buttons())
+timers.slow:connect_signal("timeout", myw.mail.update)
 
 
 -----------------------------------
@@ -230,7 +272,17 @@ myw.mail.icon:buttons(myw.mail.text:buttons())
 -----------------------------------
 
 myw.mpd = {}
-myw.mpd.path="/home/abdo/music/"
+myw.mpd.src  = require("abdo.widget.mpd")
+myw.mpd.path = "/home/abdo/music/"
+
+myw.mpd.icon = wibox.widget.imagebox()
+myw.mpd.stateicon = wibox.widget.imagebox()
+
+myw.mpd.icon:set_image(beautiful.widget_music)
+myw.mpd.stateicon:set_image(beautiful.widget_stop)
+
+myw.mpd.current = { ['{file}'] = nil,
+                    ['{state}'] = nil}
 
 function myw.mpd.notify_song(args)
     if args['{file}'] ~= nil then
@@ -245,19 +297,9 @@ function myw.mpd.notify_song(args)
     end
 end
 
-myw.mpd.icon = wibox.widget.imagebox()
-myw.mpd.stateicon = wibox.widget.imagebox()
+function myw.mpd.update()
+    local args = myw.mpd.src(nil)
 
-myw.mpd.icon:set_image(beautiful.widget_music)
-myw.mpd.stateicon:set_image(beautiful.widget_stop)
-
-myw.mpd.text = wibox.widget.textbox()
-myw.mpd.refresh = 2
-
-myw.mpd.current = { ['{file}'] = nil,
-                    ['{state}'] = nil}
-
-function myw.mpd.callback(widget, args)
     local icon = beautiful.widget_stop
 
     if args['{state}'] == 'play' then
@@ -280,16 +322,13 @@ function myw.mpd.callback(widget, args)
     end
 
     myw.mpd.current = args
-
-    return ""
 end
 
-vicious.register(myw.mpd.text, source.mpd, myw.mpd.callback, myw.mpd.refresh)
-
-myw.mpd.text:buttons(awful.util.table.join( awful.button({ }, 1,
+myw.mpd.icon:buttons(awful.util.table.join( awful.button({ }, 1,
                       function () myw.mpd.notify_song(myw.mpd.current) end)))
-myw.mpd.icon:buttons(myw.mpd.text:buttons())
-myw.mpd.stateicon:buttons(myw.mpd.text:buttons())
+myw.mpd.stateicon:buttons(myw.mpd.icon:buttons())
+
+timers.fast:connect_signal("timeout", myw.mpd.update)
 
 
 -----------------------------------
@@ -297,35 +336,29 @@ myw.mpd.stateicon:buttons(myw.mpd.text:buttons())
 -----------------------------------
 
 myw.vol = {}
+myw.vol.src = require("abdo.widget.pvol")
 
 myw.vol.icon = wibox.widget.imagebox()
 myw.vol.icon:set_image(beautiful.widget_vol)
 
--- myw.vol.bar  = awful.widget.progressbar()
--- myw.vol.bar:set_vertical(true):set_ticks(true)
--- myw.vol.bar:set_height(12):set_width(8):set_ticks_size(1)
--- myw.vol.bar:set_background_color(beautiful.fg_off_widget)
--- myw.vol.bar:set_color(beautiful.fg_widget)
---
---volbar:set_gradient_colors({ beautiful.fg_widget,
---   beautiful.fg_center_widget, beautiful.fg_end_widget
---})
+myw.vol.widget = wibox.widget.textbox()
+myw.vol.value = -1
 
-myw.vol.text = wibox.widget.textbox()
-myw.vol.refresh = 2
-
-function myw.vol.callback(widget, args)
-    local color = util.gradient(gradcols, 0, 100, args[1])
-    return string.format("<span color='%s'>%s%%</span>", color, args[1])
+function myw.vol.update()
+    local args = myw.vol.src(nil)
+    if args[1] ~= myw.vol.value then
+        local color = util.gradient(gradcols, 0, 100, args[1])
+        local text = string.format("<span color='%s'>%s%%</span>", color, args[1])
+        myw.vol.widget:set_markup(text)
+    end
+    myw.vol.value = args[1]
 end
 
-vicious.register(myw.vol.text, source.pvol, myw.vol.callback, myw.vol.refresh)
--- vicious.register(myw.volbar, widget.pvol,  "$1",  2)
-
-myw.vol.text:buttons(awful.util.table.join(awful.button({ }, 1,
+myw.vol.widget:buttons(awful.util.table.join(awful.button({ }, 1,
     function () exec("pavucontrol") end)))
-myw.vol.icon:buttons(myw.vol.text:buttons())
--- myw.vol.bar:buttons(myw.vol.text:buttons())
+myw.vol.icon:buttons(myw.vol.widget:buttons())
+
+timers.fast:connect_signal("timeout", myw.vol.update)
 
 
 -----------------------------------
@@ -333,40 +366,54 @@ myw.vol.icon:buttons(myw.vol.text:buttons())
 -----------------------------------
 
 myw.bat = {}
+myw.bat.src = require("abdo.widget.bat")
+
 myw.bat.icon = wibox.widget.imagebox()
 myw.bat.icon:set_image(beautiful.widget_bat)
 
-myw.bat.text = wibox.widget.textbox()
-myw.bat.rate = wibox.widget.textbox()
-myw.bat.tooltip = awful.tooltip({ objects = {myw.bat.text, myw.bat.rate, myw.bat.icon}})
+myw.bat.pcwidget = wibox.widget.textbox()
+myw.bat.rtwidget = wibox.widget.textbox()
+myw.bat.tooltip = awful.tooltip({ objects = {myw.bat.pcwidget, myw.bat.rtwidget, myw.bat.icon}})
 
-myw.bat.refresh = 60
-myw.bat.rate_refresh = 2
+myw.bat.percent = -1
+myw.bat.rate = -1
+myw.bat.time = -1
 
-function myw.bat.callback(widget, args)
-    myw.bat.tooltip:set_text("Time remaining: " .. args.time)
-    local color_percent = util.gradient(gradcols_rev, 0, 100, args.percent)
-    return string.format("<span color='%s'>%s%s%%</span>", color_percent, args.state, args.percent)
-end
-
-function myw.bat.rate_callback(widget, args)
-    local color_rate = beautiful.fg_green
-    if args.state == '+' then
-        color_rate = util.gradient(gradcols_rev, 0, 40, args.rate)
-    else
-        color_rate = util.gradient(gradcols, 7, 30, args.rate)
+function myw.bat.update()
+    local args = myw.bat.src(nil, "BAT0")
+    if args.rate ~= myw.bat.rate then
+        local color_rate = beautiful.fg_green
+        if args.state == '+' then
+            color_rate = util.gradient(gradcols_rev, 0, 40, args.rate)
+        else
+            color_rate = util.gradient(gradcols, 7, 30, args.rate)
+        end
+        local text = string.format("<span color='%s'>%4.1fW</span>", color_rate, args.rate)
+        myw.bat.rtwidget:set_markup(text)
     end
-    return string.format("<span color='%s'>%4.1fW</span>", color_rate, args.rate)
+
+    if args.percent ~= myw.bat.percent then
+        local color_percent = util.gradient(gradcols_rev, 0, 100, args.percent)
+        local text = string.format("<span color='%s'>%s%s%%</span>", color_percent, args.state, args.percent)
+
+        myw.bat.pcwidget:set_markup(text)
+    end
+
+    if args.time ~= myw.bat.time then
+        myw.bat.tooltip.widget:set_markup("<b>Time remaining:</b> " .. args.time)
+    end
+
+    myw.bat.rate = args.rate
+    myw.bat.percent = args.percent
+    myw.bat.time = args.time
 end
 
-
-vicious.register(myw.bat.text, source.bat, myw.bat.callback, myw.bat.refresh, "BAT0")
-vicious.register(myw.bat.rate, source.bat, myw.bat.rate_callback, myw.bat.rate_refresh, "BAT0")
-
-myw.bat.text:buttons(awful.util.table.join(awful.button({ }, 1,
+myw.bat.rtwidget:buttons(awful.util.table.join(awful.button({ }, 1,
     function () exec("gnome-power-statistics") end)))
-myw.bat.icon:buttons(myw.bat.text:buttons())
-myw.bat.rate:buttons(myw.bat.text:buttons())
+myw.bat.pcwidget:buttons(myw.bat.rtwidget:buttons())
+myw.bat.icon:buttons(myw.bat.rtwidget:buttons())
+
+timers.fast:connect_signal("timeout", myw.bat.update)
 
 
 -----------------------------------
@@ -477,3 +524,11 @@ myw.promptbox = {}
 for s = 1, screen.count() do
     myw.promptbox[s] = awful.widget.prompt()
 end
+
+
+
+-----------------------------------
+-- Start the widgets             --
+-----------------------------------
+
+start_widgets()
