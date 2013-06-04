@@ -8,7 +8,7 @@ local tonumber = tonumber
 local io = { popen = io.popen }
 local setmetatable = setmetatable
 local string = { gmatch = string.gmatch }
-local helpers = require("vicious.helpers")
+local helpers = require("helpers")
 -- }}}
 
 

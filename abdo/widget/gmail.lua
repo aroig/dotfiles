@@ -8,7 +8,7 @@ local type = type
 local tonumber = tonumber
 local io = { popen = io.popen }
 local setmetatable = setmetatable
-local helpers = require("vicious.helpers")
+local helpers = require("helpers")
 local string = {
     find = string.find,
     match = string.match
@@ -86,8 +86,8 @@ local function worker(format, warg)
 	if id then
 	   mail["{id}"] = helpers.escape(id)
 	end
-	
-	if endentry then break end	
+
+	if endentry then break end
     end
     f:close()
 
