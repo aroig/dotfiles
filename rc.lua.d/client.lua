@@ -4,7 +4,9 @@
 -- Author: Abdó Roig<abdo.roig@gmail.com>                    --
 ---------------------------------------------------------------
 
-require("awful.rules")
+rules = require("awful.rules")
+
+local ddclient = ddclient
 
 -- Client keys
 clientkeys = awful.util.table.join(
@@ -39,7 +41,7 @@ clientbuttons = awful.util.table.join(
 
 
 -- Rules
-awful.rules.rules = {
+rules.rules = {
     -- All clients will match this rule.
     { rule = { },
       properties = { border_width = 1,
@@ -69,6 +71,10 @@ awful.rules.rules = {
     -- Fixed screen
     { rule = { class = "Xournal" },         properties = { screen = 1 } },
     { rule = { class = "Skype" },           properties = { screen = 1 % nscreen + 1} },
+
+    -- Capture dropdowns
+    { rule = { class = "Ario" },            callback = function(c) ddclient.music:capture(c) end },
+    { rule = { class = "Calibre-gui" },     callback = function(c) ddclient.calibre:capture(c) end },
 
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },

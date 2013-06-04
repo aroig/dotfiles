@@ -13,6 +13,7 @@ local capi =
 
 local ipairs = ipairs
 local apps = apps
+local ddclient = ddclient
 
 globalkeys = awful.util.table.join(
     -- Programs
