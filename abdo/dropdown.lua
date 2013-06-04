@@ -169,11 +169,26 @@ function dropdown.toggle(dd, cmd, screen)
     end
 end
 
-
-
-function dropdown.show(dd, cmd, screen)
+-- auxiliar function to capture a client on a dropdown
+function _capture(dd, cmd, pid, c)
     local screen = screen or dd.screen or capi.mouse.screen
+    dd.run.cmd      = cmd
+    dd.run.geom     = dd.geom
+    dd.run.sticky   = dd.sticky or false
+    dd.run.time     = os.time()
+    dd.run.client   = c
+    dd.run.screen   = screen
+    dd.run.visible  = false
 
+    if not dd.run.pid then
+        dd.run.pid = pid
+        dropdown.data[dd.run.pid] = dd.run
+    end
+end
+
+
+-- show a dropdown. Launch it if not running
+function dropdown.show(dd, cmd, screen)
     refresh_state(dd.run)
 
     -- kill old client if necessary
@@ -188,25 +203,25 @@ function dropdown.show(dd, cmd, screen)
         local pid  = awful.util.spawn_with_shell(cmd)
 
         if not dd.run.client then
-            dd.run.cmd      = cmd
-            dd.run.geom     = dd.geom
-            dd.run.sticky   = dd.sticky or false
-            dd.run.time     = os.time()
-            dd.run.client   = nil
-            dd.run.screen   = screen
-            dd.run.visible  = false
-
-            if not dd.run.pid then
-                dd.run.pid = pid
-                dropdown.data[dd.run.pid] = dd.run
-            end
+            -- sets to capture by pid. when the client gets managed, we get it.
+            _capture(dd, cmd, pid, nil)
         end
     end
 
     -- raise an existing client.
+    local screen = screen or dd.screen or capi.mouse.screen
     if dd.run.client then
         dd.run.screen = screen
         raise_client(dd.run)
+    end
+end
+
+
+-- capture a client for a given dropdown
+function dropdown.capture(dd, c)
+    refresh_state(dd.run)
+    if not dd.run.client then
+        _capture(dd, dd.cmd, c.pid, c)
     end
 end
 
@@ -236,48 +251,49 @@ function dropdown.new(cmd, geom, sticky, screen)
 end
 
 
+-- manage action for clients in an active dropdown
+function dropdown.on_manage(c)
+    for pid, run in pairs(dropdown.data) do
+        if run and pid == c.pid and not run.client then
+            run.client = c
+
+            -- dropdown clients are floaters
+            awful.client.floating.set(c, true)
+
+            -- Client properties
+            c.ontop = true
+            c.above = true
+            c.skip_taskbar = true
+            c.sticky = run.sticky
+
+            -- get rid of titlebar
+            if c.titlebar then
+                awful.titlebar.remove(c)
+            end
+
+            -- raise
+            raise_client(run)
+
+            break
+        end
+    end
+end
+
+-- unmanage action for clients in an active dropdown
+function dropdown.on_unmanage(c)
+    for pid, run in pairs(dropdown.data) do
+        if run and run.client and run.client.window == c.window then
+            run.client  = nil
+            run.visible = false
+            run.cmd = nil
+            break
+        end
+    end
+end
 
 -- Connects the signals
-client.connect_signal("manage",
-                      function (c)
-                          for pid, run in pairs(dropdown.data) do
-                              if run and pid == c.pid and not run.client then
-                                  run.client = c
-
-                                  -- dropdown clients are floaters
-                                  awful.client.floating.set(c, true)
-
-                                  -- Client properties
-                                  c.ontop = true
-                                  c.above = true
-                                  c.skip_taskbar = true
-                                  c.sticky = run.sticky
-
-                                  -- get rid of titlebar
-                                  if c.titlebar then
-                                      awful.titlebar.remove(c)
-                                  end
-
-                                  -- raise
-                                  raise_client(run)
-
-                                  break
-                              end
-                          end
-                      end)
-
-
-capi.client.connect_signal("unmanage",
-                           function (c)
-                               for pid, run in pairs(dropdown.data) do
-                                   if run and run.client and run.client.window == c.window then
-                                       run.client  = nil
-                                       run.visible = false
-                                       run.cmd = nil
-                                       break
-                                   end
-                               end
-                           end)
+capi.client.connect_signal("manage", dropdown.on_manage)
+capi.client.connect_signal("unmanage", dropdown.on_unmanage)
 
 
 return dropdown
