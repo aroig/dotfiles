@@ -9,9 +9,8 @@ Conflicts=xmonad.service openbox.service
 [Service]
 Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-# ExecStart=/usr/bin/awesome
 ExecStart=/home/abdo/.config/systemd/scripts/awesome start
-# ExecStop=/home/abdo/.config/systemd/scripts/awesome stop
+KillSignal=SIGINT
 
 [Install]
 WantedBy=awesome.target
