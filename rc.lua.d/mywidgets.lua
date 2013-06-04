@@ -293,7 +293,8 @@ function myw.mpd.notify_song(args)
                         text = string.format("%s\n%s",
                                              args['{Album}'],
                                              args['{Artist}']),
-                        icon = myw.mpd.path .. '/' .. cover})
+                        icon = myw.mpd.path .. '/' .. cover,
+                        appname = "mpd"})
     end
 end
 
