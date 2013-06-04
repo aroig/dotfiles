@@ -341,6 +341,7 @@ myw.bat.rate = wibox.widget.textbox()
 myw.bat.tooltip = awful.tooltip({ objects = {myw.bat.text, myw.bat.rate, myw.bat.icon}})
 
 myw.bat.refresh = 60
+myw.bat.rate_refresh = 2
 
 function myw.bat.callback(widget, args)
     myw.bat.tooltip:set_text("Time remaining: " .. args.time)
@@ -360,7 +361,7 @@ end
 
 
 vicious.register(myw.bat.text, source.bat, myw.bat.callback, myw.bat.refresh, "BAT0")
-vicious.register(myw.bat.rate, source.bat, myw.bat.rate_callback, myw.bat.refresh, "BAT0")
+vicious.register(myw.bat.rate, source.bat, myw.bat.rate_callback, myw.bat.rate_refresh, "BAT0")
 
 myw.bat.text:buttons(awful.util.table.join(awful.button({ }, 1,
     function () exec("gnome-power-statistics") end)))
