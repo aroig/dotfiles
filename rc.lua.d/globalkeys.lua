@@ -160,13 +160,15 @@ globalkeys = awful.util.table.join(
 
 
     -- Awesome stuff
-    awful.key({metakey, ctrlkey, shiftkey }, "a",     function () awesome.restart() end),
+    awful.key({metakey, ctrlkey, shiftkey }, "a",     awesome.restart),
     awful.key({metakey, ctrlkey, shiftkey }, "q",     awesome.quit),
 
     -- System stuff
     awful.key({metakey, ctrlkey, shiftkey }, "z",     function () exec("sudo systemctl suspend") end),
-    awful.key({metakey, ctrlkey, shiftkey }, "h",     function () exec("sudo systemctl poweroff") end),
-    awful.key({metakey, ctrlkey, shiftkey }, "r",     function () exec("sudo systemctl reboot") end),
+
+    -- until I can halt and reboot safely from within the systemd session instance, I disable this
+    -- awful.key({metakey, ctrlkey, shiftkey }, "h",     function () exec("sudo systemctl poweroff") end),
+    -- awful.key({metakey, ctrlkey, shiftkey }, "r",     function () exec("sudo systemctl reboot") end),
 
     -- Awesome defaults
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
