@@ -136,6 +136,22 @@ local function kill_client(run)
     end
 end
 
+-- auxiliar function to capture a client on a dropdown
+local function capture_client(dd, cmd, pid, c)
+    dd.run.cmd      = cmd
+    dd.run.geom     = dd.geom
+    dd.run.sticky   = dd.sticky or false
+    dd.run.time     = os.time()
+    dd.run.client   = c
+    dd.run.visible  = false
+    dd.run.screen   = dd.screen or capi.mouse.screen
+
+    if not dd.run.pid then
+        dd.run.pid = pid
+        dropdown.data[dd.run.pid] = dd.run
+    end
+end
+
 
 
 function dropdown.hide_all()
@@ -160,7 +176,6 @@ function dropdown.kill_all()
 end
 
 
-
 function dropdown.toggle(dd, cmd, screen)
     refresh_state(dd.run)
 
@@ -169,22 +184,6 @@ function dropdown.toggle(dd, cmd, screen)
     end
 end
 
--- auxiliar function to capture a client on a dropdown
-function _capture(dd, cmd, pid, c)
-    local screen = screen or dd.screen or capi.mouse.screen
-    dd.run.cmd      = cmd
-    dd.run.geom     = dd.geom
-    dd.run.sticky   = dd.sticky or false
-    dd.run.time     = os.time()
-    dd.run.client   = c
-    dd.run.screen   = screen
-    dd.run.visible  = false
-
-    if not dd.run.pid then
-        dd.run.pid = pid
-        dropdown.data[dd.run.pid] = dd.run
-    end
-end
 
 
 -- show a dropdown. Launch it if not running
@@ -204,14 +203,16 @@ function dropdown.show(dd, cmd, screen)
 
         if not dd.run.client then
             -- sets to capture by pid. when the client gets managed, we get it.
-            _capture(dd, cmd, pid, nil)
+            capture_client(dd, cmd, pid, nil)
+            if screen then
+                dd.run.screen = screen
+            end
         end
     end
 
     -- raise an existing client.
-    local screen = screen or dd.screen or capi.mouse.screen
     if dd.run.client then
-        dd.run.screen = screen
+        dd.run.screen = screen or dd.screen or capi.mouse.screen
         raise_client(dd.run)
     end
 end
@@ -221,7 +222,9 @@ end
 function dropdown.capture(dd, c)
     refresh_state(dd.run)
     if not dd.run.client then
-        _capture(dd, dd.cmd, c.pid, c)
+        -- captures by pid. we get the client in the on_manage handler
+        capture_client(dd, dd.cmd, c.pid, nil)
+        dd.run.screen = c.screen
     end
 end
 
@@ -241,6 +244,7 @@ function dropdown.new(cmd, geom, sticky, screen)
     newdd.geom.width  = geom.width  or 1
     newdd.geom.height = geom.height or 0.40
 
+    -- add all functions in dropdown to newdd
     for name, func in pairs(dropdown) do
         if type(func) == "function" then
             newdd[name] = func
@@ -254,10 +258,13 @@ end
 -- manage action for clients in an active dropdown
 function dropdown.on_manage(c)
     for pid, run in pairs(dropdown.data) do
+        -- we only act on dropdowns without run.client to avoid trouble with a single
+        -- dropdown process producing multiple client. We only handle the first one.
         if run and pid == c.pid and not run.client then
             run.client = c
 
             -- dropdown clients are floaters
+            c.size_hints_honor = false
             awful.client.floating.set(c, true)
 
             -- Client properties
