@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Path of local emacs stuff
-(setq abdo-emacs-directory "/home/abdo/etc/emacs/")
+(setq abdo-emacs-directory (concat (getenv "AB2_CONF_DIR") "/emacs/"))
 
 ;; Adds subdirectories at the begining of path
 (let ((default-directory (concat abdo-emacs-directory "emacs-lisp/")))
@@ -43,13 +43,13 @@
 ;; Paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq abdo-personal-dicts-path "~/var/dicts/aspell/")        ;; dictionaries
-(setq org-directory "~/work/wiki/")                          ;; Org mode paths
+(setq org-directory (getenv "AB2_WIKI_DIR"))                 ;; Org mode paths
+(setq abdo-mail-directory (getenv "AB2_MAIL_DIR"))           ;; email
 
+(setq abdo-personal-dicts-path "~/var/dicts/aspell/")        ;; dictionaries
 (setq abdo-emacs-backups "~/var/bak/emacs/")                 ;; Backups dir
 (setq bookmark-default-file "~/.emacs.d/bookmarks")          ;; bookmarks file
 
-(setq abdo-mail-directory     "~/mail/")                     ;; email
 (setq abdo-chat-directory     "~/var/chat/")                 ;; chat logs
 (setq abdo-download-directory "~/down/")                     ;; downloads
 
