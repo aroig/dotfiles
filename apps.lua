@@ -29,4 +29,7 @@ apps.mail                = "emacs -mail"
 apps.notes               = "emacs -notes"
 apps.chat                = "emacs -chat"
 
+-- Awesome stuff
+apps.exit_cmd            = "bash ~/.config/awesome/exit.sh"
+
 return apps

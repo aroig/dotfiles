@@ -157,11 +157,9 @@ globalkeys = awful.util.table.join(
                   end
               end),
 
-
-
     -- Awesome stuff
     awful.key({metakey, ctrlkey, shiftkey }, "a",     awesome.restart),
-    awful.key({metakey, ctrlkey, shiftkey }, "q",     awesome.quit),
+    awful.key({metakey, ctrlkey, shiftkey }, "q",     function () shexec(apps.exit_cmd) end),
 
     -- System stuff
     awful.key({metakey, ctrlkey, shiftkey }, "z",     function () exec("sudo systemctl suspend") end),
