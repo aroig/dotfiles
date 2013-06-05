@@ -1,16 +1,19 @@
 [Unit]
 Description=Emacs daemon
 StopWhenUnneeded=true
+
+# need a dependency on xorg. otherwise, when X quits emacs crashes.
+# emacsclient says something about a long standing GTK bug.
 Requisite=xorg.target
 After=xorg.service
 
 [Service]
 Type=forking
 ExecStart=/home/abdo/.config/systemd/scripts/emacs start
-ExecStop=/home/abdo/.config/systemd/scripts/emacs stop
-Restart=always
-RestartSec=2
-SuccessExitStatus=0 15
+# Be ruthless and use SIGTERM. Usually at this point I have
+# gently killed emacs
+# ExecStop=/home/abdo/.config/systemd/scripts/emacs stop
+SuccessExitStatus=-3 15
 
 [Install]
 WantedBy=default.target
