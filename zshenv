@@ -44,8 +44,11 @@ export AB2_PRIV_DIR="$HOME/priv"
 export AB2_DEVEL_DIR="$HOME/devel"
 export AB2_LIBS_DIR="$HOME/usr/lib"
 export AB2_CONF_DIR="$HOME/etc"
+export AB2_MAIL_DIR="$HOME/mail"
+export AB2_MUSIC_DIR="$HOME/music"
 export AB2_PROJ_DIR="$HOME/proj"
 export AB2_SHARE_DIR="$HOME/share"
+export AB2_VAR_DIR="$HOME/var"
 export AB2_WORK_DIR="$HOME/work"
 export AB2_WIKI_DIR="$HOME/work/wiki"
 export AB2_PAPERS_DIR="$HOME/work/papers"
@@ -70,11 +73,11 @@ SAGE_KEEP_BUILT_SPKGS=yes    # don't rebuild from scratch
 #------------------------------
 
 # These are a personal things for my code
-export BASHPATH="$HOME/Software/libs/bash"
+export BASHPATH="$AB2_LIBS_DIR/bash"
 
 # Lua path for for personal libs
-export LUA_PATH="$HOME/usr/libs/lua/?.lua;;"
-export LUA_CPATH="$HOME/usr/libs/lua/?.lua;;"
+export LUA_PATH="$AB2_LIBS_DIR/lua/?.lua;;"
+export LUA_CPATH="$AB2_LIBS_DIR/lua/?.lua;;"
 
 # Python
 export PYTHONDOCS=/usr/share/docs/python/html/
