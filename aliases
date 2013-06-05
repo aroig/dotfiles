@@ -170,7 +170,7 @@ rg()  {
 fm()  {
     case "$TERM" in
         screen*|linux) eval "ranger \"\$@\"" ;;
-        *)             eval "nautilus \"$PWD\" &> /dev/null &!" ;;
+        *)             eval "$FILEMANAGER \"\$@\" &> /dev/null &!" ;;
     esac
 }
 
