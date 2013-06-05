@@ -10,8 +10,9 @@ After=xorg.service
 [Service]
 Type=forking
 ExecStart=/home/abdo/.config/systemd/scripts/emacs start
-# Be ruthless and use SIGTERM. Usually at this point I have
+# Kill with a SIGINT. Usually at this point I have
 # gently killed emacs
+KillSignal=SIGINT
 # ExecStop=/home/abdo/.config/systemd/scripts/emacs stop
 SuccessExitStatus=0 15
 
