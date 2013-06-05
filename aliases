@@ -136,8 +136,15 @@ op()  { xdg-open "$@" &> /dev/null &!; }
 
 ee() {
     case "$TERM" in
-        screen*|linux) eval "$EMACS -nw  &> /dev/null \"\$@\"" ;;
-        *)             eval "$EMACS &> /dev/null \"\$@\" &!" ;;
+        screen*|linux) eval "emacsclient -a emacs &> /dev/null \"\$@\"" ;;
+        *)             eval "emacsclient -c -a emacs &> /dev/null \"\$@\" &!" ;;
+    esac
+}
+
+kle() {
+    case "$TERM" in
+        screen*|linux) eval "emacsclient -eval \"(client-save-kill-emacs)\" &> /dev/null"  ;;
+        *)             eval "emacsclient --display=:0 --eval \"(client-save-kill-emacs)\" &> /dev/null \"\$@\" &!" ;;
     esac
 }
 
