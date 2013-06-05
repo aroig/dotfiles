@@ -11,6 +11,7 @@ Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
 ExecStart=/home/abdo/.config/systemd/scripts/awesome start
 KillSignal=SIGINT
+TimeoutSec=15
 
 [Install]
 WantedBy=awesome.target
