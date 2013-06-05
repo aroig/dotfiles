@@ -15,7 +15,7 @@ apps.browser             = "chromium"
 
 -- Other apps
 apps.docbrowser          = "chromium --user-data-dir=.config/chromium-docs"
-apps.filemanager         = "nautilus -w"
+apps.filemanager         = "thunar"
 apps.pdfviewer           = "zathura"
 apps.music               = "ario"
 apps.twitter             = "urxvt -e turses"
