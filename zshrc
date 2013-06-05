@@ -30,6 +30,11 @@ fpath=($HOME/.zshrc.d/completions $fpath)
 # Set aliases
 # ----------------------------
 
+# Environment
+if [ -f $HOME/.zshenv ]; then
+    source $HOME/.zshenv
+fi
+
 # Aliases
 if [ -f $HOME/.aliases ]; then
     source $HOME/.aliases
