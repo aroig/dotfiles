@@ -70,13 +70,15 @@ function ddclient.ranger.newtab(dd, path)
             naughty.notify({title = "New Tab", text=path, timeout=3})
 
             awful.util.spawn_with_shell("sleep 0.1;"
-                                        .. string.format("xdotool key --delay 100 Escape type --delay 15 ':tab_new %s';", path)
+                                        .. "xdotool key --delay 100 Escape;"
+                                        .. string.format("xdotool type --delay 15 ':tab_new %s';", path)
                                         .. 'xdotool key --delay 20 Return;')
             run.onraise_hook = nil
         end
         dd:show()
     else
-        dd:show(termcmd('ranger "%s"', path))
+        -- TODO: launch and go to the right directory
+        dd:show()
     end
 
 end
@@ -87,7 +89,8 @@ function ddclient.terminal.newtab(dd, path)
             naughty.notify({title = "New Tab", text=path, timeout=3})
 
             awful.util.spawn_with_shell("sleep 0.1;"
-                                        .. string.format("xdotool key --delay 15 Shift+Down;")
+                                        .. "xdotool key --delay 15 Control+a;"
+                                        .. "xdotool key --delay 15 c;"
                                         .. string.format("xdotool type --delay 15 'cd \"%s\"';", path)
                                         .. 'xdotool key --delay 20 Return;'
                                         .. 'xdotool type clear;'
@@ -97,7 +100,8 @@ function ddclient.terminal.newtab(dd, path)
         end
         dd:show()
     else
-        dd:show(string.format('%s -pe tabbed -cd "%s"', apps.terminal, path))
+        -- TODO: launch and go to the right directory
+        dd:show()
     end
 end
 
