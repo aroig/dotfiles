@@ -15,6 +15,7 @@ local capi  = { timer = timer }
 local wibox = require("wibox")
 local beautiful = beautiful
 
+local os = os
 
 -----------------------------------
 -- Timers                        --
@@ -273,7 +274,7 @@ timers.slow:connect_signal("timeout", myw.mail.update)
 
 myw.mpd = {}
 myw.mpd.src  = require("abdo.widget.mpd")
-myw.mpd.path = "/home/abdo/music/"
+myw.mpd.path = os.getenv("AB2_MUSIC_DIR")
 
 myw.mpd.icon = wibox.widget.imagebox()
 myw.mpd.stateicon = wibox.widget.imagebox()
