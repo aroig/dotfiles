@@ -11,7 +11,7 @@ local beautiful = beautiful
 local util = require("awful.util")
 local abdoutil = require("abdo.util")
 
-local agenda_files = "/home/abdo/Work/wiki/etc/agenda-files"
+local agenda_files = os.getenv("AB2_WIKI_DIR") .. "/etc/agenda-files"
 
 local char_width = 7.3
 local parse_on_show = true
