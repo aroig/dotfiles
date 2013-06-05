@@ -38,10 +38,10 @@ export SHELL=zsh
 # Some paths
 #------------------------------
 
-export WORK_DIR=~/work
-export PRIV_DIR=~/priv
-export DEVEL_DIR=~/devel
-export SHARE_DIR=~/share
+export AB2_WORK_DIR=~/work
+export AB2_PRIV_DIR=~/priv
+export AB2_DEVEL_DIR=~/devel
+export AB2_SHARE_DIR=~/share
 
 
 #------------------------------
