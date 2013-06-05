@@ -1,7 +1,7 @@
 #!/bin/bash -login
 
 # get the environment
-source /home/abdo/.environment
+source /home/abdo/.zshenv
 source /home/abdo/.aliases
 
 case "$1" in 
