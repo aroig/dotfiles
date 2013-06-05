@@ -39,10 +39,14 @@ export SHELL=zsh
 # Some paths
 #------------------------------
 
-export AB2_WORK_DIR="$HOME/work"
+
 export AB2_PRIV_DIR="$HOME/priv"
 export AB2_DEVEL_DIR="$HOME/devel"
+export AB2_LIBS_DIR="$HOME/usr/lib"
+export AB2_CONF_DIR="$HOME/etc"
+export AB2_PROJ_DIR="$HOME/proj"
 export AB2_SHARE_DIR="$HOME/share"
+export AB2_WORK_DIR="$HOME/work"
 export AB2_WIKI_DIR="$HOME/work/wiki"
 export AB2_PAPERS_DIR="$HOME/work/papers"
 
