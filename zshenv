@@ -65,7 +65,9 @@ export CC="colorgcc"
 # Application variables
 #------------------------------
 
-SAGE_KEEP_BUILT_SPKGS=yes    # don't rebuild from scratch
+# sage
+export SAGE_KEEP_BUILT_SPKGS=yes    # don't rebuild from scratch
+export SAGE_ROOT=$HOME/usr/sage
 
 
 #------------------------------
