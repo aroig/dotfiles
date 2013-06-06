@@ -1,0 +1,10 @@
+[Unit]
+Description = MPD Scribbler
+
+[Service]
+Type = simple
+ExecStart = /usr/bin/mpdscribble -D
+Restart = always
+
+[Install]
+WantedBy = audio.target
