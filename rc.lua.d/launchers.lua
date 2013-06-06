@@ -121,7 +121,7 @@ ddclient.chat    = dropdown.new(apps.chat,
                                 {vert="center", horiz="left", width=0.6, height=1})
 
 ddclient.music   = dropdown.new(apps.music,
-                                {vert="center", horiz="right", width=0.6, height=1})
+                                {vert="center", horiz="right", width=0.7, height=1})
 
 ddclient.twitter = dropdown.new(apps.twitter,
                                 {vert="center", horiz="right", width=600, height=1})
