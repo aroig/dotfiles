@@ -26,10 +26,6 @@ if [[ "$TERM" = "linux" ]]; then
     set_tty_colors
 fi 
     
-# Disable ^S ^Q to stop start the output
-stty stop undef
-stty start undef
-
 
 # ----------------------------
 # Auto tmux

@@ -21,6 +21,15 @@ fi
 
 
 # ----------------------------
+# Tty stuff
+# ----------------------------
+
+# Disable ^S ^Q to stop start the output
+stty stop undef
+stty start undef
+
+
+# ----------------------------
 # Modifying fpath
 # ----------------------------
 fpath=($HOME/.zshrc.d/completions $fpath)
