@@ -5,4 +5,4 @@ Requires=dbus.socket
 [Service]
 Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-ExecStart=/usr/bin/calibre-server
+ExecStart=/usr/bin/calibre-server --with-library=/home/abdo/lib
