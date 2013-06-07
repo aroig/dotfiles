@@ -18,5 +18,6 @@ StopWhenUnneeded=true
 
 [Service]
 Type=notify
+SyslogIdentifier=xorg
 ExecStart=/usr/bin/xorg-launch-helper :0 -nolisten tcp -noreset vt7
 
