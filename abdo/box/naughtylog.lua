@@ -8,7 +8,7 @@ local abdoutil = require("abdo.util")
 
 local row_length = 130
 local num_entries = 20
-local ignore_titles = abdoutil.set({"Notification Log", "System Log", "Calendar", "Tasks", "Debug", "Status"})
+local ignore_titles = abdoutil.set({"Notification Log", "System Log", "User Log", "Calendar", "Tasks", "Debug", "Status"})
 
 local naughtylog = {}
 naughtylog.nlog = nil
