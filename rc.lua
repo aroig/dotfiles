@@ -27,12 +27,6 @@ layout      = require("abdo.layout")         -- My layouts
 apps        = require("apps")                -- My preferred apps
 revelation  = require("abdo.revelation")     -- Tweaked expose
 
--- Naugty boxes
-orgtasks   = require("abdo.box.orgtasks")    -- org todo list
-calendar   = require("abdo.box.calendar")    -- calendar
-syslog     = require("abdo.box.syslog")      -- system log
-naughtylog = require("abdo.box.naughtylog")  -- log naughty notifications
-
 
 -----------------------------------
 -- Error handling                --
@@ -138,8 +132,8 @@ end
 -- Sourcing stuff                --
 -----------------------------------
 
-dofile(cfgdir .. "/rc.lua.d/naughty.lua")     -- Notifications
 dofile(cfgdir .. "/rc.lua.d/launchers.lua")   -- Launcher functions
+dofile(cfgdir .. "/rc.lua.d/naughty.lua")     -- Notifications
 dofile(cfgdir .. "/rc.lua.d/mywidgets.lua")   -- Widgets config
 dofile(cfgdir .. "/rc.lua.d/mywibox.lua")     -- Wibox config
 dofile(cfgdir .. "/rc.lua.d/mymenu.lua")      -- Menus

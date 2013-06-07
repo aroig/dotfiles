@@ -6,6 +6,7 @@
 
 local naughty   = naughty
 local beautiful = beautiful
+local box = box
 
 -- Naugty Setup
 naughty.config.defaults = {
@@ -68,7 +69,7 @@ naughty.config.presets = {
 -- Naughty callback
 function naughty_callback (args)
     -- log notification
-    naughtylog.append(args)
+    box.naughtylog.append(args)
 
     -- play sound
     if sound[args.appname] then

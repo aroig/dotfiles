@@ -14,6 +14,7 @@ local capi =
 local ipairs = ipairs
 local apps = apps
 local ddclient = ddclient
+local box = box
 
 globalkeys = awful.util.table.join(
     -- Programs
@@ -51,10 +52,11 @@ globalkeys = awful.util.table.join(
                                                end),
     awful.key({ modkey,           }, "t",      awful.client.floating.toggle),
 
-    awful.key({ modkey,           }, "F1",     calendar.toggle_calendar),
-    awful.key({ modkey,           }, "F2",     orgtasks.toggle_todo),
-    awful.key({ modkey,           }, "F3",     syslog.toggle_syslog),
-    awful.key({ modkey,           }, "F4",     naughtylog.toggle_naughtylog),
+    awful.key({ modkey,           }, "F1",     box.calendar.toggle_calendar),
+    awful.key({ modkey,           }, "F2",     box.orgtasks.toggle_todo),
+    awful.key({ modkey,           }, "F3",     box.syslog.toggle_syslog),
+    awful.key({ ctrlkey,          }, "F3",     box.userlog.toggle_userlog),
+    awful.key({ modkey,           }, "F4",     box.naughtylog.toggle_naughtylog),
 
     -- Top dropdown clients
     awful.key({ modkey,           }, "F10",    function() ddclient.notes:show() end),

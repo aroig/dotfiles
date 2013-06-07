@@ -131,6 +131,7 @@ ddclient.document = dropdown.new(nil, {vert="center", horiz="right", width=0.7, 
 ddclient.document.kill_old = False
 
 
+
 -----------------------------------
 -- Functions                     --
 -----------------------------------
@@ -143,6 +144,19 @@ function ddclient.kill_all()
     dropdown.kill_all()
 end
 
+
+
+-----------------------------------
+-- Dropdown naughty boxes        --
+-----------------------------------
+
+box = {}
+
+box.naughtylog = require("abdo.box.naughtylog")  -- log naughty notifications
+box.orgtasks   = require("abdo.box.orgtasks")    -- org todo list
+box.calendar   = require("abdo.box.calendar")    -- calendar
+box.syslog     = require("abdo.box.syslog")      -- system log
+box.userlog    = require("abdo.box.userlog")     -- user log
 
 
 -----------------------------------
