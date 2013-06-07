@@ -3,8 +3,9 @@ require("apps")
 return {
    python2               = apps.docbrowser .. " file:///usr/share/doc/python2/html/index.html",
    python3               = apps.docbrowser .. " file:///usr/share/doc/python/html/index.html",
+   haskell               = apps.docbrowser .. " file:///usr/share/doc/ghc/html/libraries/index.html",
    lua                   = apps.docbrowser .. " file:///usr/share/doc/lua/contents.html",
-   sage                  = apps.docbrowser .. " file:///home/abdo/Software/sage/src/doc/output/html/en/index.html",
+   sage                  = apps.docbrowser .. " file:///home/abdo/usr/sage/src/doc/output/html/en/index.html",
    awesome               = apps.docbrowser .. " file:///usr/share/doc/awesome/luadoc/index.html",
    org                   = apps.docbrowser .. " file:///usr/share/doc/org-mode/org.html",
    zsh                   = apps.docbrowser .. " file:///usr/share/doc/zsh/zsh.html",
@@ -12,6 +13,8 @@ return {
    emacs                 = apps.docbrowser .. " file:///usr/share/doc/emacs/index.html",
    mu4e                  = apps.docbrowser .. " file:///usr/share/doc/mu4e/index.html",
    scipy                 = apps.docbrowser .. " file:///usr/share/doc/python-scipy/html",
+
+   xapian                = apps.docbrowser .. " file:///usr/share/doc/xapian-core/index.html"
 
    archwiki              = apps.docbrowser .. " https://wiki.archlinux.org/index.php/Main_Page",
    zshwiki               = apps.docbrowser .. " http://zshwiki.org/home/start",
