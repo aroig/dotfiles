@@ -149,14 +149,8 @@ kle() {
 }
 
 tx() {
-    if [ "$TMUX" ]; then
-        tmux new-window
-    else
-        if [[ "$(tmux has-session -t term 2> /dev/null; echo $?)" == "0" ]]; then
-	    tmux new-session -t term \; set-option destroy-unattached
-        else
-            tmux new-session -s term
-        fi
+    if [ "$TMUX" ]; then   tmux new-window
+    else                   tmux-session term
     fi
 }
 
