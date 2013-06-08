@@ -10,7 +10,7 @@ Type=forking
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
 ExecStart=/usr/bin/tmux new-session -d -s default
 ExecStop=/usr/bin/tmux kill-server
-SucessExitStatus=0 1
+SuccessExitStatus=0 1
 Restart=always
 RestartSec=2
 
