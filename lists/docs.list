@@ -14,7 +14,7 @@ return {
    mu4e                  = apps.docbrowser .. " file:///usr/share/doc/mu4e/index.html",
    scipy                 = apps.docbrowser .. " file:///usr/share/doc/python-scipy/html",
 
-   xapian                = apps.docbrowser .. " file:///usr/share/doc/xapian-core/index.html"
+   xapian                = apps.docbrowser .. " file:///usr/share/doc/xapian-core/index.html",
 
    archwiki              = apps.docbrowser .. " https://wiki.archlinux.org/index.php/Main_Page",
    zshwiki               = apps.docbrowser .. " http://zshwiki.org/home/start",
