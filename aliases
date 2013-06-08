@@ -192,6 +192,14 @@ tmd() { echo "ddclient.terminal:newtab('$PWD')" | awesome-client; }
 stx() { systemctl --user start awesome.target; }
 klx() { systemctl --user stop awesome.target; }
 
+# NOTE
+# If I use systemctl --user exit, the user session tries to perform a pam_close_session, but this is
+# not allowed. Only root can do it, and in the same process as the pam_open_session
+# source: https://bugzilla.redhat.com/show_bug.cgi?format=multiple&id=951728
+#
+# On the other hand, If I use sudo systemctl stop user-sessions@abdo, some process remain and I have
+# to wait for the timeout
+
 reboot()   { systemctl --user exit; sudo systemctl reboot;   }
 poweroff() { systemctl --user exit; sudo systemctl poweroff; }
 suspend()  { sudo systemctl suspend;  }
