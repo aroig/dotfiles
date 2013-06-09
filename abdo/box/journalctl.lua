@@ -4,7 +4,7 @@ local table = table
 local beautiful = beautiful
 
 local row_length = 130
-local num_entries = 30
+local num_entries = 40
 
 
 function journalctl(args)
