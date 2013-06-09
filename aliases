@@ -16,9 +16,11 @@ alias diff='diff -u -d'
 alias top='htop'
 alias tree='tree -C'
 alias df='dfc'
+alias du='cdu -dLh -i'
+alias alsi='alsi -a -u'
+
 # alias ping='$HOME/Software/conf/color-wrappers/ping'
 # alias unisonb='$HOME/Software/conf/color-wrappers/unison -batch'
-alias alsi='alsi -a -u'
 
 
 #------------------------------
@@ -41,7 +43,6 @@ alias trash='gvfs-trash'
 alias vp='vimpager'
 alias rsy='rsync -avz --progress'
 alias ediff='emacs -diff'
-alias du='ncdu'
 
 alias sctl='sudo systemctl'
 alias jctl='sudo journalctl'

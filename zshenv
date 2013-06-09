@@ -39,19 +39,19 @@ export SHELL=zsh
 # Some paths
 #------------------------------
 
-
-export AB2_PRIV_DIR="$HOME/priv"
-export AB2_DEVEL_DIR="$HOME/devel"
-export AB2_LIBS_DIR="$HOME/usr/lib"
-export AB2_CONF_DIR="$HOME/etc"
-export AB2_MAIL_DIR="$HOME/mail"
-export AB2_MUSIC_DIR="$HOME/music"
-export AB2_PROJ_DIR="$HOME/proj"
-export AB2_SHARE_DIR="$HOME/share"
-export AB2_VAR_DIR="$HOME/var"
-export AB2_WORK_DIR="$HOME/work"
-export AB2_WIKI_DIR="$HOME/work/wiki"
-export AB2_PAPERS_DIR="$HOME/work/papers"
+export AB2_HOME="/home/abdo"
+export AB2_PRIV_DIR="$AB2_HOME/priv"
+export AB2_DEVEL_DIR="$AB2_HOME/devel"
+export AB2_LIBS_DIR="$AB2_HOME/usr/lib"
+export AB2_CONF_DIR="$AB2_HOME/etc"
+export AB2_MAIL_DIR="$AB2_HOME/mail"
+export AB2_MUSIC_DIR="$AB2_HOME/music"
+export AB2_PROJ_DIR="$AB2_HOME/proj"
+export AB2_SHARE_DIR="$AB2_HOME/share"
+export AB2_VAR_DIR="$AB2_HOME/var"
+export AB2_WORK_DIR="$AB2_HOME/work"
+export AB2_WIKI_DIR="$AB2_HOME/work/wiki"
+export AB2_PAPERS_DIR="$AB2_HOME/work/papers"
 
 
 #------------------------------
@@ -67,7 +67,7 @@ export CC="colorgcc"
 
 # sage
 export SAGE_KEEP_BUILT_SPKGS=yes    # don't rebuild from scratch
-export SAGE_ROOT=$HOME/usr/sage
+export SAGE_ROOT=$AB2_HOME/usr/sage
 
 
 #------------------------------
