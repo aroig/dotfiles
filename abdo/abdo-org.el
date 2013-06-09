@@ -17,6 +17,9 @@
   (setq abdo-org-texmf-subdirectory "latex/")
   (setq abdo-org-agenda-file-list "etc/agenda-files")
 
+  ;; Local Mobileorg directory. From within org I will only sync to this directory.
+  (setq org-mobile-directory "/home/abdo/share/r2d2/mobileorg")
+
   ;; Base dir for org files
   (setq org-directory-wiki (concat org-directory "org/"))
 
@@ -61,8 +64,7 @@
   ;; default place for notes
   (setq org-default-notes-file (concat org-directory-wiki "capture.org"))
 
-  ;; Local Mobileorg directory. From within org I will only sync to this directory.
-  (setq org-mobile-directory "/home/abdo/Devices/r2d2/sdcard/mobileorg")
+  ;; inbox for mobileorg
   (setq org-mobile-inbox-for-pull (concat org-directory-wiki "mobile.org"))
 
   ;; Set agenda file list from a file.
