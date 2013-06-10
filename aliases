@@ -137,8 +137,8 @@ op()  { xdg-open "$@" &> /dev/null &!; }
 
 ee() {
     case "$TERM" in
-        screen*|linux*) eval "emacsclient -t -a emacs  \"\$@\"" ;;
-        *)              eval "emacsclient -c -a emacs  \"\$@\" &!" ;;
+        screen*|linux*) eval "emacsclient -t -a emacs  \"\$@\" > /dev/null" ;;
+        *)              eval "emacsclient -c -a emacs  \"\$@\" > /dev/null &!" ;;
     esac
 }
 
