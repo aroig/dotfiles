@@ -1,5 +1,7 @@
 require("apps")
 
+local qref_dir = "/home/abdo/work/qref"
+
 return {
    python2               = apps.docbrowser .. " file:///usr/share/doc/python2/html/index.html",
    python3               = apps.docbrowser .. " file:///usr/share/doc/python/html/index.html",
@@ -20,5 +22,8 @@ return {
    zshwiki               = apps.docbrowser .. " http://zshwiki.org/home/start",
    bashwiki              = apps.docbrowser .. " http://wiki.bash-hackers.org/doku.php",
 
-   ["abdo-latex"]        = apps.pdfviewer  .. " /home/abdo/Documents/miscelania/2009-latex-refcard/abdo-refcard.pdf",
+   ["latex-qref"]        = apps.pdfviewer  .. string.format(" %s/latex.pdf", qref_dir),
+   ["vim-qref"]          = apps.pdfviewer  .. string.format(" %s/vim.pdf", qref_dir),
+   ["emacs-qref"]        = apps.pdfviewer  .. string.format(" %s/emacs.pdf", qref_dir),
+   
 }
