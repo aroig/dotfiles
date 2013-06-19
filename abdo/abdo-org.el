@@ -130,7 +130,7 @@
 ;  (setq ispell-personal-dictionary (concat abdo-personal-dicts-path "abdo-english.dict"))
 
   ;; Latex mode
-  (turn-on-org-cdlatex)
+  ; (turn-on-org-cdlatex)
 
   ;; File associations
   ;; Desktop dependent stuff!

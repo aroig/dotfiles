@@ -21,7 +21,7 @@
 
   (outline-minor-mode)                           ;; Outline mode
   (turn-on-reftex)                               ;; RefTex
-;  (turn-on-cdlatex)                             ;; CDLatex
+  ;(turn-on-cdlatex)                             ;; CDLatex
   (setq reftex-auto-recenter-toc t)              ;; Enable reftex auto recentering
   (setq compilation-auto-jump-to-first-error t)  ;; Auto jump on error
   (setq use-file-dialog nil)                     ;; Disable dialog asking for a file on
