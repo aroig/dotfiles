@@ -76,8 +76,6 @@
 (autoload 'yaml-mode "yaml-mode" "Yaml editing mode." t)
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 (autoload 'coffee-mode "coffee-mode" "Coffee editing mode." t)
-(autoload 'haskell-mode "haskell-mode" "Haskell editing mode." t)
-(autoload 'python-mode "python-mode.el" "Python editing mode." t)
 (autoload 'pkgbuild-mode "pkgbuild-mode" "PKGBUILD mode." t)
 (autoload 'vala-mode "vala-mode" "Vala mode." t)
 (autoload 'rainbow-mode "rainbow-mode" "Rainbow mode." t)
@@ -91,6 +89,12 @@
 ;; Calibre
 (autoload 'calibre-find "calibre" "Calibre interface." t)
 
+;; python
+; I'm using emacs builtin python mode
+;(autoload 'python-mode "python-mode.el" "Python editing mode." t)
+
+;; haskell
+(require 'haskell-mode-autoloads)
 
 
 ;; Loading stuff
