@@ -1,6 +1,3 @@
-[submodule "packages/undo-tree"]
-	path = packages/undo-tree
-	url = http://www.dr-qubit.org/git/undo-tree.git
 [submodule "packages/ibuffer-vc"]
 	path = packages/ibuffer-vc
 	url = https://github.com/purcell/ibuffer-vc.git
@@ -16,9 +13,6 @@
 [submodule "modes/coffee-mode"]
 	path = modes/coffee-mode
 	url = https://github.com/defunkt/coffee-mode.git
-[submodule "modes/python-mode"]
-	path = modes/python-mode
-	url = https://github.com/emacsmirror/python-mode.git
 [submodule "themes/solarized"]
 	path = themes/solarized
 	url = https://github.com/sellout/emacs-color-theme-solarized.git
@@ -28,9 +22,6 @@
 [submodule "packages/helm"]
 	path = packages/helm
 	url = https://github.com/emacs-helm/helm.git
-[submodule "packages/evil"]
-	path = packages/evil
-	url = https://git.gitorious.org/evil/evil.git
 [submodule "modes/sage-mode"]
 	path = modes/sage-mode
 	url = https://github.com/aroig/sage-mode.git
@@ -52,15 +43,9 @@
 [submodule "modes/git-modes"]
 	path = modes/git-modes
 	url = https://github.com/lunaryorn/git-modes.git
-[submodule "packages/auto-complete"]
-	path = packages/auto-complete
-	url = https://github.com/auto-complete/auto-complete.git
 [submodule "packages/yasnippet"]
 	path = packages/yasnippet
 	url = https://github.com/capitaomorte/yasnippet.git
 [submodule "packages/ac-math"]
 	path = packages/ac-math
 	url = https://github.com/vitoshka/ac-math.git
-[submodule "modes/haskell-mode"]
-	path = modes/haskell-mode
-	url = https://github.com/haskell/haskell-mode.git
