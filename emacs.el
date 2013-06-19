@@ -135,11 +135,6 @@
   (require 'abdo-mu4e)                 ;; personal mu4e stuff
 )
 
-;; chat
-(when (locate-library "jabber")
-  (require 'jabber-autoloads)
-)
-
 ;; org
 (when (locate-library "org")
   (require 'org)                       ;; org
@@ -243,6 +238,8 @@
   (sage))
 
 (defun abdo-launch-chat (arg)
+  (require 'jabber-autoloads)
+
   (abdo-chat-connect)
   (global-set-key (kbd "C-c C-x") 'abdo-chat-disconnect))
 
