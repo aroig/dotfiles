@@ -6,10 +6,10 @@ PACKAGES=helm ibuffer-vc powerline
 THEMES=zenburn
 
 # All packages with relative path
-ALLPKG=$(patsubst %,modes/%,$(MODES)) $(patsubst %,packages/%,$(PACKAGES)) $(patsubst %,themes/%,$(THEMES)) misc hacks abdo
+ALLPKG=$(patsubst %,modes/%,$(MODES)) $(patsubst %,packages/%,$(PACKAGES)) $(patsubst %,themes/%,$(THEMES)) hacks abdo
 
 # All compilable packages with relative path
-COMPPKG=$(patsubst %,modes/%,$(MODES)) $(patsubst %,packages/%,$(PACKAGES)) misc abdo
+COMPPKG=$(patsubst %,modes/%,$(MODES)) $(patsubst %,packages/%,$(PACKAGES)) abdo
 
 # Packages with git remote to track
 GITPKG=$(patsubst %,modes/%,$(MODES)) $(patsubst %,packages/%,$(PACKAGES)) $(patsubst %,themes/%,$(THEMES))
