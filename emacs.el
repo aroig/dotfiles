@@ -76,11 +76,13 @@
 (autoload 'yaml-mode "yaml-mode" "Yaml editing mode." t)
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 (autoload 'coffee-mode "coffee-mode" "Coffee editing mode." t)
+(autoload 'haskell-mode "haskell-mode" "Haskell editing mode." t)
+(autoload 'python-mode "python-mode.el" "Python editing mode." t)
 (autoload 'pkgbuild-mode "pkgbuild-mode" "PKGBUILD mode." t)
-; (autoload 'sage-mode "sage-mode" "Sage mode." t)
 (autoload 'vala-mode "vala-mode" "Vala mode." t)
 (autoload 'rainbow-mode "rainbow-mode" "Rainbow mode." t)
 (autoload 'markdown-mode "markdown-mode.el" "Markdown files" t)
+; (autoload 'sage-mode "sage-mode" "Sage mode." t)
 
 ;; Chat stuff
 (autoload 'rcirc "rcirc" "Rcirc irc client." t)
@@ -89,8 +91,6 @@
 ;; Calibre
 (autoload 'calibre-find "calibre" "Calibre interface." t)
 
-;; autoloads for haskell
-(load "haskell-mode/haskell-mode-autoloads.el")
 
 
 ;; Loading stuff
@@ -197,6 +197,9 @@
 
 ;; yaml
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
+;; haskell
+(add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
 
 ;; lua
 (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
