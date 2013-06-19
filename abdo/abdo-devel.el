@@ -70,10 +70,10 @@
 
 ;; Python-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; I'm using built-in python.el (Fabián Ezequiel Gallina's version)
 
 (defun abdo-python-mode-things()
-  (setq python-python-command "ipython")
-  (setq python-command "ipython")
+  (setq python-shell-interpreter "ipython")
 
   ;; Delete trailing whitespaces before save
   (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
@@ -81,7 +81,7 @@
 ;  (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
 ;  (abdo-change-dictionary "english")      ;; I always program in english
 
-  (setq python-indent 4)                   ;; indentation
+  (setq python-indent-offset 4)            ;; indentation
   (abdo-compile-buffer-things)
 )
 

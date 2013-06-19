@@ -89,10 +89,6 @@
 ;; Calibre
 (autoload 'calibre-find "calibre" "Calibre interface." t)
 
-;; python
-; I'm using emacs builtin python mode
-;(autoload 'python-mode "python-mode.el" "Python editing mode." t)
-
 ;; haskell
 (require 'haskell-mode-autoloads)
 
