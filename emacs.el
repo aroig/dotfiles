@@ -36,9 +36,6 @@
 (load-theme 'zenburn t)
 (require 'abdo-zenburn)
 
-;; modeline tweaks
-(require 'abdo-modeline)
-
 
 ;; Paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -93,7 +90,7 @@
 (autoload 'calibre-find "calibre" "Calibre interface." t)
 
 ;; autoloads for haskell
-(load "haskell-mode/haskell-site-file.el")
+(load "haskell-mode/haskell-mode-autoloads.el")
 
 
 ;; Loading stuff
@@ -101,6 +98,7 @@
 
 ;; Basic stuff
 (require 'evil)                        ;; vi-like keys
+(require 'abdo-modeline)               ;; modeline tweaks
 (require 'ido)                         ;; Ido prompt
 (require 'uniquify)                    ;; Make buffer names unique
 (require 'ibuffer)                     ;; Nice buffer list
