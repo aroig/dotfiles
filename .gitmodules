@@ -19,9 +19,6 @@
 [submodule "modes/rainbow-mode"]
 	path = modes/rainbow-mode
 	url = https://github.com/emacsmirror/rainbow-mode.git
-[submodule "packages/helm"]
-	path = packages/helm
-	url = https://github.com/emacs-helm/helm.git
 [submodule "modes/sage-mode"]
 	path = modes/sage-mode
 	url = https://github.com/aroig/sage-mode.git
