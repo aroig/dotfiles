@@ -3,17 +3,18 @@ Emacs configuration
 
 My emacs configuration.
 
-Emacs mode dependencies
------------------------
- * python-mode
+Emacs dependencies
+------------------
+
  * haskell-mode
  * auctex
  * evil
+ * helm
  * undo-tree
  * auto-complete
  * magit
  * org-mode
- * emacs-jabber
+ * jabber
 
 
 External dependencies
