@@ -2,7 +2,7 @@ MAKE=emacs -Q --batch -f batch-byte-compile
 
 EMACS_LISP=emacs-lisp
 MODES=coffee-mode git-modes lua-mode markdown-mode multi-mode pkgbuild-mode rainbow-mode sage-mode yaml-mode
-PACKAGES=helm ibuffer-vc powerline
+PACKAGES=ibuffer-vc powerline
 THEMES=zenburn
 
 # All packages with relative path
