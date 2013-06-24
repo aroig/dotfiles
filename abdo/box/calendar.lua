@@ -33,10 +33,9 @@ local function generate_calendar(offset)
       cur_year = cur_year - 1
    end
    local cal = util.pread("LANG=C; cal -m " .. cur_month .. " " .. cur_year)
-   cal = string.gsub(cal, "^%s*(.-)%s*$", "%1")
 
-
-   local _, _, head, cal = string.find(cal,"(.+%d%d%d%d)%s*\n(.+)")
+--   cal = string.gsub(cal, "^%s*(.-)%s*$", "%1")
+--   local _, _, head, cal = string.find(cal,"(.+%d%d%d%d)%s*\n(.+)")
 
    if string.sub(cur_day,1,1) == "0" then
       cur_day = string.sub(cur_day,2)
@@ -46,9 +45,10 @@ local function generate_calendar(offset)
                         '<span weight="bold" foreground="'.. today_color ..'">%1</span>', 1)
    end
 
-   cal = head .. "\n" .. cal
-   cal = "\n" .. cal
-   cal = string.format('<span font="%s">%s</span>', font, cal)
+--   cal = head .. "\n" .. cal
+--   cal = "\n" .. cal
+
+   cal = string.format('<span font="%s">\n%s</span>', font, cal)
    return cal
 end
 
@@ -57,7 +57,7 @@ function calendar.add_calendar(inc_offset)
    local save_offset = offset
    calendar.remove_calendar()
    offset = save_offset + inc_offset
-   local data = generate_calendar(offset)
+   local data = generate_calendar(offset - 1) .. generate_calendar(offset) .. generate_calendar(offset + 1)
    calendar.cal = naughty.notify({ title = "Calendar",
 				   text = data,
 				   timeout = 0})
