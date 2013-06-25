@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Path of local emacs stuff
-(setq abdo-emacs-directory (concat (getenv "AB2_CONF_DIR") "/emacs/"))
+(setq abdo-emacs-directory  "/home/abdo/etc/emacs/")
 
 ;; Adds subdirectories at the begining of path
 (let ((default-directory (concat abdo-emacs-directory "emacs-lisp/")))
