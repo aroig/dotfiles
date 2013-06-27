@@ -2,7 +2,7 @@ MAKE=emacs -Q --batch -f batch-byte-compile
 
 EMACS_LISP=emacs-lisp
 MODES=coffee-mode git-modes lua-mode markdown-mode multi-mode pkgbuild-mode rainbow-mode sage-mode yaml-mode
-PACKAGES=ibuffer-vc powerline
+PACKAGES=ac-math ibuffer-vc o-blog powerline yasnippet
 THEMES=zenburn
 
 # All packages with relative path
@@ -18,11 +18,44 @@ GITPKG=$(patsubst %,modes/%,$(MODES)) $(patsubst %,packages/%,$(PACKAGES)) $(pat
 
 all: $(COMPPKG)
 
-packages/auto-complete:
-	cd $@; make byte-compile
+# packages/ac-math:
+#	cd $@; $(MAKE) *.el
 
-$(COMPPKG): %:
-	cd $@; if [ -f Makefile ]; then make; fi
+packages/ibuffer-vc:
+	cd $@; $(MAKE) *.el
+
+packages/o-blog:
+	cd $@; $(MAKE) *.el
+
+# packages/powerline:
+#	cd $@; $(MAKE) *.el
+
+packages/yasnippet:
+	cd $@; $(MAKE) yasnippet.el
+
+modes/coffee-mode:
+	cd $@; $(MAKE) *.el
+
+modes/git-modes:
+	cd $@; make
+
+modes/lua-mode:
+	cd $@; make
+
+modes/markdown-mode:
+	cd $@; $(MAKE) *.el
+
+# modes/multi-mode:
+#	cd $@; $(MAKE) *.el
+
+# modes/pkgbuild-mode:
+#	cd $@; $(MAKE) *.el
+
+# modes/sage-mode:
+#	cd $@/emacs; $(MAKE) *.el
+
+modes/yaml-mode:
+	cd $@; make
 
 links:
 	rm -f $(EMACS_LISP)/*

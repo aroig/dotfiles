@@ -111,8 +111,8 @@
 
 ;; autocompletion
 (require 'auto-complete-config)
-(require 'ac-math)
-(require 'yasnippet)
+(require 'ac-math)                     ;; produces warning (quotation)
+(require 'yasnippet)                   ;; produces warning (cl-labels)
 
 ;; Helm
 (require 'helm-config)
