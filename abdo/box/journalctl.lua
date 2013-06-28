@@ -58,7 +58,10 @@ function journalctl(args)
          end
          new = new .. string.format('<span color="%s">%s</span> ', text_color, message)
 
-         text = text .. new  .. "\n"
+         text = text .. new
+         if i > 1 then
+             text = text  .. "\n"
+         end
       end
    end
    text = string.format('<span font="%s">%s</span>', font, text)
