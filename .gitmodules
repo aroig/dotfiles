@@ -43,6 +43,3 @@
 [submodule "packages/yasnippet"]
 	path = packages/yasnippet
 	url = https://github.com/capitaomorte/yasnippet.git
-[submodule "packages/ac-math"]
-	path = packages/ac-math
-	url = https://github.com/vitoshka/ac-math.git
