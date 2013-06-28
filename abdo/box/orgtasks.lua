@@ -16,6 +16,7 @@ local agenda_files = os.getenv("AB2_WIKI_DIR") .. "/etc/agenda-files"
 local char_width = 7.3
 local parse_on_show = true
 local limit_todo_length = nil
+local max_lines = 40
 
 local orgtasks = {}
 
@@ -72,7 +73,7 @@ local function parse_agenda(files)
                                                                       day = tonumber(d)}))
                     end
 
-                    if d and task_name and (task_date >= today) then
+                    if d and task_name then
                         local find_begin, task_start = string.find(task_name, "[A-Z]+%s+")
                         if task_start and find_begin == 1 then
                             task_name = string.sub(task_name, task_start + 1)
@@ -83,9 +84,12 @@ local function parse_agenda(files)
                         else
                             task_tags = " "
                         end
+                        if task_date < today then
+                            pretty_date = "Overdue"
+                        end
 
                         local len = string.len(task_name) + string.len(task_tags)
-                        if (len > data.maxlen) and (task_date >= today) then
+                        if (len > data.maxlen) then
                             data.maxlen = len
                         end
                         table.insert(data.tasks, { name = task_name,
@@ -95,7 +99,7 @@ local function parse_agenda(files)
                         data.dates[y .. tonumber(m) .. tonumber(d)] = true
                     end
                 end
-                _, _, task_name = string.find(line, "%*+%s+(.+)")
+                _, _, task_name = string.find(line, "%*+%s+TODO%s+(.+)")
             end
         end
     end
@@ -105,79 +109,89 @@ end
 
 
 local function create_todo(data)
-   local text_color = beautiful.fg_normal or "#FFFFFF"
-   local today_color = beautiful.fg_focus or "#00FF00"
-   local event_color = beautiful.fg_urgent or "#FF0000"
-   local priority_color = beautiful.fg_org_priority
-   local font = beautiful.font_box
+    local text_color = beautiful.fg_normal or "#FFFFFF"
+    local today_color = beautiful.fg_focus or "#00FF00"
+    local event_color = beautiful.fg_urgent or "#FF0000"
+    local priority_color = beautiful.fg_org_priority
+    local font = beautiful.font_box
 
-   local result = ""
-   local maxlen = data.maxlen + 3
-   if limit_todo_length and limit_todo_length < maxlen then
-      maxlen = limit_todo_length
-   end
-   local prev_date, limit, tname
-   for i, task in ipairs(data.tasks) do
-      if prev_date ~= task.date then
-         result = result ..
-            string.format('<br><span weight = "bold" style = "italic" foreground = "%s">%s</span>\n',
-                          event_color,
-                          pop_spaces(task.pretty_date, "", maxlen))
-      end
-      tname = task.name
-      limit = maxlen - string.len(task.tags) - 3
-      if limit < string.len(tname) then
-         tname = string.sub(tname, 1, limit - 3) .. "..."
-      end
-      result = result .. pop_spaces(tname, task.tags, maxlen)
+    local result = ""
+    local maxlen = data.maxlen + 3
+    if limit_todo_length and limit_todo_length < maxlen then
+        maxlen = limit_todo_length
+    end
 
-      if i ~= #data.tasks then
-         result = result .. "\n"
-      end
-      prev_date = task.date
-   end
-   if result == "" then
-      result = " "
-   end
+    local today = os.date("%Y-%m-%d")
+    local prev_date, limit, tname, date
+    for i, task in ipairs(data.tasks) do
+        if task.date < today then
+            date = "overdue"
+        else
+            date = task.date
+        end
 
-   for p, col in pairs(priority_color) do
-      result = string.gsub(result, abdoutil.literalize(p), string.format('<span color="%s">%s</span>', col, p))
-   end
+        if prev_date ~= date then
+            result = result ..
+                string.format('<br><span weight = "bold" style = "italic" foreground = "%s">%s</span>\n',
+                              event_color,
+                              pop_spaces(task.pretty_date, "", maxlen))
+        end
+        tname = task.name
+        limit = maxlen - string.len(task.tags) - 3
+        if limit < string.len(tname) then
+            tname = string.sub(tname, 1, limit - 3) .. "..."
+        end
+        result = result .. pop_spaces(tname, task.tags, maxlen)
+
+        if i < #data.tasks and i < max_lines then
+            result = result .. "\n"
+        else
+            break
+        end
+        prev_date = date
+    end
+    if result == "" then
+        result = " "
+    end
+
+    for p, col in pairs(priority_color) do
+        result = string.gsub(result, abdoutil.literalize(p), string.format('<span color="%s">%s</span>', col, p))
+    end
 
 
-   return string.format('<span font="%s" foreground="%s">%s</span>',
-                        font, text_color, result), data.maxlen + 3
+    return string.format('<span font="%s" foreground="%s">%s</span>',
+                         font, text_color, result), data.maxlen + 3
 end
 
 
 
 
 function orgtasks.add_todo()
-   orgtasks.remove_todo()
-   orgtasks.files = read_filelist(agenda_files)
-   orgtasks.data = parse_agenda(orgtasks.files)
-   local datastr = create_todo(orgtasks.data)
-   orgtasks.todo = naughty.notify({ title = "Tasks",
-			   text = datastr,
-			   timeout = 0
-			})
+    orgtasks.remove_todo()
+    orgtasks.files = read_filelist(agenda_files)
+    orgtasks.data = parse_agenda(orgtasks.files)
+    local datastr = create_todo(orgtasks.data)
+    orgtasks.todo = naughty.notify({ title = "Tasks",
+                                     text = datastr,
+                                     timeout = 0
+    })
 end
 
 
 function orgtasks.remove_todo()
-   if orgtasks.todo ~= nil then
-      naughty.destroy(orgtasks.todo)
-      orgtasks.todo = nil
-      orgtasks.files = {}
-   end
+    if orgtasks.todo ~= nil then
+        naughty.destroy(orgtasks.todo)
+        orgtasks.todo = nil
+        orgtasks.files = {}
+    end
 end
 
 function orgtasks.toggle_todo()
-   if orgtasks.todo == nil then
-       orgtasks.add_todo()
-   else
-      orgtasks.remove_todo()
-   end
+    if orgtasks.todo == nil then
+        orgtasks.add_todo()
+    else
+        orgtasks.remove_todo()
+    end
 end
 
 
