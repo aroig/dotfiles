@@ -35,6 +35,7 @@
 
 (setq yas-snippet-dirs `(,(concat abdo-emacs-directory "snippets")))
 (yas-global-mode 1)
+(setq yas-verbosity 1)
 
 ; change yasnippet trigger key
 ; (define-key yas-minor-mode-map (kbd "<C-tab>")  'yas-expand)
