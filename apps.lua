@@ -22,6 +22,7 @@ apps.twitter             = "urxvt -e turses"
 apps.passwordsafe        = "keepassx"
 apps.dictionary          = "goldendict"
 apps.library             = "calibre"
+apps.print               = "scrot -e 'mv $f ~/down/'"
 
 -- Emacs stuff
 apps.orgmode             = "emacs -org"
@@ -29,7 +30,12 @@ apps.mail                = "emacs -mail"
 apps.notes               = "emacs -notes"
 apps.chat                = "emacs -chat"
 
--- Awesome stuff
+-- System stuff
 apps.exit_cmd            = "bash ~/.config/awesome/exit.sh"
+apps.lock_cmd            = "systemctl --user start lock.target"
+apps.suspend_cmd         = "sudo systemctl suspend"
+apps.poweroff_cmd        = "sudo systemctl poweroff"
+apps.reboot_cmd          = "sudo systemctl reboot"
+
 
 return apps
