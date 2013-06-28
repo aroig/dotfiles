@@ -97,10 +97,10 @@ end
 
 -- Layouts
 -- Table of layouts to cover with awful.layout.inc, order matters.
-layouts =
-{
+layouts = {
     layout.dwindle,
-    layout.fair
+    layout.tile,
+    layout.fair,
 --    layout.tile,
 --    awful.layout.suit.max,
 --    awful.layout.suit.floating,
