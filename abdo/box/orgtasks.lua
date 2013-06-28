@@ -123,6 +123,7 @@ local function create_todo(data)
 
     local today = os.date("%Y-%m-%d")
     local prev_date, limit, tname, date
+    local nlines = 0
     for i, task in ipairs(data.tasks) do
         if task.date < today then
             date = "overdue"
@@ -135,6 +136,7 @@ local function create_todo(data)
                 string.format('<br><span weight = "bold" style = "italic" foreground = "%s">%s</span>\n',
                               event_color,
                               pop_spaces(task.pretty_date, "", maxlen))
+            nlines = nlines + 2
         end
         tname = task.name
         limit = maxlen - string.len(task.tags) - 3
@@ -142,12 +144,14 @@ local function create_todo(data)
             tname = string.sub(tname, 1, limit - 3) .. "..."
         end
         result = result .. pop_spaces(tname, task.tags, maxlen)
+        nlines = nlines + 1
 
-        if i < #data.tasks and i < max_lines then
+        if i < #data.tasks and nlines <= max_lines then
             result = result .. "\n"
         else
             break
         end
+
         prev_date = date
     end
     if result == "" then
