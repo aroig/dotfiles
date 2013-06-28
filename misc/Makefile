@@ -1,6 +1,6 @@
 MAKE=emacs -Q --batch -f batch-byte-compile
 
-ELCS=$(patsubst %.el,%.elc,$(wildcard *.el))
+ELCS=ispell-multi.elc outline-magic.elc rst.elc sensitive-mode.elc sr-speedbar.elc vala-mode.elc vim-modeline.elc winring.elc
 
 .PHONY: all
 
