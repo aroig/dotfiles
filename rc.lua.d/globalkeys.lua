@@ -117,25 +117,47 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   function () awful.client.focus.global_bydirection("left") end),
     awful.key({ modkey,           }, "Right",  function () awful.client.focus.global_bydirection("right") end),
 
+    awful.key({ modkey,           }, "k",      function () awful.client.focus.global_bydirection("up") end),
+    awful.key({ modkey,           }, "j",      function () awful.client.focus.global_bydirection("down") end),
+    awful.key({ modkey,           }, "h",      function () awful.client.focus.global_bydirection("left") end),
+    awful.key({ modkey,           }, "l",      function () awful.client.focus.global_bydirection("right") end),
+
     -- Client swapping by direction
     awful.key({ modkey, shiftkey  }, "Up",     function () awful.client.swap.global_bydirection("up") end),
     awful.key({ modkey, shiftkey  }, "Down",   function () awful.client.swap.global_bydirection("down") end),
     awful.key({ modkey, shiftkey  }, "Left",   function () awful.client.swap.global_bydirection("left") end),
     awful.key({ modkey, shiftkey  }, "Right",  function () awful.client.swap.global_bydirection("right") end),
 
+    awful.key({ modkey, shiftkey  }, "k",      function () awful.client.swap.global_bydirection("up") end),
+    awful.key({ modkey, shiftkey  }, "j",      function () awful.client.swap.global_bydirection("down") end),
+    awful.key({ modkey, shiftkey  }, "h",      function () awful.client.swap.global_bydirection("left") end),
+    awful.key({ modkey, shiftkey  }, "l",      function () awful.client.swap.global_bydirection("right") end),
+
     -- Screen cycling by direction
     awful.key({ modkey, ctrlkey   }, "Left",   function () awful.screen.focus_bydirection("left") end),
     awful.key({ modkey, ctrlkey   }, "Right",  function () awful.screen.focus_bydirection("right") end),
+
+    awful.key({ modkey, ctrlkey   }, "h",      function () awful.screen.focus_bydirection("left") end),
+    awful.key({ modkey, ctrlkey   }, "l",      function () awful.screen.focus_bydirection("right") end),
 
     -- Tag Cycling by direction
     awful.key({ modkey, ctrlkey   }, "Up",     function () awful.tag.viewnext() end),
     awful.key({ modkey, ctrlkey   }, "Down",   function () awful.tag.viewprev() end),
 
+    awful.key({ modkey, ctrlkey   }, "k",      function () awful.tag.viewnext() end),
+    awful.key({ modkey, ctrlkey   }, "j",      function () awful.tag.viewprev() end),
+
     awful.key({ modkey, metakey   }, "Up",     function () awful.tag.viewnext(awful.util.cycle(screen.count(), mouse.screen + 1)) end),
     awful.key({ modkey, metakey   }, "Down",   function () awful.tag.viewprev(awful.util.cycle(screen.count(), mouse.screen + 1)) end),
 
+    awful.key({ modkey, metakey   }, "k",      function () awful.tag.viewnext(awful.util.cycle(screen.count(), mouse.screen + 1)) end),
+    awful.key({ modkey, metakey   }, "j",      function () awful.tag.viewprev(awful.util.cycle(screen.count(), mouse.screen + 1)) end),
+
     awful.key({ modkey, metakey, ctrlkey  }, "Up",    function () for s = 1, screen.count() do awful.tag.viewnext(s) end end),
     awful.key({ modkey, metakey, ctrlkey  }, "Down",  function () for s = 1, screen.count() do awful.tag.viewprev(s) end end),
+
+    awful.key({ modkey, metakey, ctrlkey  }, "k",     function () for s = 1, screen.count() do awful.tag.viewnext(s) end end),
+    awful.key({ modkey, metakey, ctrlkey  }, "j",     function () for s = 1, screen.count() do awful.tag.viewprev(s) end end),
 
     -- Client dragging
     awful.key({ modkey, ctrlkey, shiftkey }, "Up",    function () drag_bydirection("up") end),
@@ -143,7 +165,12 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey, shiftkey }, "Left",  function () drag_bydirection("left") end),
     awful.key({ modkey, ctrlkey, shiftkey }, "Right", function () drag_bydirection("right") end),
 
-    -- Restore client
+    awful.key({ modkey, ctrlkey, shiftkey }, "k",     function () drag_bydirection("up") end),
+    awful.key({ modkey, ctrlkey, shiftkey }, "j",     function () drag_bydirection("down") end),
+    awful.key({ modkey, ctrlkey, shiftkey }, "h",     function () drag_bydirection("left") end),
+    awful.key({ modkey, ctrlkey, shiftkey }, "l",     function () drag_bydirection("right") end),
+
+    -- Other client stuff
     awful.key({ modkey, ctrlkey   }, "n",
               function ()
                   c = awful.client.restore()
@@ -152,14 +179,15 @@ globalkeys = awful.util.table.join(
                   end
               end),
 
+    awful.key({ modkey,           }, "u",   function () awful.client.urgent.jumpto() end),
+    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
+
+
     -- Client cycling by index
     awful.key({ modkey,           }, "Tab", function () awful.client.focus.byidx( 1) end),
     awful.key({ modkey, shiftkey  }, "Tab", function () awful.client.focus.byidx(-1) end),
 
-
     -- Client cycling by history
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-
     awful.key({ modkey, ctrlkey   }, "Tab",
               function ()
                   awful.client.focus.history.previous()
@@ -171,21 +199,12 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, shiftkey  }, "space", function () awful.layout.inc(layouts, -1) end),
 
     -- Layout manipulation
-    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
-    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
-    awful.key({ modkey, shiftkey  }, "h",     function () awful.tag.incnmaster( 1)      end),
-    awful.key({ modkey, shiftkey  }, "l",     function () awful.tag.incnmaster(-1)      end),
-    awful.key({ modkey, ctrlkey   }, "h",     function () awful.tag.incncol( 1)         end),
-    awful.key({ modkey, ctrlkey   }, "l",     function () awful.tag.incncol(-1)         end),
-
-    -- ???
-    awful.key({ modkey,           }, "j",   function () awful.client.focus.byidx( 1) end),
-    awful.key({ modkey,           }, "k",   function () awful.client.focus.byidx(-1) end),
-    awful.key({ modkey, shiftkey  }, "j",   function () awful.client.swap.byidx(  1)    end),
-    awful.key({ modkey, shiftkey  }, "k",   function () awful.client.swap.byidx( -1)    end),
-    awful.key({ modkey, ctrlkey   }, "j",   function () awful.screen.focus_relative( 1) end),
-    awful.key({ modkey, ctrlkey   }, "k",   function () awful.screen.focus_relative(-1) end),
-    awful.key({ modkey,           }, "u",   function () awful.client.urgent.jumpto() end),
+    awful.key({ modkey,           }, "+",     function () awful.tag.incmwfact( 0.05)    end),
+    awful.key({ modkey,           }, "-",     function () awful.tag.incmwfact(-0.05)    end),
+    awful.key({ modkey, shiftkey  }, "-",     function () awful.tag.incnmaster( 1)      end),
+    awful.key({ modkey, shiftkey  }, "+",     function () awful.tag.incnmaster(-1)      end),
+    awful.key({ modkey, ctrlkey   }, "-",     function () awful.tag.incncol( 1)         end),
+    awful.key({ modkey, ctrlkey   }, "+",     function () awful.tag.incncol(-1)         end),
 
     -- System stuff
     awful.key({metakey, ctrlkey, shiftkey }, "a",     awesome.restart),
