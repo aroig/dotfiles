@@ -62,14 +62,14 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "f",      function () exec(apps.filemanager) end),
     awful.key({ modkey, ctrlkey   }, "e",      function () exec(apps.editor) end),
     awful.key({ modkey, ctrlkey   }, "b",      function () exec(apps.browser) end),
-    awful.key({ modkey, ctrlkey   }, "w",      function () exec(apps.orgmode) end),
+    awful.key({ modkey, ctrlkey   }, "o",      function () exec(apps.orgmode) end),
     awful.key({ modkey, ctrlkey   }, "u",      function () exec(apps.mail) end),
     awful.key({ modkey, ctrlkey   }, "p",      function () exec(apps.passwordsafe) end),
     awful.key({ modkey, ctrlkey   }, "Print",  function () exec(apps.print) end),
 
     -- Right dropdown clients
     awful.key({ modkey, ctrlkey   }, "d",      function () ddclient.dict:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "r",      function () ddclient.calibre:toggle() end),
+    awful.key({ modkey, ctrlkey   }, "i",      function () ddclient.calibre:toggle() end),
     awful.key({ modkey, ctrlkey   }, "m",      function () ddclient.music:toggle() end),
     awful.key({ modkey, ctrlkey   }, "t",      function () ddclient.chat:toggle() end),
     awful.key({ modkey, shiftkey  }, "t",      function () ddclient.twitter:toggle() end),
