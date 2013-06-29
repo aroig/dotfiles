@@ -53,17 +53,12 @@ local icon = {
 -- naughty.config.default_preset.icon_formats = { "png", "gif", "svg"}
 
 
-naughty.config.presets = {
-    normal = {},
-    low = {
-        timeout = 5
-    },
-    critical = {
-        bg = "#DD5650",
-        fg = "#FFFFFF",
-        timeout = 0,
-    }
-}
+-- Set presets for different urgency levels
+naughty.config.presets.low.timeout = 5
+
+naughty.config.presets.critical.timeout = 0
+naughty.config.presets.critical.fg = "#FFFFFF"
+naughty.config.presets.critical.bg = "#B74747"
 
 
 -- Naughty callback
