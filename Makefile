@@ -18,6 +18,9 @@ GITPKG=$(patsubst %,modes/%,$(MODES)) $(patsubst %,packages/%,$(PACKAGES)) $(pat
 
 all: $(COMPPKG)
 
+abdo:
+	cd $@; make
+
 # packages/ac-math:
 #	cd $@; $(MAKE) *.el
 
