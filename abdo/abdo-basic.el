@@ -5,6 +5,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq system-time-locale "C")                 ;; POSIX locale for timestamps
+(setq calendar-week-start-day 1)              ;; Start calendar on monday
 
 (setq x-select-enable-clipboard t)            ;; Enable clipboard
 (setq save-interprogram-paste-before-kill t)  ;; Saves the kill buffer
