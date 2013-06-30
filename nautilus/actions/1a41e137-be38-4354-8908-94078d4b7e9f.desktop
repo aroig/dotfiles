@@ -1,0 +1,22 @@
+[Desktop Entry]
+Type=Action
+Icon[en_US]=terminal
+Icon[en]=terminal
+Icon[C]=terminal
+ToolbarLabel[en_US]=Terminal
+ToolbarLabel[en]=Terminal
+ToolbarLabel[C]=Terminal
+Name[en_US]=Terminal
+Name[en]=Terminal
+Name[C]=Terminal
+Profiles=profile-zero;
+
+TargetContext=false
+TargetLocation=true
+TargetToolbar=true
+
+[X-Action-Profile profile-zero]
+Exec=/usr/bin/urxvt -cd %d/%b
+Name[en_US]=Default profile
+Name[en]=Default profile
+Name[C]=Default profile
