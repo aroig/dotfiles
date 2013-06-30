@@ -1,6 +1,11 @@
 [Unit]
 Description=Redshift
 After=xorg.service
+After=compton.service
+After=xrandr.service
+StopWhenUnneeded=true
+
+Requires=xorg.service
 
 [Service]
 Type=simple

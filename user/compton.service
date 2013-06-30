@@ -1,6 +1,8 @@
 [Unit]
 Description=Compton X compositor
 After=xorg.service
+StopWhenUnneeded=true
+Requires=xorg.service
 
 [Service]
 Type=simple
