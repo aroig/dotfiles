@@ -1,11 +1,11 @@
 [Unit]
-Description=Redshift
+Description=Compton X compositor
 After=xorg.service
 
 [Service]
 Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-ExecStart=/usr/bin/redshift -l 41.383:2.183 -t 6500:5500 -g 1.0 -m randr
+ExecStart=/usr/bin/compton
 
 [Install]
 WantedBy=xorg.target
