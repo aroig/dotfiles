@@ -1,7 +1,7 @@
 [Unit]
 Description=Setup bamboo tablet coordinates
 After=xorg.target
-BindsTo=xorg.target
+Requires=xorg.target
 ConditionHost=grothendieck
 
 [Service]
