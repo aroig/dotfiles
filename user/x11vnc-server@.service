@@ -1,0 +1,8 @@
+[Unit]
+Description=X11VNC server attached to X.org
+StopWhenUnneeded=true
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/x11vnc -usepw -forever -display :%i -rfbport 590%i -bg
+

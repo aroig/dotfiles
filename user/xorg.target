@@ -1,5 +1,5 @@
 [Unit]
-Description=X.org
+Description=X.org at display 0
 Requires=dbus.socket
 BindsTo=xorg@0.service
 StopWhenUnneeded=true

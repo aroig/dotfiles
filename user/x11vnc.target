@@ -1,0 +1,6 @@
+[Unit]
+Description=VNC Server attached to local X.org
+Requires=dbus.socket
+BindsTo=x11vnc-server@3.service
+StopWhenUnneeded=true
+AllowIsolate=true
