@@ -1,5 +1,5 @@
 [Unit]
-Description=xrandr auto
+Description=xrandr %i
 After=xorg@0.service
 Requisite=xorg@0.service
 
