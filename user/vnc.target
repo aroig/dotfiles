@@ -1,6 +1,6 @@
 [Unit]
 Description=VNC Server
 Requires=dbus.socket
-BindsTo=vncserver@2.service
+BindsTo=vnc-server@2.service
 StopWhenUnneeded=true
 AllowIsolate=true
