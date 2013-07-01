@@ -1,0 +1,9 @@
+[Unit]
+Description=Xephyr session
+StopWhenUnneeded=true
+
+[Service]
+Type=forking
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
+ExecStart=/usr/bin/Xephyr -ac -br -noreset -screen 800x600 :%i 
+
