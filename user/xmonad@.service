@@ -1,10 +1,8 @@
 [Unit]
 Description=Xmonad window manager at display %i
 After=xserver@%i.target
-After=xorg@%i.service
-After=vncserver@%i.service
-After=x11vnc@%i.service
-After=xephyr@%i.service
+After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
+After=xinit@%i.service xrdb@%i.service xmodmap@%i.service
 After=compton@%i.service
 StopWhenUnneeded=true
 
