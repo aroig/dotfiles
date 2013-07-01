@@ -5,10 +5,11 @@ StopWhenUnneeded=true
 # need a dependency on xorg. otherwise, when X quits emacs crashes.
 # emacsclient says something about a long standing GTK bug.
 Requisite=xorg.target
-After=xorg.service
+After=xorg.target
 
 [Service]
 Type=forking
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
 ExecStart=/home/abdo/.config/systemd/scripts/emacs start
 # Kill with a SIGINT. Usually at this point I have
 # gently killed emacs
