@@ -7,7 +7,7 @@ After=vncserver@%i.service
 After=x11vnc@%i.service
 After=xephyr@%i.service
 
-Requisite=xserver@%i.service
+Requisite=xserver@%i.target
 
 [Service]
 Type=oneshot
