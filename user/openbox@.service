@@ -1,6 +1,7 @@
 [Unit]
 Description=Openbox Window Manager
 After=xserver@%i.target
+After=compton@%i.service
 StopWhenUnneeded=true
 
 Requires=xserver@%i.target
