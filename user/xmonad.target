@@ -2,4 +2,5 @@
 [Unit]
 Description=Xmonad Window Manager
 Requires=dbus.socket
+Requires=xorg.target
 AllowIsolate=true

@@ -1,5 +1,6 @@
 [Unit]
 Description=Awesome Window Manager
 Requires=dbus.socket
+Requires=xorg.target
 BindsTo=awesome.service
 AllowIsolate=true

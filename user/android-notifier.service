@@ -1,5 +1,5 @@
 [Unit]
-Description=Calibre
+Description=Android Notifier
 After=xorg.target
 StopWhenUnneeded=true
 
@@ -9,8 +9,8 @@ Requires=dbus.socket
 [Service]
 Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-ExecStart=/usr/bin/calibre --start-in-tray --no-update-check
-ExecStop=/usr/bin/calibre --shutdown-running-calibre
+ExecStart=/usr/bin/android-notifier
+ExecStop=/usr/bin/android-notifier --stop
 
 [Install]
 WantedBy=desktop.target

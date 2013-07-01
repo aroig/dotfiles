@@ -2,7 +2,8 @@
 Description=Openbox Window Manager
 After=xorg.target
 StopWhenUnneeded=true
-Requires=xorg.service
+
+Requires=xorg.target
 Requires=dbus.socket
 Conflicts=awesome.service xmonad.service
 
