@@ -1,5 +1,5 @@
 [Unit]
-Description=X screen setup: randr single
+Description=xrandr single
 After=xorg@%i.service
 BindsTo=xorg@%i.service
 

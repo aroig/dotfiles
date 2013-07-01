@@ -1,5 +1,5 @@
 [Unit]
-Description=Xephyr session
+Description=Xephyr server
 StopWhenUnneeded=true
 
 Wants=xserver@%i.target

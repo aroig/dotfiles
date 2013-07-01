@@ -1,5 +1,5 @@
 [Unit]
-Description=X11VNC server attached to X.org
+Description=X11VNC server
 StopWhenUnneeded=true
 
 Wants=xserver@%i.target

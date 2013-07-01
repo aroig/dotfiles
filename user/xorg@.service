@@ -1,5 +1,5 @@
 [Unit]
-Description=Xorg server launch helper
+Description=Xorg server
 StopWhenUnneeded=true
 
 Wants=xserver@%i.target

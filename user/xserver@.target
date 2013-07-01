@@ -1,5 +1,5 @@
 [Unit]
-Description=X server runing at that display
+Description=X server
 Requires=dbus.socket
 StopWhenUnneeded=true
 AllowIsolate=true
