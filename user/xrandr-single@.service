@@ -1,0 +1,10 @@
+[Unit]
+Description=xrandr single
+After=xorg@%i.service
+Before=xserver@%i.target
+Requisite=xorg@%i.service
+
+[Service]
+Type=oneshot
+Environment=DISPLAY=:0
+ExecStart=/home/abdo/.config/systemd/scripts/xrandr single
