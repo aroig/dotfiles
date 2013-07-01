@@ -1,15 +1,13 @@
 [Unit]
 Description=X11VNC server at display %i
-After=xorg@0.service
+After=xorg@%i.service
 
-Requisite=xorg@0.service
-BindsTo=xserver@%i.target
-Before=xserver@%i.target
-Conflicts=xorg@%i.service vncserver@%i.service xephyr@%i.service
+Requisite=xorg@%i.service
 
 [Service]
 Type=forking
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:0
-ExecStart=/usr/bin/x11vnc -usepw -forever -display :%i -rfbport 590%i -bg
+ExecStart=/usr/bin/x11vnc -usepw -forever -display :0 -rfbport 5902 -bg
+
 
