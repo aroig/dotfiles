@@ -2,6 +2,6 @@
 [Unit]
 Description=Locked screen
 Requires=dbus.socket
-Requires=xorg.service
+Requires=xorg.target
 BindsTo=slimlock.service
 AllowIsolate=true
