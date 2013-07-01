@@ -2,6 +2,10 @@
 Description=VNC server
 StopWhenUnneeded=true
 
+Wants=xserver@%i.target
+Before=xserver@%i.target
+Conflicts=xorg@%i.service x11vnc@%i.service xephyr@%i.service
+
 [Service]
 Type=forking
 ExecStart=/usr/bin/vncserver :%i -nolisten tcp -localhost -nevershared -geometry 800x600 -depth 24

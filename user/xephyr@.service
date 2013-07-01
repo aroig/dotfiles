@@ -2,6 +2,10 @@
 Description=Xephyr session
 StopWhenUnneeded=true
 
+Wants=xserver@%i.target
+Before=xserver@%i.target
+Conflicts=x11vnc@%i.service vnc@%i.service xorg@%i.service
+
 [Service]
 Type=forking
 EnvironmentFile=%h/.config/systemd/conf/xenvironment

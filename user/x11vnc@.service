@@ -2,6 +2,10 @@
 Description=X11VNC server attached to X.org
 StopWhenUnneeded=true
 
+Wants=xserver@%i.target
+Before=xserver@%i.target
+Conflicts=xorg@%i.service vnc@%i.service xephyr@%i.service
+
 [Service]
 Type=forking
 ExecStart=/usr/bin/x11vnc -usepw -forever -display :%i -rfbport 590%i -bg

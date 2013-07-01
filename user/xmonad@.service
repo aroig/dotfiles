@@ -1,9 +1,9 @@
 [Unit]
 Description=Xmonad Window Manager
-After=xorg.target
+After=xserver@%i.target
 StopWhenUnneeded=true
 
-Requires=xorg.target
+Requires=xserver@%i.target
 Requires=dbus.socket
 
 [Service]
