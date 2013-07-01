@@ -11,7 +11,7 @@ Requires=tint2@%i.service
 Requires=dbus.socket
 
 [Service]
-Type=forking
+Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
 ExecStart=/home/abdo/.config/systemd/scripts/openbox start
