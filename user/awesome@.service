@@ -17,6 +17,3 @@ Environment=DISPLAY=:%i
 ExecStart=/home/abdo/.config/systemd/scripts/awesome start
 KillSignal=SIGINT
 TimeoutSec=15
-
-[Install]
-WantedBy=awesome.target
