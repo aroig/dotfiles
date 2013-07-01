@@ -9,6 +9,7 @@ Requisite=xorg@0.service
 [Service]
 Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
+Environment=DISPLAY=:0
 ExecStart=/usr/bin/android-notifier
 ExecStop=/usr/bin/android-notifier --stop
 

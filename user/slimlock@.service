@@ -1,14 +1,15 @@
 
 [Unit]
 Description=Lock screen with slimlock
-After=xorg@0.service
+After=xorg@%i.service
 
 Requires=dbus.socket
-Requisite=xorg@0.service
+Requisite=xorg@%i.service
 
 [Service]
 Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
+Environment=DISPLAY=:%i
 ExecStartPre=/home/abdo/.config/systemd/scripts/mouse lock
 ExecStart=/usr/bin/slimlock
 ExecStopPost=/home/abdo/.config/systemd/scripts/mouse unlock
