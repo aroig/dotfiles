@@ -1,10 +1,10 @@
 [Unit]
 Description=Android Notifier
-After=xorg.target
+After=xorg@0.service
 StopWhenUnneeded=true
 
-Requires=xorg.target
 Requires=dbus.socket
+Requisite=xorg@0.service
 
 [Service]
 Type=simple

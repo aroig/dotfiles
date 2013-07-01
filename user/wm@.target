@@ -1,0 +1,6 @@
+[Unit]
+Description=Window Manager
+Requires=dbus.socket
+BindsTo=xorg@0.service
+BindsTo=%i@0.service
+AllowIsolate=true

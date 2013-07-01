@@ -1,9 +1,9 @@
 [Unit]
 Description=Calibre
-After=xorg.target
+After=xorg@0.service
 StopWhenUnneeded=true
 
-Requires=xorg.target
+Requisite=xorg@0.service
 Requires=dbus.socket
 
 [Service]

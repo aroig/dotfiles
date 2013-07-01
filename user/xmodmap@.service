@@ -1,15 +1,17 @@
 [Unit]
 Description=X resource setting
 Documentation=man:xmodmap(1)
+After=xserver@%i.target
 After=xorg@%i.service
+After=vncserver@%i.service
+After=x11vnc@%i.service
+After=xephyr@%i.service
 After=xinit@%i.service
-BindsTo=xorg@%i.service
+
+Requisite=xserver@%i.service
 
 [Service]
 Type=oneshot
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
 ExecStart=/usr/bin/xmodmap %h/.config/systemd/conf/Xmodmap
-
-[Install]
-WantedBy=xorg.target

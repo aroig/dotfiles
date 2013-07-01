@@ -1,8 +1,5 @@
-# Launches a tmux server with a default session.
-# makes sure no previous tmux process exists 
-
 [Unit]
-Description=tmux default session
+Description=Tmux default session
 Documentation=man:tmux(1)
 
 [Service]

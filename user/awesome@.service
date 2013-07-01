@@ -1,10 +1,14 @@
 [Unit]
-Description=Awesome Window Manager
+Description=Awesome window manager at display %i
 After=xserver@%i.target
+After=xorg@%i.service
+After=vncserver@%i.service
+After=x11vnc@%i.service
+After=xephyr@%i.service
 After=compton@%i.service
 StopWhenUnneeded=true
 
-Requires=xserver@%i.target
+Requisite=xserver@%i.target
 Requires=dbus.socket
 
 [Service]

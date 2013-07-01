@@ -1,11 +1,1 @@
-[Unit]
-Description=X.org at display 0
-Requires=dbus.socket
-BindsTo=xorg@0.service
-StopWhenUnneeded=true
-AllowIsolate=true
-
-[Install]
-WantedBy=awesome.target
-WantedBy=openbox.target
-WantedBy=xmonad.target
+/dev/null

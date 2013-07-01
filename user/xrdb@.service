@@ -1,8 +1,13 @@
 [Unit]
 Description=X resource setting
 Documentation=man:xrdb(1)
+After=xserver@%i.target
 After=xorg@%i.service
-BindsTo=xorg@%i.service
+After=vncserver@%i.service
+After=x11vnc@%i.service
+After=xephyr@%i.service
+
+Requisite=xserver@%i.service
 
 [Service]
 Type=oneshot
@@ -10,6 +15,3 @@ EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
 ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources
 ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources.d/%H
-
-[Install]
-WantedBy=xorg.target

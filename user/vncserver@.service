@@ -1,8 +1,8 @@
 [Unit]
-Description=VNC server
+Description=VNC server at display %i
 StopWhenUnneeded=true
 
-Wants=xserver@%i.target
+BindsTo=xserver@%i.target
 Before=xserver@%i.target
 Conflicts=xorg@%i.service x11vnc@%i.service xephyr@%i.service
 

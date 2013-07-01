@@ -1,10 +1,10 @@
 [Unit]
-Description=Xephyr server
+Description=Xephyr server at display %i
 StopWhenUnneeded=true
 
-Wants=xserver@%i.target
+BindsTo=xserver@%i.target
 Before=xserver@%i.target
-Conflicts=x11vnc@%i.service vnc@%i.service xorg@%i.service
+Conflicts=x11vnc@%i.service vncserver@%i.service xorg@%i.service
 
 [Service]
 Type=forking

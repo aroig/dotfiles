@@ -1,10 +1,10 @@
 [Unit]
-Description=Xorg server
+Description=Xorg server at display %i
 StopWhenUnneeded=true
 
-Wants=xserver@%i.target
+BindsTo=xserver@%i.target
 Before=xserver@%i.target
-Conflicts=x11vnc@%i.service vnc@%i.service xephyr@%i.service
+Conflicts=x11vnc@%i.service vncserver@%i.service xephyr@%i.service
 
 [Service]
 Type=notify
