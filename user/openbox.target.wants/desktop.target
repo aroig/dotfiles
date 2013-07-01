@@ -1,5 +1,1 @@
-[Unit]
-Description=Desktop Environment
-Requires=dbus.socket
-Requires=xorg.target
-AllowIsolate=true
+../desktop.target
