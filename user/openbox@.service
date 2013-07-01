@@ -8,7 +8,7 @@ Requires=dbus.socket
 
 [Service]
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-Environment=DISPLAY=:%I
+Environment=DISPLAY=:%i
 ExecStart=/home/abdo/.config/systemd/scripts/openbox start
 # ExecStop=/home/abdo/.config/systemd/scripts/openbox stop
 

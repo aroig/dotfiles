@@ -1,13 +1,13 @@
 [Unit]
 Description=X resource setting
 Documentation=man:xrdb(1)
-After=xorg@%I.service
-BindsTo=xorg@%I.service
+After=xorg@%i.service
+BindsTo=xorg@%i.service
 
 [Service]
 Type=oneshot
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-Environment=DISPLAY=:%I
+Environment=DISPLAY=:%i
 ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources
 ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources.d/%H
 

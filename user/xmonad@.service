@@ -9,7 +9,7 @@ Requires=dbus.socket
 [Service]
 Type=forking
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-Environment=DISPLAY=:%I
+Environment=DISPLAY=:%i
 ExecStart=/home/abdo/.config/systemd/scripts/xmonad start
 
 [Install]

@@ -4,5 +4,5 @@ StopWhenUnneeded=true
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/vncserver :%I -nolisten tcp -localhost -nevershared -geometry 800x600 -depth 24
+ExecStart=/usr/bin/vncserver :%i -nolisten tcp -localhost -nevershared -geometry 800x600 -depth 24
 

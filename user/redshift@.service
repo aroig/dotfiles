@@ -1,16 +1,16 @@
 [Unit]
 Description=Redshift
-After=xorg@%I.service
-After=compton@%I.service
-After=xrandr@%I.service
+After=xorg@%i.service
+After=compton@%i.service
+After=xrandr@%i.service
 StopWhenUnneeded=true
 
-Requires=xorg@%I.service
+Requires=xorg@%i.service
 
 [Service]
 Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-Environment=DISPLAY=:%I
+Environment=DISPLAY=:%i
 ExecStart=/usr/bin/redshift -l 41.383:2.183 -t 6500:5500 -g 1.0 -m randr
 
 [Install]

@@ -1,12 +1,12 @@
 [Unit]
 Description=X initialization commands
-After=xorg@%I.service
-BindsTo=xorg@%I.service
+After=xorg@%i.service
+BindsTo=xorg@%i.service
 
 [Service]
 Type=oneshot
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
-Environment=DISPLAY=:%I
+Environment=DISPLAY=:%i
 ExecStart=/usr/bin/setxkbmap -option terminate:ctrl_alt_bksp 
 ExecStart=/usr/bin/xset r rate 500 40  
 ExecStart=/bin/bash %h/.config/systemd/conf/xinitrc.d/%H

@@ -4,4 +4,4 @@ After=mpd.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/mpc %I 
+ExecStart=/usr/bin/mpc %i 
