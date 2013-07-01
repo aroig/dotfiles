@@ -1,7 +1,7 @@
 [Unit]
 Description=X.org
 Requires=dbus.socket
-BindsTo=xorg.service
+BindsTo=xorg@0.service
 StopWhenUnneeded=true
 AllowIsolate=true
 

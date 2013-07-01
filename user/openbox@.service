@@ -5,10 +5,10 @@ StopWhenUnneeded=true
 
 Requires=xorg.target
 Requires=dbus.socket
-Conflicts=awesome.service xmonad.service
 
 [Service]
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
+Environment=DISPLAY=:%I
 ExecStart=/home/abdo/.config/systemd/scripts/openbox start
 # ExecStop=/home/abdo/.config/systemd/scripts/openbox stop
 

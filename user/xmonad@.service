@@ -5,11 +5,11 @@ StopWhenUnneeded=true
 
 Requires=xorg.target
 Requires=dbus.socket
-Conflicts=awesome.service openbox.service
 
 [Service]
 Type=forking
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
+Environment=DISPLAY=:%I
 ExecStart=/home/abdo/.config/systemd/scripts/xmonad start
 
 [Install]

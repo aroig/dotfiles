@@ -1,13 +1,14 @@
 [Unit]
 Description=X resource setting
 Documentation=man:xmodmap(1)
-After=xorg.service
-After=xinit.service
-BindsTo=xorg.service
+After=xorg@%I.service
+After=xinit@%I.service
+BindsTo=xorg@%I.service
 
 [Service]
 Type=oneshot
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
+Environment=DISPLAY=:%I
 ExecStart=/usr/bin/xmodmap %h/.config/systemd/conf/Xmodmap
 
 [Install]

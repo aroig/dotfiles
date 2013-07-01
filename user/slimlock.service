@@ -2,7 +2,7 @@
 [Unit]
 Description=Lock screen with slimlock
 Requires=dbus.socket
-Requisite=xorg.service
+Requisite=xorg.target
 
 [Service]
 Type=simple

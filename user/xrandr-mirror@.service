@@ -1,12 +1,12 @@
 [Unit]
-Description=X screen setup with randr
+Description=X screen setup: randr mirror
 After=xorg@%I.service
 BindsTo=xorg@%I.service
 
 [Service]
 Type=oneshot
 Environment=DISPLAY=:%I
-ExecStart=/home/abdo/.config/systemd/scripts/xrandr
+ExecStart=/home/abdo/.config/systemd/scripts/xrandr mirror
 
 [Install]
 WantedBy=xorg.target

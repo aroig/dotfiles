@@ -1,6 +1,6 @@
-
 [Unit]
 Description=A Desktop Environment built on Openbox
 Requires=dbus.socket
 Requires=xorg.target
+BindsTo=openbox@0.service
 AllowIsolate=true
