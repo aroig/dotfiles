@@ -26,13 +26,13 @@ function add_to_pathlist_left () {
 # Some software
 #------------------------------
 
-export EDITOR=vim                        # default editor
-export EMACS="emacsclient -c -a emacs"   # emacs
-export BROWSER=chromium                  # default browser
-export FILEMANAGER=thunar                # the file manager
-export PAGER=vimpager                    # wrapper for vim
-export TERMCMD=urxvt                     # terminal
-export SHELL=zsh
+export EDITOR=/usr/bin/vim                        # default editor
+export EMACS="/usr/bin/emacsclient -c -a emacs"   # emacs
+export BROWSER=/usr/bin/chromium                  # default browser
+export FILEMANAGER=/usr/bin/thunar                # the file manager
+export PAGER=/usr/bin/vimpager                    # wrapper for vim
+export TERMCMD=/usr/bin/urxvt                     # terminal
+export SHELL=/bin/zsh
 
 
 #------------------------------
