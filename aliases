@@ -45,7 +45,7 @@ alias rsy='rsync -avz --progress --delete'
 alias ediff='emacs -diff'
 
 alias sctl='sudo systemctl'
-alias jctl='sudo journalctl'
+alias jctl='sudo journalctl --since=yesterday'
 alias nctl='sudo netctl'
 alias uctl='systemctl --user'
 
@@ -190,8 +190,18 @@ tmd() { echo "ddclient.terminal:newtab('$PWD')" | awesome-client; }
 #------------------------------
 
 # stx() { startx awesome -- vt$(fgconsole 2>/dev/null); }
-stx() { systemctl --user start awesome.target; }
-klx() { systemctl --user stop awesome.target; }
+stx() {
+    if [ ! $1 ]; then
+        wm=awesome
+    else
+        wm="$1"
+    fi
+    systemctl --user start wm@$wm.target;
+}
+
+klx() { 
+    systemctl --user stop xserver@0.target;
+}
 
 # NOTE
 # If I use systemctl --user exit, the user session tries to perform a pam_close_session, but this is
@@ -204,3 +214,4 @@ klx() { systemctl --user stop awesome.target; }
 reboot()   { systemctl --user exit; sudo systemctl reboot;   }
 poweroff() { systemctl --user exit; sudo systemctl poweroff; }
 suspend()  { sudo systemctl suspend;  }
+
