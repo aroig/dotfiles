@@ -1,0 +1,8 @@
+[Unit]
+Description=VNC server
+StopWhenUnneeded=true
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/vncserver :%I -nolisten tcp -localhost -nevershared -geometry 800x600 -depth 24
+
