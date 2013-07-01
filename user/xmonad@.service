@@ -2,12 +2,11 @@
 Description=Xmonad window manager at display %i
 After=xserver@%i.target
 After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
-After=xinit@%i.service xrdb@%i.service xmodmap@%i.service
 After=compton@%i.service
 Before=tint2@%i.service
 StopWhenUnneeded=true
 
-Requires=xserver@%i.target
+Requisite=xserver@%i.target
 Requires=tint2@%i.service
 Requires=dbus.socket
 

@@ -1,9 +1,9 @@
 [Unit]
 Description=Tint2 panel
-After=xorg@%i.service
-StopWhenUnneeded=true
+After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
 
-Requisite=xorg@%i.service
+StopWhenUnneeded=true
+Requisite=xserver@%i.target
 
 [Service]
 Type=simple
