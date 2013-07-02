@@ -43,6 +43,8 @@ set link-hadjust            false
 
 set font                    "monospace normal 11"
 
+# fixed status and input bars
+set guioptions              sc
 
 
 # Key maps
