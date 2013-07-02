@@ -107,7 +107,7 @@
   (setq jabber-chat-system-prompt-format  "%t *** ")
 
   (setq jabber-chat-time-format "[%H:%M:%S]")
-  (setq jabber-chat-delayed-time-format "[%Y-%m-%d][%H:%M:%S]")
+  (setq jabber-chat-delayed-time-format "[%Y-%m-%d %H:%M:%S]")
 
   (setq jabber-print-rare-time t)
   (setq jabber-rare-time-format "%a %e %b %Y %H:00")
@@ -290,7 +290,7 @@
   (flyspell-mode 1)
 
   ;; Timestamps
-  (setq rcirc-time-format "[%Y-%m-%d][%H:%M:%S] ")
+  (setq rcirc-time-format "[%Y-%m-%d %H:%M:%S] ")
 
   ;; Track
   ; (rcirc-track-minor-mode 1)
