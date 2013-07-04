@@ -3,7 +3,7 @@
 # ----------------------------------------------------------
 
 set default-fg              "#dcdccc"
-set default-bg              "#1f1f1f"
+set default-bg              "#2f2f2f"
 
 set notification-error-fg   "#dca3a3"
 set notification-error-bg   "#2f2f2f"
@@ -41,7 +41,8 @@ set adjust-open             "width"
 set search-hadjust          false
 set link-hadjust            false
 
-set font                    "monospace normal"
+set font                    "monospace normal 12"
+set border-width            5
 
 # fixed status and input bars
 set guioptions              sc
