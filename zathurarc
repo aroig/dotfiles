@@ -41,7 +41,7 @@ set adjust-open             "width"
 set search-hadjust          false
 set link-hadjust            false
 
-set font                    "monospace normal 11"
+set font                    "monospace normal"
 
 # fixed status and input bars
 set guioptions              sc
