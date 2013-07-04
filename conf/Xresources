@@ -41,12 +41,8 @@ urxvt.color13: #E9A0D4
 urxvt.color14: #A1DCDF
 urxvt.color15: #EEEEEC
 
-! Font, etc
-!urxvt.font: xft:Terminus:pixelsize=20
-!urxvt.font: xft:Monaco-10
-!urxvt.font: xft:UbuntuMono-12
+! UI
 urxvt.scrollBar: False
-urxvt.internalBorder: 6
 urxvt.cursorBlink: True
 urxvt.cursorUnderline: True
 
