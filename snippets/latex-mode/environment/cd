@@ -1,0 +1,8 @@
+# -*- coding: utf-8 -*-
+# name: comdiag block
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: cd
+# --
+\\begin{comdiag} \\label{eq:${1:bla}}
+  $0
+\\end{comdiag}
