@@ -3,7 +3,7 @@
 # ----------------------------------------------------------
 
 set default-fg              "#dcdccc"
-set default-bg              "#2f2f2f"
+set default-bg              "#1f1f1f"
 
 set notification-error-fg   "#dca3a3"
 set notification-error-bg   "#2f2f2f"
