@@ -17,6 +17,10 @@ Xft.rgba: none
 !! urxvt
 !!---------------------------------
 
+! font
+urxvt.font: xft:monospace-12
+urxvt.letterSpace: 0
+
 ! Icon
 urxvt.iconFile: /usr/share/icons/Faience/apps/scalable/utilities-terminal.svg
 
@@ -68,8 +72,9 @@ urxvt.iso14755:     false
 
 
 
-!! Emacs
+!! emacs
 !!---------------------------------
+Emacs.font: monospace-12
 Emacs*toolBar: off
 Emacs*verticalScrollBars: off
 Emacs*menuBar: off

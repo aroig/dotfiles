@@ -1,9 +1,6 @@
 
 !! urxvt
-urxvt.font: xft:monospace-12
-urxvt.letterSpace: 0
 urxvt.internalBorder: 6
 
 !! emacs
-Emacs.font: monospace-12
 Emacs.internalBorder: 3
