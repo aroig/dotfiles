@@ -3,4 +3,5 @@
 urxvt.internalBorder: 6
 
 !! emacs
-Emacs.internalBorder: 1
+Emacs.internalBorder: 0
+
