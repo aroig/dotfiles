@@ -8,4 +8,4 @@ urxvt.letterSpace: 0
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 Emacs.font: monospace-12
-
+Emacs.internalBorder: 3
