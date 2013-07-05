@@ -13,6 +13,10 @@ command! -bang Q q<bang>
 " redraw screen + hide search highlights
 nnoremap <C-L> :nohl<CR><C-L>     
 
+" movement by blocks of 30 lines
+map J 30j
+map K 30k
+ 
 " interacting with X clipboard
 " vmap <C-c> :w !xsel -i -b<CR><CR>
 
