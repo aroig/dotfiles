@@ -18,7 +18,7 @@ Xft.rgba: none
 !!---------------------------------
 
 ! font
-urxvt.font: xft:monospace-12
+urxvt.font: xft:terminal
 urxvt.letterSpace: 0
 
 ! Icon
@@ -74,12 +74,11 @@ urxvt.iso14755:     false
 
 !! emacs
 !!---------------------------------
-Emacs.font: monospace-12
-Emacs*toolBar: off
-Emacs*verticalScrollBars: off
-Emacs*menuBar: off
-Emacs*foreground: #dcdccc
-Emacs*background: #2f2f2f
+Emacs.toolBar: off
+Emacs.verticalScrollBars: off
+Emacs.menuBar: off
+Emacs.foreground: #dcdccc
+Emacs.background: #2f2f2f
 
 
 !! xscreensaver
