@@ -66,6 +66,10 @@
   (define-key evil-normal-state-map (kbd "C-o") 'evil-jump-backward)
   (define-key evil-normal-state-map (kbd "C-i") 'evil-jump-forward)
 
+  ;; movement by blocks
+  (define-key evil-normal-state-map (kbd "J") (lambda()(interactive)(forward-line 30)))
+  (define-key evil-normal-state-map (kbd "K") (lambda()(interactive)(forward-line -30)))
+
   ;; Bind esc to H-a
   (define-key evil-normal-state-map (kbd "H-a") 'evil-force-normal-state)
   (define-key evil-visual-state-map (kbd "H-a") 'evil-exit-visual-state)
