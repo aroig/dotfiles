@@ -42,7 +42,7 @@ set search-hadjust          false
 set link-hadjust            false
 
 set font                    "terminal"
-set border-width            3
+set border-width            4
 
 # fixed status and input bars
 set guioptions              sc
