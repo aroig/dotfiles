@@ -51,6 +51,9 @@ elseif match(ancestors, "git") != -1
 
 elseif match(ancestors, "hg") != -1
     autocmd VimEnter * set ft=hg
+
+elseif match(ancestors, "journalctl") != -1
+    autocmd VimEnter * set ft=messages
     
 endif
 
