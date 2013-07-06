@@ -109,9 +109,8 @@ hi StatusLine      ctermfg=Gray         cterm=reverse
 " Other Stuff
 " ----------------------------------------------------------
 
-
 hi Directory       ctermfg=cyan     cterm=bold
-hi ErrorMsg        ctermfg=red      cterm=bold
+hi ErrorMsg        ctermfg=red      cterm=bold     ctermbg=none
 
 
 hi FoldColumn      ctermfg=green    cterm=bold
