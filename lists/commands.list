@@ -63,9 +63,4 @@ return {
    brasero                   = "brasero",
 
    nautilus                  = "nautilus",
-   downloads                 = apps.filemanager .. " ~/Downloads",
-   teaching                  = apps.filemanager .. " ~/Documents/teaching",
-   papers                    = apps.filemanager .. " ~/Documents/papers",
-   software                  = apps.filemanager .. " ~/Software",
-   desktop                   = apps.filemanager .. " ~/Desktop",
 }
