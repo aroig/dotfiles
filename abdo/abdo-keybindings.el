@@ -116,7 +116,7 @@
 
 ;; Exit keybindings
 (global-set-key (kbd "C-x C-z") 'abdo-exit)
-(global-set-key (kbd "C-x C-a") 'abdo-done)
+(global-set-key (kbd "C-x C-<") 'abdo-done)
 (if (daemonp)
     (progn
       (global-set-key (kbd "C-x C-c") 'abdo-done)
@@ -169,6 +169,7 @@
         (make-local-variable 'abdo-commit-on-kill)
         (setq abdo-commit-on-kill nil)))
 
+
 ;; Git rebase
 (add-hook 'rebase-mode-hook
 	  (lambda ()
@@ -205,7 +206,6 @@
 
 
 ;; org mode
-
 (defun abdo-org-mode-keybindings ()
   (local-set-key (kbd "s-c y") 'doku-import-yank)
   (local-set-key (kbd "H-o p") 'abdo-org-latex-preview-all))
