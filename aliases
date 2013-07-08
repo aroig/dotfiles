@@ -18,6 +18,7 @@ alias tree='tree -C'
 alias df='dfc'
 alias du='cdu -dLh -i'
 alias alsi='alsi -a -u'
+alias grep='grep --color=auto'
 
 # alias ping='$HOME/Software/conf/color-wrappers/ping'
 # alias unisonb='$HOME/Software/conf/color-wrappers/unison -batch'
@@ -44,13 +45,6 @@ alias vp='vimpager'
 alias rsy='rsync -avz --progress --delete'
 alias ediff='emacs -diff'
 
-alias sctl='sudo systemctl'
-alias jctl='sudo journalctl --since=yesterday'
-alias nctl='sudo netctl'
-alias uctl='systemctl --user'
-
-alias lock='systemctl --user lock.target'
-
 alias ahi='asym hi'
 alias abye='asym bye'
 
@@ -65,6 +59,56 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
+
+
+#------------------------------
+# Systemd aliases
+#------------------------------
+jctl() {
+  sudo journalctl --since=yesterday "$@"
+}
+
+sctl() {
+  setopt localoptions nomonitor # disable monitored job control 
+  sudo journalctl -q -f -o cat -n 0 &
+  jrnl_pid=$!
+
+  sudo systemctl --system "$@"; sleep 0.3
+  kill -s TERM $jrnl_pid; sleep 0.3
+}
+compdef sctl=systemctl
+
+nctl() {
+  setopt localoptions nomonitor # disable monitored job control 
+  sudo journalctl -q -f -o cat -n 0 &
+  jrnl_pid=$!
+
+  sudo netctl "$@"; sleep 0.3
+  kill -s TERM $jrnl_pid; sleep 0.3
+}
+compdef nctl=netctl
+
+uctl() {
+  setopt localoptions nomonitor # disable monitored job control 
+  journalctl -q -f -o cat -n 0 _Uid=$(id -u) &
+  jrnl_pid=$!
+
+  systemctl --user "$@"; sleep 0.3
+  kill -s TERM $jrnl_pid; sleep 0.3
+}
+compdef uctl=systemctl
+
+actl() {
+    cmd="$1"
+    shift
+    if [ "$cmd" = "dot" ]; then
+        systemd-analyze dot "$@" | dot -Tsvg
+    else
+        systemd-analyze "$cmd" "$@"
+    fi
+}
+
+alias lock='systemctl --user lock.target'
 
 
 #------------------------------
