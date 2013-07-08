@@ -1,5 +1,5 @@
 [Default Applications]
-inode/directory=nautilus.desktop;
+inode/directory=thunar.desktop;
 
 x-scheme-handler/http=chromium.desktop;
 x-scheme-handler/https=chromium.desktop;
