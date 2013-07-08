@@ -1,0 +1,5 @@
+[Unit]
+Description=mail and news timers
+Requires=dbus.socket
+StopWhenUnneeded=true
+AllowIsolate=true

@@ -1,0 +1,10 @@
+[Unit]
+Description=postprocess mail and news
+After=mail.service
+After=news.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mutag -i
+ExecStart=/usr/bin/mutag -Amu -q 'date:1m..now'
+ExecStart=/usr/bin/mutag -i

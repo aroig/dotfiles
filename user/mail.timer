@@ -1,0 +1,4 @@
+[Timer]
+OnUnitInactiveSec=3min
+OnActiveSec=3min
+Unit=mail.service

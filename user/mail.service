@@ -1,0 +1,8 @@
+[Unit]
+Description=fetch mail
+Wants=mutag.service
+Before=mutag.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/offlineimap -l %h/var/log/offlineimap.log

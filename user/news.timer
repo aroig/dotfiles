@@ -1,0 +1,4 @@
+[Timer]
+OnUnitInactiveSec=2h
+OnActiveSec=2h
+Unit=news.service
