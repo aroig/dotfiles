@@ -67,10 +67,7 @@ alias ......="cd ../../../../.."
 run_with_journal() {
     setopt localoptions nomonitor # disable monitored job control
     _jctlargs=(--quiet --follow --output=cat --lines=0)
-    
-    if [ "$1" = "sudo" ]; then sudo journalctl $_jctlargs[@] &
-    else                       journalctl $_jctlargs[@] &
-    fi
+    journalctl $_jctlargs[@] &
     _jrnl_pid=$!
 
     $@; _cmd_exitval=$?; sleep 0.3
@@ -81,21 +78,10 @@ run_with_journal() {
 
 jctl() { sudo journalctl --since=yesterday $@ }
 
-sctl() {
-    case "$1" in
-        start|stop) run_with_journal sudo systemctl --system $@   ;;
-        *)          sudo systemctl --system $@                    ;;
-    esac
-       
- }
+sctl() { sudo systemctl --system $@ }
 compdef sctl=systemctl
 
-nctl() {
-    case "$1" in
-        start|stop|switch-to)  run_with_journal sudo netctl $@    ;;
-        *)                     sudo netctl $@                     ;;
-    esac
- }
+nctl() { sudo netctl $@ }
 compdef nctl=netctl
 
 uctl() {
