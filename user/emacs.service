@@ -9,6 +9,7 @@ Requisite=xorg@0.service
 
 [Service]
 Type=forking
+SyslogIdentifier=emacs
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:0
 ExecStart=/home/abdo/.config/systemd/scripts/emacs.sh start

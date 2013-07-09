@@ -12,6 +12,7 @@ Requires=dbus.socket
 
 [Service]
 Type=simple
+SyslogIdentifier=openbox
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
 ExecStart=/home/abdo/.config/systemd/scripts/openbox.sh start

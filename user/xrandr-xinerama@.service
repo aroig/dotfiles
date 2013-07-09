@@ -6,6 +6,7 @@ Requisite=xorg@%i.service
 
 [Service]
 Type=oneshot
+SyslogIdentifier=xrandr
 Environment=DISPLAY=:0
 ExecStart=/home/abdo/.config/systemd/scripts/xrandr.sh xinerama
 
