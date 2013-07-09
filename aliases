@@ -76,12 +76,12 @@ run_with_journal() {
     return $_cmd_exitval
 }
 
-jctl() { sudo journalctl --since=yesterday $@ }
+jctl() { sudo journalctl --since=yesterday $@; }
 
-sctl() { sudo systemctl --system $@ }
+sctl() { sudo systemctl --system $@; }
 compdef sctl=systemctl
 
-nctl() { sudo netctl $@ }
+nctl() { sudo netctl $@; }
 compdef nctl=netctl
 
 uctl() {
