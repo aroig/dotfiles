@@ -1,0 +1,6 @@
+[Unit]
+Description=check for new mail
+
+[Service]
+Type=oneshot
+ExecStart=/home/abdo/.config/systemd/scripts/check-mail.py

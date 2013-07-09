@@ -1,0 +1,5 @@
+[Timer]
+OnActiveSec=5
+OnUnitInactiveSec=2min
+
+Unit=check-mail.service
