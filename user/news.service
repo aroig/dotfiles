@@ -2,8 +2,7 @@
 Description=fetch news
 Wants=mutag.service
 Before=mutag.service
-Conflicts=mutag.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/rss2maildir -v -l %h/var/log/offlineimap.log
+ExecStart=/usr/bin/rss2maildir -v -l %h/var/log/rss2maildir.log
