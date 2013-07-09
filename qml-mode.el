@@ -70,7 +70,34 @@
   (set (make-local-variable 'comment-end) " */")
   (run-hooks 'qml-mode-hook))
 
+(define-key qml-mode-map "\M-\C-a" 'qml-beginning-of-defun)
+(define-key qml-mode-map "\M-\C-e" 'qml-end-of-defun)
+(define-key qml-mode-map "\M-\C-h" 'qml-mark-defun)
+
 (define-key qml-mode-map (kbd "C-M-q") 'qml-indent-exp)
+
+(defconst qml-defun-start-regexp "\{")
+
+(defconst qml-defun-end-regexp "\}")
+
+(defun qml-beginning-of-defun ()
+  "Set the pointer at the beginning of the element within which the pointer is located."
+  (interactive)
+  (re-search-backward qml-defun-start-regexp))
+
+(defun qml-end-of-defun ()
+  "Set the pointer at the beginning of the element within which the pointer is located."
+  (interactive)
+  (re-search-forward qml-defun-end-regexp))
+
+(defun qml-mark-defun ()
+  "Set the region pointer around element within which the pointer is located."
+  (interactive)
+  (beginning-of-line)
+  (qml-end-of-defun)
+  (set-mark (point))
+  (qml-beginning-of-defun))
+
 
 (defun qml-indent-exp ()
   (interactive)
