@@ -64,47 +64,52 @@ alias ......="cd ../../../../.."
 #------------------------------
 # Systemd aliases
 #------------------------------
-jctl() {
-  sudo journalctl --since=yesterday "$@"
+run_with_journal() {
+    setopt localoptions nomonitor # disable monitored job control
+    _jctlargs=(--quiet --follow --output=cat --lines=0)
+    
+    if [ "$1" = "sudo" ]; then sudo journalctl $_jctlargs[@] &
+    else                       journalctl $_jctlargs[@] &
+    fi
+    _jrnl_pid=$!
+
+    $@; _cmd_exitval=$?; sleep 0.3
+    kill -s TERM $_jrnl_pid;
+    wait $_jrnl_pid; sleep 0.3
+    return $_cmd_exitval
 }
+
+jctl() { sudo journalctl --since=yesterday $@ }
 
 sctl() {
-  setopt localoptions nomonitor # disable monitored job control 
-  sudo journalctl -q -f -o cat -n 0 &
-  jrnl_pid=$!
-
-  sudo systemctl --system "$@"; sleep 0.3
-  kill -s TERM $jrnl_pid; sleep 0.3
-}
+    case "$1" in
+        start|stop) run_with_journal sudo systemctl --system $@   ;;
+        *)          sudo systemctl --system $@                    ;;
+    esac
+       
+ }
 compdef sctl=systemctl
 
 nctl() {
-  setopt localoptions nomonitor # disable monitored job control 
-  sudo journalctl -q -f -o cat -n 0 &
-  jrnl_pid=$!
-
-  sudo netctl "$@"; sleep 0.3
-  kill -s TERM $jrnl_pid; sleep 0.3
-}
+    case "$1" in
+        start|stop|switch-to)  run_with_journal sudo netctl $@    ;;
+        *)                     sudo netctl $@                     ;;
+    esac
+ }
 compdef nctl=netctl
 
 uctl() {
-  setopt localoptions nomonitor # disable monitored job control 
-  journalctl -q -f -o cat -n 0 _Uid=$(id -u) &
-  jrnl_pid=$!
-
-  systemctl --user "$@"; sleep 0.3
-  kill -s TERM $jrnl_pid; sleep 0.3
+    case "$1" in
+        start|stop)  run_with_journal systemctl --user $@         ;;
+        *)           systemctl --user $@                          ;;
+    esac
 }
 compdef uctl=systemctl
 
 actl() {
-    cmd="$1"
-    shift
-    if [ "$cmd" = "dot" ]; then
-        systemd-analyze dot "$@" | dot -Tsvg
-    else
-        systemd-analyze "$cmd" "$@"
+    cmd="$1"; shift
+    if [ "$cmd" = "dot" ]; then systemd-analyze dot "$@" | dot -Tsvg
+    else                        systemd-analyze "$cmd" "$@"
     fi
 }
 
