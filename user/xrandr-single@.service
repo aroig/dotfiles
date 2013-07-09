@@ -7,4 +7,4 @@ Requisite=xorg@%i.service
 [Service]
 Type=oneshot
 Environment=DISPLAY=:0
-ExecStart=/home/abdo/.config/systemd/scripts/xrandr single
+ExecStart=/home/abdo/.config/systemd/scripts/xrandr.sh single

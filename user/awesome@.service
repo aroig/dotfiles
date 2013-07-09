@@ -13,6 +13,6 @@ Requires=dbus.socket
 Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
-ExecStart=/home/abdo/.config/systemd/scripts/awesome start
+ExecStart=/home/abdo/.config/systemd/scripts/awesome.sh start
 KillSignal=SIGINT
 TimeoutSec=15

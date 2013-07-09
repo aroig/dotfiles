@@ -14,4 +14,4 @@ Requires=dbus.socket
 Type=simple
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
-ExecStart=/home/abdo/.config/systemd/scripts/openbox start
+ExecStart=/home/abdo/.config/systemd/scripts/openbox.sh start

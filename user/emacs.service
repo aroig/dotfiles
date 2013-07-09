@@ -11,11 +11,11 @@ Requisite=xorg@0.service
 Type=forking
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:0
-ExecStart=/home/abdo/.config/systemd/scripts/emacs start
+ExecStart=/home/abdo/.config/systemd/scripts/emacs.sh start
 # Kill with a SIGINT. Usually at this point I have
 # gently killed emacs
 KillSignal=SIGINT
-# ExecStop=/home/abdo/.config/systemd/scripts/emacs stop
+# ExecStop=/home/abdo/.config/systemd/scripts/emacs.sh stop
 SuccessExitStatus=0 15
 
 [Install]
