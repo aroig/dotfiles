@@ -1,0 +1,6 @@
+[Unit]
+Description=fetch google contacts
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/gcont -d -p %h/mail/contacts
