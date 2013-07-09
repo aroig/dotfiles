@@ -6,7 +6,7 @@
 local tonumber = tonumber
 local io = { open = io.open }
 
-local pvol_file = "/tmp/abdo-pvol/vol"
+local pvol_file = os.getenv("XDG_RUNTIME_DIR") .. "/pvol"
 
 local function get_volume()
    local f = io.open(pvol_file, "r")
