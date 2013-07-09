@@ -100,7 +100,7 @@ class GmailNotifier(object):
 
   def sync_mail(self):
     try:
-      subprocess.call(['systemctl', '--user', '--no-block', 'start', 'mail.service'])
+      subprocess.call(['systemctl', '--user', '--no-block', 'start', 'fetch-mail.service'])
       for k, msg in new_messages.items():
         self.desktop_mail_notification(msg)
 

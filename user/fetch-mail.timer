@@ -2,4 +2,4 @@
 OnActiveSec=5
 OnUnitInactiveSec=3min
 
-Unit=mail.service
+Unit=fetch-mail.service
