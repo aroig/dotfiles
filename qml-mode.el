@@ -22,7 +22,7 @@
 
 ;;; Commentary:
 
-;; This is a simple major mode for editing editing Qt QML files.
+;; This is a simple major mode for editing Qt QML files.
 
 ;; Put this file into your load-path and the following into your
 ;; ~/.emacs:
