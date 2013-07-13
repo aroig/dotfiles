@@ -2,4 +2,4 @@
 OnActiveSec=5
 OnUnitInactiveSec=2h
 
-Unit=fetch-news.service
+Unit=fetch-news.target

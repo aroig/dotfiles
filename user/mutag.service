@@ -1,7 +1,7 @@
 [Unit]
 Description=postprocess mail and news
-After=mail.service
-After=news.service
+After=offlineimap.service
+After=rss2maildir.service
 
 [Service]
 Type=oneshot

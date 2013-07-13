@@ -1,0 +1,7 @@
+[Unit]
+Description=fetch news
+Requires=dbus.socket
+StopWhenUnneeded=true
+AllowIsolate=true
+Wants=rss2maildir.service mutag.service
+

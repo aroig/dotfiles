@@ -1,5 +1,7 @@
 [Unit]
-Description=mail and news timers
+Description=fetch mail
 Requires=dbus.socket
 StopWhenUnneeded=true
 AllowIsolate=true
+Wants=offlineimap.service mutag.service
+
