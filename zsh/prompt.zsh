@@ -1,5 +1,6 @@
+#!/bin/zsh
 #------------------------------------------------------------------#
-# File:     prompt.sh   Prompt                                     #
+# File:     prompt.zsh         Prompt                              #
 # Version:                                                         #
 # Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
 #------------------------------------------------------------------#

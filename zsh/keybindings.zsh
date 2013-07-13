@@ -1,5 +1,6 @@
+#!/bin/zsh
 #------------------------------------------------------------------#
-# File:     keybindings.sh   Keybinding adjustments                #
+# File:     keybindings.zsh    Keybinding adjustments              #
 # Version:                                                         #
 # Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
 #------------------------------------------------------------------#

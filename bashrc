@@ -17,16 +17,27 @@ if [ -f $HOME/.zshenv ]; then
 fi
 
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+# If not running interactively, do nothing
+# [[ $- != *i* ]] && return
 
 
 #------------------------------
-# Source files in .zshrc.d
+# Set aliases
 #------------------------------
 
-if [ -d $HOME/.bashrc.d ]; then
-    for src in $HOME/.bashrc.d/*.sh; do
-	source $src
+if [ -f $HOME/.aliases ]; then
+    source $HOME/.aliases
+fi
+
+
+#------------------------------
+# Source files in .bash
+#------------------------------
+
+_BASH_DIR=$HOME/.bash
+if [ -d $_BASH_DIR ]; then
+    for src in $_BASH_DIR/*.sh; do
+	    source $src
     done
 fi
+

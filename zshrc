@@ -32,7 +32,7 @@ stty start undef
 # ----------------------------
 # Modifying fpath
 # ----------------------------
-fpath=($HOME/.zshrc.d/completions $fpath)
+fpath=($HOME/.zsh/completions $fpath)
 
 
 
@@ -60,14 +60,11 @@ autoload -U add-zsh-hook
 
 
 # ----------------------------
-# Source files in .zshrc.d
+# Set environment
 # ----------------------------
 
-if [ -d $HOME/.zshrc.d ]; then
-    ZSHRCD="$HOME/.zshrc.d"
-    for src in $ZSHRCD/*.sh; do
-	source $src
-    done
+if [ -f $HOME/.zshenv ]; then
+    source $HOME/.zshenv
 fi
 
 
@@ -75,14 +72,20 @@ fi
 # Set aliases
 # ----------------------------
 
-# Environment
-if [ -f $HOME/.zshenv ]; then
-    source $HOME/.zshenv
-fi
-
-# Aliases
 if [ -f $HOME/.aliases ]; then
     source $HOME/.aliases
+fi
+
+
+# ----------------------------
+# Source files in .zsh
+# ----------------------------
+
+_ZSH_DIR="$HOME/.zsh"
+if [ -d $_ZSH_DIR ]; then
+    for src in $_ZSH_DIR/*.zsh; do
+	    source $src
+    done
 fi
 
 

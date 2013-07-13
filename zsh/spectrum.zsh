@@ -1,4 +1,4 @@
-#! /bin/zsh
+#!/bin/zsh
 # A script to make using 256 colors in zsh less painful.
 # P.C. Shyamshankar <sykora@lucentbeing.com>
 

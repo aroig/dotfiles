@@ -1,5 +1,6 @@
+#!/bin/zsh
 #------------------------------------------------------------------#
-# File:     prompt.sh   Prompt                                     #
+# File:     vcs.zsh            Vcs information                     #
 # Version:                                                         #
 # Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
 #------------------------------------------------------------------#
@@ -38,9 +39,9 @@ function refresh_current_vcs_vars() {
     if [[ "$__CURRENT_VCS_PROGRAM" == "" ]]; then detect_current_vcs; fi
 
     case $__CURRENT_VCS_PROGRAM in
-	git) source $ZSHRCD/vcs/git.sh ;;
-         hg) source $ZSHRCD/vcs/hg.sh  ;;
-        bzr) source $ZSHRCD/vcs/bzr.sh ;;        
+	git) source $_ZSH_DIR/vcs/git.zsh ;;
+         hg) source $_ZSH_DIR/vcs/hg.zsh  ;;
+        bzr) source $_ZSH_DIR/vcs/bzr.zsh ;;        
     esac
 }
 

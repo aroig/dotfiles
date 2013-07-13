@@ -1,3 +1,4 @@
+#!/bin/zsh
 #------------------------------------------------------------------#
 # File:     wintitle.sh   Set terminal window title                #
 # Version:                                                         #

@@ -4,8 +4,8 @@ if [ ! "$1" ]; then           session=default
 else                          session="$1"
 fi
 
-if [ -f ~/tmux.d/$session ]; then  opts_file="$HOME/.tmux.d/$session"
-else                               opts_file="$HOME/.tmux.d/default"
+if [ -f ~/tmux.d/$session ]; then  opts_file="$HOME/.tmux/$session"
+else                               opts_file="$HOME/.tmux/default"
 fi
 
 tmux attach-session -t "$session" ||

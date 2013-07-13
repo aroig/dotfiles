@@ -1,5 +1,6 @@
+#!/bin/zsh
 #------------------------------------------------------------------#
-# File:     history.sh   History stuff                             #
+# File:     history.zsh        History stuff                       #
 # Version:                                                         #
 # Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
 #------------------------------------------------------------------#

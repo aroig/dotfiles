@@ -1,5 +1,4 @@
 #!/bin/zsh
-
 #------------------------------------------------------------------#
 # File:     alias.sh   Aliases                                     #
 # Version:                                                         #
@@ -76,23 +75,20 @@ run_with_journal() {
     return $_cmd_exitval
 }
 
-jctl() { sudo journalctl --since=yesterday $@; }
+alias jctl="sudo journalctl --since=yesterday"
+alias sctl="sudo systemctl --system"
+alias nctl="sudo netctl"
+alias uctl="systemctl --user"
+alias actl="systemd-analyze"
 
-sctl() { sudo systemctl --system $@; }
-compdef sctl=systemctl
-
-nctl() { sudo netctl $@; }
-compdef nctl=netctl
-
-uctl() {
+uctlj() {
     case "$1" in
         start|stop)  run_with_journal systemctl --user $@         ;;
         *)           systemctl --user $@                          ;;
     esac
 }
-compdef uctl=systemctl
 
-actl() {
+actlsvg() {
     cmd="$1"; shift
     if [ "$cmd" = "dot" ]; then systemd-analyze dot "$@" | dot -Tsvg
     else                        systemd-analyze "$cmd" "$@"
