@@ -27,5 +27,16 @@ zstyle ':completion:*:descriptions' format '%U%B%d%b%u'                   # head
 
 zstyle ':completion:*' menu select=4                                      # menu selection when >= 4 options
 
+
+#--------------------------#
+# Function completions     #
+#--------------------------#
+
+compdef _run_with_journal run_with_journal
+
+# to copy a completions from oldcmd to newcmd
+# compdef newcmd=oldcmd
+
+
 # zstyle ':completion::*:expand:*' tag-order all-expansions
 

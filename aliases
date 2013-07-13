@@ -75,20 +75,16 @@ run_with_journal() {
     return $_cmd_exitval
 }
 
+
 alias jctl="sudo journalctl --since=yesterday"
 alias sctl="sudo systemctl --system"
 alias nctl="sudo netctl"
 alias uctl="systemctl --user"
 alias actl="systemd-analyze"
+alias ictl="run_with_journal systemctl --user start"
 
-uctlj() {
-    case "$1" in
-        start|stop)  run_with_journal systemctl --user $@         ;;
-        *)           systemctl --user $@                          ;;
-    esac
-}
 
-actlsvg() {
+actl_svg() {
     cmd="$1"; shift
     if [ "$cmd" = "dot" ]; then systemd-analyze dot "$@" | dot -Tsvg
     else                        systemd-analyze "$cmd" "$@"
