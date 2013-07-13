@@ -111,7 +111,7 @@ export LS_COLORS=$(printf "%s:" "${_LS_COLORS[@]}")
 _SYSTEMD_COLORS=(
         'rs=0'         '=*.target=00;31'    '=*.service=00;32'      '=*.timer=00;34'   
  '=*.socket=00;35'  '=*.automount=00;33'      '=*.mount=00;33'       '=*.swap=00;33'
-   '=*.path=00;36'
+   '=*.path=00;36'     '=*.device=00;35'
 )
 export SYSTEMD_COLORS=$(printf "%s:" "${_SYSTEMD_COLORS[@]}")
 
