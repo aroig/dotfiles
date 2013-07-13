@@ -506,8 +506,8 @@ done
 # Completion functions for STARTABLE_UNITS
 (( $+functions[_systemctl_start] )) || _systemctl_start()
 {
-  _systemctl_inactive_units
-  compadd "$@" -a - _sys_inactive_units
+  _systemctl_really_all_units
+  compadd "$@" -a - _sys_really_all_units
 }
 
 # Completion functions for STOPPABLE_UNITS
