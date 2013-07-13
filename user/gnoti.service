@@ -1,9 +1,0 @@
-[Unit]
-Description=Gmail notifier
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/gnoti
-
-[Install]
-WantedBy=work.target
