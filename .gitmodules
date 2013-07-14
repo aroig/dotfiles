@@ -1,6 +1,0 @@
-[submodule "modes/lua-mode"]
-	path = modes/lua-mode
-	url = https://github.com/immerrr/lua-mode.git
-[submodule "modes/coffee-mode"]
-	path = modes/coffee-mode
-	url = https://github.com/defunkt/coffee-mode.git
