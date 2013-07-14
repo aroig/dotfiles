@@ -42,11 +42,14 @@ set search-hadjust          false
 set link-hadjust            false
 
 set font                    "terminal"
-set border-width            4
+set statusbar-padding       2
 
-# fixed status and input bars
-set guioptions              sc
+# set border-width            4
 
+# set guioptions              sc           # fixed status and input bars
+
+# set show-h-scrollbar        true
+# set show-v-scrollbar        true
 
 # Key maps
 # ----------------------------------------------------------
