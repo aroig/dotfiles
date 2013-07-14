@@ -7,9 +7,6 @@
 [submodule "modes/lua-mode"]
 	path = modes/lua-mode
 	url = https://github.com/immerrr/lua-mode.git
-[submodule "modes/yaml-mode"]
-	path = modes/yaml-mode
-	url = https://github.com/yoshiki/yaml-mode.git
 [submodule "modes/coffee-mode"]
 	path = modes/coffee-mode
 	url = https://github.com/defunkt/coffee-mode.git
@@ -25,12 +22,6 @@
 [submodule "modes/markdown-mode"]
 	path = modes/markdown-mode
 	url = git://jblevins.org/git/markdown-mode.git
-[submodule "packages/powerline"]
-	path = packages/powerline
-	url = https://github.com/milkypostman/powerline.git
 [submodule "packages/o-blog"]
 	path = packages/o-blog
 	url = https://github.com/renard/o-blog.git
-[submodule "modes/git-modes"]
-	path = modes/git-modes
-	url = https://github.com/lunaryorn/git-modes.git
