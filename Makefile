@@ -1,4 +1,4 @@
-REMOTES=modes/git-modes modes/lua-mode modes/markdown-mode modes/multi-mode modes/pkgbuild-mode modes/rainbow-mode modes/yaml-mode packages/ibuffer-vc packages/powerline themes/zenburn
+REMOTES=modes/git-modes modes/markdown-mode modes/multi-mode modes/pkgbuild-mode modes/rainbow-mode modes/yaml-mode packages/ibuffer-vc packages/powerline themes/zenburn
 REMOTES_MERGE=$(patsubst %,%-merge,$(REMOTES))
 EMACS_LISP=emacs-lisp
 
