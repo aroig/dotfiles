@@ -1,5 +1,4 @@
 *~
 *.elc
-autocomplete/*
-org-mode/*
 \#*\#
+README.html
