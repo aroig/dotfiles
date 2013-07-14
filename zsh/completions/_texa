@@ -1,0 +1,147 @@
+#compdef texa
+
+typeset -A opt_args
+setopt extendedglob
+
+
+declare -a _texa_opts _texa_cp_fmt
+_texa_opts=(
+	{-v,--verbose}'[Be more verbose]'
+	'--debug[Print debug information]'
+)
+
+
+_texa_cp_fmt_compl() {
+    typeset -a _cp_fmt
+    _cp_fmt=(
+        'pdf:pdf output'
+        'src:source tarball'
+    )
+    _describe 'formats' _cp_fmt
+}
+
+
+_texa_init_document_types() {
+    typeset -a _document_types
+    _document_types=(
+        'paper:KOMA-script paper'
+        'notes:KOMA-script notes'
+        'report:KOMA-script report'
+        'book:KOMA-script book'
+        'slides:KOMA-script slides'
+        'poster:KOMA-script poster'
+    )
+    _describe 'document type' _document_types
+}
+
+
+_texa_init_document_languages() {
+    typeset -a _document_languages
+    _document_languages=(
+        'en:English'
+        'es:Spanish'
+        'de:German'
+        'fr:French'
+        'ca:Catalan'
+    ) 
+    _describe 'language' _document_languages
+}
+
+
+_texa_query_compl() {
+    # TODO: complete query arguments
+}
+
+
+_texa_rev_compl() {
+    # TODO complete git revision
+}
+
+
+_texa_init() {
+    _arguments -s \
+        {-t,--type=}'[Document type]:type:_texa_init_document_types' \
+        {-l,--lang=}'[Document language]:language:_texa_init_document_languages'         
+}
+
+
+_texa_query() {
+    _arguments -s \
+        {-q,--query}'[Query]:query:_texa_query_compl' 
+}
+
+
+_texa_add() {
+    _arguments -s \
+        '*::file:_files'       
+}
+
+
+_texa_cp() {
+    _arguments -s \
+        {-q,--query=}'[Query]:query:_texa_query_compl' \
+        {-t,--type=}'[File type]:type:_texa_cp_fmt_compl'
+}
+
+
+_texa_ln() {
+    _arguments -s \
+        {-q,--query=}'[Query]:query:_texa_query_compl' \
+        {-t,--type=}'[File type]:type:_texa_cp_fmt_compl' 
+
+}
+
+
+_texa_diff() {
+    _arguments -s \
+        {-r,--rev=}'[Revision]:revision:_texa_revision_compl'
+}
+
+
+_texa_command(){
+    typeset -a _texa_cmds
+    _texa_cmds=(
+        'init:Initialize a source tree'
+        'update:Update styles and library'
+        'log:Prints a compact log'
+        'query:Queries the archive'
+        'cp:Copies files from the archive'
+        'ln:Links to files in the archive'
+        'diff:Creates a latex diff'
+        'escape:Escapes unicode characters'
+     )
+
+    if (( CURRENT == 1 )); then
+        _describe -t commands 'texa command' _texa_cmds
+
+    else
+        local curcontext="$curcontext"
+        cmd="${${_texa_cmds[(r)$words[1]:*]%%:*}}"
+        if (($#cmd)); then
+            if (( $+functions[_texa_$cmd] )); then
+                _texa_$cmd
+            else
+                _message "no options for $cmd"
+            fi
+        else
+            _message "no more options"
+        fi
+    fi
+}
+
+
+_texa_comp() {
+    case "$service" in
+        texa)
+            _arguments \
+                $_texa_opts[@] \
+                '*::texa commands:_texa_command'
+            ;;
+        *)
+            _message "Error"
+            ;;
+    esac
+}
+
+
+_texa_comp "$@"
