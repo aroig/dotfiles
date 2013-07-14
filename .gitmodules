@@ -13,18 +13,12 @@
 [submodule "modes/coffee-mode"]
 	path = modes/coffee-mode
 	url = https://github.com/defunkt/coffee-mode.git
-[submodule "themes/solarized"]
-	path = themes/solarized
-	url = https://github.com/sellout/emacs-color-theme-solarized.git
 [submodule "modes/rainbow-mode"]
 	path = modes/rainbow-mode
 	url = https://github.com/emacsmirror/rainbow-mode.git
 [submodule "modes/sage-mode"]
 	path = modes/sage-mode
 	url = https://github.com/aroig/sage-mode.git
-[submodule "themes/zenburn"]
-	path = themes/zenburn
-	url = https://github.com/aroig/zenburn-emacs.git
 [submodule "modes/multi-mode"]
 	path = modes/multi-mode
 	url = https://github.com/emacsmirror/multi-mode.git
