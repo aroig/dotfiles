@@ -468,7 +468,9 @@ command."
           (if err-p
               (goto-line line))
           nil)
-      t)))
+      t)
+    (if (get-buffer stderr-buffer) (kill-buffer stderr-buffer))
+    (if (get-buffer stdout-buffer) (kill-buffer stdout-buffer))))
 
 
 (defun pkgbuild-postprocess-stderr (buf)        ;multiple values return
