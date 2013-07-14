@@ -1,27 +1,12 @@
-[submodule "packages/ibuffer-vc"]
-	path = packages/ibuffer-vc
-	url = https://github.com/purcell/ibuffer-vc.git
-[submodule "modes/pkgbuild-mode"]
-	path = modes/pkgbuild-mode
-	url = https://github.com/juergenhoetzel/pkgbuild-mode.git
 [submodule "modes/lua-mode"]
 	path = modes/lua-mode
 	url = https://github.com/immerrr/lua-mode.git
 [submodule "modes/coffee-mode"]
 	path = modes/coffee-mode
 	url = https://github.com/defunkt/coffee-mode.git
-[submodule "modes/rainbow-mode"]
-	path = modes/rainbow-mode
-	url = https://github.com/emacsmirror/rainbow-mode.git
-[submodule "modes/sage-mode"]
-	path = modes/sage-mode
-	url = https://github.com/aroig/sage-mode.git
 [submodule "modes/multi-mode"]
 	path = modes/multi-mode
 	url = https://github.com/emacsmirror/multi-mode.git
 [submodule "modes/markdown-mode"]
 	path = modes/markdown-mode
 	url = git://jblevins.org/git/markdown-mode.git
-[submodule "packages/o-blog"]
-	path = packages/o-blog
-	url = https://github.com/renard/o-blog.git
