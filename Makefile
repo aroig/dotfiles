@@ -11,7 +11,7 @@ EMACS_LISP=emacs-lisp
 SHELL := $(SHELL) -e
 MAKE=emacs -Q --batch -f batch-byte-compile
 
-.PHONY: all links doc $(REMOTES) $(REMOTES_MERGE) $(COMPILE)
+.PHONY: all doc $(REMOTES) $(REMOTES_MERGE) $(COMPILE)
 
 all: $(COMPILE)
 
