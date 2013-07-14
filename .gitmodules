@@ -34,6 +34,3 @@
 [submodule "modes/git-modes"]
 	path = modes/git-modes
 	url = https://github.com/lunaryorn/git-modes.git
-[submodule "packages/yasnippet"]
-	path = packages/yasnippet
-	url = https://github.com/capitaomorte/yasnippet.git
