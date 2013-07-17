@@ -1,7 +1,6 @@
 [Unit]
 Description=Compton X compositor
 After=xorg@%i.service
-StopWhenUnneeded=true
 
 Requisite=xorg@%i.service
 

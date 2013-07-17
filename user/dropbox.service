@@ -1,6 +1,5 @@
 [Unit]
 Description=dropbox daemon
-StopWhenUnneeded=true
 
 Requires=dbus.socket
 
