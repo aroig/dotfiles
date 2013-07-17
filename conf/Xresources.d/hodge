@@ -4,5 +4,5 @@ urxvt.internalBorder: 6
 
 !! emacs
 Emacs.font: monospace-11
-Emacs.internalBorder: 1
+Emacs.internalBorder: 0
 
