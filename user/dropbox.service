@@ -1,0 +1,9 @@
+[Unit]
+Description=dropbox daemon
+StopWhenUnneeded=true
+
+Requires=dbus.socket
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/dropboxd
