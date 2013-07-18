@@ -188,14 +188,14 @@ tx() {
 tm()  {
     case "$TERM" in
         screen*|linux) tx ;;
-        *)             eval "$TERMCMD -cd \"\$PWD\" \"\$@\" &!" ;;
+        *)             eval "$TERMCMD -d \"\$PWD\" \"\$@\" &!" ;;
     esac
 }
 
 rg()  {
     case "$TERM" in
         screen*|linux) eval "ranger \"\$@\"" ;;
-        *)             eval "$TERMCMD -cd \"\$PWD\" -e ranger \"\$@\" &!" ;;
+        *)             eval "$TERMCMD -d \"\$PWD\" -e ranger \"\$@\" &!" ;;
     esac
 }
 
