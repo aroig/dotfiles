@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Urxvt
+Comment=Terminal
+Exec=urxvt
+Icon=utilities-terminal
+Type=Application
+Categories=GTK;System;TerminalEmulator;
+StartupNotify=true
