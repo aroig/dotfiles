@@ -49,7 +49,7 @@ end
 -- Dropdown apps on the top      --
 -----------------------------------
 
-ddclient.terminal = dropdown.new(string.format("%s -e tmux-session drop", apps.terminal),
+ddclient.terminal = dropdown.new(string.format("%s -e \"tmux-session drop\"", apps.terminal),
                                  {vert="top", horiz="center", width=1, height=0.4})
 
 ddclient.ranger   = dropdown.new(termcmd("ranger"),

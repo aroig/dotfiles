@@ -7,7 +7,7 @@
 
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-   { "manual", apps.terminal .. " -e man awesome" },
+   { "manual", apps.terminal .. " -e \"man awesome\"" },
    { "edit config", apps.editor .. " " .. awesome.conffile },
    { "restart", awesome.restart },
    { "quit", awesome.quit }
