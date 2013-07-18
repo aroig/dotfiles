@@ -39,6 +39,7 @@ alias digitaleditions='wine "$HOME/.wine/drive_c/Program Files (x86)/Adobe/Adobe
 #------------------------------
 # Utility aliases
 #------------------------------
+
 alias trash='gvfs-trash'
 alias vp='vimpager'
 alias rsy='rsync -avz --progress --delete'
@@ -58,6 +59,8 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
+
+xrand_screens() { xrandr -q | grep " connected" | sed 's/^\([A-Za-z0-9\-]*\).*/\1/'; }
 
 
 #------------------------------
