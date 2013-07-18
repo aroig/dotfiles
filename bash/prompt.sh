@@ -6,9 +6,9 @@
 
 #Set rxvt title
 case "$TERM" in
-  xterm | xterm-color | rxvt-unicode | rxvt-unicode-256color)
-    XTERM_TITLE='\[\e]0;\u@\H: \W\a\]'
-  ;;
+    xterm*|rxvt*)
+        XTERM_TITLE='\[\e]0;\u@\H: \W\a\]'
+        ;;
 esac
 
 PROMPT_COMMAND='RET=$?;'

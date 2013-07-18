@@ -113,8 +113,8 @@ promptdir () {
     esac   
 
     case "$TERM" in
-	    rxvt-unicode*) echo "%{$FX[italic]$fg_bold[yellow]%}$currdir%{$reset_color%}" ;;
-        *)             echo "%{$fg_bold[yellow]%}$currdir%{$reset_color%}"            ;;
+	    rxvt*|xterm*) echo "%{$FX[italic]$fg_bold[yellow]%}$currdir%{$reset_color%}" ;;
+        *)            echo "%{$fg_bold[yellow]%}$currdir%{$reset_color%}"            ;;
     esac
 }
 
