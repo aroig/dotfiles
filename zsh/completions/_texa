@@ -38,11 +38,11 @@ _texa_init_document_types() {
 _texa_init_document_languages() {
     typeset -a _document_languages
     _document_languages=(
-        'en:English'
-        'es:Spanish'
-        'de:German'
-        'fr:French'
-        'ca:Catalan'
+        'english'
+        'spanish'
+        'german'
+        'french'
+        'catalan'
     ) 
     _describe 'language' _document_languages
 }
