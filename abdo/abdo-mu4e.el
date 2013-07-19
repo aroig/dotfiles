@@ -67,7 +67,7 @@
   (setq mu4e-bookmarks
         '(("flag:unread"                                          "New"                 ?n)
           ("flag:flagged"                                         "Flagged"             ?g)
-        ; ("tag:\\\\Inbox AND date:365d..now"                     "Inbox"               ?i)
+          ("tag:\\\\Inbox AND flag:unread"                        "Inbox"               ?i)
         ; ("tag:\\\\Sent AND date:365d..now"                      "Sent"                ?s)
 
           ("tag:research AND flag:unread"                         "Research"            ?r)
