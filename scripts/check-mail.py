@@ -21,7 +21,7 @@ class GmailNotifier(object):
 
     self.debug = 1
 
-    self.conn = imaplib.IMAP4_SSL(host = 'imap.gmail.com', port = imaplib.IMAP4_SSL_PORT)
+    self.conn = None
     self.unread_stuff = set([])
 
     self.lastmail_path = os.path.join(os.getenv('XDG_RUNTIME_DIR'), 'lastmail')
@@ -29,6 +29,15 @@ class GmailNotifier(object):
 
   def login(self):
     netrc_file = os.path.expanduser('~/.netrc')
+    host = 'imap.gmail.com'
+
+    if self.conn == None:
+      try:
+        self.conn = imaplib.IMAP4_SSL(host = host, port = imaplib.IMAP4_SSL_PORT)
+      except:
+        print("Can't establish a connection to %s" % host)
+        sys.exit(-1)
+
     if os.path.exists(netrc_file):
       try:
         auth = netrc.netrc(netrc_file).authenticators('google.com')
