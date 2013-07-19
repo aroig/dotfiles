@@ -221,44 +221,56 @@ myw.mail.icon = wibox.widget.imagebox()
 myw.mail.icon:set_image(beautiful.widget_maile)
 
 myw.mail.widget = wibox.widget.textbox()
-myw.mail.count = -1
+myw.mail.num_inbox = -1
+myw.mail.num_queue = -1
 
 function myw.mail.update()
-    local args = myw.mail.src(nil, "mutag -C -p mail -q 'flag:unread AND tag:\\\\Inbox'")
+    local args
+    local icon = beautiful.widget_maile
 
-    local num = tonumber(args[1])
-    local color
-    local icon
-    local text
+    args = myw.mail.src(nil, "mutag -C -p mail -q 'flag:unread AND tag:\\\\Inbox'")
+    local num_inbox = tonumber(args[1])
+    local color_inbox = beautiful.fg_green_widget
 
-    if num ~= myw.mail.count then
-        if num == 0 or num == nil then
-            color = beautiful.fg_green_widget
-            if num == nil then
-                color = beautiful.fg_red_widget
-                icon = beautiful.widget_mailf
-                num = "?"
-            else
-                color = beautiful.fg_green_widget
-                icon = beautiful.widget_maile
-            end
-        else
-            if num ~= myw.mail.count then
-                if num == 1 then
-                    text = "There is one new message"
-                else
-                    text = string.format("There are %d new messages", num)
-                end
-            end
+    args = myw.mail.src(nil, "find ~/.msmtp.queue/ -name '*.mail' | wc -l")
+    local num_queue = tonumber(args[1])
+    local color_queue = beautiful.fg_green_widget
+
+    local text = ""
+    if num_inbox ~= myw.mail.num_inbox or num_queue ~= myw.mail.num_queue then
+        if num_inbox == nil then
+            color_inbox = beautiful.fg_red_widget
             icon = beautiful.widget_mailf
-            color = beautiful.fg_red_widget
+            num_inbox = "?"
+        elseif num_inbox == 0 then
+            color_inbox = beautiful.fg_green_widget
+            icon = beautiful.widget_maile
+        elseif num_inbox > 0 then
+            color_inbox = beautiful.fg_red_widget
+            icon = beautiful.widget_mailf
         end
 
-        local text = string.format("<span color='%s'>%s</span>", color, tostring(num))
+        if num_queue == nil then
+            color_queue = beautiful.fg_red_widget
+            icon = beautiful.widget_mailf
+            num_queue = "?"
+        elseif num_queue == 0 then
+            color_queue = beautiful.fg_green_widget
+        else
+            color_queue = beautiful.fg_red_widget
+        end
+
+        text = text .. string.format("<span color='%s'>%s</span>",
+                                   color_inbox, tostring(num_inbox))
+        text = text .. string.format(' <span color="%s">\\</span> ',
+                                     beautiful.fg_widget)
+        text = text .. string.format("<span color='%s'>%s</span>",
+                                   color_queue, tostring(num_queue))
         myw.mail.icon:set_image(icon)
         myw.mail.widget:set_markup(text)
     end
-    myw.mail.count = num
+    myw.mail.num_inbox = num_inbox
+    myw.mail.num_queue = num_queue
 end
 
 myw.mail.widget:buttons(awful.util.table.join(awful.button({ }, 1,
