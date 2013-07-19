@@ -3,4 +3,5 @@ Description=check for new mail
 
 [Service]
 Type=oneshot
+SyslogIdentifier=check-mail
 ExecStart=/home/abdo/.config/systemd/scripts/check-mail.py
