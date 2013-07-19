@@ -65,20 +65,24 @@ class GmailNotifier(object):
         fd.write("%d\n" % uid)
 
 
-  def decode_subject(self, subj):
-    ret=""
-    for t,c in decode_header(subj):
-      if c:     ret = ret + t.decode(c)
-      else:     ret = ret + t.decode()
-    return ret
-
-
   def decode_utf8(self, text):
     try:
       text_dec = unicode(text, 'utf-8')
       return text_dec
     except UnicodeDecodeError:
       return text
+
+
+  def decode_header(self, raw):
+    ret = ""
+    for txt, enc in decode_header(raw):
+      if   enc == 'unknown':      ret = ret + str(txt, 'ascii', errors='ignore')
+      elif enc == 'unknown-8bit': ret = ret + str(txt, 'utf-8', errors='ignore')
+      elif enc != None:           ret = ret + str(txt, enc, errors='ignore')
+      elif type(txt) != str:      ret = ret + str(txt, 'utf-8', errors='ignore')
+      else:                       ret = ret + txt
+
+    return ret
 
 
   def parse_response(self, data):
@@ -90,18 +94,19 @@ class GmailNotifier(object):
       return (None, None)
 
     msg = {}
-    msg['from'] = re.search("[^ ,<]*@[^ ,>]*", raw_msg['from']).group(0)
-    msg['subject'] = raw_msg['subject']
+    # msg['from'] = re.search("[^ ,<]*@[^ ,>]*", raw_msg['from']).group(0)
+    msg['from'] = self.decode_header(raw_msg['from'])
+    msg['subject'] = self.decode_header(raw_msg['subject'])
     return (uid,msg)
 
 
   def desktop_notification(self, title, msg, urgency='normal'):
-    subprocess.call(['notify-send', '-a', 'gnoti', '-u', urgency, title, msg])
+    subprocess.call(['notify-send', '-a', 'mail',
+                     '-u', urgency, title, msg])
 
 
   def desktop_mail_notification(self, msg):
     line = "%s: %s" % (msg['from'], msg['subject'])
-    print("Notification: %s" % line)
     noti = "%s\n%s" % (msg['from'], msg['subject'])
     self.desktop_notification("New Mail", noti)
 
@@ -118,7 +123,7 @@ class GmailNotifier(object):
 
 
   def notify_error(self):
-    self.desktop_notification("Error", "Error in gnoti. Stopping", urgency='critical')
+    self.desktop_notification("Error", "Error in check-mail. Stopping", urgency='critical')
 
 
   def unread_locally(self):
