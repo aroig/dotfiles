@@ -104,7 +104,6 @@ class GmailNotifier(object):
     print("Notification: %s" % line)
     noti = "%s\n%s" % (msg['from'], msg['subject'])
     self.desktop_notification("New Mail", noti)
-    # subprocess.call(['palantir -o mail -p 5 "%s"' % line], shell=True)
 
 
   def sync_mail(self):
@@ -130,12 +129,12 @@ class GmailNotifier(object):
   def new_mail(self):
     self.conn.select('Inbox', readonly=True)
     ret, raw_messages = self.conn.search(None, '(UNSEEN)')
+    raw_uids = ' '.join([rm.decode('utf-8') for rm in raw_messages]).split(' ')
 
     messages = {}
     new_messages = {}
     if ret == 'OK':
-      for m in [uid.decode('utf-8') for uid in raw_messages]:
-        if m == '': continue
+      for m in [uid.strip() for uid in raw_uids if len(uid.strip()) > 0]:
         ret, mesginfo = self.conn.fetch(m, '(UID BODY.PEEK[HEADER])')
         if ret == 'OK':
           uid, msg = self.parse_response(mesginfo)
