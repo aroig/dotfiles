@@ -1,5 +1,5 @@
 [Timer]
 OnActiveSec=5
-OnUnitInactiveSec=3min
+OnUnitInactiveSec=10min
 
 Unit=fetch-mail.target
