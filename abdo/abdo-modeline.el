@@ -195,7 +195,7 @@
         (powerline-raw (format " %s" (abdo-powerline-buffer-alerts)) facealert 'l))
 
       (when mode-line-process
-        (powerline-raw (format " %s" mode-line-process) face2 'l))
+        (powerline-raw (format-mode-line 'mode-line-process) face2 'l))
 
       (when global-mode-string
         (powerline-raw (format " %s" (format-mode-line '(global-mode-string global-mode-string))) face2 'r))
