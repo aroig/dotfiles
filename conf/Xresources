@@ -6,12 +6,14 @@
 !! Font rendering for the applications
 !! not using fontconfig (like emacs)
 !!---------------------------------
-
-Xft.antialias: 1
-Xft.hinting: 1
-Xft.hintstyle: hintmedium
-Xft.rgba: none
-
+! NOTE: Xft seems to not understand less than hintfull
+! NOTE2: Let infinality handle this!
+! Xft.dpi: 96
+! Xft.antialias: 1
+! Xft.hinting: 0
+! Xft.autohint: 0
+! Xft.hintstyle: hintfull
+! Xft.rgba: none
 
 
 !! urxvt
