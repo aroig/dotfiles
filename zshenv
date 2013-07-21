@@ -78,6 +78,7 @@ export SAGE_ROOT=$AB2_HOME/usr/sage
 # Colors
 #------------------------------
 
+# LS_COLORS. color configuration for ls
 # eval $(dircolors)                   # default LS_COLORS
 _LS_COLORS=(
         'rs=0'                'di=01;34'            'ln=01;36'            'mh=00'
@@ -97,19 +98,19 @@ _LS_COLORS=(
       '*.zoo=01;31'        '*.cpio=01;31'          '*.7z=01;31'         '*.rz=01;31'    
 
 # pictures
-     '*.jpg=01;35'        '*.jpeg=01;35'         '*.gif=01;35'         '*.bmp=01;35'      
-     '*.pbm=01;35'         '*.pgm=01;35'         '*.ppm=01;35'         '*.tga=01;35' 
-     '*.xbm=01;35'         '*.xpm=01;35'         '*.tif=01;35'        '*.tiff=01;35'  
-     '*.png=01;35'         '*.svg=01;35'        '*.svgz=01;35'         '*.mng=01;35'  
-     '*.pcx=01;35'     
+     '*.jpg=00;35'        '*.jpeg=00;35'         '*.gif=00;35'         '*.bmp=00;35'      
+     '*.pbm=00;35'         '*.pgm=00;35'         '*.ppm=00;35'         '*.tga=00;35' 
+     '*.xbm=00;35'         '*.xpm=00;35'         '*.tif=00;35'        '*.tiff=00;35'  
+     '*.png=00;35'         '*.svg=00;35'        '*.svgz=00;35'         '*.mng=00;35'  
+     '*.pcx=00;35'     
 
 # video
-     '*.mov=01;35'         '*.mpg=01;35'        '*.mpeg=01;35'         '*.m2v=01;35'
-     '*.mkv=01;35'        '*.webm=01;35'         '*.ogm=01;35'         '*.mp4=01;35'    
-     '*.m4v=01;35'        '*.mp4v=01;35'         '*.vob=01;35'          '*.qt=01;35'     
-     '*.nuv=01;35'         '*.wmv=01;35'         '*.asf=01;35'          '*.rm=01;35'     
-    '*.rmvb=01;35'         '*.flc=01;35'         '*.avi=01;35'         '*.fli=01;35' 
-     '*.flv=01;35'          '*.gl=01;35'      
+     '*.mov=00;35'         '*.mpg=00;35'        '*.mpeg=00;35'         '*.m2v=00;35'
+     '*.mkv=00;35'        '*.webm=00;35'         '*.ogm=00;35'         '*.mp4=00;35'    
+     '*.m4v=00;35'        '*.mp4v=00;35'         '*.vob=00;35'          '*.qt=00;35'     
+     '*.nuv=00;35'         '*.wmv=00;35'         '*.asf=00;35'          '*.rm=00;35'     
+    '*.rmvb=00;35'         '*.flc=00;35'         '*.avi=00;35'         '*.fli=00;35' 
+     '*.flv=00;35'          '*.gl=00;35'      
 
 # audio
      '*.aac=00;36'          '*.au=00;36'        '*.flac=00;36'         '*.mid=00;36'   
@@ -117,25 +118,37 @@ _LS_COLORS=(
      '*.ogg=00;36'          '*.ra=00;36'         '*.wav=00;36'     
 
 # unknown
-     '*.dl=01;35'         '*.xcf=01;35'         '*.xwd=01;35'         '*.yuv=01;35'        
-     '*.cgm=01;35'         '*.emf=01;35'         '*.axv=01;35'         '*.anx=01;35'       
-     '*.ogv=01;35'         '*.ogx=01;35'    
-    '*.axa=00;36'         '*.oga=00;36'         '*.spx=00;36'         '*.xspf=00;36'
+      '*.dl=00;35'         '*.xcf=00;35'         '*.xwd=00;35'         '*.yuv=00;35'        
+     '*.cgm=00;35'         '*.emf=00;35'         '*.axv=00;35'         '*.anx=00;35'       
+     '*.ogv=00;35'         '*.ogx=00;35'    
+     '*.axa=00;36'         '*.oga=00;36'         '*.spx=00;36'        '*.xspf=00;36'
 
 # text
-     '*.org=00;33'         '*.tex=00;32'        
+     '*.org=00;33'         '*.rst=00;33'         '*.txt=00;33'
 '*README.rst=01;33'   '*README.md=01;33'       '*README=01;33'
 
+# markup
+    '*.html=00;35'       '*.xhtml=00;35'         '*.xml=00;35'
+
+# latex
+     '*.tex=00;32'         '*.ltb=00;32'         '*.bib=00;32'           
+
 # documents
-     '*.pdf=00;31'       
+     '*.pdf=00;35'        '*.djvu=00;35'         '*.dvi=00;35'          '*.ps=00;35'        
+    '*.epub=00;35'        '*.mobi=00;35'         '*.chm=00;35'         '*.azw=00;35'         
 
 # source code
-      '*.py=00;36'       '*.sage=00;34'      '*Makefile=01;31'
+ '*Makefile=00;31'
+      '*.hs=00;36'    
+      '*.sh=00;36'         '*.zsh=00;36'          '*.el=00;36'
+      '*.py=00;36'        '*.sage=00;34'         '*.lua=00;36'
        '*.c=00;36'         '*.cpp=00;36'           '*.h=00;36'         '*.hpp=00;36'
-      '*.hs=00;36'
 
 # config
-    '*.conf=00;31'        '*rc=00;31'
+    '*.conf=00;34'           '*rc=00;34'         '*.yml=00;34'
+
+# data
+  '*.pickle=00;34'        '*.json=00;34'
 
 # systemd units
   '*.target=00;31'     '*.service=00;32'       '*.timer=00;34'        '*.path=00;36'  
@@ -144,6 +157,8 @@ _LS_COLORS=(
 )
 export LS_COLORS=$(printf "%s:" "${_LS_COLORS[@]}")
 
+
+# SYSTEMD_COLORS. color configuration for systemd units in zsh autocompletion
 _SYSTEMD_COLORS=(
         'rs=0'         '=*.target=00;31'    '=*.service=00;32'      '=*.timer=00;34'   
  '=*.socket=00;35'  '=*.automount=00;33'      '=*.mount=00;33'       '=*.swap=00;33'
