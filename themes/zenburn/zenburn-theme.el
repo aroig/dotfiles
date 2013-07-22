@@ -4,7 +4,7 @@
 
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: http://github.com/bbatsov/zenburn-emacs
-;; Version: 2.0
+;; Version: 2.1
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -119,7 +119,7 @@ Each element has the form (NAME . HEX).
 `-N' suffixes indicate a color is darker.")
 
 (defmacro zenburn-with-color-variables (&rest body)
-  "`let' bind all colors defined in `zenburn-colors-alist'.
+  "`let' bind all colors defined in `zenburn-colors-alist' around BODY.
 Also bind `class' to ((class color) (min-colors 89))."
   (declare (indent 0))
   `(let ((class '((class color) (min-colors 89)))
@@ -193,16 +193,18 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(trailing-whitespace ((t (:background ,zenburn-red))))
    `(vertical-border ((t (:foreground ,zenburn-fg))))
 ;;;;; font lock
-   `(font-lock-builtin-face ((t (:foreground ,zenburn-cyan))))
+   `(font-lock-builtin-face ((t (:foreground ,zenburn-fg :weight bold))))
    `(font-lock-comment-face ((t (:foreground ,zenburn-green))))
-   `(font-lock-comment-delimiter-face ((t (:foreground ,zenburn-green))))
+   `(font-lock-comment-delimiter-face ((t (:foreground ,zenburn-green-1))))
    `(font-lock-constant-face ((t (:foreground , zenburn-sat-lightgreen-1))))
-   `(font-lock-doc-face ((t (:foreground ,zenburn-green+1))))
+   `(font-lock-doc-face ((t (:foreground ,zenburn-green+2))))
    `(font-lock-doc-string-face ((t (:foreground ,zenburn-blue-2))))
-   `(font-lock-function-name-face ((t (:foreground ,zenburn-blue))))
+   `(font-lock-function-name-face ((t (:foreground ,zenburn-cyan))))
    `(font-lock-keyword-face ((t (:foreground ,zenburn-yellow :weight bold))))
-   `(font-lock-negation-char-face ((t (:foreground ,zenburn-fg))))
+   `(font-lock-negation-char-face ((t (:foreground ,zenburn-yellow :weight bold))))
    `(font-lock-preprocessor-face ((t (:foreground ,zenburn-blue+1))))
+   `(font-lock-regexp-grouping-construct ((t (:foreground ,zenburn-yellow :weight bold))))
+   `(font-lock-regexp-grouping-backslash ((t (:foreground ,zenburn-green :weight bold))))
    `(font-lock-string-face ((t (:foreground ,zenburn-red))))
    `(font-lock-type-face ((t (:foreground ,zenburn-blue-1))))
    `(font-lock-variable-name-face ((t (:foreground ,zenburn-orange))))
@@ -343,6 +345,8 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(eshell-ls-product ((t (:inherit font-lock-doc))))
    `(eshell-ls-special ((t (:foreground ,zenburn-yellow :weight bold))))
    `(eshell-ls-symlink ((t (:foreground ,zenburn-cyan :weight bold))))
+;;;;; flx
+   `(flx-highlight-face ((t (:foreground ,zenburn-green+2 :weight bold))))
 ;;;;; flycheck
    `(flycheck-error
      ((((supports :underline (:style wave)))
@@ -503,13 +507,13 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(ido-only-match ((t (:foreground ,zenburn-orange :weight bold))))
    `(ido-subdir ((t (:foreground ,zenburn-yellow))))
 ;;;;; js2-mode
-   `(js2-warning-face ((t (:underline ,zenburn-orange))))
-   `(js2-error-face ((t (:foreground ,zenburn-red :weight bold))))
-   `(js2-jsdoc-tag-face ((t (:foreground ,zenburn-green-1))))
-   `(js2-jsdoc-type-face ((t (:foreground ,zenburn-green+2))))
-   `(js2-jsdoc-value-face ((t (:foreground ,zenburn-green+3))))
-   `(js2-function-param-face ((t (:foreground, zenburn-green+3))))
-   `(js2-external-variable-face ((t (:foreground ,zenburn-orange))))
+   `(js2-warning ((t (:underline ,zenburn-orange))))
+   `(js2-error ((t (:foreground ,zenburn-red :weight bold))))
+   `(js2-jsdoc-tag ((t (:foreground ,zenburn-green-1))))
+   `(js2-jsdoc-type ((t (:foreground ,zenburn-green+2))))
+   `(js2-jsdoc-value ((t (:foreground ,zenburn-green+3))))
+   `(js2-function-param ((t (:foreground, zenburn-green+3))))
+   `(js2-external-variable ((t (:foreground ,zenburn-orange))))
 ;;;;; jabber-mode
    `(jabber-roster-user-away ((t (:foreground ,zenburn-green+2))))
    `(jabber-roster-user-online ((t (:foreground ,zenburn-blue-1))))
@@ -654,6 +658,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(org-scheduled ((t (:foreground ,zenburn-green+4))))
    `(org-scheduled-previously ((t (:foreground ,zenburn-red-4))))
    `(org-scheduled-today ((t (:foreground ,zenburn-blue+1))))
+   `(org-sexp-date ((t (:foreground ,zenburn-blue+1 :underline t))))
    `(org-special-keyword ((t (:foreground ,zenburn-fg-1 :weight normal))))
    `(org-table ((t (:foreground ,zenburn-green+2))))
    `(org-tag ((t (:foreground ,zenburn-fg-1 :weight normal))))
