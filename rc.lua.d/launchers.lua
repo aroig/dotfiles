@@ -49,19 +49,24 @@ end
 -- Dropdown apps on the top      --
 -----------------------------------
 
-ddclient.terminal = dropdown.new(string.format("%s -e \"tmux-session drop\"", apps.terminal),
+ddclient.terminal = dropdown.new("terminal",
+                                 string.format("%s -e \"tmux-session drop\"", apps.terminal),
                                  {vert="top", horiz="center", width=1, height=0.4})
 
-ddclient.ranger   = dropdown.new(termcmd("ranger"),
+ddclient.ranger   = dropdown.new("ranger",
+                                 termcmd("ranger"),
                                  {vert="top", horiz="center", width=1, height=0.4})
 
-ddclient.sage     = dropdown.new(termcmd("sage"),
+ddclient.sage     = dropdown.new("sage",
+                                 termcmd("sage"),
                                  {vert="top", horiz="center", width=1, height=0.4})
 
-ddclient.octave   = dropdown.new(termcmd("octave"),
+ddclient.octave   = dropdown.new("octave",
+                                 termcmd("octave"),
                                  {vert="top", horiz="center", width=1, height=0.4})
 
-ddclient.notes    = dropdown.new(apps.notes,
+ddclient.notes    = dropdown.new("notes",
+                                 apps.notes,
                                  {vert="top", horiz="center", width=1, height=0.4})
 
 function ddclient.ranger.newtab(dd, path)
@@ -111,22 +116,30 @@ end
 -- Dropdown apps on the right    --
 -----------------------------------
 
-ddclient.dict    = dropdown.new(apps.dictionary,
+ddclient.dict    = dropdown.new("dictionary",
+                                apps.dictionary,
                                 {vert="center", horiz="right", width=0.5, height=1})
 
-ddclient.calibre = dropdown.new(apps.library,
+ddclient.calibre = dropdown.new("calibre",
+                                apps.library,
                                 {vert="center", horiz="right", width=1,   height=1})
 
-ddclient.chat    = dropdown.new(apps.chat,
+ddclient.chat    = dropdown.new("chat",
+                                apps.chat,
                                 {vert="center", horiz="left", width=0.6, height=1})
 
-ddclient.music   = dropdown.new(apps.music,
+ddclient.music   = dropdown.new("music",
+                                apps.music,
                                 {vert="center", horiz="right", width=0.7, height=1})
 
-ddclient.twitter = dropdown.new(apps.twitter,
+ddclient.twitter = dropdown.new("twitter",
+                                apps.twitter,
                                 {vert="center", horiz="right", width=600, height=1})
 
-ddclient.document = dropdown.new(nil, {vert="center", horiz="right", width=0.7, height=1})
+ddclient.document = dropdown.new("browser",
+                                 nil,
+                                 {vert="center", horiz="right", width=0.7, height=1})
+
 -- do not kill old client if command changes, as chromium opens new tab
 ddclient.document.kill_old = False
 

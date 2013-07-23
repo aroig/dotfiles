@@ -46,6 +46,7 @@ local icon = {
     gtalk           = beautiful.naughty_chat_icon,
     rcirc           = beautiful.naughty_chat_icon,
     ["notify-send"] = beautiful.naughty_alert_icon,
+    run             = beautiful.naughty_app_icon,
 }
 
 

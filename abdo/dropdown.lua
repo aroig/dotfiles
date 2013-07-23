@@ -198,7 +198,7 @@ function dropdown.show(dd, cmd, screen)
     -- run command if need to
     local cmd = cmd or dd.cmd
     if cmd and dd.run.cmd ~= cmd then
-        naughty.notify({title = "Spawning", text=cmd, timeout=3})
+        naughty.notify({title = string.format("Spawning %s", dd.name), text=cmd, appname="run", timeout=3})
         local pid  = awful.util.spawn_with_shell(cmd)
 
         if not dd.run.client then
@@ -230,8 +230,9 @@ end
 
 
 -- geom: vert horiz width height.
-function dropdown.new(cmd, geom, sticky, screen)
+function dropdown.new(name, cmd, geom, sticky, screen)
     local newdd = {}
+    newdd.name     = name
     newdd.cmd      = cmd
     newdd.screen   = screen
     newdd.sticky   = sticky  or false
