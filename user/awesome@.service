@@ -10,6 +10,8 @@ Requisite=xserver@%i.target
 Requires=dbus.socket
 
 [Service]
+PAMName=login
+TTYPath=/dev/tty7
 Type=simple
 SyslogIdentifier=awesome
 EnvironmentFile=%h/.config/systemd/conf/xenvironment

@@ -11,6 +11,8 @@ Requires=tint2@%i.service
 Requires=dbus.socket
 
 [Service]
+PAMName=login
+TTYPath=/dev/tty7
 Type=simple
 SyslogIdentifier=openbox
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
