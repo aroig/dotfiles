@@ -11,5 +11,8 @@ Conflicts=x11vnc@%i.service vncserver@%i.service xephyr@%i.service
 [Service]
 Type=notify
 SyslogIdentifier=xorg
-ExecStart=/usr/bin/xorg-launch-helper :%i -nolisten tcp -noreset vt7
 
+# need to launch X session at the same tty, otherwise it becomes inactive
+# ExecStart=/usr/bin/xorg-launch-helper :%i -nolisten tcp -noreset vt7
+
+ExecStart=/home/abdo/.config/systemd/scripts/xorg.sh :%i
