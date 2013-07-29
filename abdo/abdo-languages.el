@@ -29,10 +29,6 @@
           ("french" "[[:alpha:]]" "[^[:alpha:]]" "['·-]" t ("-d" "fr") nil utf-8)
           ))
 
-  ;; global default language
-  (setq ispell-dictionary "english")
-
-  ; (abdo-change-dictionary "english")
   ;; Don't ask to save personal dict
   (setq ispell-silently-savep t)
 
