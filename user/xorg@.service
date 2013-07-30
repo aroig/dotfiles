@@ -13,6 +13,4 @@ Type=notify
 SyslogIdentifier=xorg
 
 # need to launch X session at the same tty, otherwise it becomes inactive
-# ExecStart=/usr/bin/xorg-launch-helper :%i -nolisten tcp -noreset vt7
-
-ExecStart=/home/abdo/.config/systemd/scripts/xorg.sh :%i
+ExecStart=/usr/bin/xorg-launch-helper :%i -nolisten tcp -noreset $XORG_VT
