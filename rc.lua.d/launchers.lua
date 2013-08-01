@@ -37,6 +37,21 @@ function shexec (cmd, screen)
     awful.util.spawn_with_shell(cmd, screen)
 end
 
+-- Execute an external program as a systemd scope
+function sdexec (cmd, screen, name, scope)
+    sdcmd = "systemd-run --user "
+    if scope then
+       sdcmd = sdcmd .. "--scope "
+    end
+    if name then
+        sddesc = string.format("Dynamic unit for %s", name)
+        sdcmd = sdcmd .. string.format("--unit=\"%s\" ", name)
+        sdcmd = sdcmd .. string.format("--description=\"%s\" ")
+    end
+    sdcmd = sdcmd .. cmd
+
+    awful.util.spawn_with_shell(sdcmd, screen)
+end
 
 -- executes a shell command on a terminal
 function termcmd (cmd)
