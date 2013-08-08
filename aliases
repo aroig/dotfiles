@@ -22,6 +22,15 @@ alias grep='grep --color=auto'
 # alias ping='$HOME/Software/conf/color-wrappers/ping'
 # alias unisonb='$HOME/Software/conf/color-wrappers/unison -batch'
 
+set_tty_colors() {
+    # Extract colors from .Xresources
+    _SEDCMD='s/urxvt\.color\([0-9]\{1,\}\).*#\([0-9a-fA-F]\{6\}\).*/\1 \2/p'
+    for i in $(sed -n "$_SEDCMD" $HOME/.Xresources | awk '$1 < 16 {printf "\\e]P%X%s", $1, $2}'); do
+        echo -en "$i"
+    done
+    echo -e "\\e]P0000000"
+}
+
 
 #------------------------------
 # Compatibility aliases
@@ -70,6 +79,8 @@ xrand_screens() { xrandr -q | grep " connected" | sed 's/^\([A-Za-z0-9\-]*\).*/\
 # Systemd aliases
 #------------------------------
 run_with_journal() {
+    # TODO: trap ctrl-c don't know how to do it in a function
+
     setopt localoptions nomonitor # disable monitored job control
     _jctlargs=(--quiet --follow --output=cat --lines=0)
     journalctl $_jctlargs[@] &
@@ -224,12 +235,21 @@ tmd() { echo "ddclient.terminal:newtab('$PWD')" | awesome-client; }
 
 # stx() { startx awesome -- vt$(fgconsole 2>/dev/null); }
 stx() {
-    if [ ! $1 ]; then
-        wm=awesome
-    else
-        wm="$1"
+    if [ ! "$1" ]; then  wm=awesome
+    else                 wm="$1"
     fi
-    systemctl --user start wm@$wm.target;
+
+    xvt=vt$(fgconsole)
+    if [ "$?" = '0' ]; then
+        systemctl --user set-environment XORG_VT=$xvt
+        systemctl --user start wm@$wm.target;
+    fi
+
+    # wait until X server finishes and reset the tty
+    wait $(pgrep xorg)
+    sleep 1
+    reset
+    set_tty_colors
 }
 
 klx() { 
