@@ -23,6 +23,7 @@ apps.passwordsafe        = "keepassx"
 apps.dictionary          = "goldendict"
 apps.library             = "calibre"
 apps.print               = "scrot -e 'mv $f ~/down/'"
+apps.xournal             = "xournal ~/work/notes/scratchpad.xoj"
 
 -- Emacs stuff
 apps.orgmode             = "emacs -org"
