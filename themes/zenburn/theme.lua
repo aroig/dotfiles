@@ -9,9 +9,6 @@ local util = require("awful.util")
 -- {{{ Main
 theme = {}
 theme.confdir = util.getdir("config") .. "/themes/zenburn"
-theme.wallpaper = theme.confdir .. "/wallpapers/sunrise.jpg"
-
-
 -- }}}
 
 

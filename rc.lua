@@ -56,22 +56,23 @@ do
 end
 
 
-
 -----------------------------------
 -- Variables                     --
 -----------------------------------
 
 -- Local
-local cfgdir = awful.util.getdir("config")    -- Config dir
+local cfgdir = awful.util.getdir("config")
 
 -- Global
-hostname  = awful.util.pread("hostname"):gsub("\n", "")    -- Get hostname
+hostname  = awful.util.pread("hostname"):gsub("\n", "")
 homedir   = os.getenv("HOME")
 
-modkey   = "Mod4"                                          -- Modkeys
+-- Modkeys
+modkey   = "Mod4"
 metakey  = "Mod1"
 ctrlkey  = "Control"
 shiftkey = "Shift"
+
 
 -----------------------------------
 -- Initial stuff                 --
@@ -82,13 +83,6 @@ require("awful.autofocus")
 
 -- Load theme
 beautiful.init(awful.util.getdir("config") .. "/themes/zenburn/theme.lua")
-
--- Wallpaper
-if beautiful.wallpaper then
-    for s = 1, screen.count() do
-        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
-    end
-end
 
 
 -----------------------------------
@@ -126,12 +120,11 @@ for s = 1, screen.count() do
 end
 
 
-
-
 -----------------------------------
 -- Sourcing stuff                --
 -----------------------------------
 
+dofile(cfgdir .. "/rc.lua.d/wallpaper.lua")   -- Setup wallpaper
 dofile(cfgdir .. "/rc.lua.d/launchers.lua")   -- Launcher functions
 dofile(cfgdir .. "/rc.lua.d/naughty.lua")     -- Notifications
 dofile(cfgdir .. "/rc.lua.d/mywidgets.lua")   -- Widgets config
