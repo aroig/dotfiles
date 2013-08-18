@@ -1,27 +1,27 @@
 ;;; gitignore-mode.el --- Major mode for editing .gitignore files -*- lexical-binding: t; -*-
 
-;; Copyright (c) 2012, 2013 Sebastian Wiesner <lunaryorn@gmail.com>
-;;
+;; Copyright (c) 2012-2013  Sebastian Wiesner
+
 ;; Author: Sebastian Wiesner <lunaryorn@gmail.com>
-;; URL: https://github.com/lunaryorn/git-modes
-;; Version: 0.1
+;; Maintainer: Jonas Bernoulli <jonas@bernoul.li>
+;; Version: 0.14.0
+;; Homepage: https://github.com/magit/git-modes
 ;; Keywords: convenience vc git
 
 ;; This file is not part of GNU Emacs.
 
-;; This program is free software; you can redistribute it and/or modify it under
-;; the terms of the GNU General Public License as published by the Free Software
-;; Foundation; either version 2 of the License, or (at your option) any later
-;; version.
+;; This file is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3, or (at your option)
+;; any later version.
 
-;; This program is distributed in the hope that it will be useful, but WITHOUT
-;; ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-;; FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
-;; details.
+;; This file is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
 
-;; You should have received a copy of the GNU General Public License along with
-;; this program; if not, write to the Free Software Foundation, Inc., 51
-;; Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+;; You should have received a copy of the GNU General Public License
+;; along with Magit.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
 
@@ -29,14 +29,18 @@
 
 ;;; Code:
 
+(require 'rx)
 (require 'conf-mode)
 
 (defvar gitignore-mode-font-lock-keywords
-  '(("^\\s<.*$" . 'font-lock-comment-face)
-    ("^\\(!?\\)" (1 'font-lock-negation-char-face)) ; Negated patterns
-    ("/" . 'font-lock-constant-face)                ; Directory separators
-    ("\\(?:\\*\\|\\?\\)" . 'font-lock-keyword-face) ; Glob patterns
-    ("\\[.+?\\]" . 'font-lock-keyword-face)         ; Ranged glob patterns
+  `((,(rx line-start (syntax comment-start) (zero-or-more not-newline) line-end)
+     . 'font-lock-comment-face)
+    (,(rx line-start (group (optional "!"))) ; Negated patterns
+     (1 'font-lock-negation-char-face))
+    ("/" . 'font-lock-constant-face)               ; Directory separators
+    (,(rx (or "*" "?")) . 'font-lock-keyword-face) ; Glob patterns
+    (,(rx "[" (minimal-match (one-or-more not-newline)) "]")
+     . 'font-lock-keyword-face)         ; Ranged glob patterns
     ))
 
 ;;;###autoload
@@ -49,9 +53,12 @@
   (set (make-local-variable 'conf-assignment-sign) nil))
 
 ;;;###autoload
-(dolist (pattern '("/\\.gitignore\\'""/\\.git/info/exclude\\'"))
+(dolist (pattern (list (rx "/.gitignore" string-end)
+                       (rx "/.git/info/exclude" string-end)))
   (add-to-list 'auto-mode-alist (cons pattern 'gitignore-mode)))
 
 (provide 'gitignore-mode)
-
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 ;;; gitignore-mode.el ends here
