@@ -6,7 +6,7 @@
 
 ;; Author: Donald Ephraim Curtis <dcurtis@milkbox.net>
 ;; URL: http://github.com/milkypostman/powerline/
-;; Version: 2.1
+;; Version: 2.3
 ;; Keywords: mode-line
 ;; Package-Requires: ((cl-lib "0.2"))
 
@@ -482,9 +482,6 @@ static char * %s[] = {
            (powerline-width (cdr values))))
     0))
 
-
-;; weird hack to fix bug #29
-(message "powerlne loaded")
 
 (provide 'powerline)
 
