@@ -1,7 +1,7 @@
 ;;; pkgbuild-mode.el --- Interface to the ArchLinux package manager
 
 ;; $Id: pkgbuild-mode.el,v 1.23 2007/10/20 16:02:14 juergen Exp $
-;; Copyright (C) 2005-2010 Juergen Hoetzel
+;; Copyright (C) 2005-2013 Juergen Hoetzel
 
 ;;; License
 
@@ -36,6 +36,11 @@
 ;;                                auto-mode-alist))
 
 ;;; Changelog:
+
+;; 0.11
+;; Support Sources renaming: https://wiki.archlinux.org/index.php/PKGBUILD#source
+;; Use directory name as default pkgname
+;; Support Tramp (PKGBUILDs on remote machines)
 
 ;; 0.10
 ;; made the calculation of sums generic (use makepkg.conf setting)
@@ -94,7 +99,7 @@
 (require 'advice)
 (require 'compile)
 
-(defconst pkgbuild-mode-version "0.10" "Version of `pkgbuild-mode'.")
+(defconst pkgbuild-mode-version "0.11" "Version of `pkgbuild-mode'.")
 
 (defconst pkgbuild-mode-menu
   (purecopy '("PKGBUILD"
@@ -124,6 +129,7 @@
 pkgname=%s
 pkgver=VERSION
 pkgrel=1
+epoch=
 pkgdesc=\"\"
 arch=('i686' 'x86_64')
 url=\"\"
@@ -131,6 +137,7 @@ license=('GPL')
 groups=()
 depends=()
 makedepends=()
+checkdepends=()
 optdepends=()
 provides=()
 conflicts=()
@@ -139,22 +146,34 @@ backup=()
 options=()
 install=
 changelog=
-source=($pkgname-$pkgver.tar.gz)
+source=($pkgname-$pkgver.tar.gz
+        $pkgname-$pkgver.patch)
 noextract=()
 md5sums=()
 
+prepare() {
+  cd $pkgname-$pkgver
+
+  patch -p1 -i \"$srcdir/$pkgname-$pkgver.patch\"
+}
+
 build() {
-  cd $startdir/src/$pkgname-$pkgver
+  cd $pkgname-$pkgver
 
   ./configure --prefix=/usr
   make
 }
 
+check() {
+  cd $pkgname-$pkgver
+
+  make -k check
+}
+
 package() {
+  cd $pkgname-$pkgver
 
-  cd $startdir/src/$pkgname-$pkgver
-
-  make DESTDIR=$startdir/pkg install
+  make DESTDIR=\"$pkgdir/\" install
 }
 
 # vim:set ts=2 sw=2 et:
@@ -285,16 +304,6 @@ Otherwise, it saves all modified buffers without asking."
   "find source regions"
   (delete-if (lambda (region) (= (car region) (cdr region))) (loop for item on (pkgbuild-source-points) by 'cddr collect (cons (car item) (cadr item)))))
 
-(defun pkgbuild-shell-command-to-string(COMMAND)
-  "same as `shell-command-to-string' always uses '/bin/bash'"
-  (let ((shell-file-name "/bin/bash"))
-    (shell-command-to-string COMMAND)))
-
-(defun pkgbuild-shell-command (COMMAND &optional OUTPUT-BUFFER ERROR-BUFFER)
-  "same as `shell-command' always uses '/bin/bash'"
-  (let ((shell-file-name "/bin/bash"))
-    (shell-command COMMAND OUTPUT-BUFFER ERROR-BUFFER)))
-
 (defun pkgbuild-source-check ()
   "highlight sources not available. Return true if all sources are available. This does not work if globbing returns multiple files"
   (interactive)
@@ -303,11 +312,11 @@ Otherwise, it saves all modified buffers without asking."
     (pkgbuild-delete-all-overlays)
     (if (search-forward-regexp "^\\s-*source=(\\([^()]*\\))" (point-max) t)
         (let ((all-available t)
-              (sources (split-string (pkgbuild-shell-command-to-string "source PKGBUILD 2>/dev/null && for source in ${source[@]};do echo $source|sed 's|^.*://.*/||g';done")))
+              (sources (split-string (shell-command-to-string (format "bash -c '%s'" "source PKGBUILD 2>/dev/null && for source in ${source[@]};do echo $source|sed \"s|:.*://.*||g\"|sed \"s|^.*://.*/||g\";done"))))
               (source-locations (pkgbuild-source-locations)))
           (if (= (length sources) (length source-locations))
               (progn
-                (loop for source in sources
+                (loop for source in sources 
                       for source-location in source-locations
                       do (when (not (pkgbuild-find-file source (split-string pkgbuild-source-directory-locations ":")))
                            (progn
@@ -315,7 +324,7 @@ Otherwise, it saves all modified buffers without asking."
                              (pkgbuild-make-overlay (car source-location) (cdr source-location)))))
                 all-available)
             (progn
-              (message "cannot verfify sources: don't use globbing %d/%d" (length sources) (length source-locations))
+              (message "cannot verify sources: don't use globbing %d/%d" (length sources) (length source-locations))
               nil)))
       (progn
         (message "no source line found")
@@ -343,12 +352,12 @@ Otherwise, it saves all modified buffers without asking."
     pkgbuild-overlay))
 
 (defun pkgbuild-find-file (file locations)
-  "Find file in multible locations"
+  "Find file in multiple locations"
   (remove-if-not 'file-readable-p (mapcar (lambda (dir) (expand-file-name file dir)) locations)))
 
 (defun pkgbuild-sums-line ()
   "calculate *sums=() line in PKGBUILDs"
-  (pkgbuild-shell-command-to-string pkgbuild-sums-command))
+  (shell-command-to-string pkgbuild-sums-command))
 
 (defun pkgbuild-update-sums-line ()
   "Update the sums line in a PKGBUILD."
@@ -389,7 +398,8 @@ Otherwise, it saves all modified buffers without asking."
   (insert (format pkgbuild-template
 		  pkgbuild-user-full-name
 		  pkgbuild-user-mail-address
-		  (or (pkgbuild-get-directory (buffer-file-name)) "NAME"))))
+		  (or (substring (file-relative-name (file-name-directory buffer-file-name) "..") 0 -1)
+		      NAME))))
 
 (defun pkgbuild-process-check (buffer)
   "Check if BUFFER has a running process.
@@ -402,9 +412,6 @@ command."
             (delete-process process)
           (error "Cannot run two simultaneous processes ...")))))
 
-(defun pkgbuild-get-directory (buffer-file-name)
-    (car (last (split-string (file-name-directory (buffer-file-name)) "/" t))))
-
 (defun pkgbuild-makepkg (command)
   "Build this package."
   (interactive
@@ -415,7 +422,7 @@ command."
      (list (eval pkgbuild-makepkg-command))))
   (save-some-buffers (not pkgbuild-ask-about-save) nil)
   (if (file-readable-p "PKGBUILD")
-      (let ((pkgbuild-buffer-name (concat "*"  command " " (pkgbuild-get-directory buffer-file-name)  "*")))
+      (let ((pkgbuild-buffer-name (concat "*"  command " " buffer-file-name  "*")))
         (pkgbuild-process-check pkgbuild-buffer-name)
         (if (get-buffer pkgbuild-buffer-name)
             (kill-buffer pkgbuild-buffer-name))
@@ -425,7 +432,7 @@ command."
 	  (compilation-mode)
 	  (toggle-read-only -1))
         (let ((process
-               (start-process-shell-command "makepkg" pkgbuild-buffer-name
+               (start-file-process-shell-command "makepkg" pkgbuild-buffer-name
                                             command)))
           (set-process-filter process 'pkgbuild-command-filter)))
     (error "No PKGBUILD in current directory")))
@@ -456,13 +463,13 @@ command."
   "evaluate PKGBUILD and search stderr for errors"
   (interactive)
   (let  (
-         (stderr-buffer (concat "*PKGBUILD(" (pkgbuild-get-directory (buffer-file-name)) ") stderr*"))
-        (stdout-buffer (concat "*PKGBUILD(" (pkgbuild-get-directory (buffer-file-name)) ") stdout*")))
+         (stderr-buffer (concat "*PKGBUILD(" (buffer-file-name) ") stderr*"))
+	 (stdout-buffer (concat "*PKGBUILD(" (buffer-file-name) ") stdout*")))
     (if (get-buffer stderr-buffer) (kill-buffer stderr-buffer))
     (if (get-buffer stdout-buffer) (kill-buffer stdout-buffer))
     (if (not (equal
               (flet ((message (arg &optional args) nil)) ;Hack disable empty output
-                (pkgbuild-shell-command "source PKGBUILD" stdout-buffer stderr-buffer))
+                (shell-command "bash -c 'source PKGBUILD'" stdout-buffer stderr-buffer))
               0))
         (multiple-value-bind (err-p line) (pkgbuild-postprocess-stderr stderr-buffer)
           (if err-p
@@ -490,15 +497,20 @@ command."
   "Return a list of required files for the tarball package"
   (cons "PKGBUILD"
 	(remove-if (lambda (x) (string-match "^\\(https?\\|ftp\\)://" x))
-		   (split-string (pkgbuild-shell-command-to-string
-				  "source PKGBUILD 2>/dev/null && echo ${source[@]} $install")))))
+		   (split-string (shell-command-to-string
+				  "bash -c 'source PKGBUILD 2>/dev/null && echo ${source[@]} $install'")))))
+
+(defun pkgbuild-pkgname ()
+  "Return package name"
+  (shell-command-to-string
+   "bash -c 'source PKGBUILD 2>/dev/null && echo -n ${pkgname}'"))
 
 (defun pkgbuild-tar-command ()
   "Return default tar command"
   (let* ((tarball-files (pkgbuild-tarball-files))
-	 (dir (car (last (split-string (file-name-directory (buffer-file-name)) "/" t)))))
-    (concat "tar cvzf " dir ".tar.gz -C .. "
-	    (mapconcat (lambda (l) (concat dir "/" l)) tarball-files " "))))
+	 (dir (file-relative-name  default-directory "..")) )
+    (concat (format "tar cvzf ../%s.tar.gz -C .. %s" (pkgbuild-pkgname)
+		    (mapconcat (lambda (l) (format "%s%s" dir l)) tarball-files " ")))))
 
 (defun pkgbuild-tar (command)
   "Build a tarball containing all required files to build the package."
@@ -521,15 +533,15 @@ command."
       (set-buffer (get-buffer pkgbuild-buffer-name))
       (goto-char (point-max)))
     (let ((process
-           (start-process-shell-command "tar" pkgbuild-buffer-name
+           (start-file-process-shell-command "tar" pkgbuild-buffer-name
                                         command)))
       (set-process-filter process 'pkgbuild-command-filter))))
 
 
 (defun pkgbuild-browse-url ()
-  "Vist URL (if defined in PKGBUILD)"
+  "Visit URL (if defined in PKGBUILD)"
   (interactive)
-  (let ((url (pkgbuild-shell-command-to-string (concat (buffer-string) "\nsource /dev/stdin >/dev/null 2>&1 && echo -n $url" ))))
+  (let ((url (shell-command-to-string (concat (buffer-string) "\nsource /dev/stdin >/dev/null 2>&1 && echo -n $url" ))))
     (if (string= url "")
         (message "No URL defined in PKGBUILD")
       (browse-url url))))
@@ -564,7 +576,7 @@ with no args, if that value is non-nil."
 	 (cmd (format pkgbuild-etags-command toplevel-directory etags-file)))
     (require 'etags)
     (message "Running etags to create TAGS file: %s" cmd)
-    (pkgbuild-shell-command cmd)
+    (shell-command cmd)
     (visit-tags-table etags-file)))
 
 (provide 'pkgbuild-mode)
