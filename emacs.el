@@ -121,11 +121,12 @@
 ;; Version Control
 (require 'vc)
 (require 'magit)
+
 (require 'git-commit-mode)
 (require 'gitignore-mode)
 (require 'gitconfig-mode)
+(require 'git-rebase-mode)
 
-(require 'rebase-mode)
 (require 'vcs-hacks)
 
 ;; email
