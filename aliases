@@ -94,6 +94,7 @@ run_with_journal() {
 
 
 alias jctl="sudo journalctl --since=yesterday"
+alias ectl="sudo journalctl --since=yesterday --priority=0..3"
 alias sctl="sudo systemctl --system"
 alias nctl="sudo netctl"
 alias uctl="systemctl --user"
