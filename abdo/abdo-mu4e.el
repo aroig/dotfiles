@@ -77,7 +77,9 @@
 
           ("tag:arch AND flag:unread"                             "Arch"                ?a)
           ("tag:sage AND flag:unread"                             "Sage"                ?s)
+          ("tag:systemd AND flag:unread"                          "Systemd"             ?y)
           ("tag:org AND flag:unread"                              "Org"                 ?o)
+          ("tag:zathura AND flag:unread"                          "Zathura"             ?z)
           ("tag:devel AND flag:unread"                            "Development"         ?d)
 
           ("tag:watchlist AND flag:unread"                        "Watchlist"           ?w)
