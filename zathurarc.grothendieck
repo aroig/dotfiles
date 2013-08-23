@@ -42,7 +42,8 @@ set search-hadjust          false
 set link-hadjust            false
 
 set font                    "terminal"
-set statusbar-padding       4
+set statusbar-h-padding     6
+set statusbar-v-padding     2
 
 # set border-width            4
 # set guioptions              sc           # fixed status and input bars
