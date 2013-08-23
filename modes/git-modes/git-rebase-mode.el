@@ -110,8 +110,8 @@
 
 (defvar git-rebase-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "q")       'server-edit)
-    (define-key map (kbd "C-c C-c") 'server-edit)
+    (define-key map (kbd "q")       'git-rebase-server-edit)
+    (define-key map (kbd "C-c C-c") 'git-rebase-server-edit)
     (define-key map (kbd "a")       'git-rebase-abort)
     (define-key map (kbd "C-c C-k") 'git-rebase-abort)
     (define-key map [remap undo]    'git-rebase-undo)
@@ -228,6 +228,12 @@ that of CHANGE-TO."
       (forward-line -1)
       (move-to-column col))))
 
+(defun git-rebase-server-edit ()
+  "Save the action buffer and end the session."
+  (interactive)
+  (save-buffer)
+  (server-edit))
+
 (defun git-rebase-abort ()
   "Abort this rebase.
 This is dune by emptying the buffer, saving and closing server
@@ -236,7 +242,7 @@ connection."
   (when (or (not (buffer-modified-p))
             (y-or-n-p "Abort this rebase? "))
     (let ((buffer-read-only nil))
-      (delete-region (point-min) (point-max))
+      (erase-buffer)
       (save-buffer)
       (server-edit))))
 
@@ -336,7 +342,7 @@ running 'man git-rebase' at the command line) for details."
    (list git-rebase-dead-line-re 0 ''git-rebase-killed-action-face t))
   "Font lock keywords for Git-Rebase mode.")
 
-(defun git-rebase-show-keybindings ()
+(defun git-rebase-mode-show-keybindings ()
   "Modify the \"Commands:\" section of the comment Git generates
 at the bottom of the file so that in place of the one-letter
 abbreviation for the command, it shows the command's keybinding.
