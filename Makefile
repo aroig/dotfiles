@@ -1,7 +1,7 @@
-REMOTES=modes/git-modes modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
+REMOTES=modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
         modes/rainbow-mode modes/yaml-mode packages/ibuffer-vc packages/powerline themes/zenburn
 
-COMPILE=modes/git-modes modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
+COMPILE=modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
         modes/rainbow-mode modes/yaml-mode packages/ibuffer-vc abdo
 
 REMOTES_MERGE=$(patsubst %,%-merge,$(REMOTES))
