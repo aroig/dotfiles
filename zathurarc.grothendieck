@@ -42,10 +42,13 @@ set search-hadjust          false
 set link-hadjust            false
 
 set font                    "terminal"
+
 set statusbar-h-padding     6
 set statusbar-v-padding     2
+set border-width            5
 
-# set border-width            4
+set selection-clipboard     clipboard
+
 # set guioptions              sc           # fixed status and input bars
 # set show-h-scrollbar        true
 # set show-v-scrollbar        true
