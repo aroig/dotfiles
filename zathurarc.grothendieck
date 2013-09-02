@@ -45,7 +45,7 @@ set font                    "terminal"
 
 set statusbar-h-padding     6
 set statusbar-v-padding     2
-set border-width            5
+set border-width            4
 
 set selection-clipboard     clipboard
 
