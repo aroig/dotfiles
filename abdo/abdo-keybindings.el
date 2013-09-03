@@ -150,21 +150,25 @@
 
 ;; ediff
 (add-hook 'ediff-load-hook
-          (lambda ()
-            ;; Don't want to be asked for commit when merging, etc.
-            (make-local-variable 'abdo-commit-on-kill)
-            (setq abdo-commit-on-kill nil)))
+        (lambda ()
+          ;; Don't want to be asked for commit when merging, etc.
+          (make-local-variable 'abdo-commit-on-kill)
+          (setq abdo-commit-on-kill nil)))
 
 
 ;; text mode
 (add-hook 'text-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "s-c d") 'abdo-change-dictionary)))
+      (lambda ()
+        (abdo-flyspell-things)
+        (local-set-key (kbd "s-c d") 'abdo-change-dictionary)))
 
 
 ;; Git commit
 (add-hook 'git-commit-mode-hook
 	  (lambda ()
+        ;; enable flyspell
+        (flyspell-mode 1)
+
 	    ;; Don't want to be asked for commit when commiting!
         (make-local-variable 'abdo-commit-on-kill)
         (setq abdo-commit-on-kill nil)))
@@ -181,6 +185,9 @@
 ;; Latex
 (add-hook 'LaTeX-mode-hook
 	  (lambda ()
+        ;; enable flyspell
+        (flyspell-mode 1)
+
 	    (local-set-key (kbd "C-c c") 'abdo-latex-compile-buffer)   ;; Compile
 	    (local-set-key (kbd "C-c k") 'kill-compilation)            ;; Kill compilation
 	    (local-set-key (kbd "C-c d") 'abdo-latex-make-diff)        ;; Makes a diff
@@ -206,38 +213,23 @@
 
 
 ;; org mode
-(defun abdo-org-mode-keybindings ()
-  (local-set-key (kbd "s-c y") 'doku-import-yank)
-  (local-set-key (kbd "H-o p") 'abdo-org-latex-preview-all))
-
-(add-hook 'org-mode-hook 'abdo-org-mode-keybindings)
+(add-hook 'org-mode-hook
+        (lambda ()
+          (local-set-key (kbd "s-c y") 'doku-import-yank)
+          (local-set-key (kbd "H-o p") 'abdo-org-latex-preview-all)))
 
 ;; rcirc mode
 (add-hook 'rcirc-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c C-x") (lambda () (interactive) (rcirc-cmd-quit "bye")))))
+        (lambda ()
+          (local-set-key (kbd "C-c C-x")
+            (lambda () (interactive) (rcirc-cmd-quit "bye")))))
 
-;; mail and news
-(add-hook 'email-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "n") 'abdo-toggle-news)
-	    (local-set-key (kbd "m") 'notmuch-mua-new-mail)))
+;; mail
+(add-hook 'mu4e-compose-mode-hook
+        (lambda ()
+          ;; enable flyspell
+          (flyspell-mode 1)))
 
-(add-hook 'news-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "n") 'abdo-toggle-news)
-	    (local-unset-key (kbd "m"))))
 
-;; notmuch
-(add-hook 'notmuch-search-hook
-	   (lambda ()
-	     (local-set-key (kbd "C-c a") '(lambda ()
-					     (interactive)
-					     (notmuch-search-tag-all '("-unread"))
-					     (notmuch-search-refresh-view)))))
-
-(add-hook 'notmuch-show-hook
-	  (lambda ()
-	    (local-set-key (kbd "C-c C-o") 'w3m-view-url-with-external-browser)))
 
 (provide 'abdo-keybindings)

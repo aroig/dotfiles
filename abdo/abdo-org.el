@@ -94,9 +94,6 @@
   ;; Want wider columns in org-files
   (set-fill-column 100)
 
-  ;; Flyspell is annoying.
-  (flyspell-mode 0)
-
   ;; Activate notifications
   ;; (abdo-org-activate-appt)
 )
@@ -122,12 +119,6 @@
 
   ;; Confirm elisp code execution with y or n.
   (setq org-confirm-elisp-link-function 'y-or-n-p)
-
-  ;; I am going to use english by default
-  (abdo-change-dictionary "english")
-
-  ;; TODO: should change this once I have automated on abdo-languages.el
-;  (setq ispell-personal-dictionary (concat abdo-personal-dicts-path "abdo-english.dict"))
 
   ;; Latex mode
   ; (turn-on-org-cdlatex)

@@ -37,9 +37,6 @@
 
   ;; Run hooks
   (run-hooks 'abdo-ispell-hooks)
-
-  ;; Enable flyspell mode
-  (flyspell-mode 1)
 )
 
 (defun abdo-change-dictionary (dictionary)
@@ -47,14 +44,3 @@
   (interactive (list (ido-completing-read "New Dictionary: " '("catalan" "english" "spanish" "german"))))
   (setq ispell-personal-dictionary (concat abdo-personal-dicts-path "abdo-" dictionary ".dict"))
   (ispell-change-dictionary dictionary))
-
-
-;; Enable flyspell on text modes
-(add-hook 'text-mode-hook 'abdo-flyspell-things)
-
-
-
-; (dolist (hook '(text-mode-hook))
-;      (add-hook hook (lambda () (flyspell-mode 1))))
-; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
-;      (add-hook hook (lambda () (flyspell-mode -1))))
