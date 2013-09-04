@@ -6,6 +6,7 @@ return {
    firefox                   = "firefox",
    midori                    = "midori",
    luakit                    = "luakit",
+   xombrero                  = "xombrero",
    deluge                    = "deluge",
    amule                     = "amule",
    pidgin                    = "pidgin",
