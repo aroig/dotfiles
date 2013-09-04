@@ -127,9 +127,9 @@
   ;; Desktop dependent stuff!
   (setq org-file-apps '(
       (auto-mode . emacs)
-      ("\\.pdf\\'" . "evince %s")
-      ("\\.pdf::\\([[:digit:]]+\\)\\'" . "evince -p %1 %s")
-      ("\\.x?html\\'" . "chromium %s")
+;      ("\\.pdf\\'" . "evince %s")
+;      ("\\.pdf::\\([[:digit:]]+\\)\\'" . "evince -p %1 %s")
+;      ("\\.x?html\\'" . "chromium %s")
     ))
 
   ;; Just a little darker than background.
