@@ -28,7 +28,7 @@ function add_to_pathlist_left () {
 
 export EDITOR=/usr/bin/vim                        # default editor
 export EMACS="/usr/bin/emacsclient -c -a emacs"   # emacs
-export BROWSER=/usr/bin/chromium                  # default browser
+export BROWSER=/usr/bin/xombrero                  # default browser
 export FILEMANAGER=/usr/bin/thunar                # the file manager
 export PAGER=/usr/bin/vimpager                    # wrapper for vim
 export TERMCMD=/usr/bin/termite                   # terminal
