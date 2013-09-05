@@ -339,6 +339,16 @@
 )
 
 
+(defun abdo-org-generate-latex (filename)
+  "Generate latex previews for given file"
+  (interactive)
+  (with-current-buffer (find-file-noselect filename)
+    (let ((current-prefix-arg '(16)))
+      (call-interactively 'org-preview-latex-fragment))
+    (kill-buffer (current-buffer)))
+  nil)
+
+
 (defun abdo-org-update-agenda()
   "Updates the file containing the list of org files for the
    agenda mode and the id-locations file."
