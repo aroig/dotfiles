@@ -290,7 +290,7 @@
   ;; NOTE: this is for previews. What about exporting? I may need to run it
   ;; twice there...
   (setq org-latex-pdf-process
-        `(,(concat org-directory "bin/lualatex-wiki.sh --output-directory=%o %f")))
+        `(,(concat org-directory "bin/lualatex.sh --output-directory=%o %f")))
 )
 
 
@@ -340,26 +340,19 @@
 
 
 (defun abdo-org-update-agenda()
-  "Updates the file containing the list of org files for the agenda mode and the id-locations file."
+  "Updates the file containing the list of org files for the
+   agenda mode and the id-locations file."
   (interactive)
 
   ;; Update symlinks to projects and papers
-  (call-process-shell-command (concat org-directory "bin/update.sh"))
+  (compile (format "cd %s; make update" org-directory)))
 
-  ;; Produce the list of agenda files
-  (call-process-shell-command (format "find %s -name '*.org' > %s " org-directory-wiki
-                    (concat org-directory abdo-org-agenda-file-list)))
-
-  ;; Update ID locations
-  (org-id-update-id-locations)
-)
 
 (defun abdo-org-update-mobile()
   (interactive)
   ;; Push to mobile-org
   (when (file-exists-p org-mobile-directory)
-    (org-mobile-push))
-)
+    (org-mobile-push)))
 
 
 
