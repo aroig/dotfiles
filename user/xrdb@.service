@@ -13,5 +13,8 @@ Requisite=xserver@%i.target
 Type=oneshot
 EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
+
+# For some reason resources are not always loaded. Give it some time.
+ExecStartPre=sleep 1
 ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources
 ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources.d/%H
