@@ -3,6 +3,6 @@
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
 # key: eqn
 # --
-\\begin{equation} \\label{eq:${1:bla}}
+\\begin{equation}\\label{eq:${1:bla}}
   $0
 \\end{equation}

@@ -3,6 +3,6 @@
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
 # key: longex
 # --
-\\begin{comdiag} \\label{eq:${1:bla}}
+\\begin{comdiag}\\label{eq:${1:bla}}
   \\chain{ \\cdots --> ${2:A_1} --> ${3:A_2} --> ${4:A_3} --> ${5:A_4} --> \\cdots};
 \\end{comdiag}

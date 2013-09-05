@@ -3,6 +3,6 @@
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
 # key: cd
 # --
-\\begin{comdiag} \\label{eq:${1:bla}}
+\\begin{comdiag}\\label{eq:${1:bla}}
   $0
 \\end{comdiag}

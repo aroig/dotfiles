@@ -3,7 +3,7 @@
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
 # key: ladder
 # --
-\\begin{comdiag} \\label{eq:${1:bla}}
+\\begin{comdiag}\\label{eq:${1:bla}}
   \\obj(m){
     \\cdots \\& ${2:A_1} \\& ${3:A_2} \\& ${4:A_3} \\& \\cdots \\\\
     \\cdots \\& ${5:B_1} \\& ${6:B_2} \\& ${7:B_3} \\& \\cdots \\\\

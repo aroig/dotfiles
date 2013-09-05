@@ -3,6 +3,6 @@
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
 # key: shortex
 # --
-\\begin{comdiag} \\label{eq:${1:bla}}
+\\begin{comdiag}\\label{eq:${1:bla}}
   \\chain{0 --> ${2:A_1} --> ${3:A_2} --> ${4:A_3} --> 0};
 \\end{comdiag}

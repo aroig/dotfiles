@@ -3,7 +3,7 @@
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
 # key: pullback
 # --
-\\begin{comdiag} \\label{eq:${1:bla}}
+\\begin{comdiag}\\label{eq:${1:bla}}
   \\obj(m){
     ${2:A} \\& ${3:B} \\\\
     ${4:C} \\& ${5:D} \\\\
