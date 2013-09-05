@@ -406,15 +406,19 @@
         (persolog-list   (list (concat org-directory-wiki abdo-org-personal-journal-file))))
     (setq org-agenda-custom-commands
           `(
+            ;; DEVELOPMENT
             ("d" . "Development")
 
+            ; Agenda for development items
             ("da" "Agenda"      agenda ""
              ((org-agenda-files (quote ,devel-list))))
 
+            ; Search in development docs
             ("ds" "Search"      search ""
              ((org-agenda-files (quote ,devel-list))
               (org-agenda-search-view-max-outline-level 2)))
 
+            ; Development TODO list
             ("dt" "Todo"        tags-todo ""
              ((org-agenda-files (quote ,devel-list))))
 
@@ -423,57 +427,74 @@
 ;            ("dP" "Projects TODO"    tags-todo "+project")
 
 
-
+            ;; RESEARCH
             ("r" . "Research")
 
+            ; Agenda for research items
             ("ra" "Agenda"          agenda ""
              ((org-agenda-files (quote ,(append research-list papers-list)))))
 
+            ; Search in research documents
             ("rs" "Search"          search ""
              ((org-agenda-files (quote ,(append research-list papers-list)))
               (org-agenda-search-view-max-outline-level 2)))
 
-            ("ri" "Ideas"           search ""
+            ; List of research ideas
+            ("ri" "Ideas"           tags "+LEVEL=3"
+             ((org-agenda-files (quote ,ideas-list))
+              (org-agenda-prefix-format "")))
+
+            ; Search in research ideas
+            ("rI" "Search ideas"           search ""
              ((org-agenda-files (quote ,ideas-list))
               (org-agenda-search-view-max-outline-level 3)
               (org-agenda-prefix-format "")))
 
-            ("rn" "Notes"           search ""
+            ; List of research notes
+            ("rn" "Notes"           tags "+LEVEL=3"
+             ((org-agenda-files (quote ,notes-list))
+              (org-agenda-prefix-format "")))
+
+            ; Search in research notes
+            ("rN" "Search notes"           search ""
              ((org-agenda-files (quote ,notes-list))
               (org-agenda-search-view-max-outline-level 3)
               (org-agenda-prefix-format "")))
 
-            ("rj" "Journal"         search ""
-             ((org-agenda-files (quote ,mathlog-list))
-              (org-agenda-search-view-max-outline-level 4)
-              (org-agenda-prefix-format "")))
-
+            ; List of papers
             ("rp" "Papers"          tags "+paper+LEVEL=1"
              ((org-agenda-files (quote ,papers-list))
               (org-agenda-search-view-max-outline-level 1)))
 
-            ("ru" "Ideas"           tags "+LEVEL=3"
-             ((org-agenda-files (quote ,ideas-list))
+            ; Search in research journal
+            ("rj" "Search journal"         search ""
+             ((org-agenda-files (quote ,mathlog-list))
+              (org-agenda-search-view-max-outline-level 4)
               (org-agenda-prefix-format "")))
 
+            ; Research TODO list
             ("rt" "Todo"            tags-todo ""
              ((org-agenda-files (quote ,(append research-list papers-list)))))
 
 
-
+            ;; PERSONAL
             ("p" . "Personal")
 
+            ; Personal agenda
             ("pa" "Agenda"      agenda ""
              ((org-agenda-files (quote ,perso-list))))
 
+            ; Search personal notes
             ("ps" "Search"      search ""
              ((org-agenda-files (quote ,perso-list))
               (org-agenda-search-view-max-outline-level 2)))
 
+            ; Personal TODO list
             ("pt" "Todo"        tags-todo ""
              ((org-agenda-files (quote ,perso-list))))
 
-            ("pj" "Journal"     search ""
+            ; Search personal journal
+            ("pj" "Search journal"     search ""
              ((org-agenda-files (quote ,persolog-list))
               (org-agenda-search-view-max-outline-level 4)
               (org-agenda-prefix-format "")))
