@@ -253,7 +253,7 @@
   (setq org-src-fontify-natively t)
 
   ;; Sets packages on the header
-  (setq org-export-latex-default-packages-alist
+  (setq org-latex-default-packages-alist
         '(
           ; ("AUTO" "inputenc"  t)   ;; not on lualatex
           ; ("T1"   "fontenc"   t)
@@ -262,12 +262,14 @@
           (""     "longtable" nil)
           (""     "float"     nil)
           (""     "wrapfig"   nil)
-          (""     "soul"      t)
+          ("normalem" "ulem" t)
+          ; (""     "soul"      t)
           (""     "textcomp"  t)
           (""     "marvosym"  t)
           (""     "wasysym"   t)
-          (""     "latexsym"  t)
+          ; (""     "latexsym"  t)
           (""     "amssymb"   t)
+          (""     "amstext" nil)
           (""     "hyperref"  nil)
 
           ("" "abdofonts" t)
@@ -279,14 +281,16 @@
 
   ;; Latex to pdf process. Two lines means run it two times.
   ;; A last sublist would be the command to do for previews!
-  (setq org-latex-to-pdf-process
-	(list (concat org-directory "bin/lualatex-wiki.sh --output-directory=%o %f")
-	      ;(concat org-directory "bin/lualatex-wiki.sh --output-directory=%o %f")
-          ))
 
-  ;; Sets environment variable such that latex finds my personal texmf.
-  ;; It is nonlocal. Affects external latex processes when org mode is open. Not good.
-;  (setenv "TEXINPUTS" (concat ".:" org-directory abdo-org-texmf-subdirectory ":"))
+;  (setq org-latex-pdf-process
+;        '("pdflatex -interaction nonstopmode -output-directory %o %f"
+;          "pdflatex -interaction nonstopmode -output-directory %o %f"
+;          "pdflatex -interaction nonstopmode -output-directory %o %f")
+
+  ;; NOTE: this is for previews. What about exporting? I may need to run it
+  ;; twice there...
+  (setq org-latex-pdf-process
+        `(,(concat org-directory "bin/lualatex-wiki.sh --output-directory=%o %f")))
 )
 
 
@@ -299,12 +303,10 @@
   "Latex preview adjustments"
   (setq org-latex-create-formula-image-program 'imagemagick)
 ;  (setq org-latex-create-formula-image-program 'dvipng)
-  (plist-put org-format-latex-options :scale 1.25)
+  (plist-put org-format-latex-options :scale 1.2)
   (plist-put org-format-latex-options :foreground 'auto)
   (plist-put org-format-latex-options :background 'auto)
 )
-
-
 
 
 ;; Tools
