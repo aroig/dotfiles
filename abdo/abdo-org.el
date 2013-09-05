@@ -303,7 +303,7 @@
   "Latex preview adjustments"
   (setq org-latex-create-formula-image-program 'imagemagick)
 ;  (setq org-latex-create-formula-image-program 'dvipng)
-  (plist-put org-format-latex-options :scale 1.2)
+  (plist-put org-format-latex-options :scale 1.0)
   (plist-put org-format-latex-options :foreground 'auto)
   (plist-put org-format-latex-options :background 'auto)
 )
