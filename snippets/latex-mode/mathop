@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# name: \DefineMathOperator{...}{...}
+# name: \DeclareMathOperator{...}{...}
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
 # key: mathop
 # --
-\\DefineMathOperator{\\${1:name}}{$2}
+\\DeclareMathOperator{\\${1:name}}{$2}
