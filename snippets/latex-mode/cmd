@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# name: command
+# name: \newcommand{...}{...}
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
 # key: cmd
 # --

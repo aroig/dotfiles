@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# name: \begin{comdiag}\label{eq:?} ... \end{comdiag}
+# name: \begin{comdiag} ... \end{comdiag}
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
 # key: cd
 # --
-\\begin{comdiag}\\label{eq:${1:bla}}
+\\begin{comdiag}
   $0
 \\end{comdiag}

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# name: comdiag* block
+# name: \begin{comdiag*} ... \end{comdiag*}
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
 # key: cd*
 # --

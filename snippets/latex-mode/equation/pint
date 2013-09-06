@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: \int e^{-i/\hbar S[?]}\, \mathcal{D} ?
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: pint
+# --
+\\int e^{-i/\\hbar S[${1:\\psi}]}\\,\\mathcal{D} $1

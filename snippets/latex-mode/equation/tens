@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# name: \int_{?} ? \, d?
+# name: ?_{i_?,\ldots,i_?}
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: int
+# key: tens
 # --
-\\int_{${1:X}} ${2:f(x)}\\, d $3
+${1:T}_{i_{${2:1}},\ldots,i_{${3:n}}}

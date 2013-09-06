@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# name: path integral
+# name: ? \mapsto ?
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: pathint
+# key: maps
 # --
-\\int e^{-i/\\hbar S[${1:\\psi}]}\\,\\caD $1
+${1:x} \mapsto ${2:f(x)}
