@@ -1,0 +1,7 @@
+# name: \begin{lem}\label{lem:?} ... \end{lem}
+# contributor: Abdo Roig-Maranges <abdo.roig@gmail.com>
+# key: lem
+# --
+\\begin{lem}\\label{lem:${1:bla}}
+  $0
+\\end{lem}
