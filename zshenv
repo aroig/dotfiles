@@ -72,6 +72,8 @@ export CC="colorgcc"
 export SAGE_KEEP_BUILT_SPKGS=yes    # don't rebuild from scratch
 export SAGE_ROOT=$AB2_HOME/usr/sage
 
+# ranger
+export RANGER_LOAD_DEFAULT_RC=FALSE
 
 
 #------------------------------
