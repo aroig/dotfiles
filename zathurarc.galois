@@ -45,7 +45,6 @@ set font                    "terminal"
 
 set statusbar-h-padding     6
 set statusbar-v-padding     0
-set border-width            0
 
 set selection-clipboard     clipboard
 
@@ -53,7 +52,15 @@ set selection-clipboard     clipboard
 # set show-h-scrollbar        true
 # set show-v-scrollbar        true
 
+
 # Key maps
 # ----------------------------------------------------------
+
 map <PageDown>     scroll half-down
 map <PageUp>       scroll half-up
+
+map <C-r>          reload
+map s              recolor
+
+map <C-a>          adjust_window best-fit
+map <C-s>          adjust_window width
