@@ -68,6 +68,12 @@ export CC="colorgcc"
 # Application variables
 #------------------------------
 
+# gtk
+
+# disable accessibility for GTK3 apps
+# https://forums.gentoo.org/viewtopic-p-7380668.html?sid=265ddf475643bf5c86fe72440cf6cbe8
+NO_AT_BRIDGE=1 
+
 # sage
 export SAGE_KEEP_BUILT_SPKGS=yes    # don't rebuild from scratch
 export SAGE_ROOT=$AB2_HOME/usr/sage
