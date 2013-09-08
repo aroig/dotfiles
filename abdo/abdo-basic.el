@@ -14,38 +14,31 @@
 (transient-mark-mode t)                       ;; Some text highlighting
 (show-paren-mode t)                           ;; Matching parenthesis
 
-;; Enable narrowing
-(put 'narrow-to-region 'disabled nil)
-
-;; Default Fill column. This is overriden in latex or org-mode.
-(setq-default fill-column 80)
-
+(put 'narrow-to-region 'disabled nil)         ;; Enable narrowing
+(setq-default fill-column 80)                 ;; Default Fill column.
 (blink-cursor-mode t)                         ;; like it blinking
 
-;; Enable auto-fill
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-;; Default major mode
-(setq-default major-mode 'text-mode)
+(add-hook 'text-mode-hook 'turn-on-auto-fill) ;; Enable auto-fill
 
-;; save bookmarks immediately
-(setq bookmark-save-flag 1)
+(setq-default major-mode 'text-mode)          ;; Default major mode
+
+(setq bookmark-save-flag 1)                   ;; save bookmarks immediately
+
+(setq server-raise-frame nil)                 ;; don't raise frames when switching buffers
+
+(defalias 'yes-or-no-p 'y-or-n-p)             ;; All questions y-or-n
 
 ;; Set web browser to desktop default
  (setq browse-url-generic-program "xdg-open"
       browse-url-browser-function 'browse-url-generic)
 
 ;; Modeline tweaking:   http://www.emacswiki.org/emacs/ModeLineConfiguration
-(setq display-time-format "%H:%M")
-(display-time-mode 0)
+(setq display-time-format "%H:%M")            ;; time format
+(display-time-mode 0)                         ;; hide time
+(setq column-number-mode t)                   ;; display column number
 
-(setq column-number-mode t)
 
-;; don't raise frames when switching buffers
-(setq server-raise-frame nil)
-
-;; All questions y-or-n
-(defalias 'yes-or-no-p 'y-or-n-p)
 
 
 ;; Utility Functions
