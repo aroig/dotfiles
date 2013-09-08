@@ -6,19 +6,26 @@ Before=pulseaudio.service
 Requires=dbus.socket
 
 [Service]
-Type=forking
-# Jack via dbus
-ExecStart=/usr/bin/jack_control ds alsa
-ExecStart=/usr/bin/jack_control dps device hw:Intel
-ExecStart=/usr/bin/jack_control eps realtime true
-ExecStart=/usr/bin/jack_control dps rate 48000
-ExecStart=/usr/bin/jack_control dps nperiods 2
-ExecStart=/usr/bin/jack_control dps period 64
-ExecStart=/usr/bin/jack_control start
+Type=dbus
+BusName=org.jackaudio.service
 
-ExecStop=/usr/bin/jack_control stop
-Restart=always
-RestartSec=1
+NOTE: this is non-functional at the moment. Need to sort this out.
+# Jack via dbus
+
+# ExecStart=/usr/bin/jackdbus auto
+# ExecStart=/usr/bin/jack_control start
+# ExecStop=/usr/bin/jack_control stop
+
+# ExecStartPost=/usr/bin/jack_control ds alsa
+# ExecStartPost=/usr/bin/jack_control dps device hw:Intel
+# ExecStartPost=/usr/bin/jack_control eps realtime true
+# ExecStartPost=/usr/bin/jack_control dps rate 48000
+# ExecStartPost=/usr/bin/jack_control dps nperiods 2
+# ExecStartPost=/usr/bin/jack_control dps period 64
+
+# Non-dbus version
+# get the device with ls /proc/asound/cards
+# ExecStart=/usr/bin/jackd -R --driver alsa --device hw:Intel -r 48000 -n 2 -p 64
 
 [Install]
 WantedBy=audio.target
