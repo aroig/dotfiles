@@ -1,10 +1,10 @@
 [Default Applications]
 inode/directory=thunar.desktop;
 
-x-scheme-handler/http=chromium.desktop;
-x-scheme-handler/https=chromium.desktop;
-application/xhtml+xml=chromium.desktop;
-text/html=chromium.desktop;
+x-scheme-handler/http=xombrero.desktop;
+x-scheme-handler/https=xombrero.desktop;
+application/xhtml+xml=xombrero.desktop;
+text/html=xombrero.desktop;
 
 text/plain=emacs-client.desktop;
 application/x-shellscript=emacs-client.desktop;
