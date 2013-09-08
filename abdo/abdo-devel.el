@@ -4,12 +4,44 @@
 ;; General things
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; insert a vim-style modeline
 (defun abdo-insert-modeline ()
   (interactive)
   (save-excursion
     (goto-char (point-max))
     (insert "\n# vim: expandtab:shiftwidth=4:tabstop=4:softtabstop=4:textwidth=80")))
 
+
+;; Minor Modes
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun trailing-whitespace-mode-delete-whitespaces ()
+  (when (and (boundp 'trailing-whitespace-mode) trailing-whitespace-mode)
+    (delete-trailing-whitespace)))
+
+(define-minor-mode trailing-whitespace-mode
+  "Toggle Trailing Whitespace mode.
+   Interactively with no argument, this command toggles the mode.
+   A positive prefix argument enables the mode, any other prefix
+   argument disables it.  From Lisp, argument omitted or nil enables
+   the mode, `toggle' toggles the state.
+
+   When Trailing Whitespace mode is enabled, emacs removes all trailing
+   whitespaces on save."
+
+  ;; The initial value.
+  :init-value nil
+
+  ;; The indicator for the mode line.
+  :lighter " TW"
+
+  ;; The minor mode bindings.
+  :keymap '()
+
+  :group 'trailing-whitespaces
+
+  ;; the body
+  (add-hook 'before-save-hook 'trailing-whitespace-mode-delete-whitespaces nil t))
 
 
 ;; Compile buffer
@@ -76,7 +108,7 @@
   (setq python-shell-interpreter "ipython")
 
   ;; Delete trailing whitespaces before save
-  (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
+  (trailing-whitespace-mode)
 
 ;  (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
 ;  (abdo-change-dictionary "english")      ;; I always program in english
@@ -96,7 +128,7 @@
   (setq lua-indent-level 4)              ;; indentation
 
   ;; Delete trailing whitespaces before save
-  (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
+  (trailing-whitespace-mode)
 )
 
 ;; Hooks
@@ -110,7 +142,7 @@
   (abdo-compile-buffer-things)
 
   ;; Delete trailing whitespaces before save
-  (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
+  (trailing-whitespace-mode)
 )
 
 ;; Hooks
@@ -142,8 +174,9 @@
   (setq c-basic-offset 4)
 
   ;; Delete trailing whitespaces before save
-  (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
+  (trailing-whitespace-mode)
 
+  ;; Setup compile buffer stuff
   (abdo-compile-buffer-things)
 )
 
