@@ -46,6 +46,7 @@ return {
    gimp                      = "gimp",
    inkscape                  = "inkscape",
    blender                   = "blender",
+   luxrender                 = "luxrender",
    scribus                   = "scribus",
    qcad                      = "qcad",
    sigil                     = "sigil",
