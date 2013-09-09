@@ -5,7 +5,7 @@ all: zathurarc.galois zathurarc.grothendieck zathurarc.hodge
 
 zathurarc.galois: zathurarc.in
 	cp zathurarc.in $@
-	sed -i 's/set statusbar-v-padding.*/set statusbar-v-padding     0/'  $@
+	sed -i 's/set statusbar-v-padding.*/set statusbar-v-padding     2/'  $@
 
 zathurarc.grothendieck: zathurarc.in
 	cp zathurarc.in $@
