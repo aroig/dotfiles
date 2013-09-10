@@ -65,18 +65,16 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, metakey   }, "b",      function () exec(apps.secondbrowser) end),
     awful.key({ modkey, ctrlkey   }, "o",      function () exec(apps.orgmode) end),
     awful.key({ modkey, ctrlkey   }, "u",      function () exec(apps.mail) end),
-    awful.key({ modkey, ctrlkey   }, "p",      function () exec(apps.passwordsafe) end),
     awful.key({ modkey, ctrlkey   }, "Print",  function () exec(apps.print) end),
 
-    -- Right dropdown clients
+    -- Dropdown clients
     awful.key({ modkey, ctrlkey   }, "d",      function () ddclient.dict:toggle() end),
     awful.key({ modkey, ctrlkey   }, "i",      function () ddclient.calibre:toggle() end),
     awful.key({ modkey, ctrlkey   }, "m",      function () ddclient.music:toggle() end),
     awful.key({ modkey, ctrlkey   }, "t",      function () ddclient.chat:toggle() end),
     awful.key({ modkey, shiftkey  }, "t",      function () ddclient.twitter:toggle() end),
-
-    -- Left dropdown clients
     awful.key({ modkey, ctrlkey   }, "w",      function () ddclient.xournal:toggle() end),
+    awful.key({ modkey, ctrlkey   }, "p",      function () ddclient.pwsafe:toggle() end),
 
     -- Music
     awful.key({ modkey, ctrlkey   }, "Home",      function () exec("mpc toggle") end),

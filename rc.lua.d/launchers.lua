@@ -131,14 +131,13 @@ end
 -- Dropdown apps on the left     --
 -----------------------------------
 
-ddclient.xournal = dropdown.new("xournal", apps.xournal,
-                                {vert="center", horiz="left", width=0.5, height=1})
 
 
 
 -----------------------------------
--- Dropdown apps on the right    --
+-- Dropdown apps                 --
 -----------------------------------
+
 
 ddclient.dict    = dropdown.new("dictionary", apps.dictionary,
                                 {vert="center", horiz="right", width=0.5, height=1})
@@ -158,9 +157,16 @@ ddclient.twitter = dropdown.new("twitter", apps.twitter,
 ddclient.document = dropdown.new("browser", nil,
                                  {vert="center", horiz="right", width=0.7, height=1})
 
+ddclient.xournal = dropdown.new("xournal", apps.xournal,
+                                {vert="center", horiz="left", width=0.5, height=1})
 
+ddclient.pwsafe  = dropdown.new("keppass", apps.pwsafe,
+                                {vert="center", horiz="center", width=0.7, height=0.8})
+
+
+-- NOTE: If using a browser supporting tabs
 -- do not kill old client if command changes, as chromium opens new tab
-ddclient.document.kill_old = False
+-- ddclient.document.kill_old = False
 
 
 
