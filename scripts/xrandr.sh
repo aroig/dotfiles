@@ -52,7 +52,7 @@ fi
 
 if [ "$action" == "auto" ]; then
     case "$host" in
-        grothendieck) action=xinerama ;;
+        grothendieck) action=dual     ;;
         hodge)        action=single   ;;
         galois)       action=single   ;;
     esac
@@ -60,7 +60,7 @@ fi
 
 # screen options
 case $action in 
-    xinerama)
+    dual)
 	    echo "xinerama: $primary, $secondary"
 	    xrandr --output $primary --auto --primary --output $secondary --auto --right-of $primary --output $tertiary --off
         xset dpms $dpms_timeout s 0 600      # set dpms and screensaver        

@@ -2,7 +2,6 @@
 Description=Redshift
 After=xorg@%i.service
 After=compton@%i.service
-After=xrandr@%i.service
 StopWhenUnneeded=true
 
 Requisite=xorg@%i.service
