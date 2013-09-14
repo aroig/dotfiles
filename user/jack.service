@@ -9,7 +9,7 @@ Requires=dbus.socket
 Type=dbus
 BusName=org.jackaudio.service
 
-NOTE: this is non-functional at the moment. Need to sort this out.
+# NOTE: this is non-functional at the moment. Need to sort this out.
 # Jack via dbus
 
 # ExecStart=/usr/bin/jackdbus auto
