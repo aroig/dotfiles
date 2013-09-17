@@ -25,4 +25,12 @@ for wp in lfs.dir(wallpapers_dir) do
 end
 
 local i = math.random(1, #wallpapers)
-gears.wallpaper.maximized(wallpapers[i], nil, nil)
+local dual = string.match(wallpapers[i], ".+-dual%.jpg") ~= nil
+
+if dual then
+    gears.wallpaper.maximized(wallpapers[i], nil, nil)
+else
+    for s = 1, screen.count() do
+        gears.wallpaper.maximized(wallpapers[i], s, nil)
+    end
+end
