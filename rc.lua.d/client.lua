@@ -49,26 +49,21 @@ rules.rules = {
                      size_hints_honor = false } },
 
     -- Floats
-    { rule = { class = "Qpaeq" },           properties = { floating = true } },
-    { rule = { class = "Qjackctl" },        properties = { floating = true } },
-    { rule = { class = "Unison-gtk2" },     properties = { floating = true } },
-    { rule = { class = "MPlayer" },         properties = { floating = true } },
-    { rule = { class = "mpv" },             properties = { floating = true } },
-    { rule = { class = "feh" },             properties = { floating = true } },
-    { rule = { class = "pinentry" },        properties = { floating = true } },
---    { rule = { class = "Gimp" },          properties = { floating = true } },
-    { rule = { class = "Skype" },           properties = { floating = true } },
-    { rule = { class = "Keepassx" },        properties = { floating = true } },
-    { rule = { class = "Nitrogen" },        properties = { floating = true } },
-    { rule = { class = "Pavucontrol" },     properties = { floating = true } },
-    { rule = { class = "Pidgin" },          properties = { floating = true } },
+    { rule_any = { class = {"Qpaeq", "Qjackctl", "Unison-gtk2", "pinentry", "Skype", "Pavucontrol", "Pidgin"} },
+      properties = { floating = true } },
+
+    -- Fixed position floats
+    { rule_any = { class = {"mpv", "MPlayer", "feh"} },
+      properties = { floating = true, x = 100, y = 100  } },
 
     -- Fixed screen
     { rule = { class = "Xournal" },         properties = { screen = 1 } },
     { rule = { class = "Skype" },           properties = { screen = 1 % nscreen + 1} },
 
     -- Capture dropdowns
-    { rule = { class = "Ario" },            callback = function(c) ddclient.music:capture(c) end },
+    { rule = { class = "Gmpc" },            callback = function(c) ddclient.music:capture(c) end },
+    { rule = { class = "Keepassx" },        callback = function(c) ddclient.pwsafe:capture(c) end },
+    { rule = { class = "Xournal" },         callback = function(c) ddclient.xournal:capture(c) end },
     { rule = { class = "Calibre-gui" },     callback = function(c) ddclient.calibre:capture(c) end },
 
     -- Set Firefox to always map on tags number 2 of screen 1.
