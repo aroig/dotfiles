@@ -14,7 +14,7 @@ alias ll='ls++ --potsf'
 alias diff='diff -u -d'
 alias top='htop'
 alias tree='tree -C'
-alias df='dfc'
+alias df='pydf'
 alias du='cdu -dLh -i'
 alias alsi='alsi -a -u'
 alias grep='grep --color=auto'
@@ -95,11 +95,14 @@ run_with_journal() {
 
 alias jctl="sudo journalctl --since=yesterday"
 alias ectl="sudo journalctl --since=yesterday --priority=0..3"
-alias sctl="sudo systemctl --system"
+
 alias nctl="sudo netctl"
+alias sctl="sudo systemctl --system"
 alias uctl="systemctl --user"
-alias actl="systemd-analyze"
 alias ictl="run_with_journal systemctl --user start"
+
+alias actl="systemd-analyze"
+alias sdrun="systemd-run --user"
 
 
 actl_svg() {
