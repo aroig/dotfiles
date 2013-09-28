@@ -53,6 +53,7 @@ rules.rules = {
     { rule = { class = "Qjackctl" },        properties = { floating = true } },
     { rule = { class = "Unison-gtk2" },     properties = { floating = true } },
     { rule = { class = "MPlayer" },         properties = { floating = true } },
+    { rule = { class = "mpv" },             properties = { floating = true } },
     { rule = { class = "feh" },             properties = { floating = true } },
     { rule = { class = "pinentry" },        properties = { floating = true } },
 --    { rule = { class = "Gimp" },          properties = { floating = true } },
