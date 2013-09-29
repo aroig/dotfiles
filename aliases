@@ -9,15 +9,17 @@
 #------------------------------
 # Coloring stuff
 #------------------------------
-alias ls='ls --color=auto -F'
+alias ls='ls --human-readable --color=auto -F'
 alias ll='ls++ --potsf'
-alias diff='diff -u -d'
-alias top='htop'
-alias tree='tree -C'
+alias lt='tree -C'
+
 alias df='pydf'
 alias du='cdu -dLh -i'
-alias alsi='alsi -a -u'
+alias top='htop'
+
+alias diff='diff -u -d'
 alias grep='grep --color=auto'
+
 
 # alias ping='$HOME/Software/conf/color-wrappers/ping'
 # alias unisonb='$HOME/Software/conf/color-wrappers/unison -batch'
@@ -72,12 +74,13 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 
-xrand_screens() { xrandr -q | grep " connected" | sed 's/^\([A-Za-z0-9\-]*\).*/\1/'; }
-
 
 #------------------------------
-# Systemd aliases
+# Auxiliar functions
 #------------------------------
+
+xrandr_screens() { xrandr -q | grep " connected" | sed 's/^\([A-Za-z0-9\-]*\).*/\1/'; }
+
 run_with_journal() {
     # TODO: trap ctrl-c don't know how to do it in a function
 
@@ -92,6 +95,16 @@ run_with_journal() {
     return $_cmd_exitval
 }
 
+# remove trailing newline.
+trimtrail() {
+    cat "$1" | awk '{a = $0; while (getline > 0) {print a; a = $0}} END {printf("%s", a)}' -
+}
+
+
+#------------------------------
+# Systemd aliases
+#------------------------------
+
 
 alias jctl="sudo journalctl --since=yesterday"
 alias ectl="sudo journalctl --since=yesterday --priority=0..3"
@@ -104,7 +117,6 @@ alias ictl="run_with_journal systemctl --user start"
 alias actl="systemd-analyze"
 alias sdrun="systemd-run --user"
 
-
 actl_svg() {
     cmd="$1"; shift
     if [ "$cmd" = "dot" ]; then systemd-analyze dot "$@" | dot -Tsvg
@@ -114,15 +126,6 @@ actl_svg() {
 
 alias lock='systemctl --user lock.target'
 
-
-#------------------------------
-# text manipulation
-#------------------------------
-
-# remove trailing newline.
-trimtrail() {
-    cat "$1" | awk '{a = $0; while (getline > 0) {print a; a = $0}} END {printf("%s", a)}' -
-}
 
 
 #------------------------------
@@ -141,7 +144,7 @@ case $(hostname -s) in
         ;;
 esac
 
-alias pmake="colormake -j$threads"
+alias mk="colormake -j$threads"
 alias gan="git annex"
 
 
@@ -231,10 +234,8 @@ rgd() { echo "ddclient.ranger:newtab('$PWD')"   | awesome-client; }
 tmd() { echo "ddclient.terminal:newtab('$PWD')" | awesome-client; }
 
 
-
-
 #------------------------------
-# Rebooting and halting
+# Starting and killing X
 #------------------------------
 
 # stx() { startx awesome -- vt$(fgconsole 2>/dev/null); }
@@ -259,6 +260,11 @@ stx() {
 klx() { 
     systemctl --user stop xserver@0.target;
 }
+
+
+#------------------------------
+# Rebooting and halting
+#------------------------------
 
 # NOTE
 # If I use systemctl --user exit, the user session tries to perform a pam_close_session, but this is
