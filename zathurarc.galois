@@ -44,7 +44,7 @@ set link-hadjust            false
 set font                    "terminal"
 
 set statusbar-h-padding     6
-set statusbar-v-padding     2
+set statusbar-v-padding     0
 
 set selection-clipboard     clipboard
 
