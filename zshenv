@@ -60,8 +60,7 @@ export AB2_PAPERS_DIR="$AB2_HOME/work/papers"
 # Development environment
 #------------------------------
 
-export CC="colorgcc"
-
+export CC="gcc"
 
 
 #------------------------------
