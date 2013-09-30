@@ -43,9 +43,6 @@ set link-hadjust            false
 
 set font                    "terminal"
 
-set statusbar-h-padding     6
-set statusbar-v-padding     2
-
 set selection-clipboard     clipboard
 
 # set guioptions              sc           # fixed status and input bars
