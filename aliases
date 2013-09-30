@@ -144,7 +144,7 @@ case $(hostname -s) in
         ;;
 esac
 
-mk() { make -j$threads "$@" 2>&1 | colormake; exit ${PIPESTATUS[0]}; }
+mk() { make -j$threads "$@" 2>&1 | colormake; return ${PIPESTATUS[0]}; }
 
 alias gan="git annex"
 
