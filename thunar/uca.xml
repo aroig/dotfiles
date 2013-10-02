@@ -16,7 +16,7 @@
 	<unique-id>1374162633013075-1</unique-id>
 	<command>atool -x %f</command>
 	<description>Unpack archive</description>
-	<patterns>*.gz</patterns>
+	<patterns>*.gz;*.zip;*.xz;*.bz;*.7z;*.rar}</patterns>
 	<other-files/>
 </action>
 </actions>
