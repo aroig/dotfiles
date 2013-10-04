@@ -14,7 +14,8 @@ alias ll='ls++ --potsf'
 alias lt='tree -C'
 
 alias df='pydf'
-alias du='cdu -dLh -i'
+alias dul='cdu -dLh -i'
+alias du='cdu -dh -i'
 alias top='htop'
 
 alias diff='diff -u -d'
