@@ -152,6 +152,12 @@
   (require 'sage-view)
 )
 
+;; coq
+(when (locate-library "coq")
+  (require 'coq)
+  (require 'proof-site)
+  (require 'abdo-coq)
+)
 
 ;; tex
 (when (locate-library "tex-site")
@@ -216,6 +222,9 @@
 
 ;; latex
 (add-to-list 'auto-mode-alist '("\\.ltb$" . latex-mode))
+
+;; coq
+(add-to-list 'auto-mode-alist '("\\.v$" . coq-mode))
 
 
 ;; Command line switches
