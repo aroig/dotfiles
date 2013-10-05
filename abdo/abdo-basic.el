@@ -455,7 +455,7 @@ If BACKEND is passed use it as the VC backend when computing the result."
 ;; Speedbar
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq sr-speedbar-right-side nil)
-
+(setq speedbar-use-images nil)
 
 
 ;; Window stuff: Winner, Windmove & Winring
