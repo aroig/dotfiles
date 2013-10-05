@@ -712,6 +712,14 @@ Also bind `class' to ((class color) (min-colors 89))."
    '(sml-modeline-end-face ((t :inherit default :width condensed)))
 ;;;;; SLIME
    `(slime-repl-inputed-output-face ((t (:foreground ,zenburn-red))))
+;;;;; speedbar
+   `(speedbar-button-face ((t (:foreground ,zenburn-green))))
+   `(speedbar-directory-face ((t (:foreground ,zenburn-blue+1))))
+   `(speedbar-file-face ((t (:foreground ,zenburn-fg))))
+   `(speedbar-highlight-face ((t (:foreground ,zenburn-fg :background ,zenburn-green))))
+   `(speedbar-selected-face ((t (:foreground ,zenburn-red))))
+   `(speedbar-separator-face ((t (:foreground ,zenburn-fg :background ,zenburn-blue+1))))
+   `(speedbar-tag-face ((t (:foreground ,zenburn-yellow))))
 ;;;;; tabbar
    `(tabbar-button ((t (:foreground ,zenburn-fg
                                     :background ,zenburn-bg))))
