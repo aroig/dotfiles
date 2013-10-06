@@ -54,7 +54,8 @@ rules.rules = {
 
     -- Fixed position floats
     { rule_any = { class = {"mpv", "MPlayer", "feh"} },
-      properties = { floating = true } },
+      properties = { floating = true },
+      callback   = function(c) awful.placement.centered(c) end },
 
     -- Fixed screen
     { rule = { class = "Xournal" },         properties = { screen = 1 } },
