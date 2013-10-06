@@ -54,7 +54,7 @@ rules.rules = {
 
     -- Fixed position floats
     { rule_any = { class = {"mpv", "MPlayer", "feh"} },
-      properties = { floating = true, x = 100, y = 100  } },
+      properties = { floating = true } },
 
     -- Fixed screen
     { rule = { class = "Xournal" },         properties = { screen = 1 } },

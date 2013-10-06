@@ -257,7 +257,7 @@ end
 
 
 -- manage action for clients in an active dropdown
-function dropdown.on_manage(c)
+function dropdown.on_manage(c, startup)
     for pid, run in pairs(dropdown.data) do
         -- we only act on dropdowns without run.client to avoid trouble with a single
         -- dropdown process producing multiple client. We only handle the first one.
