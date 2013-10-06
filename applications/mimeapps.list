@@ -26,6 +26,7 @@ application/postscript=zathura.desktop;
 image/vnd.djvu=zathura.desktop;
 
 audio/mpeg=mpv.desktop;
+video/quicktime=mpv.desktop;
 video/mp4=mpv.desktop;
 video/x-msvideo=mpv.desktop;
 video/x-flv=mpv.desktop;
