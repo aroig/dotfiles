@@ -155,8 +155,10 @@
 ;; coq
 (when (locate-library "coq")
   (require 'coq)
-  (require 'proof-site)
   (require 'abdo-coq)
+)
+(when (locate-library "proof-site")
+  (require 'proof-site)
 )
 
 ;; tex
