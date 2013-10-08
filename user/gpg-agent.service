@@ -1,0 +1,9 @@
+[Unit]
+Description=gpg-agent daemon
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/gpg-agent --daemon --write-env-file %h/.gpg-agent-info
+
+# NOTE: stores variables with paths to the sockets in .gpg-agent-info.
+# I then load this stuff in my zshrc file!  
