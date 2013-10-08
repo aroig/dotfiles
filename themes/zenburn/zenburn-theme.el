@@ -245,7 +245,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(ack-match ((t (:foreground ,zenburn-orange :background ,zenburn-bg-1 :weight bold))))
 ;;;;; auctex
    `(font-latex-bold-face ((t (:inherit bold))))
-   `(font-latex-warning-face ((t (:inherit font-lock-warning-face))))
+   `(font-latex-warning-face ((t (:foreground ,zenburn-sat-red))))
    `(font-latex-sectioning-5-face ((t (:foreground ,zenburn-sat-orange-1 :weight bold :inherit fixed-pitch))))
    `(font-latex-sedate-face ((t (:foreground ,zenburn-yellow))))
    `(font-latex-math-face ((t (:foreground ,zenburn-wood))))
