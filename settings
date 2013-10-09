@@ -4,8 +4,8 @@
 # General behaviour               #
 # ------------------------------- #
 
-enable-webgl=false
-enable-accelerated-compositing=false
+enable-webgl=true
+enable-accelerated-compositing=true
 enable-developer-extras=true
 
 enable-html5-local-storage=true
@@ -62,12 +62,12 @@ download-external-command=$TERMCMD -e wget dwb_uri -O dwb_output --load-cookies 
 # Appearence                      #
 # ------------------------------- #
 
+user-stylesheet-uri=file:///home/abdo/.config/dwb/styles/userdark.css
+
 hint-style=letter
 hint-letter-seq=FDSARTGBVECWXQYIOPMNHZULKJ
 
 progress-bar-style=default
-user-stylesheet-uri=
-
 scrollbars=false
 
 zoom-level=1.00
