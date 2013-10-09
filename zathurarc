@@ -57,7 +57,7 @@ map <PageDown>     scroll half-down
 map <PageUp>       scroll half-up
 
 map <C-r>          reload
-map s              recolor
+map <C-s>          recolor
 
 map <C-a>          adjust_window best-fit
-map <C-s>          adjust_window width
+map <C-w>          adjust_window width
