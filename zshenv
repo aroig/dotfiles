@@ -179,9 +179,6 @@ export SYSTEMD_COLORS=$(printf "%s:" "${_SYSTEMD_COLORS[@]}")
 # Paths
 #------------------------------
 
-# These are a personal things for my code
-export BASHPATH="$AB2_LIBS_DIR/bash"
-
 # Lua path for for personal libs
 export LUA_PATH="$AB2_LIBS_DIR/lua/?.lua;;"
 export LUA_CPATH="$AB2_LIBS_DIR/lua/?.lua;;"
