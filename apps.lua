@@ -9,14 +9,14 @@ local os = os
 local apps = {}
 
 -- Apps from the environment
-apps.terminal            = os.getenv("TERMCMD")     or "urxvt"
+apps.terminal            = os.getenv("TERMCMD")     or "xterm"
 apps.editor              = os.getenv("EMACS")       or "emacs"
-apps.browser             = os.getenv("BROWSER")     or "xombrero"
+apps.browser             = os.getenv("BROWSER")     or "dwb"
+apps.filemanager         = os.getenv("FILEMANAGER") or "thunar"
 
 -- Other apps
 apps.docbrowser          = apps.browser
 apps.secondbrowser       = "chromium"
-apps.filemanager         = os.getenv("FILEMANAGER") or "thunar"
 apps.pdfviewer           = "zathura"
 apps.music               = "gmpc"
 apps.twitter             = apps.terminal .. " -e turses"

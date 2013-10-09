@@ -7,6 +7,7 @@ return {
    midori                    = "midori",
    luakit                    = "luakit",
    xombrero                  = "xombrero",
+   dwb                       = "dwb",
    deluge                    = "deluge",
    amule                     = "amule",
    pidgin                    = "pidgin",
