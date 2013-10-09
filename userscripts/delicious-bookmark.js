@@ -1,6 +1,8 @@
+//!javascript
+//dwb: Mod1 b
 
-
-function delicious_bookmark(e,t) {
+function delicious_bookmark_injected() {
+    var e=window
     var n=e.document;
     function blah(){
         function a(e){
@@ -52,4 +54,12 @@ function delicious_bookmark(e,t) {
     setTimeout(blah,1)
 }
 
-delicious_bookmark(window)
+/* inject delicious_bookmark function into the web environment */
+function delicious_bookmark() {
+  tabs.current.inject(delicious_bookmark_injected)
+}
+
+bind("Mod1 b", delicious_bookmark, "delicious_bookmark");
+
+
+
