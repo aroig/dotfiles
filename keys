@@ -8,6 +8,8 @@ normal_mode=Control n
 visual_mode= v
 presentation_mode= @F12@
 
+
+
 # search                          #
 # ------------------------------- #
 find_backward_ic= c?
@@ -16,6 +18,8 @@ find_forward_ic= c/
 find_forward= /
 find_next= n
 find_previous= N
+
+
 
 # tabs                            #
 # ------------------------------- #
@@ -26,6 +30,8 @@ focus_next=Control l
 focus_prev=Control h
 focus_tab= gt
 focus_input= gi
+
+
 
 # Navigation                      #
 # ------------------------------- #
@@ -42,7 +48,7 @@ history_forward=Control i
 # entry_history_forward=Control j
 
 reload=Control r
-stop_loading=Control s
+stop_loading= F5
 
 # what to do on next navigation action
 new_tab= T
@@ -50,6 +56,8 @@ new_win= W
 
 open_url= go
 open= o
+
+
 
 # Clipboard                       #
 # ------------------------------- #
@@ -88,10 +96,11 @@ scroll_up= k
 # ------------------------------- #
 undo= u
 
-view_source= gf
+view_source=Control x
 web_inspector= wi
 
 open_editor=Control e
+
 toggle_statusbar= xb
 toggle_tabbar= xt
 
@@ -158,6 +167,7 @@ reload_bookmarks=
 reload_bypass_cache= R
 reload_quickmarks= 
 reload_userscripts= 
+
 save= sf
 save_session= ZZ
 save_named_session= gZZ
@@ -167,8 +177,8 @@ local_set=
 set= 
 set_key= sk
 set_local_setting= sl
-set_setting= ss
-show_settings= Ss
+
+
 print_preview= 
 show_bookmarks= Sb
 
@@ -230,3 +240,16 @@ win_hist_back= wh
 tab_hist_back= th
 win_hist_forward= wl
 tab_hist_forward= tl
+set_setting=ss
+show_settings=Ss
+
+
+
+
+# Disabled                        #
+# ------------------------------- #
+
+set_setting= 
+show_settings= 
+# set_setting= ss
+# show_settings= Ss
