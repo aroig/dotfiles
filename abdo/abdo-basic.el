@@ -219,7 +219,9 @@
   (setq path (or path (buffer-file-name)))
 
   (let ((rootdir (abdo-vc-root path)))
-    (if (and rootdir (not (abdo-path-contains-buffer rootdir))) ; only ask for commit on the last buffer
+    (if (and rootdir
+             (not (abdo-path-contains-buffer rootdir))  ; only ask for commit on the last buffer
+             )
 	(if (y-or-n-face-p (concat "Commit changes to repo at " rootdir "? ") 'abdo-commit-question)
 	    (progn (message "Preparing to commit") (abdo-vcs-status rootdir) t)
 	  (message "Not commiting") nil)
@@ -393,26 +395,9 @@
   (magit-status rootdir))
 
 
-(defun abdo-responsible-backend (file)
-  "Return the name of a backend system that is responsible for FILE.
-   Returns nil if none is."
-
-  (or (and (not (file-directory-p file)) (vc-backend file))
-      (catch 'found
-	;; First try: find a responsible backend.  If this is for registration,
-	;; it must be a backend under which FILE is not yet registered.
-	(dolist (backend vc-handled-backends)
-	  (and (vc-call-backend backend 'responsible-p file)
-	       (throw 'found backend)))
-	(throw 'found nil))))
-
-
 (defun abdo-vc-root (file)
   "Returns the root of the repo file belongs, or nil if file is not versioned."
-  (when file
-;;  (let ((backend (vc-backend file)))
-    (let ((backend (abdo-responsible-backend file)))
-      (when backend (vc-call-backend backend 'root file)))))
+  (when (and file (vc-backend file)) (vc-call root file)))
 
 
 ;; monkeypatch vc-mode-line in vc-hooks.el so I get the modeline string I want
