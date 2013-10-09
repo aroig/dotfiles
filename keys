@@ -10,6 +10,17 @@ presentation_mode= @F12@
 
 
 
+# quickmarks and search engines   #
+# ------------------------------- #
+save_quickmark= m
+quickmark= b
+tab_quickmark= B
+win_quickmark= wb
+
+save_search_field= gs
+
+
+
 # search                          #
 # ------------------------------- #
 find_backward_ic= c?
@@ -67,6 +78,8 @@ paste= pp
 tab_paste= Pp
 win_paste= wp
 
+
+
 # Hints                           #
 # ------------------------------- #
 hints= f
@@ -78,6 +91,8 @@ hints_links= ;;
 hints_primary= ;Y
 hints_rapid= ;r
 hints_url= ;o
+
+
 
 # Moving and scrolling            #
 # ------------------------------- #
@@ -91,6 +106,8 @@ scroll_halfpage_up=Control u
 scroll_bottom= G
 scroll_top= gg
 scroll_up= k
+
+
 
 # Other                           #
 # ------------------------------- #
@@ -112,7 +129,7 @@ show_history= Sh
 
 
 
-save_search_field= gs
+
 
 allow_session_cookie_tmp= CT
 allow_cookie= CC
@@ -153,9 +170,7 @@ tab_move_left= gl
 tab_move_right= gr
 tab_move= gm
 
-quickmark= b
-tab_quickmark= B
-win_quickmark= wb
+
 # start_page=Control h
 paste_primary= pP
 win_paste_primary= wP
@@ -172,7 +187,6 @@ reload_userscripts=
 save= sf
 save_session= ZZ
 save_named_session= gZZ
-save_quickmark= m
 
 local_set= 
 set= 

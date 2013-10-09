@@ -26,6 +26,10 @@ hint-highlight-links=false
 hint-autofollow=true
 hints-key-lock=250
 
+# startpage=dwb:bookmarks
+startpage=https://www.google.com/search?hl=en&tab=Xw
+
+
 
 
 # Security                        #
@@ -224,7 +228,7 @@ auto-resize-window=false
 zoom-step=0.10
 
 plugin-blocker=true
-startpage=dwb:bookmarks
+
 default-encoding=
 searchengine-submit-pattern=
 
