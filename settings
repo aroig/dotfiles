@@ -40,6 +40,19 @@ download-directory=$HOME/down
 save-session=false
 auto-insert-mode=true
 
+download-no-confirm=false
+
+enable-private-browsing=false
+enable-caret-browsing=false
+
+tab-key-cycles-through-elements=true
+
+tabbed-browsing=true
+
+enable-spell-checking=false
+spell-checking-languages=
+
+
 
 
 # Security                        #
@@ -48,11 +61,16 @@ auto-insert-mode=true
 ssl-use-system-ca-file=true
 ssl-strict=true
 
+cookies-accept-policy=always
 cookies-store-policy=session
 cookie-expiration=0
 block-insecure-content=false
 
 adblocker=false
+
+enable-file-access-from-file-uris=true
+enable-universal-access-from-file-uris=true
+javascript-can-open-windows-automatically=false
 
 
 
@@ -61,6 +79,7 @@ adblocker=false
 enable-plugins=true
 enable-scripts=true
 enable-java-applet=true
+plugin-blocker=true
 
 javascript-can-access-clipboard=false
 adblocker-filterlist=
@@ -94,11 +113,22 @@ zoom-step=0.10
 enable-favicon=true
 resizable-text-areas=true
 
+tab-width=100
+hint-offset-left=0
 hint-opacity=0.80
 
 mouse-cycles-through-tabs=true
 tab-orientation=horizontal
 
+default-width=800
+default-height=600
+hint-offset-top=0
+
+bars-padding=0
+tabbar-visible=2.00
+
+widget-packing=dtws
+enforce-96-dpi=false
 
 
 # Fonts                           #
@@ -172,25 +202,31 @@ active-completion-bg-color=#000000
 
 
 
+# Inner workings                  #
+# ------------------------------- #
+file-sync-interval=120
+navigation-history-max=500
+update-search-delay=200
+history-length=500
+max-visible-completions=11
+
+sync-files=all
+enable-ipc=true
+maximum-tabs=0
+
+
+
 # Other                           #
 # ------------------------------- #
 
+complete-history=true
+complete-bookmarks=true
+complete-searchengines=false
 complete-userscripts=false
-file-sync-interval=120
 enable-default-context-menu=true
+
 editable=false
 background-tabs=false
-
-
-
-
-complete-searchengines=false
-update-search-delay=200
-
-sync-files=all
-default-height=600
-complete-bookmarks=true
-
 
 enable-xss-auditor=true
 custom-encoding=
@@ -198,78 +234,32 @@ print-previewer=
 enable-dns-prefetching=true
 auto-shrink-images=true
 print-backgrounds=true
-enable-caret-browsing=false
-
-
-
-
 
 hsts=false
-enable-private-browsing=false
-
-
 
 javascript-schemes=true
 load-on-focus=false
-spell-checking-languages=
-cookies-accept-policy=always
-
-
-bars-padding=0
-
-
-tabbed-browsing=true
-enable-spell-checking=false
-
-
-
-
-tabbar-visible=2.00
-
 
 accept-language=
 use-ntlm=false
 passthrough-keys=webkit
 enable-dom-paste=false
-javascript-can-open-windows-automatically=false
-max-visible-completions=11
-widget-packing=dtws
-navigation-history-max=500
 
 enable-site-specific-quirks=false
 auto-resize-window=false
 
-
-plugin-blocker=true
-
 default-encoding=
 searchengine-submit-pattern=
 
-
-
-
 addressbar-dns-lookup=false
-enable-universal-access-from-file-uris=true
+
 do-not-track=true
-default-width=800
 auto-completion=false
 enable-spatial-navigation=false
 
-
-
-history-length=500
-download-no-confirm=false
-enable-file-access-from-file-uris=true
-complete-history=true
-tab-key-cycles-through-elements=true
-enforce-96-dpi=false
 scroll-step=0.00
 message-delay=2
 scheme-handler=
 enable-offline-web-application-cache=true
-hint-offset-top=0
 javascript-api=automatic
-enable-ipc=true
-maximum-tabs=0
-tab-width=100
-hint-offset-left=0
+
