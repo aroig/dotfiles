@@ -1,21 +1,112 @@
 [default]
+
+# basic
+# ------------------------------- #
+command_mode= :
+insert_mode= i
+normal_mode=Control n
+visual_mode= v
+presentation_mode= @F12@
+
+# search                          #
+# ------------------------------- #
+find_backward_ic= c?
+find_backward= ?
+find_forward_ic= c/
+find_forward= /
+find_next= n
+find_previous= N
+
+# tabs                            #
+# ------------------------------- #
+tab_new=Control t
+clear_tab= gc
+close_tab= q
+focus_next=Control l
+focus_prev=Control h
+focus_tab= gt
+focus_input= gi
+
+# Navigation                      #
+# ------------------------------- #
+entry_history_back=Control o
+entry_history_forward=Control i
+reload=Control r
+stop_loading=Control s
+
+# what to do on next navigation action
+new_tab= T
+new_win= W
+
+open_url= go
+open= o
+
+# Clipboard                       #
+# ------------------------------- #
+yank= yy
+yank_primary= yY
+paste= pp
+tab_paste= Pp
+win_paste= wp
+
+# Hints                           #
+# ------------------------------- #
+hints= f
+hints_clipboard= ;y
+hints_download= ;d
+hints_editable= ;e
+hints_images= ;i
+hints_links= ;;
+hints_primary= ;Y
+hints_rapid= ;r
+hints_url= ;o
+
+# Moving and scrolling            #
+# ------------------------------- #
+scroll_down= j
+scroll_right= l
+scroll_left= h
+scroll_page_down=Control f
+scroll_page_up=Control b
+scroll_halfpage_down=Control d
+scroll_halfpage_up=Control u
+scroll_bottom= G
+scroll_top= gg
+scroll_up= k
+
+# Other                           #
+# ------------------------------- #
+undo= u
+
+view_source= gf
+web_inspector= wi
+
+open_editor=Control e
+toggle_statusbar= xb
+toggle_tabbar= xt
+
+show_downloads= Sd
+show_history= Sh
+
+# TODO: toggle userstyle
+
+
+
 save_search_field= gs
-tab_new= ga
+
 allow_session_cookie_tmp= CT
 allow_cookie= CC
 allow_session_cookie= CS
 bookmark= M
-buffers= gt
+# buffers= gt
 cancel_download= ad
 sanitize= 
-clear_tab= gc
+
 only= co
-close_tab= d
+
 entry_escape=Control c
 entry_confirm=Control g
-entry_history_back=Control k
-entry_history_forward=Control j
-entry_delete_letter=Control h
+# entry_delete_letter=Control h
 entry_delete_line=Control u
 entry_delete_line_end=Control e
 entry_delete_word=Control w
@@ -29,28 +120,16 @@ complete_searchengines=Control S
 complete_userscript=Control U
 download= gd
 download_set_execute=Control x
-command_mode= :
 tabdo= 
 execute_javascript= 
 eval= 
 execute_userscript= eu
-find_backward_ic= c?
-find_backward= ?
-find_forward_ic= c/
-find_forward= /
-find_next= n
-find_previous= N
-focus_input= gi
-focus_next= J
-focus_tab= T
-focus_prev= K
 win_hist_back= wh
 tab_hist_back= th
 history_back= H
 win_hist_forward= wl
 tab_hist_forward= tl
 history_forward= L
-insert_mode= i
 show_keys= Sk
 load_html= 
 load_html_tab= 
@@ -59,16 +138,11 @@ lock_uri= xu
 tab_move_left= gl
 tab_move_right= gr
 tab_move= gm
-normal_mode=Control n
-open_editor=Control e
+
 quickmark= b
 tab_quickmark= B
 win_quickmark= wb
-start_page=Control h
-web_inspector= wi
-paste= pp
-tab_paste= Pp
-win_paste= wp
+# start_page=Control h
 paste_primary= pP
 win_paste_primary= wP
 tab_paste_primary= PP
@@ -76,7 +150,7 @@ print=Control Mod1 p
 protect=Control P
 quit=Control q
 reload_bookmarks= 
-reload= r
+
 reload_bypass_cache= R
 reload_quickmarks= 
 reload_userscripts= 
@@ -84,16 +158,7 @@ save= sf
 save_session= ZZ
 save_named_session= gZZ
 save_quickmark= m
-scroll_down= j
-scroll_right= l
-scroll_left= h
-scroll_page_down=Control f
-scroll_page_up=Control b
-scroll_halfpage_down=Control d
-scroll_halfpage_up=Control u
-scroll_bottom= G
-scroll_top= gg
-scroll_up= k
+
 local_set= 
 set= 
 set_key= sk
@@ -102,10 +167,8 @@ set_setting= ss
 show_settings= Ss
 print_preview= 
 show_bookmarks= Sb
-show_downloads= Sd
-show_history= Sh
+
 show_quickmarks= Sq
-stop_loading=Control s
 toggle_local_setting= 
 toggle_setting= 
 toggle_tab=Control @Tab@
@@ -119,19 +182,14 @@ fullscreen= @F11@
 toggle_hidden_files= g.
 toggle_plugins_host= ph
 toggle_plugins_uri= pu
-presentation_mode= @F12@
+
 proxy=Control p
 visible= xv
 toggle_bars= xx
-toggle_statusbar= xb
-toggle_tabbar= xt
-undo= u
-view_source= gf
+
 dump= 
 yank_title= yt
 yank_title_primary= yT
-yank= yy
-yank_primary= yY
 zoom= =
 zoom_in= +
 zoom_out= -
@@ -141,19 +199,6 @@ hints_url_background= .o
 backopen_url= xO
 backopen= xo
 bookmarks= gb
-hints= f
-hints_clipboard= ;y
-hints_download= ;d
-hints_editable= ;e
-hints_images= ;i
-hints_links= ;;
-hints_primary= ;Y
-hints_rapid= ;r
-hints_url= ;o
-new_tab= V
-new_win= W
-open_url= go
-open= o
 hints_tab= F
 hints_images_tab= ;I
 hints_url_tab= ;O
@@ -171,4 +216,7 @@ jump= '
 mark= `
 adblock_reload_rules= 
 repeat= .
-visual_mode= v
+
+buffers= gt
+entry_delete_letter=Control h
+start_page=Control h
