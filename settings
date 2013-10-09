@@ -66,7 +66,7 @@ cookies-store-policy=session
 cookie-expiration=0
 block-insecure-content=false
 
-adblocker=false
+adblocker=true
 
 enable-file-access-from-file-uris=true
 enable-universal-access-from-file-uris=true
