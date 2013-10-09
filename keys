@@ -103,6 +103,7 @@ open_editor=Control e
 
 toggle_statusbar= xb
 toggle_tabbar= xt
+toggle_bars= xx
 
 show_downloads= Sd
 show_history= Sh
@@ -199,7 +200,6 @@ toggle_plugins_uri= pu
 
 proxy=Control p
 visible= xv
-toggle_bars= xx
 
 dump= 
 yank_title= yt
