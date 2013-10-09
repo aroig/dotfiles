@@ -29,8 +29,18 @@ focus_input= gi
 
 # Navigation                      #
 # ------------------------------- #
-entry_history_back=Control o
-entry_history_forward=Control i
+history_back=Control o
+history_forward=Control i
+
+# tab_hist_back= th
+# tab_hist_forward= tl
+# win_hist_back= wh
+# win_hist_forward= wl
+# history_back= H
+# history_forward= L
+# entry_history_back=Control k
+# entry_history_forward=Control j
+
 reload=Control r
 stop_loading=Control s
 
@@ -124,12 +134,6 @@ tabdo=
 execute_javascript= 
 eval= 
 execute_userscript= eu
-win_hist_back= wh
-tab_hist_back= th
-history_back= H
-win_hist_forward= wl
-tab_hist_forward= tl
-history_forward= L
 show_keys= Sk
 load_html= 
 load_html_tab= 
@@ -220,3 +224,9 @@ repeat= .
 buffers= gt
 entry_delete_letter=Control h
 start_page=Control h
+entry_history_back=Control k
+entry_history_forward=Control j
+win_hist_back= wh
+tab_hist_back= th
+win_hist_forward= wl
+tab_hist_forward= tl
