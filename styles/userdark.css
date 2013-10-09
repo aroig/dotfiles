@@ -1,0 +1,120 @@
+
+/* -------------------------------------------- */
+/* Imports                                      */
+/* -------------------------------------------- */
+
+@import 'common.css';
+
+
+
+/* -------------------------------------------- */
+/* Colors                                       */
+/* -------------------------------------------- */
+
+/* input form colors */
+textarea,
+input, 
+select {
+   color: #000000 !important; 
+   background-color: #ffffff !important;
+}
+
+
+/* -------------------------------------------- */
+/* Forms                                        */
+/* -------------------------------------------- */
+
+/* get rid of GTK appearence */
+input,
+textarea,
+select {
+  -webkit-appearance: none;
+}
+
+input, textarea, select {
+  border: 1px solid #000;
+  padding: 0.2em;
+/* 
+  font-size: 15px;
+  line-height: 1.2em;
+  width: 80%;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));*/
+  -webkit-appearance: none;
+  -webkit-box-shadow: 1px 1px 1px #fff;
+  -webkit-border-radius: 0.3em;
+}
+
+input[type=checkbox],
+input[type=radio] {
+  display: inline-block;
+  padding: 0em !important;
+  margin: 0em !important;
+
+  line-height: 0.9em !important;
+  width: 0.9em !important;
+  height: 0.9em !important;
+  vertical-align: middle !important;
+}
+
+input[type=checkbox] {
+  -webkit-border-radius: 0.2em;
+}
+
+input[type=radio] {
+  -webkit-border-radius: 0.5em;
+}
+
+input[type=checkbox]:checked:before {
+  position: relative;
+/*top: -0.2em;
+  left: 0.03em; */
+  font-weigh: bold;
+  content: '\2714';
+  color: #FE5C00 !important;
+}
+
+input[type=radio]:checked:before {
+  position: relative;
+/*top: -0.15em;
+  left: 0em; */
+  font-weigh: normal;
+  content: '\26AB';
+/*content: '\25CF';
+  content: '\2022';*/
+  color: #FE5C00 !important;
+}
+
+
+/* -------------------------------------------- */
+/* CSS shader                                   */
+/* -------------------------------------------- */
+
+/* inverted luminosity (but not hue) */
+html {
+  -webkit-filter: invert() contrast(64%) hue-rotate(180deg);
+}
+
+html img[src*="jpg"],
+html img[src*="jpeg"],
+html img.rg_i,
+html embed,
+html object,
+html video {
+  -webkit-filter: invert() hue-rotate(180deg);
+}
+
+
+/* -------------------------------------------- */
+/* Hinting                                      */
+/* -------------------------------------------- */
+/* NOTE: I can't change the element highlighting from here, only the hints */
+
+.hinting_mode_hint {
+  color: #dcdccc !important;
+  background-color: #fe5c00 !important;
+}
+
+.hinting_mode_hint_focus {
+  color: #dcdccc !important;
+  background-color: #007700 !important;
+}
