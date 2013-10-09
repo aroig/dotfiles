@@ -26,7 +26,8 @@ hint-autofollow=true
 hints-key-lock=250
 
 # startpage=dwb:bookmarks
-startpage=https://www.google.com/search?hl=en&tab=Xw
+# startpage=https://www.google.com/search?hl=en&tab=Xw
+startpage=about:blank
 
 close-last-tab-policy=close
 close-tab-focus-policy=left
