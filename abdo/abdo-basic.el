@@ -219,9 +219,10 @@
   (setq path (or path (buffer-file-name)))
 
   (let ((rootdir (abdo-vc-root path)))
+    ;; TODO: I should check if working repo is clean. It seems I can't
+    ;; do it from the vqc interface
     (if (and rootdir
-             (not (abdo-path-contains-buffer rootdir))  ; only ask for commit on the last buffer
-             )
+             (not (abdo-path-contains-buffer rootdir)))  ; only ask for commit on the last buffer
 	(if (y-or-n-face-p (concat "Commit changes to repo at " rootdir "? ") 'abdo-commit-question)
 	    (progn (message "Preparing to commit") (abdo-vcs-status rootdir) t)
 	  (message "Not commiting") nil)
@@ -400,7 +401,7 @@
   (when (and file (vc-backend file)) (vc-call root file)))
 
 
-;; monkeypatch vc-mode-line in vc-hooks.el so I get the modeline string I want
+;; monkeypatch vc-mode-line in vc-hooks.el so I get a lowercase modeline string.
 (defun vc-mode-line (file &optional backend)
   "Set `vc-mode' to display type of version control for FILE.
 The value is set in the current buffer, which should be the buffer
