@@ -103,18 +103,3 @@ html video {
   -webkit-filter: invert() hue-rotate(180deg);
 }
 
-
-/* -------------------------------------------- */
-/* Hinting                                      */
-/* -------------------------------------------- */
-/* NOTE: I can't change the element highlighting from here, only the hints */
-
-.hinting_mode_hint {
-  color: #dcdccc !important;
-  background-color: #fe5c00 !important;
-}
-
-.hinting_mode_hint_focus {
-  color: #dcdccc !important;
-  background-color: #007700 !important;
-}
