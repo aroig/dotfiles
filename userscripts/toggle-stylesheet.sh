@@ -1,5 +1,5 @@
 #!/bin/bash
-# dwb:xs
+# dwb:s
 
 CURRENT_STYLESHEET="$(dwbremote get setting user-stylesheet-uri)"
 
