@@ -74,9 +74,11 @@ hint-letter-seq=FDSARTGBVECWXQYIOPMNHZULKJ
 progress-bar-style=default
 scrollbars=false
 
-zoom-level=1.00
-enable-favicon=true
+zoom-level=1.15
+full-content-zoom=false
+zoom-step=0.10
 
+enable-favicon=true
 resizable-text-areas=true
 
 hint-opacity=0.80
@@ -186,7 +188,7 @@ print-backgrounds=true
 enable-caret-browsing=false
 
 
-full-content-zoom=false
+
 
 
 hsts=false
@@ -225,7 +227,7 @@ navigation-history-max=500
 
 enable-site-specific-quirks=false
 auto-resize-window=false
-zoom-step=0.10
+
 
 plugin-blocker=true
 
