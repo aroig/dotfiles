@@ -68,6 +68,9 @@ new_win= W
 open_url= go
 open= o
 
+show_downloads= Sd
+show_history= Sh
+
 
 
 # Clipboard                       #
@@ -122,8 +125,6 @@ toggle_statusbar= xb
 toggle_tabbar= xt
 toggle_bars= xx
 
-show_downloads= Sd
-show_history= Sh
 
 # TODO: toggle userstyle
 

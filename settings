@@ -54,7 +54,6 @@ spell-checking-languages=
 
 
 
-
 # Security                        #
 # ------------------------------- #
 
@@ -65,8 +64,6 @@ cookies-accept-policy=always
 cookies-store-policy=session
 cookie-expiration=0
 block-insecure-content=false
-
-adblocker=true
 
 enable-file-access-from-file-uris=true
 enable-universal-access-from-file-uris=true
@@ -82,6 +79,8 @@ enable-java-applet=true
 plugin-blocker=true
 
 javascript-can-access-clipboard=false
+
+adblocker=false
 adblocker-filterlist=
 
 
