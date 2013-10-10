@@ -15,7 +15,7 @@ apps.browser             = os.getenv("BROWSER")     or "dwb"
 apps.filemanager         = os.getenv("FILEMANAGER") or "thunar"
 
 -- Other apps
-apps.docbrowser          = apps.browser
+apps.docbrowser          = apps.browser .. " -n"
 apps.secondbrowser       = "chromium"
 apps.pdfviewer           = "zathura"
 apps.music               = "gmpc"
