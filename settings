@@ -35,7 +35,7 @@ new-tab-position-policy=right
 show-single-tab=true
 
 single-instance=true
-download-directory=$HOME/down
+download-directory=~/down
 
 save-session=false
 auto-insert-mode=true
