@@ -25,7 +25,7 @@ select {
 
 /* selection color. It will get inverted by the darkening shader */
 ::selection {
-  background: #fe5c00;     
+  background: #ec7c21;     
   color: #ffffff;
 }
 
@@ -115,7 +115,7 @@ html video {
 /* hint colors. It gets inverted by the darkening shader */
 .dwb_hint {
   color: #ffffff !important;
-  background: #fe5c00 !important;
+  background: #ec7c21 !important;
   border-color: #000000 !important;
 }
 
