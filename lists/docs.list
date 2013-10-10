@@ -8,7 +8,7 @@ return {
    haskell               = apps.docbrowser .. " file:///usr/share/doc/ghc/html/libraries/index.html",
    lua                   = apps.docbrowser .. " file:///usr/share/doc/lua/contents.html",
    sage                  = apps.docbrowser .. " file:///home/abdo/usr/sage/src/doc/output/html/en/index.html",
-   awesome               = apps.docbrowser .. " file:///usr/share/doc/awesome/luadoc/index.html",
+   awesome               = apps.docbrowser .. " file:///usr/share/doc/awesome/doc/index.html",
    org                   = apps.docbrowser .. " file:///usr/share/doc/org-mode/org.html",
    zsh                   = apps.docbrowser .. " file:///usr/share/doc/zsh/zsh.html",
    elisp                 = apps.docbrowser .. " file:///usr/share/doc/elisp/index.html",
