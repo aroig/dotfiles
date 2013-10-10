@@ -3,7 +3,7 @@
 /* Imports                                      */
 /* -------------------------------------------- */
 
-@import 'common.css';
+@import url('common.css');
 
 
 
@@ -97,3 +97,17 @@ html video {
   -webkit-filter: invert() hue-rotate(180deg);
 }
 
+
+
+/* -------------------------------------------- */
+/* Hinting                                      */
+/* -------------------------------------------- */
+
+.dwb_hint {
+  color: #000000 !important;
+  background-color: #ff9c40 !important;
+  border-color: #000000 !important;
+}
+
+.dwb_overlay_normal {
+}

@@ -2,5 +2,19 @@
 /* Imports                                      */
 /* -------------------------------------------- */
 
-@import 'common.css';
+@import url('common.css');
 
+
+
+/* -------------------------------------------- */
+/* Hinting                                      */
+/* -------------------------------------------- */
+
+.dwb_hint {
+  color: #1f1f1f !important;
+  background-color: #fe5c00 !important;
+  border-color: #1f1f1f !important;
+}
+
+.dwb_overlay_normal {
+}
