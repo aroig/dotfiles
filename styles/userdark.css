@@ -17,6 +17,16 @@ input,
 select {
    color: #000000 !important; 
    background-color: #ffffff !important;
+   
+   border: 1px solid #000000;
+   -webkit-box-shadow: 1px 1px 1px #ffffff;
+
+}
+
+/* selection color. It will get inverted by the darkening shader */
+::selection {
+  background: #fe5c00;     
+  color: #ffffff;
 }
 
 
@@ -25,12 +35,12 @@ select {
 /* -------------------------------------------- */
 
 /* get rid of GTK appearence */
-input, textarea, select {
-  border: 1px solid #000000;
+input,
+textarea,
+select {
   padding: 0em 0.1em 0em 0.1em !important;
 
   -webkit-appearance: none;
-  -webkit-box-shadow: 1px 1px 1px #ffffff;
   -webkit-border-radius: 0.3em;
 }
 
@@ -102,9 +112,10 @@ html video {
 /* Hinting                                      */
 /* -------------------------------------------- */
 
+/* hint colors. It gets inverted by the darkening shader */
 .dwb_hint {
-  color: #000000 !important;
-  background-color: #ff9c40 !important;
+  color: #ffffff !important;
+  background: #fe5c00 !important;
   border-color: #000000 !important;
 }
 
