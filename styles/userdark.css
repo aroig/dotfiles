@@ -27,15 +27,14 @@ select {
 /* get rid of GTK appearence */
 input, textarea, select {
   border: 1px solid #000000;
+  padding: 0em 0.1em 0em 0.1em !important;
 
   -webkit-appearance: none;
   -webkit-box-shadow: 1px 1px 1px #ffffff;
   -webkit-border-radius: 0.3em;
 }
 
-input[type=text],
-select {
-  padding: 0em 0.1em 0em 0.1em !important;
+input[type=text] {
 }
 
 input[type=checkbox],
