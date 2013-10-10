@@ -131,6 +131,7 @@ widget-packing=dtws
 enforce-96-dpi=false
 
 
+
 # Fonts                           #
 # ------------------------------- #
 
@@ -140,11 +141,11 @@ default-monospace-font-size=10
 default-font-size=12
 
 font=terminal
-hint-font=bold 10px monospace
-font-hidden-statusbar=normal 10px helvetica
+font-hidden-statusbar=normal 10px terminal
+hint-font=bold 10px terminal
 
-monospace-font-family=monospace
 default-font-family=sans-serif
+monospace-font-family=monospace
 cursive-font-family=serif
 serif-font-family=serif
 sans-serif-font-family=sans-serif
