@@ -62,13 +62,13 @@ color15 = #EEEEEC
 
 
 [hints]
-# foreground = #dcdccc
-# background = #2f2f2f
-# padding = 2
+foreground = #1f1f1f
+background = #d0640c
+padding = 1
 
-#font = Monospace 12
-#border = #3f3f3f
-#border_width = 0.5
-#roundness = 2.0
+font = Terminal
+border = #1f1f1f
+border_width = 0.5
+roundness = 2.0
 
 # vim: ft=dosini
