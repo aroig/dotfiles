@@ -193,8 +193,8 @@ hint-fg-color=#000000
 hint-bg-color=#ff8f35
 hint-border=1px solid #000000
 
-progress-bar-full-color=#dcdccc
-progress-bar-empty-color=#dcdccc
+progress-bar-full-color=#5f5f5f
+progress-bar-empty-color=#1f1f1f
 
 normal-completion-fg-color=#eeeeee
 normal-completion-bg-color=#151515
