@@ -198,7 +198,7 @@ download-bg-color=#2f2f2f
 download-gradient-start=#448cd0
 download-gradient-end=#00cd66
 
-tab-number-color=#ff8f35
+tab-number-color=#75bcff
 tab-active-fg-color=#ff8f35
 tab-active-bg-color=#1f1f1f
 tab-normal-fg-color-2=#dcdccc
