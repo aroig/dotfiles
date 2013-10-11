@@ -3,54 +3,72 @@
 # General behaviour               #
 # ------------------------------- #
 
-enable-webgl=true
-enable-accelerated-compositing=true
-enable-developer-extras=true
-
-enable-html5-local-storage=true
-enable-html5-database=true
+single-instance=true
 
 enable-page-cache=false
 cache-model=webbrowser
-
-auto-load-images=true
-enable-frame-flattening=false
 
 proxy=false
 proxy-url=
 
 user-agent=
 
-hint-highlight-links=false
-hint-autofollow=true
-hints-key-lock=250
-
 # startpage=dwb:bookmarks
 # startpage=https://www.google.com/search?hl=en&tab=Xw
 startpage=about:blank
 
+download-directory=~/down
+download-no-confirm=false
+
+save-session=false
+
+enable-private-browsing=false
+enable-caret-browsing=false
+
+enable-spell-checking=false
+spell-checking-languages=
+
+
+
+# User Interface                  #
+# ------------------------------- #
+
+auto-insert-mode=false
+
+hint-highlight-links=false
+hint-autofollow=true
+hints-key-lock=250
+
+tabbed-browsing=true
 close-last-tab-policy=close
 close-tab-focus-policy=left
 new-tab-position-policy=right
 show-single-tab=true
 
-single-instance=true
-download-directory=~/down
-
-save-session=false
-auto-insert-mode=true
-
-download-no-confirm=false
-
-enable-private-browsing=false
-enable-caret-browsing=false
-
 tab-key-cycles-through-elements=true
 
-tabbed-browsing=true
+load-on-focus=false
+do-not-track=true
+auto-completion=false
+enable-spatial-navigation=false
 
-enable-spell-checking=false
-spell-checking-languages=
+
+
+# Web behaviour                   #
+# ------------------------------- #
+
+enable-offline-web-application-cache=true
+auto-shrink-images=true
+
+auto-load-images=true
+enable-frame-flattening=false
+
+enable-html5-local-storage=true
+enable-html5-database=true
+
+enable-webgl=true
+enable-accelerated-compositing=true
+enable-developer-extras=true
 
 
 
@@ -79,6 +97,8 @@ enable-java-applet=true
 plugin-blocker=true
 
 javascript-can-access-clipboard=false
+javascript-schemes=true
+javascript-api=automatic
 
 adblocker=false
 adblocker-filterlist=
@@ -233,13 +253,9 @@ enable-xss-auditor=true
 custom-encoding=
 print-previewer=
 enable-dns-prefetching=true
-auto-shrink-images=true
 print-backgrounds=true
 
 hsts=false
-
-javascript-schemes=true
-load-on-focus=false
 
 accept-language=
 use-ntlm=false
@@ -254,13 +270,9 @@ searchengine-submit-pattern=
 
 addressbar-dns-lookup=false
 
-do-not-track=true
-auto-completion=false
-enable-spatial-navigation=false
-
 scroll-step=0.00
 message-delay=2
 scheme-handler=
-enable-offline-web-application-cache=true
-javascript-api=automatic
+
+
 
