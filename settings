@@ -195,10 +195,10 @@ status-blocked-color=#ee3b3b
 
 download-fg-color=#dcdccc
 download-bg-color=#2f2f2f
-download-gradient-start=#0000aa
-download-gradient-end=#00aa00
+download-gradient-start=#448cd0
+download-gradient-end=#00cd66
 
-tab-number-color=#448cd0
+tab-number-color=#ff8f35
 tab-active-fg-color=#ff8f35
 tab-active-bg-color=#1f1f1f
 tab-normal-fg-color-2=#dcdccc
@@ -216,10 +216,10 @@ hint-border=1px solid #000000
 progress-bar-full-color=#5f5f5f
 progress-bar-empty-color=#1f1f1f
 
-normal-completion-fg-color=#eeeeee
-normal-completion-bg-color=#151515
-active-completion-fg-color=#53868b
-active-completion-bg-color=#000000
+normal-completion-fg-color=#dcdccc
+normal-completion-bg-color=#1f1f1f
+active-completion-fg-color=#f0dfaf
+active-completion-bg-color=#3f3f3f
 
 
 
