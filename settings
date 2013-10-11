@@ -67,7 +67,7 @@ enable-html5-local-storage=true
 enable-html5-database=true
 
 enable-webgl=true
-enable-accelerated-compositing=true
+enable-accelerated-compositing=false
 enable-developer-extras=true
 
 
