@@ -119,5 +119,13 @@ html video {
   border-color: #000000 !important;
 }
 
+/* hint notification. Not affected by the darkening shader! */
+/* NOTE: Useless. It seems this css does not apply to javascript-added elements */
+.dwb_hint_notifier {
+  color: #1f1f1f !important;
+  background: #d0640c !important;
+  border-color: #1f1f1f !important;
+}
+
 .dwb_overlay_normal {
 }

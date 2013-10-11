@@ -207,18 +207,18 @@ tab-normal-bg-color-2=#5f5f5f
 tab-normal-bg-color-1=#3f3f3f
 tab-protected-color=#ee3b3b
 
-hint-active-color=#00ff00
-hint-normal-color=#ffff99
-hint-fg-color=#000000
-hint-bg-color=#ff8f35
-hint-border=1px solid #000000
+hint-active-color=#00cd66
+hint-normal-color=#cccccc
+hint-fg-color=#1f1f1f
+hint-bg-color=#fe5c00
+hint-border=1px solid #1f1f1f
 
 progress-bar-full-color=#5f5f5f
 progress-bar-empty-color=#1f1f1f
 
 normal-completion-fg-color=#dcdccc
 normal-completion-bg-color=#1f1f1f
-active-completion-fg-color=#f0dfaf
+active-completion-fg-color=#ff8f35
 active-completion-bg-color=#3f3f3f
 
 
