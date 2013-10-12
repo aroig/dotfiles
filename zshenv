@@ -14,8 +14,8 @@ function add_to_pathlist_left () {
    eval "cl_content=\$$cl"
    if [[ -d $item ]]; then
       case ":$cl_content:" in
-          *":$item:"*) ;;           # already there
-          *) eval "$cl=$item:\$$cl" ;;
+          *":$item:"*)                    ;;       # already there
+          *) eval "$cl=$item:$cl_content" ;;
       esac
    fi
 }
@@ -28,7 +28,7 @@ function add_to_pathlist_left () {
 
 export EDITOR=/usr/bin/vim                        # default editor
 export EMACS="/usr/bin/emacsclient -c -a emacs"   # emacs
-export BROWSER=/usr/bin/xombrero                  # default browser
+export BROWSER=/usr/bin/dwb                       # default browser
 export FILEMANAGER=/usr/bin/thunar                # the file manager
 export PAGER=/usr/bin/vimpager                    # wrapper for vim
 export TERMCMD=/usr/bin/termite                   # terminal
@@ -60,7 +60,6 @@ export AB2_PAPERS_DIR="$AB2_HOME/work/papers"
 # Development environment
 #------------------------------
 
-export CC="gcc"
 
 
 #------------------------------
@@ -74,7 +73,7 @@ export CC="gcc"
 NO_AT_BRIDGE=1 
 
 # sage
-export SAGE_KEEP_BUILT_SPKGS=yes    # don't rebuild from scratch
+# export SAGE_KEEP_BUILT_SPKGS=yes    # don't rebuild from scratch
 export SAGE_ROOT=$AB2_HOME/usr/sage
 
 # ranger
@@ -192,5 +191,7 @@ if [[ -d $HOME/.terminfo ]]; then
 fi
 
 # The path
-add_to_pathlist_left PATH "$HOME/bin"
+
+add_to_pathlist_left PATH "/usr/lib/ccache/bin"   # ccache binaries before gcc ones
+add_to_pathlist_left PATH "$HOME/bin"             # ~/bin
 export PATH
