@@ -85,20 +85,20 @@ block-insecure-content=false
 
 enable-file-access-from-file-uris=true
 enable-universal-access-from-file-uris=true
-javascript-can-open-windows-automatically=false
 
 
 
 # Javascript and plugins          #
 # ------------------------------- #
 enable-plugins=true
-enable-scripts=true
-enable-java-applet=true
+enable-scripts=false
+enable-java-applet=false
 plugin-blocker=true
 
-javascript-can-access-clipboard=false
 javascript-schemes=true
 javascript-api=automatic
+javascript-can-open-windows-automatically=false
+javascript-can-access-clipboard=false
 
 adblocker=false
 adblocker-filterlist=
