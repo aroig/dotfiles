@@ -8,8 +8,9 @@ single-instance=true
 enable-page-cache=false
 cache-model=webbrowser
 
-proxy=false
-proxy-url=
+# use privoxy
+proxy=true
+proxy-url=http://127.0.0.1:8118
 
 user-agent=
 
