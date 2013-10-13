@@ -125,7 +125,7 @@ hint-letter-seq=FDSARTGBVECWXQYIOPMNHZULKJ
 
 # progress-bar-style=default
 progress-bar-style=simple
-scrollbars=false
+scrollbars=true
 
 zoom-level=1.15
 full-content-zoom=false
