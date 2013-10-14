@@ -38,3 +38,21 @@
         font-family: sans-serif !important;
     }
 }
+
+
+/* -------------------------------------------- */
+/* Google search                                */
+/* -------------------------------------------- */
+
+/* fix search textbox padding in main page and search results */
+div#searchform td.gsib_a,
+div#mngb td.gsib_a {
+  padding: 2px 0px 0px 0px !important;
+}
+
+/* fix search textbox font size and width for search results */
+div#searchform td.gsib_a input,
+div#mngb td.gsib_a input {
+  font-size:14px !important;
+  width:98% !important;
+}
