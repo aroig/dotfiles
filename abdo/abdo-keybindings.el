@@ -192,6 +192,12 @@
             (setq abdo-commit-on-kill nil)))
 
 
+;; Magit
+(add-hook 'magit-mode-hook
+          (lambda ()
+            (local-set-key (kbd "H-v r") 'magit-interactive-resolve-item)))
+
+
 ;; Latex
 (add-hook 'LaTeX-mode-hook
 	  (lambda ()
