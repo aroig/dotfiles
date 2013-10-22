@@ -128,7 +128,7 @@ progress-bar-style=simple
 scrollbars=true
 
 zoom-level=1.15
-full-content-zoom=false
+full-content-zoom=true
 zoom-step=0.10
 
 enable-favicon=true
