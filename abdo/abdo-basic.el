@@ -410,6 +410,13 @@
   (unless rootdir (setq rootdir default-directory))
   (magit-branch-manager))
 
+;; TODO: check if hg or git, and call the right function
+(defun abdo-vcs-log (&optional rootdir)
+  (interactive)
+  ;; Default rootdir
+  (unless rootdir (setq rootdir default-directory))
+  (magit-log))
+
 
 (defun abdo-vc-root (file)
   "Returns the root of the repo file belongs, or nil if file is not versioned."
