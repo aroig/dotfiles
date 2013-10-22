@@ -279,7 +279,7 @@ klx() {
 # On the other hand, If I use sudo systemctl stop user-sessions@abdo, some process remain and I have
 # to wait for the timeout
 
-reboot()   { systemctl --user exit; sudo systemctl reboot;   }
-poweroff() { systemctl --user exit; sudo systemctl poweroff; }
+reboot()   { systemctl --user exit; sleep 2; sudo systemctl reboot;   }
+poweroff() { systemctl --user exit; sleep 2; sudo systemctl poweroff; }
 suspend()  { sudo systemctl suspend;  }
 
