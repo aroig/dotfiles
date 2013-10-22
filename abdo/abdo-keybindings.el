@@ -86,6 +86,7 @@
 
 ;; Version Control
 (global-set-key (kbd "H-v s") 'abdo-vcs-status)
+(global-set-key (kbd "H-v b") 'abdo-vcs-branches)
 
 ;; Winner mode
 (global-set-key (kbd "H-s-<prior>") 'winner-undo)
