@@ -93,11 +93,19 @@
 (global-set-key (kbd "H-s-<prior>") 'winner-undo)
 (global-set-key (kbd "H-s-<next>") 'winner-redo)
 
+(global-set-key (kbd "H-s-o") 'winner-undo)
+(global-set-key (kbd "H-s-i") 'winner-redo)
+
 ;; Windmove key bindings
 (global-set-key (kbd "H-s-<left>")  'windmove-left)
 (global-set-key (kbd "H-s-<right>") 'windmove-right)
 (global-set-key (kbd "H-s-<up>")    'windmove-up)
 (global-set-key (kbd "H-s-<down>")  'windmove-down)
+
+(global-set-key (kbd "H-s-h")  'windmove-left)
+(global-set-key (kbd "H-s-l") 'windmove-right)
+(global-set-key (kbd "H-s-k")    'windmove-up)
+(global-set-key (kbd "H-s-j")  'windmove-down)
 
 
 ;; Exit functions
