@@ -26,7 +26,7 @@ doc: README.html
 
 $(REMOTES_MERGE): %-merge:
 	git fetch $(shell basename -s -merge $@)
-	git merge -s subtree --no-edit $(shell basename -s -merge $@)/master
+	git merge -s recursive -X subtree="$(patsubst %-merge,%,$@)" --no-edit $(shell basename -s -merge "$@")/master
 
 
 $(COMPILE): %:
