@@ -381,6 +381,14 @@
             (require 'outline-magic)))
 
 
+;; Auto Revert
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Enable auto-revert prog and text buffers
+(add-hook 'prog-mode-hook (lambda () (auto-revert-mode)))
+(add-hook 'text-mode-hook (lambda () (auto-revert-mode)))
+
+
 
 ;; Version Control
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
