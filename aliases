@@ -157,23 +157,22 @@ alias gan="git annex"
 # Sudo aliases
 #------------------------------
 
-# If the argument has an alias, expand it, if it has a function, run it on a root shell
-# and if no arguments given, go to a root prompt.
+# If the argument has an alias, expand it, if it has a function, 
+# run it on a root shell and if no arguments given, go to a root shell.
 sudo () {
     sudo=/usr/bin/sudo
-    sudo_pr=$(echo -n -e "\e[31m[sudo]\e[0m password for %u: ")
     
     if [[ -n "$1" ]]; then
         if [[ -n "${=aliases[$1]}" ]]; then
-            $sudo -p "$sudo_pr" ${=aliases[$1]} $argv[2,-1]
+            $sudo ${=aliases[$1]} $argv[2,-1]
         elif [[ -n "${=functions[$1]}" ]]; then
             # TODO: need to escape $argv
-            $sudo -p "$sudo_pr" zsh -ic "$argv"
+            $sudo zsh -ic "$argv"
         else
-            $sudo -p "$sudo_pr" $argv
+            $sudo $argv
         fi
     else
-        $sudo -p "$sudo_pr" zsh
+        $sudo zsh
     fi
 }
 
