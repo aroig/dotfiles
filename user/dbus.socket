@@ -2,4 +2,4 @@
 Description=D-Bus System Message Bus Socket
 
 [Socket]
-ListenStream=/run/user/%U/dbus/user_bus_socket
+ListenStream=%t/dbus/user_bus_socket
