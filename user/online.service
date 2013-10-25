@@ -4,4 +4,5 @@ Description=online check
 [Service]
 Type=oneshot
 SyslogIdentifier=online
-ExecStart=/usr/bin/ping -W 3 -q www.google.com
+StandardOutput=null
+ExecStart=/usr/bin/ping -W 3 -c 1 -q www.google.com
