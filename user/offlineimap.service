@@ -1,5 +1,7 @@
 [Unit]
 Description=offlineimap
+Requires=online.service
+After=online.service
 
 [Service]
 Type=oneshot
