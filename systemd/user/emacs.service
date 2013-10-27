@@ -1,0 +1,23 @@
+[Unit]
+Description=Emacs daemon
+After=xorg@0.service
+StopWhenUnneeded=true
+
+# need a dependency on xorg. otherwise, when X quits emacs crashes.
+# emacsclient says something about a long standing GTK bug.
+Requisite=xorg@0.service
+
+[Service]
+Type=forking
+SyslogIdentifier=emacs
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
+Environment=DISPLAY=:0
+ExecStart=/home/abdo/.config/systemd/scripts/emacs.sh start
+# Kill with a SIGINT. Usually at this point I have
+# gently killed emacs
+KillSignal=SIGINT
+# ExecStop=/home/abdo/.config/systemd/scripts/emacs.sh stop
+SuccessExitStatus=0 15
+
+[Install]
+WantedBy=default.target

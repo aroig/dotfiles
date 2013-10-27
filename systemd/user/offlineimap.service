@@ -1,0 +1,8 @@
+[Unit]
+Description=offlineimap
+Requires=online.service
+After=online.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/offlineimap -l %h/var/log/offlineimap.log

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# backlight
+xbacklight -set 15

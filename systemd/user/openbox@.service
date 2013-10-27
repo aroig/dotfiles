@@ -1,0 +1,20 @@
+[Unit]
+Description=Openbox window manager at display %i
+After=xserver@%i.target
+After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
+After=compton@%i.service
+Before=tint2@%i.service
+StopWhenUnneeded=true
+
+Requisite=xserver@%i.target
+Requires=tint2@%i.service
+Requires=dbus.socket
+
+[Service]
+PAMName=login
+TTYPath=/dev/tty7
+Type=simple
+SyslogIdentifier=openbox
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
+Environment=DISPLAY=:%i
+ExecStart=/home/abdo/.config/systemd/scripts/openbox.sh start

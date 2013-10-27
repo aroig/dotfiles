@@ -1,0 +1,5 @@
+[Unit]
+Description=Work related servers
+Requires=dbus.socket
+StopWhenUnneeded=true
+AllowIsolate=true

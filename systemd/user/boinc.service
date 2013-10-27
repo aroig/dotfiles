@@ -1,0 +1,7 @@
+[Unit]
+Description=BOINC Daemon
+
+[Service]
+Type=simple
+Nice=19
+ExecStart=/usr/bin/boinc_client --dir /home/abdo/opt/boinc --redirectio

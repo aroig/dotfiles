@@ -1,0 +1,7 @@
+[Unit]
+Description=sync google drive
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/grive --path %h/share/gdrive
+

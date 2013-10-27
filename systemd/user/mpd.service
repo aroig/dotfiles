@@ -1,0 +1,18 @@
+[Unit]
+Description=Music Player Daemon
+
+# TODO: Enable this to use a socket. I must configure mpd t use it!
+# Requires=mpd.socket
+
+After=pulseaudio.service
+StopWhenUnneeded=true
+
+[Service]
+Type=simple
+Environment=PULSE_PROP=application.icon_name=sound
+
+ExecStartPre=/usr/bin/mkdir -p %t/mpd
+ExecStart=/usr/bin/mpd --no-daemon
+
+[Install]
+WantedBy=audio.target

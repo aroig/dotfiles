@@ -1,0 +1,20 @@
+[Unit]
+Description=PulseAudio Sound System
+Documentation=man:pulseaudio(1)
+StopWhenUnneeded=true
+Before=sound.target
+Requires=dbus.socket
+
+[Service]
+Type=simple
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
+# BusName=org.pulseaudio.Server
+# ExecStart=/usr/bin/pulseaudio --start --daemonize --fail
+# PIDFile=/run/user/%U/pulse/pid
+ExecStart=/usr/bin/pulseaudio --fail
+SuccessExitStatus=0 1
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=audio.target

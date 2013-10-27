@@ -1,0 +1,16 @@
+[Unit]
+Description=Xephyr server at display %i
+After=xorg@0.service
+StopWhenUnneeded=true
+
+Requisite=xorg@0.service
+BindsTo=xserver@%i.target
+Before=xserver@%i.target
+Conflicts=x11vnc@%i.service vncserver@%i.service xorg@%i.service
+
+[Service]
+Type=simple
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/Xephyr -ac -br -noreset -screen 800x600 :%i 
+

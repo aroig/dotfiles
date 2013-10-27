@@ -1,0 +1,7 @@
+[Unit]
+Description=fetch mail and news
+Requires=dbus.socket
+StopWhenUnneeded=true
+AllowIsolate=true
+Wants=offlineimap.service rss2maildir.service mutag.service
+

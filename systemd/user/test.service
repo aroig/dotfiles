@@ -1,0 +1,6 @@
+[Unit]
+Description=a testing service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/echo "Hello World"

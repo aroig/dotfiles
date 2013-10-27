@@ -1,0 +1,128 @@
+
+! Cursor Theme
+! Xcursor.theme: Vanilla-DMZ
+
+
+!! Font rendering for the applications
+!! not using fontconfig (like emacs)
+!!---------------------------------
+! NOTE: Xft seems to not understand less than hintfull
+! NOTE2: Let infinality handle this!
+! Xft.dpi: 96
+! Xft.antialias: 1
+! Xft.hinting: 0
+! Xft.autohint: 0
+! Xft.hintstyle: hintfull
+! Xft.rgba: none
+
+
+!! urxvt
+!!---------------------------------
+
+! font
+urxvt.font: xft:terminal
+urxvt.letterSpace: 0
+
+! Icon
+urxvt.iconFile: /usr/share/icons/Faience/apps/scalable/utilities-terminal.svg
+
+! Zenburn
+urxvt.foreground: #dcdccc
+urxvt.background: #2f2f2f
+
+urxvt.color0:  #2f2f2f
+urxvt.color1:  #d05a5a
+urxvt.color2:  #60b48a
+urxvt.color3:  #db9a71
+urxvt.color4:  #3e7ebf
+urxvt.color5:  #C57FAF
+urxvt.color6:  #7AB1B4
+urxvt.color7:  #dcdccc
+urxvt.color8:  #709080
+urxvt.color9:  #dca3a3
+urxvt.color10: #B5CEA0
+urxvt.color11: #f0dfaf
+urxvt.color12: #94bff3
+urxvt.color13: #E9A0D4
+urxvt.color14: #A1DCDF
+urxvt.color15: #EEEEEC
+
+! UI
+urxvt.scrollBar: False
+urxvt.cursorBlink: True
+urxvt.cursorUnderline: True
+
+! Perl extensions
+urxvt.perl-lib: /home/abdo/.config/urxvt/
+urxvt.perl-ext-common: clipboard,keyboard-select,matcher
+
+! URL matcher
+urxvt.url-launcher: xdg-open
+urxvt.matcher.button: 1
+
+! Clipboard stuff
+urxvt.keysym.M-c:   perl:clipboard:copy
+urxvt.keysym.M-v:   perl:clipboard:paste
+urxvt.keysym.M-C-v: perl:clipboard:paste_escap
+urxvt.keysym.M-Escape: perl:keyboard-select:activate
+
+urxvt.copyCommand:  xsel -ib
+urxvt.pasteCommand: xsel -ob
+
+! Disabling annoying stuff
+urxvt.iso14755:     false
+
+
+
+!! emacs
+!!---------------------------------
+Emacs.toolBar: off
+Emacs.verticalScrollBars: off
+Emacs.menuBar: off
+Emacs.foreground: #dcdccc
+Emacs.background: #2f2f2f
+
+
+!! xscreensaver
+!!---------------------------------
+
+! -- font settings -- !
+xscreensaver.Dialog.headingFont:xft:envy code r:medium:pixelsize=8
+xscreensaver.Dialog.bodyFont:xft:envy code r:medium:pixelsize=8
+xscreensaver.Dialog.labelFont:xft:envy code r:medium:pixelsize=8
+xscreensaver.Dialog.unameFont:xft:envy code r:medium:pixelsize=8
+xscreensaver.Dialog.buttonFont:xft:envy code r:medium:pixelsize=8
+xscreensaver.Dialog.dateFont:xft:envy code r:medium:pixelsize=8
+xscreensaver.passwd.passwdFont::xft:envy code r:medium:pixelsize=8
+
+! -- general dialog box -- !
+xscreensaver.Dialog.foreground:         #dcdccc
+xscreensaver.Dialog.background:         #2f2f2f
+
+xscreensaver.Dialog.topShadowColor:     #5f5f5f
+xscreensaver.Dialog.bottomShadowColor:  #5e5e5e
+xscreensaver.Dialog.shadowThickness:    2
+
+xscreensaver.Dialog.Button.foreground:  #dcdccc
+xscreensaver.Dialog.Button.background:  #2f2f2f
+
+xscreensaver.Dialog.borderWidth:        0
+xscreensaver.Dialog.internalBorderWidth:20
+
+! -- username/password input box and date text colour -- !
+xscreensaver.Dialog.text.foreground:    #dcdccc
+xscreensaver.Dialog.text.background:    #2f2f2f
+
+
+! -- timeout bar -- !
+xscreensaver.passwd.thermometer.foreground:  #dcdccc
+xscreensaver.passwd.thermometer.background:  #2f2f2f
+xscreensaver.passwd.thermometer.width:       8
+
+! -- datestamp format -- !
+xscreensaver.dateFormat:    %H:%M %a %b %d, %Y
+
+! -- Useless
+!xscreensaver.Dialog.logo.width:         1
+!xscreensaver.Dialog.logo.height:        1
+!xscreensaver.Dialog.borderColor:        #1E2320

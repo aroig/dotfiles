@@ -1,0 +1,6 @@
+
+[Unit]
+Description=Locked screen
+Requires=dbus.socket
+BindsTo=slimlock@0.service
+AllowIsolate=true

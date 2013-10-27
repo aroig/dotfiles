@@ -1,0 +1,15 @@
+[Unit]
+Description=Setup bamboo tablet coordinates
+After=xorg@0.service
+ConditionHost=grothendieck
+
+Requisite=xorg@0.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
+Environment=DISPLAY=:0
+ExecStart=/home/abdo/.config/systemd/scripts/bamboo.sh
+
+[Install]
+WantedBy=desktop.target

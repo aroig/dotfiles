@@ -1,0 +1,10 @@
+[Unit]
+Description=Bitlbee
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/bitlbee -D -d ~/.bitlbee -P %t/bitlbee.pid
+
+# NOTE: bitlbee complains about not being able to access socket at
+# /run/bitlbee/bitlbee.sock. It seems it has to be started as root
+# and configured so that it looses privileges to a user. Don't like it.

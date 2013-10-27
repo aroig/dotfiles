@@ -1,0 +1,16 @@
+[Unit]
+Description=Calibre
+After=xorg@0.service
+
+Requisite=xorg@0.service
+Requires=dbus.socket
+
+[Service]
+Type=simple
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/calibre --start-in-tray --no-update-check
+ExecStop=/usr/bin/calibre --shutdown-running-calibre
+
+[Install]
+WantedBy=desktop.target

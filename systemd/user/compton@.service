@@ -1,0 +1,12 @@
+[Unit]
+Description=Compton X compositor
+After=xorg@%i.service
+StopWhenUnneeded=true
+
+Requisite=xorg@%i.service
+
+[Service]
+Type=simple
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
+Environment=DISPLAY=:%i
+ExecStart=/usr/bin/compton

@@ -1,0 +1,9 @@
+[Unit]
+Description=rss2maildir
+
+Requires=online.service
+After=online.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/rss2maildir -v -l %h/var/log/rss2maildir.log

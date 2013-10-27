@@ -1,0 +1,20 @@
+[Unit]
+Description=X resource setting
+Documentation=man:xrdb(1)
+After=xserver@%i.target
+After=xorg@%i.service
+After=vncserver@%i.service
+After=x11vnc@%i.service
+After=xephyr@%i.service
+
+Requisite=xserver@%i.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=%h/.config/systemd/conf/xenvironment
+Environment=DISPLAY=:%i
+
+# For some reason resources are not always loaded. Give it some time.
+ExecStartPre=/usr/bin/sleep 1
+ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources
+ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources.d/%H

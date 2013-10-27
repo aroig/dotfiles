@@ -1,0 +1,4 @@
+[Unit]
+Description=Default target
+Requires=dbus.socket
+AllowIsolate=true

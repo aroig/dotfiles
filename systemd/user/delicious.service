@@ -1,0 +1,7 @@
+[Unit]
+Description=fetch delicious bookmarks
+
+[Service]
+Type=oneshot
+SyslogIdentifier=delicious
+ExecStart=/home/abdo/.config/systemd/scripts/fetch-delicious.sh 
