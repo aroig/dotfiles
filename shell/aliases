@@ -1,0 +1,284 @@
+#!/bin/zsh
+#------------------------------------------------------------------#
+# File:     alias.sh   Aliases                                     #
+# Version:                                                         #
+# Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
+#------------------------------------------------------------------#
+
+
+#------------------------------
+# Coloring stuff
+#------------------------------
+alias ls='ls --human-readable --color=auto -F'
+alias ll='ls++ --potsf'
+alias lt='tree -C'
+
+alias df='pydf'
+alias dul='cdu -dLh -i'
+alias du='cdu -dh -i'
+alias top='htop'
+
+alias diff='diff -u -d'
+alias grep='grep --color=auto'
+
+
+# alias ping='$HOME/Software/conf/color-wrappers/ping'
+# alias unisonb='$HOME/Software/conf/color-wrappers/unison -batch'
+
+set_tty_colors() {
+    # Extract colors from .Xresources
+    _SEDCMD='s/urxvt\.color\([0-9]\{1,\}\).*#\([0-9a-fA-F]\{6\}\).*/\1 \2/p'
+    for i in $(sed -n "$_SEDCMD" $HOME/.Xresources | awk '$1 < 16 {printf "\\e]P%X%s", $1, $2}'); do
+        echo -en "$i"
+    done
+    echo -e "\\e]P0000000"
+}
+
+
+#------------------------------
+# Compatibility aliases
+#------------------------------
+alias less=vimpager
+alias zless=vimpager
+
+
+#------------------------------
+# Wine aliases
+#------------------------------
+alias kindle='wine "$HOME/.wine/drive_c/Program Files (x86)/Amazon/Kindle/Kindle.exe"'
+alias digitaleditions='wine "$HOME/.wine/drive_c/Program Files (x86)/Adobe/Adobe Digital Editions/digitaleditions.exe"'
+
+#------------------------------
+# Utility aliases
+#------------------------------
+
+alias trash='gvfs-trash'
+alias vp='vimpager'
+alias vc='vimcat'
+alias rsy='rsync -avz --progress --delete'
+alias ediff='emacs -diff'
+
+alias mailq='msmtp-queue'
+
+alias ahi='asym hi'
+alias abye='asym bye'
+
+alias feh='feh --magick-timeout 2 --fontpath /usr/share/fonts/TTF/ --font DejaVuSans/10'
+alias ipy='ipython'
+alias ipy2='ipython2'
+
+alias wee='weechat-curses'
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+
+
+#------------------------------
+# Auxiliar functions
+#------------------------------
+
+xrandr_screens() { xrandr -q | grep " connected" | sed 's/^\([A-Za-z0-9\-]*\).*/\1/'; }
+
+run_with_journal() {
+    # TODO: trap ctrl-c don't know how to do it in a function
+
+    setopt localoptions nomonitor # disable monitored job control
+    _jctlargs=(--quiet --follow --output=cat --lines=0)
+    journalctl $_jctlargs[@] &
+    _jrnl_pid=$!
+
+    $@; _cmd_exitval=$?; sleep 0.3
+    kill -s TERM $_jrnl_pid;
+    wait $_jrnl_pid; sleep 0.3
+    return $_cmd_exitval
+}
+
+# remove trailing newline.
+trimtrail() {
+    cat "$1" | awk '{a = $0; while (getline > 0) {print a; a = $0}} END {printf("%s", a)}' -
+}
+
+
+#------------------------------
+# Systemd aliases
+#------------------------------
+
+
+alias jctl="sudo journalctl --since=yesterday"
+alias ectl="sudo journalctl --since=yesterday --priority=0..3"
+
+alias nctl="sudo netctl"
+alias sctl="sudo systemctl --system"
+alias uctl="systemctl --user"
+alias ictl="run_with_journal systemctl --user start"
+
+alias actl="systemd-analyze"
+alias sdrun="systemd-run --user"
+
+actl_svg() {
+    cmd="$1"; shift
+    if [ "$cmd" = "dot" ]; then systemd-analyze dot "$@" | dot -Tsvg
+    else                        systemd-analyze "$cmd" "$@"
+    fi
+}
+
+alias lock='systemctl --user lock.target'
+
+# firewall status
+fws() { sudo ufw status; echo ""; sudo iptables -L sshguard; }
+
+
+
+#------------------------------
+# development
+#------------------------------
+
+case $(hostname -s) in
+    grothendieck)
+        threads=10
+        ;;
+    galois|hodge)
+        threads=3
+        ;;
+    *)
+        threads=1
+        ;;
+esac
+
+mk() { MAKE="make -j$threads" make "$@" 2>&1 | colormake; return ${PIPESTATUS[0]}; }
+
+alias gan="git annex"
+
+
+#------------------------------
+# Sudo aliases
+#------------------------------
+
+# If the argument has an alias, expand it, if it has a function, 
+# run it on a root shell and if no arguments given, go to a root shell.
+sudo () {
+    sudo=/usr/bin/sudo
+    
+    if [[ -n "$1" ]]; then
+        if [[ -n "${=aliases[$1]}" ]]; then
+            $sudo ${=aliases[$1]} $argv[2,-1]
+        elif [[ -n "${=functions[$1]}" ]]; then
+            # TODO: need to escape $argv
+            $sudo zsh -ic "$argv"
+        else
+            $sudo $argv
+        fi
+    else
+        $sudo zsh
+    fi
+}
+
+# alias sudo='sudo '        # Enables expanding aliases for next command. not functions though :(
+
+
+#------------------------------
+# Program shortcuts
+#------------------------------
+
+vi()  { eval "$EDITOR \"\$@\""; }
+op()  { xdg-open "$@" &> /dev/null &!; }
+
+
+# The following commands are aware of the type of terminal they are on. For
+# example ed launches GTK emacs on any terminal except tty's or remote logins
+
+ee() {
+    case "$TERM" in
+        screen*|linux*) eval "emacsclient -t -a emacs  \"\$@\" > /dev/null" ;;
+        *)              eval "emacsclient -c -a emacs  \"\$@\" > /dev/null &!" ;;
+    esac
+}
+
+kle() {
+    case "$TERM" in
+        screen*|linux) eval "emacsclient -eval \"(client-save-kill-emacs)\" &> /dev/null"  ;;
+        *)             eval "emacsclient --display=:0 --eval \"(client-save-kill-emacs)\" &> /dev/null \"\$@\" &!" ;;
+    esac
+}
+
+tx() {
+    if [ "$TMUX" ]; then   tmux new-window
+    else                   tmux-session term
+    fi
+}
+
+tm()  {
+    case "$TERM" in
+        screen*|linux) tx ;;
+        *)             eval "$TERMCMD -d \"\$PWD\" \"\$@\" &!" ;;
+    esac
+}
+
+rg()  {
+    case "$TERM" in
+        screen*|linux) eval "ranger \"\$@\"" ;;
+        *)             eval "$TERMCMD -d \"\$PWD\" -e ranger \"\$@\" &!" ;;
+    esac
+}
+
+fm()  {
+    case "$TERM" in
+        screen*|linux) eval "ranger \"\$@\"" ;;
+        *)             eval "$FILEMANAGER \"\$@\" &> /dev/null &!" ;;
+    esac
+}
+
+
+
+# These commands open awesome dropdown clients
+rgd() { echo "ddclient.ranger:newtab('$PWD')"   | awesome-client; }
+tmd() { echo "ddclient.terminal:newtab('$PWD')" | awesome-client; }
+
+
+#------------------------------
+# Starting and killing X
+#------------------------------
+
+# stx() { startx awesome -- vt$(fgconsole 2>/dev/null); }
+stx() {
+    if [ ! "$1" ]; then  wm=awesome
+    else                 wm="$1"
+    fi
+
+    xvt=vt$(fgconsole)
+    if [ "$?" = '0' ]; then
+        systemctl --user set-environment XORG_VT=$xvt
+        systemctl --user start wm@$wm.target;
+    fi
+
+    # wait until X server finishes and reset the tty
+    wait $(pgrep xorg)
+    sleep 1
+    reset
+    set_tty_colors
+}
+
+klx() { 
+    systemctl --user stop xserver@0.target;
+}
+
+
+#------------------------------
+# Rebooting and halting
+#------------------------------
+
+# NOTE
+# If I use systemctl --user exit, the user session tries to perform a pam_close_session, but this is
+# not allowed. Only root can do it, and in the same process as the pam_open_session
+# source: https://bugzilla.redhat.com/show_bug.cgi?format=multiple&id=951728
+#
+# On the other hand, If I use sudo systemctl stop user-sessions@abdo, some process remain and I have
+# to wait for the timeout
+
+reboot()   { systemctl --user exit; sleep 2; sudo systemctl reboot;   }
+poweroff() { systemctl --user exit; sleep 2; sudo systemctl poweroff; }
+suspend()  { sudo systemctl suspend;  }
+
