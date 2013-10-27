@@ -52,7 +52,11 @@ rules.rules = {
     { rule_any = { class = {"Qpaeq", "Qjackctl", "Unison-gtk2", "pinentry", "Skype", "Pavucontrol", "Pidgin"} },
       properties = { floating = true } },
 
-    -- Fixed position floats
+    -- Float dialogs
+    { rule_any = { name = {"Print"} },
+      properties = { floating = true } },
+
+    -- Centered floats
     { rule_any = { class = {"mpv", "MPlayer", "feh"} },
       properties = { floating = true },
       callback   = function(c) awful.placement.centered(c) end },
