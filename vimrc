@@ -22,6 +22,12 @@ set nobackup
 set backupdir=~/var/bak/vim
 set directory=~/var/bak/vim
 
+" and prevents backup and swap for sensitive files
+autocmd BufRead,BufNewFile pass.* set nobackup
+autocmd BufRead,BufNewFile pass.* set noswapfile
+
+autocmd BufRead,BufNewFile ~/priv/* set nobackup
+autocmd BufRead,BufNewFile ~/priv/* set noswapfile
 
 
 " Text options
