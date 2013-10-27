@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: \section{...}
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: sec
+# --
+\\section{$1}

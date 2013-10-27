@@ -1,0 +1,7 @@
+# name: \begin{prf} ... \end{prf}
+# contributor: Abdo Roig-Maranges <abdo.roig@gmail.com>
+# key: prf
+# --
+\\begin{prf}
+  $0
+\\end{prf}

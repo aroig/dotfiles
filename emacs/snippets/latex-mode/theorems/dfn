@@ -1,0 +1,7 @@
+# name: \begin{dfn}\label{dfn:?} ... \end{dfn}
+# contributor: Abdo Roig-Maranges <abdo.roig@gmail.com>
+# key: dfn
+# --
+\\begin{dfn}\\label{dfn:${1:bla}}
+  $0
+\\end{dfn}

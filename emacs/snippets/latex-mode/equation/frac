@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: \frac{?}{?}
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: frac
+# --
+\\frac{${1:a}}{${2:b}}

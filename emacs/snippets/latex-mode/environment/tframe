@@ -1,0 +1,7 @@
+# name: \begin{frame} ... \end{frame}{title}
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: tframe
+# --
+\\begin{frame}{$1}
+  $0
+\\end{frame}

@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: \chapter{...}
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: chap
+# --
+\\chapter{$1}

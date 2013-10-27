@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: \subsection{...}
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: ssec
+# --
+\\subsection{$1}
