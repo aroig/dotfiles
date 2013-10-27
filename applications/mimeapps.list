@@ -14,9 +14,9 @@ text/x-chdr=emacs-client.desktop;
 text/x-csrc=emacs-client.desktop;
 text/x-makefile=emacs-client.desktop;
 
-image/jpeg=eog.desktop;
-image/png=eog.desktop;
-image/svg+xml=eog.desktop;
+image/jpeg=feh.desktop;
+image/png=feh.desktop;
+image/svg+xml=feh.desktop;
 
 application/epub=calibre-ebook-viewer.desktop;
 application/epub+zip=calibre-ebook-viewer.desktop
