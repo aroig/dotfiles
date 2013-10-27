@@ -1,0 +1,39 @@
+"---------------------------------------------------------------------"
+" File:   .vim/vimrc.d/ui                                             "
+" Author: Abdó Roig-Maranges <abdo.roig@gmail.com                     "
+" Desc:   vim configuration                                           "
+"---------------------------------------------------------------------"
+
+
+" General options
+" --------------------
+colors abdo                       " default color scheme
+set background=dark               " dark background
+
+syntax on                         " Enable syntax highlighting
+set hlsearch                      " Highlight searches
+set wildmenu                      " Better autocompletion
+set showmatch                     " match parenthesis
+
+
+" Status line
+" --------------------
+set showcmd                       " show partial command 
+set laststatus=2                  " always display status line
+
+"set ruler                         " show cursor position
+
+"set statusline=%<\ %{mode()}\ >\ %f\ >\ %y%=
+"set statusline+=<\ %l:%-2c\ %P\ <\ %m%r%{strlen(&fenc)?&fenc:&enc}\ %{&ff}\ 
+
+" Usability
+" --------------------
+set ignorecase                    " case insensitive searches 
+set smartcase
+
+" Quickly time out on keycodes, but never time out on mappings
+set notimeout ttimeout ttimeoutlen=200
+
+set backspace=indent,eol,start    " enhance backspace
+set nostartofline                 " prevent some movements to go to start of line
+set mouse=a

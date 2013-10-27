@@ -1,0 +1,18 @@
+"---------------------------------------------------------------------"
+" File:   .vimcatrc                                                   "
+" Author: Abdó Roig-Maranges <abdo.roig@gmail.com                     "
+" Desc:   vimpager configuration                                      "
+"---------------------------------------------------------------------"
+
+
+" General options
+" --------------------
+set nocompatible                  " vim defaults. forget about vi compatibility!
+"set viminfo=""                    " disables viminfo
+
+
+
+" Source vimrc.d stuff
+" --------------------
+source ~/.vim/vimrc.d/ui              " UI stuff
+

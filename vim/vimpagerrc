@@ -1,0 +1,90 @@
+"---------------------------------------------------------------------"
+" File:   .vimpagerrc                                                 "
+" Author: Abdó Roig-Maranges <abdo.roig@gmail.com                     "
+" Desc:   vimpager configuration                                      "
+"---------------------------------------------------------------------"
+
+
+" General options
+" --------------------
+set nocompatible                  " vim defaults. forget about vi compatibility!
+set viminfo=""                    " disables viminfo
+
+
+" vimpager options
+" --------------------
+let vimpager_scrolloff = 5
+" set noloadplugins
+
+
+" Filetype
+" --------------------
+function! GetVimAncestors()
+    let ancestors=[]
+    let pid=getpid()        
+    while pid > 1
+        let pname = system("ps -o comm= -p " . pid)
+        let pname = substitute(pname, '^[ \n]*\(.\{-}\)[ \n]*$', '\1', '')
+
+"        echo pid
+"        echo pname
+
+        let pid = system("ps -o ppid= -p " . pid)
+        let pid = substitute(pid, '^[ \n]*\(.\{-}\)[ \n]*$', '\1', '')        
+        
+        call insert(ancestors, pname)
+    endwhile
+    return ancestors
+endfunction
+
+let ancestors = GetVimAncestors()
+"echo ancestors
+
+if match(ancestors, "sage") != -1
+    autocmd VimEnter * set ft=sagehelp
+
+elseif match(ancestors, "ipython") != -1
+    autocmd VimEnter * set ft=ipythonhelp
+    
+elseif match(ancestors, "git") != -1
+    autocmd VimEnter * set ft=git
+
+elseif match(ancestors, "hg") != -1
+    autocmd VimEnter * set ft=hg
+
+elseif match(ancestors, "journalctl") != -1
+    autocmd VimEnter * set ft=messages
+    
+endif
+
+
+" Source vimrc.d stuff
+" --------------------
+source ~/.vim/vimrc.d/ui              " UI stuff
+source ~/.vim/vimrc.d/mappings        " personal mappings
+
+
+" UI stuff
+" --------------------
+
+" disable mouse (can copy the urxvt way)
+set mouse=
+
+"enable mouse
+"set mouse=a
+"set ttymouse=xterm2
+
+" copy to clipboard on select
+" set clipboard=autoselect
+
+"map <C-c> :yank
+
+
+
+" statusline
+set statusline=\ %{toupper(mode())}\ \|                    "mode
+set statusline+=\ %y                                       "filetype
+set statusline+=%=                                         "left/right separator
+set statusline+=%l:%-2c\ %P\ \|                            "line:column percent
+set statusline+=\ %{strlen(&fenc)?&fenc:'none'}\ %{&ff}    "file encoding, file format
+set statusline+=\                 
