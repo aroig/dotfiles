@@ -2,7 +2,9 @@ REMOTES=awesome emacs ranger shell systemd vim dwb zathura
 
 SHELL := $(SHELL) -e
 
-.PHONY: merge doc $(REMOTES)
+.PHONY: all merge doc $(REMOTES)
+
+all: merge doc
 
 merge: $(REMOTES)
 
