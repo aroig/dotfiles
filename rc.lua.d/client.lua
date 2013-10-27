@@ -67,7 +67,6 @@ rules.rules = {
 
     -- Capture dropdowns
     { rule = { class = "Gmpc" },            callback = function(c) ddclient.music:capture(c) end },
-    { rule = { class = "Keepassx" },        callback = function(c) ddclient.pwsafe:capture(c) end },
     { rule = { class = "Xournal" },         callback = function(c) ddclient.xournal:capture(c) end },
     { rule = { class = "Calibre-gui" },     callback = function(c) ddclient.calibre:capture(c) end },
 

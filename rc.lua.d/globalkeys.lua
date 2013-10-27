@@ -74,7 +74,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "t",      function () ddclient.chat:toggle() end),
     awful.key({ modkey, shiftkey  }, "t",      function () ddclient.twitter:toggle() end),
     awful.key({ modkey, ctrlkey   }, "w",      function () ddclient.xournal:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "p",      function () ddclient.pwsafe:toggle() end),
 
     -- Music
     awful.key({ modkey, ctrlkey   }, "Home",      function () exec("mpc toggle") end),
