@@ -1,0 +1,279 @@
+[default]
+
+# General behaviour               #
+# ------------------------------- #
+
+single-instance=true
+
+enable-page-cache=false
+cache-model=webbrowser
+
+# use privoxy
+proxy=true
+proxy-url=http://127.0.0.1:8118
+
+user-agent=
+
+# startpage=dwb:bookmarks
+# startpage=https://www.google.com/search?hl=en&tab=Xw
+startpage=about:blank
+
+download-directory=~/down
+download-no-confirm=false
+
+save-session=false
+
+enable-private-browsing=false
+enable-caret-browsing=false
+
+enable-spell-checking=false
+spell-checking-languages=
+
+
+
+# User Interface                  #
+# ------------------------------- #
+
+auto-insert-mode=false
+
+hint-highlight-links=false
+hint-autofollow=true
+hints-key-lock=250
+
+tabbed-browsing=true
+close-last-tab-policy=close
+close-tab-focus-policy=left
+new-tab-position-policy=right
+show-single-tab=true
+
+tab-key-cycles-through-elements=true
+
+load-on-focus=false
+do-not-track=true
+auto-completion=false
+enable-spatial-navigation=false
+
+
+
+# Web behaviour                   #
+# ------------------------------- #
+
+enable-offline-web-application-cache=true
+auto-shrink-images=true
+
+auto-load-images=true
+enable-frame-flattening=false
+
+enable-html5-local-storage=true
+enable-html5-database=true
+
+enable-webgl=false
+enable-accelerated-compositing=false
+enable-developer-extras=true
+
+
+
+# Security                        #
+# ------------------------------- #
+
+ssl-use-system-ca-file=true
+ssl-strict=true
+
+cookies-accept-policy=always
+cookies-store-policy=session
+cookie-expiration=0
+block-insecure-content=false
+
+enable-file-access-from-file-uris=true
+enable-universal-access-from-file-uris=true
+
+
+
+# Javascript and plugins          #
+# ------------------------------- #
+enable-plugins=true
+enable-scripts=true
+enable-java-applet=true
+plugin-blocker=true
+
+javascript-schemes=true
+javascript-api=automatic
+javascript-can-open-windows-automatically=false
+javascript-can-access-clipboard=false
+
+adblocker=false
+adblocker-filterlist=
+
+
+
+# External commands               #
+# ------------------------------- #
+download-use-external-program=false
+
+editor=emacsclient -c -a emacs dwb_uri
+download-external-command=$TERMCMD -e wget dwb_uri -O dwb_output --load-cookies dwb_cookies
+
+
+
+# Appearence                      #
+# ------------------------------- #
+
+user-stylesheet-uri=file:///home/abdo/.config/dwb/styles/userdark.css
+
+hint-style=letter
+hint-letter-seq=FDSARTGBVECWXQYIOPMNHZULKJ
+
+# progress-bar-style=default
+progress-bar-style=simple
+scrollbars=true
+
+zoom-level=1.15
+full-content-zoom=true
+zoom-step=0.10
+
+enable-favicon=true
+resizable-text-areas=true
+
+tab-width=100
+hint-offset-left=0
+hint-opacity=0.80
+
+mouse-cycles-through-tabs=true
+tab-orientation=horizontal
+
+default-width=800
+default-height=600
+hint-offset-top=0
+
+bars-padding=0
+tabbar-visible=2.00
+
+widget-packing=dtws
+enforce-96-dpi=false
+
+
+
+# Fonts                           #
+# ------------------------------- #
+
+minimum-font-size=5
+minimum-logical-font-size=5
+default-monospace-font-size=10
+default-font-size=12
+
+font=terminal
+font-hidden-statusbar=normal 10px terminal
+hint-font=bold 10px terminal
+
+default-font-family=sans-serif
+monospace-font-family=monospace
+cursive-font-family=serif
+serif-font-family=serif
+sans-serif-font-family=sans-serif
+fantasy-font-family=serif
+
+font-nofocus=
+font-entry=
+font-completion=
+
+
+
+# Colors                          #
+# ------------------------------- #
+
+foreground-color=#dcdccc
+background-color=#1f1f1f
+
+prompt-color=#f0dfaf
+error-color=#cd3333
+private-color=#872727
+
+ssl-trusted-color=#00cd66
+ssl-untrusted-color=#ee3b3b
+
+status-allowed-color=#448cd0
+status-blocked-color=#ee3b3b
+
+download-fg-color=#dcdccc
+download-bg-color=#2f2f2f
+download-gradient-start=#448cd0
+download-gradient-end=#00cd66
+
+tab-number-color=#75bcff
+tab-active-fg-color=#ff8f35
+tab-active-bg-color=#1f1f1f
+tab-normal-fg-color-2=#dcdccc
+tab-normal-fg-color-1=#dcdccc
+tab-normal-bg-color-2=#5f5f5f
+tab-normal-bg-color-1=#3f3f3f
+tab-protected-color=#ee3b3b
+
+hint-active-color=#00cd66
+hint-normal-color=#cccccc
+hint-fg-color=#1f1f1f
+hint-bg-color=#fe5c00
+hint-border=1px solid #1f1f1f
+
+progress-bar-full-color=#5f5f5f
+progress-bar-empty-color=#1f1f1f
+
+normal-completion-fg-color=#dcdccc
+normal-completion-bg-color=#1f1f1f
+active-completion-fg-color=#ff8f35
+active-completion-bg-color=#3f3f3f
+
+
+
+# Inner workings                  #
+# ------------------------------- #
+file-sync-interval=120
+navigation-history-max=500
+update-search-delay=200
+history-length=500
+max-visible-completions=11
+
+sync-files=all
+enable-ipc=true
+maximum-tabs=0
+
+
+
+# Other                           #
+# ------------------------------- #
+
+complete-history=true
+complete-bookmarks=true
+complete-searchengines=false
+complete-userscripts=false
+enable-default-context-menu=true
+
+editable=false
+background-tabs=false
+
+enable-xss-auditor=true
+custom-encoding=
+print-previewer=
+enable-dns-prefetching=true
+print-backgrounds=true
+
+hsts=false
+
+accept-language=
+use-ntlm=false
+passthrough-keys=webkit
+enable-dom-paste=false
+
+enable-site-specific-quirks=false
+auto-resize-window=false
+
+default-encoding=
+searchengine-submit-pattern=
+
+addressbar-dns-lookup=false
+
+scroll-step=0.00
+message-delay=2
+scheme-handler=
+
+
+

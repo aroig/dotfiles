@@ -1,0 +1,42 @@
+
+/* -------------------------------------------- */
+/* Hinting                                      */
+/* -------------------------------------------- */
+
+.dwb_hint {
+  padding: 1px !important;
+  opacity: 1.0 !important;
+}
+
+.dwb_overlay_normal {
+}
+
+
+
+/* -------------------------------------------- */
+/* Per host settings                            */
+/* -------------------------------------------- */
+/* NOTE: This is not yet implemented in webkit  */
+
+/*
+@document url(ncatlab.org)
+@document url-prefix(ncatlab.org)
+@document domain(ncatlab.org)
+@document regexp("http://ncatlab.org/")
+*/
+
+/* NOTE 1: Reference for this @document feature
+   https://developer.mozilla.org/en-US/docs/Web/CSS/@document
+*/
+/* NOTE 2: This is not yet available in webkit
+   http://www.w3.org/TR/2012/WD-css3-conditional-20121213/#changes
+*/
+
+@document url-prefix("http://ncatlab.org/")
+{
+    body {
+        font-family: sans-serif !important;
+    }
+}
+
+
