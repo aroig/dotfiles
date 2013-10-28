@@ -21,7 +21,7 @@ apps.pdfviewer           = "zathura"
 apps.music               = "gmpc"
 apps.twitter             = apps.terminal .. " -e turses"
 apps.dictionary          = "goldendict"
-apps.library             = "calibre"
+apps.library             = "calibre --no-update-check"
 apps.print               = "scrot -e 'mv $f ~/down/'"
 apps.xournal             = "xournal ~/work/notes/scratchpad.xoj"
 
