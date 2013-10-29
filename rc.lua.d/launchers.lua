@@ -39,18 +39,33 @@ end
 
 -- Execute an external program as a systemd scope
 function sdexec (cmd, screen, name, scope)
-    sdcmd = "systemd-run --user "
+    local sdcmd = "systemd-run --user "
     if scope then
        sdcmd = sdcmd .. "--scope "
     end
     if name then
-        sddesc = string.format("Dynamic unit for %s", name)
-        sdcmd = sdcmd .. string.format("--unit=\"%s\" ", name)
-        sdcmd = sdcmd .. string.format("--description=\"%s\" ")
+        -- TODO: If I chose the unit name I should make sure it is unique
+        -- sdcmd = sdcmd .. string.format("--unit=\"%s\" ", name)
+        sdcmd = sdcmd .. string.format("--description=\"Dynamic unit for %s\" ", name)
     end
     sdcmd = sdcmd .. cmd
 
-    awful.util.spawn_with_shell(sdcmd, screen)
+    -- launch systemd service and capture the service name
+    -- TODO: capture stderr to get the pid
+    local f = io.popen(sdcmd, "r")
+    if f ~= nil then
+        local raw = f:read("*all")
+        local pid = raw:gsub(".*run%-([0-9]*)%.service.*", "%1")
+
+        -- naughty.notify({title="sdexec", text=tostring(raw)})
+        f:close()
+    end
+
+    if pid then
+        return tonumber(pid)
+    else
+        return nil
+    end
 end
 
 -- executes a shell command on a terminal
@@ -241,7 +256,7 @@ function prompt.command()
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Run: ",
-                exec,
+                sdexec,
                 cmds,
                 awful.util.getdir("cache") .. "/history_cmd")
 end
