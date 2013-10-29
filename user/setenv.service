@@ -1,0 +1,6 @@
+[Unit]
+Description=Set the environment
+
+[Service]
+Type=oneshot
+ExecStart=/home/abdo/.config/systemd/scripts/setenv.sh
