@@ -6,6 +6,15 @@
 # Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
 #------------------------------------------------------------------#
 
+#------------------------------------------------------------------#
+# NOTE:                                                            #
+# In order to export the environment to the systemd --user         #
+# session this file gets parsed by a shell script. So keep it      #
+# in a clean format with lines like                                #
+# export VAR=value                                                 #
+#------------------------------------------------------------------#
+
+
 function add_to_pathlist_left () {
    local cl=$1
    local item=$2
@@ -70,7 +79,7 @@ export AB2_PAPERS_DIR="$AB2_HOME/work/papers"
 
 # disable accessibility for GTK3 apps
 # https://forums.gentoo.org/viewtopic-p-7380668.html?sid=265ddf475643bf5c86fe72440cf6cbe8
-NO_AT_BRIDGE=1 
+export NO_AT_BRIDGE=1 
 
 # sage
 # export SAGE_KEEP_BUILT_SPKGS=yes    # don't rebuild from scratch
@@ -191,7 +200,6 @@ if [[ -d $HOME/.terminfo ]]; then
 fi
 
 # The path
-
 add_to_pathlist_left PATH "/usr/lib/ccache/bin"   # ccache binaries before gcc ones
 add_to_pathlist_left PATH "$HOME/bin"             # ~/bin
-export PATH
+export PATH=$PATH
