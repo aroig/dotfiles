@@ -12,7 +12,6 @@ Requires=dbus.socket
 [Service]
 Type=simple
 SyslogIdentifier=awesome
-EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
 ExecStart=/home/abdo/.config/systemd/scripts/awesome.sh start
 KillSignal=SIGINT

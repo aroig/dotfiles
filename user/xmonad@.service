@@ -15,6 +15,5 @@ PAMName=login
 TTYPath=/dev/tty7
 Type=simple
 SyslogIdentifier=xmonad
-EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
 ExecStart=/home/abdo/.config/systemd/scripts/xmonad.sh start

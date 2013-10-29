@@ -7,6 +7,5 @@ Requisite=xserver@%i.target
 
 [Service]
 Type=simple
-EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
 ExecStart=/usr/bin/tint2

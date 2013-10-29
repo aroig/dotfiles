@@ -12,6 +12,5 @@ Requisite=xserver@%i.target
 
 [Service]
 Type=oneshot
-EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
 ExecStart=/usr/bin/xmodmap %h/.config/systemd/conf/Xmodmap

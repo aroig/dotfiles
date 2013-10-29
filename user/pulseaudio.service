@@ -7,7 +7,6 @@ Requires=dbus.socket
 
 [Service]
 Type=simple
-EnvironmentFile=%h/.config/systemd/conf/xenvironment
 # BusName=org.pulseaudio.Server
 # ExecStart=/usr/bin/pulseaudio --start --daemonize --fail
 # PIDFile=/run/user/%U/pulse/pid
