@@ -119,15 +119,19 @@
 (require 'helm-misc)
 
 ;; Version Control
-(require 'vc)
-(require 'magit)
+(when (locate-library "vc")
+  (require 'vc))
 
-(require 'git-commit-mode)
-(require 'gitignore-mode)
-(require 'gitconfig-mode)
-(require 'git-rebase-mode)
+(when (locate-library "magit")
+  (require 'magit))
 
-(require 'vcs-hacks)
+(when (locate-library "git-commit-mode")
+  (require 'git-commit-mode)
+  (require 'gitignore-mode)
+  (require 'gitconfig-mode)
+  (require 'git-rebase-mode))
+
+;(require 'vcs-hacks)
 
 ;; email
 (when (locate-library "mu4e")
