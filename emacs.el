@@ -131,8 +131,6 @@
   (require 'gitconfig-mode)
   (require 'git-rebase-mode))
 
-;(require 'vcs-hacks)
-
 ;; email
 (when (locate-library "mu4e")
   (require 'mu4e)                      ;; email client
