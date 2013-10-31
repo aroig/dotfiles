@@ -34,7 +34,7 @@ return {
    stellarium                = "stellarium",
    boinc                     = "boincm",
 
-   calibre                   = "calibre",
+   calibre                   = "systemctl --user start calibre.service",
    emacs                     = "emacsclient -c -a emacs",
    irc                       = "emacs -irc",
    gnus                      = "emacs -gnus",
