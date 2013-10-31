@@ -7,6 +7,7 @@ Requires=dbus.socket
 
 [Service]
 Type=simple
+SyslogIdentifier=calibre
 Environment=DISPLAY=:0
 
 # make database files editable
