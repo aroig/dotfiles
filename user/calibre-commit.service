@@ -1,0 +1,11 @@
+[Unit]
+Description=Commit calibre library
+
+Requires=dbus.socket
+Conflicts=calibre.service
+
+[Service]
+Type=oneshot
+
+ExecStart=/home/abdo/.config/systemd/scripts/calibre.sh stop
+ExecStart=/home/abdo/.config/systemd/scripts/calibre.sh commit

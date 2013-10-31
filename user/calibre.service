@@ -8,8 +8,15 @@ Requires=dbus.socket
 [Service]
 Type=simple
 Environment=DISPLAY=:0
-ExecStart=/usr/bin/calibre --start-in-tray --no-update-check
-ExecStop=/usr/bin/calibre --shutdown-running-calibre
+
+# make database files editable
+ExecStartPre=/home/abdo/.config/systemd/scripts/calibre.sh edit
+
+ExecStart=/home/abdo/.config/systemd/scripts/calibre.sh start
+ExecStop=/home/abdo/.config/systemd/scripts/calibre.sh stop
+
+# commit changes
+ExecStopPost=/home/abdo/.config/systemd/scripts/calibre.sh commit
 
 [Install]
 WantedBy=desktop.target
