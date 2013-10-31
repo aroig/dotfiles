@@ -1,4 +1,4 @@
-
+#!/bin/zsh
 
 function get_git_tracking_branch () {
     br=$1
@@ -31,13 +31,16 @@ __CURRENT_VCS_BRANCH="$br"
 __CURRENT_VCS_REV="$rev"
 # __CURRENT_VCS_TAGS="$(git describe --tags HEAD 2> /dev/null)"
 
-if [[ ! "$(echo -n "$st\n" | egrep '^\s*U' | wc -l)" == "0" ]]; then         __CURRENT_VCS_STATUS='conflict'
+
+
+if   [[ ! "$(echo -n "$st\n" | egrep '^\s*U' | wc -l)" == "0" ]]; then       __CURRENT_VCS_STATUS='conflict'
 elif [[ ! "$(echo -n "$st\n" | egrep '^\s*.U' | wc -l)" == "0" ]]; then      __CURRENT_VCS_STATUS='conflict'
 elif [[ ! "$(echo -n "$st\n" | egrep '^\s*AA' | wc -l)" == "0" ]]; then      __CURRENT_VCS_STATUS='conflict'
 elif [[ ! "$(echo -n "$st\n" | egrep '^\s*DD' | wc -l)" == "0" ]]; then      __CURRENT_VCS_STATUS='conflict'      
 elif [[ ! "$(echo -n "$st\n" | egrep '^\?' | wc -l)" == "0" ]]; then         __CURRENT_VCS_STATUS='untracked'
 elif [[ ! "$(echo -n "$st\n" | egrep '^[MARC ]D' | wc -l)" == "0" ]]; then   __CURRENT_VCS_STATUS='deleted'
 elif [[ ! "$(echo -n "$st\n" | egrep '^[MADRC ]M' | wc -l)" == "0" ]]; then  __CURRENT_VCS_STATUS='changed'    
+elif [[ ! "$(echo -n "$st\n" | egrep '^[MADRC ]T' | wc -l)" == "0" ]]; then  __CURRENT_VCS_STATUS='changed'    
 elif [[ ! "$(echo -n "$st\n" | egrep '^[MADRC].' | wc -l)" == "0" ]]; then   __CURRENT_VCS_STATUS='staged'
 elif [[ ! "$(echo -n "$st\n" | egrep '^!' | wc -l)" == "0" ]]; then          __CURRENT_VCS_STATUS='ignored'    
 elif [[ "$st" == "" ]]; then                                                 __CURRENT_VCS_STATUS='sync'

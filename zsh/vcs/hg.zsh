@@ -1,3 +1,4 @@
+#!/bin/zsh
 
 local st="$(hg status)"
 local br="$(hg branch)"
