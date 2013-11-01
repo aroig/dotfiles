@@ -60,9 +60,12 @@ globalkeys = awful.util.table.join(
     -- Programs
     awful.key({ modkey, ctrlkey   }, "Print",  function () exec(apps.print) end),
 
-    awful.key({ modkey, ctrlkey   }, "Return", function () sdexec(apps.terminal,      nil, 'termite') end),
-    awful.key({ modkey, ctrlkey   }, "f",      function () sdexec(apps.filemanager,   nil, 'thunar') end),
-    awful.key({ modkey, ctrlkey   }, "e",      function () sdexec(apps.editor,        nil, 'emacsclient') end),
+    -- those are forked as usual, and belong to the awesome systemd unit
+    awful.key({ modkey, ctrlkey   }, "Return", function () exec(apps.terminal) end),
+    awful.key({ modkey, ctrlkey   }, "e",      function () exec(apps.editor) end),
+    awful.key({ modkey, ctrlkey   }, "f",      function () exec(apps.filemanager) end),
+
+    -- those are spawned with systemd-run, and get their own unit.
     awful.key({ modkey, ctrlkey   }, "b",      function () sdexec(apps.browser,       nil, 'dwb') end),
     awful.key({ modkey, metakey   }, "b",      function () sdexec(apps.secondbrowser, nil, 'chromium') end),
     awful.key({ modkey, ctrlkey   }, "o",      function () sdexec(apps.orgmode,       nil, 'orgmode') end),

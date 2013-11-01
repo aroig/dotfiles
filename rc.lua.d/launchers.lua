@@ -255,7 +255,7 @@ function prompt.command()
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Run: ",
-                sdexec,
+                exec,
                 cmds,
                 awful.util.getdir("cache") .. "/history_cmd")
 end
