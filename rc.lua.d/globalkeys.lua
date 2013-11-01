@@ -58,15 +58,15 @@ end
 
 globalkeys = awful.util.table.join(
     -- Programs
-    awful.key({ modkey, ctrlkey   }, "Return", function () exec(apps.terminal) end),
     awful.key({ modkey, ctrlkey   }, "Print",  function () exec(apps.print) end),
 
-    awful.key({ modkey, ctrlkey   }, "f",      function () sdexec(apps.filemanager) end),
-    awful.key({ modkey, ctrlkey   }, "e",      function () sdexec(apps.editor) end),
-    awful.key({ modkey, ctrlkey   }, "b",      function () sdexec(apps.browser) end),
-    awful.key({ modkey, metakey   }, "b",      function () sdexec(apps.secondbrowser) end),
-    awful.key({ modkey, ctrlkey   }, "o",      function () sdexec(apps.orgmode) end),
-    awful.key({ modkey, ctrlkey   }, "u",      function () sdexec(apps.mail) end),
+    awful.key({ modkey, ctrlkey   }, "Return", function () sdexec(apps.terminal,      nil, 'termite') end),
+    awful.key({ modkey, ctrlkey   }, "f",      function () sdexec(apps.filemanager,   nil, 'thunar') end),
+    awful.key({ modkey, ctrlkey   }, "e",      function () sdexec(apps.editor,        nil, 'emacsclient') end),
+    awful.key({ modkey, ctrlkey   }, "b",      function () sdexec(apps.browser,       nil, 'dwb') end),
+    awful.key({ modkey, metakey   }, "b",      function () sdexec(apps.secondbrowser, nil, 'chromium') end),
+    awful.key({ modkey, ctrlkey   }, "o",      function () sdexec(apps.orgmode,       nil, 'orgmode') end),
+    awful.key({ modkey, ctrlkey   }, "u",      function () sdexec(apps.mail,          nil, 'mu4e') end),
 
     -- Dropdown clients
     awful.key({ modkey, ctrlkey   }, "d",      function () ddclient.dict:toggle() end),
