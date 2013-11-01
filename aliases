@@ -118,6 +118,8 @@ alias ictl="run_with_journal systemctl --user start"
 alias actl="systemd-analyze"
 alias sdrun="systemd-run --user"
 
+alias cgls="systemd-cgls --no-pager"
+
 actl_svg() {
     cmd="$1"; shift
     if [ "$cmd" = "dot" ]; then systemd-analyze dot "$@" | dot -Tsvg
