@@ -175,9 +175,11 @@ export LS_COLORS=$(printf "%s:" "${_LS_COLORS[@]}")
 
 # SYSTEMD_COLORS. color configuration for systemd units in zsh autocompletion
 _SYSTEMD_COLORS=(
-        'rs=0'        '=*.target=00;31'  '=*.service=00;32'    '=*.timer=00;34'   
- '=*.socket=00;35' '=*.automount=00;33'    '=*.mount=00;33'     '=*.swap=00;33'
-   '=*.path=00;36'    '=*.device=00;35'
+              'rs=0' '=run-*.service=0;37'
+  '=*.service=00;32'     '=*.target=00;33'      '=*.timer=00;34'   
+'=*.automount=00;31'      '=*.mount=00;31'       '=*.swap=00;31'
+   '=*.socket=00;35'       '=*.path=00;35'     '=*.device=00;35' 
+    '=*.slice=00;36'      '=*.scope=00;36'   '=*.snapshot=00;36'
 )
 export SYSTEMD_COLORS=$(printf "%s:" "${_SYSTEMD_COLORS[@]}")
 
