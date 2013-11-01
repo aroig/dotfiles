@@ -44,8 +44,7 @@ function sdexec (cmd, screen, name, scope)
        sdcmd = sdcmd .. "--scope "
     end
     if name then
-        -- TODO: If I chose the unit name I should make sure it is unique
-        -- sdcmd = sdcmd .. string.format("--unit=\"%s\" ", name)
+        sdcmd = sdcmd .. string.format("--slice=\"%s.slice\" ", name)
         sdcmd = sdcmd .. string.format("--description=\"Dynamic unit for %s\" ", name)
     end
     sdcmd = sdcmd .. cmd
