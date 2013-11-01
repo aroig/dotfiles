@@ -1,11 +1,10 @@
 [Unit]
 Description=Compton X compositor
-After=xorg@%i.service
+After=xorg.target
 StopWhenUnneeded=true
 
-Requisite=xorg@%i.service
+Requisite=xorg.target
 
 [Service]
 Type=simple
-Environment=DISPLAY=:%i
 ExecStart=/usr/bin/compton

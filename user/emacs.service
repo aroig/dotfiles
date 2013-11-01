@@ -1,11 +1,11 @@
 [Unit]
 Description=Emacs daemon
-After=xorg@0.service
+After=xorg.target
 StopWhenUnneeded=true
 
 # need a dependency on xorg. otherwise, when X quits emacs crashes.
 # emacsclient says something about a long standing GTK bug.
-Requisite=xorg@0.service
+Requisite=xorg.target
 
 [Service]
 Type=forking

@@ -1,8 +1,8 @@
 [Unit]
 Description=gpg-agent daemon
 
-After=xorg@0.service
-Requisite=xorg@0.service
+After=xorg.target
+Requisite=xorg.target
 StopWhenUnneeded=true
 
 [Service]

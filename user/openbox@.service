@@ -1,8 +1,10 @@
 [Unit]
 Description=Openbox window manager at display %i
+
 After=xserver@%i.target
 After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
-After=compton@%i.service
+After=compton.service xrandr-auto.service
+
 Before=tint2@%i.service
 StopWhenUnneeded=true
 

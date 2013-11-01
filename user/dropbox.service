@@ -1,7 +1,8 @@
 [Unit]
 Description=dropbox daemon
 
-Requisite=xorg@0.service
+After=xorg.target
+Requisite=xorg.target
 Requires=dbus.socket
 
 [Service]

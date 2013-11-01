@@ -1,9 +1,9 @@
 [Unit]
 Description=Xfce4 Configuration Service
-After=xorg@0.service
+After=xorg.target
 StopWhenUnneeded=true
 
-Requisite=xorg@0.service
+Requisite=xorg.target
 
 [Service]
 Type=dbus

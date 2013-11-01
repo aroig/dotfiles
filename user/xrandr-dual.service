@@ -1,8 +1,7 @@
 [Unit]
 Description=xrandr xinerama
-After=xorg@0.service
-Before=xserver@0.target
-Requisite=xorg@0.service
+After=xorg.target
+Requisite=xorg.target
 
 [Service]
 Type=oneshot
