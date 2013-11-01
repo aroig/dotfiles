@@ -10,6 +10,5 @@ Conflicts=x11vnc@%i.service vncserver@%i.service xorg@%i.service
 
 [Service]
 Type=simple
-Environment=DISPLAY=:0
 ExecStart=/usr/bin/Xephyr -ac -br -noreset -screen 800x600 :%i 
 

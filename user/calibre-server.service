@@ -4,5 +4,4 @@ Requires=dbus.socket
 
 [Service]
 Type=simple
-Environment=DISPLAY=:0
 ExecStart=/usr/bin/calibre-server --with-library=/home/abdo/lib

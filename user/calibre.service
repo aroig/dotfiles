@@ -8,7 +8,6 @@ Requires=dbus.socket
 [Service]
 Type=simple
 SyslogIdentifier=calibre
-Environment=DISPLAY=:0
 
 # make database files editable
 ExecStartPre=/home/abdo/.config/systemd/scripts/calibre.sh edit

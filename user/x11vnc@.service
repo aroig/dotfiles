@@ -6,7 +6,6 @@ Requisite=xorg@%i.service
 
 [Service]
 Type=forking
-Environment=DISPLAY=:0
 ExecStart=/usr/bin/x11vnc -usepw -forever -display :0 -rfbport 5902 -bg
 
 

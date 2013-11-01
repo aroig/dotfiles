@@ -7,7 +7,6 @@ Requisite=xorg@0.service
 
 [Service]
 Type=oneshot
-Environment=DISPLAY=:0
 ExecStart=/home/abdo/.config/systemd/scripts/bamboo.sh
 
 [Install]
