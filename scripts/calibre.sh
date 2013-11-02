@@ -25,27 +25,9 @@ case $1 in
     commit)
         (
             cd "$lib_path"
-            METADATA=$(find metadata*)
+            git annex add metadata.db
 
-            # if metadata has changed
-            if [[ $(git status --porcelain $METADATA | wc -l) -ge 1 ]]; then
-                git reset -q                        # unstage everything
-                git annex edit metadata.db          # make sure we are editing metadata.db
-                oldkey=$(basename `git show HEAD:metadata.db`)
-
-                # annex and commit
-                git annex add $METADATA     
-                git add $METADATA
-                git commit -m "Update metadata.db" 
-
-                # drop old metadata.db
-                newkey=$(basename `git show HEAD:metadata.db`)
-                if [ ! "$oldkey" == "$newkey" ]; then
-                    git annex dropkey --force "$oldkey"         
-                fi
-            fi
-
-            # if changed files remain, commit
+            # if there are changed, commit
             num=$(git status --porcelain | wc -l)
             if [[ $num -ge 1 ]]; then
                 git annex add .
