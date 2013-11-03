@@ -302,10 +302,10 @@ function myw.mpd.notify_song(args)
         local parentdir=string.gsub(args['{file}'], '/[^/]+$', '')
         local cover=parentdir .. '/' .. 'cover.jpg'
 
-        naughty.notify({title = args['{Title}'],
+        naughty.notify({title = args['{title}'],
                         text = string.format("%s\n%s",
-                                             args['{Album}'],
-                                             args['{Artist}']),
+                                             args['{album}'],
+                                             args['{artist}']),
                         icon = myw.mpd.path .. '/' .. cover,
                         appname = "mpd"})
     end
@@ -316,17 +316,17 @@ function myw.mpd.update()
 
     local icon = beautiful.widget_stop
 
-    if args['{state}'] == 'play' then
+    if args['{state}'] == 'playing' then
         icon = beautiful.widget_play
-    elseif args['{state}'] == 'stop' then
+    elseif args['{state}'] == 'stopped' then
         icon = beautiful.widget_stop
-    elseif args['{state}'] == 'pause' then
+    elseif args['{state}'] == 'paused' then
         icon = beautiful.widget_pause
     end
 
     if myw.mpd.current['{file}'] ~= args['{file}'] or
     myw.mpd.current['{state}'] ~= args['{state}'] then
-        if args['{state}'] == "play" then
+        if args['{state}'] == "playing" then
             myw.mpd.notify_song(args)
         end
 
