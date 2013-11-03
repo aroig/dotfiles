@@ -69,33 +69,6 @@ fi
 
 
 # ----------------------------
-# Set variables for gpg agent
-# ----------------------------
-
-# symlink the socket so that a single name survives gpg-agent restarts
-if [ -f "${HOME}/.gpg-agent-info" ]; then
-    source "${HOME}/.gpg-agent-info"
-
-    mkdir -p "$XDG_RUNTIME_DIR/gpg-agent"
-
-    # this anonymous function keeps variables inside local
-    function () {
-        local gpg_suffix="${GPG_AGENT_INFO#*:}"
-        local gpg_socket="$XDG_RUNTIME_DIR/gpg-agent/gpg-agent.socket"
-        local ssh_socket="$XDG_RUNTIME_DIR/gpg-agent/ssh-agent.socket"
-
-        # create socket symplinks 
-        ln -sf "${GPG_AGENT_INFO%%:*}" "$gpg_socket"
-        ln -sf "$SSH_AUTH_SOCK" "$ssh_socket"
-
-        # export variables
-        export GPG_AGENT_INFO="$gpg_socket:$gpg_suffix"
-        export SSH_AUTH_SOCK="$ssh_socket"
-    }
-fi
-
-
-# ----------------------------
 # Set aliases
 # ----------------------------
 
