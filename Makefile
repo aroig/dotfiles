@@ -1,17 +1,22 @@
 REMOTES=modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
-        modes/rainbow-mode modes/yaml-mode packages/ibuffer-vc packages/powerline themes/zenburn
+        modes/rainbow-mode modes/yaml-mode \
+        packages/ibuffer-vc packages/powerline \
+        themes/zenburn
 
 COMPILE=modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
-        modes/rainbow-mode modes/yaml-mode packages/ibuffer-vc abdo misc
+        modes/rainbow-mode modes/yaml-mode \
+        packages/ibuffer-vc packages/powerline \
+	    abdo misc hacks
 
 REMOTES_MERGE=$(patsubst %,%-merge,$(REMOTES))
 
 EMACS_LISP=emacs-lisp
 
-SHELL := $(SHELL) -e
-MAKE=emacs -Q --batch -f batch-byte-compile
+SHELL  := $(SHELL) -e
+EMACS  := emacs
+EFLAGS := -L . -Q --batch -f batch-byte-compile
 
-.PHONY: all doc $(REMOTES) $(REMOTES_MERGE) $(COMPILE)
+.PHONY: all doc emacs-lisp $(REMOTES) $(REMOTES_MERGE) $(COMPILE)
 
 all: $(COMPILE) doc
 
@@ -36,9 +41,13 @@ $(REMOTES_MERGE): %-merge:
 	  -m "Merge subtree '$$remote'" "$$remote"
 
 $(COMPILE): %:
-	cd $@; $(MAKE) *.el
-	rm -f $(EMACS_LISP)/$(shell basename $@)
-	ln -sfv ../$@ $(EMACS_LISP)/$(shell basename $@)
+	cd $@; if [[ -e Makefile ]]; then make; else $(EMACS) $(EFLAGS) *.el; fi
+
+emacs-lisp:
+	rm -f $(EMACS_LISP)/*
+	@for file in $(COMPILE); do                                 \
+	  ln -sfv ../$$file $(EMACS_LISP)/$(shell basename $$file); \
+	done
 
 clean:
 	rm -f *.html
