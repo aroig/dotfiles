@@ -10,4 +10,4 @@ ELCS=ispell-multi.elc outline-magic.elc rst.elc sensitive-mode.elc sr-speedbar.e
 all: $(ELCS)
 
 clean:
-	rm -rf $(ELCS)
+	rm -rf *.elc
