@@ -7,10 +7,4 @@ StopWhenUnneeded=true
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/gpg-agent --daemon --write-env-file %h/.gpg-agent-info
-
-# NOTE1 : stores variables with paths to the sockets in .gpg-agent-info.
-# I then load this stuff in my zshrc file!  
-
-# NOTE2 : This requires xorg, because otherwise I can't make pinentry work
-# To make it work on the console, gpg-agent should be run with a tty...
+ExecStart=/usr/bin/gpg-agent --daemon --use-standard-socket
