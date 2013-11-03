@@ -47,40 +47,40 @@
     ("nonu" . vim-modeline/nonumber)
     ("expandtab" . vim-modeline/expandtab)
     ("et" . vim-modeline/expandtab)
-    ("noexpandtab" . vim-modeline/noexpandtab)
-    ("noet" . vim-modeline/noexpandtab))
+    ("noexpandtab" . vim-modeline/expandtab)
+    ("noet" . vim-modeline/expandtab))
   "Alist of VIM option names and handlers")
 
 ;;;
 ;;; From the VIM help messages
 ;;;
 ;;; There are two forms of modelines.  The first form:
-;;; 	[text]{white}{vi:|vim:|ex:}[white]{options}
+;;;     [text]{white}{vi:|vim:|ex:}[white]{options}
 ;;;
-;;; [text]		any text or empty
-;;; {white}		at least one blank character (<Space> or <Tab>)
-;;; {vi:|vim:|ex:}	the string "vi:", "vim:" or "ex:"
-;;; [white]		optional white space
-;;; {options}	a list of option settings, separated with white space or ':',
-;;; 		where each part between ':' is the argument for a ":set"
-;;; 		command (can be empty)
+;;; [text]              any text or empty
+;;; {white}             at least one blank character (<Space> or <Tab>)
+;;; {vi:|vim:|ex:}      the string "vi:", "vim:" or "ex:"
+;;; [white]             optional white space
+;;; {options}   a list of option settings, separated with white space or ':',
+;;;             where each part between ':' is the argument for a ":set"
+;;;             command (can be empty)
 ;;;
 ;;; Example:
 ;;;    vi:noai:sw=3 ts=6
 ;;;
 ;;; The second form (this is compatible with some versions of Vi):
 ;;;
-;;; 	[text]{white}{vi:|vim:|ex:}[white]se[t] {options}:[text]
+;;;     [text]{white}{vi:|vim:|ex:}[white]se[t] {options}:[text]
 ;;;
-;;; [text]		any text or empty
-;;; {white}		at least one blank character (<Space> or <Tab>)
-;;; {vi:|vim:|ex:}	the string "vi:", "vim:" or "ex:"
-;;; [white]		optional white space
-;;; se[t]		the string "set " or "se " (note the space)
-;;; {options}	a list of options, separated with white space, which is the
-;;; 		argument for a ":set" command
-;;; :		a colon
-;;; [text]		any text or empty
+;;; [text]              any text or empty
+;;; {white}             at least one blank character (<Space> or <Tab>)
+;;; {vi:|vim:|ex:}      the string "vi:", "vim:" or "ex:"
+;;; [white]             optional white space
+;;; se[t]               the string "set " or "se " (note the space)
+;;; {options}   a list of options, separated with white space, which is the
+;;;             argument for a ":set" command
+;;; :           a colon
+;;; [text]              any text or empty
 ;;;
 ;;; Example:
 ;;;    /* vim: set ai tw=75: */
@@ -255,31 +255,29 @@ Otherwise this function returns nil."
              (local-variable-p 'c-basic-offset)
              (setq c-basic-offset offset))
             (;; For LISP-related
-             (memq major-mode '(emacs-lisp-mode
-                                lisp-mode
-                                lisp-interaction-mode))
+             (derived-mode-p 'emacs-lisp-mode 'lisp-mode)
              (make-local-variable 'lisp-indent-offset)
              (setq lisp-indent-offset offset))
+            (;; For python mode
+             (derived-mode-p 'python-mode)
+             (make-local-variable 'python-indent)
+             (setq python-indent offset))
+            (;; For lua
+             (derived-mode-p 'lua-mode)
+             (make-local-variable 'lua-indent-level)
+             (setq lua-indent-level offset))
+            (;; For HTML
+             (derived-mode-p 'html-mode)
+             (make-local-variable 'sgml-basic-offset)
+             (setq sgml-basic-offset offset))
             (;; For shell scripts
-             (memq major-mode '(sh-mode))
+             (derived-mode-p 'sh-mode 'shell-script-mode)
              (make-local-variable 'sh-basic-offset)
              (make-local-variable 'sh-indentation)
              (setq sh-basic-offset offset)
              (setq sh-indentation offset))
-            (;; For python mode
-             (memq major-mode '(python-mode))
-             (make-local-variable 'python-indent)
-             (setq python-indent offset))
-            (;; For lua
-             (memq major-mode '(lua-mode))
-             (make-local-variable 'lua-indent-level)
-             (setq lua-indent-level offset))
-            (;; For HTML
-             (memq major-mode '(html-mode))
-             (make-local-variable 'sgml-basic-offset)
-             (setq sgml-basic-offset offset))
             (;; For Text
-             (memq major-mode '(text-mode))
+             (derived-mode-p 'text-mode)
              (setq tab-width offset)
              (setq tab-stop-list (number-sequence offset 200 offset)))
             (t
