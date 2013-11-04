@@ -32,7 +32,7 @@ local function worker(format, warg)
     -- get current song via mpc
     local fmt = "artist:%artist%\ntitle:%title%\nalbum:%album%\n" ..
         "genre:%genre%\nfile:%file%\ntime:%time%\nposition:%position%"
-    local f = io.popen(string.format("mpc current -f \"%s\"", fmt))
+    local f = io.popen(string.format("mpc current -f \"%s\" 2> /dev/null", fmt))
 
     -- parse the data
     local k, v
@@ -44,7 +44,7 @@ local function worker(format, warg)
     f:close()
 
     -- get current state via mpc
-    local f = io.popen("mpc status")
+    local f = io.popen("mpc status 2> /dev/null")
     for line in f:lines() do
         for k, v in string.gmatch(line, "%[([%w]+)%].*%((.*)%%%)$") do
             mpd_state["{state}"] = k
