@@ -709,6 +709,8 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(p4-diff-file-face ((t :inherit diff-file-header)))
    `(p4-diff-head-face ((t :inherit diff-header)))
    `(p4-diff-ins-face ((t :inherit diff-added)))
+;;;;; perspective
+   `(persp-selected-face ((t (:foreground ,zenburn-yellow-2 :inherit mode-line))))
 ;;;;; powerline
    `(powerline-active1 ((t (:background ,zenburn-bg-05 :inherit mode-line))))
    `(powerline-active2 ((t (:background ,zenburn-bg+2 :inherit mode-line))))
@@ -734,17 +736,17 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(proof-warning-face ((t (:foreground ,zenburn-bg :background ,zenburn-yellow-1))))
 ;;;;; rainbow-delimiters
    `(rainbow-delimiters-depth-1-face ((t (:foreground ,zenburn-fg))))
-   `(rainbow-delimiters-depth-2-face ((t (:foreground ,zenburn-green+2))))
+   `(rainbow-delimiters-depth-2-face ((t (:foreground ,zenburn-green+4))))
    `(rainbow-delimiters-depth-3-face ((t (:foreground ,zenburn-yellow-2))))
    `(rainbow-delimiters-depth-4-face ((t (:foreground ,zenburn-cyan))))
-   `(rainbow-delimiters-depth-5-face ((t (:foreground ,zenburn-green-1))))
+   `(rainbow-delimiters-depth-5-face ((t (:foreground ,zenburn-green+2))))
    `(rainbow-delimiters-depth-6-face ((t (:foreground ,zenburn-blue+1))))
    `(rainbow-delimiters-depth-7-face ((t (:foreground ,zenburn-yellow-1))))
    `(rainbow-delimiters-depth-8-face ((t (:foreground ,zenburn-green+1))))
    `(rainbow-delimiters-depth-9-face ((t (:foreground ,zenburn-blue-2))))
    `(rainbow-delimiters-depth-10-face ((t (:foreground ,zenburn-orange))))
    `(rainbow-delimiters-depth-11-face ((t (:foreground ,zenburn-green))))
-   `( rainbow-delimiters-depth-12-face ((t (:foreground ,zenburn-blue-5))))
+   `(rainbow-delimiters-depth-12-face ((t (:foreground ,zenburn-blue-5))))
 ;;;;; rcirc
    `(rcirc-my-nick ((t (:foreground ,zenburn-blue))))
    `(rcirc-other-nick ((t (:foreground ,zenburn-orange))))
@@ -784,7 +786,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(show-paren-mismatch ((t (:foreground ,zenburn-red-3 :background ,zenburn-bg :weight bold))))
    `(show-paren-match ((t (:foreground ,zenburn-blue-1 :background ,zenburn-bg :weight bold))))
 ;;;;; smartparens
-   `(sp-show-pair-mismatch-face ((t (:background ,zenburn-cyan :weight bold))))
+   `(sp-show-pair-mismatch-face ((t (:background ,zenburn-bg+3 :foreground ,zenburn-red-3 :weight bold))))
    `(sp-show-pair-match-face ((t (:background ,zenburn-bg+3 :weight bold))))
 ;;;;; sml-mode-line
    '(sml-modeline-end-face ((t :inherit default :width condensed)))
