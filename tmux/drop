@@ -1,4 +1,3 @@
-
-# status
-set status on
-set status-position top
+set status off
+# set status on
+# set status-position top
