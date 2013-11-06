@@ -27,7 +27,7 @@ case $1 in
             cd "$lib_path"
             git annex add metadata.db
 
-            # if there are changed, commit
+            # if there are changes, commit
             num=$(git status --porcelain | wc -l)
             if [[ $num -ge 1 ]]; then
                 git annex add .
