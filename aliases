@@ -111,14 +111,18 @@ alias jctl="sudo journalctl --since=yesterday"
 alias ectl="sudo journalctl --since=yesterday --priority=0..3"
 
 alias nctl="sudo netctl"
+alias mctl="sudo machinectl"
+alias lctl="sudo loginctl"
 alias sctl="sudo systemctl --system"
 alias uctl="systemctl --user"
-alias ictl="run_with_journal systemctl --user start"
 
+alias ictl="run_with_journal systemctl --user start"
 alias actl="systemd-analyze"
+alias nspawn="sudo systemd-nspawn"
 alias sdrun="systemd-run --user"
 
 alias cgls="systemd-cgls --no-pager"
+alias cgtop="systemd-cgtop --no-pager"
 
 actl_svg() {
     cmd="$1"; shift
