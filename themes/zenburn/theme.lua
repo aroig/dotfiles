@@ -106,11 +106,16 @@ theme.mouse_finder_color = "#CC9393"
 -- }}}
 
 
-theme.naughty_mail_icon   = theme.confdir .. "/icons/naughty/mail.svg"
-theme.naughty_news_icon   = theme.confdir .. "/icons/naughty/news.svg"
-theme.naughty_chat_icon   = theme.confdir .. "/icons/naughty/chat.svg"
-theme.naughty_alert_icon  = theme.confdir .. "/icons/naughty/warning.svg"
-theme.naughty_app_icon    = theme.confdir .. "/icons/naughty/run.svg"
+-- system icons path. I should autodetect it or something
+local icon_theme          = "numix/Numix"
+local icon_path           = os.getenv("HOME") .. "/.icons/" .. icon_theme .. "/64/"
+
+theme.naughty_mail_icon   = icon_path .. "emblems/emblem-mail.svg"
+theme.naughty_chat_icon   = icon_path .. "emblems/emblem-people.svg"
+theme.naughty_alert_icon  = icon_path .. "emblems/emblem-important.svg"
+theme.naughty_event_icon  = icon_path .. "emblems/emblem-urgent.svg"
+theme.naughty_app_icon    = icon_path .. "emblems/emblem-system.svg"
+
 
 theme.naughty_mail_sound    = theme.confdir .. "/sounds/soothing/Gentle Roll.wav"
 theme.naughty_chat_sound    = theme.confdir .. "/sounds/soothing/Looking Up.wav"

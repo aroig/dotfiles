@@ -27,8 +27,12 @@ naughty.config.defaults = {
    border_color     = beautiful.border_naughty,
    opacity          = 0.9,
    border_width     = 1,
-   hover_timeout    = nil
+   hover_timeout    = nil,
 }
+
+-- icon autodetection is pretty broken. I set absolute paths on theme.lua
+naughty.config.icon_formats = { "png", "gif", "svg"}
+naughty.config.icon_dirs = { os.getenv("HOME") .. "/.icons/" }
 
 
 local sound = {
@@ -48,11 +52,6 @@ local icon = {
     ["notify-send"] = beautiful.naughty_alert_icon,
     run             = beautiful.naughty_app_icon,
 }
-
-
--- It appears there's no svg support :(
--- naughty.config.default_preset.icon_formats = { "png", "gif", "svg"}
-
 
 -- Set presets for different urgency levels
 naughty.config.presets.low.timeout = 5
