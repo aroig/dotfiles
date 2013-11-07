@@ -29,9 +29,13 @@ case $1 in
 
             # if there are changes, commit
             num=$(git status --porcelain | wc -l)
-            if [[ $num -ge 1 ]]; then
+            if [[ $num -ge 1 ]]; then                
+                # add files
                 git annex add .
                 git add -A .
+                
+                # recompute the number of changes and commit
+                num=$(git status --porcelain | wc -l)
                 git commit -m "Update library ($num files)"
             fi
         )
