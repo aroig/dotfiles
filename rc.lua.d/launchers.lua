@@ -37,8 +37,13 @@ function shexec (cmd, screen)
     awful.util.spawn_with_shell(cmd, screen)
 end
 
+-- Execute an external program and connect the output to systemd journal
+function sdexec (cmd, screen, name)
+    awful.util.spawn_with_shell(cmd .. string.format(' 2>&1 | systemd-cat -t %s', name), screen)
+end
+
 -- Execute an external program as a systemd scope
-function sdexec (cmd, screen, name, scope)
+function sdrun (cmd, screen, name, scope)
     local sdcmd = "systemd-run --user "
     if scope then
        sdcmd = sdcmd .. "--scope "
