@@ -384,7 +384,12 @@
 ;; Auto Revert
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; TODO: There is a problem here. revert-buffer in file.el.gz calls
+;; insert-file-contents with a fifth argument preventing a full "remove all"
+;; "insert all" change in the undo list. This leads to a broken undo-list.
+
 ;; Enable auto-revert prog and text buffers
+(setq auto-revert-mode-text "ar")
 (add-hook 'prog-mode-hook (lambda () (auto-revert-mode)))
 (add-hook 'text-mode-hook (lambda () (auto-revert-mode)))
 
