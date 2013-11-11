@@ -160,7 +160,7 @@ alias gan="git annex"
 
 
 #------------------------------
-# Sudo aliases
+# sudo gpg etc
 #------------------------------
 
 # If the argument has an alias, expand it, if it has a function, 
@@ -183,6 +183,11 @@ sudo () {
 }
 
 # alias sudo='sudo '        # Enables expanding aliases for next command. not functions though :(
+
+# alias to update tty for the gpg-agent. gpg itself can be aware of the tty,
+# maybe via GPG_TTY environment var, but there is no way that programs using
+# gpg-agent as a ssh-agent can tell it about the tty. So we are stuck with this.
+alias gatty='gpg-connect-agent updatestartuptty /bye'
 
 
 #------------------------------
