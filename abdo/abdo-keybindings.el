@@ -20,6 +20,7 @@
 (global-set-key (kbd "H-y t") 'abdo-helm-todos)
 (global-set-key (kbd "H-y o") 'abdo-helm-org-files)
 (global-set-key (kbd "H-y h") 'helm-org-headlines)
+(global-set-key (kbd "H-y g") 'helm-do-grep)
 
 
 ;; Org mode
