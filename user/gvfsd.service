@@ -1,0 +1,14 @@
+[Unit]
+Description=gvfs daemon
+After=xorg.target
+StopWhenUnneeded=true
+
+Requisite=xorg.target
+
+[Service]
+Type=dbus
+BusName=org.gtk.vfs.Daemon
+ExecStart=/usr/lib/gvfs/gvfsd
+
+# [Install]
+# Alias=dbus-org.gtk.vfs.Daemon.service
