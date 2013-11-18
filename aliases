@@ -122,7 +122,7 @@ alias nspawn="sudo systemd-nspawn"
 alias sdrun="systemd-run --user"
 
 alias cgls="systemd-cgls --no-pager"
-alias cgtop="systemd-cgtop --no-pager"
+alias cgtop="systemd-cgtop"
 
 actl_svg() {
     cmd="$1"; shift
