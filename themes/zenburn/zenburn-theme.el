@@ -362,14 +362,19 @@ Also bind `class' to ((class color) (min-colors 89))."
 ;;;;; flycheck
    `(flycheck-error
      ((((supports :underline (:style wave)))
-       (:underline (:style wave :color ,zenburn-red) :inherit unspecified))
+       (:underline (:style wave :color ,zenburn-red-1) :inherit unspecified))
       (t (:foreground ,zenburn-red-1 :weight bold :underline t))))
    `(flycheck-warning
      ((((supports :underline (:style wave)))
-       (:underline (:style wave :color ,zenburn-orange) :inherit unspecified))
-      (t (:foreground ,zenburn-orange :weight bold :underline t))))
+       (:underline (:style wave :color ,zenburn-yellow) :inherit unspecified))
+      (t (:foreground ,zenburn-yellow :weight bold :underline t))))
+   `(flycheck-info
+     ((((supports :underline (:style wave)))
+       (:underline (:style wave :color ,zenburn-cyan) :inherit unspecified))
+      (t (:foreground ,zenburn-cyan :weight bold :underline t))))
    `(flycheck-fringe-error ((t (:foreground ,zenburn-red-1 :weight bold))))
-   `(flycheck-fringe-warning ((t (:foreground ,zenburn-orange :weight bold))))
+   `(flycheck-fringe-warning ((t (:foreground ,zenburn-yellow :weight bold))))
+   `(flycheck-fringe-info ((t (:foreground ,zenburn-cyan :weight bold))))
 ;;;;; flymake
    `(flymake-errline
      ((((supports :underline (:style wave)))
@@ -791,7 +796,29 @@ Also bind `class' to ((class color) (min-colors 89))."
 ;;;;; sml-mode-line
    '(sml-modeline-end-face ((t :inherit default :width condensed)))
 ;;;;; SLIME
-   `(slime-repl-inputed-output-face ((t (:foreground ,zenburn-red))))
+   `(slime-repl-output-face ((t (:foreground ,zenburn-red))))
+   `(slime-repl-inputed-output-face ((t (:foreground ,zenburn-green))))
+   `(slime-error-face
+     ((((supports :underline (:style wave)))
+       (:underline (:style wave :color ,zenburn-red)))
+      ((t
+        (:underline ,zenburn-red)))))
+   `(slime-warning-face
+     ((((supports :underline (:style wave)))
+       (:underline (:style wave :color ,zenburn-orange)))
+      ((t
+        (:underline ,zenburn-orange)))))
+   `(slime-style-warning-face
+     ((((supports :underline (:style wave)))
+       (:underline (:style wave :color ,zenburn-yellow)))
+      ((t
+        (:underline ,zenburn-yellow)))))
+   `(slime-note-face
+     ((((supports :underline (:style wave)))
+       (:underline (:style wave :color ,zenburn-green)))
+      ((t
+        (:underline ,zenburn-green)))))
+   `(slime-highlight-face ((t (:inherit highlight))))
 ;;;;; speedbar
    `(speedbar-button-face ((t (:foreground ,zenburn-green+2))))
    `(speedbar-directory-face ((t (:foreground ,zenburn-cyan))))
