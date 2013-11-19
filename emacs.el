@@ -134,7 +134,9 @@
 ;; email
 (when (locate-library "mu4e")
   (require 'mu4e)                      ;; email client
-  (require 'org-mu4e)                  ;; org and mu4e interaction: links, rich text
+  (require 'org-mu4e)                  ;; org and mu4e interaction
+  (require 'helm-mu)                   ;; search email with helm
+
   (require 'abdo-mu4e)                 ;; personal mu4e stuff
 )
 

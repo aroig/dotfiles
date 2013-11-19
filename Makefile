@@ -5,7 +5,7 @@ REMOTES=modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
 
 COMPILE=modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
         modes/rainbow-mode modes/yaml-mode \
-        packages/ibuffer-vc packages/powerline packages/helm-mu \
+        packages/ibuffer-vc packages/powerline \
 	    abdo misc hacks
 
 REMOTES_MERGE=$(patsubst %,%-merge,$(REMOTES))
