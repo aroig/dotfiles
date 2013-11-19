@@ -1,11 +1,11 @@
 REMOTES=modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
         modes/rainbow-mode modes/yaml-mode \
-        packages/ibuffer-vc packages/powerline \
+        packages/ibuffer-vc packages/powerline packages/helm-mu \
         themes/zenburn
 
 COMPILE=modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
         modes/rainbow-mode modes/yaml-mode \
-        packages/ibuffer-vc packages/powerline \
+        packages/ibuffer-vc packages/powerline packages/helm-mu \
 	    abdo misc hacks
 
 REMOTES_MERGE=$(patsubst %,%-merge,$(REMOTES))
@@ -34,7 +34,7 @@ $(REMOTES_MERGE): %-merge:
 	echo "subtree merging into $$path";                   \
 	if [ ! -d "$$path" ]; then                            \
 	  git merge -s ours --no-commit "$$remote";           \
-	  git read-tree --prefix="$path" -u "$$remote";       \
+	  git read-tree --prefix="$$path" -u "$$remote";      \
 	  git commit -m "Initialize subtree at '$$path'";     \
 	fi;                                                   \
 	git merge -s recursive -X subtree="$$path"            \
