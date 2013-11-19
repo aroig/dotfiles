@@ -13,10 +13,13 @@ set cpo&vim
 
 syn match   messagesBegin       display '^' nextgroup=messagesDate,messagesDateRFC3339
 
-syn match   messagesDate        contained display '\a\a\a [ 0-9]\d *'
-                                \ nextgroup=messagesHour
+syn match   messagesDate        contained display '[a-zA-Z ]\+ [ 0-9]\d *'
+                                \ nextgroup=messagesYear,messagesHour
 
 syn match   messagesHour        contained display '\d\d:\d\d:\d\d\s*'
+                                \ nextgroup=messagesYear,messagesHost
+
+syn match   messagesYear        contained display '\d\d\d\d\s*'
                                 \ nextgroup=messagesHost
 
 syn match   messagesDateRFC3339 contained display '\d\{4}-\d\d-\d\d'
@@ -28,7 +31,7 @@ syn match   messagesRFC3339T    contained display '\cT'
 syn match   messagesHourRFC3339 contained display '\c\d\d:\d\d:\d\d\(\.\d\+\)\=\([+-]\d\d:\d\d\|Z\)'
                                 \ nextgroup=messagesHost
 
-syn match   messagesHost        contained display '\S*\s*'
+syn match   messagesHost        contained display '[a-z.\-_]\S*\s*'
                                 \ nextgroup=messagesLabel
 
 syn match   messagesLabel       contained display '\s*[^:]*:\s*'
@@ -52,7 +55,8 @@ syn match   messagesError       contained '\c.*\<\(FATAL\|ERROR\|ERRORS\|FAILED\
 
 
 hi def link messagesDate        Constant
-hi def link messagesHour        Type
+hi def link messagesHour        Constant
+hi def link messagesYear        Constant
 hi def link messagesDateRFC3339 Constant
 hi def link messagesHourRFC3339 Type
 hi def link messagesRFC3339T    Normal
