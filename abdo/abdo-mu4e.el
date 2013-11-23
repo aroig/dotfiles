@@ -147,7 +147,7 @@
 
   ; elinks
   (setq mu4e-html2text-command (concat
-                                "elinks" " -dump" " -force-html"
+                                "elinks" " -dump" " -force-html" "-dump-width 90"
                                 " -dump-color-mode 1"))
 )
 
