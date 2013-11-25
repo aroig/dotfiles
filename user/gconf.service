@@ -1,0 +1,14 @@
+[Unit]
+Description=gconf daemon
+After=xorg.target
+StopWhenUnneeded=true
+
+Requisite=xorg.target
+
+[Service]
+Type=dbus
+BusName=org.gnome.GConf
+ExecStart=/usr/lib/GConf/gconfd-2
+
+# [Install]
+# Alias=dbus-org.gnome.GConf
