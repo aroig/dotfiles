@@ -217,7 +217,7 @@ globalkeys = awful.util.table.join(
 
     awful.key({metakey, ctrlkey, shiftkey }, "q",
               function ()
-                  prompt.ask_run("Suspend", apps.exit_cmd)
+                  prompt.ask_run("Quit", apps.exit_cmd)
               end),
 
     awful.key({metakey, ctrlkey, shiftkey }, "z",
