@@ -269,3 +269,17 @@ end
 function prompt.lua()
     luaeval.run(myw.promptbox[mouse.screen].widget)
 end
+
+
+function prompt.ask_run(prompt, cmd)
+    opts = {
+        yes = cmd,
+        no = "true",
+    }
+
+    promptl.run(myw.promptbox[mouse.screen].widget,
+                string.format("%s? ", prompt),
+                shexec,
+                opts,
+                nil)
+end
