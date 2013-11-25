@@ -48,7 +48,7 @@ local function format_completion_string(matches, sel)
    for i, c in ipairs(matches) do
       if min > i and sel - i < config.completion_max then min = i end
       if i - min < config.completion_max then max = i end
-      
+
       if i >= min and i <= max then
 	 if i > min then  compstr = compstr .. " | " end
 	 if i == sel then
@@ -72,8 +72,7 @@ local function prompt_text_with_cursor(args, data)
    local prompt = args.prompt or ""
    local underline = args.cursor_ul or "none"
 
-   ret = prompt .. util.escape(text)
-   ret = ret .. " "
+   ret = string.format('<span weight="bold">%s</span>%s ', prompt, util.escape(text))
    if #data.matches == 1 then
       ret = ret .. string.format('[<span weight="bold" color="%s">%s</span>]  ', config.selected_color, data.matches[1])
    elseif #data.matches > 1 then
@@ -83,7 +82,7 @@ local function prompt_text_with_cursor(args, data)
    if config.font then
       ret = string.format('<span font="%s" color="%s">%s</span>', config.font, config.text_color, ret)
    end
-   
+
    return ret
 end
 
@@ -155,7 +154,7 @@ function idoprompt.run(textbox, prompt, exe_callback, completion_callback, histo
 	    textbox:set_markup("")
 	    if done_callback then done_callback() end
 	    return false
-	 elseif (mod.Control and (key == "j" or key == "m")) 
+	 elseif (mod.Control and (key == "j" or key == "m"))
 	    or (not mod.Control and key == "Return")
             or (not mod.Control and key == "KP_Enter") then
             exec(data)
@@ -201,7 +200,7 @@ function idoprompt.run(textbox, prompt, exe_callback, completion_callback, histo
 		  data.command = data.matches[data.sel]
 	       end
 --             data.cur_pos = data.cur_pos - 1
-                  
+
             elseif key == "Right" then
 	       if #data.matches > 1 and data.sel < #data.matches then
 		  data.sel = data.sel + 1
