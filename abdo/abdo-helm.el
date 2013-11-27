@@ -50,17 +50,6 @@
     (type . file)))
 
 
-
-
-;; org mode helm sources
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defvar helm-c-source-org-files (helm-c-source-files-in-dir-rec
-                                 org-directory-wiki
-                                 ".*\\.org$"
-                                 "Org files"))
-
-
 ;; Interface
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -74,35 +63,6 @@
   (helm-other-buffer '(helm-c-source-fixme)
                      "*helm TODO*"))
 
-
-
-;; Helm hacks
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Do not touch my mode-line!
-;; Let's monkey-patch the modeline setup in helm.
-(defun helm-display-mode-line (source)
-  "Setup mode-line and header-line for `helm-buffer'."
-  (set (make-local-variable 'helm-mode-line-string)
-       (helm-interpret-value (or (and (listp source) ; Check if source is empty.
-                                      (assoc-default 'mode-line source))
-                                 (default-value 'helm-mode-line-string))
-                             source))
-
-  (let ((follow (and (eq (cdr (assq 'follow source)) 1) "(HF) ")))
-    ;; Setup mode-line.
-    (setq mode-line-process
-          (format " %s" (helm-show-candidate-number
-                         (when (listp helm-mode-line-string)
-                           (car-safe helm-mode-line-string)))))
-
-    ;; Setup header-line.
-    (let* ((hlstr (helm-interpret-value
-                   (and (listp source)
-                        (assoc-default 'header-line source)) source))
-           (hlend (make-string (max 0 (- (window-width) (length hlstr))) ? )))
-      (setq header-line-format
-            (propertize (concat " " hlstr hlend) 'face 'helm-header)))))
 
 
 (provide 'abdo-helm)

@@ -114,14 +114,11 @@
 (require 'ac-math)                     ;; produces warning (quotation)
 (require 'yasnippet)                   ;; produces warning (cl-labels)
 
-;; Helm
-(require 'helm-config)
-(require 'helm-misc)
-
 ;; Version Control
 (when (locate-library "vc")
   (require 'vc))
 
+;; git
 (when (locate-library "magit")
   (require 'magit))
 
@@ -131,12 +128,18 @@
   (require 'gitconfig-mode)
   (require 'git-rebase-mode))
 
+;; helm
+(when (locate-library "helm-config")
+  (require 'helm-config)
+  (require 'helm-misc)
+  (require 'helm-mu)
+  (require 'abdo-helm)
+  (require 'helm-hacks))
+
 ;; email
 (when (locate-library "mu4e")
   (require 'mu4e)                      ;; email client
   (require 'org-mu4e)                  ;; org and mu4e interaction
-  (require 'helm-mu)                   ;; search email with helm
-
   (require 'abdo-mu4e)                 ;; personal mu4e stuff
 )
 
@@ -177,7 +180,6 @@
 (require 'abdo-edit)                   ;; Basic editing settings
 (require 'abdo-languages)              ;; Spell checking stuff
 (require 'abdo-utils)                  ;; Utility stuff
-(require 'abdo-helm)                   ;; Personal helm stuff
 (require 'abdo-chat)                   ;; Personal irc stuff
 (require 'abdo-devel)                  ;; Personal devel stuff
 (require 'abdo-keybindings)            ;; My personal keybindings

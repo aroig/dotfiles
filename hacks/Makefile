@@ -1,7 +1,7 @@
 EMACS  := emacs
 EFLAGS := -Q --batch -f batch-byte-compile
 
-ELCS=org-hacks.elc rcirc-hacks.elc
+ELCS=helm-hacks.elc org-hacks.elc rcirc-hacks.elc
 
 .PHONY: all
 
