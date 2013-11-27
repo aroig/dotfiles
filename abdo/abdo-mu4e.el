@@ -146,8 +146,10 @@
   ; (setq mu4e-html2text-command "elinks -dump -force-html -dump-color-mode 1")           ; elinks color
 
   ; elinks
-  (setq mu4e-html2text-command (concat
-                                "elinks" " -dump" " -force-html" " -dump-width 90"
+  ; NOTE: I do a sed to remove explicit 'background-color'.
+  ; elinks can do that with lua hooks, but not in -dump mode
+  (setq mu4e-html2text-command (concat "sed '/<.*>/ s/background-color:[^;]*;//gI' | "
+                                "elinks" " -no-connect" " -dump" " -force-html" " -dump-width 90"
                                 " -dump-color-mode 1"))
 )
 
