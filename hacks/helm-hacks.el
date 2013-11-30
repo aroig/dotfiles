@@ -5,6 +5,7 @@
 ;; Let's monkey-patch the mode-line setup in helm.
 (defun helm-display-mode-line (source)
   "Setup mode-line and header-line for `helm-buffer'."
+
   (set (make-local-variable 'helm-mode-line-string)
        (helm-interpret-value (or (and (listp source) ; Check if source is empty.
                                       (assoc-default 'mode-line source))
@@ -19,12 +20,14 @@
                            (car-safe helm-mode-line-string)))))
 
     ;; Setup header-line.
-    (let* ((hlstr (helm-interpret-value
-                   (and (listp source)
-                        (assoc-default 'header-line source)) source))
-           (hlend (make-string (max 0 (- (window-width) (length hlstr))) ? )))
-      (setq header-line-format
-            (propertize (concat " " hlstr hlend) 'face 'helm-header)))))
+;    (let* ((hlstr (helm-interpret-value
+;                   (and (listp source)
+;                        (assoc-default 'header-line source)) source))
+;           (hlend (make-string (max 0 (- (window-width) (length hlstr))) ? )))
+;      (setq header-line-format
+;            (propertize (concat " " hlstr hlend) 'face 'helm-header)))
+
+))
 
 
 

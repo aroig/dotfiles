@@ -78,14 +78,7 @@
 
   ;; Interface adjustments
   (abdo-org-interface-tweaks)
-
-  ;; setup helm org source
-  (defvar helm-c-source-org-files (helm-c-source-files-in-dir-rec
-                                   org-directory-wiki
-                                   ".*\\.org$"
-                                   "Org files"))
 )
-
 
 
 (defun abdo-org-all-mode-things()
