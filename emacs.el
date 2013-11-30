@@ -44,7 +44,7 @@
 (setq abdo-mail-directory (format "%s/" (getenv "AB2_MAIL_DIR")))     ;; email
 (setq abdo-papers-directory (format "%s/" (getenv "AB2_PAPERS_DIR"))) ;; papers
 
-(setq abdo-personal-dicts-path "~/var/dicts/aspell/")             ;; dictionaries
+(setq abdo-personal-dicts-path "~/usr/dict/aspell/")              ;; dictionaries
 (setq abdo-emacs-backups "~/var/bak/emacs/")                      ;; Backups dir
 (setq bookmark-default-file "~/.emacs.d/bookmarks")               ;; bookmarks file
 
