@@ -19,10 +19,10 @@
 (global-set-key (kbd "H-y f") 'helm-mini)
 (global-set-key (kbd "H-y t") 'abdo-helm-todos)
 (global-set-key (kbd "H-y o") 'abdo-helm-org-files)
-(global-set-key (kbd "H-y p") 'abdo-helm-papers)
 (global-set-key (kbd "H-y h") 'helm-org-headlines)
+(global-set-key (kbd "H-y p") 'abdo-helm-papers)
 (global-set-key (kbd "H-y g") 'helm-do-grep)
-(global-set-key (kbd "H-y m") 'helm-mu)
+(global-set-key (kbd "H-y u") 'helm-mu)
 
 
 ;; Org mode
