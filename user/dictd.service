@@ -1,0 +1,7 @@
+[Unit]
+Description=Dictd Dictionary Server Daemon
+
+[Service]
+Type=forking
+PIDFile=%t/dictd.pid
+ExecStart=/usr/sbin/dictd -c %h/etc/dictd/dictd.conf --pid-file %t/dictd.pid
