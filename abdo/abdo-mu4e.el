@@ -134,7 +134,6 @@
         (lambda ()
           (set-fill-column 80)))
 
-
   ;; Fancy chars
   ; (setq mu4e-use-fancy-chars t)
 
@@ -149,7 +148,8 @@
   ; NOTE: I do a sed to remove explicit 'background-color'.
   ; elinks can do that with lua hooks, but not in -dump mode
   (setq mu4e-html2text-command (concat "sed '/<.*>/ s/background-color:[^;]*;//gI' | "
-                                "elinks" " -no-connect" " -dump" " -force-html" " -dump-width 90"
+                                "elinks" " -no-connect" " -dump" " -force-html"
+                                (format " -dump-width %d" fill-column)
                                 " -dump-color-mode 1"))
 )
 
