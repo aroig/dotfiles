@@ -12,7 +12,11 @@ cache-model=webbrowser
 proxy=true
 proxy-url=http://127.0.0.1:8118
 
-user-agent=
+# chrome's user agent
+# user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36
+
+# let's set the user agent. google search doesn't like webkit's default.
+user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 dwb/git
 
 # startpage=dwb:bookmarks
 # startpage=https://www.google.com/search?hl=en&tab=Xw
@@ -277,3 +281,4 @@ scheme-handler=
 
 
 
+adblocker-element-hider=true
