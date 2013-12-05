@@ -93,7 +93,7 @@
     ("zenburn-sat-yellow-1"      . "#e1bb37")
     ("zenburn-sat-orange"        . "#ff8f35")
     ("zenburn-sat-orange-1"      . "#dd7621")
-    ("zenburn-sat-red"           . "#ee3b3b")  ;; brown1
+    ("zenburn-sat-red"           . "#e54343")
     ("zenburn-sat-red-1"         . "#cd3333")  ;; brown3
     ("zenburn-sat-green"         . "#00cd66")  ;; SpringGreen3
     ("zenburn-sat-green-1"       . "#008b45")  ;; SpringGreen4
