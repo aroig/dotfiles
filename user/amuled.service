@@ -3,13 +3,11 @@ Description=aMule Daemon
 After=network.target
 
 [Service]
-ExecStartPre=/usr/bin/sudo /usr/bin/iptables -A firewall -p tcp --dport 4662 -j ACCEPT
-ExecStartPre=/usr/bin/sudo /usr/bin/iptables -A firewall -p udp --dport 4665 -j ACCEPT
-ExecStartPre=/usr/bin/sudo /usr/bin/iptables -A firewall -p udp --dport 4672 -j ACCEPT
+ExecStartPre=/usr/bin/sudo /usr/bin/iptables -A firewall -p tcp --dport 49400:49409 -j ACCEPT
+ExecStartPre=/usr/bin/sudo /usr/bin/iptables -A firewall -p udp --dport 49400:49409 -j ACCEPT
 
 ExecStart=/usr/bin/amuled -p %h/.aMule/amuled.pid
 
-ExecStartPre=/usr/bin/sudo /usr/bin/iptables -D firewall -p tcp --dport 4662 -j ACCEPT
-ExecStartPre=/usr/bin/sudo /usr/bin/iptables -D firewall -p udp --dport 4665 -j ACCEPT
-ExecStartPre=/usr/bin/sudo /usr/bin/iptables -D firewall -p udp --dport 4672 -j ACCEPT
+ExecStopPost=/usr/bin/sudo /usr/bin/iptables -D firewall -p tcp --dport 49400:49409 -j ACCEPT
+ExecStopPost=/usr/bin/sudo /usr/bin/iptables -D firewall -p udp --dport 49400:49409 -j ACCEPT
 
