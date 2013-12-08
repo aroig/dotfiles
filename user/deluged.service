@@ -1,0 +1,11 @@
+[Unit]
+Description=Deluge Daemon
+After=network.target
+
+[Service]
+ExecStartPre=/usr/bin/iptables -A firewall -p tcp --dport 6881:6891 -j ACCEPT
+
+Exec=/usr/bin/deluged -d -P %h/.config/deluge/deluge.pid
+
+ExecStopPost=/usr/bin/iptables -D firewall -p tcp --dport 6881:6891 -j ACCEPT
+
