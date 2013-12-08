@@ -184,11 +184,14 @@ function myw.net.update()
     myw.net.value.down = down
 end
 
-myw.netctl = {}
-myw.netctl.src = require("abdo.widget.netctl")
+timers.fast:connect_signal("timeout", myw.net.update)
 
-myw.netctl.tooltip = awful.tooltip({objects = {myw.net.dnicon, myw.net.upicon, myw.net.widget}})
-myw.netctl.value = ""
+
+myw.netctl = {}
+-- myw.netctl.src = require("abdo.widget.netctl")
+
+-- myw.netctl.tooltip = awful.tooltip({objects = {myw.net.dnicon, myw.net.upicon, myw.net.widget}})
+-- myw.netctl.value = ""
 
 function myw.netctl.update()
     local args = myw.netctl.src(nil)
@@ -206,8 +209,7 @@ function myw.netctl.update()
     myw.netctl.value = prf
 end
 
-timers.fast:connect_signal("timeout", myw.net.update)
-timers.normal:connect_signal("timeout", myw.netctl.update)
+-- timers.normal:connect_signal("timeout", myw.netctl.update)
 
 
 -----------------------------------
