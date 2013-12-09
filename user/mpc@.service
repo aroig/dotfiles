@@ -1,7 +1,0 @@
-[Unit]
-Description=Run mpc %i
-After=mpd.service
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/mpc %i 
