@@ -17,6 +17,14 @@ let vimpager_scrolloff = 5
 " set noloadplugins
 
 
+" track file changes
+" --------------------
+set autoread
+
+" need to trigger checktime. vim has no timers, so use CursorHold events
+autocmd CursorHold * checktime
+
+
 " Filetype
 " --------------------
 function! GetVimAncestors()
