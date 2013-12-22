@@ -35,12 +35,12 @@ syn match   messagesHost        contained display '[a-z.\-_]\S*\s*'
                                 \ nextgroup=messagesLabel
 
 syn match   messagesLabel       contained display '\s*[^:]*:\s*'
-                                \ nextgroup=messagesText contains=messagesKernel,messagesPID
+                                \ nextgroup=messagesText contains=messagesKernel,messagesSystemd,messagesPID
 
 syn match   messagesPID         contained display '\[\zs\d\+\ze\]'
 
-syn match   messagesKernel      contained display 'kernel:'
-
+syn match   messagesKernel      contained display 'kernel'
+syn match   messagesSystemd     contained display 'systemd'
 
 syn match   messagesIP          '\d\+\.\d\+\.\d\+\.\d\+'
 
@@ -64,6 +64,7 @@ hi def link messagesHost        Identifier
 hi def link messagesLabel       Operator
 hi def link messagesPID         Constant
 hi def link messagesKernel      Special
+hi def link messagesSystemd     Comment
 hi def link messagesError       ErrorMsg
 hi def link messagesIP          Constant
 hi def link messagesURL         Underlined
