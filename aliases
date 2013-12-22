@@ -36,17 +36,11 @@ set_tty_colors() {
 
 
 #------------------------------
-# Compatibility aliases
-#------------------------------
-alias less=vimpager
-alias zless=vimpager
-
-
-#------------------------------
 # Wine aliases
 #------------------------------
 alias kindle='wine "$HOME/.wine/drive_c/Program Files (x86)/Amazon/Kindle/Kindle.exe"'
 alias digitaleditions='wine "$HOME/.wine/drive_c/Program Files (x86)/Adobe/Adobe Digital Editions/digitaleditions.exe"'
+
 
 #------------------------------
 # Utility aliases
@@ -68,6 +62,8 @@ alias ipy='ipython'
 alias ipy2='ipython2'
 
 alias wee='weechat-curses'
+
+gateway() { host `ip route list 0/0 | awk '{print $3}'` | awk '{print $5}'; }
 
 alias ..="cd .."
 alias ...="cd ../.."
@@ -134,7 +130,7 @@ actl_svg() {
 alias lock='systemctl --user lock.target'
 
 # firewall status
-fws() { sudo ufw status; echo ""; sudo iptables -L sshguard; }
+fws() { sudo iptables -L firewall; echo ""; sudo iptables -n -L sshguard; }
 
 
 
