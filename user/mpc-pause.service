@@ -1,0 +1,7 @@
+[Unit]
+Description=Run mpc pause
+Requisite=mpd.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mpc pause
