@@ -3,3 +3,6 @@
 Description=Locked screen
 Requires=dbus.socket
 AllowIsolate=true
+
+# bind to slimlock, so that when unlocking lock.target goes down
+BindsTo=slimlock.service
