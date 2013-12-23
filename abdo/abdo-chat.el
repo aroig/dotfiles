@@ -42,14 +42,16 @@
 
 (defun abdo-chat-connect ()
   (interactive)
-  (rcirc nil)
-  (jabber-connect-all))
+  (abdo-open-rcirc)
+  (abdo-open-jabber)
+  (abdo-open-twitter))
 
 
 (defun abdo-chat-disconnect ()
   (interactive)
   (abdo-close-rcirc)
-  (abdo-close-jabber))
+  (abdo-close-jabber)
+  (abdo-close-twitter))
 
 
 ;; Some functions
@@ -83,6 +85,44 @@
     (when buf (abdo-modeline-buffer-alert buf nick))
     ))
 
+
+;; twitter
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; NOTE: saving oauth token.
+;; The first time, run twit end open the verification page and enter the PIN.
+;; Then save the value of the variable twittering-oauth-access-token-alist in
+;; the corresponding file in ~/priv
+
+(defun abdo-twitter-global-things ()
+  (defvar abdo-twittering-mode-oauth-token-file "~/priv/var/twittering-mode/oauth-token")
+
+  (add-hook 'twittering-mode-hook 'abdo-twittering-mode-things)
+)
+
+
+(defun abdo-twittering-mode-things ()
+
+)
+
+
+(defun abdo-open-twitter ()
+  (interactive)
+  ;; load oauth tokens
+  (setq twittering-oauth-access-token-alist
+        (read
+         (with-temp-buffer
+           (insert-file-contents abdo-twittering-mode-oauth-token-file)
+           (buffer-string))))
+
+  (twittering-mode)
+)
+
+
+(defun abdo-close-twitter ()
+  (interactive)
+
+)
 
 
 ;; jabber
@@ -184,6 +224,11 @@
   (jabber-activity-mode 0)   ; I have my own, thanks
 )
 
+(defun abdo-open-jabber ()
+  (interactive)
+  (jabber-connect-all)
+)
+
 (defun abdo-close-jabber ()
   (interactive)
   (jabber-disconnect))
@@ -272,6 +317,11 @@
   (add-hook 'rcirc-print-hooks 'abdo-rcirc-notify))
 
 
+(defun abdo-open-rcirc ()
+  (interactive)
+  (rcirc nil))
+
+
 (defun abdo-close-rcirc ()
   (interactive)
   (dolist (buf (buffer-list))
@@ -327,5 +377,6 @@
 
 (abdo-rcirc-global-things)
 (abdo-jabber-global-things)
+(abdo-twitter-global-things)
 
 (provide 'abdo-chat)

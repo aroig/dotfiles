@@ -255,7 +255,7 @@
 (defun abdo-launch-chat (arg)
   (require 'jabber-autoloads)
   (require 'rcirc)
-  ; (require 'twit)
+  (require 'twittering-mode)
 
   ;; start emacs server with socket 'chat'
   (setq server-name "chat")
