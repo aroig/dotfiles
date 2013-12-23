@@ -5,6 +5,7 @@ After=xorg.target
 
 Requires=dbus.socket
 Requisite=xorg.target
+StopWhenUnneeded=true
 
 [Service]
 Type=simple

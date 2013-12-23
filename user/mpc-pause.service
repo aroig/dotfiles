@@ -1,7 +1,10 @@
 [Unit]
 Description=Run mpc pause
 Requisite=mpd.service
+StopWhenUnneeded=true
 
 [Service]
 Type=oneshot
+RemainAfterExit=yes
+
 ExecStart=/usr/bin/mpc pause
