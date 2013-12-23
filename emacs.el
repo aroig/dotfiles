@@ -83,10 +83,6 @@
 (autoload 'markdown-mode "markdown-mode.el" "Markdown files" t)
 ; (autoload 'sage-mode "sage-mode" "Sage mode." t)
 
-;; Chat stuff
-(autoload 'rcirc "rcirc" "Rcirc irc client." t)
-(autoload 'twit "twittering-mode" "Twitter client." t)
-
 ;; Calibre
 (autoload 'calibre-find "calibre" "Calibre interface." t)
 
@@ -258,11 +254,24 @@
 
 (defun abdo-launch-chat (arg)
   (require 'jabber-autoloads)
+  (require 'rcirc)
+  ; (require 'twit)
 
+  ;; start emacs server with socket 'chat'
+  (setq server-name "chat")
+  (server-start)
+
+  ;; Connect to chat and set disconnect bindings
   (abdo-chat-connect)
   (global-set-key (kbd "C-c C-x") 'abdo-chat-disconnect))
 
 (defun abdo-launch-mail (arg)
+
+  ;; start emacs server with socket 'mail'
+  (setq server-name "mail")
+  (server-start)
+
+  ;; launch mu4e
   (abdo-mu4e))
 
 
