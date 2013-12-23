@@ -1,24 +1,43 @@
 
+;; Variables
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defvar abdo-chat-current-status "online")
+
+
 ;; Interface
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun abdo-chat-status (status)
   (interactive (list (ido-completing-read "Status: " '("online" "away" "dnd"))))
 
-  (cond
-   ((string= status "online")
-    (jabber-send-presence "" "" jabber-default-priority)
-    (abdo-rcirc-away ""))
+  (let ((oldstatus abdo-chat-current-status))
+    (cond
+     ((string= status "online")
+      (jabber-send-presence "" "" jabber-default-priority)
+      (abdo-rcirc-away "")
+      (setq abdo-chat-current-status "online"))
 
-   ((string= status "away")
-    (jabber-send-presence "away" "" jabber-default-priority)
-    (abdo-rcirc-away "away"))
+     ((string= status "away")
+      (jabber-send-presence "away" "" jabber-default-priority)
+      (abdo-rcirc-away "away")
+      (setq abdo-chat-current-status "away"))
 
-   ((string= status "away")
-    (jabber-send-presence "dnd" "" jabber-default-priority)
-    (abdo-rcirc-away "do not disturb"))
+     ((string= status "away")
+      (jabber-send-presence "dnd" "" jabber-default-priority)
+      (abdo-rcirc-away "do not disturb")
+      (setq abdo-chat-current-status "dnd")))
+    oldstatus))
 
-   ))
+
+(defun abdo-chat-away ()
+  (interactive)
+  (setq abdo-chat-current-status (abdo-chat-status "away")))
+
+
+(defun abdo-chat-back ()
+  (interactive)
+  (abdo-chat-status abdo-chat-current-status))
 
 
 (defun abdo-chat-connect ()
