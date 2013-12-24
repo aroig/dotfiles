@@ -113,8 +113,8 @@
 ;          "user_name/list_name")
           ))
 
-  ;; update timeline every minute
-  (setq twittering-timer-interval 60)
+  ;; update timeline every 5 minutes
+  (setq twittering-timer-interval 300)
 
   ;; TODO: write a notification function
   ; (add-hook 'twittering-new-tweets-hook 'abdo-twittering-mode-notify)
