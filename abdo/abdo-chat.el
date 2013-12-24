@@ -4,6 +4,7 @@
 
 (defvar abdo-chat-current-status "online")
 
+(defvar abdo-jabber-hidden nil)
 
 ;; Interface
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -14,17 +15,17 @@
   (let ((oldstatus abdo-chat-current-status))
     (cond
      ((string= status "online")
-      (jabber-send-presence "" "" jabber-default-priority)
+      (when (not abdo-jabber-hidden) (jabber-send-presence "" "" jabber-default-priority))
       (abdo-rcirc-away "")
       (setq abdo-chat-current-status "online"))
 
      ((string= status "away")
-      (jabber-send-presence "away" "" jabber-default-priority)
+      (when (not abdo-jabber-hidden) (jabber-send-presence "away" "" jabber-default-priority))
       (abdo-rcirc-away "away")
       (setq abdo-chat-current-status "away"))
 
      ((string= status "away")
-      (jabber-send-presence "dnd" "" jabber-default-priority)
+      (when (not abdo-jabber-hidden) (jabber-send-presence "dnd" "" jabber-default-priority))
       (abdo-rcirc-away "do not disturb")
       (setq abdo-chat-current-status "dnd")))
     oldstatus))
@@ -213,7 +214,7 @@
 
   ; hide on connection.
   ; This hook is run before jabber-send-current-presence
-  (add-hook 'jabber-post-connect-hook 'jabber-hide)
+  (add-hook 'jabber-post-connect-hook 'abdo-hide-jabber)
   ; (remove-hook 'jabber-post-connect-hook 'jabber-send-current-presence)
 
 )
@@ -234,8 +235,10 @@
   (jabber-disconnect))
 
 
+;; Jabber hide and unhide capabilities
 ;; Source: http://chinmaykamat.wordpress.com/2010/01/22/google-talk-invisible-mode-in-pidgin/
-(defun jabber-hide (&optional con)
+
+(defun abdo-hide-jabber (&optional con)
   (interactive)
   (message "Jabber: hiding")
   (jabber-ask-capabilities)             ; for some reason, without this it doesn't work
@@ -245,9 +248,10 @@
        jc jid "set"
        '(query ((xmlns . "google:shared-status") (version . "2"))
               (invisible ((value . "true"))))
-       nil nil nil "Setting invisibility failed"))))
+       nil nil nil "Setting invisibility failed")))
+  (setq abdo-jabber-hidden t))
 
-(defun jabber-unhide (&optional con)
+(defun abdo-unhide-jabber (&optional con)
   (interactive)
   (message "Jabber: unhiding")
   (dolist (jc (if con '(con) jabber-connections))
@@ -256,7 +260,8 @@
        jc jid "set"
        '(query ((xmlns . "google:shared-status") (version . "2"))
               (invisible ((value . "false"))))
-       nil nil nil "Clearing invisibility failed"))))
+       nil nil nil "Clearing invisibility failed")))
+  (setq abdo-jabber-hidden nil))
 
 (defun jabber-ask-capabilities (&optional con)
   (interactive)
@@ -289,7 +294,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun abdo-rcirc-global-things ()
-  (interactive)
+
   ;; Change user info
   (setq rcirc-default-nick "abtwo")
   (setq rcirc-default-user-name "abtwo")
