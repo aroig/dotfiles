@@ -6,6 +6,7 @@
 
 (defvar abdo-jabber-hidden nil)
 
+
 ;; Interface
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -103,7 +104,20 @@
 
 
 (defun abdo-twittering-mode-things ()
+  (setq twittering-initial-timeline-spec-string
+        '(":home"
+;          ":replies"
+;          ":favorites"
+;          ":direct_messages"
+;          ":search/emacs/"
+;          "user_name/list_name")
+          ))
 
+  ;; update timeline every minute
+  (setq twittering-timer-interval 60)
+
+  ;; TODO: write a notification function
+  ; (add-hook 'twittering-new-tweets-hook 'abdo-twittering-mode-notify)
 )
 
 
