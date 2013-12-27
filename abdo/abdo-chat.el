@@ -2,9 +2,21 @@
 ;; Variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; global
 (defvar abdo-chat-current-status "online")
 
+;; rcirc
+(defvar abdo-rcirc-alert-keyword-regexp "\\b\\(abtwo\\|ab2\\|Abdó\\|Abdo\\|abdo\\|abdó\\)\\b")
+(defvar abdo-rcirc-alert-ignore-user-regexp "NickServ")
+
+;; jabber
 (defvar abdo-jabber-hidden nil)
+(defvar abdo-jabber-alert-keyword-regexp "\\b\\(abtwo\\|ab2\\|Abdó\\|Abdo\\|abdo\\|abdó\\)\\b")
+(defvar abdo-jabber-alert-ignore-user-regexp nil)
+
+;; twitter
+(defvar abdo-twitter-alert-keyword-regexp "\\b\\(abtwo\\|ab2\\|Abdó\\|Abdo\\|abdo\\|abdó\\)\\b")
+(defvar abdo-twitter-alert-ignore-user-regexp nil)
 
 
 ;; Interface
@@ -59,9 +71,6 @@
 ;; Some functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defvar abdo-chat-alert-keyword-regexp "\\b\\(abtwo\\|ab2\\|Abdó\\|Abdo\\|abdo\\|abdó\\)\\b")
-(defvar abdo-chat-alert-ignore-user-regexp "NickServ")
-
 (defun abdo-notify-message (who title msg)
   (start-process "notify" nil "notify-send" "-a" (format "%s" who)
                  (format "%s" title) (format "%s" msg)))
@@ -98,6 +107,7 @@
 
 (defun abdo-twitter-global-things ()
   (defvar abdo-twittering-mode-oauth-token-file "~/priv/var/twittering-mode/oauth-token")
+  (setq twittering-username "abroig")
 
   (add-hook 'twittering-mode-hook 'abdo-twittering-mode-things)
 )
@@ -106,9 +116,9 @@
 (defun abdo-twittering-mode-things ()
   (setq twittering-initial-timeline-spec-string
         '(":home"
+          ":direct_messages"
 ;          ":replies"
 ;          ":favorites"
-;          ":direct_messages"
 ;          ":search/emacs/"
 ;          "user_name/list_name")
           ))
@@ -117,7 +127,27 @@
   (setq twittering-timer-interval 300)
 
   ;; TODO: write a notification function
-  ; (add-hook 'twittering-new-tweets-hook 'abdo-twittering-mode-notify)
+  (add-hook 'twittering-new-tweets-hook 'abdo-twittering-mode-notify)
+)
+
+(defun abdo-twittering-mode-notify ()
+  ;; loop over new tweets
+  (dolist (el twittering-new-tweets-statuses)
+    (let ((name (or (cdr (assoc 'user-name el)) ""))
+          (user (or (cdr (assoc 'user-screen-name el)) ""))
+          (text (or (cdr (assoc 'text el)) "")))
+
+      (cond
+       ;; notify mentions
+       ((string-match (concat "@" (downcase twittering-username)) (downcase text))
+        (abdo-chat-notify "twitter" name user text (get-buffer ":home")))
+
+       ;; notify keyword match
+       ((or (string-match abdo-twitter-alert-keyword-regexp text)
+            (string-match abdo-twitter-alert-keyword-regexp user))
+        (abdo-chat-notify "twitter" name user text (get-buffer ":home")))
+
+       )))
 )
 
 
@@ -149,14 +179,14 @@
             (not (memq (selected-window) (get-buffer-window-list buf))))
     (cond
      ((and (jabber-muc-sender-p from)
-           (string-match abdo-chat-alert-keyword-regexp text)
-           (not (string-match abdo-chat-alert-ignore-user-regexp from)))
+           (string-match abdo-jabber-alert-keyword-regexp text)
+           (not (string-match abdo-jabber-alert-ignore-user-regexp from)))
         (abdo-chat-notify "gtalk" (jabber-jid-user from)
                           (jabber-jid-displayname (jabber-jid-user from))
                           text buf))
 
      ((and (not (jabber-muc-sender-p from))
-           (not (string-match abdo-chat-alert-ignore-user-regexp from)))
+           (not (string-match abdo-jabber-alert-ignore-user-regexp from)))
       (abdo-chat-notify "gtalk" from
                         (jabber-jid-displayname from)
                         text buf)))))
@@ -362,13 +392,13 @@
      ((and (string= response "PRIVMSG")
            (not (rcirc-channel-p target))
            (not (string= sender (rcirc-nick proc)))
-           (not (string-match abdo-chat-alert-ignore-user-regexp sender)))
+           (not (string-match abdo-rcirc-alert-ignore-user-regexp sender)))
       (abdo-chat-notify "rcirc" sender sender textclean buf))
 
      ((and (not (string= response "PRIVMSG"))
            (not (string= sender (rcirc-nick proc)))
-           (string-match abdo-chat-alert-keyword-regexp text)
-           (not (string-match abdo-chat-alert-ignore-user-regexp sender)))
+           (string-match abdo-rcirc-alert-keyword-regexp text)
+           (not (string-match abdo-rcirc-alert-ignore-user-regexp sender)))
       ; TODO: may want to use rcirc-short-buffer-name to get shorter buffer names!
       (abdo-chat-notify "rcirc" sender sender textclean buf)))))
 
