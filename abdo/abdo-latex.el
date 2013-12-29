@@ -252,12 +252,21 @@
 ;; View pdf in zathura and sync current line
 (defun abdo-latex-zathura-view ()
   (interactive)
-  (let
+  (let*
     ((pdf (file-truename (concat default-directory "out/" (TeX-master-file (TeX-output-extension)))))
     (tex (buffer-file-name))
     (line (line-number-at-pos))
-    (col  (current-column)))
+    (col  (current-column))
+    (editor (format "emacsclient -e \"(abdo-latex-zathura-reverse-sync \\\"%s\\\" %s %s)\"" tex line col)))
     (call-process "zathura-synctex" nil 0 nil pdf tex (format "%s:%s" line col))
+
+; TODO: use new zathura's forward search.
+;    (call-process "zathura" nil 0 nil
+;                  "--synctex"
+;                  "--synctex-editor-command" editor
+;                  "--synctex-forward" (format "%s:%s:%s" line col tex)
+;                  pdf)
+
   )
 )
 
