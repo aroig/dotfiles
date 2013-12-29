@@ -217,6 +217,9 @@
   )
 )
 
+(defun abdo-latex-output ()
+  (file-truename (concat default-directory (TeX-master-file (TeX-output-extension)))))
+
 
 ;; Auctex and CDLatex
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -242,33 +245,74 @@
 )
 
 
-;; Zathura sync
+;; Synctex interface
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun abdo-latex-view ()
   (interactive)
-  (abdo-latex-zathura-view))
+  (let
+    ((pdf (abdo-latex-output)))
+    (abdo-latex-zathura-view pdf)
+    ))
 
-;; View pdf in zathura and sync current line
-(defun abdo-latex-zathura-view ()
+
+(defun abdo-latex-forward-sync ()
   (interactive)
-  (let*
-    ((pdf (file-truename (concat default-directory "out/" (TeX-master-file (TeX-output-extension)))))
-    (tex (buffer-file-name))
-    (line (line-number-at-pos))
-    (col  (current-column))
-    (editor (format "emacsclient -e \"(abdo-latex-zathura-reverse-sync \\\"%s\\\" %s %s)\"" tex line col)))
-    (call-process "zathura-synctex" nil 0 nil pdf tex (format "%s:%s" line col))
+  (let
+      ((pdf (abdo-latex-output))
+       (tex (buffer-file-name))
+       (line (line-number-at-pos))
+       (col  (current-column)))
+    (message (format "synctex forward: %s %s %s %s" pdf tex line col))
+    (abdo-latex-zathura-forward-sync pdf tex line col)
+    ))
 
-; TODO: use new zathura's forward search.
-;    (call-process "zathura" nil 0 nil
-;                  "--synctex"
-;                  "--synctex-editor-command" editor
-;                  "--synctex-forward" (format "%s:%s:%s" line col tex)
-;                  pdf)
 
+(defun abdo-latex-reverse-sync (tex line col)
+  (interactive)
+  (message (format "synctex reverse: %s %s %s" tex line col))
+  (abdo-latex-zathura-reverse-sync tex line col))
+
+
+(defun abdo-latex-dbus-setup ()
+  (abdo-latex-dbus-zathura-setup))
+
+
+
+;; Zathura sync
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; view pdf in zathura
+(defun abdo-latex-zathura-view (pdf)
+  (let
+    ((editor "emacsclient -e '(abdo-latex-reverse-sync \"%{input}\" %{line} %{column})'"))
+    (call-process "zathura" nil 0 nil
+                  "--synctex"
+                  "--synctex-editor-command" (format "%s" editor)
+                  pdf)
+    ))
+
+
+;; zathura forward sync
+(defun abdo-latex-zathura-forward-sync (pdf tex line col)
+  (call-process "zathura" nil 0 nil
+                (format "--synctex-forward=%s:%s:%s" line col tex)
+                pdf)
   )
-)
+
+
+;; zathura reverse sync
+(defun abdo-latex-zathura-reverse-sync (tex line col)
+  (let
+    ((buf (get-buffer (file-name-nondirectory tex)))
+     (ret '(:boolean nil)))
+    (if (null buf)
+        (message "Sorry, %s is not opened..." tex)
+      (switch-to-buffer buf)
+      (goto-line line)
+      (unless (= col -1) (move-to-column col))
+      (setq ret '(:boolean t)))
+    ret))
 
 
 ;; Setup D-bus interface for zathura reverse sync
@@ -329,23 +373,6 @@
       </method>
     </interface>
   </node>")
-
-
-;; Handler for zathura reverse sync
-(defun abdo-latex-zathura-reverse-sync (file line col)
-  (let
-    ((buf (get-buffer (file-name-nondirectory file)))
-     (ret '(:boolean nil)))
-    (if (null buf)
-        (message "Sorry, %s is not opened..." file)
-      (message "Jumping to %s, line %d" file line)
-      (switch-to-buffer buf)
-      (goto-line line)
-      (unless (= col -1) (move-to-column col))
-      (setq ret '(:boolean t)))
-    ret))
-
-
 
 
 

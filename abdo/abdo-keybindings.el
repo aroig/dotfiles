@@ -216,7 +216,9 @@
 	    (local-set-key (kbd "C-c p") 'previous-error)              ;; previous error
 
 	    (local-set-key (kbd "C-c r") 'abdo-latex-toggle-toc)       ;; Toggles the reftex toc
-	    (local-set-key (kbd "C-c v") 'abdo-latex-view)))           ;; View
+	    (local-set-key (kbd "C-c v") 'abdo-latex-view)             ;; View
+        (local-set-key (kbd "C-c f") 'abdo-latex-forward-sync)     ;; Forward search
+        ))
 
 
 ;; C/C++
