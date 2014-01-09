@@ -83,8 +83,9 @@
 ;; Launchers
 (global-set-key (kbd "H-x t") 'abdo-launch-terminal)
 (global-set-key (kbd "H-x f") 'abdo-launch-filemanager)
-(global-set-key (kbd "H-c m") (lambda () (abdo-mu4 "mail")))
+(global-set-key (kbd "H-c m") 'abdo-mu4)
 (global-set-key (kbd "H-c i") 'rcirc)
+(global-set-key (kbd "H-c t") 'ansi-term)
 (global-set-key (kbd "H-h s") 'calibre-find)
 
 ;; Version Control
