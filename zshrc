@@ -42,7 +42,7 @@ fpath=($HOME/.zsh/completions $fpath)
 
 # Stop here if unknown terminal
 case $TERM in
-    rxvt*|screen*|xterm*|linux*)
+    rxvt*|screen*|xterm*|linux*|eterm-color)
 	    ;;
     
     *)
