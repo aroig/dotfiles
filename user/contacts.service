@@ -1,5 +1,7 @@
 [Unit]
 Description=fetch google contacts
+Requires=online.service
+After=online.service
 
 [Service]
 Type=oneshot
