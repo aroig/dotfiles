@@ -5,6 +5,3 @@ Description=Daily Timer
 OnBootSec=10min
 OnUnitActiveSec=1d
 Unit=daily.target
-
-[Install]
-WantedBy=basic.target

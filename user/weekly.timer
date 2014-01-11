@@ -6,5 +6,3 @@ OnBootSec=15min
 OnUnitActiveSec=1w
 Unit=weekly.target
 
-[Install]
-WantedBy=basic.target
