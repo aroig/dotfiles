@@ -57,8 +57,9 @@
 (defun abdo-chat-connect ()
   (interactive)
   (abdo-open-rcirc)
+  (abdo-open-twitter)
   (abdo-open-jabber)
-  (abdo-open-twitter))
+  (switch-to-buffer "*google-talk*"))
 
 
 (defun abdo-chat-disconnect ()
