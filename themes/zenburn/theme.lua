@@ -108,7 +108,7 @@ theme.mouse_finder_color = "#CC9393"
 
 -- system icons path. I should autodetect it or something
 local icon_theme          = "numix/Numix"
-local icon_path           = os.getenv("HOME") .. "/.icons/" .. icon_theme .. "/64/"
+local icon_path           = os.getenv("HOME") .. "/.icons/" .. icon_theme .. "/64x64/"
 
 theme.naughty_mail_icon   = icon_path .. "emblems/emblem-mail.svg"
 theme.naughty_chat_icon   = icon_path .. "emblems/emblem-people.svg"
