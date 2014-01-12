@@ -180,14 +180,19 @@
             (not (memq (selected-window) (get-buffer-window-list buf))))
     (cond
      ((and (jabber-muc-sender-p from)
-           (string-match abdo-jabber-alert-keyword-regexp text)
-           (not (string-match abdo-jabber-alert-ignore-user-regexp from)))
+           (and abdo-jabber-alert-keyword-regexp
+                (string-match abdo-jabber-alert-keyword-regexp text))
+           (not (and abdo-jabber-alert-ignore-user-regexp
+                     (string-match abdo-jabber-alert-ignore-user-regexp from))))
+
         (abdo-chat-notify "gtalk" (jabber-jid-user from)
                           (jabber-jid-displayname (jabber-jid-user from))
                           text buf))
 
      ((and (not (jabber-muc-sender-p from))
-           (not (string-match abdo-jabber-alert-ignore-user-regexp from)))
+           (not (and abdo-jabber-alert-ignore-user-regexp
+                     (string-match abdo-jabber-alert-ignore-user-regexp from))))
+
       (abdo-chat-notify "gtalk" from
                         (jabber-jid-displayname from)
                         text buf)))))
@@ -393,13 +398,17 @@
      ((and (string= response "PRIVMSG")
            (not (rcirc-channel-p target))
            (not (string= sender (rcirc-nick proc)))
-           (not (string-match abdo-rcirc-alert-ignore-user-regexp sender)))
+           (not (and abdo-rcirc-alert-ignore-user-regexp
+                     (string-match abdo-rcirc-alert-ignore-user-regexp sender))))
+
       (abdo-chat-notify "rcirc" sender sender textclean buf))
 
      ((and (not (string= response "PRIVMSG"))
            (not (string= sender (rcirc-nick proc)))
            (string-match abdo-rcirc-alert-keyword-regexp text)
-           (not (string-match abdo-rcirc-alert-ignore-user-regexp sender)))
+           (not (and abdo-rcirc-alert-ignore-user-regexp
+                     (string-match abdo-rcirc-alert-ignore-user-regexp sender))))
+
       ; TODO: may want to use rcirc-short-buffer-name to get shorter buffer names!
       (abdo-chat-notify "rcirc" sender sender textclean buf)))))
 
