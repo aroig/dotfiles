@@ -8,6 +8,7 @@
 ;; rcirc
 (defvar abdo-rcirc-alert-keyword-regexp "\\b\\(abtwo\\|ab2\\|Abdó\\|Abdo\\|abdo\\|abdó\\)\\b")
 (defvar abdo-rcirc-alert-ignore-user-regexp "NickServ")
+(defvar abdo-rcirc-log-ignore-regexp "NickServ\\|.*\\.freenode\\.net")
 
 ;; jabber
 (defvar abdo-jabber-hidden nil)
@@ -371,10 +372,11 @@
                                    ,(netrc-get freenode "login")
                                    ,(netrc-get freenode "password"))))
 
+  (setq rcirc-log-filename-function 'abdo-rcirc-generate-log-filename)
+
   ;; hooks
   (add-hook 'rcirc-mode-hook 'abdo-rcirc-mode-things)
   (add-hook 'rcirc-print-hooks 'abdo-rcirc-notify))
-
 
 (defun abdo-open-rcirc ()
   (interactive)
@@ -392,6 +394,16 @@
 (defun abdo-rcirc-away (reason)
   (dolist (process (rcirc-process-list))
 	(rcirc-send-string process (concat "AWAY :" reason))))
+
+
+(defun abdo-rcirc-generate-log-filename  (process target)
+  (if target
+      (cond
+       ((not (and abdo-rcirc-log-ignore-regexp
+                  (string-match abdo-rcirc-log-ignore-regexp target)))
+        (rcirc-generate-new-buffer-name process target))
+       (t nil))
+    (process-name process)))
 
 
 (defun abdo-rcirc-notify (proc sender response target text)
