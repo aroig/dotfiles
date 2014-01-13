@@ -223,14 +223,16 @@
   (setq jabber-rare-time-format "%a %e %b %Y %H:00")
 
   ; buffer names
-  (setq jabber-chat-buffer-format "*browse-%n*")
+  (setq jabber-browse-buffer-format "*browse-%n*")
   (setq jabber-chat-buffer-format "*gtalk-%n*")
-  (setq jabber-groupchat-buffer-format "*gtalk-%n*")
-  (setq jabber-muc-private-buffer-format "*gtalk-%n*")
+  (setq jabber-groupchat-buffer-format "*gchat-%n*")
+  (setq jabber-muc-private-buffer-format "*muc-%n*")
 
   ; roster buffer
   (setq jabber-roster-buffer "*google-talk*")
   (setq jabber-show-resources nil)
+  (setq jabber-show-offline-contacts nil)
+  (setq jabber-roster-show-bindings nil)
   (setq jabber-roster-line-format " %c %-30n %u %-15s")
 
   ; notifications
