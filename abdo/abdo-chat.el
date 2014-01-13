@@ -207,6 +207,8 @@
   ; logs
   (setq jabber-history-enabled t)
   (setq jabber-use-global-history nil)
+  (setq jabber-history-enable-rotation t)
+  (setq jabber-history-size-limit 512)
 
   ; chatting settings
   (setq jabber-backlog-number 10)
