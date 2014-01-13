@@ -174,10 +174,10 @@
 ;; jabber
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (defun abdo-jabber-notify (from buf text proposed-alert)
   (when (or jabber-message-alert-same-buffer
-            (not (memq (selected-window) (get-buffer-window-list buf))))
+            (not (memq (selected-window) (get-buffer-window-list buf)))
+            (not (eq (frame-visible-p (window-frame (selected-window))) t)))
     (cond
      ((and (jabber-muc-sender-p from)
            (and abdo-jabber-alert-keyword-regexp
