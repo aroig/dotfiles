@@ -233,7 +233,7 @@
 
   ; roster buffer
   (setq jabber-roster-buffer "*google-talk*")
-  (setq jabber-show-resources nil)
+  (setq jabber-show-resources 'always)
   (setq jabber-show-offline-contacts nil)
   (setq jabber-roster-show-bindings nil)
   (setq jabber-roster-line-format " %c %-30n %u %-15s")
