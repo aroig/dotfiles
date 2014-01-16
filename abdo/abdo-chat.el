@@ -236,7 +236,9 @@
   (setq jabber-show-resources 'always)
   (setq jabber-show-offline-contacts nil)
   (setq jabber-roster-show-bindings nil)
-  (setq jabber-roster-line-format " %c %-30n %u %-15s")
+  (setq jabber-roster-line-format   " %c ::%-30n %u %-15s")
+  (setq jabber-resource-line-format "     - %-28r  %2p %-15s")
+
 
   ; notifications
   (setq jabber-message-alert-same-buffer nil)  ; don't display alerts for current buffer
