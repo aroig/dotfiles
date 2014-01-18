@@ -390,7 +390,10 @@
   (dolist (buf (buffer-list))
     (when (eq (with-current-buffer buf major-mode) 'rcirc-mode)
       (with-current-buffer buf (ignore-errors (rcirc-cmd-quit "bye")))
-      (kill-buffer buf))))
+;      do not kill the buffer. otherwise we are asked to terminate the attached process due to
+;      a racy situation.
+;      (kill-buffer buf)
+      )))
 
 
 (defun abdo-rcirc-away (reason)
