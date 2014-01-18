@@ -2,41 +2,32 @@
 set -o errexit
 
 arg="$1"
-lib_path=$HOME/lib
+log_path=$HOME/var/chat/emacs
 
 case $1 in 
     start)       
-        calibre --with-library="$lib_path"
+        emacs -chat
         ;;
     
 
     stop)
-        calibre --shutdown-running-calibre
+        emacsclient -s chat -e '(progn (abdo-chat-disconnect) (save-some-buffers t) (kill-emacs))'
         ;;
 
-
-    edit)
-        (
-            cd "$lib_path"
-            git annex edit metadata.db
-        )
-        ;;
 
     commit)
         (
-            cd "$lib_path"
-            git annex add metadata.db
+            cd "$log_path"
 
             # if there are changes, commit
             num=$(git status --porcelain | wc -l)
             if [[ $num -ge 1 ]]; then                
                 # add files
-                git annex add .
                 git add -A .
                 
                 # recompute the number of changes and commit
                 num=$(git status --porcelain | wc -l)
-                git commit -m "auto-commit: update library ($num files)"
+                git commit -m "auto-commit: new logs ($num files)"
             fi
         )
         ;;

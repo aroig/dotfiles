@@ -3,7 +3,6 @@ Description=Calibre
 After=xorg.target
 
 Requisite=xorg.target
-Requires=dbus.socket
 
 [Service]
 Type=simple
@@ -18,5 +17,3 @@ ExecStop=/home/abdo/.config/systemd/scripts/calibre.sh stop
 # commit changes
 ExecStopPost=/home/abdo/.config/systemd/scripts/calibre.sh commit
 
-[Install]
-WantedBy=desktop.target

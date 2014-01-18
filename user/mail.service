@@ -1,0 +1,16 @@
+[Unit]
+Description=mail client
+After=xorg.target
+
+Requisite=xorg.target
+
+[Service]
+Type=simple
+SyslogIdentifier=mail
+
+ExecStart=/home/abdo/.config/systemd/scripts/mail.sh start
+ExecStop=/home/abdo/.config/systemd/scripts/mail.sh stop
+
+# commit changes
+ExecStopPost=/home/abdo/.config/systemd/scripts/mail.sh commit
+
