@@ -69,16 +69,15 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "b",      function () sdexec(apps.browser,       nil, 'dwb') end),
     awful.key({ modkey, metakey   }, "b",      function () sdexec(apps.secondbrowser, nil, 'chromium') end),
 
-    -- TODO: I'd like to convert those to ddclients. I can't capture them reliably though.
-    awful.key({ modkey, ctrlkey   }, "o",      function () exec(apps.orgmode) end),
-    awful.key({ modkey, ctrlkey   }, "u",      function () exec(apps.mail) end),
-    awful.key({ modkey, ctrlkey   }, "t",      function () exec(apps.chat) end),
-
     -- Dropdown clients
     awful.key({ modkey, ctrlkey   }, "d",      function () ddclient.dict:toggle() end),
     awful.key({ modkey, ctrlkey   }, "i",      function () ddclient.calibre:toggle() end),
     awful.key({ modkey, ctrlkey   }, "m",      function () ddclient.music:toggle() end),
     awful.key({ modkey, ctrlkey   }, "w",      function () ddclient.xournal:toggle() end),
+
+    awful.key({ modkey, ctrlkey   }, "o",      function () ddclient.orgmode:toggle() end),
+    awful.key({ modkey, ctrlkey   }, "u",      function () ddclient.mail:toggle() end),
+    awful.key({ modkey, ctrlkey   }, "t",      function () ddclient.chat:toggle() end),
 
     -- Music
     awful.key({ modkey, ctrlkey   }, "Home",      function () exec("mpc toggle") end),

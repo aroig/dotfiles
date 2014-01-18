@@ -5,8 +5,34 @@
 ---------------------------------------------------------------
 
 rules = require("awful.rules")
+posix = require("posix")
 
 local ddclient = ddclient
+
+
+-- Capture emacs clients depending on WM_NAME.
+
+-- This hackily solves a race condition in which emacs sets the window title too
+-- late for awesome rules to detect a custom WM_NAME.
+local function capture_emacsen(c)
+    -- give it some time
+    posix.sleep(1)
+
+    -- capture dropdown according to WM_NAME
+    local name = c.name
+
+    if name == 'emacs-org' then
+        ddclient.orgmode:capture(c)
+
+    elseif name == 'emacs-chat' then
+        ddclient.chat:capture(c)
+
+    elseif name == 'emacs-mail' then
+        ddclient.mail:capture(c)
+
+    end
+end
+
 
 -- Client keys
 clientkeys = awful.util.table.join(
@@ -70,10 +96,9 @@ rules.rules = {
     { rule = { class = "Xournal" },         callback = function(c) ddclient.xournal:capture(c) end },
     { rule = { class = "Calibre-gui" },     callback = function(c) ddclient.calibre:capture(c) end },
 
-    -- NOTE: it seems that emacs --title sets the frame name too late and this becomes racey.
-    { rule = { name = "emacs-org" },        callback = function(c) ddclient.orgmode:capture(c) end },
-    { rule = { name = "emacs-chat" },       callback = function(c) ddclient.chat:capture(c) end },
-    { rule = { name = "emacs-mail" },       callback = function(c) ddclient.mail:capture(c) end },
+    -- Capture emacs clients for dropdown, depending on the WM_NAME property.
+    { rule = { class = "Emacs" },           callback = capture_emacsen },
+
 
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
