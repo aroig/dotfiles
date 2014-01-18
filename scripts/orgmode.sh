@@ -6,12 +6,13 @@ wiki_path=$HOME/work/wiki
 
 case $1 in 
     start)       
-        emacs -org
+        emacs -org --title "emacs-org"
         ;;
     
 
     stop)
-        emacsclient -s org -e '(progn (save-some-buffers t) (kill-emacs))'
+        # stop emacs saving buffers if the process is alive, otherwise fail quietly.
+        emacsclient -s org -e '(progn (save-some-buffers t) (kill-emacs))' 2> /dev/null || true
         ;;
 
 

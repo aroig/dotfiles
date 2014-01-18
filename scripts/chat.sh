@@ -6,12 +6,13 @@ log_path=$HOME/var/chat/emacs
 
 case $1 in 
     start)       
-        emacs -chat
+        emacs -chat --title "emacs-chat"
         ;;
     
 
     stop)
-        emacsclient -s chat -e '(progn (abdo-chat-disconnect) (save-some-buffers t) (kill-emacs))'
+        # stop emacs saving buffers if the process is alive, otherwise fail quietly.
+        emacsclient -s chat -e '(progn (abdo-chat-disconnect) (save-some-buffers t) (kill-emacs))' 2> /dev/null || true
         ;;
 
 

@@ -6,12 +6,13 @@ mail_path=$HOME/mail
 
 case $1 in 
     start)       
-        emacs -mail
+        emacs -mail --title "emacs-mail"
         ;;
     
 
     stop)
-        emacsclient -s mail -e '(progn (save-some-buffers t) (kill-emacs))'
+        # stop emacs saving buffers if the process is alive, otherwise fail quietly.
+        emacsclient -s mail -e '(progn (save-some-buffers t) (kill-emacs))' 2> /dev/null || true
         ;;
 
 
@@ -27,7 +28,7 @@ case $1 in
                 
                 # recompute the number of changes and commit
                 num=$(git status --porcelain | wc -l)
-                git commit -m "auto-commit: new messages ($num files)"
+                git commit -m "auto-commit: new messages ($num files)" > /dev/null
             fi
         )
         ;;
