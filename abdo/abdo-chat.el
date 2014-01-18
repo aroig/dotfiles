@@ -8,7 +8,7 @@
 ;; rcirc
 (defvar abdo-rcirc-alert-keyword-regexp "\\b\\(abtwo\\|ab2\\|Abdó\\|Abdo\\|abdo\\|abdó\\)\\b")
 (defvar abdo-rcirc-alert-ignore-user-regexp "NickServ")
-(defvar abdo-rcirc-log-ignore-regexp "NickServ\\|.*\\.freenode\\.net")
+(defvar abdo-rcirc-log-ignore-regexp "abtwo\\|NickServ\\|.*\\.freenode\\.net")
 
 ;; jabber
 (defvar abdo-jabber-hidden nil)
