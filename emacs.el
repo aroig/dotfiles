@@ -244,10 +244,18 @@
 (add-to-list 'command-switch-alist '("sage" . abdo-launch-sage))
 
 (defun abdo-launch-org (arg)
-  (add-hook 'emacs-startup-hook 'abdo-org-main-buffer))
+  (add-hook 'emacs-startup-hook 'abdo-org-main-buffer)
+
+  ;; start emacs server with socket 'chat'
+  (setq server-name "org")
+  (server-start))
 
 (defun abdo-launch-notes (arg)
-  (add-hook 'emacs-startup-hook 'abdo-org-notes-buffer))
+  (add-hook 'emacs-startup-hook 'abdo-org-notes-buffer)
+
+  ;; start emacs server with socket 'chat'
+  (setq server-name "notes")
+  (server-start))
 
 (defun abdo-launch-sage (arg)
   (sage))
