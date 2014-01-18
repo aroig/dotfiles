@@ -68,14 +68,16 @@ globalkeys = awful.util.table.join(
     -- those are spawned with systemd-run, and get their own unit.
     awful.key({ modkey, ctrlkey   }, "b",      function () sdexec(apps.browser,       nil, 'dwb') end),
     awful.key({ modkey, metakey   }, "b",      function () sdexec(apps.secondbrowser, nil, 'chromium') end),
-    awful.key({ modkey, ctrlkey   }, "o",      function () sdexec(apps.orgmode,       nil, 'orgmode') end),
-    awful.key({ modkey, ctrlkey   }, "u",      function () sdexec(apps.mail,          nil, 'mu4e') end),
+
+    -- TODO: I'd like to convert those to ddclients. I can't capture them reliably though.
+    awful.key({ modkey, ctrlkey   }, "o",      function () exec(apps.orgmode) end),
+    awful.key({ modkey, ctrlkey   }, "u",      function () exec(apps.mail) end),
+    awful.key({ modkey, ctrlkey   }, "t",      function () exec(apps.chat) end),
 
     -- Dropdown clients
     awful.key({ modkey, ctrlkey   }, "d",      function () ddclient.dict:toggle() end),
     awful.key({ modkey, ctrlkey   }, "i",      function () ddclient.calibre:toggle() end),
     awful.key({ modkey, ctrlkey   }, "m",      function () ddclient.music:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "t",      function () ddclient.chat:toggle() end),
     awful.key({ modkey, ctrlkey   }, "w",      function () ddclient.xournal:toggle() end),
 
     -- Music

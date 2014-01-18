@@ -167,6 +167,12 @@ ddclient.calibre = dropdown.new("calibre", apps.library,
 ddclient.chat    = dropdown.new("chat", apps.chat,
                                 {vert="center", horiz="left", width=0.6, height=1})
 
+ddclient.orgmode = dropdown.new("orgmode", apps.orgmode,
+                                {vert="center", horiz="left", width=1, height=1})
+
+ddclient.mail    = dropdown.new("mail", apps.mail,
+                                {vert="center", horiz="left", width=1, height=1})
+
 ddclient.music   = dropdown.new("music", apps.music,
                                 {vert="center", horiz="right", width=0.7, height=1})
 

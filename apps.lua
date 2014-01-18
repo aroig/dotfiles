@@ -28,10 +28,10 @@ apps.xournal             = "xournal ~/work/notes/scratchpad.xoj"
 apps.print               = "scrot -e 'mv $f ~/down/'"
 
 -- Emacs stuff
-apps.orgmode             = "emacs -org"
-apps.mail                = "emacs -mail"
+apps.orgmode             = "systemctl --user start orgmode.service"
+apps.mail                = "systemctl --user start mail.service"
+apps.chat                = "systemctl --user start chat.service"
 apps.notes               = "emacs -notes"
-apps.chat                = "emacs -chat"
 
 -- System stuff
 local cfgdir = awful.util.getdir("config")
