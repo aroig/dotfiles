@@ -19,10 +19,11 @@ apps.shell               = os.getenv("SHELL")       or "bash"
 apps.docbrowser          = apps.browser .. " -n"
 apps.secondbrowser       = "chromium"
 apps.pdfviewer           = "zathura"
-apps.music               = "gmpc --debug-level=1"
 apps.dictionary          = "goldendict"
+
+apps.music               = "systemctl --user start gmpc.service"
 apps.library             = "systemctl --user start calibre.service"
-apps.xournal             = "xournal ~/work/notes/scratchpad.xoj"
+apps.xournal             = "systemctl --user start xournal.service"
 
 -- Actions
 apps.print               = "scrot -e 'mv $f ~/down/'"
