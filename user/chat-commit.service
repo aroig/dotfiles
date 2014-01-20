@@ -1,0 +1,11 @@
+[Unit]
+Description=Commit chat logs
+
+Conflicts=chat.service
+Before=chat.service
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=chat-commit
+ExecStart=/home/abdo/.config/systemd/scripts/chat.sh commit

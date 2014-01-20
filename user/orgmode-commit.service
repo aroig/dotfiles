@@ -1,0 +1,11 @@
+[Unit]
+Description=Commit orgmode data
+
+Conflicts=orgmode.service
+Before=orgmode.service
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=orgmode-commit
+ExecStart=/home/abdo/.config/systemd/scripts/orgmode.sh commit

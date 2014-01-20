@@ -1,0 +1,11 @@
+[Unit]
+Description=Commit mail
+
+Conflicts=rss2maildir.service offlineimap.service mutag.service
+Before=rss2maildir.service offlineimap.service mutag.service
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=mail-commit
+ExecStart=/home/abdo/.config/systemd/scripts/mail.sh commit
