@@ -13,6 +13,7 @@
 ;; jabber
 (defvar abdo-jabber-hidden nil)
 (defvar abdo-jabber-alert-keyword-regexp "\\b\\(abtwo\\|ab2\\|Abdó\\|Abdo\\|abdo\\|abdó\\)\\b")
+(defvar abdo-jabber-alert-user-regexp nil)
 (defvar abdo-jabber-alert-ignore-user-regexp nil)
 
 ;; twitter
@@ -175,28 +176,41 @@
 ;; jabber
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun abdo-jabber-notify (from buf text proposed-alert)
-  (when (or jabber-message-alert-same-buffer
-            (not (memq (selected-window) (get-buffer-window-list buf)))
-            (not (eq (frame-visible-p (window-frame (selected-window))) t)))
-    (cond
-     ((and (jabber-muc-sender-p from)
-           (and abdo-jabber-alert-keyword-regexp
-                (string-match abdo-jabber-alert-keyword-regexp text))
-           (not (and abdo-jabber-alert-ignore-user-regexp
-                     (string-match abdo-jabber-alert-ignore-user-regexp from))))
+(defun abdo-jabber-notify-p (buf)
+  (or jabber-message-alert-same-buffer
+      (not (memq (selected-window) (get-buffer-window-list buf)))
+      (not (eq (frame-visible-p (window-frame (selected-window))) t))))
 
-        (abdo-chat-notify "gtalk" (jabber-jid-user from)
-                          (jabber-jid-displayname (jabber-jid-user from))
-                          text buf))
 
-     ((and (not (jabber-muc-sender-p from))
-           (not (and abdo-jabber-alert-ignore-user-regexp
-                     (string-match abdo-jabber-alert-ignore-user-regexp from))))
+(defun abdo-jabber-presence-notify (from oldstatus newstatus statustext proposed-alert)
+  (when (and (and abdo-jabber-alert-user-regexp
+                  (string-match abdo-jabber-alert-user-regexp (jabber-jid-displayname from)))
+             (eq oldstatus nil)
+             (not (and abdo-jabber-alert-ignore-user-regexp
+                       (string-match abdo-jabber-alert-ignore-user-regexp (jabber-jid-displayname from)))))
+    (abdo-notify-message "gtalk" (format "gtalk: %s" (jabber-jid-displayname from)) "contact is online")))
 
-      (abdo-chat-notify "gtalk" from
-                        (jabber-jid-displayname from)
-                        text buf)))))
+
+(defun abdo-jabber-message-notify (from buf text proposed-alert)
+  (when (and (not (jabber-muc-sender-p from))
+             (abdo-jabber-notify-p buf)
+             (not (and abdo-jabber-alert-ignore-user-regexp
+                       (string-match abdo-jabber-alert-ignore-user-regexp (jabber-jid-displayname from)))))
+      (abdo-chat-notify "gtalk" from (jabber-jid-displayname from) text buf)))
+
+
+(defun abdo-jabber-muc-notify (from group buf text proposed-alert)
+  (when (and (jabber-muc-sender-p from)
+             (abdo-jabber-notify-p buf)
+             (and abdo-jabber-alert-keyword-regexp
+                  (string-match abdo-jabber-alert-keyword-regexp text))
+             (not (and abdo-jabber-alert-ignore-user-regexp
+                       (string-match abdo-jabber-alert-ignore-user-regexp (jabber-jid-displayname (jabber-jid-user from))))))
+
+    (abdo-chat-notify "gtalk" (jabber-jid-user from)
+                      (jabber-jid-displayname (jabber-jid-user from))
+                      text buf)))
+
 
 
 (defun abdo-jabber-global-things ()
@@ -266,7 +280,11 @@
 
 
   ; notifications
-  (add-hook 'jabber-alert-message-hooks 'abdo-jabber-notify)
+  (add-hook 'jabber-alert-message-hooks 'abdo-jabber-message-notify)
+  (add-hook 'jabber-alert-muc-hooks 'abdo-jabber-muc-notify)
+  (add-hook 'jabber-alert-presence-hooks 'abdo-jabber-presence-notify)
+
+  ; other hooks
   (add-hook 'jabber-chat-mode-hook 'abdo-jabber-chat-mode-things)
 
   ; hide on connection.
