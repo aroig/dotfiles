@@ -265,6 +265,9 @@
   (require 'rcirc)
   (require 'twittering-mode)
 
+  ;; load chat settings
+  (load "~/var/chat/emacs/settings.el")
+
   ;; start emacs server with socket 'chat'
   (setq server-name "chat")
   (server-start)
