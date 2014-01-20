@@ -1,0 +1,9 @@
+[Unit]
+Description=mpd client
+After=xorg.target
+
+Requisite=xorg.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/gmpc --debug-level=1
