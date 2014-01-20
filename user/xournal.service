@@ -1,0 +1,9 @@
+[Unit]
+Description=xournal
+After=xorg.target
+
+Requisite=xorg.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/xournal %h/work/notes/scratchpad.xoj
