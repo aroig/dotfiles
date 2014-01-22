@@ -275,7 +275,9 @@
     (add-to-list 'jabber-account-list
           `(,(netrc-get gtalk "login")
              (:password . ,(netrc-get gtalk "password"))
-             (:network-server . ,(netrc-get gtalk "server"))
+             (:network-server . ,(netrc-get gtalk "machine"))
+             (:port . 5223)
+             (:connection-type . ssl)
              )))
 
 
