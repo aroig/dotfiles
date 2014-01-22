@@ -10,5 +10,5 @@ Type=dbus
 BusName=org.gnome.GConf
 ExecStart=/usr/lib/GConf/gconfd-2
 
-# [Install]
-# Alias=dbus-org.gnome.GConf
+[Install]
+Alias=dbus-org.gnome.GConf

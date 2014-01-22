@@ -10,5 +10,5 @@ Type=dbus
 BusName=org.gtk.vfs.Daemon
 ExecStart=/usr/lib/gvfs/gvfsd
 
-# [Install]
-# Alias=dbus-org.gtk.vfs.Daemon.service
+[Install]
+Alias=dbus-org.gtk.vfs.Daemon.service
