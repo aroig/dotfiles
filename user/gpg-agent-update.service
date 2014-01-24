@@ -1,5 +1,6 @@
 [Unit]
 Description=update gpg-agent tty
+Requisite=gpg-agent.service
 
 [Service]
 Type=oneshot
