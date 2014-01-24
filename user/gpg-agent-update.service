@@ -1,9 +1,6 @@
 [Unit]
 Description=update gpg-agent tty
 
-After=xorg.target
-Requisite=xorg.target
-
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/gpg-connect-agent updatestartuptty /bye
