@@ -1,0 +1,12 @@
+[Unit]
+Description=Goldendict
+After=xorg.target
+
+Requisite=xorg.target
+
+[Service]
+Type=simple
+SyslogIdentifier=goldendict
+
+ExecStart=/usr/bin/goldendict
+
