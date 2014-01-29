@@ -1,0 +1,4 @@
+[Unit]
+Description=Applications slice
+
+Requisite=xorg.target
