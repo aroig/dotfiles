@@ -59,6 +59,7 @@ function sdrun (cmd, screen, name, scope, slice)
     local sdcmd = "systemd-run --user "
     if scope then sdcmd = sdcmd .. "--scope " end
     if slice then sdcmd = sdcmd .. string.format("--slice=\"%s\" ", slice) end
+    if name  then sdcmd = sdcmd .. string.format("--description=\"%s\" ", name) end
 
     local pid = nil
     if scope then
