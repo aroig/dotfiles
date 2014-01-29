@@ -95,6 +95,7 @@ rules.rules = {
     { rule = { class = "Gmpc" },            callback = function(c) ddclient.music:capture(c) end },
     { rule = { class = "Xournal" },         callback = function(c) ddclient.xournal:capture(c) end },
     { rule = { class = "Calibre-gui" },     callback = function(c) ddclient.calibre:capture(c) end },
+    { rule = { class = "Goldendict" },      callback = function(c) ddclient.dict:capture(c) end },
 
     -- Capture emacs clients for dropdown, depending on the WM_NAME property.
     { rule = { class = "Emacs" },           callback = capture_emacsen },
