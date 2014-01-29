@@ -26,6 +26,18 @@ ddclient = {}
 -- Useful functions              --
 -----------------------------------
 
+function shell_escape(s)
+    s = (tostring(s) or ''):gsub('"', '\\"')
+
+    if s:find('[^A-Za-z0-9_."/-]') then
+        s = '"' .. s .. '"'
+    elseif s == '' then
+        s = '""'
+    end
+
+    return s
+end
+
 
 -- Execute an external program
 function exec (cmd, screen)
@@ -48,13 +60,14 @@ function sdrun (cmd, screen, name, scope, slice)
     if scope then sdcmd = sdcmd .. "--scope " end
     if slice then sdcmd = sdcmd .. string.format("--slice=\"%s\" ", slice) end
 
-    sdcmd = sdcmd .. cmd
-
     local pid = nil
     if scope then
         -- capture output to journal
-        if name then sdcmd = sdcmd .. string.format(' 2>&1 | systemd-cat -t \"%s\" ', name) end
-        awful.util.spawn_with_shell(sdcmd, screen)
+        if name then cmd = string.format('%s 2>&1 | systemd-cat -t \"%s\"', cmd, name)
+        else         cmd = string.format('%s 2>&1 | /dev/null', cmd)
+        end
+
+        awful.util.spawn(string.format('%s sh -c %s', sdcmd, shell_escape(cmd)), screen)
 
     else
         -- launch systemd service and capture the service name
