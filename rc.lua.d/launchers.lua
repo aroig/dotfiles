@@ -43,32 +43,35 @@ function sdexec (cmd, screen, name)
 end
 
 -- Execute an external program as a systemd scope
-function sdrun (cmd, screen, name, scope)
+function sdrun (cmd, screen, name, scope, slice)
     local sdcmd = "systemd-run --user "
-    if scope then
-       sdcmd = sdcmd .. "--scope "
-    end
-    if name then
-        sdcmd = sdcmd .. string.format("--slice=\"%s.slice\" ", name)
-        sdcmd = sdcmd .. string.format("--description=\"Dynamic unit for %s\" ", name)
-    end
+    if scope then sdcmd = sdcmd .. "--scope " end
+    if name  then sdcmd = sdcmd .. string.format("--unit=\"%s\" ", name) end
+    if slice then sdcmd = sdcmd .. string.format("--slice=\"%s\" ", slice) end
+
     sdcmd = sdcmd .. cmd
 
-    -- launch systemd service and capture the service name
-    -- TODO: capture stderr to get the pid
-    local f = io.popen(sdcmd, "r")
-    if f ~= nil then
-        local raw = f:read("*all")
-        local pid = raw:gsub(".*run%-([0-9]*)%.service.*", "%1")
+    local pid = nil
+    if scope then
+        -- capture output to journal
+        if name then sdcmd = sdcmd .. string.format(' 2>&1 | systemd-cat -t \"%s\" ', name) end
+        awful.util.spawn_with_shell(sdcmd, screen)
 
-        -- naughty.notify({title="sdexec", text=tostring(raw)})
-        f:close()
+    else
+        -- launch systemd service and capture the service name
+        -- TODO: capture stderr to get the pid
+        local f = io.popen(sdcmd, "r")
+        if f ~= nil then
+            local raw = f:read("*all")
+            local pid = raw:gsub(".*run%-([0-9]*)%.service.*", "%1")
+
+            -- naughty.notify({title="sdexec", text=tostring(raw)})
+            f:close()
+        end
     end
 
-    if pid then
-        return tonumber(pid)
-    else
-        return nil
+    if pid then return tonumber(pid)
+    else        return nil
     end
 end
 
