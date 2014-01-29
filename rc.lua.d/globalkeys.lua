@@ -61,13 +61,13 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "Print",  function () exec(apps.print) end),
 
     -- those are forked as usual, and belong to the awesome systemd unit
-    awful.key({ modkey, ctrlkey   }, "Return", function () sdexec(apps.terminal,      nil, 'termite') end),
-    awful.key({ modkey, ctrlkey   }, "e",      function () sdexec(apps.editor,        nil, 'emacsclient') end),
-    awful.key({ modkey, ctrlkey   }, "f",      function () sdexec(apps.filemanager,   nil, 'thunar') end),
+    awful.key({ modkey, ctrlkey   }, "Return", function () sdrun(apps.terminal,       nil, 'termite',     true, 'apps') end),
+    awful.key({ modkey, ctrlkey   }, "e",      function () sdrun(apps.editor,         nil, 'emacsclient', true, 'apps') end),
+    awful.key({ modkey, ctrlkey   }, "f",      function () sdrun(apps.filemanager,    nil, 'thunar',      true, 'apps') end),
 
     -- those are spawned with systemd-run, and get their own unit.
-    awful.key({ modkey, ctrlkey   }, "b",      function () sdexec(apps.browser,       nil, 'dwb') end),
-    awful.key({ modkey, metakey   }, "b",      function () sdexec(apps.secondbrowser, nil, 'chromium') end),
+    awful.key({ modkey, ctrlkey   }, "b",      function () sdrun(apps.browser,        nil, 'dwb',         true, 'apps') end),
+    awful.key({ modkey, metakey   }, "b",      function () sdrun(apps.secondbrowser,  nil, 'chromium',    true, 'apps') end),
 
     -- Dropdown clients
     awful.key({ modkey, ctrlkey   }, "d",      function () ddclient.dict:toggle() end),

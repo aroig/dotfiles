@@ -46,7 +46,6 @@ end
 function sdrun (cmd, screen, name, scope, slice)
     local sdcmd = "systemd-run --user "
     if scope then sdcmd = sdcmd .. "--scope " end
-    if name  then sdcmd = sdcmd .. string.format("--unit=\"%s\" ", name) end
     if slice then sdcmd = sdcmd .. string.format("--slice=\"%s\" ", slice) end
 
     sdcmd = sdcmd .. cmd
@@ -266,7 +265,7 @@ function prompt.command()
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Run: ",
-                exec,
+                function (cmd) sdrun(cmd, nil, nil, true, 'apps') end,
                 cmds,
                 awful.util.getdir("cache") .. "/history_cmd")
 end
