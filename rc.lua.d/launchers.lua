@@ -68,9 +68,10 @@ function sdrun (cmd, screen, name, scope, slice)
         else         cmd = string.format('%s 2>&1 | /dev/null', cmd)
         end
 
-        awful.util.spawn(string.format('%s sh -c %s', sdcmd, shell_escape(cmd)), screen)
-
+        -- do not catch stdout. The process does NOT end immediately
+        awful.util.spawn_with_shell(string.format('%s sh -c %s 2>&1 > /dev/null', sdcmd, shell_escape(cmd)), screen)
     else
+
         -- launch systemd service and capture the service name
         -- TODO: capture stderr to get the pid
         local f = io.popen(sdcmd, "r")
