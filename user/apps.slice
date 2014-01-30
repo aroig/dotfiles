@@ -2,3 +2,4 @@
 Description=Applications slice
 
 Requisite=xorg.target
+StopWhenUnneeded=true
