@@ -18,7 +18,7 @@
   (setq abdo-org-agenda-file-list "etc/agenda-files")
 
   ;; Local Mobileorg directory. From within org I will only sync to this directory.
-  (setq org-mobile-directory "/home/abdo/share/r2d2/mobileorg")
+  (setq org-mobile-directory "/home/abdo/share/r2d2/work/wiki/")
 
   ;; Base dir for org files
   (setq org-directory-wiki (concat org-directory "org/"))
