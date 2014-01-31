@@ -3,13 +3,16 @@
 # shutdown stuff theat may need interaction
 # ----------------------------------------------------------
 
-# emacs
+# stop emacs
 emacsclient --eval "(client-save-kill-emacs)"
 
-# stopping calibre
+# stop calibre
 calibre --shutdown-running-calibre &> /dev/null
 
-# TODO: pidgin, emacsen, boinc
+# kill apps.slice
+systemctl --user kill apps.slice
+
+# TODO: stop pidgin, boinc...
 
 # kill dropdowns
 echo "ddclient.kill_all()" | awesome-client
