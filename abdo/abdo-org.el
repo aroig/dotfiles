@@ -196,7 +196,10 @@
 
   ;; Setup ical exports
   (setq org-icalendar-categories '(all-tags category))
-  (setq org-icalendar-include-todo t)
+
+  (setq org-icalendar-include-todo nil)
+  (setq org-icalendar-use-deadline '(event-if-not-todo event-if-todo todo-due))
+  (setq org-icalendar-use-scheduled '(event-if-not-todo event-if-todo todo-due))
 
   ;; Setup my capture templates
   (setq org-capture-templates '())
