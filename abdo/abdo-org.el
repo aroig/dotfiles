@@ -17,6 +17,9 @@
   (setq abdo-org-texmf-subdirectory "latex/")
   (setq abdo-org-agenda-file-list "etc/agenda-files")
 
+  ;; ical exports
+  (setq org-ical-directory (concat org-directory "ical/"))
+
   ;; Local Mobileorg directory. From within org I will only sync to this directory.
   (setq org-mobile-directory "/home/abdo/share/r2d2/work/wiki/")
 
@@ -191,6 +194,10 @@
   (setq org-publish-project-alist '())
   (abdo-org-export-projects-setup)
 
+  ;; Setup ical exports
+  (setq org-icalendar-categories '(all-tags category))
+  (setq org-icalendar-include-todo t)
+
   ;; Setup my capture templates
   (setq org-capture-templates '())
   (abdo-org-capture-templates-setup)
@@ -355,13 +362,6 @@
 
   ;; Update symlinks to projects and papers
   (compile (format "cd %s; make update" org-directory)))
-
-
-(defun abdo-org-update-mobile()
-  (interactive)
-  ;; Push to mobile-org
-  (when (file-exists-p org-mobile-directory)
-    (org-mobile-push)))
 
 
 
@@ -548,6 +548,36 @@
     ))
   )
 )
+
+
+;; Mobile and calendar exports
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  (setq abdo-org-tst-regexp "<\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\} ... [0-9]\\{2\\}:[0-9]\\{2\\}[^\r\n>]*?\
+\)>")
+  (setq abdo-org-tstr-regexp (concat abdo-org-tst-regexp "--?-?" abdo-org-tst-regexp))
+
+
+(defun abdo-org-export-icalendar-agenda (file-list calendar-file)
+  (let ((org-agenda-files (mapcar (lambda (p) (concat org-directory-wiki p)) file-list))
+        (org-icalendar-combined-agenda-file (concat org-ical-directory calendar-file)))
+    (org-icalendar-combine-agenda-files)))
+
+
+(defun abdo-org-export-icalendar ()
+  (interactive)
+  (abdo-org-export-icalendar-agenda abdo-org-perso-file-list "personal.ics")
+  (abdo-org-export-icalendar-agenda abdo-org-papers-file-list "papers.ics")
+  (abdo-org-export-icalendar-agenda abdo-org-math-file-list "research.ics")
+  (abdo-org-export-icalendar-agenda abdo-org-comp-file-list "devel.ics"))
+
+
+
+(defun abdo-org-export-mobile()
+  (interactive)
+  (when (file-exists-p org-mobile-directory)
+    (org-mobile-push)))
+
 
 
 ;; Archiving
