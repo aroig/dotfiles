@@ -94,7 +94,7 @@
   (setq-default indent-tabs-mode nil)
 
   ;; Want wider columns in org-files
-  (set-fill-column 100)
+  (setq fill-column 100)
 
   ;; Activate notifications
   ;; (abdo-org-activate-appt)

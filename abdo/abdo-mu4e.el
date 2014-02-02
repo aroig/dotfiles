@@ -135,7 +135,7 @@
 
   (add-hook 'mu4e-compose-mode-hook
         (lambda ()
-          (set-fill-column 80)))
+          (setq fill-column 80)))
 
   ;; Fancy chars
   ; (setq mu4e-use-fancy-chars t)
