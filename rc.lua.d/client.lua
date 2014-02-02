@@ -98,8 +98,21 @@ rules.rules = {
     { rule = { class = "Goldendict" },      callback = function(c) ddclient.dict:capture(c) end },
 
     -- Capture emacs clients for dropdown, depending on the WM_NAME property.
+    -- Emacs sets the title property too late and there is a race condition here.
     { rule = { class = "Emacs" },           callback = capture_emacsen },
 
+    -- Capture dropdowns in a terminal
+    { rule = { class = "Termite", name = "dropdown-terminal" },
+      callback = function(c) ddclient.terminal:capture(c) end },
+
+    { rule = { class = "Termite", name = "dropdown-ranger" },
+      callback = function(c) ddclient.ranger:capture(c) end },
+
+    { rule = { class = "Termite", name = "dropdown-sage" },
+      callback = function(c) ddclient.sage:capture(c) end },
+
+    { rule = { class = "Termite", name = "dropdown-octave" },
+      callback = function(c) ddclient.octave:capture(c) end },
 
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },

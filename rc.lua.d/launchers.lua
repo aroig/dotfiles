@@ -90,8 +90,12 @@ function sdrun (cmd, screen, name, scope, slice)
 end
 
 -- executes a shell command on a terminal
-function termcmd (cmd)
-    return string.format("%s -e %s", apps.terminal, cmd)
+function termcmd (cmd, title)
+    if title then
+        return string.format("%s -t \"%s\" -e \"%s\"", apps.terminal, title, cmd)
+    else
+        return string.format("%s -e \"%s\"", apps.terminal, cmd)
+    end
 end
 
 
@@ -101,19 +105,19 @@ end
 -----------------------------------
 
 ddclient.terminal = dropdown.new("terminal",
-                                 string.format("%s -e \"tmux-session drop\"", apps.terminal),
+                                 termcmd("tmux-session drop", "dropdown-terminal"),
                                  {vert="top", horiz="center", width=1, height=0.4})
 
 ddclient.ranger   = dropdown.new("ranger",
-                                 termcmd("ranger"),
+                                 termcmd("ranger", "dropdown-ranger"),
                                  {vert="top", horiz="center", width=1, height=0.4})
 
 ddclient.sage     = dropdown.new("sage",
-                                 termcmd("sage"),
+                                 termcmd("sage", "dropdown-sage"),
                                  {vert="top", horiz="center", width=1, height=0.4})
 
 ddclient.octave   = dropdown.new("octave",
-                                 termcmd("octave"),
+                                 termcmd("octave", "dropdown-octave"),
                                  {vert="top", horiz="center", width=1, height=0.4})
 
 ddclient.notes    = dropdown.new("notes",
