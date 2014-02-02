@@ -26,7 +26,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq inhibit-startup-screen t)                 ;; Disable startup screen
-(menu-bar-mode -1)                              ;; Disable menubar
+(setq initial-scratch-message "")               ;; Clean scratch buffer
+
+(tool-bar-mode 0)                               ;; Disable toolbar
+(menu-bar-mode 0)                               ;; Disable menubar
+(scroll-bar-mode 0)                             ;; Disable scrollbar
 
 ;; Default frame settings
 (setq default-frame-alist '((menu-bar-lines . 0)
