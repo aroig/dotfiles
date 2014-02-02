@@ -30,6 +30,8 @@ local function capture_emacsen(c)
     elseif name == 'emacs-mail' then
         ddclient.mail:capture(c)
 
+    elseif name == 'emacs-notes' then
+        ddclient.notes:capture(c)
     end
 end
 

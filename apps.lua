@@ -32,7 +32,7 @@ apps.print               = "scrot -e 'mv $f ~/down/'"
 apps.orgmode             = "systemctl --user start orgmode.service"
 apps.mail                = "systemctl --user start mail.service"
 apps.chat                = "systemctl --user start chat.service"
-apps.notes               = "emacs -notes"
+apps.notes               = "systemctl --user start notes.service"
 
 -- System stuff
 local cfgdir = awful.util.getdir("config")
