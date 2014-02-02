@@ -104,25 +104,33 @@ end
 -- Dropdown apps on the top      --
 -----------------------------------
 
+local dropdown_geometry = {vert="top", horiz="center", width=1, height=0.4}
+
 ddclient.terminal = dropdown.new("terminal",
                                  termcmd("tmux-session drop", "dropdown-terminal"),
-                                 {vert="top", horiz="center", width=1, height=0.4})
+                                 dropdown_geometry)
 
 ddclient.ranger   = dropdown.new("ranger",
                                  termcmd("ranger", "dropdown-ranger"),
-                                 {vert="top", horiz="center", width=1, height=0.4})
+                                 dropdown_geometry)
 
 ddclient.sage     = dropdown.new("sage",
                                  termcmd("sage", "dropdown-sage"),
-                                 {vert="top", horiz="center", width=1, height=0.4})
+                                 dropdown_geometry)
 
 ddclient.octave   = dropdown.new("octave",
                                  termcmd("octave", "dropdown-octave"),
-                                 {vert="top", horiz="center", width=1, height=0.4})
+                                 dropdown_geometry)
 
 ddclient.notes    = dropdown.new("notes",
                                  apps.notes,
-                                 {vert="top", horiz="center", width=1, height=0.4})
+                                 dropdown_geometry)
+
+ddclient.syslog   = dropdown.new("syslog",
+                                 termcmd(apps.syslog, "dropdown-syslog"),
+                                 dropdown_geometry)
+
+
 
 function ddclient.ranger.newtab(dd, path)
     if dd.run.client then
@@ -169,13 +177,6 @@ end
 
 -----------------------------------
 -- Dropdown apps on the left     --
------------------------------------
-
-
-
-
------------------------------------
--- Dropdown apps                 --
 -----------------------------------
 
 

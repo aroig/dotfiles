@@ -107,6 +107,9 @@ rules.rules = {
     { rule = { class = "Termite", name = "dropdown-terminal" },
       callback = function(c) ddclient.terminal:capture(c) end },
 
+    { rule = { class = "Termite", name = "dropdown-syslog" },
+      callback = function(c) ddclient.syslog:capture(c) end },
+
     { rule = { class = "Termite", name = "dropdown-ranger" },
       callback = function(c) ddclient.ranger:capture(c) end },
 

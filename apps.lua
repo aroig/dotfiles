@@ -25,6 +25,9 @@ apps.music               = "systemctl --user start gmpc.service"
 apps.library             = "systemctl --user start calibre.service"
 apps.xournal             = "systemctl --user start xournal.service"
 
+-- Logging
+apps.syslog              = "sudo journalctl -n10 -f"
+
 -- Actions
 apps.print               = "scrot -e 'mv $f ~/down/'"
 

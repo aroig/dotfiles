@@ -95,6 +95,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F4",     box.naughtylog.toggle_naughtylog),
 
     -- Top dropdown clients
+    awful.key({ modkey,           }, "F9",     function() ddclient.syslog:show() end),
+    awful.key({                   }, "F9",     function() ddclient.syslog:hide() end),
+
     awful.key({ modkey,           }, "F10",    function() ddclient.notes:show() end),
     awful.key({                   }, "F10",    function() ddclient.notes:hide() end),
 
