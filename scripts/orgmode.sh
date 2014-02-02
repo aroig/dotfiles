@@ -9,10 +9,19 @@ case $1 in
         emacs -org --title "emacs-org"
         ;;
     
-
     stop)
         # stop emacs saving buffers if the process is alive, otherwise fail quietly.
         emacsclient -s org -e '(progn (save-some-buffers t) (kill-emacs))' 2> /dev/null || true
+        ;;
+
+
+    start-notes)       
+        emacs -notes --title "emacs-notes"
+        ;;   
+
+    stop-notes)
+        # stop emacs saving buffers if the process is alive, otherwise fail quietly.
+        emacsclient -s notes -e '(progn (save-some-buffers t) (kill-emacs))' 2> /dev/null || true
         ;;
 
 
