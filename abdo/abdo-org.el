@@ -344,6 +344,11 @@
 (defun abdo-org-notes-buffer ()
   "Loads org notes buffer into current window"
   (interactive)
+
+  ;; hide modeline
+  (add-hook 'after-change-major-mode-hook 'hidden-mode-line-mode)
+
+  ;; open notes file
   (find-file (concat org-directory-wiki abdo-org-notes-file))
 )
 
