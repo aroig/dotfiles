@@ -229,7 +229,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(newsticker-treeview-new-face ((t (:foreground ,zenburn-blue :weight bold))))
    `(newsticker-treeview-obsolete-face ((t (:foreground ,zenburn-red))))
    `(newsticker-treeview-old-face ((t (:foreground ,zenburn-bg+3))))
-   `(newsticker-treeview-selection-face ((t (:foreground ,zenburn-yellow))))
+   `(newsticker-treeview-selection-face ((t (:background ,zenburn-bg-1 :foreground ,zenburn-yellow))))
 ;;;; Third-party
 ;;;;; ace-jump
    `(ace-jump-face-background
@@ -418,7 +418,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(erc-notice-face ((t (:foreground ,zenburn-green))))
    `(erc-pal-face ((t (:foreground ,zenburn-orange :weight bold))))
    `(erc-prompt-face ((t (:foreground ,zenburn-orange :background ,zenburn-bg :weight bold))))
-   `(erc-timestamp-face ((t (:foreground ,zenburn-green+1))))
+   `(erc-timestamp-face ((t (:foreground ,zenburn-green+4))))
    `(erc-underline-face ((t (:underline t))))
 ;;;;; git-gutter
    `(git-gutter:added ((t (:foreground ,zenburn-green :weight bold :inverse-video t))))
@@ -567,6 +567,24 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(jabber-title-small ((t (:height 1.1 :weight bold))))
    `(jabber-title-medium ((t (:height 1.2 :weight bold))))
    `(jabber-title-large ((t (:height 1.3 :weight bold))))
+;;;;; ledger-mode
+   `(ledger-font-payee-uncleared-face ((t (:foreground ,zenburn-red-1 :weight bold))))
+   `(ledger-font-payee-cleared-face ((t (:foreground ,zenburn-fg :weight normal))))
+   `(ledger-font-xact-highlight-face ((t (:background ,zenburn-bg+1))))
+   `(ledger-font-pending-face ((t (:foreground ,zenburn-orange weight: normal))))
+   `(ledger-font-other-face ((t (:foreground ,zenburn-fg))))
+   `(ledger-font-posting-account-face ((t (:foreground ,zenburn-blue-1))))
+   `(ledger-font-posting-account-cleared-face ((t (:foreground ,zenburn-fg))))
+   `(ledger-font-posting-account-pending-face ((t (:foreground ,zenburn-orange))))
+   `(ledger-font-posting-amount-face ((t (:foreground ,zenburn-orange))))
+   `(ledger-font-posting-account-pending-face ((t (:foreground ,zenburn-orange))))
+   `(ledger-occur-narrowed-face ((t (:foreground ,zenburn-fg-1 :invisible t))))
+   `(ledger-occur-xact-face ((t (:background ,zenburn-bg+1))))
+   `(ledger-font-comment-face ((t (:foreground ,zenburn-green))))
+   `(ledger-font-reconciler-uncleared-face ((t (:foreground ,zenburn-red-1 :weight bold))))
+   `(ledger-font-reconciler-cleared-face ((t (:foreground ,zenburn-fg :weight normal))))
+   `(ledger-font-reconciler-pending-face ((t (:foreground ,zenburn-orange :weight normal))))
+   `(ledger-font-report-clickable-face ((t (:foreground ,zenburn-orange :weight normal))))
 ;;;;; linum-mode
    `(linum ((t (:foreground ,zenburn-green+2 :background ,zenburn-bg))))
 ;;;;; macrostep
@@ -697,10 +715,10 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(org-level-8 ((t (:foreground ,zenburn-blue-3))))
    `(org-link ((t (:foreground ,zenburn-yellow-2 :underline t))))
    `(org-scheduled ((t (:foreground ,zenburn-green+4))))
-   `(org-scheduled-previously ((t (:foreground ,zenburn-red-4))))
+   `(org-scheduled-previously ((t (:foreground ,zenburn-red))))
    `(org-scheduled-today ((t (:foreground ,zenburn-blue+1))))
    `(org-sexp-date ((t (:foreground ,zenburn-blue+1 :underline t))))
-   `(org-special-keyword ((t (:foreground ,zenburn-fg-1 :weight normal))))
+   `(org-special-keyword ((t (:inherit font-lock-comment-face))))
    `(org-table ((t (:foreground ,zenburn-green+2))))
    `(org-tag ((t (:foreground ,zenburn-fg-1 :weight normal))))
    `(org-time-grid ((t (:foreground ,zenburn-orange))))
@@ -806,10 +824,10 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(sh-heredoc     ((t (:foreground ,zenburn-yellow :bold t))))
    `(sh-quoted-exec ((t (:foreground ,zenburn-red))))
 ;;;;; show-paren
-   `(show-paren-mismatch ((t (:foreground ,zenburn-red-3 :background ,zenburn-bg :weight bold))))
-   `(show-paren-match ((t (:foreground ,zenburn-blue-1 :background ,zenburn-bg :weight bold))))
+   `(show-paren-mismatch ((t (:foreground ,zenburn-red+1 :background ,zenburn-bg+3 :weight bold))))
+   `(show-paren-match ((t (:background ,zenburn-bg+3 :weight bold))))
 ;;;;; smartparens
-   `(sp-show-pair-mismatch-face ((t (:background ,zenburn-bg+3 :foreground ,zenburn-red-3 :weight bold))))
+   `(sp-show-pair-mismatch-face ((t (:foreground ,zenburn-red+1 :background ,zenburn-bg+3 :weight bold))))
    `(sp-show-pair-match-face ((t (:background ,zenburn-bg+3 :weight bold))))
 ;;;;; sml-mode-line
    '(sml-modeline-end-face ((t :inherit default :width condensed)))
