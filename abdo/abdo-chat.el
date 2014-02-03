@@ -263,6 +263,7 @@
   (setq jabber-vcard-avatars-publish nil)
 
   ; default status
+  (setq jabber-default-priority 30)  ; so that overrules web and mobile
   (setq jabber-default-show "")
   (setq jabber-default-status "")
 
