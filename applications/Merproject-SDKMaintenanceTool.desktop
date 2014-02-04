@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/abdo/sdk/sailfish/SDKMaintenanceTool
+Path=/home/abdo/sdk/sailfish
+Name=SDK-Maintenance-Tool
+GenericName=Install or uninstall components of the MerSDK.
+Icon=Merproject-SDKPM
+Terminal=false
+Categories=Development;Qt;
