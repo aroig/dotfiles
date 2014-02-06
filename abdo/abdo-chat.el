@@ -100,6 +100,31 @@
     ))
 
 
+(defun frame-has-focus-p (frame)
+  (interactive)
+
+  (when (and (featurep 'x) window-system)
+    (let* ((active-window (x-window-property
+                           "_NET_ACTIVE_WINDOW" nil "WINDOW" 0 nil t))
+           (active-window-id (if (numberp active-window)
+                                 active-window
+                               (string-to-number
+                                (format "%x00%x"
+                                        (car active-window)
+                                        (cdr active-window)) 16)))
+           (emacs-window-id (string-to-number
+                             (frame-parameter frame 'outer-window-id))))
+      (= emacs-window-id active-window-id))))
+
+
+(defun abdo-buffer-notify-p (buf)
+  (or (not (memq (selected-window) (get-buffer-window-list buf)))       ; buffer not active
+      (not (frame-has-focus-p (window-frame (get-buffer-window buf))))  ; frame doesn't have focus
+      (not (eq (frame-visible-p (window-frame (selected-window))) t)))) ; frame is not visible
+
+
+
+
 ;; twitter
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -176,12 +201,6 @@
 ;; jabber
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun abdo-jabber-notify-p (buf)
-  (or jabber-message-alert-same-buffer
-      (not (memq (selected-window) (get-buffer-window-list buf)))
-      (not (eq (frame-visible-p (window-frame (selected-window))) t))))
-
-
 (defun abdo-jabber-presence-notify (from oldstatus newstatus statustext proposed-alert)
   (when (and (and abdo-jabber-alert-user-regexp
                   (string-match abdo-jabber-alert-user-regexp (jabber-jid-displayname from)))
@@ -193,7 +212,7 @@
 
 (defun abdo-jabber-message-notify (from buf text proposed-alert)
   (when (and (not (jabber-muc-sender-p from))
-             (abdo-jabber-notify-p buf)
+             (abdo-buffer-notify-p buf)
              (not (and abdo-jabber-alert-ignore-user-regexp
                        (string-match abdo-jabber-alert-ignore-user-regexp (jabber-jid-displayname from)))))
       (abdo-chat-notify "gtalk" from (jabber-jid-displayname from) text buf)))
@@ -201,7 +220,7 @@
 
 (defun abdo-jabber-muc-notify (from group buf text proposed-alert)
   (when (and (jabber-muc-sender-p from)
-             (abdo-jabber-notify-p buf)
+             (abdo-buffer-notify-p buf)
              (and abdo-jabber-alert-keyword-regexp
                   (string-match abdo-jabber-alert-keyword-regexp text))
              (not (and abdo-jabber-alert-ignore-user-regexp
@@ -436,23 +455,22 @@
   ;; TODO: check that target is not current window
   (let ((textclean (replace-regexp-in-string "[^[:graph:] ]" "" text))
         (buf (when target (rcirc-get-buffer proc target))))
-    (cond
-     ((and (string= response "PRIVMSG")
-           (not (rcirc-channel-p target))
-           (not (string= sender (rcirc-nick proc)))
-           (not (and abdo-rcirc-alert-ignore-user-regexp
-                     (string-match abdo-rcirc-alert-ignore-user-regexp sender))))
+    (when (and (abdo-buffer-notify-p buf)
+               (not (and abdo-rcirc-alert-ignore-user-regexp
+                         (string-match abdo-rcirc-alert-ignore-user-regexp sender))))
+      (cond
+       ((and (string= response "PRIVMSG")
+             (not (rcirc-channel-p target))
+             (not (string= sender (rcirc-nick proc))))
 
-      (abdo-chat-notify "rcirc" sender sender textclean buf))
+        (abdo-chat-notify "rcirc" sender sender textclean buf))
 
-     ((and (not (string= response "PRIVMSG"))
-           (not (string= sender (rcirc-nick proc)))
-           (string-match abdo-rcirc-alert-keyword-regexp text)
-           (not (and abdo-rcirc-alert-ignore-user-regexp
-                     (string-match abdo-rcirc-alert-ignore-user-regexp sender))))
+       ((and (not (string= response "PRIVMSG"))
+             (not (string= sender (rcirc-nick proc)))
+             (string-match abdo-rcirc-alert-keyword-regexp text))
 
-      ; TODO: may want to use rcirc-short-buffer-name to get shorter buffer names!
-      (abdo-chat-notify "rcirc" sender sender textclean buf)))))
+        ; TODO: may want to use rcirc-short-buffer-name to get shorter buffer names!
+        (abdo-chat-notify "rcirc" sender sender textclean buf))))))
 
 
 (defun abdo-rcirc-mode-things ()
