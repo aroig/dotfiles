@@ -6,7 +6,7 @@ mail_path=$HOME/mail
 
 case $1 in 
     start)       
-        emacs -mail --title "emacs-mail"
+        exec emacs -mail --title "emacs-mail"
         ;;
     
 

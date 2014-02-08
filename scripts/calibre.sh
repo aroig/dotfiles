@@ -6,7 +6,7 @@ lib_path=$HOME/lib
 
 case $1 in 
     start)       
-        calibre --with-library="$lib_path"
+        exec calibre --with-library="$lib_path"
         ;;
     
 

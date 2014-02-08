@@ -8,7 +8,7 @@ source /home/abdo/.aliases
 KILL_CMD="(client-save-kill-emacs)"
 
 case "$1" in 
-    start)   /usr/bin/emacs --daemon > /dev/null ;;
+    start)   exec /usr/bin/emacs --daemon > /dev/null ;;
     stop)    /usr/bin/emacsclient --eval "$KILL_CMD" ;;
     restart)  ;;
 esac

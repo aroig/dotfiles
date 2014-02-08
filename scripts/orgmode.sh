@@ -6,7 +6,7 @@ wiki_path=$HOME/work/wiki
 
 case $1 in 
     start)       
-        emacs -org --title "emacs-org"
+        exec emacs -org --title "emacs-org"
         ;;
     
     stop)
@@ -16,7 +16,7 @@ case $1 in
 
 
     start-notes)       
-        emacs -notes --title "emacs-notes"
+        exec emacs -notes --title "emacs-notes"
         ;;   
 
     stop-notes)

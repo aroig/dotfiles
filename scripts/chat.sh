@@ -6,7 +6,7 @@ log_path=$HOME/var/chat/emacs
 
 case $1 in 
     start)       
-        emacs -chat --title "emacs-chat"
+        exec emacs -chat --title "emacs-chat"
         ;;
     
 
