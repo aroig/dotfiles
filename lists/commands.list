@@ -30,6 +30,7 @@ return {
 
    matlab                    = "matlab",
    sage                      = "urxvt -e sage",
+   maple                     = "xmaple",
    octave                    = "octave",
    stellarium                = "stellarium",
    boinc                     = "boincm",
