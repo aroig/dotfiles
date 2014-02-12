@@ -53,6 +53,7 @@ local icon = {
     twitter         = beautiful.naughty_chat_icon,
     ["notify-send"] = beautiful.naughty_alert_icon,
     run             = beautiful.naughty_app_icon,
+    battery         = beautiful.naughty_battery_icon,
 }
 
 -- Set presets for different urgency levels

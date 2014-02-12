@@ -110,12 +110,13 @@ theme.mouse_finder_color = "#CC9393"
 local icon_theme          = "numix/Numix"
 local icon_path           = os.getenv("HOME") .. "/.icons/" .. icon_theme .. "/64x64/"
 
-theme.naughty_mail_icon   = icon_path .. "emblems/emblem-mail.svg"
-theme.naughty_chat_icon   = icon_path .. "emblems/emblem-people.svg"
-theme.naughty_alert_icon  = icon_path .. "emblems/emblem-important.svg"
-theme.naughty_event_icon  = icon_path .. "emblems/emblem-urgent.svg"
-theme.naughty_app_icon    = icon_path .. "emblems/emblem-system.svg"
+theme.naughty_mail_icon     = icon_path .. "emblems/emblem-mail.svg"
+theme.naughty_chat_icon     = icon_path .. "emblems/emblem-people.svg"
+theme.naughty_alert_icon    = icon_path .. "emblems/emblem-important.svg"
+theme.naughty_event_icon    = icon_path .. "emblems/emblem-urgent.svg"
+theme.naughty_app_icon      = icon_path .. "emblems/emblem-system.svg"
 
+theme.naughty_battery_icon  = icon_path .. "devices/battery.svg"
 
 theme.naughty_mail_sound    = theme.confdir .. "/sounds/soothing/Gentle Roll.wav"
 theme.naughty_chat_sound    = theme.confdir .. "/sounds/soothing/Looking Up.wav"
