@@ -3,13 +3,11 @@ Description=Tmux %i session
 Documentation=man:tmux(1)
 
 [Service]
-Type=forking
+Type=oneshot
+RemainAfterExit=yes
+KillMode=none
 ExecStart=/usr/bin/tmux new-session -d -s %i; source-file %h/.tmux/%i
-# ExecStop=/usr/bin/tmux kill-server
 ExecStop=/usr/bin/tmux kill-session -t %i
-SuccessExitStatus=0 1
-Restart=always
-RestartSec=2
 
 [Install]
 WantedBy=default.target
