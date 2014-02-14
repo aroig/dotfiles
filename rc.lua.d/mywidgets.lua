@@ -413,7 +413,7 @@ function myw.bat.update()
         local text = string.format("<span color='%s'>%s%s%%</span>", color_percent, args.state, args.percent)
 
         myw.bat.pcwidget:set_markup(text)
-        if args.percent <= 5 and args.state ~= '+' then
+        if args.percent > 0 and args.percent <= 5 and args.state ~= '+' then
             naughty.notify({title="Low Battery", text="Hey, plug the power cord!",
                             appname="battery"})
         end
