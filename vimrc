@@ -19,8 +19,8 @@ set ffs=unix,dos,mac              " file type preference
 
 " sets alternative backup and swap file locations
 set nobackup
-set backupdir=~/var/bak/vim
-set directory=~/var/bak/vim
+set backupdir=~/.vim/bak
+set directory=~/.vim/bak
 
 " and prevents backup and swap for sensitive files
 autocmd BufRead,BufNewFile pass.* set nobackup
