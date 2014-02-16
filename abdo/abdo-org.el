@@ -60,7 +60,7 @@
   (setq abdo-org-math-ideas-file "math/ideas.org")
   (setq abdo-org-math-journal-file "math/log.org")
 
-  (setq abddo-org-personal-notes-file "perso/notes.org")
+  (setq abdo-org-personal-notes-file "perso/notes.org")
   (setq abdo-org-personal-journal-file "perso/log.org")
 
 
@@ -627,20 +627,24 @@
       (personal-journal-file (concat org-directory-wiki abdo-org-personal-journal-file))
     )
     (setq org-capture-templates (append org-capture-templates
-      `(("t" "Todo" entry (file+headline ,captured-file "Tasks")
+      `(("t" "todo" entry (file+headline ,captured-file "Tasks")
           (file ,(concat templates-dir "todo-entry.tpl")))
 
-        ("n" "Note" entry (file+headline ,captured-file "Notes")
+        ("n" "note" entry (file+headline ,captured-file "Notes")
           (file ,(concat templates-dir "note-entry.tpl")))
 
-        ("i" "Idea" entry (file+headline ,captured-file "Ideas")
+        ("i" "idea" entry (file+headline ,captured-file "Ideas")
           (file ,(concat templates-dir "idea-entry.tpl")))
 
-        ("m" "Math Journal" entry (file+datetree ,math-journal-file)
-          (file ,(concat templates-dir "journal-entry.tpl")))
+        ("m" "math journal" entry (file+datetree ,math-journal-file)
+          (file ,(concat templates-dir "math-journal-entry.tpl")))
 
-        ("w" "Wiki Page" plain (function abdo-org-prompt-file)
+        ("p" "personal journal" entry (file+datetree ,personal-journal-file)
+          (file ,(concat templates-dir "personal-journal-entry.tpl")))
+
+        ("w" "wiki page" plain (function abdo-org-prompt-file)
           (file ,(concat templates-dir "wiki-file.tpl")))
+
 
 ;        ("p" "Project" plain (function abdo-org-prompt-file)
 ;          (file ,(concat templates-dir "project-file.tpl")))
