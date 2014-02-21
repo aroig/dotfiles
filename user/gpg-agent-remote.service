@@ -1,0 +1,7 @@
+[Unit]
+Description=connect to remote gpg-agent
+Conflicts=gpg-agent.service
+
+[Service]
+Type=simple
+ExecStart=/home/abdo/.config/systemd/scripts/gpg-agent.sh remote
