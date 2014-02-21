@@ -91,11 +91,16 @@ end
 
 -- executes a shell command on a terminal
 function termcmd (cmd, title)
+    shcmd = apps.terminal
     if title then
-        return string.format("%s -t \"%s\" -e \"%s\"", apps.terminal, title, cmd)
-    else
-        return string.format("%s -e \"%s\"", apps.terminal, cmd)
+        shcmd = shcmd .. string.format(" -t \"%s\"", title)
     end
+
+    if cmd then
+        shcmd = shcmd .. string.format(" -e \"%s\"", cmd)
+    end
+
+    return shcmd
 end
 
 
@@ -107,7 +112,7 @@ end
 local dropdown_geometry = {vert="top", horiz="center", width=1, height=0.4}
 
 ddclient.terminal = dropdown.new("terminal",
-                                 termcmd("tmux-session drop", "dropdown-terminal"),
+                                 termcmd(nil, "dropdown-terminal"),
                                  dropdown_geometry)
 
 ddclient.ranger   = dropdown.new("ranger",
