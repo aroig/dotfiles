@@ -99,6 +99,51 @@ trimtrail() {
 
 
 #------------------------------
+# tmux functions
+#------------------------------
+
+# create a new master session detached from the world
+tmux_master() {
+    session="$1"
+    shift
+
+    if [ -f ~/.tmux/$session ]; then  opts_file="$HOME/.tmux/$session"
+    else                              opts_file="$HOME/.tmux/default"
+    fi
+
+    tmux new-session -d -s $session\; source-file "$opts_file"\; "$@"
+}
+
+
+# create a new client session attached to an existing one
+tmux_client() {
+    session="$1"
+    shift
+
+    if [ -f ~/.tmux/$session ]; then  opts_file="$HOME/.tmux/$session"
+    else                              opts_file="$HOME/.tmux/default"
+    fi
+
+    tmux new-session -t $session -s $session-$$\; \
+        source-file "$opts_file"\; set destroy-unattached on\; "$@"
+}
+
+# create a new tmux session, launching the master if necessary
+tmux_session() {
+    if [ ! "$1" ]; then 
+        echo "No session specified."
+        exit 1
+    fi
+
+    session="$1"
+    shift
+
+    ( tmux_client $session && exit 0 ) || \
+        ( tmux_master $session && tmux_client $session && exit 0 )
+}
+
+
+#------------------------------
 # Systemd aliases
 #------------------------------
 
@@ -213,7 +258,7 @@ kle() {
 
 tx() {
     if [ "$TMUX" ]; then   tmux new-window
-    else                   tmux-session term
+    else                   tmux_session term
     fi
 }
 

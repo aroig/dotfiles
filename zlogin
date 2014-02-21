@@ -23,9 +23,8 @@ fi
 
 # if ssh outside tmux
 if [[ "$SSH_TTY" != "" && "$TMUX" == "" && "$NOTMUX" == "" ]]; then
-    if type tmux 2>&1 >/dev/null && type tmux-session 2>&1 >/dev/null;
-    then
-        tmux-session term && exit 0
+    if type tmux 2>&1 >/dev/null && type tmux_session 2>&1 >/dev/null; then
+        tmux_session term && exit 0
     else
         echo "tmux not installed. Falling back to plain shell."
     fi
