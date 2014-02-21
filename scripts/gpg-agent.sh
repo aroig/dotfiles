@@ -17,6 +17,11 @@ case $1 in
         # TODO
         ;;
 
+    update)
+        # update tty for gpg-agent
+        exec gpg-connect-agent updatestartuptty /bye
+        ;;
+
     forward)       
         # forward local tcp socket to the agent
         exec socat TCP-LISTEN:$RCV_PORT,bind=127.0.0.1 UNIX-CONNECT:$GPG_SOCK;
