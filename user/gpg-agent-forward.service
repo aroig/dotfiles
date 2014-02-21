@@ -6,5 +6,6 @@ Requires=gpg-agent.service
 Type=simple
 Restart=always
 
+SyslogIdentifier=gpg-agent-forward
 ExecStart=/home/abdo/.config/systemd/scripts/gpg-agent.sh forward
-
+SuccessExitStatus=0 143

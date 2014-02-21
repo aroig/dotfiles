@@ -5,4 +5,6 @@ ConditionHost=!skynet
 
 [Service]
 Type=forking
+
+SyslogIdentifier=gpg-agent
 ExecStart=/home/abdo/.config/systemd/scripts/gpg-agent.sh start
