@@ -1,6 +1,10 @@
 [Unit]
 Description=gpg-agent daemon
 
+# do not run the agent on skynet
+ConditionHost=!skynet
+
+
 [Service]
 Type=forking
 ExecStart=/usr/bin/gpg-agent --daemon --use-standard-socket
