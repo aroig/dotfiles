@@ -1,0 +1,11 @@
+[Unit]
+Description=fetch contacts
+
+Requires=online.service
+After=online.service
+
+StopWhenUnneeded=true
+AllowIsolate=true
+
+Wants=gcont.service
+
