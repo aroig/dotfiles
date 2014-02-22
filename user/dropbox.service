@@ -3,7 +3,6 @@ Description=dropbox daemon
 
 After=xorg.target
 Requisite=xorg.target
-Requires=dbus.socket
 
 [Service]
 Type=simple

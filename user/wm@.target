@@ -1,6 +1,6 @@
 [Unit]
 Description=%i window manager via xorg
-Requires=dbus.socket
+
 BindsTo=xorg.target
 BindsTo=%i@0.service
 AllowIsolate=true

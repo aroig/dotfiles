@@ -1,7 +1,6 @@
 [Unit]
 Description=fetch news
 
-Requires=dbus.socket
 Requires=online.service
 After=online.service
 

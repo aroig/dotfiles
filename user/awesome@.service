@@ -8,7 +8,6 @@ After=compton.service xrandr-auto.service
 StopWhenUnneeded=true
 
 Requisite=xserver@%i.target
-Requires=dbus.socket
 
 [Service]
 Type=simple

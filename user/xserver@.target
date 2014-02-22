@@ -1,6 +1,6 @@
 [Unit]
 Description=X server
-Requires=dbus.socket
+
 StopWhenUnneeded=true
 AllowIsolate=true
 RefuseManualStart=true

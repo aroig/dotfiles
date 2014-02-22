@@ -3,7 +3,6 @@ Description=Android Notifier
 After=xorg.target
 StopWhenUnneeded=true
 
-Requires=dbus.socket
 Requisite=xorg.target
 
 [Service]

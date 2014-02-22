@@ -1,6 +1,5 @@
 [Unit]
 Description=Xorg server on display 0
-Requires=dbus.socket
 StopWhenUnneeded=true
 
 BindsTo=xorg@0.service

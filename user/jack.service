@@ -3,7 +3,6 @@ Description=Jack Audio Sound System
 Documentation=man:jack(1)
 Before=sound.target
 Before=pulseaudio.service
-Requires=dbus.socket
 
 [Service]
 Type=dbus

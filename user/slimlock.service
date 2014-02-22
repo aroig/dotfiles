@@ -3,7 +3,6 @@
 Description=Lock screen with slimlock
 After=xorg.target
 
-Requires=dbus.socket
 Requisite=xorg.target
 StopWhenUnneeded=true
 

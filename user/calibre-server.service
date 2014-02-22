@@ -1,6 +1,5 @@
 [Unit]
 Description=Calibre Server
-Requires=dbus.socket
 
 [Service]
 Type=simple

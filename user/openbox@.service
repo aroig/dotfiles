@@ -10,7 +10,6 @@ StopWhenUnneeded=true
 
 Requisite=xserver@%i.target
 Requires=tint2@%i.service
-Requires=dbus.socket
 
 [Service]
 PAMName=login

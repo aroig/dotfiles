@@ -1,6 +1,6 @@
 [Unit]
 Description=%i window manager via VNC server
-Requires=dbus.socket
+
 BindsTo=vncserver@2.service
 BindsTo=%i@2.service
 AllowIsolate=true
