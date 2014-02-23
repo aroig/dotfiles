@@ -1,6 +1,6 @@
 
 [Unit]
-Description=Lock screen with slimlock
+Description=slimlock screen locker
 After=xorg.target
 
 Requisite=xorg.target

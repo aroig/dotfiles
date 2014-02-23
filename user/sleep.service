@@ -1,0 +1,14 @@
+
+[Unit]
+Description=enter suspend state
+StopWhenUnneeded=true
+
+After=lock.target
+
+[Service]
+Type=oneshot
+
+ExecStart=/usr/bin/sudo systemctl suspend
+
+[Install]
+WantedBy=sleep.target
