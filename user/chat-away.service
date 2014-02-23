@@ -1,5 +1,5 @@
 [Unit]
-Description=Chat away state
+Description=chat away state
 ConditionPathExists=/tmp/emacs%U/chat
 StopWhenUnneeded=true
 

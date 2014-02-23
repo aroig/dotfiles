@@ -1,5 +1,5 @@
 [Unit]
-Description=Run mpc pause
+Description=run mpc pause
 Requisite=mpd.service
 StopWhenUnneeded=true
 
