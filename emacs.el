@@ -93,6 +93,8 @@
 ;; haskell
 (require 'haskell-mode-autoloads)
 
+;; CMake
+(autoload 'cmake-mode "cmake-mode.el" "CMake mode" t)
 
 ;; Loading stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -234,6 +236,10 @@
 
 ;; coq
 (add-to-list 'auto-mode-alist '("\\.v$" . coq-mode))
+
+;; CMake
+(add-to-list 'auto-mode-alist '("CMakeLists\\.txt\\'" . cmake-mode))
+(add-to-list 'auto-mode-alist '("\\.cmake\\'" . cmake-mode))
 
 
 ;; Command line switches

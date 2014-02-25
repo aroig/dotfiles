@@ -1,7 +1,7 @@
 EMACS  := emacs
 EFLAGS := -Q --batch -f batch-byte-compile
 
-ELCS=ispell-multi.elc outline-magic.elc rst.elc sensitive-mode.elc \
+ELCS=cmake-mode.elc ispell-multi.elc outline-magic.elc rst.elc sensitive-mode.elc \
      sr-speedbar.elc vala-mode.elc vim-modeline.elc winring.elc sudo.elc
 
 .PHONY: all
