@@ -16,7 +16,8 @@
 ;; http://www.emacswiki.org/emacs/AutoComplete
 
 (ac-config-default)
-(setq ac-auto-start nil)             ; Do not automatically auto-complete
+(setq ac-auto-start nil)      ; Do not automatically auto-complete
+(setq ac-use-comphist nil)    ; Do not use completion history
 (ac-flyspell-workaround)
 
 ; add yasnippet ac source. need the setq-default thing
