@@ -175,9 +175,9 @@ actl_svg() {
 
 alias lock='systemctl --user lock.target'
 
-# firewall status
+# firewall
 fws() { sudo iptables -L firewall; echo ""; sudo iptables -n -L sshguard; }
-
+fwban() { sudo iptables -A sshguard -s "$1" -j DROP }
 
 
 #------------------------------
