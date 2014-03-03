@@ -17,5 +17,6 @@ systemctl --user kill apps.slice
 # kill dropdowns
 echo "ddclient.kill_all()" | awesome-client
 
-# quit awesome
-echo "awesome.quit()" | awesome-client
+# kill xorg and go to console
+systemctl --user start console.target
+
