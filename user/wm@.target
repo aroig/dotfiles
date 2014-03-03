@@ -1,6 +1,8 @@
 [Unit]
 Description=%i window manager via xorg
 
+Conflicts=console.target
 BindsTo=xorg.target
 BindsTo=%i@0.service
+
 AllowIsolate=true
