@@ -177,7 +177,7 @@ alias lock='systemctl --user lock.target'
 
 # firewall
 fws() { sudo iptables -L firewall; echo ""; sudo iptables -n -L sshguard; }
-fwban() { sudo iptables -A sshguard -s "$1" -j DROP }
+fwban() { sudo iptables -A sshguard -s "$1" -j DROP; }
 
 
 #------------------------------
@@ -315,7 +315,7 @@ stx() {
 }
 
 klx() { 
-    systemctl --user stop xserver@0.target;
+    systemctl --user start console.target;
 }
 
 
