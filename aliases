@@ -323,15 +323,7 @@ klx() {
 # Rebooting and halting
 #------------------------------
 
-# NOTE
-# If I use systemctl --user exit, the user session tries to perform a pam_close_session, but this is
-# not allowed. Only root can do it, and in the same process as the pam_open_session
-# source: https://bugzilla.redhat.com/show_bug.cgi?format=multiple&id=951728
-#
-# On the other hand, If I use sudo systemctl stop user-sessions@abdo, some process remain and I have
-# to wait for the timeout
-
-reboot()   { systemctl --user exit; sleep 2; sudo systemctl reboot;   }
-poweroff() { systemctl --user exit; sleep 2; sudo systemctl poweroff; }
-suspend()  { sudo systemctl suspend;  }
+alias reboot="sudo systemctl reboot"
+alias poweroff="sudo systemctl poweroff"
+alias suspend="sudo systemctl suspend"
 
