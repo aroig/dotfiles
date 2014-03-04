@@ -1,5 +1,6 @@
 [Unit]
 Description=Work related servers
+After=desktop.target
 
 StopWhenUnneeded=true
 AllowIsolate=true
