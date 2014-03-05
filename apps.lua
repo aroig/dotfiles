@@ -40,7 +40,7 @@ apps.notes               = "systemctl --user start notes.service"
 -- System stuff
 local cfgdir = awful.util.getdir("config")
 
-apps.exit_cmd            = string.format("%s/bin/exit.sh", cfgdir)
+apps.quit_cmd            = "systemctl --user start quit-wm.target"
 apps.lock_cmd            = "systemctl --user start lock.target"
 apps.suspend_cmd         = "systemctl --user start sleep.target"
 apps.poweroff_cmd        = "sudo systemctl poweroff"
