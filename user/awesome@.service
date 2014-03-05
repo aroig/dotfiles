@@ -6,6 +6,7 @@ After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
 After=compton.service xrandr-auto.service
 
 Requisite=xserver@%i.target
+PartOf=wm@awesome.target
 
 [Service]
 Type=simple

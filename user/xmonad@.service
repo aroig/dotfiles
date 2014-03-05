@@ -9,6 +9,7 @@ Before=tint2@%i.service
 
 Requisite=xserver@%i.target
 Requires=tint2@%i.service
+PartOf=wm@xmonad.target
 
 [Service]
 PAMName=login
