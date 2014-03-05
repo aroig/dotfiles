@@ -1,0 +1,8 @@
+[Unit]
+Description=Clean user transient units
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=clean-transient
+ExecStart=/home/abdo/.config/systemd/scripts/clean-transient-units.sh
