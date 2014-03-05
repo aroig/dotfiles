@@ -10,9 +10,7 @@ Conflicts=x11vnc@%i.service vncserver@%i.service xephyr@%i.service
 Type=notify
 SyslogIdentifier=xorg
 
-# set the DISPLAY variable globally
-ExecStartPre=/usr/bin/systemctl --user set-environment DISPLAY=:%i
-
 # need to launch X session at the same tty, otherwise it becomes inactive
 ExecStart=/usr/bin/xorg-launch-helper :%i -nolisten tcp -noreset $XORG_VT
+ExecStopPost=/usr/bin/deallocvt $XORG_VT
 
