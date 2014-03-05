@@ -1,7 +1,7 @@
 [Unit]
 Description=quit window manager
 
-Requires=console.service
-Before=console.service
+Requires=console.target
+Before=console.target
 
 AllowIsolate=true
