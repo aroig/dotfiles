@@ -4,6 +4,7 @@ Description=Music Player Daemon
 # TODO: Enable this to use a socket. I must configure mpd t use it!
 # Requires=mpd.socket
 
+PartOf=audio.target
 After=pulseaudio.service
 
 [Service]

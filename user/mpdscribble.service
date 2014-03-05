@@ -2,6 +2,7 @@
 Description=MPD Scribbler
 Requires=mpd.service
 After=mpd.service
+PartOf=audio.target
 
 [Service]
 Type = simple

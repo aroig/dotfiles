@@ -1,7 +1,7 @@
 [Unit]
 Description=PulseAudio Sound System
 Documentation=man:pulseaudio(1)
-Before=sound.target
+PartOf=audio.target
 
 [Service]
 Type=simple
