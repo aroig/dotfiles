@@ -1,7 +1,6 @@
 [Unit]
 Description=run mpc pause
 Requisite=mpd.service
-StopWhenUnneeded=true
 
 [Service]
 Type=oneshot

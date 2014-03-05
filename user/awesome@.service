@@ -5,8 +5,6 @@ After=xserver@%i.target
 After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
 After=compton.service xrandr-auto.service
 
-StopWhenUnneeded=true
-
 Requisite=xserver@%i.target
 
 [Service]

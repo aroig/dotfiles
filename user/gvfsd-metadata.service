@@ -1,6 +1,5 @@
 [Unit]
 Description=gvfs metadata
-StopWhenUnneeded=true
 
 Requires=gvfsd.service
 After=gvfsd.service

@@ -1,7 +1,6 @@
 [Unit]
 Description=gconf daemon
 After=xorg.target
-StopWhenUnneeded=true
 
 Requisite=xorg.target
 

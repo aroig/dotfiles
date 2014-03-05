@@ -1,7 +1,6 @@
 [Unit]
 Description=gvfs daemon
 After=xorg.target
-StopWhenUnneeded=true
 
 Requisite=xorg.target
 

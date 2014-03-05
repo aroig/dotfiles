@@ -6,7 +6,6 @@ After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
 After=compton.service xrandr-auto.service
 
 Before=tint2@%i.service
-StopWhenUnneeded=true
 
 Requisite=xserver@%i.target
 Requires=tint2@%i.service

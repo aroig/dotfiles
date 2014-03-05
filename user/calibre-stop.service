@@ -1,6 +1,5 @@
 [Unit]
 Description=calibre stop
-StopWhenUnneeded=true
 
 Conflicts=calibre.service
 Conflicts=calibre-server.service

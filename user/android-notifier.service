@@ -1,7 +1,6 @@
 [Unit]
 Description=Android Notifier
 After=xorg.target
-StopWhenUnneeded=true
 
 Requisite=xorg.target
 

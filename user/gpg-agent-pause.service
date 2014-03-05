@@ -1,6 +1,5 @@
 [Unit]
 Description=pause local gpg-agent
-StopWhenUnneeded=true
 
 [Service]
 Type=oneshot

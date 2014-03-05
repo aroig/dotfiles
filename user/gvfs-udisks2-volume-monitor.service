@@ -1,6 +1,5 @@
 [Unit]
 Description=gvfs udisks2 monitor
-StopWhenUnneeded=true
 
 Requires=gvfsd.service
 After=gvfsd.service

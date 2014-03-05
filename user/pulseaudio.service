@@ -1,7 +1,6 @@
 [Unit]
 Description=PulseAudio Sound System
 Documentation=man:pulseaudio(1)
-StopWhenUnneeded=true
 Before=sound.target
 
 [Service]

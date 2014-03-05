@@ -1,7 +1,6 @@
 [Unit]
 Description=Xephyr server at display %i
 After=xorg.target
-StopWhenUnneeded=true
 
 Requisite=xorg.target
 BindsTo=xserver@%i.target

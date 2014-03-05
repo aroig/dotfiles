@@ -4,7 +4,6 @@ Description=slimlock screen locker
 After=xorg.target
 
 Requisite=xorg.target
-StopWhenUnneeded=true
 
 [Service]
 Type=simple

@@ -1,6 +1,5 @@
 [Unit]
 Description=emacs save and quit
-StopWhenUnneeded=true
 
 [Service]
 Type=simple

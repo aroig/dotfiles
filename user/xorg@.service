@@ -1,7 +1,6 @@
 [Unit]
 Description=Xorg server at display %i
 Before=xserver@%i.target
-StopWhenUnneeded=true
 
 BindsTo=xserver@%i.target
 Conflicts=x11vnc@%i.service vncserver@%i.service xephyr@%i.service
