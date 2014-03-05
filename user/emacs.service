@@ -1,5 +1,5 @@
 [Unit]
-Description=Emacs daemon
+Description=emacs daemon
 After=xorg.target
 StopWhenUnneeded=true
 
@@ -11,10 +11,11 @@ Requisite=xorg.target
 Type=forking
 SyslogIdentifier=emacs
 ExecStart=/home/abdo/.config/systemd/scripts/emacs.sh start
-# Kill with a SIGINT. Usually at this point I have
-# gently killed emacs
-KillSignal=SIGINT
 # ExecStop=/home/abdo/.config/systemd/scripts/emacs.sh stop
+
+# Kill with a SIGINT. Usually at this point emacs is gone
+KillSignal=SIGINT
+
 SuccessExitStatus=0 15
 
 [Install]
