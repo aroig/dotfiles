@@ -1,5 +1,7 @@
 [Unit]
 Description=tty console
+StopWhenUnneeded=true
+
 Conflicts=xorg.target
 
 AllowIsolate=true
