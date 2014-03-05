@@ -2,6 +2,12 @@
 Description=Connman UI
 ConditionHost=galois
 
+Requires=gvfsd.service
+Requires=gconf.service
+
+After=gvfsd.service
+After=gconf.service
+
 [Service]
 Type=simple
 ExecStart=/usr/bin/connman-ui-gtk
