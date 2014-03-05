@@ -1,0 +1,9 @@
+[Unit]
+Description=emacs save and quit
+StopWhenUnneeded=true
+
+[Service]
+Type=simple
+SyslogIdentifier=emacs-stop
+ExecStart=/home/abdo/.config/systemd/scripts/emacs.sh stop
+
