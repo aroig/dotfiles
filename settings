@@ -95,7 +95,7 @@ enable-universal-access-from-file-uris=true
 
 # Javascript and plugins          #
 # ------------------------------- #
-enable-plugins=true
+enable-plugins=false
 enable-scripts=true
 enable-java-applet=true
 plugin-blocker=true
@@ -107,7 +107,7 @@ javascript-can-access-clipboard=false
 
 adblocker=false
 adblocker-filterlist=
-
+adblocker-element-hider=true
 
 
 # External commands               #
@@ -281,4 +281,4 @@ scheme-handler=
 
 
 
-adblocker-element-hider=true
+
