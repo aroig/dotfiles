@@ -51,8 +51,8 @@ export SHELL=/bin/zsh
 
 export AB2_HOME="/home/abdo"
 export AB2_PRIV_DIR="$AB2_HOME/priv"
-export AB2_DEVEL_DIR="$AB2_HOME/devel"
-export AB2_LIBS_DIR="$AB2_HOME/usr/lib"
+export AB2_DEVEL_DIR="$AB2_HOME/devel/linux"
+export AB2_LIBS_DIR="$AB2_HOME/devel/libs"
 export AB2_CONF_DIR="$AB2_HOME/etc"
 export AB2_MAIL_DIR="$AB2_HOME/mail"
 export AB2_MUSIC_DIR="$AB2_HOME/music"
