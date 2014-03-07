@@ -85,6 +85,7 @@
 (autoload 'vala-mode "vala-mode" "Vala mode." t)
 (autoload 'rainbow-mode "rainbow-mode" "Rainbow mode." t)
 (autoload 'markdown-mode "markdown-mode.el" "Markdown files" t)
+(autoload 'qml-mode "qml-mode" "QML mode." t)
 ; (autoload 'sage-mode "sage-mode" "Sage mode." t)
 
 ;; Calibre
@@ -240,6 +241,9 @@
 ;; CMake
 (add-to-list 'auto-mode-alist '("CMakeLists\\.txt\\'" . cmake-mode))
 (add-to-list 'auto-mode-alist '("\\.cmake\\'" . cmake-mode))
+
+;; qml
+(add-to-list 'auto-mode-alist '("\\.qml$" . qml-mode))
 
 
 ;; Command line switches
