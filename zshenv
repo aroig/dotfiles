@@ -79,6 +79,13 @@ export GPG_TTY=$(tty)
 # Development environment
 #------------------------------
 
+# Android
+export ANDROID_NDK_TOOLCHAIN_ROOT="$HOME/sdk/android-ndk"
+export ANDROID_SDK_TOOLCHAIN_ROOT="$HOME/sdk/android"
+
+# Sailfish
+export SAILFISH_SDK_TOOLCHAIN_ROOT="$HOME/sdk/sailfish"
+
 
 
 #------------------------------
@@ -86,10 +93,9 @@ export GPG_TTY=$(tty)
 #------------------------------
 
 # gtk
-
 # disable accessibility for GTK3 apps
 # https://forums.gentoo.org/viewtopic-p-7380668.html?sid=265ddf475643bf5c86fe72440cf6cbe8
-export NO_AT_BRIDGE=1 
+# export NO_AT_BRIDGE=1 
 
 # sage
 # export SAGE_KEEP_BUILT_SPKGS=yes    # don't rebuild from scratch
