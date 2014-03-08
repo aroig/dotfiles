@@ -154,10 +154,6 @@ _LS_COLORS=(
      '*.ogv=00;35'       '*.ogx=00;35'    
      '*.axa=00;36'       '*.oga=00;36'       '*.spx=00;36'      '*.xspf=00;36'
 
-# text
-     '*.org=00;33'       '*.rst=00;33'       '*.txt=00;33'
-'*README.rst=01;33' '*README.md=01;33'     '*README=01;33'
-
 # markup
     '*.html=00;35'     '*.xhtml=00;35'       '*.xml=00;35'
 
@@ -168,8 +164,12 @@ _LS_COLORS=(
      '*.pdf=00;35'      '*.djvu=00;35'       '*.dvi=00;35'        '*.ps=00;35'
     '*.epub=00;35'      '*.mobi=00;35'       '*.chm=00;35'       '*.azw=00;35'
 
+# text
+     '*.org=00;33'       '*.rst=00;33'       '*.txt=00;33'
+'*README.rst=01;33' '*README.md=01;33'     '*README=01;33'
+
 # source code
- '*Makefile=00;31'
+ '*Makefile=00;31' '*CMakeLists.txt=00;31' '*.cmake=00;31'
       '*.hs=00;32'    
       '*.sh=00;32'       '*.zsh=00;32'        '*.el=00;32'
       '*.py=00;32'      '*.sage=00;34'       '*.lua=00;32'
@@ -183,19 +183,23 @@ _LS_COLORS=(
 
 # systemd units
   '*.target=00;31'   '*.service=00;32'     '*.timer=00;34'      '*.path=00;36'  
-  '*.socket=00;35' '*.automount=00;33'     '*.mount=00;33'      '*.swap=00;33'
-  '*.device=00;35'
+   '*.mount=00;33' '*.automount=00;33'      '*.swap=00;33'
+   '*.scope=00;36'     '*.slice=00;36'
+  '*.socket=00;35'   '*.network=00;35'    '*.netdev=00;35'
+  '*.device=00;36'      '*.link=00;36'
 )
 export LS_COLORS=$(printf "%s:" "${_LS_COLORS[@]}")
 
 
 # SYSTEMD_COLORS. color configuration for systemd units in zsh autocompletion
 _SYSTEMD_COLORS=(
-              'rs=0' '=run-*.service=0;37'
-  '=*.service=00;32'     '=*.target=00;33'      '=*.timer=00;34'   
-'=*.automount=00;31'      '=*.mount=00;31'       '=*.swap=00;31'
-   '=*.socket=00;35'       '=*.path=00;35'     '=*.device=00;35' 
-    '=*.slice=00;36'      '=*.scope=00;36'   '=*.snapshot=00;36'
+          'rs=0'    '=run-*.service=0;37'   '=run-*.scope=0;37'
+   '=*.target=00;33'    '=*.service=00;32'      '=*.timer=00;34'      '=*.path=00;36'   
+    '=*.mount=00;31'  '=*.automount=00;31'       '=*.swap=00;31'
+    '=*.scope=00;33'      '=*.slice=00;33'
+   '=*.socket=00;35'    '=*.network=00;35'     '=*.netdev=00;35'
+   '=*.device=00;35'       '=*.link=00;35' 
+
 )
 export SYSTEMD_COLORS=$(printf "%s:" "${_SYSTEMD_COLORS[@]}")
 
