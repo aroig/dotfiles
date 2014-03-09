@@ -29,6 +29,14 @@ local function worker(format, warg)
         ["{file}"] = "N/A",
     }
 
+    -- get mpd service state
+    local f = io.popen(string.format("systemctl --user is-active mpd.service"))
+    local st = f:read("*all")
+    if st ~= "active\n" then
+        return mpd_state
+    end
+    f:close()
+
     -- get current song via mpc
     local fmt = "artist:%artist%\ntitle:%title%\nalbum:%album%\n" ..
         "genre:%genre%\nfile:%file%\ntime:%time%\nposition:%position%"
