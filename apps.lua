@@ -33,7 +33,7 @@ apps.print               = "scrot -e 'mv $f ~/down/'"
 
 -- Emacs stuff
 apps.orgmode             = "systemctl --user start orgmode.service"
-apps.mail                = "systemctl --user start mail.service"
+apps.mail                = "systemctl --user start mu4e.service"
 apps.chat                = "systemctl --user start chat.service"
 apps.notes               = "systemctl --user start notes.service"
 
