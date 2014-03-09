@@ -11,6 +11,7 @@ case $1 in
     
 
     stop)
+        pkill dwb || true
         ;;
 
 

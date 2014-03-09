@@ -1,0 +1,11 @@
+[Unit]
+Description=commit dwb cookies
+
+Requires=dwb-stop.service
+After=dwb-stop.service
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=dwb-commit
+ExecStart=/home/abdo/.config/systemd/scripts/dwb.sh commit
