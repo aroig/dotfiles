@@ -1,5 +1,6 @@
 [Unit]
 Description=Clean user transient units
+Conflicts=apps.service
 
 [Service]
 Type=oneshot

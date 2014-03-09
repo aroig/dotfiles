@@ -1,6 +1,9 @@
 [Unit]
 Description=accessibility technologies
 
+Requisite=xorg.target
+After=xorg.target
+
 [Service]
 Type=dbus
 BusName=org.a11y.Bus

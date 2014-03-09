@@ -3,5 +3,3 @@ Description=applications slice
 
 Requisite=desktop.target
 After=desktop.target
-
-StopWhenUnneeded=true
