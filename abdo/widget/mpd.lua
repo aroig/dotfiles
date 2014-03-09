@@ -5,7 +5,7 @@
 
 -- {{{ Grab environment
 local tonumber = tonumber
-local io = { popen = io.popen }
+local io = { popen = io.popen, open=io.open}
 local setmetatable = setmetatable
 local string = string
 local helpers = require("helpers")
@@ -29,13 +29,14 @@ local function worker(format, warg)
         ["{file}"] = "N/A",
     }
 
-    -- get mpd service state
-    local f = io.popen(string.format("systemctl --user is-active mpd.service"))
-    local st = f:read("*all")
-    if st ~= "active\n" then
+    -- get mpd process state
+    local pid_file = os.getenv("XDG_RUNTIME_DIR") .. "/mpd/pid"
+    local f = io.open(pid_file, "r")
+    if f == nil then
         return mpd_state
+    else
+        f:close()
     end
-    f:close()
 
     -- get current song via mpc
     local fmt = "artist:%artist%\ntitle:%title%\nalbum:%album%\n" ..
