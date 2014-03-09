@@ -1,9 +1,8 @@
 [Unit]
 Description=commit calibre library
 
-Conflicts=calibre.service
-Conflicts=calibre-unlock.service
-Before=calibre.service
+Conflicts=calibre.service calibre-unlock.service
+Before=calibre.service calibre-unlock.service
 
 [Service]
 Type=oneshot
