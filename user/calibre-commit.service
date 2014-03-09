@@ -1,8 +1,7 @@
 [Unit]
 Description=commit calibre library
 
-Conflicts=calibre.service calibre-db.service
-Before=calibre.service calibre-db.service
+Requires=calibre-stop.service
 
 [Service]
 Type=oneshot

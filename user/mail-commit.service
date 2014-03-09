@@ -1,8 +1,7 @@
 [Unit]
-Description=Commit mail
+Description=commit mail
 
-Conflicts=rss2maildir.service offlineimap.service mutag.service mu4e.service mail-db.service
-Before=rss2maildir.service offlineimap.service mutag.service mu4e.service mail-db.service
+Requires=mail-stop.service
 
 [Service]
 Type=oneshot
