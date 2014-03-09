@@ -4,6 +4,7 @@ Description=Awesome window manager at display %i
 After=xserver@%i.target
 After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
 After=compton.service xrandr-auto.service
+Before=desktop.target
 
 Requisite=xserver@%i.target
 PartOf=wm@awesome.target
