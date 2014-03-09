@@ -1,0 +1,9 @@
+[Unit]
+Description=synchronize with r2d2
+
+BindsTo=sys-subsystem-net-devices-r2d2.device
+After=sys-subsystem-net-devices-r2d2.device
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/async -b sync r2d2 --terse

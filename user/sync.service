@@ -1,0 +1,9 @@
+[Unit]
+Description=synchronize with a remote host
+Requires=online.service
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=sync
+ExecStart=/usr/bin/async -b sync default --terse
