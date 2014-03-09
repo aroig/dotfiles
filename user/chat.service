@@ -4,6 +4,7 @@ After=xorg.target
 
 Requisite=xorg.target
 Requires=chat-db.service
+After=calibre-db.service
 
 [Service]
 Type=simple

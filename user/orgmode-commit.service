@@ -2,6 +2,7 @@
 Description=commit orgmode
 
 Requires=orgmode-stop.service
+After=orgmode-stop.service
 
 [Service]
 Type=oneshot

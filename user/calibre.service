@@ -2,8 +2,9 @@
 Description=calibre
 After=xorg.target
 
-Requisite=xorg.target
+Requisite=xorg.target 
 Requires=calibre-db.service
+After=calibre-db.service
 
 [Service]
 Type=simple

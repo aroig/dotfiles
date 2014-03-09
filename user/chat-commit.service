@@ -2,6 +2,7 @@
 Description=commit chat logs
 
 Requires=chat-stop.service
+After=chat-stop.service
 
 [Service]
 Type=oneshot

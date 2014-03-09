@@ -2,6 +2,7 @@
 Description=commit calibre library
 
 Requires=calibre-stop.service
+After=calibre-stop.service
 
 [Service]
 Type=oneshot

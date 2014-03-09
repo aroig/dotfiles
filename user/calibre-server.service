@@ -2,6 +2,7 @@
 Description=Calibre Server
 
 Requires=calibre-db.service
+After=calibre-db.service
 
 [Service]
 Type=simple

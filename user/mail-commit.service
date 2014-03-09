@@ -2,6 +2,7 @@
 Description=commit mail
 
 Requires=mail-stop.service
+After=mail-stop.service
 
 [Service]
 Type=oneshot

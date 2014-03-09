@@ -3,6 +3,8 @@ Description=org-mode
 After=xorg.target
 
 Requisite=xorg.target
+Requires=orgmode-db.service
+After=orgmode-db.service
 
 [Service]
 Type=simple
@@ -11,6 +13,4 @@ SyslogIdentifier=orgmode
 ExecStart=/home/abdo/.config/systemd/scripts/orgmode.sh start
 ExecStop=/home/abdo/.config/systemd/scripts/orgmode.sh stop
 
-# commit changes
-ExecStopPost=/home/abdo/.config/systemd/scripts/orgmode.sh commit
 
