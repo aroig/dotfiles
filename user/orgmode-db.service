@@ -1,0 +1,13 @@
+[Unit]
+Description=orgmode repo
+
+StopWhenUnneeded=true
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+SyslogIdentifier=orgmode-db
+ExecStart=/usr/bin/true
+ExecStop=/home/abdo/.config/systemd/scripts/orgmode.sh commit
+

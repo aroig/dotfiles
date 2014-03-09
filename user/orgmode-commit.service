@@ -1,8 +1,7 @@
 [Unit]
-Description=Commit orgmode data
+Description=commit orgmode
 
-Conflicts=orgmode.service
-Before=orgmode.service
+Requires=orgmode-stop.service
 
 [Service]
 Type=oneshot
