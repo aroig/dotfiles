@@ -1,6 +1,7 @@
 [Unit]
 Description=Desktop Environment
-After=xorg.target
+Requires=user.target
+After=xorg.target user.target
 StopWhenUnneeded=true
 
 Requisite=xorg.target
