@@ -1,9 +1,7 @@
 [Unit]
 Description=calibre stop
 
-Conflicts=calibre.service
-Conflicts=calibre-server.service
-Conflicts=calibre-unlock.service
+Conflicts=calibre.service calibre-server.service calibre-db.service
 
 [Service]
 Type=oneshot

@@ -9,6 +9,6 @@ Before=calibre.service
 Type=oneshot
 RemainAfterExit=true
 
-SyslogIdentifier=calibre-unlock
+SyslogIdentifier=calibre-db
 ExecStart=/home/abdo/.config/systemd/scripts/calibre.sh unlock
 ExecStop=/home/abdo/.config/systemd/scripts/calibre.sh commit

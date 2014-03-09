@@ -3,7 +3,7 @@ Description=calibre
 After=xorg.target
 
 Requisite=xorg.target
-Requires=calibre-unlock.service
+Requires=calibre-db.service
 
 [Service]
 Type=simple
