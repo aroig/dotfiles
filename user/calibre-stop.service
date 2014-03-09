@@ -3,6 +3,7 @@ Description=calibre stop
 
 Conflicts=calibre.service
 Conflicts=calibre-server.service
+Conflicts=calibre-unlock.service
 
 [Service]
 Type=oneshot
