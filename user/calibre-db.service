@@ -1,9 +1,6 @@
 [Unit]
 Description=unlock calibre database
-
 StopWhenUnneeded=true
-Conflicts=calibre-commit.service
-Before=calibre.service
 
 [Service]
 Type=oneshot

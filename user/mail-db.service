@@ -2,7 +2,6 @@
 Description=mail database
 
 StopWhenUnneeded=true
-Conflicts=mail-commit.service
 
 [Service]
 Type=oneshot
