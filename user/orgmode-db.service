@@ -1,5 +1,5 @@
 [Unit]
-Description=orgmode repo
+Description=orgmode database
 
 StopWhenUnneeded=true
 
