@@ -1,0 +1,11 @@
+[Unit]
+Description=chat stop
+
+Conflicts=chat.service chat-db.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+SyslogIdentifier=chat-stop
+ExecStart=/usr/bin/true

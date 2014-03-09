@@ -1,0 +1,13 @@
+[Unit]
+Description=chat log database
+
+StopWhenUnneeded=true
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+SyslogIdentifier=chat-db
+ExecStart=/usr/bin/true
+ExecStop=/home/abdo/.config/systemd/scripts/chat.sh commit
+

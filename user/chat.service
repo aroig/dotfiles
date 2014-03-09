@@ -3,6 +3,7 @@ Description=chat
 After=xorg.target
 
 Requisite=xorg.target
+Requires=chat-db.service
 
 [Service]
 Type=simple
@@ -10,7 +11,4 @@ SyslogIdentifier=chat
 
 ExecStart=/home/abdo/.config/systemd/scripts/chat.sh start
 ExecStop=/home/abdo/.config/systemd/scripts/chat.sh stop
-
-# commit changes
-ExecStopPost=/home/abdo/.config/systemd/scripts/chat.sh commit
 

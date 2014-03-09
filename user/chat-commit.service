@@ -1,8 +1,7 @@
 [Unit]
-Description=Commit chat logs
+Description=commit chat logs
 
-Conflicts=chat.service
-Before=chat.service
+Requires=chat-stop.service
 
 [Service]
 Type=oneshot
