@@ -1,8 +1,9 @@
 [Unit]
 Description=mu4e mail client
-After=xorg.target
 
-Requisite=xorg.target
+Requisite=desktop.target
+After=desktop.target
+
 PartOf=mail.target
 
 [Service]

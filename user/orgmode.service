@@ -1,8 +1,9 @@
 [Unit]
 Description=org-mode
-After=xorg.target
 
-Requisite=xorg.target
+Requisite=desktop.target
+After=desktop.target
+
 Requires=orgmode-db.service
 After=orgmode-db.service
 

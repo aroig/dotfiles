@@ -1,9 +1,11 @@
 [Unit]
-Description=Xorg server on display 0
+Description=xorg server on display 0
 StopWhenUnneeded=true
 
 Requires=user.target
 After=user.target
 
 BindsTo=xorg@0.service
+After=xorg@0.service
+
 AllowIsolate=true

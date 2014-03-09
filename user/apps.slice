@@ -1,5 +1,7 @@
 [Unit]
-Description=Applications slice
+Description=applications slice
 
-Requisite=xorg.target
+Requisite=desktop.target
+After=desktop.target
+
 StopWhenUnneeded=true

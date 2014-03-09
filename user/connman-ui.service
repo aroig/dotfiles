@@ -1,9 +1,9 @@
 [Unit]
-Description=Connman UI
+Description=connman UI
 ConditionHost=galois
 
-Requisite=xorg.target
-After=gvfsd.service gconf.service
+Requisite=desktop.target
+After=desktop.target
 
 [Service]
 Type=simple

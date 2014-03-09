@@ -2,7 +2,7 @@
 Description=calibre
 After=xorg.target
 
-Requisite=xorg.target 
+Requisite=desktop.target 
 Requires=calibre-db.service
 After=calibre-db.service
 
