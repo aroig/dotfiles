@@ -3,7 +3,6 @@ Description=Connman UI
 ConditionHost=galois
 
 Requisite=xorg.target
-Requires=gvfsd.service gconf.service
 After=gvfsd.service gconf.service
 
 [Service]

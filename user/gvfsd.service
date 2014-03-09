@@ -1,8 +1,11 @@
 [Unit]
 Description=gvfs daemon
-After=xorg.target
 
 Requisite=xorg.target
+After=xorg.target
+
+After=gconf.service
+
 
 [Service]
 Type=dbus
