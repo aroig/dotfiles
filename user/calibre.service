@@ -1,19 +1,14 @@
 [Unit]
-Description=Calibre
+Description=calibre
 After=xorg.target
 
 Requisite=xorg.target
+Requires=calibre-unlock.service
 
 [Service]
 Type=simple
 SyslogIdentifier=calibre
 
-# make database files editable
-ExecStartPre=/home/abdo/.config/systemd/scripts/calibre.sh edit
-
 ExecStart=/home/abdo/.config/systemd/scripts/calibre.sh start
 ExecStop=/home/abdo/.config/systemd/scripts/calibre.sh stop
-
-# commit changes
-ExecStopPost=/home/abdo/.config/systemd/scripts/calibre.sh commit
 

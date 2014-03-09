@@ -1,7 +1,8 @@
 [Unit]
-Description=Commit calibre library
+Description=commit calibre library
 
 Conflicts=calibre.service
+Conflicts=calibre-unlock.service
 Before=calibre.service
 
 [Service]

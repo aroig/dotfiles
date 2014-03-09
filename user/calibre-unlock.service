@@ -1,0 +1,14 @@
+[Unit]
+Description=unlock calibre database
+
+StopWhenUnneeded=true
+Conflicts=calibre-commit.service
+Before=calibre.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+SyslogIdentifier=calibre-unlock
+ExecStart=/home/abdo/.config/systemd/scripts/calibre.sh unlock
+ExecStop=/home/abdo/.config/systemd/scripts/calibre.sh commit

@@ -4,6 +4,8 @@ Description=synchronize with hypathia sdcard
 BindsTo=media-share-hypathia.mount
 After=media-share-hypathia.mount
 
+Requires=calibre-unlock.service
+
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/async -b sync hypathia --terse

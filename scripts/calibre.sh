@@ -15,7 +15,7 @@ case $1 in
         ;;
 
 
-    edit)
+    unlock)
         (
             cd "$lib_path"
             git annex edit metadata.db
