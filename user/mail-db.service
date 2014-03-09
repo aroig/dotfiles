@@ -1,5 +1,5 @@
 [Unit]
-Description=unlock mail
+Description=mail database
 
 StopWhenUnneeded=true
 Conflicts=mail-commit.service
@@ -8,7 +8,7 @@ Conflicts=mail-commit.service
 Type=oneshot
 RemainAfterExit=true
 
-SyslogIdentifier=mail-unlock
+SyslogIdentifier=mail-db
 ExecStart=/usr/bin/true
 ExecStop=/home/abdo/.config/systemd/scripts/mu4e.sh commit
 

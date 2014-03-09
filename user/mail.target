@@ -7,6 +7,6 @@ Wants=fetch.target
 BindsTo=mu4e.service
 Before=mu4e.service
 
-Requires=mail-unlock.service
-After=mail-unlock.service
+Requires=mail-db.service
+After=mail-db.service
 

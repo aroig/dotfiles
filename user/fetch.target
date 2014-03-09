@@ -5,6 +5,6 @@ StopWhenUnneeded=true
 AllowIsolate=true
 Wants=offlineimap.service rss2maildir.service gcont.service mutag.service
 
-Requires=mail-unlock.service
-After=mail-unlock.service
+Requires=mail-db.service
+After=mail-db.service
 
