@@ -2,7 +2,7 @@
 set -o errexit
 
 arg="$1"
-mail_path=$HOME/mail
+mail_path=$AB2_MAIL_DIR
 
 case $1 in 
     start)       

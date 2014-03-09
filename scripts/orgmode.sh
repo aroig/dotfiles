@@ -2,7 +2,7 @@
 set -o errexit
 
 arg="$1"
-wiki_path=$HOME/work/wiki
+wiki_path=$AB2_WIKI_DIR
 
 case $1 in 
     start)       
