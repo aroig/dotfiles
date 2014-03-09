@@ -1,6 +1,7 @@
 [Unit]
 Description=synchronize with a remote host
 Requires=online.service
+After=online.service
 
 [Service]
 Type=oneshot
