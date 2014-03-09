@@ -9,3 +9,5 @@ AllowIsolate=true
 
 Wants=gcont.service
 
+Requires=mail-unlock.service
+After=mail-unlock.service

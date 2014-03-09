@@ -9,3 +9,5 @@ AllowIsolate=true
 
 Wants=rss2maildir.service mutag.service
 
+Requires=mail-unlock.service
+After=mail-unlock.service

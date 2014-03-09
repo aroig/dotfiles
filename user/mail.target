@@ -1,0 +1,12 @@
+[Unit]
+Description=fetch mail and launch mu4e
+AllowIsolate=true
+
+Wants=fetch.target 
+
+BindsTo=mu4e.service
+Before=mu4e.service
+
+Requires=mail-unlock.service
+After=mail-unlock.service
+

@@ -1,0 +1,14 @@
+[Unit]
+Description=mu4e mail client
+After=xorg.target
+
+Requisite=xorg.target
+PartOf=mail.target
+
+[Service]
+Type=simple
+SyslogIdentifier=mu4e
+
+ExecStart=/home/abdo/.config/systemd/scripts/mu4e.sh start
+ExecStop=/home/abdo/.config/systemd/scripts/mu4e.sh stop
+

@@ -1,0 +1,14 @@
+[Unit]
+Description=unlock mail
+
+StopWhenUnneeded=true
+Conflicts=mail-commit.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+SyslogIdentifier=mail-unlock
+ExecStart=/usr/bin/true
+ExecStop=/home/abdo/.config/systemd/scripts/mu4e.sh commit
+

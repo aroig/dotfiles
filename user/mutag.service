@@ -3,6 +3,8 @@ Description=postprocess mail and news
 After=offlineimap.service
 After=rss2maildir.service
 
+Conflicts=mu4e.service
+
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/mutag --index --silent
