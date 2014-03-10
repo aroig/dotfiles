@@ -8,4 +8,4 @@ After=dwb-stop.service
 Type=oneshot
 
 SyslogIdentifier=dwb-commit
-ExecStart=/home/abdo/.config/systemd/scripts/dwb.sh commit
+ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_PRIV_DIR/var/dwb/default"

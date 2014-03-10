@@ -8,4 +8,4 @@ Type=oneshot
 RemainAfterExit=true
 
 SyslogIdentifier=dwb-stop
-ExecStart=/home/abdo/.config/systemd/scripts/dwb.sh stop
+ExecStart=/usr/bin/bash -c "pkill dwb || true"
