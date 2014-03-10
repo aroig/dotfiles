@@ -8,4 +8,4 @@ After=mail-stop.service
 Type=oneshot
 
 SyslogIdentifier=mail-commit
-ExecStart=/home/abdo/.config/systemd/scripts/mu4e.sh commit
+ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_MAIL_DIR"
