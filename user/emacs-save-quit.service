@@ -4,5 +4,5 @@ Description=emacs save and quit
 [Service]
 Type=simple
 SyslogIdentifier=emacs-stop
-ExecStart=/home/abdo/.config/systemd/scripts/emacs.sh stop
+ExecStart=/usr/bin/emacsclient --eval "(client-save-kill-emacs)"
 
