@@ -8,4 +8,4 @@ After=chat-stop.service
 Type=oneshot
 
 SyslogIdentifier=chat-commit
-ExecStart=/home/abdo/.config/systemd/scripts/chat.sh commit
+ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_VAR_DIR/chat/emacs"

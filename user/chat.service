@@ -11,6 +11,9 @@ After=calibre-db.service
 Type=simple
 SyslogIdentifier=chat
 
-ExecStart=/home/abdo/.config/systemd/scripts/chat.sh start
-ExecStop=/home/abdo/.config/systemd/scripts/chat.sh stop
+ExecStart=/usr/bin/emacs -chat --title "emacs-chat"
+KillSignal=SIGINT
+
+# This fails if emacs is already stopped
+# ExecStop=/usr/bin/emacsclient -s chat -e '(progn (abdo-chat-disconnect) (save-some-buffers t) (kill-emacs))'
 

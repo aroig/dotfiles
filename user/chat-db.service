@@ -9,5 +9,5 @@ RemainAfterExit=true
 
 SyslogIdentifier=chat-db
 ExecStart=/usr/bin/true
-ExecStop=/home/abdo/.config/systemd/scripts/chat.sh commit
+ExecStop=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_VAR_DIR/chat/emacs"
 
