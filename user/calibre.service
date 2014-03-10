@@ -10,6 +10,6 @@ After=calibre-db.service
 Type=simple
 SyslogIdentifier=calibre
 
-ExecStart=/home/abdo/.config/systemd/scripts/calibre.sh start
-ExecStop=/home/abdo/.config/systemd/scripts/calibre.sh stop
+ExecStart=/usr/bin/calibre --with-library="$AB2_CALIBRE_DIR"
+ExecStop=/usr/bin/calibre --shutdow-running-calibre
 

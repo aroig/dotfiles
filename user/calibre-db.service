@@ -7,5 +7,5 @@ Type=oneshot
 RemainAfterExit=true
 
 SyslogIdentifier=calibre-db
-ExecStart=/home/abdo/.config/systemd/scripts/calibre.sh unlock
-ExecStop=/home/abdo/.config/systemd/scripts/calibre.sh commit
+ExecStart=/usr/bin/git -C "$AB2_CALIBRE_DIR" annex edit metadata.db
+ExecStop=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_CALIBRE_DIR"

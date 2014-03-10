@@ -8,4 +8,4 @@ After=calibre-stop.service
 Type=oneshot
 
 SyslogIdentifier=calibre-commit
-ExecStart=/home/abdo/.config/systemd/scripts/calibre.sh commit
+ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_CALIBRE_DIR"
