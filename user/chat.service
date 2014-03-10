@@ -5,7 +5,7 @@ Requisite=desktop.target
 After=desktop.target
 
 Requires=chat-db.service
-After=calibre-db.service
+After=chat-db.service
 
 [Service]
 Type=simple
