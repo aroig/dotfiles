@@ -10,6 +10,6 @@ After=calibre-db.service
 Type=simple
 SyslogIdentifier=calibre
 
-ExecStart=/usr/bin/calibre --with-library="$AB2_CALIBRE_DIR"
-ExecStop=/usr/bin/calibre --shutdow-running-calibre
+ExecStart=/usr/bin/calibre --with-library "$AB2_CALIBRE_DIR"
+
 
