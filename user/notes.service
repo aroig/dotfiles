@@ -11,5 +11,5 @@ After=orgmode-db.service
 Type=simple
 SyslogIdentifier=notes
 
-ExecStart=/usr/bin/emacs -org --title "emacs-notes"
+ExecStart=/usr/bin/emacs -notes --title "emacs-notes"
 ExecStop=/usr/bin/emacsclient -s notes -e '(progn (save-some-buffers t) (kill-emacs))'
