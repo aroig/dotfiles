@@ -12,4 +12,7 @@ Type=simple
 SyslogIdentifier=notes
 
 ExecStart=/usr/bin/emacs -notes --title "emacs-notes"
-ExecStop=/usr/bin/emacsclient -s notes -e '(progn (save-some-buffers t) (kill-emacs))'
+KillSignal=SIGINT
+
+# This fails if emacs is already stopped
+# ExecStop=/usr/bin/emacsclient -s notes -e '(progn (save-some-buffers t) (kill-emacs))'
