@@ -1,8 +1,8 @@
 [Unit]
 Description=music player daemon
 
-# TODO: Enable this to use a socket. I must configure mpd t use it!
-# Requires=mpd.socket
+Requires=mpd.socket
+Wants=mpdscribble.service
 
 PartOf=audio.target
 After=pulseaudio.service
