@@ -1,5 +1,5 @@
 [Unit]
-Description=Xmonad window manager at display %i
+Description=xmonad window manager at display %i
 
 After=xserver@%i.target
 After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
@@ -13,9 +13,7 @@ Requires=tint2@%i.service
 PartOf=wm@xmonad.target
 
 [Service]
-PAMName=login
-TTYPath=/dev/tty7
 Type=simple
 SyslogIdentifier=xmonad
 Environment=DISPLAY=:%i
-ExecStart=/home/abdo/.config/systemd/scripts/xmonad.sh start
+ExecStart=/usr/bin/xmonad

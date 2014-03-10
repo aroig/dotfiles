@@ -1,5 +1,5 @@
 [Unit]
-Description=Awesome window manager at display %i
+Description=awesome window manager at display %i
 
 After=xserver@%i.target
 After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
@@ -13,6 +13,7 @@ PartOf=wm@awesome.target
 Type=simple
 SyslogIdentifier=awesome
 Environment=DISPLAY=:%i
-ExecStart=/home/abdo/.config/systemd/scripts/awesome.sh start
+
+ExecStart=/usr/bin/awesome
 KillSignal=SIGINT
 TimeoutSec=15
