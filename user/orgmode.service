@@ -11,7 +11,10 @@ After=orgmode-db.service
 Type=simple
 SyslogIdentifier=orgmode
 
-ExecStart=/home/abdo/.config/systemd/scripts/orgmode.sh start
-ExecStop=/home/abdo/.config/systemd/scripts/orgmode.sh stop
+ExecStart=/usr/bin/emacs -org --title "emacs-org"
+KillSignal=SIGINT
+
+# This fails if emacs is already stopped
+# ExecStop=/usr/bin/emacsclient -s org -e '(progn (save-some-buffers t) (kill-emacs))'
 
 

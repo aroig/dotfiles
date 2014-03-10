@@ -9,5 +9,5 @@ RemainAfterExit=true
 
 SyslogIdentifier=orgmode-db
 ExecStart=/usr/bin/true
-ExecStop=/home/abdo/.config/systemd/scripts/orgmode.sh commit
+ExecStop=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_WIKI_DIR"
 

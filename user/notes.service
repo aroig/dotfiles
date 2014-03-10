@@ -1,13 +1,15 @@
 [Unit]
 Description=chat
-After=xorg.target
 
-Requisite=xorg.target
+Requisite=desktop.target
+After=desktop.target
+
+Requires=orgmode-db.service
+After=orgmode-db.service
 
 [Service]
 Type=simple
-SyslogIdentifier=chat
+SyslogIdentifier=notes
 
-ExecStart=/home/abdo/.config/systemd/scripts/orgmode.sh start-notes
-ExecStop=/home/abdo/.config/systemd/scripts/orgmode.sh stop-notes
-
+ExecStart=/usr/bin/emacs -org --title "emacs-notes"
+ExecStop=/usr/bin/emacsclient -s notes -e '(progn (save-some-buffers t) (kill-emacs))'

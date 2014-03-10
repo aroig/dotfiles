@@ -8,4 +8,4 @@ After=orgmode-stop.service
 Type=oneshot
 
 SyslogIdentifier=orgmode-commit
-ExecStart=/home/abdo/.config/systemd/scripts/orgmode.sh commit
+ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_WIKI_DIR"
