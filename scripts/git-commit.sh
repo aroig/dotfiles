@@ -15,11 +15,11 @@ if [[ $num -ge 1 ]]; then
     echo "adding files to '$repo'"    
     [ -d ".git/annex" ] && git annex add .
     git add -A .
+fi
                 
-    # recompute the number of changes and commit
-    num=$(git status --porcelain | wc -l)
+# commit changes
+num=$(git status --porcelain | wc -l)
+if [[ $num -ge 1 ]]; then            
     echo "commiting files to '$repo'"            
     git commit -q -m "auto-commit ($num files)"
 fi
-
-
