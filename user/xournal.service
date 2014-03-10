@@ -1,9 +1,9 @@
 [Unit]
 Description=xournal
-After=xorg.target
 
-Requisite=xorg.target
+Requisite=desktop.target
+After=desktop.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/xournal %h/work/notes/scratchpad.xoj
+ExecStart=/usr/bin/xournal "$AB2_WORK_DIR/notes/scratchpad.xoj"
