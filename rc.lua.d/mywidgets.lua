@@ -166,11 +166,18 @@ function myw.net.update()
     local up = 0.0
     local down = 0.0
 
-    if args["{eth0 up_kb}"] then  up = up + args["{eth0 up_kb}"] end
-    if args["{wlan0 up_kb}"] then up = up + args["{wlan0 up_kb}"] end
+    -- loop over all interfaces except loopback
+    for k, v in pairs(args) do
+        if not string.match(k, "{lo .*}") then
+            if string.match(k, "{.* up_kb}") then
+                up = up + v
+            end
 
-    if args["{eth0 down_kb}"] then  down = down + args["{eth0 down_kb}"] end
-    if args["{wlan0 down_kb}"] then down = down + args["{wlan0 down_kb}"] end
+            if string.match(k, "{.* down_kb}") then
+                down = down + v
+            end
+        end
+    end
 
     if up ~= myw.net.value.up or down ~= myw.net.value.down then
         local uptxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_netup_widget, up)
