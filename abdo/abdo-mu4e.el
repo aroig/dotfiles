@@ -124,7 +124,7 @@
 
   ;; smtp mail setting
   (setq send-mail-function 'message-send-mail-with-sendmail)
-  (setq sendmail-program "sendmail")  ; I'm using msmtpq symlinked to sendmail
+  (setq sendmail-program "msmtpq")
 
   ;; don't keep message buffers around
   (setq message-kill-buffer-on-exit t)
