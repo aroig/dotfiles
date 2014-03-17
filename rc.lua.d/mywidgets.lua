@@ -211,7 +211,7 @@ function myw.netctl.update()
         prf = prf .. line
     end
     if myw.netctl.value ~= prf then
-        myw.netctl.tooltip.widget:set_markup("<b>Networks:</b> " .. prf)
+        myw.netctl.tooltip.textbox:set_markup("<b>Networks:</b> " .. prf)
     end
     myw.netctl.value = prf
 end
@@ -427,7 +427,7 @@ function myw.bat.update()
     end
 
     if args.time ~= myw.bat.time then
-        myw.bat.tooltip.widget:set_markup("<b>Time remaining:</b> " .. args.time)
+        myw.bat.tooltip.textbox:set_markup("<b>Time remaining:</b> " .. args.time)
     end
 
     myw.bat.rate = args.rate
