@@ -5,17 +5,27 @@
 # Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
 #------------------------------------------------------------------#
 
-source $HOME/.aliases
+
+#------------------------------
+# Set environment
+#------------------------------
+
+# source aliases
+[[ -f $HOME/.aliases ]] && . $HOME/.aliases
+
+# set perl path
+[[ -f /etc/profile.d/perlbin.sh ]] && . /etc/profile.d/perlbin.sh
+
+
 
 # ----------------------------
 # TTY Setup 
 # ----------------------------
 
-# Set tty colors on virtual console
-if [[ "$TERM" = "linux" ]]; then
-    set_tty_colors
-fi 
+# set tty colors on virtual console
+[[ "$TERM" = "linux" ]] && set_tty_colors
     
+
 
 # ----------------------------
 # Auto tmux

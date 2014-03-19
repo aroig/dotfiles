@@ -59,34 +59,25 @@ fi
 autoload -U add-zsh-hook
 
 
+
 # ----------------------------
 # Set environment
 # ----------------------------
 
-if [ -f $HOME/.zshenv ]; then
-    source $HOME/.zshenv
-fi
+# source environment variables
+[[ -f $HOME/.zshenv ]] && . $HOME/.zshenv
 
+# source aliases
+[[ -f $HOME/.aliases ]] && . $HOME/.aliases
 
-# ----------------------------
-# Set aliases
-# ----------------------------
-
-if [ -f $HOME/.aliases ]; then
-    source $HOME/.aliases
-fi
-
-
-# ----------------------------
-# Source files in .zsh
-# ----------------------------
-
+# source files in ~/.zsh
 _ZSH_DIR="$HOME/.zsh"
 if [ -d $_ZSH_DIR ]; then
     for src in $_ZSH_DIR/*.zsh; do
 	    source $src
     done
 fi
+
 
 
 # ----------------------------
@@ -100,6 +91,7 @@ add-zsh-hook precmd refresh_current_vcs_vars
 
 add-zsh-hook precmd set-window-title           # set window title
 # add-zsh-hook preexec set-window-title
+
 
 
 # ----------------------------
