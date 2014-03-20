@@ -54,7 +54,7 @@ function sdexec (cmd, name)
     awful.util.spawn_with_shell(cmd .. string.format(' 2>&1 | systemd-cat -t %s', name))
 end
 
--- Execute an external program as a systemd scope
+-- Execute an external program as a systemd scope or service
 function sdrun (cmd, name, scope, slice)
     local sdcmd = "systemd-run --user "
     if scope then sdcmd = sdcmd .. "--scope " end
@@ -65,11 +65,11 @@ function sdrun (cmd, name, scope, slice)
     if scope then
         -- capture output to journal
         if name then cmd = string.format('%s 2>&1 | systemd-cat -t \"%s\"', cmd, name)
-        else         cmd = string.format('%s 2>&1 | /dev/null', cmd)
+        else         cmd = string.format('%s &> /dev/null', cmd)
         end
 
         -- do not catch stdout. The process does NOT end immediately
-        awful.util.spawn_with_shell(string.format('%s sh -c %s 2>&1 > /dev/null', sdcmd, shell_escape(cmd)))
+        awful.util.spawn_with_shell(string.format('%s sh -c %s &> /dev/null', sdcmd, shell_escape(cmd)))
     else
 
         -- launch systemd service and capture the service name
