@@ -40,22 +40,22 @@ end
 
 
 -- Execute an external program
-function exec (cmd, screen)
-    awful.util.spawn(cmd, false, screen)
+function exec (cmd)
+    awful.util.spawn(cmd)
 end
 
 -- Execute an external program inside a shell
-function shexec (cmd, screen)
-    awful.util.spawn_with_shell(cmd, screen)
+function shexec (cmd)
+    awful.util.spawn_with_shell(cmd)
 end
 
 -- Execute an external program and connect the output to systemd journal
-function sdexec (cmd, screen, name)
-    awful.util.spawn_with_shell(cmd .. string.format(' 2>&1 | systemd-cat -t %s', name), screen)
+function sdexec (cmd, name)
+    awful.util.spawn_with_shell(cmd .. string.format(' 2>&1 | systemd-cat -t %s', name))
 end
 
 -- Execute an external program as a systemd scope
-function sdrun (cmd, screen, name, scope, slice)
+function sdrun (cmd, name, scope, slice)
     local sdcmd = "systemd-run --user "
     if scope then sdcmd = sdcmd .. "--scope " end
     if slice then sdcmd = sdcmd .. string.format("--slice=\"%s\" ", slice) end
@@ -69,7 +69,7 @@ function sdrun (cmd, screen, name, scope, slice)
         end
 
         -- do not catch stdout. The process does NOT end immediately
-        awful.util.spawn_with_shell(string.format('%s sh -c %s 2>&1 > /dev/null', sdcmd, shell_escape(cmd)), screen)
+        awful.util.spawn_with_shell(string.format('%s sh -c %s 2>&1 > /dev/null', sdcmd, shell_escape(cmd)))
     else
 
         -- launch systemd service and capture the service name
@@ -290,7 +290,7 @@ function prompt.command()
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Run: ",
-                function (cmd) sdrun(cmd, nil, nil, true, 'apps') end,
+                function (cmd) sdrun(cmd, nil, true, 'apps') end,
                 cmds,
                 awful.util.getdir("cache") .. "/history_cmd")
 end
