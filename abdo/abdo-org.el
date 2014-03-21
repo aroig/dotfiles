@@ -569,6 +569,7 @@
 (defun abdo-org-export-icalendar-agenda (file-list calendar-file)
   (let ((org-agenda-files (mapcar (lambda (p) (concat org-directory-wiki p)) file-list))
         (org-icalendar-combined-agenda-file (concat org-ical-directory calendar-file)))
+    (message (format "Writing calendar events to %s" calendar-file))
     (org-icalendar-combine-agenda-files)))
 
 
