@@ -195,7 +195,7 @@
   (abdo-org-export-projects-setup)
 
   ;; Setup ical exports
-  (setq org-icalendar-store-UID t)                    ; store uid for syncing purposes
+  (setq org-icalendar-store-UID nil)                  ; need uid's, but I generate them myself
   (setq org-icalendar-with-timestamps nil)            ; no events from plain timestamps
   (setq org-icalendar-include-todo t)                 ; create todo entries
 
@@ -574,9 +574,26 @@
   (setq abdo-org-tstr-regexp (concat abdo-org-tst-regexp "--?-?" abdo-org-tst-regexp))
 
 
+(defun abdo-org-generate-uids (buf)
+  (with-current-buffer buf
+    (let ((pt (point-min)))
+      (org-map-entries
+       (lambda ()
+         (let ((entry (org-element-at-point)))
+           (unless (or (< (point) pt) (org-element-property :ID entry))
+             (org-id-get-create)
+             (forward-line))))))
+    (when (buffer-modified-p buf) (save-buffer))))
+
+
+
 (defun abdo-org-export-icalendar-agenda (file-list calendar-file)
   (let ((org-agenda-files (mapcar (lambda (p) (concat org-directory-wiki p)) file-list))
         (org-icalendar-combined-agenda-file (concat org-ical-directory calendar-file)))
+
+    (message "Generating uids")
+    (mapcar (lambda (file) (abdo-org-generate-uids (find-file-noselect file))) org-agenda-files)
+
     (message (format "Writing calendar events to %s" calendar-file))
     (org-icalendar-combine-agenda-files)))
 
