@@ -21,7 +21,7 @@
   (setq org-ical-directory (concat org-directory "ical/"))
 
   ;; Local Mobileorg directory. From within org I will only sync to this directory.
-  (setq org-mobile-directory "/home/abdo/share/r2d2/work/wiki/")
+  (setq org-mobile-directory (concat org-directory "mobile/"))
 
   ;; Base dir for org files
   (setq org-directory-wiki (concat org-directory "org/"))
@@ -194,21 +194,6 @@
   (setq org-publish-project-alist '())
   (abdo-org-export-projects-setup)
 
-  ;; Setup ical exports
-  (setq org-icalendar-store-UID nil)                  ; need uid's, but I generate them myself
-  (setq org-icalendar-with-timestamps nil)            ; no events from plain timestamps
-  (setq org-icalendar-include-todo t)                 ; create todo entries
-
-
-  (setq org-icalendar-categories
-        '(all-tags category))                         ; data to set categrory from
-
-  (setq org-icalendar-use-deadline                    ; where to use deadlines
-        '(event-if-not-todo event-if-todo todo-due))
-
-  (setq org-icalendar-use-scheduled                   ; where to use scheduled
-        '(event-if-not-todo event-if-todo todo-due))
-
   ;; Setup my capture templates
   (setq org-capture-templates '())
   (abdo-org-capture-templates-setup)
@@ -323,6 +308,24 @@
   (plist-put org-format-latex-options :scale 1.0)
   (plist-put org-format-latex-options :foreground 'auto)
   (plist-put org-format-latex-options :background 'auto)
+)
+
+
+(defun abdo-org-icalendar-export-setup()
+  ;; Setup ical exports
+  (setq org-icalendar-store-UID nil)                  ; need uid's, but I generate them myself
+  (setq org-icalendar-with-timestamps nil)            ; no events from plain timestamps. seems buggy
+  (setq org-icalendar-include-todo t)                 ; create todo entries
+
+
+  (setq org-icalendar-categories
+        '(all-tags category))                         ; data to set categrory from
+
+  (setq org-icalendar-use-deadline                    ; where to use deadlines
+        '(event-if-not-todo event-if-todo todo-due))
+
+  (setq org-icalendar-use-scheduled                   ; where to use scheduled
+        '(event-if-not-todo event-if-todo todo-due))
 )
 
 
@@ -600,6 +603,9 @@
 
 (defun abdo-org-export-icalendar ()
   (interactive)
+  (require 'ox-icalendar)
+  (abdo-org-icalendar-export-setup)
+
   (abdo-org-export-icalendar-agenda abdo-org-perso-file-list "personal.ics")
   (abdo-org-export-icalendar-agenda abdo-org-papers-file-list "papers.ics")
   (abdo-org-export-icalendar-agenda abdo-org-math-file-list "research.ics")
