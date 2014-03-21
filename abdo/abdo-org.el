@@ -195,11 +195,19 @@
   (abdo-org-export-projects-setup)
 
   ;; Setup ical exports
-  (setq org-icalendar-categories '(all-tags category))
+  (setq org-icalendar-store-UID t)                    ; store uid for syncing purposes
+  (setq org-icalendar-with-timestamps nil)            ; no events from plain timestamps
+  (setq org-icalendar-include-todo t)                 ; create todo entries
 
-  (setq org-icalendar-include-todo nil)
-  (setq org-icalendar-use-deadline '(event-if-not-todo event-if-todo todo-due))
-  (setq org-icalendar-use-scheduled '(event-if-not-todo event-if-todo todo-due))
+
+  (setq org-icalendar-categories
+        '(all-tags category))                         ; data to set categrory from
+
+  (setq org-icalendar-use-deadline                    ; where to use deadlines
+        '(event-if-not-todo event-if-todo todo-due))
+
+  (setq org-icalendar-use-scheduled                   ; where to use scheduled
+        '(event-if-not-todo event-if-todo todo-due))
 
   ;; Setup my capture templates
   (setq org-capture-templates '())
