@@ -7,7 +7,7 @@ After=online.service
 StopWhenUnneeded=true
 AllowIsolate=true
 
-Wants=gcont.service
+Wants=gcont-sync.service
 
 Requires=mail-db.service
 After=mail-db.service
