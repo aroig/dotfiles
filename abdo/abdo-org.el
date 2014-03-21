@@ -47,6 +47,10 @@
         (let ((default-directory org-directory-wiki))
           (file-expand-wildcards "math/*.org")))
 
+  (setq abdo-org-teaching-file-list
+        (let ((default-directory org-directory-wiki))
+          (file-expand-wildcards "teaching/*.org")))
+
   (setq abdo-org-perso-file-list
         (let ((default-directory org-directory-wiki))
           (file-expand-wildcards "perso/*.org")))
@@ -313,19 +317,22 @@
 
 (defun abdo-org-icalendar-export-setup()
   ;; Setup ical exports
-  (setq org-icalendar-store-UID nil)                  ; need uid's, but I generate them myself
-  (setq org-icalendar-with-timestamps nil)            ; no events from plain timestamps. seems buggy
-  (setq org-icalendar-include-todo t)                 ; create todo entries
 
+  ;; I only want to export TODO entries with SCHEDULED or DEADLINE set.
+  ;; No timestamps, no TODO's without date.
+
+  (setq org-icalendar-store-UID nil)                  ; need uid's, but I generate them myself
+  (setq org-icalendar-with-timestamps nil)            ; no events from plain timestamps. Seems buggy
+  (setq org-icalendar-include-todo nil)               ; Do not make TODO's into VTODO entries.
 
   (setq org-icalendar-categories
-        '(all-tags category))                         ; data to set categrory from
+        '(all-tags category todo-state))              ; data to set categrory from
 
   (setq org-icalendar-use-deadline                    ; where to use deadlines
         '(event-if-not-todo event-if-todo todo-due))
 
   (setq org-icalendar-use-scheduled                   ; where to use scheduled
-        '(event-if-not-todo event-if-todo todo-due))
+        '(event-if-not-todo event-if-todo todo-start))
 )
 
 
@@ -417,6 +424,7 @@
 (defun abdo-org-custom-agenda-setup ()
   (let ((devel-list     (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-comp-file-list))
         (research-list  (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-math-file-list))
+        (teaching-list  (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-teaching-file-list))
         (perso-list     (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-perso-file-list))
         (papers-list     (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-papers-file-list))
 
@@ -496,6 +504,23 @@
             ; Research TODO list
             ("rt" "Todo"            tags-todo ""
              ((org-agenda-files (quote ,(append research-list papers-list)))))
+
+
+            ;; TEACHING
+            ("t" . "Teaching")
+
+            ; Agenda for teaching items
+            ("ta" "Agenda"          agenda ""
+             ((org-agenda-files (quote ,(append teaching-list)))))
+
+            ; Search in teaching documents
+            ("ts" "Search"          search ""
+             ((org-agenda-files (quote ,(append teaching-list)))
+              (org-agenda-search-view-max-outline-level 2)))
+
+            ; Teaching TODO list
+            ("tt" "Todo"            tags-todo ""
+             ((org-agenda-files (quote ,(append teaching-list)))))
 
 
             ;; PERSONAL
@@ -608,7 +633,8 @@
 
   (abdo-org-export-icalendar-agenda abdo-org-perso-file-list "personal.ics")
   (abdo-org-export-icalendar-agenda abdo-org-papers-file-list "papers.ics")
-  (abdo-org-export-icalendar-agenda abdo-org-math-file-list "research.ics")
+  (abdo-org-export-icalendar-agenda abdo-org-math-file-list "maths.ics")
+  (abdo-org-export-icalendar-agenda abdo-org-teaching-file-list "teaching.ics")
   (abdo-org-export-icalendar-agenda abdo-org-comp-file-list "devel.ics"))
 
 
