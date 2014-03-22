@@ -1,6 +1,9 @@
 [Unit]
 Description=synchronize with r2d2
 
+StopWhenUnneeded=true
+AllowIsolate=true
+
 BindsTo=sys-subsystem-net-devices-r2d2.device
 After=sys-subsystem-net-devices-r2d2.device
 
