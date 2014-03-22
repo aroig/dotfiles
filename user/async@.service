@@ -3,6 +3,13 @@ Description=synchronize with %i
 Requires=online.service
 After=online.service
 
+# Order it after filesystem modifying units
+After=fetch.target 
+After=offlineimap.service rss2maildir.target mutag.target
+After=gcal-sync.service gcont-sync.service
+After=calibre-commit.service chat-commit.service dwb-commit.service
+After=mail-commit.service orgmode-commit.service
+
 [Service]
 Type=oneshot
 
