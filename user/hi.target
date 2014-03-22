@@ -1,5 +1,5 @@
 [Unit]
-Description=initial synchronization
+Description=trigger initial actions
 
 StopWhenUnneeded=true
 AllowIsolate=true
