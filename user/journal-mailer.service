@@ -1,0 +1,9 @@
+[Unit]
+Description=monitor journal for errors
+
+StopWhenUnneeded=true
+
+[Service]
+SyslogIdentifier=journal-mailer
+Type=simple
+ExecStart=/home/abdo/.config/systemd/scripts/journal-mailer.sh
