@@ -1,0 +1,5 @@
+[Unit]
+Description=trigger final actions
+
+StopWhenUnneeded=true
+AllowIsolate=true

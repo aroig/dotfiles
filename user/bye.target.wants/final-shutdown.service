@@ -1,0 +1,10 @@
+[Unit]
+Description=automated final shutdown
+
+# prevent shutdown if final-sync.target fails
+Requisite=final-sync.target
+After=final-sync.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl poweroff
