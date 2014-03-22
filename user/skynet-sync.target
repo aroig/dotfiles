@@ -1,0 +1,8 @@
+[Unit]
+Description=synchronize with skynet
+
+Requires=online.service
+After=online.service
+
+BindsTo=async@skynet.service
+Before=async@skynet.service
