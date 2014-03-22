@@ -13,8 +13,8 @@
 # source aliases
 [[ -f $HOME/.aliases ]] && . $HOME/.aliases
 
-# set perl path
-[[ -f /etc/profile.d/perlbin.sh ]] && . /etc/profile.d/perlbin.sh
+# set path for systemd user session
+systemctl --user set-environment "PATH=$PATH"
 
 
 

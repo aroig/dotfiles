@@ -100,7 +100,7 @@ export SAILFISH_SDK_TOOLCHAIN_ROOT="$HOME/sdk/sailfish"
 
 # sage
 # export SAGE_KEEP_BUILT_SPKGS=yes    # don't rebuild from scratch
-export SAGE_ROOT=$AB2_HOME/usr/sage
+export SAGE_ROOT=$AB2_HOME/sage
 
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
