@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/abdo/sdk/android-qt5/Tools/QtCreator/bin/qtcreator
+Name=Qt Creator (Opensource)
+GenericName=The IDE of choice for Qt development.
+Icon=QtProject-qtcreator
+Terminal=false
+Categories=Development;IDE;Qt;
+MimeType=text/x-c++src;text/x-c++hdr;text/x-xsrc;application/x-designer;application/vnd.qt.qmakeprofile;application/vnd.qt.xml.resource;text/x-qml;text/x-qt.qml;text/x-qt.qbs;

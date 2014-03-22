@@ -17,6 +17,7 @@ text/x-makefile=emacs-client.desktop;
 image/jpeg=feh.desktop;
 image/png=feh.desktop;
 image/svg+xml=feh.desktop;
+image/x-webp=feh.desktop;
 
 application/epub=calibre-ebook-viewer.desktop;
 application/epub+zip=calibre-ebook-viewer.desktop

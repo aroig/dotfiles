@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=python
+MimeType=text/x-python;
+Exec=env WINEPREFIX="/home/abdo/.wine" wine start /ProgIDOpen Python.File %f
+NoDisplay=true
+StartupNotify=true
+Icon=9C50_python.0
