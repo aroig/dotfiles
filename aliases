@@ -78,20 +78,6 @@ alias ......="cd ../../../../.."
 
 xrandr_screens() { xrandr -q | grep " connected" | sed 's/^\([A-Za-z0-9\-]*\).*/\1/'; }
 
-run_with_journal() {
-    # TODO: trap ctrl-c don't know how to do it in a function
-
-    setopt localoptions nomonitor # disable monitored job control
-    _jctlargs=(--quiet --follow --output=cat --lines=0)
-    journalctl $_jctlargs[@] &
-    _jrnl_pid=$!
-
-    $@; _cmd_exitval=$?; sleep 0.3
-    kill -s TERM $_jrnl_pid;
-    wait $_jrnl_pid; sleep 0.3
-    return $_cmd_exitval
-}
-
 # remove trailing newline.
 trimtrail() {
     cat "$1" | awk '{a = $0; while (getline > 0) {print a; a = $0}} END {printf("%s", a)}' -
@@ -158,7 +144,6 @@ alias lctl="sudo loginctl"
 alias sctl="sudo systemctl --system"
 alias uctl="systemctl --user"
 
-alias ictl="run_with_journal systemctl --user start"
 alias actl="systemd-analyze"
 alias nspawn="sudo systemd-nspawn"
 alias sdrun="systemd-run --user"
