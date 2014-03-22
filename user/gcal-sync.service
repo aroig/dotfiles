@@ -5,5 +5,6 @@ After=online.service
 
 [Service]
 Type=oneshot
+SyslogIdentifier=gcal-sync
 ExecStart=/usr/bin/make -C "$AB2_WIKI_DIR" ical
 ExecStart=/usr/bin/gcal -S
