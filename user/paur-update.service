@@ -1,0 +1,8 @@
+[Unit]
+Description=update packages
+Requires=online.service
+After=online.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/paur -Syu
