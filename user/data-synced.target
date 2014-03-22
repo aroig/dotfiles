@@ -1,0 +1,8 @@
+[Unit]
+Description=data is synced
+
+AllowIsolate=true
+
+BindsTo=async@default.service
+After=async@default.service
+
