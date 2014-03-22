@@ -1,9 +1,0 @@
-[Unit]
-Description=initial synchronization
-
-StopWhenUnneeded=true
-AllowIsolate=true
-
-# fetch depends on data-synced.target being active, so first sync data, then mail.
-Requires=data-synced.target fetch.target
-After=data-synced.target fetch.target
