@@ -7,6 +7,5 @@ After=media-share-hypathia.mount
 Requires=calibre-db.service
 After=calibre-db.service
 
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/async -b sync hypathia --terse
+BindsTo=async@hypathia.service
+Before=async@hypathia.service
