@@ -1,5 +1,6 @@
 [Unit]
 Description=trigger final actions
+StopWhenUnneeded=true
 
 After=final-synced-data.target final-synced-mail.target
 Before=final-shutdown.service

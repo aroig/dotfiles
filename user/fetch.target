@@ -1,5 +1,6 @@
 [Unit]
 Description=fetch mail and news
+StopWhenUnneeded=true
 
 Requires=initial-synced-data.target
 After=initial-synced-data.target
