@@ -4,3 +4,4 @@ StopWhenUnneeded=true
 
 After=final-synced-data.target final-synced-mail.target
 Before=final-shutdown.service
+Requires=final-synced-data.target final-synced-mail.target final-shutdown.service
