@@ -1,11 +1,10 @@
 [Unit]
 Description=commit calibre library
 
-Requires=calibre-stop.service
-After=calibre-stop.service
+Conflicts=calibre.service calibre-server.service calibre-db.service
 
 [Service]
 Type=oneshot
 
-SyslogIdentifier=calibre-commit
+SyslogIdentifier=commit-calibre
 ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_CALIBRE_DIR"
