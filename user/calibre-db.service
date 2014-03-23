@@ -11,4 +11,4 @@ RemainAfterExit=true
 
 SyslogIdentifier=calibre-db
 ExecStart=/usr/bin/git -C "$AB2_CALIBRE_DIR" annex edit metadata.db
-ExecStop=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_CALIBRE_DIR"
+ExecStop=/usr/bin/systemctl --user start calibre-commit.service

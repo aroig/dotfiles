@@ -11,5 +11,5 @@ RemainAfterExit=true
 
 SyslogIdentifier=chat-db
 ExecStart=/usr/bin/true
-ExecStop=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_VAR_DIR/chat/emacs"
+ExecStop=/usr/bin/systemctl --user start chat-commit.service
 

@@ -11,5 +11,6 @@ RemainAfterExit=true
 
 SyslogIdentifier=mail-db
 ExecStart=/usr/bin/true
-ExecStop=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_MAIL_DIR"
+ExecStop=/usr/bin/systemctl --user start mail-commit.service
+
 

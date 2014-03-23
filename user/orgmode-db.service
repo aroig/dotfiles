@@ -11,5 +11,6 @@ RemainAfterExit=true
 
 SyslogIdentifier=orgmode-db
 ExecStart=/usr/bin/true
-ExecStop=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_WIKI_DIR"
+ExecStop=/usr/bin/systemctl --user start orgmode-commit.service
+
 
