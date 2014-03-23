@@ -5,4 +5,4 @@ After=online.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/paur -Syu
+ExecStart=/usr/bin/sudo pacman -Syu --noconfirm
