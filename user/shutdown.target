@@ -1,0 +1,5 @@
+[Unit]
+Description=Shutdown
+Documentation=man:systemd.special(7)
+DefaultDependencies=no
+RefuseManualStart=yes
