@@ -14,7 +14,7 @@ trap mailer_quit SIGINT SIGTERM
 
 _exit=signal
 
-journalctl -f -n0 -q --priority=3 SYSLOG_IDENTIFIER=systemd | \
+journalctl -f -n0 -q --priority=3 --since=now SYSLOG_IDENTIFIER=systemd | \
 while read line; do
     user=$(id -nu)
     subject="Errors detected while monitoring journal on '$(hostname -s)'"
