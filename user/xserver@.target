@@ -1,6 +1,4 @@
 [Unit]
 Description=X server
-
 StopWhenUnneeded=true
-AllowIsolate=true
 RefuseManualStart=true

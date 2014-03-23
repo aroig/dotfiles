@@ -7,5 +7,3 @@ After=user.target
 
 BindsTo=xorg@0.service
 After=xorg@0.service
-
-AllowIsolate=true

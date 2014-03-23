@@ -1,5 +1,4 @@
 [Unit]
 Description=work related servers
-
 StopWhenUnneeded=true
-AllowIsolate=true
+

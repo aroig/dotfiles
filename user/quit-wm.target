@@ -3,5 +3,3 @@ Description=quit window manager
 
 Requires=console.target
 Before=console.target
-
-AllowIsolate=true

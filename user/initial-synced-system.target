@@ -1,8 +1,6 @@
 [Unit]
 Description=initial system sync
 
-AllowIsolate=true
-
 BindsTo=pacman-update.service
 After=pacman-update.service
 

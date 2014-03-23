@@ -1,11 +1,9 @@
 [Unit]
 Description=fetch mail
+StopWhenUnneeded=true
 
 Requires=online.service
 After=online.service
-
-StopWhenUnneeded=true
-AllowIsolate=true
 
 Wants=offlineimap.service mutag.service
 

@@ -5,4 +5,4 @@ Requisite=xorg@0.service
 
 BindsTo=xephyr@3.service
 BindsTo=%i@3.service
-AllowIsolate=true
+

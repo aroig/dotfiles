@@ -5,4 +5,3 @@ Conflicts=console.target
 BindsTo=xorg.target
 BindsTo=%i@0.service
 
-AllowIsolate=true

@@ -1,8 +1,6 @@
 [Unit]
 Description=synchronize with skynet
-
 StopWhenUnneeded=true
-AllowIsolate=true
 
 Requires=online.service
 After=online.service

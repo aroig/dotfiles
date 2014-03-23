@@ -1,11 +1,9 @@
 [Unit]
 Description=fetch news
+StopWhenUnneeded=true
 
 Requires=online.service
 After=online.service
-
-StopWhenUnneeded=true
-AllowIsolate=true
 
 Wants=rss2maildir.service mutag.service
 

@@ -1,7 +1,5 @@
-
 [Unit]
 Description=sleep state
-AllowIsolate=true
 
 # bind to lock.target so that when unlocking sleep.target goes down
 BindsTo=lock.target
