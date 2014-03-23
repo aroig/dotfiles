@@ -5,4 +5,5 @@ After=online.service
 
 [Service]
 Type=oneshot
+SyslogIdentifier=pacman
 ExecStart=/usr/bin/sudo pacman -Syu --noconfirm
