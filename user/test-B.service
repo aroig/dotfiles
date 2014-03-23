@@ -1,0 +1,6 @@
+[Unit]
+Description=test B
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/echo BBB
