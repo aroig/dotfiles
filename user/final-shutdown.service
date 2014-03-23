@@ -6,4 +6,5 @@ After=final-synced-data.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/systemctl poweroff
+SyslogIdentifier=poweroff
+ExecStart=/usr/bin/sudo systemctl poweroff
