@@ -11,6 +11,6 @@ RemainAfterExit=true
 
 SyslogIdentifier=orgmode-db
 ExecStart=/usr/bin/true
-ExecStop=/usr/bin/systemctl --user start orgmode-commit.service
+ExecStop=/usr/bin/systemctl --user start commit-orgmode.service
 
 

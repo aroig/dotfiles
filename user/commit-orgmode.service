@@ -1,11 +1,10 @@
 [Unit]
 Description=commit orgmode
 
-Requires=orgmode-stop.service
-After=orgmode-stop.service
+Conflicts=orgmode-db.service orgmode.service 
 
 [Service]
 Type=oneshot
 
-SyslogIdentifier=orgmode-commit
+SyslogIdentifier=commit-orgmode
 ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_WIKI_DIR"
