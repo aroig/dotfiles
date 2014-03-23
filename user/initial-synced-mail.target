@@ -4,6 +4,6 @@ Description=initial mail sync
 Requires=initial-synced-data.target
 After=initial-synced-data.target
 
-Requires=fetch.target
-After=fetch.target
+Requires=gcal-sync.service gcont-sync.service mutag.service offlineimap.service rss2maildir.service
+After=gcal-sync.service gcont-sync.service mutag.service offlineimap.service rss2maildir.service
 
