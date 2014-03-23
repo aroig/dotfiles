@@ -1,7 +1,6 @@
 [Unit]
 Description=rss2maildir
 
-Requisite=initial-synced-data.target
 After=initial-synced-data.target
 After=journal-mailer.service
 
