@@ -2,6 +2,7 @@
 Description=mail database
 StopWhenUnneeded=true
 
+Requisite=initial-synced-data.target
 After=initial-synced-data.target
 
 [Service]
