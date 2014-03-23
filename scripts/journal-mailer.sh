@@ -1,8 +1,8 @@
 #!/bin/bash
 
 mailer_quit() {
-    [ "$_exit" == "signal" ]  & exit 0
-    [ "$_exit" == "inhibit" ] & _exit=immediate
+    [ "$_exit" == "signal" ]  && exit 0
+    [ "$_exit" == "inhibit" ] && _exit=immediate
 }
 
 # trap SIGINT and SIGTERM so we make sure that we quit with all mail delivered
@@ -26,7 +26,7 @@ while read line; do
     _exit=inhibit
     echo "$message" | mail -s "$subject" $user
 
-    [ "$_exit" == 'immediate'] & exit 0
+    [ "$_exit" == 'immediate' ] && exit 0
     _exit=signal
 
     sleep 60
