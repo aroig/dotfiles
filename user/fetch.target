@@ -4,6 +4,7 @@ StopWhenUnneeded=true
 
 Requires=initial-synced-data.target
 After=initial-synced-data.target
+After=journal-mailer.service
 
 Requires=mail-db.service
 After=mail-db.service

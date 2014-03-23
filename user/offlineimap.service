@@ -3,6 +3,7 @@ Description=offlineimap
 
 Requisite=initial-synced-data.target
 After=initial-synced-data.target
+After=journal-mailer.service
 
 Requires=online.service
 After=online.service

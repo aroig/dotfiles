@@ -3,6 +3,7 @@ Description=postprocess mail and news
 
 Requisite=initial-synced-data.target
 After=initial-synced-data.target
+After=journal-mailer.service
 
 After=offlineimap.service
 After=rss2maildir.service
