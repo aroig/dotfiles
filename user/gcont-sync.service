@@ -1,5 +1,9 @@
 [Unit]
 Description=sync google contacts
+
+Requisite=initial-synced-data.target
+After=initial-synced-data.target
+
 Requires=online.service
 After=online.service
 

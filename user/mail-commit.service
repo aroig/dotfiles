@@ -1,6 +1,9 @@
 [Unit]
 Description=commit mail
 
+Requisite=initial-synced-data.target
+After=initial-synced-data.target
+
 Requires=mail-stop.service
 After=mail-stop.service
 

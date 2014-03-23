@@ -1,6 +1,9 @@
 [Unit]
 Description=commit chat logs
 
+Requisite=initial-synced-data.target
+After=initial-synced-data.target
+
 Requires=chat-stop.service
 After=chat-stop.service
 

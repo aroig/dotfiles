@@ -1,6 +1,9 @@
 [Unit]
 Description=commit dwb cookies
 
+Requisite=initial-synced-data.target
+After=initial-synced-data.target
+
 Requires=dwb-stop.service
 After=dwb-stop.service
 
