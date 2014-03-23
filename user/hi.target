@@ -1,6 +1,5 @@
 [Unit]
 Description=trigger initial actions
-StopWhenUnneeded=true
 
 After=initial-synced-data.target initial-synced-mail.target initial-synced-system.target
 Requires=initial-synced-data.target initial-synced-mail.target
