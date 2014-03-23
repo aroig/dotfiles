@@ -1,8 +1,8 @@
 [Unit]
-Description=initial synchronization
+Description=initial data sync
 
-StopWhenUnneeded=true
 AllowIsolate=true
 
 BindsTo=async@default.service
 After=async@default.service
+

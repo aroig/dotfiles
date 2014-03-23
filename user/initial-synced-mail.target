@@ -1,0 +1,10 @@
+[Unit]
+Description=initial mail sync
+
+AllowIsolate=true
+
+Requires=initial-synced-data.target
+
+BindsTo=fetch.target
+After=fetch.target
+

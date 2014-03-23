@@ -1,9 +1,0 @@
-[Unit]
-Description=initial mail fetch
-
-StopWhenUnneeded=true
-AllowIsolate=true
-
-BindsTo=fetch.target
-After=fetch.target
-After=initial-sync.target
