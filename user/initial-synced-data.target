@@ -1,6 +1,6 @@
 [Unit]
 Description=initial data sync
 
-Requires=async@default.service
+RequiresOverridable=async@default.service
 After=async@default.service
 
