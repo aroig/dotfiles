@@ -9,3 +9,5 @@ After=journal-mailer.service
 Requires=mail-db.service
 After=mail-db.service
 
+Requires=gcal-sync.service gcont-sync.service mutag.service offlineimap.service rss2maildir.service
+After=gcal-sync.service gcont-sync.service mutag.service offlineimap.service rss2maildir.service

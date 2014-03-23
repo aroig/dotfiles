@@ -2,10 +2,12 @@
 Description=fetch mail
 StopWhenUnneeded=true
 
-Requires=online.service
-After=online.service
-
-Wants=offlineimap.service mutag.service
+Requires=initial-synced-data.target
+After=initial-synced-data.target
+After=journal-mailer.service
 
 Requires=mail-db.service
 After=mail-db.service
+
+Requires=mutag.service offlineimap.service
+After=mutag.service offlineimap.service

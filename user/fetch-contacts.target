@@ -2,10 +2,12 @@
 Description=fetch contacts
 StopWhenUnneeded=true
 
-Requires=online.service
-After=online.service
-
-Wants=gcont-sync.service
+Requires=initial-synced-data.target
+After=initial-synced-data.target
+After=journal-mailer.service
 
 Requires=mail-db.service
 After=mail-db.service
+
+Requires=gcont-sync.service
+After=gcont-sync.service

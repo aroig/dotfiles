@@ -2,10 +2,12 @@
 Description=fetch news
 StopWhenUnneeded=true
 
-Requires=online.service
-After=online.service
-
-Wants=rss2maildir.service mutag.service
+Requires=initial-synced-data.target
+After=initial-synced-data.target
+After=journal-mailer.service
 
 Requires=mail-db.service
 After=mail-db.service
+
+Requires=mutag.service rss2maildir.service
+After=mutag.service rss2maildir.service
