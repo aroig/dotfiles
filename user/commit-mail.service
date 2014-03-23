@@ -3,7 +3,6 @@ Description=commit mail
 
 Conflicts=mail-db.service mu4e.service 
 Conflicts=rss2maildir.service mutag.service offlineimap.service gcont-sync.service
-Conflicts=fetch.target mail.target fetc-mail.target fetch-news.target fetch-contacts.target
 
 [Service]
 Type=oneshot
