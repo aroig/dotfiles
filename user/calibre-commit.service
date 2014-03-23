@@ -1,9 +1,6 @@
 [Unit]
 Description=commit calibre library
 
-Requisite=initial-synced-data.target
-After=initial-synced-data.target
-
 Requires=calibre-stop.service
 After=calibre-stop.service
 
