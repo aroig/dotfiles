@@ -1,6 +1,6 @@
 [Unit]
 Description=initial data sync
 
-BindsTo=async@default.service
+Requires=async@default.service
 After=async@default.service
 

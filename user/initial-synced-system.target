@@ -1,6 +1,6 @@
 [Unit]
 Description=initial system sync
 
-BindsTo=pacman-update.service
+Requires=pacman-update.service
 After=pacman-update.service
 

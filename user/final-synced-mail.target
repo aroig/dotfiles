@@ -8,5 +8,5 @@ After=journal-mailer.service
 Requires=initial-synced-data.target
 After=initial-synced-data.target
 
-BindsTo=fetch.target
+Requires=fetch.target
 After=fetch.target

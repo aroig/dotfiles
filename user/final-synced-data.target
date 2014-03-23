@@ -8,6 +8,6 @@ After=journal-mailer.service
 Requires=final-synced-mail.target
 After=final-synced-mail.target
 
-BindsTo=async@default.service
+Requires=async@default.service
 After=async@default.service
 
