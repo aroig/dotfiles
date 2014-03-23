@@ -3,6 +3,10 @@ Description=synchronize with %i
 Requires=online.service
 After=online.service
 
+# ordering on initial and final syncs
+After=final-synced-mail.target
+Before=initial-synced-mail.target
+
 [Service]
 Type=oneshot
 
