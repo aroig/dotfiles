@@ -1,8 +1,7 @@
 [Unit]
 Description=final shutdown
 
-# prevent shutdown if final-sync.target fails
-Requisite=final-synced-data.target
+Requires=final-synced-data.target
 After=final-synced-data.target
 
 [Service]
