@@ -1,6 +1,10 @@
 [Unit]
 Description=initial data sync
 
+# If a target fails to start notify by mail.
+Requires=journal-mailer.service
+After=journal-mailer.service
+
 Requires=async@default.service
 After=async@default.service
 
