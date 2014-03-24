@@ -5,8 +5,7 @@ Description=final mail sync
 Requires=journal-mailer.service
 After=journal-mailer.service
 
-Requires=initial-synced-data.target
-After=initial-synced-data.target
+Requisite=initial-synced-data.target
 
 Requires=gcal-sync.service gcont-sync.service mutag.service offlineimap.service rss2maildir.service
 After=gcal-sync.service gcont-sync.service mutag.service offlineimap.service rss2maildir.service
