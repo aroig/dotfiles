@@ -81,11 +81,11 @@ export GPG_TTY=$(tty)
 #------------------------------
 
 # Android
-export ANDROID_NDK_TOOLCHAIN_ROOT="$HOME/sdk/android-ndk"
-export ANDROID_SDK_TOOLCHAIN_ROOT="$HOME/sdk/android"
+export ANDROID_NDK_TOOLCHAIN_ROOT="$HOME/sdk/android/ndk"
+export ANDROID_SDK_TOOLCHAIN_ROOT="$HOME/sdk/android/sdk"
 
 # Sailfish
-export SAILFISH_SDK_TOOLCHAIN_ROOT="$HOME/sdk/sailfish"
+export SAILFISH_SDK_TOOLCHAIN_ROOT="$HOME/sdk/sailfish/sdk"
 
 
 
