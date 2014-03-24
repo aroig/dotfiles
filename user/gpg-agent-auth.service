@@ -1,0 +1,8 @@
+[Unit]
+Description=refresh gpg-agent passphrase
+Requisite=gpg-agent.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sudo true
+

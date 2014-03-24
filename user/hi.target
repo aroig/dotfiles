@@ -2,5 +2,8 @@
 Description=trigger initial actions
 StopWhenUnneeded=true
 
+# refresh cached passphrase now
+Requires=gpg-agent-auth.service
+
 After=initial-synced-data.target initial-synced-mail.target initial-synced-system.target
 Requires=initial-synced-data.target initial-synced-mail.target

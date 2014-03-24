@@ -2,6 +2,9 @@
 Description=trigger final actions
 StopWhenUnneeded=true
 
+# refresh cached passphrase now
+Requires=gpg-agent-auth.service
+
 After=final-synced-data.target final-synced-mail.target
 Before=final-shutdown.service
 Requires=final-synced-data.target final-synced-mail.target final-shutdown.service
