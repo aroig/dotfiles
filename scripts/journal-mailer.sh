@@ -1,33 +1,39 @@
 #!/bin/bash
 
-mailer_quit() {
-    [ "$_exit" == "signal" ]  && exit 0
-    [ "$_exit" == "inhibit" ] && _exit=immediate
-}
+# Monitors the journal for systemd unit startup errors.
+# Batches them and sends an email report before quitting.
 
-# trap SIGINT and SIGTERM so we make sure that we quit with all mail delivered
+# trap SIGINT and SIGTERM
 trap mailer_quit SIGINT SIGTERM
 
-# if _exit=signal we quit ince SIGTERM is received
-# if _exit=inhibit we wait to quit until it is appropriate
-# if _exit=immediate we quit as we see it.
 
-_exit=signal
+ERROR_LOG=""
 
-journalctl -f -n0 -q --priority=3 --since=now SYSLOG_IDENTIFIER=systemd | \
-while read line; do
+email_report() {
     user=$(id -nu)
-    subject="Errors detected while monitoring journal on '$(hostname -s)'"
-    message="Log entry: $line"
+    host=$(hostname -s)
+    subject="Errors detected while monitoring journal on '$host'"
+    message="Journal:\n$1\n"
 
-    # mail information and wait
     echo "mailing fail report to user $user"
+    echo -e "$message" | mail -s "$subject" $user
 
-    _exit=inhibit
-    echo "$message" | mail -s "$subject" $user
+    ERROR_LOG=""
+}
 
-    [ "$_exit" == 'immediate' ] && exit 0
-    _exit=signal
 
-    sleep 60
-done
+mailer_quit() {
+    if [ "$ERROR_LOG" ]; then
+        email_report "$ERROR_LOG"
+    else
+        echo "no error reports to mail"
+    fi
+    exit 0
+}
+
+
+# data collection loop we redirect at the end to avoid spawning subshells
+# and be able to change the global variable ERROR_LOG
+while read line; do
+    ERROR_LOG="$ERROR_LOG$line\n"
+done < <(journalctl -f -n0 -q --priority=3 --since=now SYSLOG_IDENTIFIER=systemd)

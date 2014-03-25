@@ -1,10 +1,6 @@
 [Unit]
 Description=initial mail sync
 
-# If a target fails to start notify by mail.
-Requires=journal-mailer.service
-After=journal-mailer.service
-
 Requires=initial-synced-data.target
 After=initial-synced-data.target
 

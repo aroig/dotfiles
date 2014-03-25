@@ -1,10 +1,6 @@
 [Unit]
 Description=final data sync
 
-# If a target fails to start notify by mail.
-Requires=journal-mailer.service
-After=journal-mailer.service
-
 Requires=final-synced-mail.target
 After=final-synced-mail.target
 
