@@ -209,9 +209,11 @@ export SYSTEMD_COLORS=$(printf "%s:" "${_SYSTEMD_COLORS[@]}")
 # Paths
 #------------------------------
 
-# Lua path for for personal libs
-export LUA_PATH="$AB2_DEVEL_DIR/lua/?.lua;;"
-export LUA_CPATH="$AB2_DEVEL_DIR/lua/?.lua;;"
+# Lua path for for personal libs.
+# Don't want it for now. prefer installing the libs
+
+# export LUA_PATH="$AB2_DEVEL_DIR/lua/?.lua;;"
+# export LUA_CPATH="$AB2_DEVEL_DIR/lua/?.lua;;"
 
 # Python
 export PYTHONDOCS=/usr/share/docs/python/html/
