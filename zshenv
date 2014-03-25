@@ -51,8 +51,7 @@ export SHELL=/bin/zsh
 
 export AB2_HOME="/home/abdo"
 export AB2_PRIV_DIR="$AB2_HOME/priv"
-export AB2_DEVEL_DIR="$AB2_HOME/devel/linux"
-export AB2_LIBS_DIR="$AB2_HOME/devel/libs"
+export AB2_DEVEL_DIR="$AB2_HOME/devel"
 export AB2_CONF_DIR="$AB2_HOME/etc"
 export AB2_MAIL_DIR="$AB2_HOME/mail"
 export AB2_MUSIC_DIR="$AB2_HOME/music"
@@ -211,8 +210,8 @@ export SYSTEMD_COLORS=$(printf "%s:" "${_SYSTEMD_COLORS[@]}")
 #------------------------------
 
 # Lua path for for personal libs
-export LUA_PATH="$AB2_LIBS_DIR/lua/?.lua;;"
-export LUA_CPATH="$AB2_LIBS_DIR/lua/?.lua;;"
+export LUA_PATH="$AB2_DEVEL_DIR/lua/?.lua;;"
+export LUA_CPATH="$AB2_DEVEL_DIR/lua/?.lua;;"
 
 # Python
 export PYTHONDOCS=/usr/share/docs/python/html/
