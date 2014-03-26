@@ -25,6 +25,8 @@ email_report() {
 mailer_quit() {
     if [ "$ERROR_LOG" ]; then
         email_report "$ERROR_LOG"
+        sleep 5   # give it some time
+
     else
         echo "no error reports to mail"
     fi
