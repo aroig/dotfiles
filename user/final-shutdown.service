@@ -7,4 +7,4 @@ After=final-synced-data.target
 [Service]
 Type=oneshot
 SyslogIdentifier=poweroff
-ExecStart=/usr/bin/sudo systemctl poweroff
+ExecStart=/usr/bin/sh -c "sleep 10; sudo systemctl poweroff"
