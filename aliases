@@ -51,12 +51,14 @@ alias vp='vimpager'
 alias vc='vimcat'
 alias rsy='rsync -avz --progress --delete'
 alias ediff='emacs -diff'
+alias mr='mr --stats'
 
 alias mailq='msmtp-queue'
 
 alias ahi='ictl hi.target'
 alias abye='ictl bye.target'
-alias pac='sudo pacman '
+alias pac='sudo pacman'
+alias cow='cower'
 
 alias feh='feh --magick-timeout 2 --scale-down --fontpath /usr/share/fonts/TTF/ --font DejaVuSans/10'
 alias ipy='ipython'
