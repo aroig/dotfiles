@@ -54,8 +54,9 @@ alias ediff='emacs -diff'
 
 alias mailq='msmtp-queue'
 
-alias ahi='asym hi'
-alias abye='asym bye'
+alias ahi='ictl hi.target'
+alias abye='ictl bye.target'
+alias pac='sudo pacman '
 
 alias feh='feh --magick-timeout 2 --scale-down --fontpath /usr/share/fonts/TTF/ --font DejaVuSans/10'
 alias ipy='ipython'
