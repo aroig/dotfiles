@@ -2,18 +2,10 @@
 Description=trigger initial actions
 StopWhenUnneeded=true
 
-# If it fails, email me a piece of journal
 OnFailure=journal-mailer.service
 
-# refresh cached passphrase now
-Requires=gpg-agent-auth.service
+Requires=async-default.target
+After=async-default.target
 
-# trigger a homedir sync
-Requires=initial-synced-base.target 
-After=initial-synced-base.target
-
-Requires=initial-synced-mail.target initial-synced-work.target 
-After=initial-synced-mail.target initial-synced-work.target
-
-Requires=initial-synced-lib.target initial-synced-rest.target
-After=initial-synced-lib.target initial-synced-rest.target
+Requires=fetch.target
+After=fetch.target
