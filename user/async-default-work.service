@@ -1,0 +1,10 @@
+[Unit]
+Description=sync mail to default host
+
+Requires=async-default-mounted.service
+After=async-default-mounted.service
+After=async-default-base.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/async -b sync --terse default -d work

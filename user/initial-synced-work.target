@@ -1,0 +1,6 @@
+[Unit]
+Description=initial work sync
+
+Requires=async-default-work.service
+After=async-default-work.service
+

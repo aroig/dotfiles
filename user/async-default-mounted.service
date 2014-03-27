@@ -1,0 +1,8 @@
+[Unit]
+Description=mount default host and keep ssh open
+StopWhenUneeded=true
+
+[Service]
+# async notifies systemd when state is reached
+Type=notify
+ExecStart=/usr/bin/async cmd --instate mounted default cat
