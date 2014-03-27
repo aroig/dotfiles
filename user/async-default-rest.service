@@ -3,7 +3,9 @@ Description=sync mail to default host
 
 Requires=async-default-mounted.service
 After=async-default-mounted.service
-After=async-default-base.service async-default-mail.service async-default-work.service
+
+# this is the last I want to sync
+After=async-default-base.service async-default-mail.service async-default-work.service async-default-lib.service
 
 [Service]
 Type=oneshot
