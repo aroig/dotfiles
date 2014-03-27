@@ -1,5 +1,5 @@
 [Unit]
-Description=final data sync
+Description=final homedir sync
 
 Conflicts=initial-synced-base.target initial-synced-lib.target initial-synced-mail.target
 Conflicts=initial-synced-work.target initial-synced-rest.target

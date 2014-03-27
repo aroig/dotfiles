@@ -7,10 +7,10 @@ OnFailure=journal-mailer.service
 # refresh cached passphrase now
 Requires=gpg-agent-auth.service
 
-Requires=final-synced-data.target
-After=final-synced-data.target
+Requires=final-synced-all.target
+After=final-synced-all.target
 
-Requires=delayed-poweroff.service
-Before=delayed-poweroff.service
+Requires=delayed-poweroff.target
+Before=delayed-poweroff.target
 
 
