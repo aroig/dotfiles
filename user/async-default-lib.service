@@ -9,4 +9,5 @@ After=async-default-base.service async-default-mail.service
 
 [Service]
 Type=oneshot
+SyslogIdentifier=async-lib
 ExecStart=/usr/bin/async -b sync --terse default -d lib

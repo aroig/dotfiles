@@ -6,4 +6,5 @@ After=async-default-mounted.service
 
 [Service]
 Type=oneshot
+SyslogIdentifier=async-base
 ExecStart=/usr/bin/async -b sync --terse default -d etc,priv,var

@@ -6,4 +6,5 @@ StopWhenUnneeded=true
 # async notifies systemd when state is reached
 Type=notify
 NotifyAccess=all
+SyslogIdentifier=async-mount
 ExecStart=/usr/bin/async cmd --instate mounted default sleep 3600

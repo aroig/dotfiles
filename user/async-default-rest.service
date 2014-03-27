@@ -9,4 +9,5 @@ After=async-default-base.service async-default-mail.service async-default-work.s
 
 [Service]
 Type=oneshot
+SyslogIdentifier=async-rest
 ExecStart=/usr/bin/async -b sync --terse default --ignore etc,lib,mail,priv,var,work
