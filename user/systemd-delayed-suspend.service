@@ -1,0 +1,12 @@
+[Unit]
+Description=suspend system in 20 seconds
+
+Requires=systemd-suspend.service
+Before=systemd-suspend.service
+
+[Service]
+RemainAfterExit=true
+Type=oneshot
+
+ExecStart=/usr/bin/sleep 20
+
