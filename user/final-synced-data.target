@@ -3,7 +3,7 @@ Description=final data sync
 
 Conflicts=initial-synced-data.target
 
-Requires=final-synced-mail.target
+Wants=final-synced-mail.target
 After=final-synced-mail.target
 
 Requires=async@default.service
