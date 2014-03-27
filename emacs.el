@@ -245,6 +245,11 @@
 ;; qml
 (add-to-list 'auto-mode-alist '("\\.qml$" . qml-mode))
 
+;; systemd
+(add-to-list 'auto-mode-alist
+             '("\\.\\(service\\|target\\|scope\\|slice\\|timer\\|link\\|network\\|mount\\|automount\\|socket\\|device\\|netdev\\)$"
+               . conf-mode))
+
 
 ;; Command line switches
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
