@@ -1,6 +1,5 @@
 [Unit]
 Description=reboot system
 DefaultDependencies=no
-
-Requires=systemd-reboot.service
-
+BindsTo=systemd-reboot.service
+After=systemd-reboot.service

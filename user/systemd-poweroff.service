@@ -1,8 +1,12 @@
-
 [Unit]
 Description=poweroff system
 
+Requires=shutdown.target
+After=shutdown.target
+
+
 [Service]
+RemainAfterExit=true
 Type=oneshot
 
 ExecStart=/usr/bin/sudo systemctl poweroff

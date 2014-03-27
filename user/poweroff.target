@@ -1,6 +1,5 @@
 [Unit]
 Description=poweroff system
 DefaultDependencies=no
-
-Requires=systemd-poweroff.service
-
+BindsTo=systemd-poweroff.service
+After=systemd-poweroff.service
