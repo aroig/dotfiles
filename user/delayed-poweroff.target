@@ -1,0 +1,9 @@
+[Unit]
+Description=poweroff system in 20 seconds
+DefaultDependencies=no
+
+Requires=delay@20.service
+After=delay@20.service
+
+BindsTo=systemd-poweroff.service
+Before=systemd-poweroff.service
