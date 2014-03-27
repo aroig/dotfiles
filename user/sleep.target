@@ -1,5 +1,0 @@
-[Unit]
-Description=sleep
-DefaultDependencies=no
-RefuseManualStart=yes
-StopWhenUnneeded=yes

@@ -1,5 +1,0 @@
-[Unit]
-Description=shutdown
-DefaultDependencies=no
-RefuseManualStart=yes
-StopWhenUnneeded=yes

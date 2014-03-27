@@ -1,9 +1,6 @@
 [Unit]
 Description=reboot system
 
-Requires=shutdown.target
-After=shutdown.target
-
 [Service]
 RemainAfterExit=true
 Type=oneshot

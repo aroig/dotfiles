@@ -2,4 +2,4 @@
 Description=suspend system
 DefaultDependencies=no
 BindsTo=systemd-suspend.service
-After=systemd-suspend.service
+Before=systemd-suspend.service

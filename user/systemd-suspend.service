@@ -4,9 +4,6 @@ Description=enter suspend state
 BindsTo=lock.taraget
 After=lock.target
 
-Requires=sleep.target
-After=sleep.target
-
 [Service]
 RemainAfterExit=true
 Type=oneshot

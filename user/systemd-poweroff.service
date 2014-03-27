@@ -1,10 +1,6 @@
 [Unit]
 Description=poweroff system
 
-Requires=shutdown.target
-After=shutdown.target
-
-
 [Service]
 RemainAfterExit=true
 Type=oneshot
