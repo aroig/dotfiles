@@ -3,5 +3,6 @@ Description=wakeup hodge in the morning
 ConditionHost=hodge
 
 [Timer]
-OnCalendar=09:30
+OnCalendar=Mon-Fri 09:30
+WakeSystem=true
 Unit=hi.target
