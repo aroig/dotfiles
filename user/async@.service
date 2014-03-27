@@ -6,7 +6,6 @@ After=online.service
 # ordering on initial and final syncs
 After=final-synced-mail.target
 Before=initial-synced-mail.target
-After=journal-mailer.service
 
 [Service]
 Type=oneshot

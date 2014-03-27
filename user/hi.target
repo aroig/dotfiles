@@ -2,9 +2,8 @@
 Description=trigger initial actions
 StopWhenUnneeded=true
 
-# If a target fails to start notify by mail.
-Requires=journal-mailer.service
-After=journal-mailer.service
+# If it fails, email me a piece of journal
+OnFailure=journal-mailer.service
 
 # refresh cached passphrase now
 Requires=gpg-agent-auth.service
