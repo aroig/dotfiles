@@ -67,4 +67,5 @@ return {
    brasero                   = "brasero",
 
    nautilus                  = "nautilus",
+   qtcreator                 = "qtcreator",
 }
