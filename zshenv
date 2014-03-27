@@ -35,13 +35,14 @@ function add_to_pathlist_left () {
 # Some software
 #------------------------------
 
-export EDITOR=/usr/bin/vim                        # default editor
-export EMACS="/usr/bin/emacsclient -c -a emacs"   # emacs
-export BROWSER=/usr/bin/dwb                       # default browser
-export FILEMANAGER=/usr/bin/thunar                # the file manager
-export PAGER=/usr/bin/vimpager                    # wrapper for vim
-export TERMCMD=/usr/bin/termite                   # terminal
-export SHELL=/bin/zsh
+export EDITOR="/usr/bin/vim"                        # default editor
+export EMACS="/usr/bin/emacsclient -c -a emacs"     # emacs
+export BROWSER="/usr/bin/dwb"                       # default browser
+export FILEMANAGER="/usr/bin/thunar"                # the file manager
+export DIFFPROG="/usr/bin/emacs -diff"
+export PAGER="/usr/bin/vimpager"                    # wrapper for vim
+export TERMCMD="/usr/bin/termite"                   # terminal
+export SHELL="/bin/zsh"
 
 
 
