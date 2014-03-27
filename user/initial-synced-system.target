@@ -1,6 +1,0 @@
-[Unit]
-Description=initial system sync
-
-Requires=pacman-update.service
-After=pacman-update.service
-

@@ -1,6 +1,0 @@
-[Unit]
-Description=initial data sync
-
-Requires=async-default-base.service async-default-mail.service async-default-work.service async-default-rest.service
-After=async-default-base.service async-default-mail.service async-default-work.service async-default-rest.service
-
