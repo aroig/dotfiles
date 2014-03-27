@@ -5,7 +5,7 @@ ConditionHost=hodge
 [Timer]
 OnCalendar=Mon-Fri 09:30
 WakeSystem=true
-Unit=hi.target
+Unit=async-default.target
 
 [Install]
 WantedBy=timers.target
