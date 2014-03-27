@@ -5,9 +5,6 @@ Description=final data sync
 # requires initial-synced.data.
 # Conflicts=initial-synced-data.target
 
-Wants=final-synced-mail.target
-After=final-synced-mail.target
-
 Requires=async@default.service
 After=async@default.service
 

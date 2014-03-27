@@ -1,15 +1,16 @@
 [Unit]
-Description=trigger final actions and shutdown
+Description=trigger final actions and poweroff
 StopWhenUnneeded=true
 
-# If it fails, email me a piece of journal
 OnFailure=journal-mailer.service
 
 # refresh cached passphrase now
 Requires=gpg-agent-auth.service
 
-After=final-synced-data.target final-synced-mail.target
-Before=final-poweroff.service
+Requires=final-synced-data.target
+After=final-synced-data.target
 
-Wants=final-synced-data.target
-Requires=final-synced-mail.target final-poweroff.service
+Requires=delayed-poweroff.service
+Before=delayed-poweroff.service
+
+

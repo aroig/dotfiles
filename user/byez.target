@@ -1,13 +1,15 @@
 [Unit]
-Description=trigger final actions and sleep
+Description=trigger final actions and suspend
 StopWhenUnneeded=true
 
-# If it fails, email me a piece of journal
 OnFailure=journal-mailer.service
 
 # refresh cached passphrase now
 Requires=gpg-agent-auth.service
 
-After=final-synced-data.target final-synced-mail.target
-Before=final-suspend.service
-Requires=final-synced-data.target final-synced-mail.target final-suspend.service
+Requires=final-synced-data.target
+After=final-synced-data.target
+
+Requires=delayed-suspend.service
+Before=delayed-suspend.service
+

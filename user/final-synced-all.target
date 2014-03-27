@@ -1,0 +1,9 @@
+[Unit]
+Description=final data sync
+
+Conflicts=initial-synced-base.target initial-synced-lib.target initial-synced-mail.target
+Conflicts=initial-synced-work.target initial-synced-rest.target
+
+Requires=async-default-all.service
+After=async-default-all.service
+
