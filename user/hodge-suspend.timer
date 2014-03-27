@@ -1,5 +1,5 @@
 [Unit]
-Description=shutdown hodge at night
+Description=suspend hodge at night
 ConditionHost=hodge
 
 [Timer]
