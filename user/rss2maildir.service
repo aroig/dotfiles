@@ -1,13 +1,13 @@
 [Unit]
 Description=rss2maildir
 
-# rss2maildir chages ~/mail and stores logs in ~/var
-Requisite=initial-synced-mail.target initial-synced-base.target
-After=initial-synced-mail.target initial-synced-base.target
+# rss2maildir chages ~/mail
+Requisite=initial-synced-mail.target
+After=initial-synced-mail.target
 
 Requires=online.service
 After=online.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/rss2maildir -v -l %h/var/log/rss2maildir.log
+ExecStart=/usr/bin/rss2maildir -v 
