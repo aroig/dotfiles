@@ -1,6 +1,6 @@
 [Unit]
 Description=mount default host and keep ssh open
-StopWhenUneeded=true
+StopWhenUnneeded=true
 
 [Service]
 # async notifies systemd when state is reached
