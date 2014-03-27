@@ -1,7 +1,9 @@
 [Unit]
 Description=final data sync
 
-Conflicts=initial-synced-data.target
+# Can't conflict here, because final-synced-mail 
+# requires initial-synced.data.
+# Conflicts=initial-synced-data.target
 
 Wants=final-synced-mail.target
 After=final-synced-mail.target
