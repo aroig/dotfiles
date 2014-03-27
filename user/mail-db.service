@@ -2,8 +2,8 @@
 Description=mail database
 StopWhenUnneeded=true
 
-Requisite=initial-synced-data.target
-After=initial-synced-data.target
+Requisite=initial-synced-mail.target
+After=initial-synced-mail.target
 
 [Service]
 Type=oneshot

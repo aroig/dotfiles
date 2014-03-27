@@ -1,8 +1,9 @@
 [Unit]
 Description=rss2maildir
 
-Requisite=initial-synced-data.target
-After=initial-synced-data.target
+# rss2maildir chages ~/mail and stores logs in ~/var
+Requisite=initial-synced-mail.target initial-synced-base.target
+After=initial-synced-mail.target initial-synced-base.target
 
 Requires=online.service
 After=online.service

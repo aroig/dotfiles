@@ -1,8 +1,9 @@
 [Unit]
 Description=postprocess mail and news
 
-Requisite=initial-synced-data.target
-After=initial-synced-data.target
+# mutag changes mail database based on ~/mail
+Requisite=initial-synced-mail.target
+After=initial-synced-mail.target
 
 After=offlineimap.service
 After=rss2maildir.service

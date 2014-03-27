@@ -8,5 +8,6 @@ OnFailure=journal-mailer.service
 # refresh cached passphrase now
 Requires=gpg-agent-auth.service
 
-After=initial-synced-data.target initial-synced-mail.target initial-synced-system.target
-Requires=initial-synced-data.target initial-synced-mail.target
+# trigger a homedir sync
+Requires=initial-synced-base.target initial-synced-mail.target initial-synced-work.target initial-synced-rest.target
+After=initial-synced-base.target initial-synced-mail.target initial-synced-work.target initial-synced-rest.target
