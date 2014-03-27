@@ -10,4 +10,4 @@ message="Journal:\n$(journalctl $jctl_args)\n"
 
 echo "mailing fail report to user $user"
 echo -e "$message" | mail -s "$subject" $user
-
+sleep 5
