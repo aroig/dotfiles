@@ -2,8 +2,8 @@
 Description=unlock calibre database
 StopWhenUnneeded=true
 
-Requisite=initial-synced-data.target
-After=initial-synced-data.target
+Requisite=initial-synced-lib.target
+After=initial-synced-lib.target
 
 [Service]
 Type=oneshot

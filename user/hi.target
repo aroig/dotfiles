@@ -9,5 +9,7 @@ OnFailure=journal-mailer.service
 Requires=gpg-agent-auth.service
 
 # trigger a homedir sync
-Requires=initial-synced-base.target initial-synced-mail.target initial-synced-work.target initial-synced-rest.target
-After=initial-synced-base.target initial-synced-mail.target initial-synced-work.target initial-synced-rest.target
+Requires=initial-synced-base.target initial-synced-lib.target initial-synced-mail.target
+Requires=initial-synced-work.target initial-synced-rest.target
+After=initial-synced-base.target initial-synced-lib.target initial-synced-mail.target 
+After=initial-synced-work.target initial-synced-rest.target

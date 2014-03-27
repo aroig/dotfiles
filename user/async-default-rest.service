@@ -7,4 +7,4 @@ After=async-default-base.service async-default-mail.service async-default-work.s
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/async -b sync --terse default --ignore etc,mail,priv,var,work
+ExecStart=/usr/bin/async -b sync --terse default --ignore etc,lib,mail,priv,var,work
