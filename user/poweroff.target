@@ -1,0 +1,6 @@
+[Unit]
+Description=poweroff system
+DefaultDependencies=no
+
+Requires=systemd-poweroff.service
+

@@ -1,4 +1,3 @@
-
 [Unit]
 Description=enter suspend state
 
@@ -9,5 +8,3 @@ Type=oneshot
 
 ExecStart=/usr/bin/sudo systemctl suspend
 
-[Install]
-WantedBy=sleep.target

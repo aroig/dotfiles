@@ -1,7 +1,0 @@
-[Unit]
-Description=sleep state
-
-# bind to lock.target so that when unlocking sleep.target goes down
-BindsTo=lock.target
-Requires=sleep.service
-

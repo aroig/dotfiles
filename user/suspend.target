@@ -1,0 +1,8 @@
+[Unit]
+Description=suspend system
+DefaultDependencies=no
+
+# bind to lock.target so that when unlocking this unit goes down
+BindsTo=lock.target
+Requires=systemd-suspend.service
+

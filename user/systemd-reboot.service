@@ -1,0 +1,9 @@
+
+[Unit]
+Description=reboot system
+
+[Service]
+Type=oneshot
+
+ExecStart=/usr/bin/sudo systemctl reboot
+

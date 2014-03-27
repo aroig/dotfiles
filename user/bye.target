@@ -10,5 +10,5 @@ After=journal-mailer.service
 Requires=gpg-agent-auth.service
 
 After=final-synced-data.target final-synced-mail.target
-Before=final-shutdown.service
-Requires=final-synced-data.target final-synced-mail.target final-shutdown.service
+Before=final-poweroff.service
+Requires=final-synced-data.target final-synced-mail.target final-poweroff.service

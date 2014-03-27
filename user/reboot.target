@@ -1,0 +1,6 @@
+[Unit]
+Description=reboot system
+DefaultDependencies=no
+
+Requires=systemd-reboot.service
+
