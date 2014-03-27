@@ -42,9 +42,9 @@ local cfgdir = awful.util.getdir("config")
 
 apps.quit_cmd            = "systemctl --user start quit-wm.target"
 apps.lock_cmd            = "systemctl --user start lock.target"
-apps.suspend_cmd         = "systemctl --user start sleep.target"
-apps.poweroff_cmd        = "sudo systemctl poweroff"
-apps.reboot_cmd          = "sudo systemctl reboot"
+apps.suspend_cmd         = "systemctl --user start suspend.target"
+apps.poweroff_cmd        = "systemctl --user start poweroff.target"
+apps.reboot_cmd          = "systemctl --user start reboot.target"
 
 
 return apps
