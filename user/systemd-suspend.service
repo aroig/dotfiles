@@ -1,7 +1,7 @@
 [Unit]
 Description=enter suspend state
 
-BindsTo=lock.taraget
+BindsTo=lock.target
 After=lock.target
 
 [Service]
