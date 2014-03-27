@@ -6,5 +6,5 @@ After=async-default-mounted.service
 After=async-default-base.service async-default-mail.service async-default-work.service
 
 [Service]
-Type=simple
+Type=oneshot
 ExecStart=/usr/bin/async -b sync --terse default --ignore etc,lib,mail,priv,var,work

@@ -5,5 +5,5 @@ Requires=async-default-mounted.service
 After=async-default-mounted.service
 
 [Service]
-Type=simple
+Type=oneshot
 ExecStart=/usr/bin/async -b sync --terse default -d etc,priv,var
