@@ -2,9 +2,6 @@
 Description=fetch news
 StopWhenUnneeded=true
 
-Requisite=initial-synced-data.target
-After=initial-synced-data.target
-
 Requires=mail-db.service
 After=mail-db.service
 
