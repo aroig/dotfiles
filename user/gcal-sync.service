@@ -1,8 +1,9 @@
 [Unit]
 Description=sync google calendar
 
-Requisite=initial-synced-data.target
-After=initial-synced-data.target
+# gcal accesses and changes ~/work/wiki
+Requisite=initial-synced-work.target
+After=initial-synced-work.target
 
 Requires=online.service
 After=online.service

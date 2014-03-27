@@ -2,8 +2,9 @@
 Description=orgmode database
 StopWhenUnneeded=true
 
-Requisite=initial-synced-data.target
-After=initial-synced-data.target
+# orgmode changes data in ~/work/wiki
+Requisite=initial-synced-work.target
+After=initial-synced-work.target
 
 [Service]
 Type=oneshot
