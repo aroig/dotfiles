@@ -1,0 +1,7 @@
+[Unit]
+Description=shutdown hodge at night
+ConditionHost=hodge
+
+[Timer]
+OnCalendar=20:00
+Unit=byez.target

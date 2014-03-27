@@ -1,0 +1,7 @@
+[Unit]
+Description=wakeup hodge in the morning
+ConditionHost=hodge
+
+[Timer]
+OnCalendar=09:30
+Unit=hi.target
