@@ -11,4 +11,6 @@ Requires=gpg-agent-auth.service
 
 After=final-synced-data.target final-synced-mail.target
 Before=final-poweroff.service
-Requires=final-synced-data.target final-synced-mail.target final-poweroff.service
+
+Wants=final-synced-data.target
+Requires=final-synced-mail.target final-poweroff.service
