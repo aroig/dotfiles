@@ -1,8 +1,9 @@
 [Unit]
 Description=sync google contacts
 
-Requisite=initial-synced-data.target
-After=initial-synced-data.target
+# gcont store contacts in ~/mail
+Requisite=initial-synced-mail.target
+After=initial-synced-mail.target
 
 Requires=online.service
 After=online.service
