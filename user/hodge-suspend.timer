@@ -5,3 +5,6 @@ ConditionHost=hodge
 [Timer]
 OnCalendar=20:00
 Unit=byez.target
+
+[Install]
+WantedBy=timers.target

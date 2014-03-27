@@ -1,7 +1,7 @@
 [Timer]
 OnActiveSec=5
 OnUnitInactiveSec=2h
-Unit=fetch-news.target
+Unit=fetch-mail.target
 
 [Install]
 WantedBy=timers.target

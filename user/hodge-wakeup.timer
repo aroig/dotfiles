@@ -6,3 +6,6 @@ ConditionHost=hodge
 OnCalendar=Mon-Fri 09:30
 WakeSystem=true
 Unit=hi.target
+
+[Install]
+WantedBy=timers.target
