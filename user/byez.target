@@ -1,5 +1,5 @@
 [Unit]
-Description=trigger final actions and shutdown
+Description=trigger final actions and sleep
 StopWhenUnneeded=true
 
 # If a target fails to start notify by mail.
@@ -10,5 +10,5 @@ After=journal-mailer.service
 Requires=gpg-agent-auth.service
 
 After=final-synced-data.target final-synced-mail.target
-Before=final-shutdown.service
-Requires=final-synced-data.target final-synced-mail.target final-shutdown.service
+Before=final-sleep.service
+Requires=final-synced-data.target final-synced-mail.target final-sleep.service
