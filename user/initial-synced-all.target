@@ -1,6 +1,5 @@
 [Unit]
 Description=sync with default remote
-StopWhenUnneeded=true
 
 OnFailure=journal-mailer.service
 
