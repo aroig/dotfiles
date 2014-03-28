@@ -1,8 +1,0 @@
-[Unit]
-Description=delay by %i seconds
-
-[Service]
-Type=oneshot
-SyslogIdentifier=delay
-ExecStart=/usr/bin/sleep %i
-

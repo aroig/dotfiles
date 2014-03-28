@@ -2,8 +2,9 @@
 Description=reboot system in 20 seconds
 DefaultDependencies=no
 
-Requires=delay@20.service
-After=delay@20.service
-
 BindsTo=systemd-reboot.service
 Before=systemd-reboot.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sleep 20

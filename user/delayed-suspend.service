@@ -2,8 +2,9 @@
 Description=suspend system in 20 seconds
 DefaultDependencies=no
 
-Requires=delay@20.service
-After=delay@20.service
-
 BindsTo=systemd-suspend.service
 Before=systemd-suspend.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sleep 20

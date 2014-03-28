@@ -10,7 +10,7 @@ Requires=gpg-agent-auth.service
 Requires=final-synced-all.target
 After=final-synced-all.target
 
-Requires=delayed-poweroff.target
-Before=delayed-poweroff.target
+Requires=delayed-poweroff.service
+Before=delayed-poweroff.service
 
 

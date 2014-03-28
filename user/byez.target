@@ -10,6 +10,6 @@ Requires=gpg-agent-auth.service
 Requires=final-synced-all.target
 After=final-synced-all.target
 
-Requires=delayed-suspend.target
-Before=delayed-suspend.target
+Requires=delayed-suspend.service
+Before=delayed-suspend.service
 

@@ -5,7 +5,7 @@ StopWhenUnneeded=true
 Requires=pacman-upgrade.service
 After=pacman-upgrade.service
 
-Requires=delayed-reboot.target
-Before=delayed-reboot.target
+Requires=delayed-reboot.service
+Before=delayed-reboot.service
 
 OnFailure=journal-mailer.service
