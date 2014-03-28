@@ -1,7 +1,11 @@
 [Desktop Entry]
 Name=Kindle
-Exec=env WINEPREFIX="/home/abdo/.wine" wine C:\\\\windows\\\\command\\\\start.exe /Unix /home/abdo/.wine/dosdevices/c:/users/abdo/Start\\ Menu/Programs/Amazon/Amazon\\ Kindle/Kindle.lnk
-Type=Application
-StartupNotify=true
-Path=/home/abdo/.wine/dosdevices/c:/Program Files (x86)/Amazon/Kindle/content
+Comment=Kindle for pc
+Exec=wine start /ProgIDOpen Amazon.Kindle.content %f
 Icon=0914_Kindle.0
+Terminal=false
+Type=Application
+MimeType=application/x-wine-extension-azw;application/x-mobipocket-ebook;application/x-topaz-ebook;
+NoDisplay=true
+StartupNotify=true
+
