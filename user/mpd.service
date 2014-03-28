@@ -5,6 +5,8 @@ Requires=mpd.socket
 Wants=mpdscribble.service
 
 PartOf=audio.target
+
+Requires=pulseaudio.service
 After=pulseaudio.service
 
 [Service]
