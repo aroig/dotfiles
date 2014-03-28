@@ -4,8 +4,8 @@ StopWhenUnneeded=true
 
 OnFailure=journal-mailer.service
 
-Requires=async-default.target
-After=async-default.target
+Requires=initial-synced-all.target
+After=initial-synced-all.target
 
 Requires=fetch.target
 After=fetch.target
