@@ -4,11 +4,10 @@ Documentation=man:pulseaudio(1)
 PartOf=audio.target
 
 [Service]
-Type=simple
-# BusName=org.pulseaudio.Server
-# ExecStart=/usr/bin/pulseaudio --start --daemonize --fail
-# PIDFile=/run/user/%U/pulse/pid
-ExecStart=/usr/bin/pulseaudio --fail
+Type=dbus
+BusName=org.pulseaudio.Server
+BusName=org.PulseAudio1
+ExecStart=/usr/bin/pulseaudio
 SuccessExitStatus=0 1
 Restart=always
 RestartSec=1
