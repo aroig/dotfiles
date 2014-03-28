@@ -1,6 +1,6 @@
 [Unit]
-Description=wakeup hodge in the morning
-ConditionHost=hodge
+Description=wakeup grothendieck in the morning
+ConditionHost=grothendieck
 
 [Timer]
 OnCalendar=Mon-Fri 09:30
