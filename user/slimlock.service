@@ -5,6 +5,9 @@ After=xorg.target
 
 Requisite=xorg.target
 
+# so that when slimlock ends lock.target goes down
+PartOf=lock.target
+
 [Service]
 Type=simple
 

@@ -2,7 +2,6 @@
 Description=reboot system
 
 [Service]
-RemainAfterExit=true
 Type=oneshot
 
 ExecStart=/usr/bin/sudo systemctl reboot

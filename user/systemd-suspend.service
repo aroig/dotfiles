@@ -1,10 +1,7 @@
 [Unit]
 Description=enter suspend state
-
-BindsTo=lock.target
 After=lock.target
 
 [Service]
-RemainAfterExit=true
 Type=oneshot
 ExecStart=/usr/bin/sudo systemctl suspend

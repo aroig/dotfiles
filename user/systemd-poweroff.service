@@ -2,8 +2,6 @@
 Description=poweroff system
 
 [Service]
-RemainAfterExit=true
 Type=oneshot
-
 ExecStart=/usr/bin/sudo systemctl poweroff
 
