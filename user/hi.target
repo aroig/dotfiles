@@ -6,6 +6,3 @@ OnFailure=journal-mailer.service
 
 Requires=initial-synced-all.target
 After=initial-synced-all.target
-
-Requires=fetch.target
-After=fetch.target
