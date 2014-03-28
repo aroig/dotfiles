@@ -2,7 +2,7 @@
 Description=poweroff system in 20 seconds
 DefaultDependencies=no
 
-BindsTo=systemd-poweroff.service
+Requires=systemd-poweroff.service
 Before=systemd-poweroff.service
 
 [Service]

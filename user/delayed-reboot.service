@@ -2,7 +2,7 @@
 Description=reboot system in 20 seconds
 DefaultDependencies=no
 
-BindsTo=systemd-reboot.service
+Requires=systemd-reboot.service
 Before=systemd-reboot.service
 
 [Service]
