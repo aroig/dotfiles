@@ -10,4 +10,4 @@ After=async-default-base.service
 [Service]
 Type=oneshot
 SyslogIdentifier=async-work
-ExecStart=/usr/bin/async -b sync --terse default -d worki
+ExecStart=/usr/bin/async -b sync --terse default -d work
