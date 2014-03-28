@@ -1,5 +1,5 @@
 [Unit]
-Description=sync mail to default host
+Description=sync base to default host
 
 Requires=async-default-mounted.service
 After=async-default-mounted.service
