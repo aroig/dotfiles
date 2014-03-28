@@ -4,9 +4,6 @@ StopWhenUnneeded=true
 
 OnFailure=journal-mailer.service
 
-# refresh cached passphrase now
-Requires=gpg-agent-auth.service
-
 Requires=final-synced-all.target
 After=final-synced-all.target
 
