@@ -12,8 +12,6 @@ After=pulseaudio.service
 [Service]
 Type=simple
 Environment=PULSE_PROP=application.icon_name=emblem-sound
-
-ExecStartPre=/usr/bin/mkdir -p %t/mpd
 ExecStart=/usr/bin/mpd --no-daemon
 
 [Install]
