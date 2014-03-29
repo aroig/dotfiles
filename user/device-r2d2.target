@@ -1,0 +1,5 @@
+[Unit]
+Description=r2d2 device
+
+BindsTo=sys-subsystem-net-devices-r2d2.device
+After=sys-subsystem-net-devices-r2d2.device
