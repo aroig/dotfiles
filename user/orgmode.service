@@ -15,6 +15,6 @@ ExecStart=/usr/bin/emacs -org --title "emacs-org"
 KillSignal=SIGINT
 
 # This fails if emacs is already stopped
-# ExecStop=/usr/bin/emacsclient -s org -e '(progn (save-some-buffers t) (kill-emacs))'
+# ExecStop=/usr/bin/emacsclient -s %t/emacs/org -e '(progn (save-some-buffers t) (kill-emacs))'
 
 

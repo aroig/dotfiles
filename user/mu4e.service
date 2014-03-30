@@ -14,6 +14,6 @@ ExecStart=/usr/bin/emacs -mail --title "emacs-mail"
 KillSignal=SIGINT
 
 # This fails if emacs is already stopped
-# ExecStop=/usr/bin/emacsclient -s mail -e '(progn (save-some-buffers t) (kill-emacs))'
+# ExecStop=/usr/bin/emacsclient -s %t/emacs/mail -e '(progn (save-some-buffers t) (kill-emacs))'
 
 

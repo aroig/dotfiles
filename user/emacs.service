@@ -17,7 +17,7 @@ SuccessExitStatus=0 15
 KillSignal=SIGINT
 
 # This fails if emacs is already stopped
-# ExecStop=/usr/bin/emacsclient --eval "(client-save-kill-emacs)"
+# ExecStop=/usr/bin/emacsclient -s %t/emacs/server --eval "(client-save-kill-emacs)"
 
 
 [Install]

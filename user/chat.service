@@ -15,5 +15,4 @@ ExecStart=/usr/bin/emacs -chat --title "emacs-chat"
 KillSignal=SIGINT
 
 # This fails if emacs is already stopped
-# ExecStop=/usr/bin/emacsclient -s chat -e '(progn (abdo-chat-disconnect) (save-some-buffers t) (kill-emacs))'
-
+# ExecStop=/usr/bin/emacsclient -s %t/emacs/chat --eval "(client-save-kill-emacs)"
