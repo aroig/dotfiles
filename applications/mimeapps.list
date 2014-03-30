@@ -6,16 +6,16 @@ x-scheme-handler/https=dwb.desktop;
 application/xhtml+xml=dwb.desktop;
 text/html=dwb.desktop;
 
-text/plain=emacs-client.desktop;
-application/x-shellscript=emacs-client.desktop;
-text/x-tex=emacs-client.desktop;
-text/x-c++src=emacs-client.desktop;
-text/x-chdr=emacs-client.desktop;
-text/x-csrc=emacs-client.desktop;
-text/x-python=emacs-client.desktop;
-text/x-lua=emacs-client.desktop;
-text/x-haskell=emacs-client.desktop;
-text/x-makefile=emacs-client.desktop;
+text/plain=emacsclient.desktop;
+application/x-shellscript=emacsclient.desktop;
+text/x-tex=emacsclient.desktop;
+text/x-c++src=emacsclient.desktop;
+text/x-chdr=emacsclient.desktop;
+text/x-csrc=emacsclient.desktop;
+text/x-python=emacsclient.desktop;
+text/x-lua=emacsclient.desktop;
+text/x-haskell=emacsclient.desktop;
+text/x-makefile=emacsclient.desktop;
 
 image/jpeg=feh.desktop;
 image/png=feh.desktop;
