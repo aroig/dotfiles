@@ -1,9 +1,12 @@
 
-;; Elisp paths
+;; Emacs paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; put server sockets under XDG_RUNTIME_DIR
+(setq server-socket-dir (format "%s/emacs/" (getenv "XDG_RUNTIME_DIR")))
+
 ;; Path of local emacs stuff
-(setq abdo-emacs-directory  "/home/abdo/etc/emacs/")
+(setq abdo-emacs-directory  (format "%s/emacs/" (getenv "AB2_CONF_DIR")))
 
 ;; Adds subdirectories at the begining of path
 (let ((default-directory (concat abdo-emacs-directory "emacs-lisp/")))
@@ -44,16 +47,16 @@
 ;; Paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq org-directory (format "%s/" (getenv "AB2_WIKI_DIR")))           ;; org mode
-(setq abdo-mail-directory (format "%s/" (getenv "AB2_MAIL_DIR")))     ;; email
-(setq abdo-papers-directory (format "%s/" (getenv "AB2_PAPERS_DIR"))) ;; papers
+(setq org-directory (format "%s/" (getenv "AB2_WIKI_DIR")))                    ;; org mode
+(setq abdo-mail-directory (format "%s/" (getenv "AB2_MAIL_DIR")))              ;; email
+(setq abdo-papers-directory (format "%s/" (getenv "AB2_PAPERS_DIR")))          ;; papers
 
-(setq abdo-personal-dicts-path "~/usr/dict/aspell/")              ;; dictionaries
-(setq abdo-emacs-backups "~/var/bak/emacs/")                      ;; Backups dir
-(setq bookmark-default-file "~/.emacs.d/bookmarks")               ;; bookmarks file
+(setq abdo-emacs-backups (format "%s/bak/emacs/" (getenv "AB2_VAR_DIR")))      ;; Backups dir
+(setq abdo-chat-directory     (format "%s/chat/" (getenv "AB2_VAR_DIR")))      ;; chat logs
 
-(setq abdo-chat-directory     "~/var/chat/")                      ;; chat logs
-(setq abdo-download-directory "~/down/")                          ;; downloads
+(setq abdo-personal-dicts-path (format "%s/usr/dict/aspell/" (getenv "HOME"))) ;; dictionaries
+(setq bookmark-default-file "~/.emacs.d/bookmarks")                            ;; bookmarks file
+(setq abdo-download-directory "~/down/")                                       ;; downloads
 
 
 ;; Variables
