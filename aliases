@@ -95,12 +95,7 @@ trimtrail() {
 tmux_master() {
     session="$1"
     shift
-
-    if [ -f ~/.tmux/$session ]; then  opts_file="$HOME/.tmux/$session"
-    else                              opts_file="$HOME/.tmux/default"
-    fi
-
-    tmux new-session -d -s $session\; source-file "$opts_file"\; "$@"
+    tmux new-session -d -s $session\; "$@"
 }
 
 
@@ -109,27 +104,19 @@ tmux_client() {
     session="$1"
     shift
 
-    if [ -f ~/.tmux/$session ]; then  opts_file="$HOME/.tmux/$session"
-    else                              opts_file="$HOME/.tmux/default"
-    fi
-
     tmux new-session -t $session -s $session-$$\; \
-        source-file "$opts_file"\; set destroy-unattached on\; "$@"
+        set destroy-unattached on\; "$@"
 }
 
 
 # create a new tmux session, launching the master if necessary
 tmux_session() {
-    if [ ! "$1" ]; then 
-        echo "No session specified."
-        exit 1
-    fi
-
     session="$1"
+    [ ! "$session" ] && session="default"
     shift
 
-    ( tmux_client $session && exit 0 ) || \
-        ( tmux_master $session && tmux_client $session && exit 0 )
+    ( tmux_client "$session" && exit 0 ) || \
+    ( tmux_master "$session" && tmux_client "$session" && exit 0 )
 }
 
 
