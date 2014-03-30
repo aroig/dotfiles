@@ -95,7 +95,7 @@ enable-universal-access-from-file-uris=true
 
 # Javascript and plugins          #
 # ------------------------------- #
-enable-plugins=false
+enable-plugins=true
 enable-scripts=true
 enable-java-applet=true
 plugin-blocker=true
@@ -114,7 +114,7 @@ adblocker-element-hider=true
 # ------------------------------- #
 download-use-external-program=false
 
-editor=emacsclient -c -a emacs dwb_uri
+editor=$EMACS dwb_uri
 download-external-command=$TERMCMD -e wget dwb_uri -O dwb_output --load-cookies dwb_cookies
 
 
@@ -282,3 +282,6 @@ scheme-handler=
 
 
 
+tabbar-height=0
+statusbar-height=0
+favicon-size=0
