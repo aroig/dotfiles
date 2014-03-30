@@ -192,14 +192,6 @@
     ans))
 
 
-(defun abdo-path-contains-buffer (path)
-  (delq nil (mapcar (lambda (buf)
-                      (if (and (buffer-file-name buf) (string-prefix-p path (buffer-file-name buf)))
-                          buf
-                        nil))
-                    (buffer-list))))
-
-
 (defun abdo-ask-save-buffer (&optional buf)
   "asks if want to save buffer. Returns t if the file gets saved, and nil
  otherwise"
@@ -218,14 +210,27 @@
   (interactive)
   (setq path (or path (buffer-file-name)))
 
-  (let ((rootdir (abdo-vc-root path)))
-    ;; TODO: I should check if working repo is clean. It seems I can't
-    ;; do it from the vqc interface
+  (let ((rootdir (abdo-vcs-root path))
+        (buflist '()))
+
+    ;; get a list of buffers which open files inside rootdir and have changes
+    (when rootdir
+      (setq buflist (mapcar (lambda (buf)
+                              (if (and (not (eq buf (current-buffer)))
+                                       (buffer-file-name buf)
+                                       (string-prefix-p rootdir (buffer-file-name buf))
+                                       (not (eq (vc-state (buffer-file-name buf)) 'up-to-date)))
+                                  buf nil))
+                            (buffer-list)))
+      (setq buflist (delq nil buflist)))
+
+    ;; only ask for commit on the last buffer under rootdir with changes
     (if (and rootdir
-             (not (abdo-path-contains-buffer rootdir)))  ; only ask for commit on the last buffer
-	(if (y-or-n-face-p (concat "Commit changes to repo at " rootdir "? ") 'abdo-commit-question)
-	    (progn (message "Preparing to commit") (abdo-vcs-status rootdir) t)
-	  (message "Not commiting") nil)
+             (eq (length buflist) 0))
+        (if (y-or-n-face-p (concat "Commit changes to repo at " rootdir "? ") 'abdo-commit-question)
+            (progn (message "Preparing to commit")
+                   (abdo-vcs-status rootdir) t)
+          (message "Not commiting") nil)
       nil)))
 
 
@@ -260,10 +265,10 @@
   (interactive)
 
   (when (not (and (abdo-ask-save-buffer)
-		  (not (and buffer-file-name
-			    (vc-registered buffer-file-name)
-			    (vc-workfile-unchanged-p buffer-file-name)))
-		  (abdo-ask-commit-repo buffer-file-name)))
+                  (not (and buffer-file-name
+                            (vc-registered buffer-file-name)
+                            (vc-workfile-unchanged-p buffer-file-name)))
+                  (abdo-ask-commit-repo buffer-file-name)))
     (set-buffer-modified-p nil)
     (abdo~buffer-done-or-kill)))
 
@@ -288,7 +293,7 @@
     ;; The value is the modified state. 0 modified, 1 in sync.
     (setq roothash (make-hash-table :test 'equal))
     (dolist (buf (buffer-list))
-      (setq rootdir (abdo-vc-root (buffer-file-name buf)))
+      (setq rootdir (abdo-vcs-root (buffer-file-name buf)))
       (setq val (gethash rootdir roothash))
       (when (and rootdir
 		 (not (equal val 0))
@@ -384,7 +389,12 @@
 ;; Auto Revert
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; TODO: There is a problem here. revert-buffer in file.el.gz calls
+;; insert-file-contents with a fifth argument preventing a full "remove all"
+;; "insert all" change in the undo list. This leads to a broken undo-list.
+
 ;; Enable auto-revert prog and text buffers
+(setq auto-revert-mode-text " ar")
 (add-hook 'prog-mode-hook (lambda () (auto-revert-mode)))
 (add-hook 'text-mode-hook (lambda () (auto-revert-mode)))
 
@@ -417,10 +427,10 @@
   (unless rootdir (setq rootdir default-directory))
   (magit-log))
 
-
-(defun abdo-vc-root (file)
+(defun abdo-vcs-root (file)
   "Returns the root of the repo file belongs, or nil if file is not versioned."
-  (when (and file (vc-backend file)) (vc-call root file)))
+  (when (and file (vc-backend file)) (file-truename (vc-call root file))))
+
 
 
 ;; monkeypatch vc-mode-line in vc-hooks.el so I get a lowercase modeline string.

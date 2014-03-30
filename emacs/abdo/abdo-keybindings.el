@@ -20,6 +20,9 @@
 (global-set-key (kbd "H-y t") 'abdo-helm-todos)
 (global-set-key (kbd "H-y o") 'abdo-helm-org-files)
 (global-set-key (kbd "H-y h") 'helm-org-headlines)
+(global-set-key (kbd "H-y p") 'abdo-helm-papers)
+(global-set-key (kbd "H-y g") 'helm-do-grep)
+(global-set-key (kbd "H-y u") 'helm-mu)
 
 
 ;; Org mode
@@ -80,8 +83,9 @@
 ;; Launchers
 (global-set-key (kbd "H-x t") 'abdo-launch-terminal)
 (global-set-key (kbd "H-x f") 'abdo-launch-filemanager)
-(global-set-key (kbd "H-c m") (lambda () (abdo-mu4 "mail")))
+(global-set-key (kbd "H-c m") 'abdo-mu4)
 (global-set-key (kbd "H-c i") 'rcirc)
+(global-set-key (kbd "H-c t") 'ansi-term)
 (global-set-key (kbd "H-h s") 'calibre-find)
 
 ;; Version Control
@@ -213,7 +217,9 @@
 	    (local-set-key (kbd "C-c p") 'previous-error)              ;; previous error
 
 	    (local-set-key (kbd "C-c r") 'abdo-latex-toggle-toc)       ;; Toggles the reftex toc
-	    (local-set-key (kbd "C-c v") 'abdo-latex-view)))           ;; View
+	    (local-set-key (kbd "C-c v") 'abdo-latex-view)             ;; View
+        (local-set-key (kbd "C-c f") 'abdo-latex-forward-sync)     ;; Forward search
+        ))
 
 
 ;; C/C++

@@ -43,26 +43,29 @@
                     (with-helm-current-buffer
                       (when (file-accessible-directory-p ,path)
                           (abdo-directory-files-rec ,path ,regexp)))))
-;    (keymap . ,helm-generic-files-map)
-    (no-delay-on-input)
-    (help-message . helm-generic-file-help-message)
-    (mode-line . helm-generic-file-mode-line-string)
-    (type . file)))
+    (action . (("Open" . find-file)
+               ("View" . view-file)))))
 
 
-
-
-;; org mode helm sources
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;; setup helm org source
 (defvar helm-c-source-org-files (helm-c-source-files-in-dir-rec
-                                 org-directory-wiki
+                                 (concat org-directory "org/")
                                  ".*\\.org$"
                                  "Org files"))
 
+;; setup helm org source
+(defvar helm-c-source-papers (helm-c-source-files-in-dir-rec
+                              abdo-papers-directory
+                              "[0-9]+/.*\\.tex$"
+                              "Papers"))
 
 ;; Interface
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun abdo-helm-papers ()
+  (interactive)
+  (helm-other-buffer 'helm-c-source-papers "*helm papers*"))
+
 
 (defun abdo-helm-org-files ()
   (interactive)
@@ -73,6 +76,7 @@
   (interactive)
   (helm-other-buffer '(helm-c-source-fixme)
                      "*helm TODO*"))
+
 
 
 (provide 'abdo-helm)

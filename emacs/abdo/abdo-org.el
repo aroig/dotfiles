@@ -17,8 +17,11 @@
   (setq abdo-org-texmf-subdirectory "latex/")
   (setq abdo-org-agenda-file-list "etc/agenda-files")
 
+  ;; ical exports
+  (setq org-ical-directory (concat org-directory "ical/"))
+
   ;; Local Mobileorg directory. From within org I will only sync to this directory.
-  (setq org-mobile-directory "/home/abdo/share/r2d2/mobileorg")
+  (setq org-mobile-directory (concat org-directory "mobile/"))
 
   ;; Base dir for org files
   (setq org-directory-wiki (concat org-directory "org/"))
@@ -44,6 +47,10 @@
         (let ((default-directory org-directory-wiki))
           (file-expand-wildcards "math/*.org")))
 
+  (setq abdo-org-teaching-file-list
+        (let ((default-directory org-directory-wiki))
+          (file-expand-wildcards "teaching/*.org")))
+
   (setq abdo-org-perso-file-list
         (let ((default-directory org-directory-wiki))
           (file-expand-wildcards "perso/*.org")))
@@ -57,7 +64,7 @@
   (setq abdo-org-math-ideas-file "math/ideas.org")
   (setq abdo-org-math-journal-file "math/log.org")
 
-  (setq abddo-org-personal-notes-file "perso/notes.org")
+  (setq abdo-org-personal-notes-file "perso/notes.org")
   (setq abdo-org-personal-journal-file "perso/log.org")
 
 
@@ -81,7 +88,6 @@
 )
 
 
-
 (defun abdo-org-all-mode-things()
   "Things to do for all org related modes"
 
@@ -92,7 +98,7 @@
   (setq-default indent-tabs-mode nil)
 
   ;; Want wider columns in org-files
-  (set-fill-column 100)
+  (setq fill-column 100)
 
   ;; Activate notifications
   ;; (abdo-org-activate-appt)
@@ -309,6 +315,27 @@
 )
 
 
+(defun abdo-org-icalendar-export-setup()
+  ;; Setup ical exports
+
+  ;; I only want to export TODO entries with SCHEDULED or DEADLINE set.
+  ;; No timestamps, no TODO's without date.
+
+  (setq org-icalendar-store-UID nil)                  ; need uid's, but I generate them myself
+  (setq org-icalendar-with-timestamps nil)            ; no events from plain timestamps. Seems buggy
+  (setq org-icalendar-include-todo nil)               ; Do not make TODO's into VTODO entries.
+
+  (setq org-icalendar-categories
+        '(all-tags category todo-state))              ; data to set categrory from
+
+  (setq org-icalendar-use-deadline                    ; where to use deadlines
+        '(event-if-not-todo event-if-todo todo-due))
+
+  (setq org-icalendar-use-scheduled                   ; where to use scheduled
+        '(event-if-not-todo event-if-todo todo-start))
+)
+
+
 ;; Tools
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -335,6 +362,11 @@
 (defun abdo-org-notes-buffer ()
   "Loads org notes buffer into current window"
   (interactive)
+
+  ;; hide modeline
+  (add-hook 'after-change-major-mode-hook 'hidden-mode-line-mode)
+
+  ;; open notes file
   (find-file (concat org-directory-wiki abdo-org-notes-file))
 )
 
@@ -356,13 +388,6 @@
 
   ;; Update symlinks to projects and papers
   (compile (format "cd %s; make update" org-directory)))
-
-
-(defun abdo-org-update-mobile()
-  (interactive)
-  ;; Push to mobile-org
-  (when (file-exists-p org-mobile-directory)
-    (org-mobile-push)))
 
 
 
@@ -399,6 +424,7 @@
 (defun abdo-org-custom-agenda-setup ()
   (let ((devel-list     (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-comp-file-list))
         (research-list  (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-math-file-list))
+        (teaching-list  (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-teaching-file-list))
         (perso-list     (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-perso-file-list))
         (papers-list     (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-papers-file-list))
 
@@ -480,6 +506,23 @@
              ((org-agenda-files (quote ,(append research-list papers-list)))))
 
 
+            ;; TEACHING
+            ("t" . "Teaching")
+
+            ; Agenda for teaching items
+            ("ta" "Agenda"          agenda ""
+             ((org-agenda-files (quote ,(append teaching-list)))))
+
+            ; Search in teaching documents
+            ("ts" "Search"          search ""
+             ((org-agenda-files (quote ,(append teaching-list)))
+              (org-agenda-search-view-max-outline-level 2)))
+
+            ; Teaching TODO list
+            ("tt" "Todo"            tags-todo ""
+             ((org-agenda-files (quote ,(append teaching-list)))))
+
+
             ;; PERSONAL
             ("p" . "Personal")
 
@@ -551,6 +594,58 @@
 )
 
 
+;; Mobile and calendar exports
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  (setq abdo-org-tst-regexp "<\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\} ... [0-9]\\{2\\}:[0-9]\\{2\\}[^\r\n>]*?\
+\)>")
+  (setq abdo-org-tstr-regexp (concat abdo-org-tst-regexp "--?-?" abdo-org-tst-regexp))
+
+
+(defun abdo-org-generate-uids (buf)
+  (with-current-buffer buf
+    (let ((pt (point-min)))
+      (org-map-entries
+       (lambda ()
+         (let ((entry (org-element-at-point)))
+           (unless (or (< (point) pt) (org-element-property :ID entry))
+             (org-id-get-create)
+             (forward-line))))))
+    (when (buffer-modified-p buf) (save-buffer))))
+
+
+
+(defun abdo-org-export-icalendar-agenda (file-list calendar-file)
+  (let ((org-agenda-files (mapcar (lambda (p) (concat org-directory-wiki p)) file-list))
+        (org-icalendar-combined-agenda-file (concat org-ical-directory calendar-file)))
+
+    (message "Generating uids")
+    (mapcar (lambda (file) (abdo-org-generate-uids (find-file-noselect file))) org-agenda-files)
+
+    (message (format "Writing calendar events to %s" calendar-file))
+    (org-icalendar-combine-agenda-files)))
+
+
+(defun abdo-org-export-icalendar ()
+  (interactive)
+  (require 'ox-icalendar)
+  (abdo-org-icalendar-export-setup)
+
+  (abdo-org-export-icalendar-agenda abdo-org-perso-file-list "personal.ics")
+  (abdo-org-export-icalendar-agenda abdo-org-papers-file-list "papers.ics")
+  (abdo-org-export-icalendar-agenda abdo-org-math-file-list "maths.ics")
+  (abdo-org-export-icalendar-agenda abdo-org-teaching-file-list "teaching.ics")
+  (abdo-org-export-icalendar-agenda abdo-org-comp-file-list "devel.ics"))
+
+
+
+(defun abdo-org-export-mobile()
+  (interactive)
+  (when (file-exists-p org-mobile-directory)
+    (org-mobile-push)))
+
+
+
 ;; Archiving
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -590,20 +685,24 @@
       (personal-journal-file (concat org-directory-wiki abdo-org-personal-journal-file))
     )
     (setq org-capture-templates (append org-capture-templates
-      `(("t" "Todo" entry (file+headline ,captured-file "Tasks")
+      `(("t" "todo" entry (file+headline ,captured-file "Tasks")
           (file ,(concat templates-dir "todo-entry.tpl")))
 
-        ("n" "Note" entry (file+headline ,captured-file "Notes")
+        ("n" "note" entry (file+headline ,captured-file "Notes")
           (file ,(concat templates-dir "note-entry.tpl")))
 
-        ("i" "Idea" entry (file+headline ,captured-file "Ideas")
+        ("i" "idea" entry (file+headline ,captured-file "Ideas")
           (file ,(concat templates-dir "idea-entry.tpl")))
 
-        ("m" "Math Journal" entry (file+datetree ,math-journal-file)
-          (file ,(concat templates-dir "journal-entry.tpl")))
+        ("m" "math journal" entry (file+datetree ,math-journal-file)
+          (file ,(concat templates-dir "math-journal-entry.tpl")))
 
-        ("w" "Wiki Page" plain (function abdo-org-prompt-file)
+        ("p" "personal journal" entry (file+datetree ,personal-journal-file)
+          (file ,(concat templates-dir "personal-journal-entry.tpl")))
+
+        ("w" "wiki page" plain (function abdo-org-prompt-file)
           (file ,(concat templates-dir "wiki-file.tpl")))
+
 
 ;        ("p" "Project" plain (function abdo-org-prompt-file)
 ;          (file ,(concat templates-dir "project-file.tpl")))

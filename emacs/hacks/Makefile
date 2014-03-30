@@ -1,13 +1,14 @@
-MAKE=emacs -Q --batch -f batch-byte-compile
+EMACS  := emacs
+EFLAGS := -Q --batch -f batch-byte-compile
 
-ELCS=$(patsubst %.el,%.elc,$(wildcard *.el))
+ELCS=helm-hacks.elc org-hacks.elc rcirc-hacks.elc
 
 .PHONY: all
 
 %.elc: %.el
-	$(MAKE) $< 
+	$(EMACS) $(EFLAGS) $< 
 
 all: $(ELCS)
 
 clean:
-	rm -rf $(ELCS)
+	rm -rf *.elc

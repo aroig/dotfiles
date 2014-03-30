@@ -34,6 +34,9 @@
   (setq user-mail-address "abdo.roig@gmail.com")
   (setq user-full-name  "Abdó Roig-Maranges")
 
+  ;; signature
+  (setq mu4e-compose-signature nil)
+
   ;; accounts to chose when composing or replying
   (setq abdo-mu4e-account-alist
         '(("gmail"
@@ -121,7 +124,7 @@
 
   ;; smtp mail setting
   (setq send-mail-function 'message-send-mail-with-sendmail)
-  (setq sendmail-program "sendmail")  ; I'm using msmtpq symlinked to sendmail
+  (setq sendmail-program "msmtpq")
 
   ;; don't keep message buffers around
   (setq message-kill-buffer-on-exit t)
@@ -132,8 +135,7 @@
 
   (add-hook 'mu4e-compose-mode-hook
         (lambda ()
-          (set-fill-column 80)))
-
+          (setq fill-column 80)))
 
   ;; Fancy chars
   ; (setq mu4e-use-fancy-chars t)
@@ -146,8 +148,11 @@
   ; (setq mu4e-html2text-command "elinks -dump -force-html -dump-color-mode 1")           ; elinks color
 
   ; elinks
-  (setq mu4e-html2text-command (concat
-                                "elinks" " -dump" " -force-html"
+  ; NOTE: I do a sed to remove explicit 'background-color'.
+  ; elinks can do that with lua hooks, but not in -dump mode
+  (setq mu4e-html2text-command (concat "sed '/<.*>/ s/background-color:[^;]*;//gI' | "
+                                "elinks" " -no-connect" " -dump" " -force-html"
+                                (format " -dump-width %d" fill-column)
                                 " -dump-color-mode 1"))
 )
 

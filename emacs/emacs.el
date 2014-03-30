@@ -1,9 +1,12 @@
 
-;; Elisp paths
+;; Emacs paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; put server sockets under XDG_RUNTIME_DIR
+(setq server-socket-dir (format "%s/emacs/" (getenv "XDG_RUNTIME_DIR")))
+
 ;; Path of local emacs stuff
-(setq abdo-emacs-directory  "/home/abdo/etc/emacs/")
+(setq abdo-emacs-directory  (format "%s/emacs/" (getenv "AB2_CONF_DIR")))
 
 ;; Adds subdirectories at the begining of path
 (let ((default-directory (concat abdo-emacs-directory "emacs-lisp/")))
@@ -26,7 +29,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq inhibit-startup-screen t)                 ;; Disable startup screen
-(menu-bar-mode -1)                              ;; Disable menubar
+(setq initial-scratch-message "")               ;; Clean scratch buffer
+
+(tool-bar-mode 0)                               ;; Disable toolbar
+(menu-bar-mode 0)                               ;; Disable menubar
+(scroll-bar-mode 0)                             ;; Disable scrollbar
 
 ;; Default frame settings
 (setq default-frame-alist '((menu-bar-lines . 0)
@@ -40,15 +47,16 @@
 ;; Paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq org-directory (format "%s/" (getenv "AB2_WIKI_DIR")))       ;; Org mode paths
-(setq abdo-mail-directory (format "%s/" (getenv "AB2_MAIL_DIR"))) ;; email
+(setq org-directory (format "%s/" (getenv "AB2_WIKI_DIR")))                    ;; org mode
+(setq abdo-mail-directory (format "%s/" (getenv "AB2_MAIL_DIR")))              ;; email
+(setq abdo-papers-directory (format "%s/" (getenv "AB2_PAPERS_DIR")))          ;; papers
 
-(setq abdo-personal-dicts-path "~/var/dicts/aspell/")             ;; dictionaries
-(setq abdo-emacs-backups "~/var/bak/emacs/")                      ;; Backups dir
-(setq bookmark-default-file "~/.emacs.d/bookmarks")               ;; bookmarks file
+(setq abdo-emacs-backups (format "%s/bak/emacs/" (getenv "AB2_VAR_DIR")))      ;; Backups dir
+(setq abdo-chat-directory     (format "%s/chat/" (getenv "AB2_VAR_DIR")))      ;; chat logs
 
-(setq abdo-chat-directory     "~/var/chat/")                      ;; chat logs
-(setq abdo-download-directory "~/down/")                          ;; downloads
+(setq abdo-personal-dicts-path (format "%s/usr/dict/aspell/" (getenv "HOME"))) ;; dictionaries
+(setq bookmark-default-file "~/.emacs.d/bookmarks")                            ;; bookmarks file
+(setq abdo-download-directory "~/down/")                                       ;; downloads
 
 
 ;; Variables
@@ -80,11 +88,8 @@
 (autoload 'vala-mode "vala-mode" "Vala mode." t)
 (autoload 'rainbow-mode "rainbow-mode" "Rainbow mode." t)
 (autoload 'markdown-mode "markdown-mode.el" "Markdown files" t)
+(autoload 'qml-mode "qml-mode" "QML mode." t)
 ; (autoload 'sage-mode "sage-mode" "Sage mode." t)
-
-;; Chat stuff
-(autoload 'rcirc "rcirc" "Rcirc irc client." t)
-(autoload 'twit "twittering-mode" "Twitter client." t)
 
 ;; Calibre
 (autoload 'calibre-find "calibre" "Calibre interface." t)
@@ -92,6 +97,8 @@
 ;; haskell
 (require 'haskell-mode-autoloads)
 
+;; CMake
+(autoload 'cmake-mode "cmake-mode.el" "CMake mode" t)
 
 ;; Loading stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -114,25 +121,32 @@
 (require 'ac-math)                     ;; produces warning (quotation)
 (require 'yasnippet)                   ;; produces warning (cl-labels)
 
-;; Helm
-(require 'helm-config)
-(require 'helm-misc)
-
 ;; Version Control
-(require 'vc)
-(require 'magit)
+(when (locate-library "vc")
+  (require 'vc))
 
-(require 'git-commit-mode)
-(require 'gitignore-mode)
-(require 'gitconfig-mode)
-(require 'git-rebase-mode)
+;; git
+(when (locate-library "magit")
+  (require 'magit))
 
-(require 'vcs-hacks)
+(when (locate-library "git-commit-mode")
+  (require 'git-commit-mode)
+  (require 'gitignore-mode)
+  (require 'gitconfig-mode)
+  (require 'git-rebase-mode))
+
+;; helm
+(when (locate-library "helm-config")
+  (require 'helm-config)
+  (require 'helm-misc)
+  (require 'helm-mu)
+  (require 'abdo-helm)
+  (require 'helm-hacks))
 
 ;; email
 (when (locate-library "mu4e")
   (require 'mu4e)                      ;; email client
-  (require 'org-mu4e)                  ;; org and mu4e interaction: links, rich text
+  (require 'org-mu4e)                  ;; org and mu4e interaction
   (require 'abdo-mu4e)                 ;; personal mu4e stuff
 )
 
@@ -173,7 +187,6 @@
 (require 'abdo-edit)                   ;; Basic editing settings
 (require 'abdo-languages)              ;; Spell checking stuff
 (require 'abdo-utils)                  ;; Utility stuff
-(require 'abdo-helm)                   ;; Personal helm stuff
 (require 'abdo-chat)                   ;; Personal irc stuff
 (require 'abdo-devel)                  ;; Personal devel stuff
 (require 'abdo-keybindings)            ;; My personal keybindings
@@ -228,6 +241,22 @@
 ;; coq
 (add-to-list 'auto-mode-alist '("\\.v$" . coq-mode))
 
+;; CMake
+(add-to-list 'auto-mode-alist '("CMakeLists\\.txt\\'" . cmake-mode))
+(add-to-list 'auto-mode-alist '("\\.cmake\\'" . cmake-mode))
+
+;; qml
+(add-to-list 'auto-mode-alist '("\\.qml$" . qml-mode))
+
+;; systemd
+(add-to-list 'auto-mode-alist '("\\.\\(service\\|target\\|scope\\|slice\\|timer\\)$" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(link\\|network\\|netdev\\)$" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(mount\\|automount\\|socket\\|device\\)$" . conf-mode))
+
+;; mr
+(add-to-list 'auto-mode-alist '("\\.mrconfig$" . conf-mode))
+
+
 
 ;; Command line switches
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -241,21 +270,45 @@
 (add-to-list 'command-switch-alist '("sage" . abdo-launch-sage))
 
 (defun abdo-launch-org (arg)
-  (add-hook 'emacs-startup-hook 'abdo-org-main-buffer))
+  (add-hook 'emacs-startup-hook 'abdo-org-main-buffer)
+
+  ;; start emacs server with socket 'chat'
+  (setq server-name "org")
+  (server-start))
 
 (defun abdo-launch-notes (arg)
-  (add-hook 'emacs-startup-hook 'abdo-org-notes-buffer))
+  (add-hook 'emacs-startup-hook 'abdo-org-notes-buffer)
+
+  ;; start emacs server with socket 'chat'
+  (setq server-name "notes")
+  (server-start))
 
 (defun abdo-launch-sage (arg)
   (sage))
 
 (defun abdo-launch-chat (arg)
   (require 'jabber-autoloads)
+  (require 'rcirc)
+  (require 'twittering-mode)
 
+  ;; load chat settings
+  (load "~/var/chat/emacs/settings.el")
+
+  ;; start emacs server with socket 'chat'
+  (setq server-name "chat")
+  (server-start)
+
+  ;; Connect to chat and set disconnect bindings
   (abdo-chat-connect)
   (global-set-key (kbd "C-c C-x") 'abdo-chat-disconnect))
 
 (defun abdo-launch-mail (arg)
+
+  ;; start emacs server with socket 'mail'
+  (setq server-name "mail")
+  (server-start)
+
+  ;; launch mu4e
   (abdo-mu4e))
 
 
