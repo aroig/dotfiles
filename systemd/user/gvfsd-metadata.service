@@ -1,0 +1,13 @@
+[Unit]
+Description=gvfs metadata
+
+Requires=gvfsd.service
+After=gvfsd.service
+
+[Service]
+Type=dbus
+BusName=org.gtk.vfs.Metadata
+ExecStart=/usr/lib/gvfs/gvfsd-metadata
+
+[Install]
+Alias=dbus-org.gtk.vfs.Metadata

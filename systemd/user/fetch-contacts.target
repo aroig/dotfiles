@@ -1,0 +1,9 @@
+[Unit]
+Description=fetch contacts
+StopWhenUnneeded=true
+
+Requires=mail-db.service
+After=mail-db.service
+
+Requires=gcont-sync.service
+After=gcont-sync.service

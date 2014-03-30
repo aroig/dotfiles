@@ -1,20 +1,19 @@
 [Unit]
-Description=Xmonad window manager at display %i
+Description=xmonad window manager at display %i
+
 After=xserver@%i.target
 After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
-After=compton@%i.service
+After=compton.service xrandr-auto.service
+
 Before=tint2@%i.service
-StopWhenUnneeded=true
+Before=desktop.target
 
 Requisite=xserver@%i.target
 Requires=tint2@%i.service
-Requires=dbus.socket
+PartOf=wm@xmonad.target
 
 [Service]
-PAMName=login
-TTYPath=/dev/tty7
 Type=simple
 SyslogIdentifier=xmonad
-EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
-ExecStart=/home/abdo/.config/systemd/scripts/xmonad.sh start
+ExecStart=/usr/bin/xmonad

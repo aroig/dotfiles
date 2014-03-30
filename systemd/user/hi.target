@@ -1,0 +1,8 @@
+[Unit]
+Description=trigger initial actions
+StopWhenUnneeded=true
+
+OnFailure=journal-mailer.service
+
+Requires=initial-synced-all.target
+After=initial-synced-all.target

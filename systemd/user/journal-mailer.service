@@ -1,0 +1,7 @@
+[Unit]
+Description=monitor journal
+
+[Service]
+Type=oneshot
+SyslogIdentifier=journal-mailer
+ExecStart=/home/abdo/.config/systemd/scripts/journal-mailer.sh

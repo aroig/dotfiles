@@ -1,0 +1,6 @@
+[Unit]
+Description=test A
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/echo AAA

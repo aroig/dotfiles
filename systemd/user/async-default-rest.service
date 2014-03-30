@@ -1,0 +1,13 @@
+[Unit]
+Description=sync mail to default host
+
+Requires=async-default-mounted.service
+After=async-default-mounted.service
+
+# this is the last I want to sync
+After=async-default-base.service async-default-mail.service async-default-work.service async-default-lib.service
+
+[Service]
+Type=oneshot
+SyslogIdentifier=async-rest
+ExecStart=/usr/bin/async -b sync --terse default --ignore etc,lib,mail,priv,var,work

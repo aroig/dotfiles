@@ -1,12 +1,12 @@
 [Unit]
-Description=MPD Scribbler
-Requires=mpd.service
+Description=mpd scribbler
+
+Requires=mpd.socket
 After=mpd.service
+Requires=mpd.service
 
 [Service]
 Type = simple
 ExecStart = /usr/bin/mpdscribble -D
 Restart = always
 
-[Install]
-WantedBy = audio.target

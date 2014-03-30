@@ -1,0 +1,10 @@
+[Unit]
+Description=commit mail
+
+Conflicts=mail-db.service mu4e.service 
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=commit-mail
+ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_MAIL_DIR"

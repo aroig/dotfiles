@@ -1,0 +1,13 @@
+[Unit]
+Description=trigger final actions and poweroff
+StopWhenUnneeded=true
+
+OnFailure=journal-mailer.service
+
+Requires=final-synced-all.target
+After=final-synced-all.target
+
+Requires=delayed-poweroff.service
+Before=delayed-poweroff.service
+
+

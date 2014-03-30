@@ -1,0 +1,7 @@
+[Unit]
+Description=always fail
+RemainAfterExit=true
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/false

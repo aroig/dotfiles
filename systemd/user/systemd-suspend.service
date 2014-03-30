@@ -1,0 +1,8 @@
+[Unit]
+Description=enter suspend state
+After=lock.target
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/sleep 1
+ExecStart=/usr/bin/sudo systemctl suspend

@@ -2,7 +2,7 @@
 Description=%i window manager via xephyr
 
 Requisite=xorg@0.service
-Requires=dbus.socket
+
 BindsTo=xephyr@3.service
 BindsTo=%i@3.service
-AllowIsolate=true
+

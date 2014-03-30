@@ -1,8 +1,6 @@
 [Unit]
 Description=Journal monitor
 
-Requires=dbus.socket
-
 [Service]
 Type=simple
 SyslogIdentifier=journal-monitor

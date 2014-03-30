@@ -1,0 +1,13 @@
+[Unit]
+Description=sync google contacts
+
+# gcont store contacts in ~/mail
+Requisite=initial-synced-mail.target
+After=initial-synced-mail.target
+
+Requires=online.service
+After=online.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/gcont -d

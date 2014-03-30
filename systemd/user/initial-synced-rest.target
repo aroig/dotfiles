@@ -1,0 +1,6 @@
+[Unit]
+Description=initial homedir sync
+
+Requires=async-default-rest.service
+After=async-default-rest.service
+

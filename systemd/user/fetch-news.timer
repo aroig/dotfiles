@@ -1,5 +1,7 @@
 [Timer]
 OnActiveSec=5
 OnUnitInactiveSec=2h
-
 Unit=fetch-news.target
+
+[Install]
+WantedBy=timers.target

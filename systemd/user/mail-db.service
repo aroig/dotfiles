@@ -1,0 +1,16 @@
+[Unit]
+Description=mail database
+StopWhenUnneeded=true
+
+Requisite=initial-synced-mail.target
+After=initial-synced-mail.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+SyslogIdentifier=mail-db
+ExecStart=/usr/bin/true
+ExecStop=/usr/bin/systemctl --user start commit-mail.service
+
+

@@ -1,0 +1,9 @@
+[Unit]
+Description=Compton X compositor
+After=xorg.target
+
+Requisite=xorg.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/compton

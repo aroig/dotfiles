@@ -1,0 +1,10 @@
+[Unit]
+Description=connman UI
+ConditionHost=galois
+
+Requisite=desktop.target
+After=desktop.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/connman-ui-gtk

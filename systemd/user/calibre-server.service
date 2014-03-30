@@ -1,9 +1,9 @@
 [Unit]
 Description=Calibre Server
-Requires=dbus.socket
+
+Requires=calibre-db.service
+After=calibre-db.service
 
 [Service]
 Type=simple
-EnvironmentFile=%h/.config/systemd/conf/xenvironment
-Environment=DISPLAY=:0
-ExecStart=/usr/bin/calibre-server --with-library=/home/abdo/lib
+ExecStart=/usr/bin/calibre-server --with-library "$AB2_CALIBRE_DIR"

@@ -11,7 +11,6 @@ Requisite=xserver@%i.target
 
 [Service]
 Type=oneshot
-EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
 
 # For some reason resources are not always loaded. Give it some time.

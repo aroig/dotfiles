@@ -10,7 +10,6 @@ Requisite=xserver@%i.target
 
 [Service]
 Type=oneshot
-EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
 ExecStart=/usr/bin/setxkbmap -option terminate:ctrl_alt_bksp 
 ExecStart=/usr/bin/xset r rate 500 40  

@@ -1,0 +1,13 @@
+[Unit]
+Description=accessibility technologies
+
+Requisite=xorg.target
+After=xorg.target
+
+[Service]
+Type=dbus
+BusName=org.a11y.Bus
+ExecStart=/usr/lib/at-spi2-core/at-spi-bus-launcher
+
+[Install]
+Alias=dbus-org.a11y.Bus.service

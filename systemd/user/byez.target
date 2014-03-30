@@ -1,0 +1,12 @@
+[Unit]
+Description=trigger final actions and suspend
+StopWhenUnneeded=true
+
+OnFailure=journal-mailer.service
+
+Requires=final-synced-all.target
+After=final-synced-all.target
+
+Requires=delayed-suspend.service
+Before=delayed-suspend.service
+

@@ -1,0 +1,14 @@
+[Unit]
+Description=unlock calibre database
+StopWhenUnneeded=true
+
+Requisite=initial-synced-lib.target
+After=initial-synced-lib.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+SyslogIdentifier=calibre-db
+ExecStart=/usr/bin/git -C "$AB2_CALIBRE_DIR" annex edit metadata.db
+ExecStop=/usr/bin/systemctl --user start commit-calibre.service

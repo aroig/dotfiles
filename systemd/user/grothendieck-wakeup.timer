@@ -1,0 +1,11 @@
+[Unit]
+Description=wakeup grothendieck in the morning
+ConditionHost=grothendieck
+
+[Timer]
+OnCalendar=Mon-Fri 09:30
+WakeSystem=true
+Unit=initial-synced-all.target
+
+[Install]
+WantedBy=timers.target

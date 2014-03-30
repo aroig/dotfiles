@@ -1,0 +1,14 @@
+[Unit]
+Description=Tmux %i session
+Documentation=man:tmux(1)
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+KillMode=none
+ExecStart=/usr/bin/tmux new-session -d -s %i; source-file %h/.tmux/%i
+ExecStop=/usr/bin/tmux kill-session -t %i
+
+[Install]
+WantedBy=default.target
+

@@ -1,11 +1,10 @@
 [Unit]
 Description=xrandr auto
-After=xorg@0.service
-Before=xserver@0.target
-Requisite=xorg@0.service
+After=xorg.target
+
+Requisite=xorg.target
 
 [Service]
 Type=oneshot
 SyslogIdentifier=xrandr
-Environment=DISPLAY=:0
 ExecStart=/home/abdo/.config/systemd/scripts/xrandr.sh auto

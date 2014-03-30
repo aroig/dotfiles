@@ -1,0 +1,13 @@
+[Unit]
+Description=sync directories to hypathia
+
+# BindsTo=media-share-hypathia.mount
+# After=media-share-hypathia.mount
+
+Requires=calibre-db.service
+After=calibre-db.service
+
+[Service]
+Type=oneshot
+SyslogIdentifier=async-hypathia
+ExecStart=/usr/bin/async -b sync --terse hypathia

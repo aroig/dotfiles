@@ -1,0 +1,9 @@
+[Unit]
+Description=update packages
+Requires=online.service
+After=online.service
+
+[Service]
+Type=oneshot
+SyslogIdentifier=pacman
+ExecStart=/usr/bin/sudo pacman -Syu --noconfirm

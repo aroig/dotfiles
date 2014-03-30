@@ -1,0 +1,13 @@
+[Unit]
+Description=gvfs udisks2 monitor
+
+Requires=gvfsd.service
+After=gvfsd.service
+
+[Service]
+Type=dbus
+BusName=org.gtk.Private.UDisks2VolumeMonitor
+ExecStart=/usr/lib/gvfs/gvfs-udisks2-volume-monitor
+
+[Install]
+Alias=dbus-org.gtk.Private.UDisks2VolumeMonitor.service

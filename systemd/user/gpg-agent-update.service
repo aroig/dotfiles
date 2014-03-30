@@ -1,0 +1,8 @@
+[Unit]
+Description=update gpg-agent tty
+Requisite=gpg-agent.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/gpg-connect-agent updatestartuptty /bye
+

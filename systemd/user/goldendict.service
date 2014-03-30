@@ -1,0 +1,12 @@
+[Unit]
+Description=Goldendict
+
+Requisite=desktop.target
+After=desktop.target
+
+[Service]
+Type=simple
+SyslogIdentifier=goldendict
+
+ExecStart=/usr/bin/goldendict
+

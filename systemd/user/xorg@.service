@@ -1,8 +1,8 @@
 [Unit]
 Description=Xorg server at display %i
 Before=xserver@%i.target
-StopWhenUnneeded=true
 
+PartOf=xorg.target
 BindsTo=xserver@%i.target
 Conflicts=x11vnc@%i.service vncserver@%i.service xephyr@%i.service
 
@@ -12,3 +12,4 @@ SyslogIdentifier=xorg
 
 # need to launch X session at the same tty, otherwise it becomes inactive
 ExecStart=/usr/bin/xorg-launch-helper :%i -nolisten tcp -noreset $XORG_VT
+ExecStopPost=/usr/bin/deallocvt

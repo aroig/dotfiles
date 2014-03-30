@@ -1,11 +1,9 @@
 [Unit]
 Description=dropbox daemon
 
-Requisite=xorg@0.service
-Requires=dbus.socket
+After=xorg.target
+Requisite=xorg.target
 
 [Service]
 Type=simple
-EnvironmentFile=%h/.config/systemd/conf/xenvironment
-Environment=DISPLAY=:0
 ExecStart=/usr/bin/dropboxd

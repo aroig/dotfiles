@@ -1,0 +1,20 @@
+[Unit]
+Description=org-mode
+
+Requisite=desktop.target
+After=desktop.target
+
+Requires=orgmode-db.service
+After=orgmode-db.service
+
+[Service]
+Type=simple
+SyslogIdentifier=orgmode
+
+ExecStart=/usr/bin/emacs -org --title "emacs-org"
+KillSignal=SIGINT
+
+# This fails if emacs is already stopped
+# ExecStop=/usr/bin/emacsclient -s %t/emacs/org -e '(progn (save-some-buffers t) (kill-emacs))'
+
+

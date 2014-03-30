@@ -1,4 +1,5 @@
 [Unit]
-Description=Default target
-Requires=dbus.socket
+Description=user target
 AllowIsolate=true
+
+Wants=user.target console.target

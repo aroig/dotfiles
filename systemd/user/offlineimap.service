@@ -1,8 +1,13 @@
 [Unit]
 Description=offlineimap
+
+# offlineimap saves messages to ~/mail
+Requisite=initial-synced-mail.target
+After=initial-synced-mail.target
+
 Requires=online.service
 After=online.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/offlineimap -l %h/var/log/offlineimap.log
+ExecStart=/usr/bin/offlineimap

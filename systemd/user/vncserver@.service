@@ -1,6 +1,5 @@
 [Unit]
 Description=VNC server at display %i
-StopWhenUnneeded=true
 
 BindsTo=xserver@%i.target
 Before=xserver@%i.target

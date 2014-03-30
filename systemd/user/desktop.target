@@ -1,9 +1,9 @@
 [Unit]
-Description=Desktop Environment
-After=xorg@0.service
+Description=desktop environment
+
 StopWhenUnneeded=true
-
-Requires=dbus.socket
-Requisite=xorg@0.service
-
 AllowIsolate=true
+
+Requires=xorg.target
+After=xorg.target
+

@@ -1,0 +1,10 @@
+[Unit]
+Description=Weekly Timer
+
+[Timer]
+OnBootSec=15min
+OnUnitActiveSec=1w
+Unit=weekly.target
+
+[Install]
+WantedBy=timers.target

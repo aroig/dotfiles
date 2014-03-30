@@ -1,0 +1,15 @@
+[Unit]
+Description=dwb cookie database
+StopWhenUnneeded=true
+
+# dwb cookies are under ~/priv
+Requisite=initial-synced-base.target
+After=initial-synced-base.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+SyslogIdentifier=dwb-db
+ExecStart=/usr/bin/true
+ExecStop=/usr/bin/systemctl --user start commit-dwb.service

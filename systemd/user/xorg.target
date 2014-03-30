@@ -1,5 +1,9 @@
 [Unit]
-Description=Plain X.org
-Requires=dbus.socket
+Description=xorg server on display 0
+StopWhenUnneeded=true
+
+Requires=user.target
+After=user.target
+
 BindsTo=xorg@0.service
-AllowIsolate=true
+After=xorg@0.service

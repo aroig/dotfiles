@@ -1,0 +1,19 @@
+
+[Unit]
+Description=slimlock screen locker
+After=xorg.target
+
+Requisite=xorg.target
+
+# so that when slimlock ends lock.target goes down
+PartOf=lock.target
+
+[Service]
+Type=simple
+
+ExecStartPre=/home/abdo/.config/systemd/scripts/mouse.sh lock
+ExecStart=/usr/bin/slimlock
+ExecStopPost=/home/abdo/.config/systemd/scripts/mouse.sh unlock
+
+[Install]
+WantedBy=lock.target

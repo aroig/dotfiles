@@ -23,9 +23,6 @@
 urxvt.font: xft:terminal
 urxvt.letterSpace: 0
 
-! Icon
-urxvt.iconFile: /usr/share/icons/Faience/apps/scalable/utilities-terminal.svg
-
 ! Zenburn
 urxvt.foreground: #dcdccc
 urxvt.background: #2f2f2f

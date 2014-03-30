@@ -1,0 +1,13 @@
+[Unit]
+Description=sync lib to default host
+
+Requires=async-default-mounted.service
+After=async-default-mounted.service
+
+# so we do not get two git syncs at the same time
+After=async-default-base.service async-default-mail.service
+
+[Service]
+Type=oneshot
+SyslogIdentifier=async-lib
+ExecStart=/usr/bin/async -b sync --terse default -d lib

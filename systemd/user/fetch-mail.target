@@ -1,12 +1,9 @@
 [Unit]
 Description=fetch mail
-
-Requires=dbus.socket
-Requires=online.service
-After=online.service
-
 StopWhenUnneeded=true
-AllowIsolate=true
 
-Wants=offlineimap.service mutag.service
+Requires=mail-db.service
+After=mail-db.service
 
+Requires=mutag.service offlineimap.service
+After=mutag.service offlineimap.service

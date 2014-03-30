@@ -1,16 +1,15 @@
 [Unit]
-Description=Calibre
-After=xorg@0.service
+Description=calibre
+After=xorg.target
 
-Requisite=xorg@0.service
-Requires=dbus.socket
+Requisite=desktop.target 
+Requires=calibre-db.service
+After=calibre-db.service
 
 [Service]
 Type=simple
-EnvironmentFile=%h/.config/systemd/conf/xenvironment
-Environment=DISPLAY=:0
-ExecStart=/usr/bin/calibre --start-in-tray --no-update-check
-ExecStop=/usr/bin/calibre --shutdown-running-calibre
+SyslogIdentifier=calibre
 
-[Install]
-WantedBy=desktop.target
+ExecStart=/usr/bin/calibre --with-library "$AB2_CALIBRE_DIR"
+
+

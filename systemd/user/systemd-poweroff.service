@@ -1,0 +1,7 @@
+[Unit]
+Description=poweroff system
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sudo systemctl poweroff
+

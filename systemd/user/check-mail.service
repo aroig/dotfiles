@@ -1,7 +1,9 @@
 [Unit]
-Description=check for new mail
+Description=mail checker daemon
+Requires=online.service
+After=online.service
 
 [Service]
-Type=oneshot
+Type=simple
 SyslogIdentifier=check-mail
-ExecStart=/home/abdo/.config/systemd/scripts/check-mail.py
+ExecStart=/home/abdo/.config/systemd/scripts/check-mail.py -w 5 -d -n

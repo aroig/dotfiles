@@ -1,19 +1,19 @@
 [Unit]
-Description=Awesome window manager at display %i
+Description=awesome window manager at display %i
+
 After=xserver@%i.target
 After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
-After=compton@%i.service
-
-StopWhenUnneeded=true
+After=compton.service xrandr-auto.service
+Before=desktop.target
 
 Requisite=xserver@%i.target
-Requires=dbus.socket
+PartOf=wm@awesome.target
 
 [Service]
 Type=simple
 SyslogIdentifier=awesome
-EnvironmentFile=%h/.config/systemd/conf/xenvironment
 Environment=DISPLAY=:%i
-ExecStart=/home/abdo/.config/systemd/scripts/awesome.sh start
+
+ExecStart=/usr/bin/awesome
 KillSignal=SIGINT
 TimeoutSec=15

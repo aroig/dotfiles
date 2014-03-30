@@ -1,0 +1,11 @@
+[Unit]
+Description=synchronize with %i
+
+Requires=online.service
+After=online.service
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=async
+ExecStart=/usr/bin/async -b sync %i --terse

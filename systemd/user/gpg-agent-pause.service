@@ -1,0 +1,10 @@
+[Unit]
+Description=pause local gpg-agent
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+
+StandardOutput=null
+ExecStart=/usr/bin/systemctl --user start gpg-agent-remote.service
+ExecStop=/usr/bin/systemctl --user start gpg-agent.service gpg-agent-forward.service

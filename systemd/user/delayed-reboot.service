@@ -1,0 +1,10 @@
+[Unit]
+Description=reboot system in 20 seconds
+DefaultDependencies=no
+
+Requires=systemd-reboot.service
+Before=systemd-reboot.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sleep 20

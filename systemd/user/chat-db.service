@@ -1,0 +1,16 @@
+[Unit]
+Description=chat log database
+StopWhenUnneeded=true
+
+# chat logs are under ~/var/chat
+Requisite=initial-synced-base.target
+After=initial-synced-base.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+SyslogIdentifier=chat-db
+ExecStart=/usr/bin/true
+ExecStop=/usr/bin/systemctl --user start commit-chat.service
+
