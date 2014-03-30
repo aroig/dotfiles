@@ -285,10 +285,11 @@
 ;; view pdf in zathura
 (defun abdo-latex-zathura-view (pdf)
   (let
-    ((editor "emacsclient -e '(abdo-latex-reverse-sync \"%{input}\" %{line} %{column})'"))
+    ((editor (concat (getenv "EMACS") " -e '(abdo-latex-reverse-sync \"%{input}\" %{line} %{column})'")))
     (call-process "zathura" nil 0 nil
                   "--synctex"
-                  "--synctex-editor-command" (format "%s" editor)
+                  "--synctex-editor-command"
+                  editor
                   pdf)
     ))
 
