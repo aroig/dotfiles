@@ -1,9 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mime-type xmlns="http://www.freedesktop.org/standards/shared-mime-info" type="text/x-lua">
-  <!--Created automatically by update-mime-database. DO NOT EDIT!-->
-  <sub-class-of type="application/x-executable"/>
-  <sub-class-of type="text/plain"/>
-  <glob pattern="*.lua"/>
+<?xml version="1.0"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="text/x-lua">
   <comment>Lua script</comment>
   <comment xml:lang="ar">سكربت Lua</comment>
   <comment xml:lang="be@latin">Skrypt Lua</comment>
@@ -47,4 +44,5 @@
   <sub-class-of type="application/x-executable"/>
   <sub-class-of type="text/plain"/>
   <glob pattern="*.lua"/>
-</mime-type>
+  </mime-type>
+</mime-info>

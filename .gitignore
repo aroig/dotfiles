@@ -3,8 +3,4 @@
 *.pyc
 *.bak
 thunar/accels.scm
-mime/*
-!application
-!image
-!packages
-!text
+mime

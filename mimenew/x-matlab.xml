@@ -1,9 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mime-type xmlns="http://www.freedesktop.org/standards/shared-mime-info" type="text/x-matlab">
-  <!--Created automatically by update-mime-database. DO NOT EDIT!-->
-  <sub-class-of type="text/plain"/>
-  <glob pattern="*.m"/>
-  <alias type="text/x-octave"/>
+<?xml version="1.0"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="text/x-matlab">
   <comment>MATLAB script/function</comment>
   <comment xml:lang="ar">سكربت/وظيفة MATLAB</comment>
   <comment xml:lang="be@latin">Skrypt/funkcyja MATLAB</comment>
@@ -47,4 +44,5 @@
   <sub-class-of type="text/plain"/>
   <glob pattern="*.m"/>
   <alias type="text/x-octave"/>
-</mime-type>
+  </mime-type>
+</mime-info>
