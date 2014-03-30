@@ -47,8 +47,6 @@ set font                    "terminal"
 set selection-clipboard     clipboard
 
 # set guioptions              sc           # fixed status and input bars
-# set show-h-scrollbar        true
-# set show-v-scrollbar        true
 
 
 # Key maps
@@ -57,8 +55,12 @@ set selection-clipboard     clipboard
 map <PageDown>     scroll half-down
 map <PageUp>       scroll half-up
 
+map <Home>         scroll page-top
+map <End>          scroll page-bottom
+
 map <C-r>          reload
 map <C-s>          recolor
 
 map <C-a>          adjust_window best-fit
 map <C-w>          adjust_window width
+
