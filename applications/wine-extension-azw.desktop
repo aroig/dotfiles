@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Kindle
-MimeType=application/x-wine-extension-azw;
-Exec=env WINEPREFIX="/home/abdo/.wine" wine start /ProgIDOpen Amazon.Kindle.content %f
-NoDisplay=true
-StartupNotify=true
-Icon=0914_Kindle.0

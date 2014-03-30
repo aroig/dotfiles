@@ -12,6 +12,9 @@ text/x-tex=emacs-client.desktop;
 text/x-c++src=emacs-client.desktop;
 text/x-chdr=emacs-client.desktop;
 text/x-csrc=emacs-client.desktop;
+text/x-python=emacs-client.desktop;
+text/x-lua=emacs-client.desktop;
+text/x-haskell=emacs-client.desktop;
 text/x-makefile=emacs-client.desktop;
 
 image/jpeg=feh.desktop;

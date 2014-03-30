@@ -1,6 +1,0 @@
-[Desktop Entry]
-Name=Python Package Manager (PyPM)
-Exec=env WINEPREFIX="/home/abdo/.wine" wine C:\\\\windows\\\\command\\\\start.exe /Unix /home/abdo/.wine/dosdevices/c:/users/abdo/Start\\ Menu/Programs/ActiveState\\ ActivePython\\ 2.7\\ \\(32-bit\\)/Python\\ Package\\ Manager\\ \\(PyPM\\).lnk
-Type=Application
-StartupNotify=true
-Icon=5518_cmd.0

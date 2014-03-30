@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=IDLE (Python GUI)
-Exec=env WINEPREFIX="/home/abdo/.wine" wine C:\\\\windows\\\\command\\\\start.exe /Unix /home/abdo/.wine/dosdevices/c:/users/abdo/Start\\ Menu/Programs/ActiveState\\ ActivePython\\ 2.7\\ \\(32-bit\\)/IDLE\\ \\(Python\\ GUI\\).lnk
-Type=Application
-StartupNotify=true
-Path=/home/abdo/.wine/dosdevices/c:/Python27/
-Icon=8693_APy27.0

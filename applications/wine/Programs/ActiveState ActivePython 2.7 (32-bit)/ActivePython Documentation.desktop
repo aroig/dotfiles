@@ -1,6 +1,0 @@
-[Desktop Entry]
-Name=ActivePython Documentation
-Exec=env WINEPREFIX="/home/abdo/.wine" wine C:\\\\windows\\\\command\\\\start.exe /Unix /home/abdo/.wine/dosdevices/c:/users/abdo/Start\\ Menu/Programs/ActiveState\\ ActivePython\\ 2.7\\ \\(32-bit\\)/ActivePython\\ Documentation.lnk
-Type=Application
-StartupNotify=true
-Icon=B16A_ActivePython27.0
