@@ -36,17 +36,11 @@ set_tty_colors() {
 
 
 #------------------------------
-# Compatibility aliases
-#------------------------------
-alias less=vimpager
-alias zless=vimpager
-
-
-#------------------------------
 # Wine aliases
 #------------------------------
 alias kindle='wine "$HOME/.wine/drive_c/Program Files (x86)/Amazon/Kindle/Kindle.exe"'
 alias digitaleditions='wine "$HOME/.wine/drive_c/Program Files (x86)/Adobe/Adobe Digital Editions/digitaleditions.exe"'
+
 
 #------------------------------
 # Utility aliases
@@ -57,17 +51,22 @@ alias vp='vimpager'
 alias vc='vimcat'
 alias rsy='rsync -avz --progress --delete'
 alias ediff='emacs -diff'
+alias mr='mr --stats'
 
 alias mailq='msmtp-queue'
 
-alias ahi='asym hi'
-alias abye='asym bye'
+alias ahi='ictl hi.target'
+alias abye='ictl bye.target'
+alias pac='sudo pacman'
+alias cow='cower'
 
-alias feh='feh --magick-timeout 2 --fontpath /usr/share/fonts/TTF/ --font DejaVuSans/10'
+alias feh='feh --magick-timeout 2 --scale-down --fontpath /usr/share/fonts/TTF/ --font DejaVuSans/10'
 alias ipy='ipython'
 alias ipy2='ipython2'
 
 alias wee='weechat-curses'
+
+gateway() { host `ip route list 0/0 | awk '{print $3}'` | awk '{print $5}'; }
 
 alias ..="cd .."
 alias ...="cd ../.."
@@ -82,23 +81,55 @@ alias ......="cd ../../../../.."
 
 xrandr_screens() { xrandr -q | grep " connected" | sed 's/^\([A-Za-z0-9\-]*\).*/\1/'; }
 
-run_with_journal() {
-    # TODO: trap ctrl-c don't know how to do it in a function
-
-    setopt localoptions nomonitor # disable monitored job control
-    _jctlargs=(--quiet --follow --output=cat --lines=0)
-    journalctl $_jctlargs[@] &
-    _jrnl_pid=$!
-
-    $@; _cmd_exitval=$?; sleep 0.3
-    kill -s TERM $_jrnl_pid;
-    wait $_jrnl_pid; sleep 0.3
-    return $_cmd_exitval
-}
-
 # remove trailing newline.
 trimtrail() {
     cat "$1" | awk '{a = $0; while (getline > 0) {print a; a = $0}} END {printf("%s", a)}' -
+}
+
+
+#------------------------------
+# tmux functions
+#------------------------------
+
+# create a new master session detached from the world
+tmux_master() {
+    session="$1"
+    shift
+
+    if [ -f ~/.tmux/$session ]; then  opts_file="$HOME/.tmux/$session"
+    else                              opts_file="$HOME/.tmux/default"
+    fi
+
+    tmux new-session -d -s $session\; source-file "$opts_file"\; "$@"
+}
+
+
+# create a new client session attached to an existing one
+tmux_client() {
+    session="$1"
+    shift
+
+    if [ -f ~/.tmux/$session ]; then  opts_file="$HOME/.tmux/$session"
+    else                              opts_file="$HOME/.tmux/default"
+    fi
+
+    tmux new-session -t $session -s $session-$$\; \
+        source-file "$opts_file"\; set destroy-unattached on\; "$@"
+}
+
+
+# create a new tmux session, launching the master if necessary
+tmux_session() {
+    if [ ! "$1" ]; then 
+        echo "No session specified."
+        exit 1
+    fi
+
+    session="$1"
+    shift
+
+    ( tmux_client $session && exit 0 ) || \
+        ( tmux_master $session && tmux_client $session && exit 0 )
 }
 
 
@@ -111,12 +142,17 @@ alias jctl="sudo journalctl --since=yesterday"
 alias ectl="sudo journalctl --since=yesterday --priority=0..3"
 
 alias nctl="sudo netctl"
+alias mctl="sudo machinectl"
+alias lctl="sudo loginctl"
 alias sctl="sudo systemctl --system"
 alias uctl="systemctl --user"
-alias ictl="run_with_journal systemctl --user start"
 
 alias actl="systemd-analyze"
+alias nspawn="sudo systemd-nspawn"
 alias sdrun="systemd-run --user"
+
+alias cgls="systemd-cgls --no-pager"
+alias cgtop="systemd-cgtop"
 
 actl_svg() {
     cmd="$1"; shift
@@ -127,9 +163,9 @@ actl_svg() {
 
 alias lock='systemctl --user lock.target'
 
-# firewall status
-fws() { sudo ufw status; echo ""; sudo iptables -L sshguard; }
-
+# firewall
+fws() { sudo iptables -L firewall; echo ""; sudo iptables -n -L sshguard; }
+fwban() { sudo iptables -A sshguard -s "$1" -j DROP; }
 
 
 #------------------------------
@@ -154,7 +190,7 @@ alias gan="git annex"
 
 
 #------------------------------
-# Sudo aliases
+# sudo gpg etc
 #------------------------------
 
 # If the argument has an alias, expand it, if it has a function, 
@@ -178,6 +214,11 @@ sudo () {
 
 # alias sudo='sudo '        # Enables expanding aliases for next command. not functions though :(
 
+# alias to update tty for the gpg-agent. gpg itself can be aware of the tty,
+# maybe via GPG_TTY environment var, but there is no way that programs using
+# gpg-agent as a ssh-agent can tell it about the tty. So we are stuck with this.
+alias gatty='gpg-connect-agent updatestartuptty /bye'
+
 
 #------------------------------
 # Program shortcuts
@@ -192,21 +233,21 @@ op()  { xdg-open "$@" &> /dev/null &!; }
 
 ee() {
     case "$TERM" in
-        screen*|linux*) eval "emacsclient -t -a emacs  \"\$@\" > /dev/null" ;;
-        *)              eval "emacsclient -c -a emacs  \"\$@\" > /dev/null &!" ;;
+        screen*|linux*) eval "$EMACSCLIENT -t \"\$@\" > /dev/null" ;;
+        *)              eval "$EMACSCLIENT -c \"\$@\" > /dev/null &!" ;;
     esac
 }
 
 kle() {
     case "$TERM" in
-        screen*|linux) eval "emacsclient -eval \"(client-save-kill-emacs)\" &> /dev/null"  ;;
-        *)             eval "emacsclient --display=:0 --eval \"(client-save-kill-emacs)\" &> /dev/null \"\$@\" &!" ;;
+        screen*|linux) eval "$EMACSCLIENT -eval \"(client-save-kill-emacs)\" &> /dev/null"  ;;
+        *)             eval "$EMACSCLIENT --display=:0 --eval \"(client-save-kill-emacs)\" &> /dev/null \"\$@\" &!" ;;
     esac
 }
 
 tx() {
     if [ "$TMUX" ]; then   tmux new-window
-    else                   tmux-session term
+    else                   tmux_session term
     fi
 }
 
@@ -262,7 +303,7 @@ stx() {
 }
 
 klx() { 
-    systemctl --user stop xserver@0.target;
+    systemctl --user start console.target;
 }
 
 
@@ -270,15 +311,7 @@ klx() {
 # Rebooting and halting
 #------------------------------
 
-# NOTE
-# If I use systemctl --user exit, the user session tries to perform a pam_close_session, but this is
-# not allowed. Only root can do it, and in the same process as the pam_open_session
-# source: https://bugzilla.redhat.com/show_bug.cgi?format=multiple&id=951728
-#
-# On the other hand, If I use sudo systemctl stop user-sessions@abdo, some process remain and I have
-# to wait for the timeout
-
-reboot()   { systemctl --user exit; sleep 2; sudo systemctl reboot;   }
-poweroff() { systemctl --user exit; sleep 2; sudo systemctl poweroff; }
-suspend()  { sudo systemctl suspend;  }
+alias reboot="sudo systemctl reboot"
+alias poweroff="sudo systemctl poweroff"
+alias suspend="sudo systemctl suspend"
 

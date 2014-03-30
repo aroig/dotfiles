@@ -6,6 +6,15 @@
 # Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
 #------------------------------------------------------------------#
 
+#------------------------------------------------------------------#
+# NOTE:                                                            #
+# In order to export the environment to the systemd --user         #
+# session this file gets parsed by a shell script. So keep it      #
+# in a clean format with lines like                                #
+# export VAR=value                                                 #
+#------------------------------------------------------------------#
+
+
 function add_to_pathlist_left () {
    local cl=$1
    local item=$2
@@ -26,13 +35,17 @@ function add_to_pathlist_left () {
 # Some software
 #------------------------------
 
-export EDITOR=/usr/bin/vim                        # default editor
-export EMACS="/usr/bin/emacsclient -c -a emacs"   # emacs
-export BROWSER=/usr/bin/dwb                       # default browser
-export FILEMANAGER=/usr/bin/thunar                # the file manager
-export PAGER=/usr/bin/vimpager                    # wrapper for vim
-export TERMCMD=/usr/bin/termite                   # terminal
-export SHELL=/bin/zsh
+export EMACSCLIENT="/usr/bin/emacsclient -s $XDG_RUNTIME_DIR/emacs/server"
+export EMACS="$EMACSCLIENT"                             # emacs
+export EDITOR="/usr/bin/vim"                            # default editor
+export ALTERNATE_EDITOR="/usr/bin/emacs"                # emacsclient uses this if can't find server
+
+export BROWSER="/usr/bin/dwb"                           # default browser
+export FILEMANAGER="/usr/bin/thunar"                    # the file manager
+export DIFFPROG="/usr/bin/emacs -diff"
+export PAGER="/usr/bin/vimpager"                        # wrapper for vim
+export TERMCMD="/usr/bin/termite"                       # terminal
+export SHELL="/bin/zsh"
 
 
 
@@ -41,12 +54,13 @@ export SHELL=/bin/zsh
 #------------------------------
 
 export AB2_HOME="/home/abdo"
+export AB2_ARCH_DIR="$AB2_HOME/usr/arch"
 export AB2_PRIV_DIR="$AB2_HOME/priv"
 export AB2_DEVEL_DIR="$AB2_HOME/devel"
-export AB2_LIBS_DIR="$AB2_HOME/usr/lib"
 export AB2_CONF_DIR="$AB2_HOME/etc"
 export AB2_MAIL_DIR="$AB2_HOME/mail"
 export AB2_MUSIC_DIR="$AB2_HOME/music"
+export AB2_CALIBRE_DIR="$AB2_HOME/lib"
 export AB2_PROJ_DIR="$AB2_HOME/proj"
 export AB2_SHARE_DIR="$AB2_HOME/share"
 export AB2_VAR_DIR="$AB2_HOME/var"
@@ -55,10 +69,27 @@ export AB2_WIKI_DIR="$AB2_HOME/work/wiki"
 export AB2_PAPERS_DIR="$AB2_HOME/work/papers"
 
 
+#------------------------------
+# Gpg Agent settings
+#------------------------------
+
+# NOTE: I use standard sockets, so no need for GPG_AGENT_INFO, which requires
+# runtime info. We only need to set SSH_AUTH_SOCK for emulating the ssh-agent
+export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+export GPG_TTY=$(tty)
+
+
 
 #------------------------------
 # Development environment
 #------------------------------
+
+# Android
+export ANDROID_NDK_TOOLCHAIN_ROOT="$HOME/sdk/android/ndk"
+export ANDROID_SDK_TOOLCHAIN_ROOT="$HOME/sdk/android/sdk"
+
+# Sailfish
+export SAILFISH_SDK_TOOLCHAIN_ROOT="$HOME/sdk/sailfish/sdk"
 
 
 
@@ -67,14 +98,13 @@ export AB2_PAPERS_DIR="$AB2_HOME/work/papers"
 #------------------------------
 
 # gtk
-
 # disable accessibility for GTK3 apps
 # https://forums.gentoo.org/viewtopic-p-7380668.html?sid=265ddf475643bf5c86fe72440cf6cbe8
-NO_AT_BRIDGE=1 
+# export NO_AT_BRIDGE=1 
 
 # sage
 # export SAGE_KEEP_BUILT_SPKGS=yes    # don't rebuild from scratch
-export SAGE_ROOT=$AB2_HOME/usr/sage
+export SAGE_ROOT=$AB2_HOME/sage
 
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
@@ -129,10 +159,6 @@ _LS_COLORS=(
      '*.ogv=00;35'       '*.ogx=00;35'    
      '*.axa=00;36'       '*.oga=00;36'       '*.spx=00;36'      '*.xspf=00;36'
 
-# text
-     '*.org=00;33'       '*.rst=00;33'       '*.txt=00;33'
-'*README.rst=01;33' '*README.md=01;33'     '*README=01;33'
-
 # markup
     '*.html=00;35'     '*.xhtml=00;35'       '*.xml=00;35'
 
@@ -143,8 +169,12 @@ _LS_COLORS=(
      '*.pdf=00;35'      '*.djvu=00;35'       '*.dvi=00;35'        '*.ps=00;35'
     '*.epub=00;35'      '*.mobi=00;35'       '*.chm=00;35'       '*.azw=00;35'
 
+# text
+     '*.org=00;33'       '*.rst=00;33'       '*.txt=00;33'
+'*README.rst=01;33' '*README.md=01;33'     '*README=01;33'
+
 # source code
- '*Makefile=00;31'
+ '*Makefile=00;31' '*CMakeLists.txt=00;31' '*.cmake=00;31'
       '*.hs=00;32'    
       '*.sh=00;32'       '*.zsh=00;32'        '*.el=00;32'
       '*.py=00;32'      '*.sage=00;34'       '*.lua=00;32'
@@ -158,17 +188,23 @@ _LS_COLORS=(
 
 # systemd units
   '*.target=00;31'   '*.service=00;32'     '*.timer=00;34'      '*.path=00;36'  
-  '*.socket=00;35' '*.automount=00;33'     '*.mount=00;33'      '*.swap=00;33'
-  '*.device=00;35'
+   '*.mount=00;33' '*.automount=00;33'      '*.swap=00;33'
+   '*.scope=00;36'     '*.slice=00;36'
+  '*.socket=00;35'   '*.network=00;35'    '*.netdev=00;35'
+  '*.device=00;36'      '*.link=00;36'
 )
 export LS_COLORS=$(printf "%s:" "${_LS_COLORS[@]}")
 
 
 # SYSTEMD_COLORS. color configuration for systemd units in zsh autocompletion
 _SYSTEMD_COLORS=(
-        'rs=0'        '=*.target=00;31'  '=*.service=00;32'    '=*.timer=00;34'   
- '=*.socket=00;35' '=*.automount=00;33'    '=*.mount=00;33'     '=*.swap=00;33'
-   '=*.path=00;36'    '=*.device=00;35'
+          'rs=0'    '=run-*.service=0;37'   '=run-*.scope=0;37'
+   '=*.target=00;33'    '=*.service=00;32'      '=*.timer=00;34'      '=*.path=00;36'   
+    '=*.mount=00;31'  '=*.automount=00;31'       '=*.swap=00;31'
+    '=*.scope=00;33'      '=*.slice=00;33'
+   '=*.socket=00;35'    '=*.network=00;35'     '=*.netdev=00;35'
+   '=*.device=00;35'       '=*.link=00;35' 
+
 )
 export SYSTEMD_COLORS=$(printf "%s:" "${_SYSTEMD_COLORS[@]}")
 
@@ -178,9 +214,11 @@ export SYSTEMD_COLORS=$(printf "%s:" "${_SYSTEMD_COLORS[@]}")
 # Paths
 #------------------------------
 
-# Lua path for for personal libs
-export LUA_PATH="$AB2_LIBS_DIR/lua/?.lua;;"
-export LUA_CPATH="$AB2_LIBS_DIR/lua/?.lua;;"
+# Lua path for for personal libs.
+# Don't want it for now. prefer installing the libs
+
+# export LUA_PATH="$AB2_DEVEL_DIR/lua/?.lua;;"
+# export LUA_CPATH="$AB2_DEVEL_DIR/lua/?.lua;;"
 
 # Python
 export PYTHONDOCS=/usr/share/docs/python/html/
@@ -191,7 +229,6 @@ if [[ -d $HOME/.terminfo ]]; then
 fi
 
 # The path
-
 add_to_pathlist_left PATH "/usr/lib/ccache/bin"   # ccache binaries before gcc ones
 add_to_pathlist_left PATH "$HOME/bin"             # ~/bin
-export PATH
+export PATH=$PATH

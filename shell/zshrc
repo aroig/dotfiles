@@ -42,7 +42,7 @@ fpath=($HOME/.zsh/completions $fpath)
 
 # Stop here if unknown terminal
 case $TERM in
-    rxvt*|screen*|xterm*|linux*)
+    rxvt*|screen*|xterm*|linux*|eterm-color)
 	    ;;
     
     *)
@@ -59,61 +59,25 @@ fi
 autoload -U add-zsh-hook
 
 
+
 # ----------------------------
 # Set environment
 # ----------------------------
 
-if [ -f $HOME/.zshenv ]; then
-    source $HOME/.zshenv
-fi
+# source environment variables
+[[ -f $HOME/.zshenv ]] && . $HOME/.zshenv
 
+# source aliases
+[[ -f $HOME/.aliases ]] && . $HOME/.aliases
 
-# ----------------------------
-# Set variables for gpg agent
-# ----------------------------
-
-# symlink the socket so that a single name survives gpg-agent restarts
-if [ -f "${HOME}/.gpg-agent-info" ]; then
-    source "${HOME}/.gpg-agent-info"
-
-    mkdir -p "$XDG_RUNTIME_DIR/gpg-agent"
-
-    # this anonymous function keeps variables inside local
-    function () {
-        local gpg_suffix="${GPG_AGENT_INFO#*:}"
-        local gpg_socket="$XDG_RUNTIME_DIR/gpg-agent/gpg-agent.socket"
-        local ssh_socket="$XDG_RUNTIME_DIR/gpg-agent/ssh-agent.socket"
-
-        # create socket symplinks 
-        ln -sf "${GPG_AGENT_INFO%%:*}" "$gpg_socket"
-        ln -sf "$SSH_AUTH_SOCK" "$ssh_socket"
-
-        # export variables
-        export GPG_AGENT_INFO="$gpg_socket:$gpg_suffix"
-        export SSH_AUTH_SOCK="$ssh_socket"
-    }
-fi
-
-
-# ----------------------------
-# Set aliases
-# ----------------------------
-
-if [ -f $HOME/.aliases ]; then
-    source $HOME/.aliases
-fi
-
-
-# ----------------------------
-# Source files in .zsh
-# ----------------------------
-
+# source files in ~/.zsh
 _ZSH_DIR="$HOME/.zsh"
 if [ -d $_ZSH_DIR ]; then
     for src in $_ZSH_DIR/*.zsh; do
 	    source $src
     done
 fi
+
 
 
 # ----------------------------
@@ -127,6 +91,7 @@ add-zsh-hook precmd refresh_current_vcs_vars
 
 add-zsh-hook precmd set-window-title           # set window title
 # add-zsh-hook preexec set-window-title
+
 
 
 # ----------------------------

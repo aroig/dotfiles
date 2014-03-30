@@ -1,3 +1,4 @@
+#!/bin/zsh
 
 local st="$(BZR_LOG=/dev/null bzr status --short --no-classify)"
 local br="$(BZR_LOG=/dev/null bzr nick)"
