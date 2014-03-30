@@ -5,8 +5,52 @@
 ---------------------------------------------------------------
 
 rules = require("awful.rules")
+posix = require("posix")
 
 local ddclient = ddclient
+
+
+-- Run a function delayed by a timeout. Puts the args in a closure. Seems not good w hen
+-- the argument is a client, maybe the object gets copied?
+local function run_delayed(func, timeout, args)
+    local t = timer({timeout = timeout or 0})
+    func(unpack(args))
+    t:connect_signal("timeout",
+                 function()
+                     local args = args or {}
+                     t:stop()
+                     func(unpack(args))
+                 end)
+    t:start()
+end
+
+
+-- Capture emacs clients depending on WM_NAME.
+
+-- This hackily solves a race condition in which emacs sets the window title too
+-- late for awesome rules to detect a custom WM_NAME.
+local function capture_emacsen(c)
+    -- capture dropdown according to WM_NAME
+    local name = c.name
+
+    if name == 'emacs-org' then
+        naughty.notify({title="Capturing emacs client", text=string.format("name: %s", name)})
+        ddclient.orgmode:capture(c)
+
+    elseif name == 'emacs-chat' then
+        naughty.notify({title="Capturing emacs client", text=string.format("name: %s", name)})
+        ddclient.chat:capture(c)
+
+    elseif name == 'emacs-mail' then
+        naughty.notify({title="Capturing emacs client", text=string.format("name: %s", name)})
+        ddclient.mail:capture(c)
+
+    elseif name == 'emacs-notes' then
+        naughty.notify({title="Capturing emacs client", text=string.format("name: %s", name)})
+        ddclient.notes:capture(c)
+    end
+end
+
 
 -- Client keys
 clientkeys = awful.util.table.join(
@@ -52,7 +96,11 @@ rules.rules = {
     { rule_any = { class = {"Qpaeq", "Qjackctl", "Unison-gtk2", "pinentry", "Skype", "Pavucontrol", "Pidgin"} },
       properties = { floating = true } },
 
-    -- Fixed position floats
+    -- Float dialogs
+    { rule_any = { name = {"Print"} },
+      properties = { floating = true } },
+
+    -- Centered floats
     { rule_any = { class = {"mpv", "MPlayer", "feh"} },
       properties = { floating = true },
       callback   = function(c) awful.placement.centered(c) end },
@@ -63,9 +111,29 @@ rules.rules = {
 
     -- Capture dropdowns
     { rule = { class = "Gmpc" },            callback = function(c) ddclient.music:capture(c) end },
-    { rule = { class = "Keepassx" },        callback = function(c) ddclient.pwsafe:capture(c) end },
     { rule = { class = "Xournal" },         callback = function(c) ddclient.xournal:capture(c) end },
     { rule = { class = "Calibre-gui" },     callback = function(c) ddclient.calibre:capture(c) end },
+    { rule = { class = "Goldendict" },      callback = function(c) ddclient.dict:capture(c) end },
+
+    -- Capture emacs clients for dropdown, depending on the WM_NAME property.
+    -- There may be a race condition here. Now it seems to work fine...
+    { rule = { class = "Emacs" }, callback = function(c) capture_emacsen(c) end },
+
+    -- Capture dropdowns in a terminal
+    { rule = { class = "Termite", name = "dropdown-terminal" },
+      callback = function(c) ddclient.terminal:capture(c) end },
+
+    { rule = { class = "Termite", name = "dropdown-syslog" },
+      callback = function(c) ddclient.syslog:capture(c) end },
+
+    { rule = { class = "Termite", name = "dropdown-ranger" },
+      callback = function(c) ddclient.ranger:capture(c) end },
+
+    { rule = { class = "Termite", name = "dropdown-sage" },
+      callback = function(c) ddclient.sage:capture(c) end },
+
+    { rule = { class = "Termite", name = "dropdown-octave" },
+      callback = function(c) ddclient.octave:capture(c) end },
 
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },

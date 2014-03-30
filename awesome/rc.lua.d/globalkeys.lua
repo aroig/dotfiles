@@ -58,28 +58,31 @@ end
 
 globalkeys = awful.util.table.join(
     -- Programs
-    awful.key({ modkey, ctrlkey   }, "Return", function () exec(apps.terminal) end),
-    awful.key({ modkey, ctrlkey   }, "f",      function () exec(apps.filemanager) end),
-    awful.key({ modkey, ctrlkey   }, "e",      function () exec(apps.editor) end),
-    awful.key({ modkey, ctrlkey   }, "b",      function () exec(apps.browser) end),
-    awful.key({ modkey, metakey   }, "b",      function () exec(apps.secondbrowser) end),
-    awful.key({ modkey, ctrlkey   }, "o",      function () exec(apps.orgmode) end),
-    awful.key({ modkey, ctrlkey   }, "u",      function () exec(apps.mail) end),
     awful.key({ modkey, ctrlkey   }, "Print",  function () exec(apps.print) end),
+
+    -- those are forked as usual, and belong to the awesome systemd unit
+    awful.key({ modkey, ctrlkey   }, "Return", function () sdrun(apps.terminal,       'termite',     true, 'apps') end),
+    awful.key({ modkey, ctrlkey   }, "e",      function () sdrun(apps.editor,         'emacsclient', true, 'apps') end),
+    awful.key({ modkey, ctrlkey   }, "f",      function () sdrun(apps.filemanager,    'thunar',      true, 'apps') end),
+
+    -- those are spawned with systemd-run, and get their own unit.
+    awful.key({ modkey, ctrlkey   }, "b",      function () sdrun(apps.browser,        'dwb',         true, 'apps') end),
+    awful.key({ modkey, metakey   }, "b",      function () sdrun(apps.secondbrowser,  'chromium',    true, 'apps') end),
 
     -- Dropdown clients
     awful.key({ modkey, ctrlkey   }, "d",      function () ddclient.dict:toggle() end),
     awful.key({ modkey, ctrlkey   }, "i",      function () ddclient.calibre:toggle() end),
     awful.key({ modkey, ctrlkey   }, "m",      function () ddclient.music:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "t",      function () ddclient.chat:toggle() end),
-    awful.key({ modkey, shiftkey  }, "t",      function () ddclient.twitter:toggle() end),
     awful.key({ modkey, ctrlkey   }, "w",      function () ddclient.xournal:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "p",      function () ddclient.pwsafe:toggle() end),
+
+    awful.key({ modkey, ctrlkey   }, "o",      function () ddclient.orgmode:toggle() end),
+    awful.key({ modkey, ctrlkey   }, "u",      function () ddclient.mail:toggle() end),
+    awful.key({ modkey, ctrlkey   }, "t",      function () ddclient.chat:toggle() end),
 
     -- Music
-    awful.key({ modkey, ctrlkey   }, "Home",      function () exec("mpc toggle") end),
-    awful.key({ modkey, ctrlkey   }, "Page_Up",   function () exec("mpc prev") end),
-    awful.key({ modkey, ctrlkey   }, "Page_Down", function () exec("mpc next") end),
+    awful.key({ modkey, ctrlkey   }, "Home",      function () exec("mpc -q toggle") end),
+    awful.key({ modkey, ctrlkey   }, "Page_Up",   function () exec("mpc -q prev") end),
+    awful.key({ modkey, ctrlkey   }, "Page_Down", function () exec("mpc -q next") end),
 
     awful.key({ modkey, ctrlkey   }, "Insert",    function () exec("pvol +2db") end),
     awful.key({ modkey, ctrlkey   }, "Delete",    function () exec("pvol -2db") end),
@@ -92,6 +95,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F4",     box.naughtylog.toggle_naughtylog),
 
     -- Top dropdown clients
+    awful.key({ modkey,           }, "F9",     function() ddclient.syslog:show() end),
+    awful.key({                   }, "F9",     function() ddclient.syslog:hide() end),
+
     awful.key({ modkey,           }, "F10",    function() ddclient.notes:show() end),
     awful.key({                   }, "F10",    function() ddclient.notes:hide() end),
 
@@ -209,14 +215,28 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "+",     function () awful.tag.incncol(-1)         end),
 
     -- System stuff
-    awful.key({metakey, ctrlkey, shiftkey }, "a",     awesome.restart),
-    awful.key({metakey, ctrlkey, shiftkey }, "q",     function () shexec(apps.exit_cmd) end),
     awful.key({ metakey, ctrlkey          }, "l",     function () exec(apps.lock_cmd) end),
+    awful.key({metakey, ctrlkey, shiftkey }, "a",     awesome.restart),
 
-    -- until I can halt and reboot safely from within the systemd session instance, I disable this
-    -- awful.key({metakey, ctrlkey, shiftkey }, "h",     function () exec(apps.poweroff_cmd) end),
-    -- awful.key({metakey, ctrlkey, shiftkey }, "r",     function () exec(apps.reboot_cmd) end),
-    awful.key({metakey, ctrlkey, shiftkey }, "z",     function () exec(apps.suspend_cmd) end)
+    awful.key({metakey, ctrlkey, shiftkey }, "q",
+              function ()
+                  prompt.ask_run("Quit", apps.quit_cmd)
+              end),
+
+    awful.key({metakey, ctrlkey, shiftkey }, "z",
+              function ()
+                  prompt.ask_run("Suspend", apps.suspend_cmd)
+              end),
+
+    awful.key({metakey, ctrlkey, shiftkey }, "h",
+              function ()
+                  prompt.ask_run("Poweroff", apps.poweroff_cmd)
+              end),
+
+    awful.key({metakey, ctrlkey, shiftkey }, "r",
+              function ()
+                  prompt.ask_run("Reboot", apps.reboot_cmd)
+              end)
 )
 
 

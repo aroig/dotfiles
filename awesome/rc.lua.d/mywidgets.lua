@@ -166,11 +166,18 @@ function myw.net.update()
     local up = 0.0
     local down = 0.0
 
-    if args["{eth0 up_kb}"] then  up = up + args["{eth0 up_kb}"] end
-    if args["{wlan0 up_kb}"] then up = up + args["{wlan0 up_kb}"] end
+    -- loop over all interfaces except loopback
+    for k, v in pairs(args) do
+        if not string.match(k, "{lo .*}") then
+            if string.match(k, "{.* up_kb}") then
+                up = up + v
+            end
 
-    if args["{eth0 down_kb}"] then  down = down + args["{eth0 down_kb}"] end
-    if args["{wlan0 down_kb}"] then down = down + args["{wlan0 down_kb}"] end
+            if string.match(k, "{.* down_kb}") then
+                down = down + v
+            end
+        end
+    end
 
     if up ~= myw.net.value.up or down ~= myw.net.value.down then
         local uptxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_netup_widget, up)
@@ -184,11 +191,14 @@ function myw.net.update()
     myw.net.value.down = down
 end
 
-myw.netctl = {}
-myw.netctl.src = require("abdo.widget.netctl")
+timers.fast:connect_signal("timeout", myw.net.update)
 
-myw.netctl.tooltip = awful.tooltip({objects = {myw.net.dnicon, myw.net.upicon, myw.net.widget}})
-myw.netctl.value = ""
+
+myw.netctl = {}
+-- myw.netctl.src = require("abdo.widget.netctl")
+
+-- myw.netctl.tooltip = awful.tooltip({objects = {myw.net.dnicon, myw.net.upicon, myw.net.widget}})
+-- myw.netctl.value = ""
 
 function myw.netctl.update()
     local args = myw.netctl.src(nil)
@@ -201,13 +211,12 @@ function myw.netctl.update()
         prf = prf .. line
     end
     if myw.netctl.value ~= prf then
-        myw.netctl.tooltip.widget:set_markup("<b>Networks:</b> " .. prf)
+        myw.netctl.tooltip.textbox:set_markup("<b>Networks:</b> " .. prf)
     end
     myw.netctl.value = prf
 end
 
-timers.fast:connect_signal("timeout", myw.net.update)
-timers.normal:connect_signal("timeout", myw.netctl.update)
+-- timers.normal:connect_signal("timeout", myw.netctl.update)
 
 
 -----------------------------------
@@ -302,10 +311,10 @@ function myw.mpd.notify_song(args)
         local parentdir=string.gsub(args['{file}'], '/[^/]+$', '')
         local cover=parentdir .. '/' .. 'cover.jpg'
 
-        naughty.notify({title = args['{Title}'],
+        naughty.notify({title = args['{title}'],
                         text = string.format("%s\n%s",
-                                             args['{Album}'],
-                                             args['{Artist}']),
+                                             args['{album}'],
+                                             args['{artist}']),
                         icon = myw.mpd.path .. '/' .. cover,
                         appname = "mpd"})
     end
@@ -316,17 +325,17 @@ function myw.mpd.update()
 
     local icon = beautiful.widget_stop
 
-    if args['{state}'] == 'play' then
+    if args['{state}'] == 'playing' then
         icon = beautiful.widget_play
-    elseif args['{state}'] == 'stop' then
+    elseif args['{state}'] == 'stopped' then
         icon = beautiful.widget_stop
-    elseif args['{state}'] == 'pause' then
+    elseif args['{state}'] == 'paused' then
         icon = beautiful.widget_pause
     end
 
     if myw.mpd.current['{file}'] ~= args['{file}'] or
     myw.mpd.current['{state}'] ~= args['{state}'] then
-        if args['{state}'] == "play" then
+        if args['{state}'] == "playing" then
             myw.mpd.notify_song(args)
         end
 
@@ -411,10 +420,14 @@ function myw.bat.update()
         local text = string.format("<span color='%s'>%s%s%%</span>", color_percent, args.state, args.percent)
 
         myw.bat.pcwidget:set_markup(text)
+        if args.percent > 0 and args.percent <= 5 and args.state ~= '+' then
+            naughty.notify({title="Low Battery", text="Hey, plug the power cord!",
+                            appname="battery"})
+        end
     end
 
     if args.time ~= myw.bat.time then
-        myw.bat.tooltip.widget:set_markup("<b>Time remaining:</b> " .. args.time)
+        myw.bat.tooltip.textbox:set_markup("<b>Time remaining:</b> " .. args.time)
     end
 
     myw.bat.rate = args.rate

@@ -5,9 +5,9 @@
 
 -- {{{ Grab environment
 local tonumber = tonumber
-local io = { popen = io.popen }
+local io = { popen = io.popen, open=io.open}
 local setmetatable = setmetatable
-local string = { gmatch = string.gmatch }
+local string = string
 local helpers = require("helpers")
 -- }}}
 
@@ -20,39 +20,44 @@ local mpd = {}
 -- {{{ MPD widget type
 local function worker(format, warg)
     local mpd_state  = {
-        ["{volume}"] = 0,
-        ["{state}"]  = "N/A",
-        ["{Artist}"] = "N/A",
-        ["{Title}"]  = "N/A",
-        ["{Album}"]  = "N/A",
-        ["{Genre}"]  = "N/A",
-        ["{Name}"] = "N/A",
+        ["{volume}"]  = "N/A",
+        ["{state}"]  = "stopped",
+        ["{artist}"] = "N/A",
+        ["{title}"]  = "N/A",
+        ["{album}"]  = "N/A",
+        ["{genre}"]  = "N/A",
         ["{file}"] = "N/A",
     }
 
-    -- Fallback to MPD defaults
-    local pass = warg and (warg.password or warg[1]) or "\"\""
-    local host = warg and (warg.host or warg[2]) or "127.0.0.1"
-    local port = warg and (warg.port or warg[3]) or "6600"
+    -- get mpd process state
+    local pid_file = os.getenv("XDG_RUNTIME_DIR") .. "/mpd/pid"
+    local f = io.open(pid_file, "r")
+    if f == nil then
+        return mpd_state
+    else
+        f:close()
+    end
 
-    -- Construct MPD client options
-    local mpdh = "telnet://"..host..":"..port
-    local echo = "echo 'password "..pass.."\nstatus\ncurrentsong\nclose'"
+    -- get current song via mpc
+    local fmt = "artist:%artist%\ntitle:%title%\nalbum:%album%\n" ..
+        "genre:%genre%\nfile:%file%\ntime:%time%\nposition:%position%"
+    local f = io.popen(string.format("mpc current -f \"%s\" 2> /dev/null", fmt))
 
-    -- Get data from MPD server
-    local f = io.popen(echo.." | curl --connect-timeout 1 -fsm 3 "..mpdh)
-
+    -- parse the data
+    local k, v
     for line in f:lines() do
-        for k, v in string.gmatch(line, "([%w]+):[%s](.*)$") do
-            if     k == "volume" then mpd_state["{"..k.."}"] = v and tonumber(v)
-            elseif k == "state"  then mpd_state["{"..k.."}"] = v
-            elseif k == "Artist" then mpd_state["{"..k.."}"] = v
-            elseif k == "Title"  then mpd_state["{"..k.."}"] = v
-            elseif k == "Album"  then mpd_state["{"..k.."}"] = v
-            elseif k == "Genre"  then mpd_state["{"..k.."}"] = v
-            elseif k == "Name"   then mpd_state["{"..k.."}"] = v
-            elseif k == "file"   then mpd_state["{"..k.."}"] = v
-            end
+        for k, v in string.gmatch(line, "([%w]+):(.*)$") do
+            mpd_state["{"..k.."}"] = v
+        end
+    end
+    f:close()
+
+    -- get current state via mpc
+    local f = io.popen("mpc status 2> /dev/null")
+    for line in f:lines() do
+        for k, v in string.gmatch(line, "%[([%w]+)%].*%((.*)%%%)$") do
+            mpd_state["{state}"] = k
+            mpd_state["{volume}"] = tonumber(v)
         end
     end
     f:close()

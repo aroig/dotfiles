@@ -26,10 +26,10 @@ local function generate_calendar(offset)
    local _, _, cur_year, cur_month, cur_day = string.find(query,"(%d%d%d%d)%-(%d%d)%-(%d%d)")
    cur_month = tonumber(cur_month) + offset
    if cur_month > 12 then
-      cur_month = (cur_month % 12) .. "f"
+      cur_month = ((cur_month-1) % 12) + 1
       cur_year = cur_year + 1
    elseif cur_month < 1 then
-      cur_month = (cur_month + 12) .. "p"
+      cur_month = ((cur_month-1) % 12) + 1
       cur_year = cur_year - 1
    end
    local cal = util.pread("LANG=C; cal -m " .. cur_month .. " " .. cur_year)
