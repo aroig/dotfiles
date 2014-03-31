@@ -1,0 +1,11 @@
+[Unit]
+Description=listen ssh-agent requests from the net
+
+Requires=gpg-agent.service
+After=gpg-agent.service
+
+[Service]
+Type=simple
+SyslogIdentifier=ssh-agent-proxy
+ExecStart=/usr/lib/systemd/systemd-socket-proxyd %h/.gnupg/S.gpg-agent.ssh
+

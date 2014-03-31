@@ -1,0 +1,8 @@
+[Unit]
+Description=listen to gpg-agent requests from the net
+
+[Socket]
+ListenStream=11000
+
+[Install]
+WantedBy=sockets.target

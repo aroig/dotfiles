@@ -1,11 +1,8 @@
 [Unit]
-Description=gpg-agent forwarding
-Requires=gpg-agent.service
+Description=forward gpg agent requests over the net
 
 [Service]
 Type=simple
-Restart=always
-
 SyslogIdentifier=gpg-agent-forward
-ExecStart=/home/abdo/.config/systemd/scripts/gpg-agent.sh forward
-SuccessExitStatus=0 143
+ExecStart=/usr/lib/systemd/systemd-socket-proxyd localhost:11010
+

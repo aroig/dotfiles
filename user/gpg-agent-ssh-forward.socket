@@ -1,0 +1,8 @@
+[Unit]
+Description=forward ssh agent requests
+
+[Socket]
+ListenStream=%h/.gnupg/S.gpg-agent.forward.ssh
+
+[Install]
+WantedBy=sockets.target
