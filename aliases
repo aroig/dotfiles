@@ -91,32 +91,24 @@ trimtrail() {
 # tmux functions
 #------------------------------
 
-# create a new master session detached from the world
-tmux_master() {
-    session="$1"
-    shift
-    tmux new-session -d -s $session\; "$@"
-}
-
-
 # create a new client session attached to an existing one
 tmux_client() {
     session="$1"
+    [ ! "$session" ] && session="default"
     shift
 
-    tmux new-session -t $session -s $session-$$\; \
+    tmux -S "$XDG_RUNTIME_DIR/tmux/$session" \
+        new-session -t $session -s $session-$$\; \
         set destroy-unattached on\; "$@"
 }
 
 
 # create a new tmux session, launching the master if necessary
 tmux_session() {
-    session="$1"
-    [ ! "$session" ] && session="default"
-    shift
+    session="default"
 
     ( tmux_client "$session" && exit 0 ) || \
-    ( tmux_master "$session" && tmux_client "$session" && exit 0 )
+    ( systemctl --user start tmux.service && tmux_client "$session" && exit 0 )
 }
 
 
