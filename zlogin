@@ -33,6 +33,10 @@ systemctl --user set-environment "PATH=$PATH"
 
 # if ssh outside tmux
 if [[ "$SSH_TTY" != "" && "$TMUX" == "" && "$NOTMUX" == "" ]]; then
+    # set gpg-agent variables
+    gpg_agent_mode ssh
+
+    # start tmux
     if type tmux 2>&1 >/dev/null && type tmux_session 2>&1 >/dev/null; then
         tmux_session default && exit 0
     else
