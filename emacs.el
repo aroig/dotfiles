@@ -61,7 +61,7 @@
 (setq semanticdb-default-save-directory (format "%s/.emacs.d/semanticdb/" (getenv "HOME")))
 
 ;; Backups
-(setq abdo-emacs-backups (format "%s/.emacs.d/bak/emacs/" (getenv "HOME")))
+(setq abdo-emacs-backups (format "%s/.emacs.d/bak/" (getenv "HOME")))
 
 
 ;; Variables
