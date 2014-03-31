@@ -51,12 +51,17 @@
 (setq abdo-mail-directory (format "%s/" (getenv "AB2_MAIL_DIR")))              ;; email
 (setq abdo-papers-directory (format "%s/" (getenv "AB2_PAPERS_DIR")))          ;; papers
 
-(setq abdo-emacs-backups (format "%s/bak/emacs/" (getenv "AB2_VAR_DIR")))      ;; Backups dir
 (setq abdo-chat-directory     (format "%s/chat/" (getenv "AB2_VAR_DIR")))      ;; chat logs
 
 (setq abdo-personal-dicts-path (format "%s/usr/dict/aspell/" (getenv "HOME"))) ;; dictionaries
 (setq bookmark-default-file "~/.emacs.d/bookmarks")                            ;; bookmarks file
 (setq abdo-download-directory "~/down/")                                       ;; downloads
+
+;; Semantic db
+(setq semanticdb-default-save-directory (format "%s/.emacs.d/semanticdb/" (getenv "HOME")))
+
+;; Backups
+(setq abdo-emacs-backups (format "%s/.emacs.d/bak/emacs/" (getenv "HOME")))
 
 
 ;; Variables
