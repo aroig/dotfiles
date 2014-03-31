@@ -1,8 +1,8 @@
 [Unit]
-Description=listen to gpg-agent requests from the net
+Description=forward ssh agent requests
 
 [Socket]
-ListenStream=11000
+ListenStream=%h/.gnupg/S.gpg-agent.forward
 
 [Install]
 WantedBy=sockets.target
