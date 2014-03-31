@@ -3,5 +3,5 @@
 
 update:
 	cp mimenew/* mime/packages/
-	update-desktop-database "$(HOME)/.local/share/applications"
-	update-mime-database    "$(HOME)/.local/share/mime"
+	update-desktop-database "/home/abdo/.local/share/applications"
+	update-mime-database    "/home/abdo/.local/share/mime"
