@@ -49,6 +49,12 @@ function shexec (cmd)
     awful.util.spawn_with_shell(cmd)
 end
 
+-- Ask for confirmation and execute cmd
+function askexec (prompt, cmd)
+    prompt.ask_run(prompt, cmd)
+end
+
+
 -- Execute an external program and connect the output to systemd journal
 function sdexec (cmd, name)
     awful.util.spawn_with_shell(cmd .. string.format(' 2>&1 | systemd-cat -t %s', name))
@@ -309,7 +315,5 @@ function prompt.ask_run(prompt, cmd)
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 string.format("%s? ", prompt),
-                shexec,
-                opts,
-                nil)
+                shexec, opts, nil)
 end

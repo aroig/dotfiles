@@ -58,7 +58,7 @@ end
 
 globalkeys = awful.util.table.join(
     -- Programs
-    awful.key({ modkey, ctrlkey   }, "Print",  function () exec(apps.print) end),
+    awful.key({ modkey, ctrlkey   }, "Print",  function () shexec(apps.print) end),
 
     -- those are forked as usual, and belong to the awesome systemd unit
     awful.key({ modkey, ctrlkey   }, "Return", function () sdrun(apps.terminal,       'termite',     true, 'apps') end),
@@ -80,12 +80,12 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "t",      function () ddclient.chat:toggle() end),
 
     -- Music
-    awful.key({ modkey, ctrlkey   }, "Home",      function () exec("mpc -q toggle") end),
-    awful.key({ modkey, ctrlkey   }, "Page_Up",   function () exec("mpc -q prev") end),
-    awful.key({ modkey, ctrlkey   }, "Page_Down", function () exec("mpc -q next") end),
+    awful.key({ modkey, ctrlkey   }, "Home",      function () shexec("mpc -q toggle") end),
+    awful.key({ modkey, ctrlkey   }, "Page_Up",   function () shexec("mpc -q prev") end),
+    awful.key({ modkey, ctrlkey   }, "Page_Down", function () shexec("mpc -q next") end),
 
-    awful.key({ modkey, ctrlkey   }, "Insert",    function () exec("pvol +2db") end),
-    awful.key({ modkey, ctrlkey   }, "Delete",    function () exec("pvol -2db") end),
+    awful.key({ modkey, ctrlkey   }, "Insert",    function () shexec("pvol +2db") end),
+    awful.key({ modkey, ctrlkey   }, "Delete",    function () shexec("pvol -2db") end),
 
     -- Desktop boxes
     awful.key({ modkey,           }, "F1",     box.calendar.toggle_calendar),
@@ -215,28 +215,12 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "+",     function () awful.tag.incncol(-1)         end),
 
     -- System stuff
-    awful.key({ metakey, ctrlkey          }, "l",     function () exec(apps.lock_cmd) end),
-    awful.key({metakey, ctrlkey, shiftkey }, "a",     awesome.restart),
-
-    awful.key({metakey, ctrlkey, shiftkey }, "q",
-              function ()
-                  prompt.ask_run("Quit", apps.quit_cmd)
-              end),
-
-    awful.key({metakey, ctrlkey, shiftkey }, "z",
-              function ()
-                  prompt.ask_run("Suspend", apps.suspend_cmd)
-              end),
-
-    awful.key({metakey, ctrlkey, shiftkey }, "h",
-              function ()
-                  prompt.ask_run("Poweroff", apps.poweroff_cmd)
-              end),
-
-    awful.key({metakey, ctrlkey, shiftkey }, "r",
-              function ()
-                  prompt.ask_run("Reboot", apps.reboot_cmd)
-              end)
+    awful.key({ metakey, ctrlkey          }, "l",   function () shexec(apps.lock_cmd)                  end),
+    awful.key({metakey, ctrlkey, shiftkey }, "a",   function () awesome.restart()                      end),
+    awful.key({metakey, ctrlkey, shiftkey }, "q",   function () askexec("Quit", apps.quit_cmd)         end),
+    awful.key({metakey, ctrlkey, shiftkey }, "z",   function () askexec("Suspend", apps.suspend_cmd)   end),
+    awful.key({metakey, ctrlkey, shiftkey }, "h",   function () askexec("Poweroff", apps.poweroff_cmd) end),
+    awful.key({metakey, ctrlkey, shiftkey }, "r",   function () askexec("Reboot", apps.reboot_cmd)     end)
 )
 
 
