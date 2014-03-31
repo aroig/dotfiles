@@ -194,30 +194,6 @@ end
 timers.fast:connect_signal("timeout", myw.net.update)
 
 
-myw.netctl = {}
--- myw.netctl.src = require("abdo.widget.netctl")
-
--- myw.netctl.tooltip = awful.tooltip({objects = {myw.net.dnicon, myw.net.upicon, myw.net.widget}})
--- myw.netctl.value = ""
-
-function myw.netctl.update()
-    local args = myw.netctl.src(nil)
-    local prf = ""
-    local line
-    for _,line in ipairs(args) do
-        if prf ~= "" then
-            prf = prf .. ", "
-        end
-        prf = prf .. line
-    end
-    if myw.netctl.value ~= prf then
-        myw.netctl.tooltip.textbox:set_markup("<b>Networks:</b> " .. prf)
-    end
-    myw.netctl.value = prf
-end
-
--- timers.normal:connect_signal("timeout", myw.netctl.update)
-
 
 -----------------------------------
 -- Gmail                         --
@@ -287,6 +263,7 @@ myw.mail.widget:buttons(awful.util.table.join(awful.button({ }, 1,
 myw.mail.widget:buttons(myw.mail.widget:buttons())
 
 timers.slow:connect_signal("timeout", myw.mail.update)
+
 
 
 -----------------------------------
