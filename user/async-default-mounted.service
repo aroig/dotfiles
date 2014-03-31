@@ -3,6 +3,7 @@ Description=mount default host and keep ssh open
 StopWhenUnneeded=true
 
 Requires=mount-priv.service
+After=mount-priv.service
 
 [Service]
 # async notifies systemd when state is reached

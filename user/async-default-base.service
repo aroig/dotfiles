@@ -2,6 +2,7 @@
 Description=sync base to default host
 
 Requires=mount-priv.service
+After=mount-priv.service
 
 Requires=async-default-mounted.service
 After=async-default-mounted.service
