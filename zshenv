@@ -76,7 +76,6 @@ export AB2_PAPERS_DIR="$AB2_HOME/work/papers"
 # NOTE: I use standard sockets, so no need for GPG_AGENT_INFO, which requires
 # runtime info. We only need to set SSH_AUTH_SOCK for emulating the ssh-agent
 export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
-export GPG_TTY=$(tty)
 
 
 

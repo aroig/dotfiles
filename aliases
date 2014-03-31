@@ -113,6 +113,81 @@ tmux_session() {
 
 
 #------------------------------
+# gnupg functions
+#------------------------------
+
+# sets the default keyring to use
+#  default: the one at ~/.gnupg
+#  master:  the one at ~/priv/gnupg
+#
+# TODO: what about the gpg-agent sockets?
+gpg_keyring() {
+    case "$1" in
+       master)
+            export GPGHOME="$AB2_PRIV_DIR/gnupg"
+            ;;
+        
+        default)
+            export GPGHOME="$HOME/.gnupg"
+            ;;
+    esac
+}
+
+
+
+# sets the mode for the gpg-agent
+#  tty:     we are on a local tty
+#  graphic: we are on a grahic environment
+#  ssh:     we forward agent calls to the client
+gpg_agent_mode() {
+
+    case "$1" in
+        tty)
+            ssh_sock="$HOME/.gnupg/S.gpg-agent.ssh"
+            gpg_sock="$HOME/.gnupg/S.gpg-agent"       
+            ;;
+
+        graphic)
+            ssh_sock="$HOME/.gnupg/S.gpg-agent.ssh"
+            gpg_sock="$HOME/.gnupg/S.gpg-agent"           
+            ;;
+
+        ssh)
+            ssh_sock="$HOME/.gnupg/S.gpg-agent.ssh.forward"
+            gpg_sock="$HOME/.gnupg/S.gpg-agent.forward"
+            ;;
+    esac
+
+    if [ ! -e "$ssh_sock" ]; then
+        echo "ssh-agent socket does not exist: $ssh_sock"
+        return 1
+    fi
+    if [ ! -e "$gpg_sock" ]; then
+        echo "gpg-agent socket does not exist: $gpg_sock"
+        return 1
+    fi
+
+    export SSH_AUTH_SOCK="$ssh_sock"
+    export GPG_AGENT_INFO="$gpg_sock::1"
+
+    case "$1" in
+        tty|graphic)
+            gpg_agent_update
+            ;;
+    esac
+}
+
+
+# Update tty for the gpg-agent. gpg itself can be aware of the tty,
+# maybe via GPG_TTY environment var, but there is no way that programs using
+# gpg-agent as a ssh-agent can tell it about the tty. So we are stuck with this.
+gpg_agent_update() {
+    export GPG_TTY=$(tty)
+    gpg-connect-agent updatestartuptty /bye
+}
+
+
+#------------------------------
 # Systemd aliases
 #------------------------------
 
@@ -169,7 +244,7 @@ alias gan="git annex"
 
 
 #------------------------------
-# sudo gpg etc
+# sudo
 #------------------------------
 
 # If the argument has an alias, expand it, if it has a function, 
@@ -192,11 +267,6 @@ sudo () {
 }
 
 # alias sudo='sudo '        # Enables expanding aliases for next command. not functions though :(
-
-# alias to update tty for the gpg-agent. gpg itself can be aware of the tty,
-# maybe via GPG_TTY environment var, but there is no way that programs using
-# gpg-agent as a ssh-agent can tell it about the tty. So we are stuck with this.
-alias gatty='gpg-connect-agent updatestartuptty /bye'
 
 
 #------------------------------
