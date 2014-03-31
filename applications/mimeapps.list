@@ -23,7 +23,7 @@ image/svg+xml=feh.desktop;
 image/x-webp=feh.desktop;
 
 application/epub=calibre-ebook-viewer.desktop;
-application/epub+zip=calibre-ebook-viewer.desktop
+application/epub+zip=calibre-ebook-viewer.desktop;
 
 application/pdf=zathura.desktop;
 application/postscript=zathura.desktop;
@@ -34,7 +34,7 @@ video/quicktime=mpv.desktop;
 video/mp4=mpv.desktop;
 video/x-msvideo=mpv.desktop;
 video/x-flv=mpv.desktop;
-video/x-matroska=mpv.desktop
-video/x-ms-wmv=mpv.desktop
+video/x-matroska=mpv.desktop;
+video/x-ms-wmv=mpv.desktop;
 
-application/x-gcstar=gcstar.desktop
+application/x-gcstar=gcstar.desktop;
