@@ -4,6 +4,7 @@ Documentation=man:tmux(1)
 
 [Service]
 Type=forking
+SuccessExitStatus=0 1
 ExecStartPre=/usr/bin/mkdir -p "%t/tmux"
 ExecStart=/usr/bin/tmux -S "%t/tmux/default" new-session -d -s default
 ExecStop=/usr/bin/tmux -S "%t/tmux/default" kill-session -t default
