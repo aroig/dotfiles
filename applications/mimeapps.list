@@ -1,4 +1,4 @@
-[Added Associations]
+[Default Applications]
 inode/directory=thunar.desktop;
 
 x-scheme-handler/http=dwb.desktop;
