@@ -7,6 +7,9 @@
 -----------------------------------
 -- Module Loading                --
 -----------------------------------
+-- Standard lua stuff
+string       = require("string")
+posix        = require("posix")
 
 -- Standard awesome library
 awful        = require("awful")
@@ -19,7 +22,6 @@ beautiful    = require("beautiful")
 menubar      = require("menubar")
 gears        = require("gears")
 naughty      = require("naughty")
-
 
 -- Personal stuff
 util        = require("abdo.util")           -- Utility functions
