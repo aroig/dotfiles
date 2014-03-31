@@ -1,0 +1,5 @@
+[Unit]
+Description=gpg-agent daemon plus redirections
+BindsTo=gpg-agent.service
+Requires=gpg-agent-forward.socket gpg-agent-ssh-forward.socket
+Requires=gpg-agent-proxy.socket gpg-agent-ssh-proxy.socket

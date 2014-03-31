@@ -1,8 +1,11 @@
 [Unit]
-Description=forward gpg agent requests over the net
+Description=listen gpg-agent requests from the net
+
+Requires=gpg-agent.service
+After=gpg-agent.service
 
 [Service]
 Type=simple
-SyslogIdentifier=gpg-agent-forward
-ExecStart=/usr/lib/systemd/systemd-socket-proxyd localhost:11010
+SyslogIdentifier=gpg-agent-proxy
+ExecStart=/usr/lib/systemd/systemd-socket-proxyd %h/.gnupg/S.gpg-agent
 
