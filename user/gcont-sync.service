@@ -1,6 +1,8 @@
 [Unit]
 Description=sync google contacts
 
+Requires=mount-priv.service
+
 # gcont store contacts in ~/mail
 Requisite=initial-synced-mail.target
 After=initial-synced-mail.target

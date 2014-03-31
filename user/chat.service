@@ -1,6 +1,8 @@
 [Unit]
 Description=chat
 
+Requires=mount-priv.service
+
 Requisite=desktop.target
 After=desktop.target
 

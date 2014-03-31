@@ -1,6 +1,8 @@
 [Unit]
 Description=offlineimap
 
+Requires=mount-priv.service
+
 # offlineimap saves messages to ~/mail
 Requisite=initial-synced-mail.target
 After=initial-synced-mail.target

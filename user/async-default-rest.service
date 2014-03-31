@@ -1,6 +1,8 @@
 [Unit]
 Description=sync mail to default host
 
+Requires=mount-priv.service
+
 Requires=async-default-mounted.service
 After=async-default-mounted.service
 

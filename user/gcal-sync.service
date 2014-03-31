@@ -1,6 +1,8 @@
 [Unit]
 Description=sync google calendar
 
+Requires=mount-priv.service
+
 # gcal accesses and changes ~/work/wiki
 Requisite=initial-synced-work.target
 After=initial-synced-work.target

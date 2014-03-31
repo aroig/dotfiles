@@ -3,8 +3,10 @@ Description=dwb cookie database
 StopWhenUnneeded=true
 
 # dwb cookies are under ~/priv
+Requires=mount-priv.service
 Requisite=initial-synced-base.target
 After=initial-synced-base.target
+
 
 [Service]
 Type=oneshot
