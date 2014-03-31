@@ -3,7 +3,7 @@ Description=mount priv
 
 ConditionPathExists=/home/abdo/.ecryptfs/priv.conf
 
-Requires=gpg-agent.service
+Wants=gpg-agent.service
 After=gpg-agent.service
 
 [Service]

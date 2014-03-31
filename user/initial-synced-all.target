@@ -4,7 +4,7 @@ Description=sync with default remote
 OnFailure=journal-mailer.service
 
 # refresh cached passphrase now
-Requires=gpg-agent-auth.service
+Wants=gpg-agent-auth.service
 
 # trigger a homedir sync
 Requires=initial-synced-base.target 
