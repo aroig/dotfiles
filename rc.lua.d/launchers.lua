@@ -50,8 +50,8 @@ function shexec (cmd)
 end
 
 -- Ask for confirmation and execute cmd
-function askexec (prompt, cmd)
-    prompt.ask_run(prompt, cmd)
+function askexec (prmt, cmd)
+    prompt.ask_run(prmt, cmd)
 end
 
 
