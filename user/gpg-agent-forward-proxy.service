@@ -1,6 +1,9 @@
 [Unit]
 Description=listen gpg-agent requests from the net
 
+Requires=gpg-agent-forward.socket
+After=gpg-agent-forward.socket
+
 Requires=gpg-agent.service
 After=gpg-agent.service
 
