@@ -1,8 +1,0 @@
-[Unit]
-Description=listen to ssh-agent requests from the net
-
-[Socket]
-ListenStream=11001
-
-[Install]
-WantedBy=sockets.target

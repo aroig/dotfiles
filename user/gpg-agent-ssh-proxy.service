@@ -7,5 +7,4 @@ After=gpg-agent.service
 [Service]
 Type=simple
 SyslogIdentifier=ssh-agent-proxy
-ExecStart=/usr/lib/systemd/systemd-socket-proxyd %h/.gnupg/S.gpg-agent.ssh
-
+ExecStart=/usr/bin/socat TCP-LISTEN:11001,bind=127.0.0.1 UNIX-CONNECT:%h/.gnupg/S.gpg-agent.ssh
