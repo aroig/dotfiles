@@ -7,7 +7,7 @@ OnFailure=journal-mailer.service
 Requires=final-synced-all.target
 After=final-synced-all.target
 
-Requires=delayed-poweroff.service
-Before=delayed-poweroff.service
+Requires=final-synced-poweroff.service
+Before=final-synced-poweroff.service
 
 

@@ -7,6 +7,6 @@ OnFailure=journal-mailer.service
 Requires=final-synced-all.target
 After=final-synced-all.target
 
-Requires=delayed-suspend.service
-Before=delayed-suspend.service
+Requires=final-synced-suspend.service
+Before=final-synced-suspend.service
 
