@@ -2,4 +2,4 @@
 Description=gpg-agent daemon plus redirections
 BindsTo=gpg-agent.service
 Wants=gpg-agent-forward.socket gpg-agent-ssh-forward.socket
-Wants=gpg-agent-proxy.service gpg-agent-ssh-proxy.service
+Wants=gpg-agent-forward-proxy.service gpg-agent-ssh-forward-proxy.service

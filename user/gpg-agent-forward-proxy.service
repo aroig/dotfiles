@@ -1,0 +1,12 @@
+[Unit]
+Description=listen gpg-agent requests from the net
+
+Requires=gpg-agent.service
+After=gpg-agent.service
+
+[Service]
+Type=simple
+SyslogIdentifier=gpg-agent-proxy
+ExecStart=/usr/bin/socat TCP-LISTEN:11000,bind=127.0.0.1 UNIX-CONNECT:%h/.gnupg/S.gpg-agent
+
+
