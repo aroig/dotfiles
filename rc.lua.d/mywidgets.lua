@@ -196,16 +196,18 @@ timers.fast:connect_signal("timeout", myw.net.update)
 
 
 -----------------------------------
--- Gmail                         --
+-- Mail                          --
 -----------------------------------
 
 myw.mail = {}
-myw.mail.src = require("abdo.widget.sheval")
+myw.mail.src = require("abdo.widget.mutag")
 
 myw.mail.icon = wibox.widget.imagebox()
 myw.mail.icon:set_image(beautiful.widget_maile)
 
 myw.mail.widget = wibox.widget.textbox()
+myw.mail.tooltip = awful.tooltip({ objects = {myw.mail.icon, myw.mail.widget}})
+
 myw.mail.num_inbox = -1
 myw.mail.num_queue = -1
 
@@ -213,12 +215,13 @@ function myw.mail.update()
     local args
     local icon = beautiful.widget_maile
 
-    args = myw.mail.src(nil, "mutag -C -p mail -q 'flag:unread AND tag:\\\\Inbox'")
-    local num_inbox = tonumber(args[1])
+    args = myw.mail.src(nil)
+    local mail = args[1]
+    local num_inbox = #mail
     local color_inbox = beautiful.fg_green_widget
 
-    args = myw.mail.src(nil, "find ~/.msmtp.queue/ -name '*.mail' | wc -l")
-    local num_queue = tonumber(args[1])
+    local queue = args[2]
+    local num_queue = #queue
     local color_queue = beautiful.fg_green_widget
 
     local text = ""
@@ -254,6 +257,9 @@ function myw.mail.update()
         myw.mail.icon:set_image(icon)
         myw.mail.widget:set_markup(text)
     end
+
+    myw.mail.tooltip.textbox:set_text(table.concat(mail, '\n'))
+
     myw.mail.num_inbox = num_inbox
     myw.mail.num_queue = num_queue
 end

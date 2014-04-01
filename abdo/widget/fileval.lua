@@ -11,14 +11,14 @@ local io = { open = io.open }
 fileval = {}
 
 local function worker(format, args)
-   
+
    local f = io.open(args[1], "r")
    if f ~= nil then
       local val = f:read("*all")
       f:close()
-      return {val}
+      return val
    else
-      return {args[2]}
+      return args[2]
    end
 end
 
