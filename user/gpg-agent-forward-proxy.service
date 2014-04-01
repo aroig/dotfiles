@@ -1,5 +1,5 @@
 [Unit]
-Description=listen gpg-agent requests from the net
+Description=gpg agent remote proxy
 
 Requires=gpg-agent-forward.socket
 After=gpg-agent-forward.socket

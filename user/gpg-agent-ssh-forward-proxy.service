@@ -1,8 +1,8 @@
 [Unit]
-Description=listen ssh-agent requests from the net
+Description=ssh agent remote proxy
 
-Requires=gpg-agent.socket
-After=gpg-agent.socket
+Requires=gpg-agent-ssh-forward.socket
+After=gpg-agent-ssh-forward.socket
 
 Requires=gpg-agent.service
 After=gpg-agent.service

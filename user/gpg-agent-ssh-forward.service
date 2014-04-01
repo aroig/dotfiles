@@ -1,5 +1,5 @@
 [Unit]
-Description=forward ssh agent requests over the net
+Description=forward ssh agent
 
 [Service]
 Type=simple

@@ -1,5 +1,5 @@
 [Unit]
-Description=gpg-agent daemon plus redirections
+Description=gpg-agent bundle
 
 Wants=gpg-agent.socket gpg-agent-ssh.socket
 Wants=gpg-agent-forward.socket gpg-agent-ssh-forward.socket

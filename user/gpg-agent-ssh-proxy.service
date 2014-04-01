@@ -1,8 +1,8 @@
 [Unit]
-Description=listen ssh-agent requests locally
+Description=ssh agent local proxy
 
-Requires=gpg-agent-ssh-forward.socket
-After=gpg-agent-ssh-forward.socket
+Requires=gpg-agent-ssh.socket
+After=gpg-agent-ssh.socket
 
 Requires=gpg-agent.service
 After=gpg-agent.service

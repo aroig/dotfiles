@@ -1,5 +1,5 @@
 [Unit]
-Description=forward ssh agent requests
+Description=forward ssh agent socket
 
 [Socket]
 ListenStream=%t/gpg-agent/S.gpg-agent.ssh.forward
