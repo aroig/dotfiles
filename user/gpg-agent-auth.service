@@ -1,6 +1,8 @@
 [Unit]
 Description=refresh gpg-agent passphrase
-Requisite=gpg-agent.service
+
+Requires=gpg-agent.target
+After=gpg-agent.target
 
 [Service]
 Type=oneshot

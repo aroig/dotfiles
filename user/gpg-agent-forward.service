@@ -1,9 +1,6 @@
 [Unit]
 Description=forward gpg agent
 
-Requires=gpg-agent.service
-After=gpg-agent.service
-
 [Service]
 Type=simple
 SyslogIdentifier=gpg-agent-proxy
