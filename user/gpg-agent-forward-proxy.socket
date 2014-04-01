@@ -1,0 +1,9 @@
+[Unit]
+Description=gpg agent forward proxy socket
+
+[Socket]
+ListenStream=11000
+Service=gpg-agent-forward-proxy.service
+
+[Install]
+WantedBy=sockets.target

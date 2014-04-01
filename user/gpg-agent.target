@@ -1,6 +1,11 @@
 [Unit]
 Description=gpg-agent bundle
 
+# local gpg-agent sockets
 Wants=gpg-agent.socket gpg-agent-ssh.socket
+
+# forward gpg requests to the net
 Wants=gpg-agent-forward.socket gpg-agent-ssh-forward.socket
-Wants=gpg-agent-forward-proxy.service gpg-agent-ssh-forward-proxy.service
+
+# proxy for remote gpg-agent requests
+Wants=gpg-agent-forward-proxy.socket gpg-agent-ssh-forward-proxy.socket
