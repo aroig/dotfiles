@@ -14,5 +14,5 @@ Conflicts=mu4e.service
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/mkdir -p %t/mutag
-ExecStart=/usr/bin/sh -c "mutag -L -q 'flag:unread AND tag:\\\\Inbox' > %t/mutag/newmail"
+ExecStart=/usr/bin/sh -c "mutag -L -q 'flag:unread AND tag:\\\\Inbox' > %t/mutag/mail"
 ExecStart=/usr/bin/sh -c "mutag -Q > %t/mutag/queue"
