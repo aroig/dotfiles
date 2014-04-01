@@ -5,5 +5,5 @@ StopWhenUnneeded=true
 Requires=mail-db.service
 After=mail-db.service
 
-Requires=mutag.service offlineimap.service
-After=mutag.service offlineimap.service
+Requires=mutag-autotag.service offlineimap.service
+After=mutag-autotag.service offlineimap.service

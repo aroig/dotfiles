@@ -1,0 +1,14 @@
+[Unit]
+Description=index mail and news
+
+# mutag changes mail database based on ~/mail
+Requisite=initial-synced-mail.target
+After=initial-synced-mail.target
+
+After=offlineimap.service
+After=rss2maildir.service
+Conflicts=mu4e.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mutag --index --silent
