@@ -1,0 +1,7 @@
+[Unit]
+Description=watch mail database changes
+ConditionHost=!skynet
+
+[Path]
+PathChanged=/home/abdo/.mu/xapian
+Unit=mutag-newmail.service
