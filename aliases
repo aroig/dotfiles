@@ -143,18 +143,18 @@ gpg_agent_mode() {
 
     case "$1" in
         tty)
-            ssh_sock="$HOME/.gnupg/S.gpg-agent.ssh"
-            gpg_sock="$HOME/.gnupg/S.gpg-agent"       
+            ssh_sock="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.ssh"
+            gpg_sock="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent"       
             ;;
 
         graphic)
-            ssh_sock="$HOME/.gnupg/S.gpg-agent.ssh"
-            gpg_sock="$HOME/.gnupg/S.gpg-agent"           
+            ssh_sock="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.ssh"
+            gpg_sock="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent"           
             ;;
 
         ssh)
-            ssh_sock="$HOME/.gnupg/S.gpg-agent.ssh.forward"
-            gpg_sock="$HOME/.gnupg/S.gpg-agent.forward"
+            ssh_sock="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.ssh.forward"
+            gpg_sock="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.forward"
             ;;
     esac
 
