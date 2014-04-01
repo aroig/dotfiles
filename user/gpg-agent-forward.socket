@@ -2,7 +2,7 @@
 Description=forward ssh agent requests
 
 [Socket]
-ListenStream=%h/.gnupg/S.gpg-agent.forward
+ListenStream=%t/gpg-agent/S.gpg-agent.forward
 
 [Install]
 WantedBy=sockets.target
