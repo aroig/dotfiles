@@ -4,6 +4,7 @@ Description=gpg agent socket
 [Socket]
 ListenStream=%t/gpg-agent/S.gpg-agent
 Service=gpg-agent-proxy.service
+SocketMode=755
 
 [Install]
 WantedBy=sockets.target
