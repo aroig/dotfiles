@@ -1,0 +1,9 @@
+[Unit]
+Description=ssh agent socket
+
+[Socket]
+ListenStream=%t/gpg-agent/S.gpg-agent.ssh
+Service=gpg-agent-ssh-proxy.service
+
+[Install]
+WantedBy=sockets.target
