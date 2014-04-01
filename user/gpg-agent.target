@@ -2,8 +2,10 @@
 Description=gpg-agent bundle
 
 # local gpg-agent sockets
+# NOTE: I can't make systemd-socket-proxyd work. So, for now we do not do socket activation
+# for the gpg-agent.
 # Wants=gpg-agent.socket gpg-agent-ssh.socket
-Wants=gpg-agent-proxy.service gpg-agent-ssh-proxy.service
+Wants=gpg-agent.service
 
 # forward gpg requests to the net
 Wants=gpg-agent-forward.socket gpg-agent-ssh-forward.socket
