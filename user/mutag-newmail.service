@@ -1,15 +1,10 @@
 [Unit]
 Description=collect new mail list
 
-# mutag changes mail database based on ~/mail
-# Requisite=initial-synced-mail.target
-# After=initial-synced-mail.target
-
 After=offlineimap.service
 After=rss2maildir.service
 After=mutag-index.service
 After=mutag-autotag.service
-Conflicts=mu4e.service
 
 [Service]
 Type=oneshot
