@@ -69,13 +69,19 @@ export AB2_WIKI_DIR="$AB2_HOME/work/wiki"
 export AB2_PAPERS_DIR="$AB2_HOME/work/papers"
 
 
+
 #------------------------------
 # Gpg Agent settings
 #------------------------------
 
 # Those sockets are proxied for socket activation!
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.ssh"
-export GPG_AGENT_INFO="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent"
+export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent::1"
+
+# NOTE: I'll use this once I get socket activation working
+# export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.ssh"
+# export GPG_AGENT_INFO="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent::1"
+
 
 
 #------------------------------
