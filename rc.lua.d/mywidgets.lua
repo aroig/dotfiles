@@ -268,7 +268,7 @@ myw.mail.widget:buttons(awful.util.table.join(awful.button({ }, 1,
     function () exec(apps.mail) end)))
 myw.mail.widget:buttons(myw.mail.widget:buttons())
 
-timers.slow:connect_signal("timeout", myw.mail.update)
+timers.normal:connect_signal("timeout", myw.mail.update)
 
 
 
