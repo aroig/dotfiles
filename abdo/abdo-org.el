@@ -664,9 +664,12 @@
 
 (defun abdo-org-generate-uids ()
   (interactive)
-  (message "Generating uids")
-  (mapcar (lambda (file) (abdo-org-generate-uids-file (find-file-noselect file)))
-          org-agenda-files))
+  (message "Generating ids")
+  ;; TODO: I'd lile to put ID's only where they are needed!
+  (mapcar (lambda (file)
+            (abdo-org-generate-uids-file (find-file-noselect file)))
+          org-agenda-files)
+  (org-id-update-id-locations))
 
 
 
