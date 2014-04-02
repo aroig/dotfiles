@@ -1,9 +1,6 @@
 [Unit]
 Description=final homedir sync
 
-# refresh cached passphrase now
-Wants=gpg-agent-auth.service
-
 Conflicts=initial-synced-base.target initial-synced-lib.target initial-synced-mail.target
 Conflicts=initial-synced-work.target initial-synced-rest.target
 
