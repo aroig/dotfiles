@@ -57,6 +57,10 @@
   (setq org-latex-preview-ltxpng-directory
         (concat org-directory "ltxpng/"))
 
+  ;; Id locations
+  (setq org-id-locations-file
+        (concat org-directory "etc/id-locations"))
+
   ;; Base dir for org files
   (setq org-directory-wiki
         (concat org-directory "org/"))
@@ -193,7 +197,6 @@
 
   ;; Org ID module.
   (setq org-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
-  (setq org-id-locations-file (concat org-directory "etc/id-locations"))
 
   ;; Org muse tags
 ;  (require 'org-mtags)
@@ -668,7 +671,7 @@
 
 
 (defun abdo-org-export-icalendar-agenda (file-list calendar-file)
-  (let ((org-agenda-files (mapcar (lambda (p) (concat org-directory-wiki p)) file-list))
+  (let ((org-agenda-files file-list)
         (org-icalendar-combined-agenda-file (concat org-ical-directory calendar-file)))
 
     (message (format "Writing calendar events to %s" calendar-file))
