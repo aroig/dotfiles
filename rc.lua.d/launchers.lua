@@ -27,15 +27,10 @@ ddclient = {}
 -----------------------------------
 
 function shell_escape(s)
-    s = (tostring(s) or ''):gsub('"', '\\"')
-
-    if s:find('[^A-Za-z0-9_."/-]') then
-        s = '"' .. s .. '"'
-    elseif s == '' then
-        s = '""'
-    end
-
-    return s
+    local ret = tostring(s) or ''
+    ret = ret:gsub('\\', '\\\\')
+    ret = ret:gsub('"', '\\"')
+    return '"' .. ret .. '"'
 end
 
 
@@ -95,9 +90,41 @@ function sdrun (cmd, name, scope, slice)
     end
 end
 
+
+function sd_isactive(unit)
+    local cmd = string.format("systemctl --user -q is-active %s",
+                              shell_escape(unit))
+    return os.execute(cmd)
+end
+
+
+-- start a systemd unit. If unit is an unspecified instance of an @ unit
+-- instantiate it as the first nonexistent instance it finds!
+function sdstart (unit)
+    local shcmd
+    local startunit=unit
+    if string.match(unit, '.*@%.service') then
+        for i=0,100 do
+            local newunit = string.gsub(unit, '@%.',
+                                        string.format('@%d.', i))
+
+            if not sd_isactive(newunit) then
+                startunit = newunit
+                break
+            end
+        end
+    end
+
+    shcmd = string.format('systemctl --user start %s',
+                          shell_escape(startunit))
+
+    awful.util.spawn_with_shell(shcmd)
+end
+
+
 -- executes a shell command on a terminal
 function termcmd (cmd, title)
-    shcmd = apps.terminal
+    local shcmd = apps.terminal
     if title then
         shcmd = shcmd .. string.format(" -t \"%s\"", title)
     end
