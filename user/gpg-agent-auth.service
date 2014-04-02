@@ -1,7 +1,7 @@
 [Unit]
 Description=refresh gpg-agent passphrase
 
-Requires=gpg-agent.service
+Wants=gpg-agent.service
 After=gpg-agent.service
 
 [Service]
