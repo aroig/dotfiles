@@ -5,8 +5,8 @@ Requires=mount-priv.service
 After=mount-priv.service
 
 # gcal accesses and changes ~/work/wiki
-Requisite=initial-synced-work.target
-After=initial-synced-work.target
+Requisite=initial-synced-all.target
+After=initial-synced-all.target
 
 Requires=online.service
 After=online.service

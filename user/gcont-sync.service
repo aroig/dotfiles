@@ -5,8 +5,8 @@ Requires=mount-priv.service
 After=mount-priv.service
 
 # gcont store contacts in ~/mail
-Requisite=initial-synced-mail.target
-After=initial-synced-mail.target
+Requisite=initial-synced-all.target
+After=initial-synced-all.target
 
 Requires=online.service
 After=online.service
