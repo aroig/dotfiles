@@ -1,6 +1,0 @@
-[Unit]
-Description=initial mail sync
-
-Requires=async-default-mail.service
-After=async-default-mail.service
-

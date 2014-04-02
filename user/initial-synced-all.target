@@ -3,12 +3,5 @@ Description=sync with default remote
 
 OnFailure=journal-mailer.service
 
-# trigger a homedir sync
-Requires=initial-synced-base.target 
-After=initial-synced-base.target
-
-Requires=initial-synced-mail.target initial-synced-work.target 
-After=initial-synced-mail.target initial-synced-work.target
-
-Requires=initial-synced-lib.target initial-synced-rest.target
-After=initial-synced-lib.target initial-synced-rest.target
+Requires=async-default-needed.service
+After=async-default-needed.service

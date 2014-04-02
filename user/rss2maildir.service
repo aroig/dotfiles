@@ -1,9 +1,8 @@
 [Unit]
 Description=rss2maildir
 
-# rss2maildir chages ~/mail
-Requisite=initial-synced-mail.target
-After=initial-synced-mail.target
+Requisite=initial-synced-all.target
+After=initial-synced-all.target
 
 Requires=online.service
 After=online.service
