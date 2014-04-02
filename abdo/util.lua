@@ -41,6 +41,17 @@ function util.file_exists(name)
    end
 end
 
+
+
+function util.shell_escape(s)
+    local ret = tostring(s) or ''
+    ret = ret:gsub('\\', '\\\\')
+    ret = ret:gsub('"', '\\"')
+    return '"' .. ret .. '"'
+end
+
+
+
 -----------------------------------
 -- Graphic stuff                 --
 -----------------------------------
@@ -62,9 +73,9 @@ function util.gradient(gradcols, min, max, value)
 
    local colorA = gradcols[segment+1]
    local colorB = gradcols[segment+2]
-   
-   local redA, greenA, blueA = color2dec(colorA) 
-   local redB, greenB, blueB = color2dec(colorB) 
+
+   local redA, greenA, blueA = color2dec(colorA)
+   local redB, greenB, blueB = color2dec(colorB)
 
    local red   = redA   + (t - segment) * (redB   - redA)
    local green = greenA + (t - segment) * (greenB - greenA)
