@@ -1,8 +1,0 @@
-[Unit]
-Description=forward ssh agent
-
-[Service]
-Type=simple
-SyslogIdentifier=gpg-agent-forward
-ExecStart=/usr/lib/systemd/systemd-socket-proxyd localhost:11011
-

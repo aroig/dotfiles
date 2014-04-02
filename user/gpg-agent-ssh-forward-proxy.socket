@@ -1,9 +1,0 @@
-[Unit]
-Description=ssh agent forward proxy socket
-
-[Socket]
-ListenStream=11001
-Service=gpg-agent-ssh-forward-proxy.service
-
-[Install]
-WantedBy=sockets.target

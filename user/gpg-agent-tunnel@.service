@@ -1,8 +1,0 @@
-[Unit]
-Description=ssh tunnel to %i for gpg-agent requests
-
-[Service]
-Type=simple
-SyslogIdentifier=gpg-agent-tunnel
-ExecStart=/usr/bin/ssh -N -S none -R 11000:localhost:11010 -R 11001:localhost:11011 %i
-
