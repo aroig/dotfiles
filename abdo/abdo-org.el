@@ -602,7 +602,7 @@
   (setq abdo-org-tstr-regexp (concat abdo-org-tst-regexp "--?-?" abdo-org-tst-regexp))
 
 
-(defun abdo-org-generate-uids (buf)
+(defun abdo-org-generate-uids-file (buf)
   (with-current-buffer buf
     (let ((pt (point-min)))
       (org-map-entries
@@ -615,15 +615,23 @@
 
 
 
+(defun abdo-org-generate-uids ()
+  (interactive)
+  (let ((org-agenda-files (mapcar (lambda (p) (concat org-directory-wiki p))
+                                  file-list)))
+    (message "Generating uids")
+    (mapcar (lambda (file) (abdo-org-generate-uids-file (find-file-noselect file)))
+            org-agenda-files)))
+
+
+
 (defun abdo-org-export-icalendar-agenda (file-list calendar-file)
   (let ((org-agenda-files (mapcar (lambda (p) (concat org-directory-wiki p)) file-list))
         (org-icalendar-combined-agenda-file (concat org-ical-directory calendar-file)))
 
-    (message "Generating uids")
-    (mapcar (lambda (file) (abdo-org-generate-uids (find-file-noselect file))) org-agenda-files)
-
     (message (format "Writing calendar events to %s" calendar-file))
     (org-icalendar-combine-agenda-files)))
+
 
 
 (defun abdo-org-export-icalendar ()
