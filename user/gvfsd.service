@@ -10,6 +10,8 @@ After=gconf.service
 [Service]
 Type=dbus
 BusName=org.gtk.vfs.Daemon
+Slice=wm.slice
+
 ExecStart=/usr/lib/gvfs/gvfsd
 
 [Install]

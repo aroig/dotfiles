@@ -15,8 +15,9 @@ PartOf=wm@openbox.target
 [Service]
 Type=simple
 SyslogIdentifier=openbox
-Environment=DISPLAY=:%i
+Slice=wm.slice
 
+Environment=DISPLAY=:%i
 ExecStart=/usr/bin/openbox
 KillSignal=SIGINT
 TimeoutSec=15

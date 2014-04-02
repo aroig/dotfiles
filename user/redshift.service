@@ -8,4 +8,7 @@ Requisite=xorg.target
 
 [Service]
 Type=simple
+SyslogIdentifier=redshift
+Slice=wm.slice
+
 ExecStart=/usr/bin/redshift -l 41.383:2.183 -t 6500:5500 -g 1.0 -m randr

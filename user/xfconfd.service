@@ -7,6 +7,8 @@ Requisite=xorg.target
 [Service]
 Type=dbus
 BusName=org.xfce.Xfconf
+Slice=wm.slice
+
 ExecStart=/usr/lib/xfce4/xfconf/xfconfd
 
 [Install]

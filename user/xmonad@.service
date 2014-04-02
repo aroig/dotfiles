@@ -15,5 +15,7 @@ PartOf=wm@xmonad.target
 [Service]
 Type=simple
 SyslogIdentifier=xmonad
+Slice=wm.slice
+
 Environment=DISPLAY=:%i
 ExecStart=/usr/bin/xmonad

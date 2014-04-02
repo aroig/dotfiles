@@ -6,4 +6,7 @@ Requisite=xorg.target
 
 [Service]
 Type=simple
+SyslogIdentifier=compton
+Slice=wm.slice
+
 ExecStart=/usr/bin/compton

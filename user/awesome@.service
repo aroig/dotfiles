@@ -12,8 +12,9 @@ PartOf=wm@awesome.target
 [Service]
 Type=simple
 SyslogIdentifier=awesome
-Environment=DISPLAY=:%i
+Slice=wm.slice
 
+Environment=DISPLAY=:%i
 ExecStart=/usr/bin/awesome
 KillSignal=SIGINT
 TimeoutSec=15
