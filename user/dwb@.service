@@ -1,0 +1,16 @@
+[Unit]
+Description=dwb browser
+
+Requisite=desktop.target 
+After=desktop.target
+
+Requires=dwb-db.service
+After=dwb-db.service
+
+[Service]
+Type=simple
+SyslogIdentifier=dwb
+
+ExecStart=/usr/bin/dwb
+
+

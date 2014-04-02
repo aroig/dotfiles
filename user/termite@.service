@@ -1,0 +1,13 @@
+[Unit]
+Description=termite terminal
+
+Requisite=desktop.target 
+After=desktop.target
+
+[Service]
+Type=simple
+SyslogIdentifier=termite
+
+ExecStart=/usr/bin/termite
+
+
