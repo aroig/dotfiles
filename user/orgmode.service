@@ -10,6 +10,7 @@ After=orgmode-db.service
 [Service]
 Type=simple
 SyslogIdentifier=orgmode
+Slice=apps.slice
 
 ExecStart=/usr/bin/emacs -org --title "emacs-org"
 KillSignal=SIGINT

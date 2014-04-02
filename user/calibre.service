@@ -11,6 +11,7 @@ After=calibre-db.service
 [Service]
 Type=simple
 SyslogIdentifier=calibre
+Slice=apps.slice
 
 ExecStart=/usr/bin/calibre --with-library "$AB2_CALIBRE_DIR"
 

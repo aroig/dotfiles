@@ -3,8 +3,12 @@ Description=mpd client
 
 Requisite=desktop.target
 After=desktop.target
+
 Requires=mpd.service
 
 [Service]
 Type=simple
+SyslogIdentifier=gmpc
+Slice=apps.slice
+
 ExecStart=/usr/bin/gmpc --debug-level=0

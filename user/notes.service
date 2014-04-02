@@ -10,6 +10,7 @@ After=orgmode-db.service
 [Service]
 Type=simple
 SyslogIdentifier=notes
+Slice=apps.slice
 
 ExecStart=/usr/bin/emacs -notes --title "emacs-notes"
 KillSignal=SIGINT
