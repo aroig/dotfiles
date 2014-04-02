@@ -4,81 +4,125 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; http://orgmode.org/
 
+(defun abdo-find-files-recursively (regexp directory)
+  "Return .org files recursively from DIRECTORY."
+  (let* ((filelist '())
+         (recfilelist '())
+         (case-fold-search t)
+         (dirlist (directory-files directory t "^[^.#].*$"))
+         file subfile)
+    ;; loop over directory listing
+    (dolist (file dirlist filelist)
+      (cond
+       ((and (file-regular-p file)
+             (string-match regexp file))
+        (add-to-list 'filelist file))
+
+       ((file-directory-p file)
+        (setq recfilelist
+              (abdo-find-files-recursively regexp (concat file "/")))
+        (dolist (subfile recfilelist) (add-to-list 'filelist subfile)))))))
+
+
+(defun abdo-regexp-filter (regexp lst)
+    (delq nil (mapcar (lambda (x) (and (stringp x)
+                                       (string-match regexp x) x)) lst)))
 
 (defun abdo-org-global-things()
-  ;; Internal paths. They are relative paths to org-directory
-  ;; WARNING: I'm not sure I'm using attach-subdirectory right.
-  (setq abdo-org-main-file "main.org")
-  (setq abdo-org-notes-file "capture.org")
+  ;; NOTE: All paths are absolute!
 
+  ;; WARNING: I'm not sure I'm using attach-subdirectory right.
+  ;; NOTE: This is relative!
   (setq abdo-org-attach-subdirectory "data/")
-  (setq abdo-org-dokuwiki-subdirectory "dokuwiki/")
-  (setq abdo-org-templates-subdirectory "tpl/")
-  (setq abdo-org-texmf-subdirectory "latex/")
-  (setq abdo-org-agenda-file-list "etc/agenda-files")
+
+  ;; local tex resources
+  (setq abdo-org-texmf-directory (concat org-directory "latex/"))
+
+  ;; dokuwiki old stuff
+  (setq abdo-org-dokuwiki-directory (concat org-directory "dokuwiki/"))
+
+  ;; templates
+  (setq abdo-org-templates-directory (concat org-directory "tpl/"))
 
   ;; ical exports
-  (setq org-ical-directory (concat org-directory "ical/"))
+  (setq org-ical-directory
+        (concat org-directory "ical/"))
 
-  ;; Local Mobileorg directory. From within org I will only sync to this directory.
-  (setq org-mobile-directory (concat org-directory "mobile/"))
-
-  ;; Base dir for org files
-  (setq org-directory-wiki (concat org-directory "org/"))
+  ;; Local Mobileorg directory.
+  ;; From within org I will only sync to this directory.
+  (setq org-mobile-directory
+        (concat org-directory "mobile/"))
 
   ;; Where to store latex preview images
-  (setq org-latex-preview-ltxpng-directory (concat org-directory "ltxpng/"))
+  (setq org-latex-preview-ltxpng-directory
+        (concat org-directory "ltxpng/"))
 
-
-  ;; Reading file lists
-  (setq abdo-org-papers-file-list
-        (let ((default-directory org-directory-wiki))
-          (file-expand-wildcards "papers/*.org")))
-
-  (setq abdo-org-proj-file-list
-        (let ((default-directory org-directory-wiki))
-          (file-expand-wildcards "proj/*.org")))
-
-  (setq abdo-org-comp-file-list
-        (let ((default-directory org-directory-wiki))
-          (file-expand-wildcards "comp/*.org")))
-
-  (setq abdo-org-math-file-list
-        (let ((default-directory org-directory-wiki))
-          (file-expand-wildcards "math/*.org")))
-
-  (setq abdo-org-teaching-file-list
-        (let ((default-directory org-directory-wiki))
-          (file-expand-wildcards "teaching/*.org")))
-
-  (setq abdo-org-perso-file-list
-        (let ((default-directory org-directory-wiki))
-          (file-expand-wildcards "perso/*.org")))
-
-
-  ;; Some org files
-  (setq abdo-org-devel-notes-file "comp/notes.org")
-  (setq abdo-org-devel-ideas-file "comp/ideas.org")
-
-  (setq abdo-org-math-notes-file "math/notes.org")
-  (setq abdo-org-math-ideas-file "math/ideas.org")
-  (setq abdo-org-math-journal-file "math/log.org")
-
-  (setq abdo-org-personal-notes-file "perso/notes.org")
-  (setq abdo-org-personal-journal-file "perso/log.org")
-
-
-  ;; default place for notes
-  (setq org-default-notes-file (concat org-directory-wiki "capture.org"))
-
-  ;; inbox for mobileorg
-  (setq org-mobile-inbox-for-pull (concat org-directory-wiki "mobile.org"))
+  ;; Base dir for org files
+  (setq org-directory-wiki
+        (concat org-directory "org/"))
 
   ;; Set agenda file list from a file.
-  (setq org-agenda-files (concat org-directory abdo-org-agenda-file-list))
+  (setq org-agenda-files
+        (abdo-find-files-recursively "\\.org$" org-directory-wiki))
+
+  ;; setting topic file lists
+  (setq abdo-org-papers-file-list
+        (abdo-regexp-filter "papers/.*\\.org$" org-agenda-files))
+
+  (setq abdo-org-proj-file-list
+        (abdo-regexp-filter "proj/.*\\.org$" org-agenda-files))
+
+  (setq abdo-org-comp-file-list
+        (abdo-regexp-filter "comp/.*\\.org$" org-agenda-files))
+
+  (setq abdo-org-math-file-list
+        (abdo-regexp-filter "math/.*\\.org$" org-agenda-files))
+
+  (setq abdo-org-teaching-file-list
+        (abdo-regexp-filter "teaching/.*\\.org$" org-agenda-files))
+
+  (setq abdo-org-perso-file-list
+        (abdo-regexp-filter "perso/.*\\.org$" org-agenda-files))
+
+  ;; Some individual org files
+  (setq abdo-org-devel-notes-file
+        (concat org-directory-wiki "comp/notes.org"))
+
+  (setq abdo-org-devel-ideas-file
+        (concat org-directory-wiki "comp/ideas.org"))
+
+  (setq abdo-org-math-notes-file
+        (concat org-directory-wiki "math/notes.org"))
+
+  (setq abdo-org-math-ideas-file
+        (concat org-directory-wiki "math/ideas.org"))
+
+  (setq abdo-org-math-journal-file
+        (concat org-directory-wiki "math/log.org"))
+
+  (setq abdo-org-personal-notes-file
+        (concat org-directory-wiki  "perso/notes.org"))
+
+  (setq abdo-org-personal-journal-file
+        (concat org-directory-wiki "perso/log.org"))
+
+  (setq abdo-org-main-file
+        (concat org-directory-wiki "main.org"))
+
+  (setq abdo-org-notes-file
+        (concat org-directory-wiki "capture.org"))
+
+  ;; default place for notes
+  (setq org-default-notes-file
+        (concat org-directory-wiki "capture.org"))
+
+  ;; inbox for mobileorg
+  (setq org-mobile-inbox-for-pull
+        (concat org-directory-wiki "mobile.org"))
 
   ;; Set html output
-  (setq org-publish-html-directory (concat org-directory "html/"))
+  (setq org-publish-html-directory
+        (concat org-directory "html/"))
 
   ;; Custom agenda commands
   (abdo-org-custom-agenda-setup)
@@ -149,7 +193,7 @@
 
   ;; Org ID module.
   (setq org-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
-  (setq org-id-locations-file (convert-standard-filename (concat org-directory "etc/id-locations")))
+  (setq org-id-locations-file (concat org-directory "etc/id-locations"))
 
   ;; Org muse tags
 ;  (require 'org-mtags)
@@ -343,7 +387,7 @@
 (defun abdo-org-home-view ()
   "Sets up a personalized org mode arrangement of windows. This is machine-dependent"
   (interactive)
-  (find-file (concat org-directory-wiki abdo-org-main-file))
+  (find-file abdo-org-main-file)
   (delete-other-windows)
   (split-window-horizontally)
   (other-window 1)
@@ -355,7 +399,7 @@
 (defun abdo-org-main-buffer ()
   "Loads org main buffer into current window"
   (interactive)
-  (find-file (concat org-directory-wiki abdo-org-main-file))
+  (find-file abdo-org-main-file)
 )
 
 
@@ -367,7 +411,7 @@
   (add-hook 'after-change-major-mode-hook 'hidden-mode-line-mode)
 
   ;; open notes file
-  (find-file (concat org-directory-wiki abdo-org-notes-file))
+  (find-file abdo-org-notes-file)
 )
 
 
@@ -422,17 +466,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun abdo-org-custom-agenda-setup ()
-  (let ((devel-list     (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-comp-file-list))
-        (research-list  (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-math-file-list))
-        (teaching-list  (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-teaching-file-list))
-        (perso-list     (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-perso-file-list))
-        (papers-list     (mapcar (lambda (p) (concat org-directory-wiki p)) abdo-org-papers-file-list))
+  (let ((devel-list     abdo-org-comp-file-list)
+        (research-list  abdo-org-math-file-list)
+        (teaching-list  abdo-org-teaching-file-list)
+        (perso-list     abdo-org-perso-file-list)
+        (papers-list    abdo-org-papers-file-list)
 
-        (ideas-list     (list (concat org-directory-wiki abdo-org-math-ideas-file)))
-        (notes-list     (list (concat org-directory-wiki abdo-org-math-notes-file)))
+        (ideas-list     (list abdo-org-math-ideas-file))
+        (notes-list     (list abdo-org-math-notes-file))
 
-        (mathlog-list   (list (concat org-directory-wiki abdo-org-math-journal-file)))
-        (persolog-list   (list (concat org-directory-wiki abdo-org-personal-journal-file))))
+        (mathlog-list   (list abdo-org-math-journal-file))
+        (persolog-list  (list abdo-org-personal-journal-file)))
     (setq org-agenda-custom-commands
           `(
             ;; DEVELOPMENT
@@ -617,11 +661,9 @@
 
 (defun abdo-org-generate-uids ()
   (interactive)
-  (let ((org-agenda-files (mapcar (lambda (p) (concat org-directory-wiki p))
-                                  file-list)))
-    (message "Generating uids")
-    (mapcar (lambda (file) (abdo-org-generate-uids-file (find-file-noselect file)))
-            org-agenda-files)))
+  (message "Generating uids")
+  (mapcar (lambda (file) (abdo-org-generate-uids-file (find-file-noselect file)))
+          org-agenda-files))
 
 
 
@@ -686,11 +728,11 @@
 
 (defun abdo-org-capture-templates-setup()
   (let (
-      (templates-dir (concat org-directory abdo-org-templates-subdirectory))
-      (captured-file (concat org-directory-wiki "capture.org"))
-      (math-ideas-file (concat org-directory-wiki abdo-org-math-ideas-file))
-      (math-journal-file (concat org-directory-wiki abdo-org-math-journal-file))
-      (personal-journal-file (concat org-directory-wiki abdo-org-personal-journal-file))
+      (templates-dir abdo-org-templates-directory)
+      (captured-file org-default-notes-file)
+      (math-ideas-file abdo-org-math-ideas-file)
+      (math-journal-file abdo-org-math-journal-file)
+      (personal-journal-file abdo-org-personal-journal-file)
     )
     (setq org-capture-templates (append org-capture-templates
       `(("t" "todo" entry (file+headline ,captured-file "Tasks")
