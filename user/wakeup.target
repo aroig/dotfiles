@@ -1,3 +1,4 @@
 [Unit]
 Description=wakeup from suspend
 DefaultDependencies=no
+StopWhenUnneeded=true
