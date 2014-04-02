@@ -1,5 +1,5 @@
 [Unit]
-Description=dwb browser %i
+Description=dwb %i
 
 Requisite=desktop.target 
 After=desktop.target

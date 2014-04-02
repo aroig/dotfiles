@@ -1,5 +1,5 @@
 [Unit]
-Description=termite terminal %i
+Description=termite %i
 
 Requisite=desktop.target 
 After=desktop.target
