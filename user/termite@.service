@@ -1,5 +1,5 @@
 [Unit]
-Description=termite terminal
+Description=termite terminal %i
 
 Requisite=desktop.target 
 After=desktop.target
@@ -7,6 +7,7 @@ After=desktop.target
 [Service]
 Type=simple
 SyslogIdentifier=termite
+Slice=apps.slice
 
 ExecStart=/usr/bin/termite
 

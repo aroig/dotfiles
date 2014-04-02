@@ -1,5 +1,5 @@
 [Unit]
-Description=dwb browser
+Description=dwb browser %i
 
 Requisite=desktop.target 
 After=desktop.target
@@ -10,6 +10,7 @@ After=dwb-db.service
 [Service]
 Type=simple
 SyslogIdentifier=dwb
+Slice=apps.slice
 
 ExecStart=/usr/bin/dwb
 
