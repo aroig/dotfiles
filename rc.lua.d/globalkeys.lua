@@ -60,14 +60,12 @@ globalkeys = awful.util.table.join(
     -- Programs
     awful.key({ modkey, ctrlkey   }, "Print",  function () shexec(apps.print) end),
 
-    -- those are forked as usual, and belong to the awesome systemd unit
+    -- those are started as instantiated units
     awful.key({ modkey, ctrlkey   }, "Return", function () sdstart('termite@.service') end),
-    awful.key({ modkey, ctrlkey   }, "e",      function () sdrun(apps.editor,         'emacsclient', true, 'apps') end),
-    awful.key({ modkey, ctrlkey   }, "f",      function () sdrun(apps.filemanager,    'thunar',      true, 'apps') end),
-
-    -- those are spawned with systemd-run, and get their own unit.
+    awful.key({ modkey, ctrlkey   }, "f",      function () sdstart('thunar@.service') end),
     awful.key({ modkey, ctrlkey   }, "b",      function () sdstart('dwb@.service') end),
-    awful.key({ modkey, metakey   }, "b",      function () sdrun(apps.secondbrowser,  'chromium',    true, 'apps') end),
+    awful.key({ modkey, metakey   }, "b",      function () sdstart('chromium@.service') end),
+    awful.key({ modkey, ctrlkey   }, "e",      function () sdstart('emacsclient@.service') end),
 
     -- Dropdown clients
     awful.key({ modkey, ctrlkey   }, "d",      function () ddclient.dict:toggle() end),
