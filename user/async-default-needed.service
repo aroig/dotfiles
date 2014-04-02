@@ -1,0 +1,13 @@
+[Unit]
+Description=sync homedir to default host
+
+Requires=mount-priv.service
+After=mount-priv.service
+
+Requires=async-default-mounted.service
+After=async-default-mounted.service
+
+[Service]
+Type=oneshot
+SyslogIdentifier=async-needed
+ExecStart=/usr/bin/async -b sync --terse --needed default
