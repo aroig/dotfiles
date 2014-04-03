@@ -1,6 +1,5 @@
 [Unit]
 Description=always fail
-RemainAfterExit=true
 
 [Service]
 Type=forking
