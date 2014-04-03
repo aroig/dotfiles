@@ -1,1 +1,11 @@
-delayed-suspend.service
+[Unit]
+Description=enter suspend state
+
+Requisite=final-synced-all.target
+After=final-synced-all.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl --user start lock.target
+ExecStart=/usr/bin/sleep 2
+ExecStart=/usr/bin/sudo systemctl suspend

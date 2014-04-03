@@ -1,1 +1,11 @@
-delayed-poweroff.service
+[Unit]
+Description=poweroff system
+
+Requisite=final-synced-all.target
+After=final-synced-all.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sleep 2
+ExecStart=/usr/bin/sudo systemctl poweroff
+

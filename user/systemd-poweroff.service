@@ -1,7 +1,9 @@
 [Unit]
 Description=poweroff system
+DefaultDependencies=no
 
 [Service]
 Type=oneshot
+ExecStart=/usr/bin/sleep 1
 ExecStart=/usr/bin/sudo systemctl poweroff
 
