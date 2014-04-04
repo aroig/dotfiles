@@ -91,7 +91,7 @@ trimtrail() {
 # tmux functions
 #------------------------------
 
-# create a new client session attached to an existing one
+# create a new client session attached to an existing one, and then create a new window
 tmux_client() {
     session="$1"
     [ ! "$session" ] && session="default"
@@ -99,6 +99,7 @@ tmux_client() {
 
     tmux -S "$XDG_RUNTIME_DIR/tmux/$session" \
         new-session -t $session -s $session-$$\; \
+        new-window\;
         set destroy-unattached on\; "$@"
 }
 
