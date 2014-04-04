@@ -31,7 +31,7 @@ systemctl --user set-environment "PATH=$PATH"
 # Auto tmux
 # ----------------------------
 
-# if ssh outside tmux
+# if interactive ssh outside tmux
 if [[ "$SSH_TTY" != "" && "$TMUX" == "" && "$NOTMUX" == "" ]]; then
     # start tmux
     if type tmux 2>&1 >/dev/null && type tmux_session 2>&1 >/dev/null; then
@@ -42,6 +42,6 @@ if [[ "$SSH_TTY" != "" && "$TMUX" == "" && "$NOTMUX" == "" ]]; then
 fi
 
 # if ssh session, set gpg-agent variables
-if [[ "$SSH_TTY" != "" ]]; then
+if [[ "$SSH_CONNECTION" != "" ]]; then
     gpg_agent_mode ssh
 fi
