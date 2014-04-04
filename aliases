@@ -134,6 +134,14 @@ gpg_keyring() {
 }
 
 
+# forwards requests to the agent from a remote
+gpg_agent_forward() {
+    remote="$1"
+    socket_cmd="socat UNIX-LISTEN:/home/abdo/.gnupg/S.gpg-agent.forward,unlink-close,unlink-early STDIO"
+    gpg_socket="${$GPG_AGENT_INFO%::1}"
+    socat  SYSTEM:"ssh -S none $remote \"$socket_cmd\"" UNIX-CONNECT:"$gpg_socket"
+}
+
 
 # sets the mode for the gpg-agent
 #  tty:     we are on a local tty
@@ -157,15 +165,6 @@ gpg_agent_mode() {
             gpg_sock="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.forward"
             ;;
     esac
-
-    if [ ! -e "$ssh_sock" ]; then
-        echo "ssh-agent socket does not exist: $ssh_sock"
-        return 1
-    fi
-    if [ ! -e "$gpg_sock" ]; then
-        echo "gpg-agent socket does not exist: $gpg_sock"
-        return 1
-    fi
 
     export SSH_AUTH_SOCK="$ssh_sock"
     export GPG_AGENT_INFO="$gpg_sock::1"
