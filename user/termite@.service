@@ -8,6 +8,7 @@ After=desktop.target
 Type=simple
 SyslogIdentifier=termite
 Slice=apps.slice
+KillMode=process
 
 ExecStart=/usr/bin/termite
 
