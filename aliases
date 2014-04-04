@@ -99,17 +99,39 @@ tmux_client() {
 
     tmux -S "$XDG_RUNTIME_DIR/tmux/$session" \
         new-session -t $session -s $session-$$\; \
-        new-window\;
+        new-window\; \
         set destroy-unattached on\; "$@"
 }
 
 
-# create a new tmux session, launching the master if necessary
+# create a new tmux session attached to an existing one master session
+# launching the master if necessary
 tmux_session() {
     session="default"
 
-    ( tmux_client "$session" && exit 0 ) || \
-    ( systemctl --user start tmux.service && tmux_client "$session" && exit 0 )
+    ( tmux_client "$session" && \
+      exit 0 
+    ) || \
+    ( systemctl --user start tmux.service && \
+      tmux_client "$session" && \
+      exit 0 
+    )
+}
+
+# detach from tmux
+detach() {
+    if [[ "$TMUX" != "" ]]; then
+        tmux detach-client
+    fi
+}
+
+# if inside tmux close window and detach
+exit() {
+    if [[ -z "$TMUX" ]]; then
+        builtin exit
+    else
+        tmux unlink-window -k\; detach-client
+    fi
 }
 
 
@@ -296,7 +318,7 @@ kle() {
 
 tx() {
     if [ "$TMUX" ]; then   tmux new-window
-    else                   tmux_session term
+    else                   tmux_session default
     fi
 }
 
