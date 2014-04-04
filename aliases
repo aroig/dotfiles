@@ -160,9 +160,18 @@ gpg_keyring() {
 # forwards requests to the agent from a remote
 gpg_agent_forward() {
     remote="$1"
-    socket_cmd="socat UNIX-LISTEN:/home/abdo/.gnupg/S.gpg-agent.forward,unlink-close,unlink-early STDIO"
-    gpg_socket="${$GPG_AGENT_INFO%::1}"
+    gpg_socket="${GPG_AGENT_INFO%::1}"
+    gpg_forward_socket=/home/abdo/.gnupg/S.gpg-agent.forward
+    socket_cmd="socat UNIX-LISTEN:${gpg_forward_socket},unlink-close,unlink-early STDIO"
     socat  SYSTEM:"ssh -S none $remote \"$socket_cmd\"" UNIX-CONNECT:"$gpg_socket"
+}
+
+ssh_agent_forward() {
+    remote="$1"
+    ssh_socket="$SSH_AUTH_SOCK"
+    ssh_forward_socket=/home/abdo/.gnupg/S.gpg-agent.ssh.forward
+    socket_cmd="socat UNIX-LISTEN:${ssh_forward_socket},unlink-close,unlink-early STDIO"
+    socat  SYSTEM:"ssh -S none $remote \"$socket_cmd\"" UNIX-CONNECT:"$ssh_socket"
 }
 
 
@@ -174,18 +183,18 @@ gpg_agent_mode() {
 
     case "$1" in
         tty)
-            ssh_sock="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.ssh"
-            gpg_sock="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent"       
+            ssh_sock="$HOME/.gnupg/S.gpg-agent.ssh"
+            gpg_sock="$HOME/.gnupg/S.gpg-agent"       
             ;;
 
         graphic)
-            ssh_sock="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.ssh"
-            gpg_sock="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent"           
+            ssh_sock="$HOME/.gnupg/S.gpg-agent.ssh"
+            gpg_sock="$HOME/.gnupg/S.gpg-agent"           
             ;;
 
         ssh)
-            ssh_sock="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.ssh.forward"
-            gpg_sock="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.forward"
+            ssh_sock="$HOME/.gnupg/S.gpg-agent.ssh.forward"
+            gpg_sock="$HOME/.gnupg/S.gpg-agent.forward"
             ;;
     esac
 
