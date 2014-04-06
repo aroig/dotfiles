@@ -6,15 +6,6 @@ Those are my config files. I keep them in separate repos, and then aggregate
 into this single repository for github using ``git merge -s subtree``. I use
 `arch linux`_ with `awesome wm`_ as my window manager.
 
-``arch/``
-  Some mr config files to automatize building arch packages from source or from
-  AUR, and export them into a local pacman repo.
-
-``async/``
-  Configuration for a python script I wrote to synchronize my machines. Can
-  start and stop amazon ec2 instances, as well as sync individual directories
-  with rsync_, unison_, git_ or git-annex_.
-
 ``awesome/``
   `awesome wm`_ setup. Includes some customized widgets, dropdown clients,
   notification boxes and a prompt similar to emacs ido-mode, and some helper
@@ -41,10 +32,6 @@ into this single repository for github using ``git merge -s subtree``. I use
   These are the configuration files (in ``~/.config/systemd``) for a `systemd
   user session`_. Systemd is an awesome init system, that can be used to manage
   user owned daemons.
-
-``texa/``
-  Configuration for texa, a script I wrote to help me quickly setup latex
-  projects for writing papers.
 
 ``vim/``
   My vim configuration. I do use vim from time to time...
