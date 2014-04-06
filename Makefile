@@ -1,3 +1,10 @@
+# ----------------------------------------------------------------------- #
+# Abdó Roig-Maranges <abdo.roig@gmail.com>                                #
+# Makefile to compile my dotfiles directory for github. Merges changes    #
+# from several locar repos on my machine into a single dotfiles repo      #
+# using the git merge -s subtree.                                         #
+# ----------------------------------------------------------------------- #
+
 REMOTES=awesome emacs ranger shell systemd vim dwb zathura
 
 SHELL := $(SHELL) -e
