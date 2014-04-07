@@ -125,10 +125,10 @@ detach() {
     fi
 }
 
-# if inside tmux close window and detach
-exit() {
+# if inside tmux close window and detach, otherwise just exit
+close() {
     if [[ -z "$TMUX" ]]; then
-        builtin exit
+        exit 0
     else
         tmux unlink-window -k\; detach-client
     fi
