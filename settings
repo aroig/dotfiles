@@ -81,7 +81,7 @@ enable-developer-extras=true
 # ------------------------------- #
 
 ssl-use-system-ca-file=true
-ssl-strict=true
+ssl-strict=false
 
 cookies-accept-policy=always
 cookies-store-policy=session
