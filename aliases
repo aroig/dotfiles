@@ -313,8 +313,8 @@ op()  { xdg-open "$@" &> /dev/null &!; }
 
 ee() {
     case "$TERM" in
-        screen*|linux*) eval "$EMACSCLIENT -t \"\$@\" > /dev/null" ;;
-        *)              eval "$EMACSCLIENT -c \"\$@\" > /dev/null &!" ;;
+        screen*|linux) eval "$EMACSCLIENT -t \"\$@\"" ;;
+        *)             eval "$EMACSCLIENT -c \"\$@\" > /dev/null &!" ;;
     esac
 }
 
