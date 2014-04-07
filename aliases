@@ -118,21 +118,6 @@ tmux_session() {
     )
 }
 
-# detach from tmux
-detach() {
-    if [[ "$TMUX" != "" ]]; then
-        tmux detach-client
-    fi
-}
-
-# if inside tmux close window and detach, otherwise just exit
-close() {
-    if [[ -z "$TMUX" ]]; then
-        exit 0
-    else
-        tmux unlink-window -k\; detach-client
-    fi
-}
 
 
 #------------------------------
@@ -311,6 +296,7 @@ op()  { xdg-open "$@" &> /dev/null &!; }
 # The following commands are aware of the type of terminal they are on. For
 # example ed launches GTK emacs on any terminal except tty's or remote logins
 
+# emacs
 ee() {
     case "$TERM" in
         screen*|linux) eval "$EMACSCLIENT -t \"\$@\"" ;;
@@ -318,6 +304,7 @@ ee() {
     esac
 }
 
+# kill emacs
 kle() {
     case "$TERM" in
         screen*|linux) eval "$EMACSCLIENT -eval \"(client-save-kill-emacs)\" &> /dev/null"  ;;
@@ -325,12 +312,27 @@ kle() {
     esac
 }
 
+# open tmux session
 tx() {
     if [ "$TMUX" ]; then   tmux new-window
     else                   tmux_session default
     fi
 }
 
+# detach from tmux
+dt() {
+    if [ "$TMUX" ]; then   tmux detach-client
+    fi
+}
+
+# if inside tmux close window and detach, otherwise just exit
+cl() {
+    if [ "$TMUX" ]; then   tmux unlink-window -k\; detach-client
+    else                   exit 0
+    fi
+}
+
+# new terminal
 tm()  {
     case "$TERM" in
         screen*|linux) tx ;;
@@ -338,6 +340,7 @@ tm()  {
     esac
 }
 
+# ranger session
 rg()  {
     case "$TERM" in
         screen*|linux) eval "ranger \"\$@\"" ;;
@@ -345,6 +348,7 @@ rg()  {
     esac
 }
 
+# open file manager
 fm()  {
     case "$TERM" in
         screen*|linux) eval "ranger \"\$@\"" ;;
