@@ -88,6 +88,9 @@ export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent::1"
 # Development environment
 #------------------------------
 
+# Mingw
+export MINGW_TOOLCHAIN_ROOT="/usr/x86_64-w64-mingw32"
+
 # Android
 export ANDROID_NDK_TOOLCHAIN_ROOT="$HOME/sdk/android/ndk"
 export ANDROID_SDK_TOOLCHAIN_ROOT="$HOME/sdk/android/sdk"
