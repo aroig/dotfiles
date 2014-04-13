@@ -6,6 +6,6 @@ After=online.service
 
 [Service]
 Type=oneshot
-
 SyslogIdentifier=async
+KillSignal=SIGINT
 ExecStart=/usr/bin/async -b sync %i --terse

@@ -7,4 +7,5 @@ Description=sync directories to r2d2
 [Service]
 Type=oneshot
 SyslogIdentifier=async-r2d2
+KillSignal=SIGINT
 ExecStart=/usr/bin/async -b sync --terse r2d2

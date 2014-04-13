@@ -10,4 +10,5 @@ After=calibre-db.service
 [Service]
 Type=oneshot
 SyslogIdentifier=async-hypathia
+KillSignal=SIGINT
 ExecStart=/usr/bin/async -b sync --terse hypathia

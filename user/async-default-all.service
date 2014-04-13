@@ -10,4 +10,5 @@ After=async-default-mounted.service
 [Service]
 Type=oneshot
 SyslogIdentifier=async-all
+KillSignal=SIGINT
 ExecStart=/usr/bin/async -b sync --terse default
