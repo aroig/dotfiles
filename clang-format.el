@@ -4,6 +4,7 @@
 
 ;; Author: Johann Klähn <kljohann@gmail.com>
 ;; Keywords: tools, c
+;; Package-Requires: ((json "1.3"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -20,7 +21,10 @@
 
 ;;; Commentary:
 
-;;
+;; This package allows to filter code through clang-format to fix its formatting.
+;; clang-format is a tool that formats C/C++/Obj-C code according to a set of
+;; style options, see <http://clang.llvm.org/docs/ClangFormatStyleOptions.html>.
+;; Note that clang-format 3.3 or newer is required.
 
 ;;; Code:
 
@@ -44,14 +48,10 @@
 (make-variable-buffer-local 'clang-format-style)
 
 ;;;###autoload
-(defun clang-format (start end &optional style)
+(defun clang-format-region (start end &optional style)
   "Use clang-format to format the code between START and END according to STYLE.
-If called interactively uses the region or the current buffer if there
-is no active region.  If no style is given uses `clang-format-style'."
-  (interactive
-   (if (use-region-p)
-       (list (region-beginning) (region-end))
-     (list (point-min) (point-max))))
+If no style is given uses `clang-format-style'."
+  (interactive "r")
 
   (unless style
     (setq style clang-format-style))
