@@ -58,6 +58,9 @@ is no active region.  If no style is given uses `clang-format-style'."
 
   (let* ((temp-file (make-temp-file "clang-format"))
          (keep-stderr (list t temp-file))
+         (window-starts
+          (mapcar (lambda (w) (list w (window-start w)))
+                  (get-buffer-window-list)))
          (status)
          (stderr)
          (json))
@@ -95,7 +98,9 @@ is no active region.  If no style is given uses `clang-format-style'."
                  (point-min) (line-end-position))))
 
     (delete-region (point-min) (line-beginning-position 2))
-    (goto-char (1+ (cdr (assoc 'Cursor json))))))
+    (goto-char (1+ (cdr (assoc 'Cursor json))))
+    (mapcar (lambda (w) (apply #'set-window-start w))
+            window-starts)))
 
 (provide 'clang-format)
 ;;; clang-format.el ends here
