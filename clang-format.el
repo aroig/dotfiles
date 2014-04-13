@@ -56,25 +56,38 @@ is no active region.  If no style is given uses `clang-format-style'."
   (unless style
     (setq style clang-format-style))
 
-  (let* ((discard-stderr '(t nil))
-         (status
-          (call-process-region
-           (point-min) (point-max) clang-format-executable
-           'delete discard-stderr nil
-
-           "-assume-filename" (buffer-file-name)
-           "-style" style
-           "-offset" (number-to-string (1- start))
-           "-length" (number-to-string (- end start))
-           "-cursor" (number-to-string (1- (point)))))
+  (let* ((temp-file (make-temp-file "clang-format"))
+         (keep-stderr (list t temp-file))
+         (status)
+         (stderr)
          (json))
+
+    (unwind-protect
+        (setq status
+              (call-process-region
+               (point-min) (point-max) clang-format-executable
+               'delete keep-stderr nil
+
+               "-assume-filename" (buffer-file-name)
+               "-style" style
+               "-offset" (number-to-string (1- start))
+               "-length" (number-to-string (- end start))
+               "-cursor" (number-to-string (1- (point))))
+              stderr
+              (with-temp-buffer
+                (insert-file-contents temp-file)
+                (when (> (point-max) (point-min))
+                  (insert ": "))
+                (buffer-substring-no-properties
+                 (point-min) (line-end-position))))
+      (delete-file temp-file))
 
     (cond
      ((stringp status)
-      (error "(clang-format killed by signal %s)" status))
+      (error "(clang-format killed by signal %s%s)" status stderr))
      ((not (equal 0 status))
-      (error "(clang-format failed with code %d)" status))
-     (t (message "(clang-format succeeded)")))
+      (error "(clang-format failed with code %d%s)" status stderr))
+     (t (message "(clang-format succeeded%s)" stderr)))
 
     (goto-char (point-min))
     (setq json (json-read-from-string
