@@ -185,6 +185,9 @@ function myw.net.update()
         local downtxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_netdn_widget, down)
 
         local sep = string.format(' <span color="%s">\\</span> ', beautiful.fg_widget)
+        -- local sep = string.format('<span color="%s" font="%s"> 🔄 </span>',
+        --                beautiful.fg_green, beautiful.font_symbol)
+
         myw.net.widget:set_markup(downtxt .. sep .. uptxt)
     end
     myw.net.value.up = up
