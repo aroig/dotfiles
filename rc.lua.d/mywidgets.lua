@@ -280,10 +280,11 @@ myw.mpd = {}
 myw.mpd.src  = require("abdo.widget.mpd")
 myw.mpd.path = os.getenv("AB2_MUSIC_DIR")
 
-myw.mpd.icon = wibox.widget.imagebox()
-myw.mpd.stateicon = wibox.widget.imagebox()
+myw.mpd.icon = wibox.widget.textbox()
+myw.mpd.icon:set_markup(string.format("<span color='%s' font='%s'>♫</span>",
+                                      beautiful.fg_green, beautiful.font_symbol))
 
-myw.mpd.icon:set_image(beautiful.widget_music)
+myw.mpd.stateicon = wibox.widget.imagebox()
 myw.mpd.stateicon:set_image(beautiful.widget_stop)
 
 myw.mpd.current = { ['{file}'] = nil,
@@ -344,8 +345,9 @@ timers.fast:connect_signal("timeout", myw.mpd.update)
 myw.vol = {}
 myw.vol.src = require("abdo.widget.pvol")
 
-myw.vol.icon = wibox.widget.imagebox()
-myw.vol.icon:set_image(beautiful.widget_vol)
+myw.vol.icon = wibox.widget.textbox()
+myw.vol.icon:set_markup(string.format("<span color='%s' font='%s'>🔊 </span>",
+                                      beautiful.fg_green, beautiful.font_symbol))
 
 myw.vol.widget = wibox.widget.textbox()
 myw.vol.value = -1
@@ -440,15 +442,19 @@ function myw.sys.update()
     local sync_state = true
 
     if priv_state then
-        myw.sys.priv:set_markup(string.format("<span color='%s'> 🔒 </span>", beautiful.fg_green))
+        myw.sys.priv:set_markup(string.format("<span color='%s' font='%s'> 🔒 </span>",
+                                              beautiful.fg_green, beautiful.font_symbol))
     else
-        myw.sys.priv:set_markup(string.format("<span color='%s'> 🔒 </span>", beautiful.fg_red))
+        myw.sys.priv:set_markup(string.format("<span color='%s' font='%s'> 🔒 </span>",
+                                              beautiful.fg_red, beautiful.font_symbol))
     end
 
     if sync_state then
-        myw.sys.sync:set_markup(string.format("<span color='%s'> ☢ </span>", beautiful.fg_green))
+        myw.sys.sync:set_markup(string.format("<span color='%s' font='%s'> ☢ </span>",
+                                              beautiful.fg_green, beautiful.font_symbol))
     else
-        myw.sys.sync:set_markup(string.format("<span color='%s'> ☢ </span>", beautiful.fg_red))
+        myw.sys.sync:set_markup(string.format("<span color='%s' font='%s'> ☢ </span>",
+                                              beautiful.fg_red, beautiful.font_symbol))
     end
 end
 
