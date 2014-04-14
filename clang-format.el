@@ -50,8 +50,12 @@
 ;;;###autoload
 (defun clang-format-region (start end &optional style)
   "Use clang-format to format the code between START and END according to STYLE.
-If no style is given uses `clang-format-style'."
-  (interactive "r")
+If called interactively uses the region or the current buffer if there
+is no active region.  If no style is given uses `clang-format-style'."
+  (interactive
+   (if (use-region-p)
+       (list (region-beginning) (region-end))
+     (list (point-min) (point-max))))
 
   (unless style
     (setq style clang-format-style))
