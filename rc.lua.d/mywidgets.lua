@@ -290,11 +290,10 @@ myw.mpd.src  = require("abdo.widget.mpd")
 myw.mpd.path = os.getenv("AB2_MUSIC_DIR")
 
 myw.mpd.icon = wibox.widget.textbox()
-myw.mpd.icon:set_markup(string.format("<span color='%s' font='%s'>♫</span>",
+myw.mpd.icon:set_markup(string.format("<span color='%s' font='%s'>♫ </span>",
                                       beautiful.fg_green, beautiful.font_symbol))
 
-myw.mpd.stateicon = wibox.widget.imagebox()
-myw.mpd.stateicon:set_image(beautiful.widget_stop)
+myw.mpd.stateicon = wibox.widget.textbox()
 
 myw.mpd.current = { ['{file}'] = nil,
                     ['{state}'] = nil}
@@ -316,14 +315,20 @@ end
 function myw.mpd.update()
     local args = myw.mpd.src(nil)
 
-    local icon = beautiful.widget_stop
+    local play_icon = string.format("<span color='%s' font='%s'>▶</span>",
+                                    beautiful.fg_red, beautiful.font_symbol)
+
+    local stop_icon = string.format("<span color='%s' font='%s'>■</span>",
+                                    beautiful.fg_green, beautiful.font_symbol)
+
+    local icon = stop_icon
 
     if args['{state}'] == 'playing' then
-        icon = beautiful.widget_play
+        icon = play_icon
     elseif args['{state}'] == 'stopped' then
-        icon = beautiful.widget_stop
+        icon = stop_icon
     elseif args['{state}'] == 'paused' then
-        icon = beautiful.widget_pause
+        icon = stop_icon
     end
 
     if myw.mpd.current['{file}'] ~= args['{file}'] or
@@ -333,7 +338,7 @@ function myw.mpd.update()
         end
 
         if myw.mpd.current['{state}'] ~= args['{state}'] then
-            myw.mpd.stateicon:set_image(icon)
+            myw.mpd.stateicon:set_markup(icon)
         end
     end
 
