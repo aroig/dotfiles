@@ -63,9 +63,9 @@ for s = 1, screen.count() do
 
    right_layout:add(myw.separator)
 
-   right_layout:add(myw.net.dnicon)
-   right_layout:add(myw.net.widget)
-   right_layout:add(myw.net.upicon)
+   right_layout:add(myw.net.dwdg)
+   right_layout:add(myw.net.icon)
+   right_layout:add(myw.net.uwdg)
    right_layout:add(myw.spacer)
 
    right_layout:add(myw.mail.icon)

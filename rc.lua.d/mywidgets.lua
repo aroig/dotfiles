@@ -126,15 +126,13 @@ timers.fast:connect_signal("timeout", myw.hdw.update)
 myw.net = {}
 myw.net.src = require("abdo.widget.net")
 
--- myw.net.icon = wibox.widget.imagebox()
-myw.net.dnicon = wibox.widget.imagebox()
-myw.net.upicon = wibox.widget.imagebox()
+myw.net.dwdg = wibox.widget.textbox()
+myw.net.uwdg = wibox.widget.textbox()
 
--- myw.net.icon:set_image(beautiful.widget_net)
-myw.net.dnicon:set_image(beautiful.widget_netdw)
-myw.net.upicon:set_image(beautiful.widget_netup)
+myw.net.icon = wibox.widget.textbox()
+myw.net.icon:set_markup(string.format('<span color="%s" font="%s"> 🔄 </span>',
+                                      beautiful.fg_green, beautiful.font_symbol))
 
-myw.net.widget = wibox.widget.textbox()
 myw.net.value = { up=-1, down=-1 }
 
 function myw.net.update()
@@ -156,15 +154,12 @@ function myw.net.update()
     end
 
     if up ~= myw.net.value.up or down ~= myw.net.value.down then
-        local uptxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_netup_widget, up)
+        local uptxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_green, up)
 
-        local downtxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_netdn_widget, down)
+        local downtxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_green, down)
 
-        local sep = string.format(' <span color="%s">\\</span> ', beautiful.fg_widget)
-        -- local sep = string.format('<span color="%s" font="%s"> 🔄 </span>',
-        --                beautiful.fg_green, beautiful.font_symbol)
-
-        myw.net.widget:set_markup(downtxt .. sep .. uptxt)
+        myw.net.dwdg:set_markup(downtxt)
+        myw.net.uwdg:set_markup(uptxt)
     end
     myw.net.value.up = up
     myw.net.value.down = down
