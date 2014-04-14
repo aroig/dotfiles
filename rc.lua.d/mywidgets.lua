@@ -205,6 +205,12 @@ timers.fast:connect_signal("timeout", myw.net.update)
 myw.mail = {}
 myw.mail.src = require("abdo.widget.mutag")
 
+local mail_empty = string.format('<span color="%s" font="%s">📧 </span>',
+                                 beautiful.fg_green, beautiful.font_symbol)
+
+local mail_full = string.format('<span color="%s" font="%s">📧 </span>',
+                                beautiful.fg_red, beautiful.font_symbol)
+
 myw.mail.icon = wibox.widget.imagebox()
 myw.mail.icon:set_image(beautiful.widget_maile)
 
