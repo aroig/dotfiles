@@ -176,77 +176,71 @@ timers.fast:connect_signal("timeout", myw.net.update)
 myw.mail = {}
 myw.mail.src = require("abdo.widget.mutag")
 
-local mail_empty = string.format('<span color="%s" font="%s">📧 </span>',
-                                 beautiful.fg_green, beautiful.font_symbol)
+myw.mail.icon = wibox.widget.textbox()
 
-local mail_full = string.format('<span color="%s" font="%s">📧 </span>',
-                                beautiful.fg_red, beautiful.font_symbol)
+myw.mail.outwdg = wibox.widget.textbox()
+myw.mail.inwdg = wibox.widget.textbox()
 
-myw.mail.icon = wibox.widget.imagebox()
-myw.mail.icon:set_image(beautiful.widget_maile)
-
-myw.mail.widget = wibox.widget.textbox()
-myw.mail.tooltip = awful.tooltip({ objects = {myw.mail.icon, myw.mail.widget}})
+myw.mail.tooltip = awful.tooltip({ objects = {myw.mail.icon, myw.mail.outwdg, myw.mail.inwdg}})
 
 myw.mail.num_inbox = -1
 myw.mail.num_queue = -1
 
 function myw.mail.update()
-    local args
-    local icon = beautiful.widget_maile
-
-    args = myw.mail.src(nil)
+    local args = myw.mail.src(nil)
     local mail = args[1]
-    local num_inbox = #mail
-    local color_inbox = beautiful.fg_green_widget
+    local num = #mail
+    if num ~= myw.mail.num_inbox then
+        local color = beautiful.fg_green
+
+        if num == nil then
+            color = beautiful.fg_red
+            num = "?"
+        elseif num == 0 then
+            color = beautiful.fg_green
+        elseif num > 0 then
+            color = beautiful.fg_red
+        end
+
+        local text = string.format("<span color='%s'>%s</span>",
+                                   color, tostring(num))
+
+        local icon = string.format('<span color="%s" font="%s"> 📧 </span>',
+                                   color, beautiful.font_symbol)
+
+        myw.mail.icon:set_markup(icon)
+        myw.mail.inwdg:set_markup(text)
+        myw.mail.num_inbox = num
+    end
 
     local queue = args[2]
-    local num_queue = #queue
-    local color_queue = beautiful.fg_green_widget
-
-    local text = ""
-    if num_inbox ~= myw.mail.num_inbox or num_queue ~= myw.mail.num_queue then
-        if num_inbox == nil then
-            color_inbox = beautiful.fg_red_widget
-            icon = beautiful.widget_mailf
-            num_inbox = "?"
-        elseif num_inbox == 0 then
-            color_inbox = beautiful.fg_green_widget
-            icon = beautiful.widget_maile
-        elseif num_inbox > 0 then
-            color_inbox = beautiful.fg_red_widget
-            icon = beautiful.widget_mailf
-        end
-
-        if num_queue == nil then
-            color_queue = beautiful.fg_red_widget
-            icon = beautiful.widget_mailf
-            num_queue = "?"
-        elseif num_queue == 0 then
-            color_queue = beautiful.fg_green_widget
+    local num = #queue
+    if num ~= myw.mail.num_queue then
+        local color = beautiful.fg_green
+        if num == nil then
+            color = beautiful.fg_red
+            num = "?"
+        elseif num == 0 then
+            color = beautiful.fg_green
         else
-            color_queue = beautiful.fg_red_widget
+            color = beautiful.fg_red
         end
 
-        text = text .. string.format("<span color='%s'>%s</span>",
-                                   color_inbox, tostring(num_inbox))
-        text = text .. string.format(' <span color="%s">\\</span> ',
-                                     beautiful.fg_widget)
-        text = text .. string.format("<span color='%s'>%s</span>",
-                                   color_queue, tostring(num_queue))
-        myw.mail.icon:set_image(icon)
-        myw.mail.widget:set_markup(text)
+        local text = string.format("<span color='%s'>%s</span>",
+                                   color, tostring(num))
+
+        myw.mail.outwdg:set_markup(text)
+        myw.mail.num_queue = num
     end
 
     myw.mail.tooltip.textbox:set_text(table.concat(mail, '\n'))
-
-    myw.mail.num_inbox = num_inbox
-    myw.mail.num_queue = num_queue
 end
 
-myw.mail.widget:buttons(awful.util.table.join(awful.button({ }, 1,
+myw.mail.icon:buttons(awful.util.table.join(awful.button({ }, 1,
     function () exec(apps.mail) end)))
-myw.mail.widget:buttons(myw.mail.widget:buttons())
+
+myw.mail.inwdg:buttons(myw.mail.icon:buttons())
+myw.mail.outwdg:buttons(myw.mail.icon:buttons())
 
 timers.normal:connect_signal("timeout", myw.mail.update)
 

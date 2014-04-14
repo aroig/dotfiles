@@ -68,8 +68,9 @@ for s = 1, screen.count() do
    right_layout:add(myw.net.uwdg)
    right_layout:add(myw.spacer)
 
+   right_layout:add(myw.mail.inwdg)
    right_layout:add(myw.mail.icon)
-   right_layout:add(myw.mail.widget)
+   right_layout:add(myw.mail.outwdg)
 
    right_layout:add(myw.separator)
 
