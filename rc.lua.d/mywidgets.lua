@@ -391,7 +391,8 @@ function myw.bat.update()
     local args = myw.bat.src(nil, "BAT0")
     if args.rate ~= myw.bat.rate then
         local color_rate = beautiful.fg_green
-        if args.state == '+' then
+
+        if args.state == 'charging' then
             color_rate = util.gradient(gradcols_rev, 0, 40, args.rate)
         else
             color_rate = util.gradient(gradcols, 7, 30, args.rate)
@@ -402,10 +403,23 @@ function myw.bat.update()
 
     if args.percent ~= myw.bat.percent then
         local color_percent = util.gradient(gradcols_rev, 0, 100, args.percent)
-        local text = string.format("<span color='%s'>%s%s%%</span>", color_percent, args.state, args.percent)
 
-        myw.bat.pcwidget:set_markup(text)
-        if args.percent > 0 and args.percent <= 5 and args.state ~= '+' then
+        local battery_state = {
+            full       = "⚡",
+            unknown    = "?",
+            charged     = "⚡",
+            charging    = "+",
+            discharging = "-"
+        }
+
+        local text_state = string.format("<span color='%s' font='%s'>%s</span>",
+                                         color_percent, beautiful.font_symbol, battery_state[args.state])
+        local text_percent = string.format("<span color='%s'>%s%s%%</span>",
+                                           color_percent, args.state, args.percent)
+
+        myw.bat.pcwidget:set_markup(text_state .. text_percent)
+
+        if args.percent > 0 and args.percent <= 5 and args.state ~= 'charging' then
             naughty.notify({title="Low Battery", text="Hey, plug the power cord!",
                             appname="battery"})
         end
