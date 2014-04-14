@@ -427,6 +427,35 @@ timers.fast:connect_signal("timeout", myw.bat.update)
 
 
 -----------------------------------
+-- System                        --
+-----------------------------------
+
+myw.sys = {}
+myw.sys.src = require("abdo.widget.fileval")
+myw.sys.sync = wibox.widget.textbox()
+myw.sys.priv = wibox.widget.textbox()
+
+function myw.sys.update()
+    local priv_state = myw.sys.src(nil, {os.getenv("HOME") .. "/priv/README", false})
+    local sync_state = true
+
+    if priv_state then
+        myw.sys.priv:set_markup(string.format("<span color='%s'> 🔒 </span>", beautiful.fg_green))
+    else
+        myw.sys.priv:set_markup(string.format("<span color='%s'> 🔒 </span>", beautiful.fg_red))
+    end
+
+    if sync_state then
+        myw.sys.sync:set_markup(string.format("<span color='%s'> ☢ </span>", beautiful.fg_green))
+    else
+        myw.sys.sync:set_markup(string.format("<span color='%s'> ☢ </span>", beautiful.fg_red))
+    end
+end
+
+timers.normal:connect_signal("timeout", myw.sys.update)
+
+
+-----------------------------------
 -- Clock                         --
 -----------------------------------
 
