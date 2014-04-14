@@ -13,7 +13,7 @@ theme.confdir = util.getdir("config") .. "/themes/zenburn"
 
 
 -- {{{ Styles
-theme.font         = "Lucida Sans Unicode 10"
+theme.font         = "Lucida Sans 10"
 theme.font_symbol  = "Symbola 9"
 theme.font_mono    = "Ubuntu Mono 11"
 theme.font_box     = "Ubuntu Mono 11"
