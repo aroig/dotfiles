@@ -51,15 +51,15 @@ for s = 1, screen.count() do
 
    right_layout:add(myw.separator)
 
-   right_layout:add(myw.cpu.icon)
-   right_layout:add(myw.cpu.widget)
+   right_layout:add(myw.sys.sync)
+   right_layout:add(myw.sys.priv)
+
    right_layout:add(myw.spacer)
 
-   right_layout:add(myw.temp.widget)
-   right_layout:add(myw.spacer)
-
-   right_layout:add(myw.mem.icon)
-   right_layout:add(myw.mem.widget)
+   right_layout:add(myw.hdw.icon)
+   right_layout:add(myw.hdw.cpuwdg)
+   right_layout:add(myw.hdw.tempwdg)
+   right_layout:add(myw.hdw.memwdg)
 
    right_layout:add(myw.separator)
 
@@ -87,10 +87,6 @@ for s = 1, screen.count() do
 
    right_layout:add(myw.vol.icon)
    right_layout:add(myw.vol.widget)
-   right_layout:add(myw.separator)
-
-   right_layout:add(myw.sys.priv)
-   right_layout:add(myw.sys.sync)
    right_layout:add(myw.separator)
 
    if s == 1 then

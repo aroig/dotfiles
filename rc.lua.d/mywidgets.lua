@@ -54,6 +54,7 @@ local gradcols_rev = {beautiful.fg_grad4_widget, beautiful.fg_grad3_widget,
 myw = {}
 
 
+
 -----------------------------------
 -- Spacers                       --
 -----------------------------------
@@ -65,82 +66,57 @@ myw.separator = wibox.widget.textbox()
 myw.separator:set_markup(string.format("<span color='%s'>  |  </span>", beautiful.fg_widget))
 
 
+
 -----------------------------------
--- Temperature sensors           --
+-- Hardware                      --
 -----------------------------------
 
-myw.temp = {}
-myw.temp.src = require("abdo.widget.thermal")
+myw.hdw = {}
 
-myw.temp.icon = wibox.widget.imagebox()
-myw.temp.icon:set_image(beautiful.widget_temp)
+myw.hdw.icon = wibox.widget.textbox()
+myw.hdw.icon:set_markup(string.format('<span color="%s" font="%s">⚙ </span>',
+                                      beautiful.fg_green, beautiful.font_symbol))
 
-myw.temp.widget = wibox.widget.textbox()
-myw.temp.value = '?'
+myw.hdw.cpu  = require("abdo.widget.cpu")
+myw.hdw.mem  = require("abdo.widget.mem")
+myw.hdw.temp = require("abdo.widget.thermal")
 
-function myw.temp.update()
-    local args = myw.temp.src(nil, {"coretemp.0", "core"})
-    if args[1] ~= myw.temp.value then
+myw.hdw.cpuwdg = wibox.widget.textbox()
+myw.hdw.memwdg = wibox.widget.textbox()
+myw.hdw.tempwdg = wibox.widget.textbox()
+
+myw.hdw.cpuval = "?"
+myw.hdw.memval = "?"
+myw.hdw.tempval = '?'
+
+function myw.hdw.update()
+    local args = myw.hdw.cpu(nil)
+    if args[1] ~= myw.hdw.cpuval then
+        local color = util.gradient(gradcols, 0, 100, args[1])
+        local text = string.format("<span color='%s'>%s%% </span>", color, args[1])
+        myw.hdw.cpuval = args[1]
+        myw.hdw.cpuwdg:set_markup(text)
+    end
+
+    local args = myw.hdw.temp(nil, {"coretemp.0", "core"})
+    if args[1] ~= myw.hdw.tempval then
         local color = util.gradient(gradcols, 35, 70, args[1])
-        local text = string.format("<span color='%s'>%sºC</span>", color, args[1])
-        myw.temp.widget:set_markup(text)
+        local text = string.format("<span color='%s'>%sºC </span>", color, args[1])
+        myw.hdw.tempval = args[1]
+        myw.hdw.tempwdg:set_markup(text)
     end
-    myw.temp.value = args[1]
-end
 
-timers.fast:connect_signal("timeout", myw.temp.update)
-
-
------------------------------------
--- CPU Usage                     --
------------------------------------
-
-myw.cpu = {}
-myw.cpu.src = require("abdo.widget.cpu")
-
-myw.cpu.icon = wibox.widget.imagebox()
-myw.cpu.icon:set_image(beautiful.widget_cpu)
-
-myw.cpu.widget = wibox.widget.textbox()
-myw.cpu.value = "?"
-
-function myw.cpu.update()
-    local args = myw.cpu.src(nil)
-    if args[1] ~= myw.cpu.value then
+    local args = myw.hdw.mem(nil)
+    if args[1] ~= myw.hdw.memval then
         local color = util.gradient(gradcols, 0, 100, args[1])
-        local text = string.format("<span color='%s'>%s%%</span>", color, args[1])
-        myw.cpu.widget:set_markup(text)
+        local text = string.format("<span color='%s'>%s%% </span>", color, args[1])
+        myw.hdw.memval = args[1]
+        myw.hdw.memwdg:set_markup(text)
     end
-    myw.cpu.value = args[1]
 end
 
-timers.fast:connect_signal("timeout", myw.cpu.update)
+timers.fast:connect_signal("timeout", myw.hdw.update)
 
-
------------------------------------
--- Memory                        --
------------------------------------
-
-myw.mem = {}
-myw.mem.src = require("abdo.widget.mem")
-
-myw.mem.icon = wibox.widget.imagebox()
-myw.mem.icon:set_image(beautiful.widget_mem)
-
-myw.mem.widget = wibox.widget.textbox()
-myw.mem.value = "?"
-
-function myw.mem.update()
-    local args = myw.mem.src(nil)
-    if args[1] ~= myw.mem.value then
-        local color = util.gradient(gradcols, 0, 100, args[1])
-        local text = string.format("<span color='%s'>%s%%</span>", color, args[1])
-        myw.mem.widget:set_markup(text)
-    end
-    myw.mem.value = args[1]
-end
-
-timers.fast:connect_signal("timeout", myw.mem.update)
 
 
 -----------------------------------
