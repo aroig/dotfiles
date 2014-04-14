@@ -366,8 +366,10 @@ timers.fast:connect_signal("timeout", myw.vol.update)
 myw.bat = {}
 myw.bat.src = require("abdo.widget.bat")
 
-myw.bat.icon = wibox.widget.imagebox()
-myw.bat.icon:set_image(beautiful.widget_bat)
+myw.bat.icon = wibox.widget.textbox()
+myw.bat.icon:set_markup(string.format('<span color="%s" font="%s">🔋 </span>',
+                                      beautiful.fg_green, beautiful.font_symbol))
+
 
 myw.bat.pcwidget = wibox.widget.textbox()
 myw.bat.rtwidget = wibox.widget.textbox()
