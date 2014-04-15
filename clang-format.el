@@ -102,9 +102,9 @@ is no active region.  If no style is given uses `clang-format-style'."
                  (point-min) (line-end-position))))
 
     (delete-region (point-min) (line-beginning-position 2))
-    (goto-char (1+ (cdr (assoc 'Cursor json))))
-    (mapcar (lambda (w) (apply #'set-window-start w))
-            window-starts)))
+    (mapc (lambda (w) (apply #'set-window-start w))
+          window-starts)
+    (goto-char (1+ (cdr (assoc 'Cursor json))))))
 
 (provide 'clang-format)
 ;;; clang-format.el ends here
