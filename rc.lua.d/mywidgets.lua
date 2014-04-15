@@ -341,28 +341,37 @@ myw.vol = {}
 myw.vol.src = require("abdo.widget.pvol")
 
 myw.vol.icon = wibox.widget.textbox()
-myw.vol.icon:set_markup(string.format("<span color='%s' font='%s'>🔊 </span>",
-                                      beautiful.color_widget, beautiful.font_symbol))
 
--- headphones_icon = string.format("<span color='%s' font='%s'>📫 </span>",
---                                 beautiful.color_widget, beautiful.font_symbol)
+myw.vol.headphones_icon = string.format("<span color='%s' font='%s'>🎧 </span>",
+                                        beautiful.color_widget, beautiful.font_symbol)
 
--- mute_icon = string.format("<span color='%s' font='%s'>🔇 </span>",
---                           beautiful.color_widget, beautiful.font_symbol)
+myw.vol.mute_icon = string.format("<span color='%s' font='%s'>🔇 </span>",
+                                  beautiful.color_widget, beautiful.font_symbol)
 
-
+myw.vol.speaker_icon = string.format("<span color='%s' font='%s'>🔊 </span>",
+                                     beautiful.color_widget, beautiful.font_symbol)
 
 myw.vol.widget = wibox.widget.textbox()
 myw.vol.value = -1
 
 function myw.vol.update()
     local args = myw.vol.src(nil)
-    if args[1] ~= myw.vol.value then
-        local color = util.gradient(gradcols, 0, 100, args[1])
-        local text = string.format("<span color='%s'>%s%%</span>", color, args[1])
-        myw.vol.widget:set_markup(text)
+
+    if args.port ~= myw.vol.port_value then
+        if string.match(args.port, 'headphones') then
+            myw.vol.icon:set_markup(myw.vol.headphones_icon)
+        else
+            myw.vol.icon:set_markup(myw.vol.speaker_icon)
+        end
+        myw.vol.port_value = args.port
     end
-    myw.vol.value = args[1]
+
+    if args.vol ~= myw.vol.vol_value then
+        local color = util.gradient(gradcols, 0, 100, args.vol)
+        local text = string.format("<span color='%s'>%s%%</span>", color, args.vol)
+        myw.vol.widget:set_markup(text)
+        myw.vol.vol_value = args.vol
+    end
 end
 
 myw.vol.widget:buttons(awful.util.table.join(awful.button({ }, 1,
