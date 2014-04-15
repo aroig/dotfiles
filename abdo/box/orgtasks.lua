@@ -48,7 +48,7 @@ local function parse_agenda(files)
     local text_color = beautiful.fg_normal or "#FFFFFF"
     local today_color = beautiful.fg_focus or "#00FF00"
     local event_color = beautiful.fg_urgent or "#FF0000"
-    local priority_color = beautiful.fg_org_priority
+    local priority_color = beautiful.color_org_priority
     local font = beautiful.font_box
 
     local today = os.date("%Y-%m-%d")
@@ -115,7 +115,7 @@ local function create_todo(data)
     local text_color = beautiful.fg_normal or "#FFFFFF"
     local today_color = beautiful.fg_focus or "#00FF00"
     local event_color = beautiful.fg_urgent or "#FF0000"
-    local priority_color = beautiful.fg_org_priority
+    local priority_color = beautiful.color_org_priority
     local font = beautiful.font_box
 
     local result = ""

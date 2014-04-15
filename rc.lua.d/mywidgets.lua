@@ -45,11 +45,14 @@ end
 
 local scount = screen.count()
 
-local gradcols = {beautiful.fg_grad1_widget, beautiful.fg_grad2_widget,
-		  beautiful.fg_grad3_widget, beautiful.fg_grad4_widget}
+local gradcols = {}
+local gradcols_rev = {}
+local num = #beautiful.color_widget_gradient
 
-local gradcols_rev = {beautiful.fg_grad4_widget, beautiful.fg_grad3_widget,
-		      beautiful.fg_grad2_widget, beautiful.fg_grad1_widget}
+for i, col in ipairs(beautiful.color_widget_gradient) do
+    gradcols[i] = col
+    gradcols_rev[num-i+1] = col
+end
 
 myw = {}
 
@@ -63,7 +66,7 @@ myw.spacer = wibox.widget.textbox()
 myw.spacer:set_markup("<span>   </span>")
 
 myw.separator = wibox.widget.textbox()
-myw.separator:set_markup(string.format("<span color='%s'>  |  </span>", beautiful.fg_widget))
+myw.separator:set_markup(string.format("<span color='%s'>  |  </span>", beautiful.color_widget))
 
 
 
@@ -75,7 +78,7 @@ myw.hdw = {}
 
 myw.hdw.icon = wibox.widget.textbox()
 myw.hdw.icon:set_markup(string.format('<span color="%s" font="%s">⚙ </span>',
-                                      beautiful.fg_green, beautiful.font_symbol))
+                                      beautiful.color_widget, beautiful.font_symbol))
 
 myw.hdw.cpu  = require("abdo.widget.cpu")
 myw.hdw.mem  = require("abdo.widget.mem")
@@ -131,7 +134,7 @@ myw.net.uwdg = wibox.widget.textbox()
 
 myw.net.icon = wibox.widget.textbox()
 myw.net.icon:set_markup(string.format('<span color="%s" font="%s"> 🔄 </span>',
-                                      beautiful.fg_green, beautiful.font_symbol))
+                                      beautiful.color_widget, beautiful.font_symbol))
 
 myw.net.value = { up=-1, down=-1 }
 
@@ -154,9 +157,9 @@ function myw.net.update()
     end
 
     if up ~= myw.net.value.up or down ~= myw.net.value.down then
-        local uptxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_green, up)
+        local uptxt = string.format('<span color="%s">%.0f</span>', beautiful.color_widget, up)
 
-        local downtxt = string.format('<span color="%s">%.0f</span>', beautiful.fg_green, down)
+        local downtxt = string.format('<span color="%s">%.0f</span>', beautiful.color_widget, down)
 
         myw.net.dwdg:set_markup(downtxt)
         myw.net.uwdg:set_markup(uptxt)
@@ -191,15 +194,15 @@ function myw.mail.update()
     local mail = args[1]
     local num = #mail
     if num ~= myw.mail.num_inbox then
-        local color = beautiful.fg_green
+        local color = beautiful.color_widget
 
         if num == nil then
-            color = beautiful.fg_red
+            color = beautiful.color_widget_alert
             num = "?"
         elseif num == 0 then
-            color = beautiful.fg_green
+            color = beautiful.color_widget
         elseif num > 0 then
-            color = beautiful.fg_red
+            color = beautiful.color_widget_alert
         end
 
         local text = string.format("<span color='%s'>%s</span>",
@@ -216,14 +219,14 @@ function myw.mail.update()
     local queue = args[2]
     local num = #queue
     if num ~= myw.mail.num_queue then
-        local color = beautiful.fg_green
+        local color = beautiful.color_widget
         if num == nil then
-            color = beautiful.fg_red
+            color = beautiful.color_widget_alert
             num = "?"
         elseif num == 0 then
-            color = beautiful.fg_green
+            color = beautiful.color_widget
         else
-            color = beautiful.fg_red
+            color = beautiful.color_widget_alert
         end
 
         local text = string.format("<span color='%s'>%s</span>",
@@ -256,7 +259,7 @@ myw.mpd.path = os.getenv("AB2_MUSIC_DIR")
 
 myw.mpd.icon = wibox.widget.textbox()
 myw.mpd.icon:set_markup(string.format("<span color='%s' weight='bold' font='%s'>♫ </span>",
-                                      beautiful.fg_green, beautiful.font_symbol))
+                                      beautiful.color_widget, beautiful.font_symbol))
 
 myw.mpd.stateicon = wibox.widget.textbox()
 
@@ -281,10 +284,10 @@ function myw.mpd.update()
     local args = myw.mpd.src(nil)
 
     local play_icon = string.format("<span color='%s' font='%s'>▶</span>",
-                                    beautiful.fg_red, beautiful.font_symbol)
+                                    beautiful.color_widget_alert, beautiful.font_symbol)
 
     local stop_icon = string.format("<span color='%s' font='%s'>◼</span>",
-                                    beautiful.fg_green, beautiful.font_symbol)
+                                    beautiful.color_widget, beautiful.font_symbol)
 
     local icon = stop_icon
 
@@ -326,7 +329,7 @@ myw.vol.src = require("abdo.widget.pvol")
 
 myw.vol.icon = wibox.widget.textbox()
 myw.vol.icon:set_markup(string.format("<span color='%s' font='%s'>🔊 </span>",
-                                      beautiful.fg_green, beautiful.font_symbol))
+                                      beautiful.color_widget, beautiful.font_symbol))
 
 myw.vol.widget = wibox.widget.textbox()
 myw.vol.value = -1
@@ -357,7 +360,7 @@ myw.bat.src = require("abdo.widget.bat")
 
 myw.bat.icon = wibox.widget.textbox()
 myw.bat.icon:set_markup(string.format('<span color="%s" font="%s">🔋 </span>',
-                                      beautiful.fg_green, beautiful.font_symbol))
+                                      beautiful.color_widget, beautiful.font_symbol))
 
 
 myw.bat.pcwidget = wibox.widget.textbox()
@@ -371,7 +374,7 @@ myw.bat.time = -1
 function myw.bat.update()
     local args = myw.bat.src(nil, "BAT0")
     if args.rate ~= myw.bat.rate then
-        local color_rate = beautiful.fg_green
+        local color_rate = beautiful.color_widget
 
         if args.state == 'charging' then
             color_rate = util.gradient(gradcols_rev, 0, 40, args.rate)
@@ -439,18 +442,18 @@ function myw.sys.update()
 
     if priv_state then
         myw.sys.privwdg:set_markup(string.format("<span color='%s' font='%s'> 🔒 </span>",
-                                                 beautiful.fg_green, beautiful.font_symbol))
+                                                 beautiful.color_widget, beautiful.font_symbol))
     else
         myw.sys.privwdg:set_markup(string.format("<span color='%s' font='%s'> 🔒 </span>",
-                                                 beautiful.fg_red, beautiful.font_symbol))
+                                                 beautiful.color_widget_alert, beautiful.font_symbol))
     end
 
     if sync_state then
         myw.sys.syncwdg:set_markup(string.format("<span color='%s' font='%s'> ☢ </span>",
-                                                 beautiful.fg_green, beautiful.font_symbol))
+                                                 beautiful.color_widget, beautiful.font_symbol))
     else
         myw.sys.syncwdg:set_markup(string.format("<span color='%s' font='%s'> ☢ </span>",
-                                                 beautiful.fg_red, beautiful.font_symbol))
+                                                 beautiful.color_widget_alert, beautiful.font_symbol))
     end
 end
 

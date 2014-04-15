@@ -12,48 +12,60 @@ theme.confdir = util.getdir("config") .. "/themes/zenburn"
 -- }}}
 
 
--- {{{ Styles
+-- {{{ Fonts
 theme.font         = "Lucida Sans 10"
 theme.font_symbol  = "Symbola 9"
 theme.font_mono    = "Ubuntu Mono 11"
 theme.font_box     = "Ubuntu Mono 11"
 theme.font_naughty =  "Overlock 12"
-
+-- }}}
 
 -- {{{ Named Colors
-theme.fg_grey   = "#777777"
-theme.fg_red    = "#CC9393"
-theme.fg_green  = "#7f9f7f"
-theme.fg_white  = "#DCDCCC"
-theme.fg_orange = "#dfaf8f"
-theme.fg_blue   = "#8cd0d3"
+theme.color_grey   = "#777777"
+theme.color_red    = "#ce8686"
+theme.color_green  = "#aecf96"
+theme.color_white  = "#dcdccc"
+theme.color_black  = "#3f3f3f"
+theme.color_orange = "#ce9c7b"
+theme.color_blue   = "#8cd0d3"
+
+theme.color_bg     = theme.color_white
+theme.color_fg     = theme.color_black
 -- }}}
 
 
 -- {{{ Org priority colors
-theme.fg_org_priority = {
+theme.color_org_priority = {
    ["[#1]"] = "#cd3333",
    ["[#2]"] = "#dd7621",
    ["[#3]"] = "#d0bf8f",
    ["[#4]"] = "#8fb28f",
    ["[#5]"] = "#1e90ff",
 }
+-- }}}
+
+-- {{{ Widgets
+theme.color_widget_gradient = { "#aecf96", "#aecf96", "#dc9435", "#ff5656" }
+
+theme.color_widget          = theme.color_green
+theme.color_widget_alert    = theme.color_red
 
 -- }}}
 
 
 -- {{{ Colors
-theme.fg_normal = "#DCDCCC"
+theme.fg_normal = theme.color_white
 theme.fg_focus  = "#F0DFAF"
 theme.fg_urgent = "#CC9393"
-theme.bg_normal = "#3F3F3F"
+
+theme.bg_normal = theme.color_black
 theme.bg_focus  = "#1E2320"
 theme.bg_urgent = "#3F3F3F"
 -- }}}
 
 -- {{{ Borders
 theme.border_width  = "1"
-theme.border_normal = "#3F3F3F"
+theme.border_normal = theme.color_black
 theme.border_focus  = "#DD5650"
 theme.border_marked = "#DD5650"
 
@@ -61,30 +73,11 @@ theme.border_naughty  = "#15BA4B"
 -- }}}
 
 -- {{{ Titlebars
-theme.titlebar_bg_focus  = "#3F3F3F"
-theme.titlebar_bg_normal = "#3F3F3F"
+theme.titlebar_bg_focus  = theme.color_black
+theme.titlebar_bg_normal = theme.color_black
 -- theme.titlebar_[normal|focus]
 -- }}}
 
--- {{{ Widgets
-
-theme.fg_grad1_widget  = "#AECF96"
-theme.fg_grad2_widget  = "#88A175"
-theme.fg_grad3_widget  = "#DC9435"
-theme.fg_grad4_widget  = "#FF5656"
-
-theme.fg_widget        = "#AECF96"
-theme.fg_center_widget = "#88A175"
-theme.fg_end_widget    = "#FF5656"
-theme.fg_off_widget    = "#494B4F"
-theme.fg_netup_widget  = "#7F9F7F"
-theme.fg_netdn_widget  = "#CC9393"
-theme.bg_widget        = "#3F3F3F"
-theme.border_widget    = "#3F3F3F"
-
-theme.fg_red_widget    = "#CC9393"
-theme.fg_green_widget  = "#7F9F7F"
--- }}}
 
 -- {{{ Mouse finder
 theme.mouse_finder_color = "#CC9393"
@@ -108,9 +101,10 @@ theme.mouse_finder_color = "#CC9393"
 
 
 -- system icons path. I should autodetect it or something
-local icon_theme          = "numix/Numix"
-local icon_path           = os.getenv("HOME") .. "/.icons/" .. icon_theme .. "/64x64/"
+local icon_theme            = "numix/Numix"
+local icon_path             = os.getenv("HOME") .. "/.icons/" .. icon_theme .. "/64x64/"
 
+-- {{{ Naughty icons
 theme.naughty_mail_icon     = icon_path .. "emblems/emblem-mail.svg"
 theme.naughty_chat_icon     = icon_path .. "emblems/emblem-people.svg"
 theme.naughty_alert_icon    = icon_path .. "emblems/emblem-important.svg"
@@ -122,10 +116,8 @@ theme.naughty_battery_icon  = icon_path .. "devices/battery.svg"
 theme.naughty_mail_sound    = theme.confdir .. "/sounds/soothing/Gentle Roll.wav"
 theme.naughty_chat_sound    = theme.confdir .. "/sounds/soothing/Looking Up.wav"
 theme.naughty_alert_sound   = theme.confdir .. "/sounds/soothing/Connected.wav"
+-- }}}
 
-
--- {{{ Icons
---
 -- {{{ Taglist icons
 theme.taglist_squares_sel   = theme.confdir .. "/icons/taglist/squarefz.png"
 theme.taglist_squares_unsel = theme.confdir .. "/icons/taglist/squareza.png"
@@ -199,7 +191,6 @@ theme.titlebar_maximized_button_focus_active    = theme.confdir .. "/icons/title
 theme.titlebar_maximized_button_normal_active   = theme.confdir .. "/icons/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_inactive  = theme.confdir .. "/icons/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_inactive = theme.confdir .. "/icons/titlebar/maximized_normal_inactive.png"
--- }}}
 -- }}}
 
 
