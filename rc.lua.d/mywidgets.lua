@@ -255,7 +255,7 @@ myw.mpd.src  = require("abdo.widget.mpd")
 myw.mpd.path = os.getenv("AB2_MUSIC_DIR")
 
 myw.mpd.icon = wibox.widget.textbox()
-myw.mpd.icon:set_markup(string.format("<span color='%s' font='%s'>♫ </span>",
+myw.mpd.icon:set_markup(string.format("<span color='%s' weight='bold' font='%s'>♫ </span>",
                                       beautiful.fg_green, beautiful.font_symbol))
 
 myw.mpd.stateicon = wibox.widget.textbox()
@@ -283,7 +283,7 @@ function myw.mpd.update()
     local play_icon = string.format("<span color='%s' font='%s'>▶</span>",
                                     beautiful.fg_red, beautiful.font_symbol)
 
-    local stop_icon = string.format("<span color='%s' font='%s'>■</span>",
+    local stop_icon = string.format("<span color='%s' font='%s'>◼</span>",
                                     beautiful.fg_green, beautiful.font_symbol)
 
     local icon = stop_icon
