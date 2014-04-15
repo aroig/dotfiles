@@ -14,23 +14,31 @@ theme.confdir = util.getdir("config") .. "/themes/zenburn"
 
 -- {{{ Fonts
 theme.font         = "Lucida Sans 10"
+theme.font_naughty =  "Overlock 12"
 theme.font_symbol  = "Symbola 9"
 theme.font_mono    = "Ubuntu Mono 11"
-theme.font_box     = "Ubuntu Mono 11"
-theme.font_naughty =  "Overlock 12"
+theme.font_box     = theme.font_mono
 -- }}}
 
+
 -- {{{ Named Colors
-theme.color_grey   = "#777777"
+theme.color_fg     = "#dcdccc"
+theme.color_bg     = "#3f3f3f"
+
+theme.color_white  = "#dcdccc"
+theme.color_grey   = "#7f7f7f"
+theme.color_black  = "#1f1f1f"
+
 theme.color_red    = "#ce8686"
 theme.color_green  = "#aecf96"
-theme.color_white  = "#dcdccc"
-theme.color_black  = "#3f3f3f"
+theme.color_yellow = "#edd28a"
 theme.color_orange = "#ce9c7b"
 theme.color_blue   = "#8cd0d3"
 
-theme.color_bg     = theme.color_white
-theme.color_fg     = theme.color_black
+theme.color_sat_red    = "#dd5650"
+theme.color_sat_green  = "#3bb463"
+theme.color_sat_orange = "#d9732f"
+theme.color_sat_blue   = "#4e9de0"
 -- }}}
 
 
@@ -45,7 +53,12 @@ theme.color_org_priority = {
 -- }}}
 
 -- {{{ Widgets
-theme.color_widget_gradient = { "#aecf96", "#aecf96", "#dc9435", "#ff5656" }
+theme.color_widget_gradient = {
+    "#aecf96",
+    "#aecf96",
+    "#dc9435",
+    "#ff5656",
+}
 
 theme.color_widget          = theme.color_green
 theme.color_widget_alert    = theme.color_red
@@ -54,22 +67,27 @@ theme.color_widget_alert    = theme.color_red
 
 
 -- {{{ Colors
-theme.fg_normal = theme.color_white
-theme.fg_focus  = "#F0DFAF"
-theme.fg_urgent = "#CC9393"
+theme.fg_normal = theme.color_fg
+theme.bg_normal = theme.color_bg
 
-theme.bg_normal = theme.color_black
-theme.bg_focus  = "#1E2320"
-theme.bg_urgent = "#3F3F3F"
+theme.fg_urgent = theme.color_red
+theme.bg_urgent = theme.color_bg
+
+theme.fg_focus  = theme.color_yellow
+theme.bg_focus  = theme.color_black
+
+theme.fg_minimize  = theme.color_blue
+theme.bg_minimize  = theme.color_bg
 -- }}}
+
 
 -- {{{ Borders
 theme.border_width  = "1"
 theme.border_normal = theme.color_black
-theme.border_focus  = "#DD5650"
-theme.border_marked = "#DD5650"
+theme.border_focus  = theme.color_sat_red
+theme.border_marked = theme.color_sat_red
 
-theme.border_naughty  = "#15BA4B"
+theme.border_naughty  = theme.color_sat_green
 -- }}}
 
 -- {{{ Titlebars
@@ -80,7 +98,7 @@ theme.titlebar_bg_normal = theme.color_black
 
 
 -- {{{ Mouse finder
-theme.mouse_finder_color = "#CC9393"
+theme.mouse_finder_color = theme.color_red
 -- theme.mouse_finder_[timeout|animate_timeout|radius|factor]
 -- }}}
 

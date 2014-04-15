@@ -13,13 +13,6 @@ local wibox   = require("wibox")
 
 local scount = screen.count()
 
-local gradcols = {beautiful.fg_grad1_widget, beautiful.fg_grad2_widget,
-		  beautiful.fg_grad3_widget, beautiful.fg_grad4_widget}
-
-local gradcols_rev = {beautiful.fg_grad4_widget, beautiful.fg_grad3_widget,
-		      beautiful.fg_grad2_widget, beautiful.fg_grad1_widget}
-
-
 
 
 -----------------------------------
