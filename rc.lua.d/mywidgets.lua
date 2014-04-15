@@ -196,20 +196,28 @@ function myw.mail.update()
     if num ~= myw.mail.num_inbox then
         local color = beautiful.color_widget
 
+        -- Note: From miscelaneous symbols and pictographs. Not yet standard.
+        local icon_empty = string.format('<span color="%s" weight="bold" font="%s"> 🖂 </span>',
+                                         beautiful.color_widget, beautiful.font_symbol)
+
+        local icon_full = string.format('<span color="%s" weight="bold" font="%s"> 🖄 </span>',
+                                        beautiful_color_widget_alert, beautiful.font_symbol)
+
+        local icon = icon_empty
         if num == nil then
             color = beautiful.color_widget_alert
+            icon = icon_full
             num = "?"
         elseif num == 0 then
             color = beautiful.color_widget
+            icon = icon_empty
         elseif num > 0 then
             color = beautiful.color_widget_alert
+            icon = icon_full
         end
 
         local text = string.format("<span color='%s'>%s</span>",
                                    color, tostring(num))
-
-        local icon = string.format('<span color="%s" weight="bold" font="%s"> 📫 </span>',
-                                   color, beautiful.font_symbol)
 
         myw.mail.icon:set_markup(icon)
         myw.mail.inwdg:set_markup(text)
@@ -284,11 +292,15 @@ end
 function myw.mpd.update()
     local args = myw.mpd.src(nil)
 
-    local play_icon = string.format("<span color='%s' font='%s'>▶</span>",
+    -- Note: From miscelaneous technical. Not yet standard.
+    local play_icon = string.format("<span color='%s' weight='bold' font='%s'>⏵</span>",
                                     beautiful.color_widget_alert, beautiful.font_symbol)
 
-    local stop_icon = string.format("<span color='%s' font='%s'>◼</span>",
+    local stop_icon = string.format("<span color='%s' weight='bold' font='%s'>⏹</span>",
                                     beautiful.color_widget, beautiful.font_symbol)
+
+    local pause_icon = string.format("<span color='%s' weight='bold' font='%s'>⏸</span>",
+                                     beautiful.color_widget, beautiful.font_symbol)
 
     local icon = stop_icon
 
@@ -297,7 +309,7 @@ function myw.mpd.update()
     elseif args['{state}'] == 'stopped' then
         icon = stop_icon
     elseif args['{state}'] == 'paused' then
-        icon = stop_icon
+        icon = pause_icon
     end
 
     if myw.mpd.current['{file}'] ~= args['{file}'] or
