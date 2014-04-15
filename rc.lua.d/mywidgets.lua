@@ -404,7 +404,7 @@ function myw.bat.update()
         myw.bat.rtwidget:set_markup(text)
     end
 
-    if args.percent ~= myw.bat.percent then
+    if args.percent ~= myw.bat.percent or args.state ~= myw.bat.state then
         local color_percent = util.gradient(gradcols_rev, 0, 100, args.percent)
         local text_icon = ""
 
@@ -417,8 +417,8 @@ function myw.bat.update()
         end
 
         local battery_state = {
-            full       = "⚡",
-            unknown    = "?",
+            full        = "⚡",
+            unknown     = "?",
             charged     = "⚡",
             charging    = "+",
             discharging = "-"
@@ -427,8 +427,8 @@ function myw.bat.update()
         local text_state = string.format("<span color='%s' font='%s'>%s</span>",
                                          color_percent, beautiful.font_symbol, battery_state[args.state])
 
-        local text_percent = string.format("<span color='%s'>%s%s%%</span>",
-                                           color_percent, args.state, args.percent)
+        local text_percent = string.format("<span color='%s'>%s%%</span>",
+                                           color_percent, args.percent)
 
         myw.bat.pcwidget:set_markup(text_state .. text_percent)
         myw.bat.icon:set_markup(text_icon)
