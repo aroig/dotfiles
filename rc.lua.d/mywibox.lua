@@ -51,8 +51,8 @@ for s = 1, screen.count() do
 
    right_layout:add(myw.separator)
 
-   right_layout:add(myw.sys.sync)
-   right_layout:add(myw.sys.priv)
+   right_layout:add(myw.sys.syncwdg)
+   right_layout:add(myw.sys.privwdg)
 
    right_layout:add(myw.spacer)
 

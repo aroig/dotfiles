@@ -428,28 +428,29 @@ timers.fast:connect_signal("timeout", myw.bat.update)
 -----------------------------------
 
 myw.sys = {}
-myw.sys.src = require("abdo.widget.fileval")
-myw.sys.sync = wibox.widget.textbox()
-myw.sys.priv = wibox.widget.textbox()
+myw.sys.sync = require("abdo.widget.fileval")
+myw.sys.priv = require("abdo.widget.filex")
+myw.sys.syncwdg = wibox.widget.textbox()
+myw.sys.privwdg = wibox.widget.textbox()
 
 function myw.sys.update()
-    local priv_state = myw.sys.src(nil, {os.getenv("HOME") .. "/priv/README", false})
-    local sync_state = true
+    local priv_state = myw.sys.priv(nil, {os.getenv("HOME") .. "/priv/README"})
+    local sync_state = myw.sys.sync(nil, {os.getenv("XDG_RUNTIME_DIR") .. "/synced", false})
 
     if priv_state then
-        myw.sys.priv:set_markup(string.format("<span color='%s' font='%s'> 🔒 </span>",
-                                              beautiful.fg_green, beautiful.font_symbol))
+        myw.sys.privwdg:set_markup(string.format("<span color='%s' font='%s'> 🔒 </span>",
+                                                 beautiful.fg_green, beautiful.font_symbol))
     else
-        myw.sys.priv:set_markup(string.format("<span color='%s' font='%s'> 🔒 </span>",
-                                              beautiful.fg_red, beautiful.font_symbol))
+        myw.sys.privwdg:set_markup(string.format("<span color='%s' font='%s'> 🔒 </span>",
+                                                 beautiful.fg_red, beautiful.font_symbol))
     end
 
     if sync_state then
-        myw.sys.sync:set_markup(string.format("<span color='%s' font='%s'> ☢ </span>",
-                                              beautiful.fg_green, beautiful.font_symbol))
+        myw.sys.syncwdg:set_markup(string.format("<span color='%s' font='%s'> ☢ </span>",
+                                                 beautiful.fg_green, beautiful.font_symbol))
     else
-        myw.sys.sync:set_markup(string.format("<span color='%s' font='%s'> ☢ </span>",
-                                              beautiful.fg_red, beautiful.font_symbol))
+        myw.sys.syncwdg:set_markup(string.format("<span color='%s' font='%s'> ☢ </span>",
+                                                 beautiful.fg_red, beautiful.font_symbol))
     end
 end
 
