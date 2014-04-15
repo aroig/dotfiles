@@ -208,7 +208,7 @@ function myw.mail.update()
         local text = string.format("<span color='%s'>%s</span>",
                                    color, tostring(num))
 
-        local icon = string.format('<span color="%s" font="%s"> 📧 </span>',
+        local icon = string.format('<span color="%s" weight="bold" font="%s"> 📫 </span>',
                                    color, beautiful.font_symbol)
 
         myw.mail.icon:set_markup(icon)
@@ -359,12 +359,9 @@ myw.bat = {}
 myw.bat.src = require("abdo.widget.bat")
 
 myw.bat.icon = wibox.widget.textbox()
-myw.bat.icon:set_markup(string.format('<span color="%s" font="%s">🔋 </span>',
-                                      beautiful.color_widget, beautiful.font_symbol))
-
-
 myw.bat.pcwidget = wibox.widget.textbox()
 myw.bat.rtwidget = wibox.widget.textbox()
+
 myw.bat.tooltip = awful.tooltip({ objects = {myw.bat.pcwidget, myw.bat.rtwidget, myw.bat.icon}})
 
 myw.bat.percent = -1
@@ -381,12 +378,22 @@ function myw.bat.update()
         else
             color_rate = util.gradient(gradcols, 7, 30, args.rate)
         end
+
         local text = string.format("<span color='%s'>%4.1fW</span>", color_rate, args.rate)
         myw.bat.rtwidget:set_markup(text)
     end
 
     if args.percent ~= myw.bat.percent then
         local color_percent = util.gradient(gradcols_rev, 0, 100, args.percent)
+        local text_icon = ""
+
+        if args.state == 'charging' or args.state == 'charged' then
+            text_icon = string.format('<span color="%s" weight="bold" font="%s">🔌 </span>',
+                                            beautiful.color_widget, beautiful.font_symbol)
+        else
+            text_icon = string.format('<span color="%s" weight="bold" font="%s">🔋 </span>',
+                                            beautiful.color_widget, beautiful.font_symbol)
+        end
 
         local battery_state = {
             full       = "⚡",
@@ -398,10 +405,12 @@ function myw.bat.update()
 
         local text_state = string.format("<span color='%s' font='%s'>%s</span>",
                                          color_percent, beautiful.font_symbol, battery_state[args.state])
+
         local text_percent = string.format("<span color='%s'>%s%s%%</span>",
                                            color_percent, args.state, args.percent)
 
         myw.bat.pcwidget:set_markup(text_state .. text_percent)
+        myw.bat.icon:set_markup(text_icon)
 
         if args.percent > 0 and args.percent <= 5 and args.state ~= 'charging' then
             naughty.notify({title="Low Battery", text="Hey, plug the power cord!",
