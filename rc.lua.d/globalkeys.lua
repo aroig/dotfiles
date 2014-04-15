@@ -201,8 +201,8 @@ globalkeys = awful.util.table.join(
               end),
 
     -- Layout cycling
-    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
-    awful.key({ modkey, shiftkey  }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey,           }, "space", function () awful.layout.inc(1, nil, layouts) end),
+    awful.key({ modkey, shiftkey  }, "space", function () awful.layout.inc(-1, nil, layouts) end),
 
     -- Layout manipulation
     awful.key({ modkey,           }, "+",     function () awful.tag.incmwfact( 0.05)    end),
