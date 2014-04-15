@@ -261,6 +261,7 @@ myw.mpd.icon = wibox.widget.textbox()
 myw.mpd.icon:set_markup(string.format("<span color='%s' weight='bold' font='%s'>♫ </span>",
                                       beautiful.color_widget, beautiful.font_symbol))
 
+
 myw.mpd.stateicon = wibox.widget.textbox()
 
 myw.mpd.current = { ['{file}'] = nil,
@@ -330,6 +331,14 @@ myw.vol.src = require("abdo.widget.pvol")
 myw.vol.icon = wibox.widget.textbox()
 myw.vol.icon:set_markup(string.format("<span color='%s' font='%s'>🔊 </span>",
                                       beautiful.color_widget, beautiful.font_symbol))
+
+-- headphones_icon = string.format("<span color='%s' font='%s'>📫 </span>",
+--                                 beautiful.color_widget, beautiful.font_symbol)
+
+-- mute_icon = string.format("<span color='%s' font='%s'>🔇 </span>",
+--                           beautiful.color_widget, beautiful.font_symbol)
+
+
 
 myw.vol.widget = wibox.widget.textbox()
 myw.vol.value = -1
@@ -473,7 +482,13 @@ timers.normal:connect_signal("timeout", myw.sys.update)
 -- Clock                         --
 -----------------------------------
 
-myw.textclock = awful.widget.textclock()
+myw.clock = {}
+myw.clock.icon = wibox.widget.textbox()
+myw.clock.icon:set_markup(string.format("<span color='%s' font='%s'>📆 </span>",
+                                        beautiful.color_widget, beautiful.font_symbol))
+
+myw.clock.clockwdg = awful.widget.textclock(string.format('<span color="%s">%%a %%d %%b %%H:%%M </span>',
+                                                          beautiful.color_widget))
 
 
 -----------------------------------

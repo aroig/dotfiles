@@ -91,12 +91,12 @@ for s = 1, screen.count() do
    right_layout:add(myw.separator)
 
    if s == 1 then
-      right_layout:add(myw.spacer)
       right_layout:add(myw.systray)
-      right_layout:add(myw.spacer)
+      right_layout:add(myw.separator)
    end
 
-   right_layout:add(myw.textclock)
+   right_layout:add(myw.clock.icon)
+   right_layout:add(myw.clock.clockwdg)
 
    local middle_layout = wibox.layout.fixed.horizontal()
    middle_layout:add(myw.tasklist[s])
