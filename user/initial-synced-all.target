@@ -1,7 +1,0 @@
-[Unit]
-Description=sync with default remote
-
-OnFailure=journal-mailer.service
-
-Requires=async-default-needed.service
-After=async-default-needed.service

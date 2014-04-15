@@ -3,8 +3,8 @@ Description=chat log database
 StopWhenUnneeded=true
 
 # chat logs are under ~/var/chat
-Requisite=initial-synced-all.target
-After=initial-synced-all.target
+Requisite=initial-synced-all.service
+After=initial-synced-all.service
 
 [Service]
 Type=oneshot

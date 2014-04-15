@@ -1,0 +1,17 @@
+[Unit]
+Description=initial synced state
+
+Requires=async-default-needed.service
+After=async-default-needed.service
+
+OnFailure=journal-mailer.service
+
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+SyslogIdentifier=synced-all
+ExecStart=/usr/bin/touch %t/synced
+ExecStop=/usr/bin/rm %t/synced
+

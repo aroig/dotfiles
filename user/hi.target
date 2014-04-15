@@ -4,5 +4,5 @@ StopWhenUnneeded=true
 
 OnFailure=journal-mailer.service
 
-Requires=initial-synced-all.target
-After=initial-synced-all.target
+Requires=initial-synced-all.service
+After=initial-synced-all.service

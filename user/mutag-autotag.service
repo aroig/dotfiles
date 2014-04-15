@@ -1,8 +1,8 @@
 [Unit]
 Description=postprocess mail and news
 
-Requisite=initial-synced-all.target
-After=initial-synced-all.target
+Requisite=initial-synced-all.service
+After=initial-synced-all.service
 
 After=offlineimap.service
 After=rss2maildir.service

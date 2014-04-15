@@ -6,5 +6,5 @@ After=mount-priv.service
 
 [Service]
 Type=oneshot
-SyslogIdentifier=async-fake
-ExecStart=/usr/bin/systemctl --user --job-mode=ignore-requirements start initial-synced-all.target
+SyslogIdentifier=synced-fake
+ExecStart=/usr/bin/systemctl --user --job-mode=ignore-requirements start initial-synced-all.service
