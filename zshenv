@@ -89,14 +89,15 @@ export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent::1"
 #------------------------------
 
 # Mingw
-export MINGW_TOOLCHAIN_ROOT="/usr/x86_64-w64-mingw32"
+export MINGW_ROOT="/usr/x86_64-w64-mingw32"
 
 # Android
-export ANDROID_NDK_TOOLCHAIN_ROOT="$HOME/sdk/android/ndk"
-export ANDROID_SDK_TOOLCHAIN_ROOT="$HOME/sdk/android/sdk"
+export ANDROID_NDK_ROOT="$HOME/sdk/android/ndk"
+export ANDROID_SDK_ROOT="$HOME/sdk/android/sdk"
+export ANDROID_QT_ROOT="$HOME/sdk/android/qt5.2"
 
 # Sailfish
-export SAILFISH_SDK_TOOLCHAIN_ROOT="$HOME/sdk/sailfish/sdk"
+export SAILFISH_SDK_ROOT="$HOME/sdk/sailfish/sdk"
 
 
 
