@@ -76,9 +76,10 @@
   (setq tab-width 4)
 
   ;; Development tools
-  (semantic-mode 1)
-  (require 'semantic/sb)
-;  (ede-minor-mode 1)
+  ;; NOTE: semantic mode does not want to be loaded from a hook!
+  ; (require 'semantic/sb)
+  ; (semantic-mode 1)
+  ; (ede-minor-mode 1)
 )
 
 ;; Hook
@@ -167,18 +168,57 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun abdo-c-mode-things()
+  ;; flyspell for comments
   (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
   (abdo-change-dictionary "english")      ;; I always program in english
 
-  ;; indentation
-  (setq c-basic-offset 4)
+  ;; Set C style (indentation, etc)
+  (c-set-style "stroustrup")
 
   ;; Delete trailing whitespaces before save
   (trailing-whitespace-mode)
 
   ;; Setup compile buffer stuff
   (abdo-compile-buffer-things)
+
+  ;; extra QT Keywords
+  (setq c-protection-key (concat "\\<\\(public\\|public slot\\|protected"
+                                 "\\|protected slot\\|private\\|private slot"
+                                 "\\)\\>"))
+  (setq c-C++-access-key (concat "\\<\\(signals\\|public\\|protected\\|private"
+                                 "\\|public slots\\|protected slots\\|private slots"
+                                 "\\)\\>[ \t]*:"))
 )
+
+
+;; Switch from .c to .h
+(defun switch-cc-to-h ()
+   (interactive)
+   (when (string-match "^\\(.*\\)\\.\\([^.]*\\)$" buffer-file-name)
+     (let ((name (match-string 1 buffer-file-name))
+ 	  (suffix (match-string 2 buffer-file-name)))
+       (cond ((string-match suffix "c\\|cc\\|C\\|cpp")
+ 	     (cond ((file-exists-p (concat name ".h"))
+ 		    (find-file (concat name ".h"))
+ 		   )
+ 		   ((file-exists-p (concat name ".hh"))
+ 		    (find-file (concat name ".hh"))
+ 		   )
+ 	    ))
+ 	    ((string-match suffix "h\\|hh")
+ 	     (cond ((file-exists-p (concat name ".cc"))
+ 		    (find-file (concat name ".cc"))
+ 		   )
+ 		   ((file-exists-p (concat name ".C"))
+ 		    (find-file (concat name ".C"))
+ 		   )
+ 		   ((file-exists-p (concat name ".cpp"))
+ 		    (find-file (concat name ".cpp"))
+ 		   )
+ 		   ((file-exists-p (concat name ".c"))
+ 		    (find-file (concat name ".c"))
+ 		   )))))))
+
 
 
 ;; Hooks
