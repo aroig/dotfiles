@@ -1,10 +1,10 @@
 REMOTES=modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
-        modes/rainbow-mode modes/yaml-mode \
+        modes/rainbow-mode modes/yaml-mode modes/qml-mode \
         packages/ibuffer-vc packages/powerline packages/helm-mu \
         themes/zenburn
 
 COMPILE=modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
-        modes/rainbow-mode modes/yaml-mode \
+        modes/rainbow-mode modes/yaml-mode modes/qml-mode \
         packages/ibuffer-vc packages/powerline \
 	    abdo misc hacks
 
