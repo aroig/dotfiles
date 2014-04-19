@@ -256,6 +256,8 @@ esac
 
 mk() { MAKE="make -j$threads" make "$@" 2>&1 | colormake; return ${PIPESTATUS[0]}; }
 
+alias make="TERM=xterm make"
+
 alias gan="git annex"
 
 
