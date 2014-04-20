@@ -200,8 +200,8 @@ function myw.mail.update()
         local icon_empty = string.format('<span color="%s" weight="bold" font="%s"> 🖂 </span>',
                                          beautiful.color_widget, beautiful.font_symbol)
 
-        local icon_full = string.format('<span color="%s" weight="bold" font="%s"> 🖄 </span>',
-                                        beautiful_color_widget_alert, beautiful.font_symbol)
+        local icon_full = string.format('<span color="%s" weight="bold" font="%s"> 🖂 </span>',
+                                        beautiful.color_widget_alert, beautiful.font_symbol)
 
         local icon = icon_empty
         if num == nil then
@@ -226,8 +226,8 @@ function myw.mail.update()
 
     local queue = args[2]
     local num = #queue
+    local color = beautiful.color_widget
     if num ~= myw.mail.num_queue then
-        local color = beautiful.color_widget
         if num == nil then
             color = beautiful.color_widget_alert
             num = "?"
