@@ -7,4 +7,5 @@ Conflicts=chat.service chat-db.service
 Type=oneshot
 
 SyslogIdentifier=commit-chat
-ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_VAR_DIR/chat/emacs"
+ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "${AB2_VAR_DIR}/chat/emacs"
+

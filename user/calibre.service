@@ -13,6 +13,6 @@ Type=simple
 SyslogIdentifier=calibre
 Slice=apps.slice
 
-ExecStart=/usr/bin/calibre --with-library "$AB2_CALIBRE_DIR"
+ExecStart=/usr/bin/calibre --with-library "${AB2_CALIBRE_DIR}"
 
 

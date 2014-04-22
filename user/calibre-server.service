@@ -6,4 +6,4 @@ After=calibre-db.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/calibre-server --with-library "$AB2_CALIBRE_DIR"
+ExecStart=/usr/bin/calibre-server --with-library "${AB2_CALIBRE_DIR}"

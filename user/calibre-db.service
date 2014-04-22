@@ -10,5 +10,5 @@ Type=oneshot
 RemainAfterExit=true
 SyslogIdentifier=calibre-db
 
-ExecStart=/usr/bin/git -C "$AB2_CALIBRE_DIR" annex edit metadata.db
+ExecStart=/usr/bin/git -C "${AB2_CALIBRE_DIR}" annex edit metadata.db
 ExecStop=/usr/bin/systemctl --user start commit-calibre.service

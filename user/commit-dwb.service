@@ -7,4 +7,4 @@ Conflicts=dwb-db.service
 Type=oneshot
 
 SyslogIdentifier=commit-dwb
-ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_PRIV_DIR/var/dwb/default"
+ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "${AB2_PRIV_DIR}/var/dwb/default"
