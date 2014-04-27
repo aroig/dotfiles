@@ -217,6 +217,9 @@
 ;; File associations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; .h headers as c++
+(add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
+
 ;; yaml
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 
