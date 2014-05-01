@@ -138,6 +138,10 @@ gpg_keyring() {
         default)
             export GPGHOME="$HOME/.gnupg"
             ;;
+
+        *)
+            echo "$GPGHOME"
+            ;;
     esac
 }
 
@@ -180,6 +184,11 @@ gpg_agent_mode() {
         ssh)
             ssh_sock="$HOME/.gnupg/S.gpg-agent.ssh.forward"
             gpg_sock="$HOME/.gnupg/S.gpg-agent.forward"
+            ;;
+
+        *)
+            echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
+            echo "GPG_AGENT_INFO=$GPG_AGENT_INFO"
             ;;
     esac
 
