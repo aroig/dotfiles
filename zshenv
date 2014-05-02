@@ -216,6 +216,14 @@ _SYSTEMD_COLORS=(
 )
 export SYSTEMD_COLORS=$(printf "%s:" "${_SYSTEMD_COLORS[@]}")
 
+# gcc colors
+_GCC_COLORS=(
+    'error=01;31'   'warning=01;35'   'note=01;36' 
+    'caret=01;32'   'locus=01'        'quote=01'
+)
+
+export GCC_COLORS=$(printf "%s:" "${_GCC_COLORS[@]}")
+
 
 
 #------------------------------
