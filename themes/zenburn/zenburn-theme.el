@@ -259,6 +259,16 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(popup-scroll-bar-foreground-face ((t (:background ,zenburn-blue-5))))
    `(popup-scroll-bar-background-face ((t (:background ,zenburn-bg-1))))
    `(popup-isearch-match ((t (:background ,zenburn-bg :foreground ,zenburn-fg))))
+;;;;; company-mode
+   `(company-tooltip ((t (:foreground ,zenburn-yellow :background ,zenburn-bg+1))))
+   `(company-tooltip-selection ((t (:foreground ,zenburn-fg :background ,zenburn-bg-1))))
+   `(company-tooltip-mouse ((t (:background ,zenburn-bg-1))))
+   `(company-tooltip-common ((t (:foreground ,zenburn-yellow :background ,zenburn-bg-1))))
+   `(company-tooltip-common-selection ((t (:background ,zenburn-bg-1))))
+   `(company-scrollbar-fg ((t (:background ,zenburn-green+1))))
+   `(company-scrollbar-bg ((t (:background ,zenburn-bg-1))))
+   `(company-preview ((t (:background ,zenburn-green+1))))
+   `(company-preview-common ((t (:background ,zenburn-bg-1))))
 ;;;;; bm
    `(bm-face ((t (:background ,zenburn-yellow-1 :foreground ,zenburn-bg))))
    `(bm-fringe-face ((t (:background ,zenburn-yellow-1 :foreground ,zenburn-bg))))
@@ -288,6 +298,11 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(diff-file-header
      ((,class (:background ,zenburn-bg+2 :foreground ,zenburn-fg :bold t))
       (t (:background ,zenburn-fg :foreground ,zenburn-bg :bold t))))
+;;;;; diff-hl
+   `(diff-hl-change ((,class (:foreground ,zenburn-blue-2 :background ,zenburn-bg-05))))
+   `(diff-hl-delete ((,class (:foreground ,zenburn-red+1 :background ,zenburn-bg-05))))
+   `(diff-hl-insert ((,class (:foreground ,zenburn-green+1 :background ,zenburn-bg-05))))
+   `(diff-hl-unknown ((,class (:foreground ,zenburn-yellow :background ,zenburn-bg-05))))
 ;;;;; dim-autoload
    `(dim-autoload-cookie-line ((t :foreground ,zenburn-bg+1)))
 ;;;;; dired+
@@ -633,10 +648,12 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(macrostep-macro-face
      ((t (:underline t))))
 ;;;;; magit
+   `(magit-item-highlight ((t (:background ,zenburn-bg+1))))
    `(magit-section-title ((t (:foreground ,zenburn-yellow :weight bold))))
-   `(magit-branch ((t (:foreground ,zenburn-orange :weight bold))))
-   `(magit-item-highlight ((t (:background ,zenburn-bg+1 :bold nil))))
-   `(magit-log-author ((t (:foreground, zenburn-orange))))
+   `(magit-process-ok ((t (:foreground ,zenburn-green :weight bold))))
+   `(magit-process-ng ((t (:foreground ,zenburn-red :weight bold))))
+   `(magit-branch ((t (:foreground ,zenburn-blue :weight bold))))
+   `(magit-log-author ((t (:foreground ,zenburn-orange))))
    `(magit-log-sha1 ((t (:foreground, zenburn-orange))))
 ;;;;; message-mode
    `(message-cited-text ((t (:inherit font-lock-comment-face))))
