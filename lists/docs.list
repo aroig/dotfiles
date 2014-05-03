@@ -9,7 +9,7 @@ return {
 
    python2               = apps.docbrowser .. " file:///usr/share/doc/python2/html/index.html",
    python3               = apps.docbrowser .. " file:///usr/share/doc/python/html/index.html",
-   sage                  = apps.docbrowser .. " file:///home/abdo/usr/sage/src/doc/output/html/en/index.html",
+   sage                  = apps.docbrowser .. " file:///home/abdo/sage/src/doc/output/html/en/index.html",
    scipy                 = apps.docbrowser .. " file:///usr/share/doc/python-scipy/html",
    lua                   = apps.docbrowser .. " file:///usr/share/doc/lua/contents.html",
 
