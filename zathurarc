@@ -1,9 +1,24 @@
 
-# Options
+# UI color theme
 # ----------------------------------------------------------
 
 set default-fg              "#dcdccc"
-set default-bg              "#1f1f1f"
+set default-bg              "#2f2f2f"
+
+set completion-fg           "#dcdccc"
+set completion-bg           "#2f2f2f"
+
+set completion-group-fg     "#dcdccc"
+set completion-group-bg     "#1f1f1f"
+
+set completion-highlight-fg "#1f1f1f"
+set completion-highlight-bg "#d0bf8f"
+
+set inputbar-fg             "#dcdccc"
+set inputbar-bg             "#2f2f2f"
+
+set notification-fg         "#dcdccc"
+set notification-bg         "#2f2f2f"
 
 set notification-error-fg   "#dca3a3"
 set notification-error-bg   "#2f2f2f"
@@ -11,23 +26,39 @@ set notification-error-bg   "#2f2f2f"
 set notification-warning-fg "#f0dfaf"
 set notification-warning-bg "#2f2f2f"
 
-set inputbar-fg             "#dcdccc"
-set inputbar-bg             "#2f2f2f"
-
 set tabbar-fg               "#dcdccc"
-set tabbar-bg               "#2f2f2f"
+set tabbar-bg               "#1f1f1f"
 
-set statusbar-fg            "#f0dfaf"
+set tabbar-focus-fg         "#ff8f35"
+set tabbar-focus-bg         "#1f1f1f"
+
+set statusbar-fg            "#e0cf9f"
 set statusbar-bg            "#1f1f1f"
-set statusbar-basename      true
 
-set highlight-color         "#9aff9a"
-set highlight-active-color  "#ff7f41"
+
+
+# GUI options
+# ----------------------------------------------------------
+
+set font                    "terminal"
+
+set statusbar-basename      true
+set selection-clipboard     clipboard
+
+# set guioptions              sc           # fixed status and input bars
+
+
+
+# Document rendering
+# ----------------------------------------------------------
 
 set recolor                 true
 set recolor-keephue         true
 set recolor-darkcolor       "#cdcdcd"
 set recolor-lightcolor      "#2f2f2f"
+
+set highlight-color         "#9aff9a"
+set highlight-active-color  "#ff7f41"
 
 set render-loading          false
 
@@ -42,11 +73,6 @@ set search-hadjust          false
 set link-hadjust            false
 set link-zoom               false
 
-set font                    "terminal"
-
-set selection-clipboard     clipboard
-
-# set guioptions              sc           # fixed status and input bars
 
 
 # Key maps
