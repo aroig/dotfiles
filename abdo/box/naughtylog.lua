@@ -18,7 +18,7 @@ naughtylog.log = {}
 local function generate_naughtylog(data)
 
     local font = beautiful.font_box
-    local time_color = beautiful.color_grey
+    local time_color = beautiful.color_gray
     local origin_color = beautiful.color_green
     local text_color = beautiful.color_fg
 

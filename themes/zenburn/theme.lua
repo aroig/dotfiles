@@ -26,7 +26,7 @@ theme.color_fg     = "#dcdccc"
 theme.color_bg     = "#3f3f3f"
 
 theme.color_white  = "#dcdccc"
-theme.color_grey   = "#7f7f7f"
+theme.color_gray   = "#7f7f7f"
 theme.color_black  = "#1f1f1f"
 
 theme.color_red    = "#ce8686"
@@ -83,7 +83,7 @@ theme.bg_minimize  = theme.color_bg
 
 -- {{{ Borders
 theme.border_width  = "1"
-theme.border_normal = theme.color_black
+theme.border_normal = theme.color_bg
 theme.border_focus  = theme.color_sat_red
 theme.border_marked = theme.color_sat_red
 
