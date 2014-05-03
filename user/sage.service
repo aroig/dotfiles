@@ -1,0 +1,6 @@
+[Unit]
+Description=sage server
+
+[Service]
+ExecStart=/home/abdo/bin/sage -n
+
