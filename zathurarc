@@ -14,6 +14,12 @@ set completion-group-bg     "#1f1f1f"
 set completion-highlight-fg "#1f1f1f"
 set completion-highlight-bg "#d0bf8f"
 
+set index-fg                "#dcdccc"
+set index-bg                "#2f2f2f"
+
+set index-active-fg         "#1f1f1f"
+set index-active-bg         "#d0bf8f"
+
 set inputbar-fg             "#dcdccc"
 set inputbar-bg             "#2f2f2f"
 
