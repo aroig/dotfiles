@@ -205,14 +205,19 @@
   (require 'abdo-latex)                ;; personal latex stuff
 )
 
-;; Other personal stuff
-(require 'abdo-basic)                  ;; Basic emacs UI enhancements
-(require 'abdo-edit)                   ;; Basic editing settings
-(require 'abdo-languages)              ;; Spell checking stuff
+;; personal settings
+(require 'abdo-basic)                  ;; Basic emacs settings
 (require 'abdo-utils)                  ;; Utility stuff
 (require 'abdo-devel)                  ;; Personal devel stuff
-(require 'abdo-keybindings)            ;; My personal keybindings
 (require 'abdo-text)                   ;; Text mode tweaks
+
+;; personal settings for interactive emacs
+(unless batch-mode
+  (require 'abdo-interactive)            ;; Basic settings for interactive emacs
+  (require 'abdo-edit)                   ;; Basic editing settings
+  (require 'abdo-languages)              ;; Spell checking stuff
+  (require 'abdo-keybindings)            ;; My personal keybindings
+)
 
 ;; Unsure if I need it anymore
 ;; (require 'cl)                          ;; Common lisp
