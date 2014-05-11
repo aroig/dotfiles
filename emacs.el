@@ -123,7 +123,6 @@
 ;; Basic interactive stuff
 (unless batch-mode
   (require 'undo-tree)                   ;; Undo tree
-  (require 'evil)                        ;; vi-like keys
   (require 'abdo-modeline)               ;; modeline tweaks
   (require 'ido)                         ;; Ido prompt
   (require 'uniquify)                    ;; Make buffer names unique
@@ -131,6 +130,12 @@
   (require 'ibuffer-vc)                  ;; Nice buffer list of files under vc
   (require 'recentf)                     ;; Recent files
   (require 'sr-speedbar)                 ;; speedbar as a window
+)
+
+;; evil
+(when (and (locate-library "evil") (not batch-mode))
+  (require 'evil)                        ;; vi-like keys
+  (require 'abdo-vi)                     ;; Settings for vi mode
 )
 
 ;; autocompletion
@@ -201,15 +206,13 @@
 )
 
 ;; Other personal stuff
-(require 'abdo-vi)                     ;; Settings for vi mode
 (require 'abdo-basic)                  ;; Basic emacs UI enhancements
 (require 'abdo-edit)                   ;; Basic editing settings
 (require 'abdo-languages)              ;; Spell checking stuff
 (require 'abdo-utils)                  ;; Utility stuff
-(require 'abdo-chat)                   ;; Personal irc stuff
 (require 'abdo-devel)                  ;; Personal devel stuff
 (require 'abdo-keybindings)            ;; My personal keybindings
-(require 'abdo-yaml)                   ;; Yaml mode things
+(require 'abdo-text)                   ;; Text mode tweaks
 
 ;; Unsure if I need it anymore
 ;; (require 'cl)                          ;; Common lisp
@@ -313,6 +316,7 @@
   (sage))
 
 (defun abdo-launch-chat (arg)
+  (require 'abdo-chat)
   (require 'jabber-autoloads)
   (require 'rcirc)
   (require 'twittering-mode)
