@@ -25,23 +25,27 @@
   (setq custom-theme-load-path (append theme-dirs custom-theme-load-path)))
 
 
-;; Startup and window tweaking
+
+;; Some global variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq inhibit-startup-screen t)                 ;; Disable startup screen
-(setq initial-scratch-message "")               ;; Clean scratch buffer
+;; Detect batch mode
+(defconst batch-mode (or noninteractive (member "--batch" command-line-args))
+  "True when running in batch mode.")
 
-(tool-bar-mode 0)                               ;; Disable toolbar
-(menu-bar-mode 0)                               ;; Disable menubar
-(scroll-bar-mode 0)                             ;; Disable scrollbar
+;; Detect daemon mode
+(defconst daemon-mode (member "--daemon" command-line-args)
+  "True when running daemon mode.")
 
-;; Default frame settings
-(setq default-frame-alist '((menu-bar-lines . 0)
-                            (tool-bar-lines . 0)))
+;; Let emacs know the machine's hostname
+(setq system-name (substring (shell-command-to-string "hostname -s") 0 -1))
+(setq full-system-name (substring (shell-command-to-string "hostname -f") 0 -1))
 
-;; Apply color theme
-(load-theme 'zenburn t)
-(require 'abdo-zenburn)
+;; My name and email
+(setq abdo-user-full-name    "Abdó Roig-Maranges")
+(setq abdo-user-mail-address "abdo.roig@gmail.com")
+(setq abdo-name-and-mail (format "%s <%s>" abdo-user-full-name abdo-user-mail-address))
+
 
 
 ;; Paths
@@ -64,22 +68,26 @@
 (setq abdo-emacs-backups (format "%s/.emacs.d/bak/" (getenv "HOME")))
 
 
-;; Variables
+
+;; Startup and window tweaking
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq abdo-user-full-name    "Abdó Roig-Maranges")
-(setq abdo-user-mail-address "abdo.roig@gmail.com")
-(setq abdo-name-and-mail (format "%s <%s>"
-                                 abdo-user-full-name
-                                 abdo-user-mail-address))
+(unless batch-mode
+  (setq inhibit-startup-screen t)                 ;; Disable startup screen
+  (setq initial-scratch-message "")               ;; Clean scratch buffer
 
+  (tool-bar-mode 0)                               ;; Disable toolbar
+  (menu-bar-mode 0)                               ;; Disable menubar
+  (scroll-bar-mode 0)                             ;; Disable scrollbar
 
-;; Machine specific configs
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Let emacs know the machine's Hostname !
+  ;; Default frame settings
+  (setq default-frame-alist '((menu-bar-lines . 0)
+                              (tool-bar-lines . 0)))
 
-(setq system-name (substring (shell-command-to-string "hostname -s") 0 -1))
-(setq full-system-name (substring (shell-command-to-string "hostname -f") 0 -1))
+  ;; Apply color theme
+  (load-theme 'zenburn t)
+  (require 'abdo-zenburn))
+
 
 
 ;; Autoload stuff
@@ -109,39 +117,45 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Basic stuff
-(require 'evil)                        ;; vi-like keys
-(require 'abdo-modeline)               ;; modeline tweaks
-(require 'ido)                         ;; Ido prompt
-(require 'uniquify)                    ;; Make buffer names unique
-(require 'ibuffer)                     ;; Nice buffer list
-(require 'ibuffer-vc)                  ;; Nice buffer list of files under vc
-(require 'undo-tree)                   ;; Undo tree
-(require 'recentf)                     ;; Recent files
 (require 'sensitive-mode)              ;; Mode for sensitive data (disable backups)
 (require 'netrc)                       ;; read passwords from .netrc
-(require 'sr-speedbar)                 ;; speedbar as a window
+
+;; Basic interactive stuff
+(unless batch-mode
+  (require 'undo-tree)                   ;; Undo tree
+  (require 'evil)                        ;; vi-like keys
+  (require 'abdo-modeline)               ;; modeline tweaks
+  (require 'ido)                         ;; Ido prompt
+  (require 'uniquify)                    ;; Make buffer names unique
+  (require 'ibuffer)                     ;; Nice buffer list
+  (require 'ibuffer-vc)                  ;; Nice buffer list of files under vc
+  (require 'recentf)                     ;; Recent files
+  (require 'sr-speedbar)                 ;; speedbar as a window
+)
 
 ;; autocompletion
-(require 'auto-complete-config)
-(require 'ac-math)                     ;; produces warning (quotation)
-(require 'yasnippet)                   ;; produces warning (cl-labels)
+(unless batch-mode
+  (require 'auto-complete-config)
+  (require 'ac-math)                     ;; produces warning (quotation)
+  (require 'yasnippet)                   ;; produces warning (cl-labels)
+)
 
 ;; Version Control
 (when (locate-library "vc")
   (require 'vc))
 
 ;; git
-(when (locate-library "magit")
+(when (and (locate-library "magit") (not batch-mode))
   (require 'magit))
 
-(when (locate-library "git-commit-mode")
+(when (and (locate-library "git-commit-mode") (not batch-mode))
   (require 'git-commit-mode)
   (require 'gitignore-mode)
   (require 'gitconfig-mode)
   (require 'git-rebase-mode))
 
 ;; helm
-(when (locate-library "helm-config")
+(when (and (locate-library "helm-config") (not batch-mode))
   (require 'helm-config)
   (require 'helm-misc)
   (require 'helm-mu)
@@ -149,7 +163,7 @@
   (require 'helm-hacks))
 
 ;; email
-(when (locate-library "mu4e")
+(when (and (locate-library "mu4e") (not batch-mode))
   (require 'mu4e)                      ;; email client
   (require 'org-mu4e)                  ;; org and mu4e interaction
   (require 'abdo-mu4e)                 ;; personal mu4e stuff
@@ -204,14 +218,18 @@
 (require 'vim-modeline)
 (add-to-list 'find-file-hook 'vim-modeline/do)
 
-(require 'tramp)                       ;; Tramp
-;; Tramp uses ssh by default
-(setq tramp-default-method "ssh")
-
+;; Tramp
+(unless batch-mode
+  (require 'tramp)
+  ;; Tramp uses ssh by default
+  (setq tramp-default-method "ssh")
+)
 
 ;; Emacsdaemon stuff
-;; TODO: load only when launching daemon!
-(require 'abdo-emacsdaemon)
+(when daemon-mode
+  (require 'abdo-emacsdaemon)
+)
+
 
 
 ;; File associations
