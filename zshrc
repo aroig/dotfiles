@@ -74,7 +74,9 @@ autoload -U add-zsh-hook
 _ZSH_DIR="$HOME/.zsh"
 if [ -d $_ZSH_DIR ]; then
     for src in $_ZSH_DIR/*.zsh; do
-	    source $src
+        # we admit symlinks, but only source them if thay are not broken
+        src_path=$(readlink -f $src)
+        [ -f "$src_path" ] && source "$src_path"
     done
 fi
 
