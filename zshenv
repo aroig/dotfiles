@@ -245,7 +245,7 @@ if [[ -d $HOME/.terminfo ]]; then
 fi
 
 # cdpath
-export CDPATH=""
+# export CDPATH=""
 
 # The path
 add_to_pathlist_left PATH "/usr/lib/ccache/bin"   # ccache binaries before gcc ones
