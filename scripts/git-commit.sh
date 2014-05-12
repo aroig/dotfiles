@@ -26,5 +26,5 @@ host=$(hostname -s)
 num=$(git status --porcelain | wc -l)
 if [[ $num -ge 1 ]]; then            
     echo "commiting files to '$repo'"            
-    git commit -q -m "auto-commit on $host. $num files"
+    git commit -q -m "auto-commit on $host ($num files)"
 fi
