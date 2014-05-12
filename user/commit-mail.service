@@ -1,7 +1,7 @@
 [Unit]
 Description=commit mail
 
-Conflicts=mail-db.service mu4e.service 
+Conflicts=mail-db.service
 
 [Service]
 Type=oneshot
