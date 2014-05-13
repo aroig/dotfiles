@@ -65,6 +65,7 @@ theme.color_widget_gradient = {
 
 theme.color_widget          = theme.color_green
 theme.color_widget_alert    = theme.color_red
+theme.color_widget_gray     = theme.color_gray
 
 -- }}}
 
@@ -141,10 +142,11 @@ theme.wibox.warning    = "&#xf06a;"
 theme.wibox.locked     = "&#xf023;"
 theme.wibox.unlocked   = "&#xf09c;"
 
-theme.wibox.chat       = "&#xf086;"    -- single  &#xf028;
-
 theme.wibox.downup     = "&#x1f504;"   -- unicode symbol
 theme.wibox.mail       = "&#xf003;"    -- outline &#xf003;  filled &#xf0e0;
+
+theme.wibox.chat       = "&#xf0e5;"    -- single  &#xf028;  multiple  &#xf086;
+theme.wibox.orgmode    = "&#xf022;"
 
 theme.wibox.desktop    = "&#xf108;"
 theme.wibox.laptop     = "&#xf109;"

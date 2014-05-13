@@ -280,6 +280,28 @@ timers.normal:connect_signal("timeout", myw.mail.update)
 
 
 -----------------------------------
+-- Chat                          --
+-----------------------------------
+
+myw.chat = {}
+myw.chat.icon = wibox.widget.textbox()
+
+function myw.chat.update (state)
+    myw.chat.state = state
+    if state == 'alert' then
+        myw.chat.icon:set_markup(wiboxicon('chat', beautiful.color_widget_alert))
+    elseif state == 'online' then
+        myw.chat.icon:set_markup(wiboxicon('chat', beautiful.color_widget))
+    else
+        myw.chat.icon:set_markup("")
+    end
+end
+
+myw.chat.update("offline")
+
+
+
+-----------------------------------
 -- Music                         --
 -----------------------------------
 

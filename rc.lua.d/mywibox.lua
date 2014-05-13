@@ -83,6 +83,8 @@ for s = 1, screen.count() do
    right_layout:add(myw.vol.widget)
    right_layout:add(myw.separator)
 
+   right_layout:add(myw.chat.icon)
+
    if s == 1 then
       right_layout:add(myw.systray)
       right_layout:add(myw.separator)
