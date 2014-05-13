@@ -14,6 +14,7 @@ return {
    pavucontrol               = "pavucontrol",
    qjackctl                  = "qjackctl",
    pachage                   = "pachage",
+   gucharmap                 = "gucharmap",
 
    ["gnome-control-center"]  = "gnome-control-center",
    ["gnome-disks"]           = "gnome-disks",
