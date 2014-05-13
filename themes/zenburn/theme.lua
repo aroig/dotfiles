@@ -14,8 +14,11 @@ theme.confdir = util.getdir("config") .. "/themes/zenburn"
 
 -- {{{ Fonts
 theme.font         = "Lucida Sans 10"
-theme.font_naughty =  "Overlock 12"
-theme.font_symbol  = "Symbola 9"
+theme.font_naughty = "Overlock 12"
+
+--- theme.font_symbol  = "Symbola 9"
+theme.font_symbol  = "FontAwesome, Symbola 9"
+
 theme.font_mono    = "Ubuntu Mono 11"
 theme.font_box     = theme.font_mono
 -- }}}
@@ -115,6 +118,43 @@ theme.mouse_finder_color = theme.color_red
 -- theme.menu_[bg|fg]_[normal|focus]
 -- theme.menu_[border_color|border_width]
 -- }}}
+-- }}}
+
+
+-- {{{ Wibox font icons from Font Awesome
+theme.wibox = {}
+
+theme.wibox.gear       = "&#xf013;"
+theme.wibox.sync       = "&#xf021;"
+theme.wibox.poweroff   = "&#xf011;"
+
+theme.wibox.music      = "&#xf001;"    -- unicode: &#x266b;   -- fontawesome: &#xf001;
+theme.wibox.headphones = "&#xf025;"
+theme.wibox.speaker    = "&#xf028;"
+theme.wibox.mute       = "&#xf026;"
+
+theme.wibox.play       = "&#x23f5;"   -- unassigned unicode: &#x23f5;   fontawesome: &#xf04b;
+theme.wibox.stop       = "&#x23f9;"   -- unassigned unicode: &#x23f9;   fontawesome: &#xf04d;
+theme.wibox.pause      = "&#x23f8;"   -- unassigned unicode: &#x23f8;   fontawesome: &#xf04c;
+
+theme.wibox.warning    = "&#xf06a;"
+theme.wibox.locked     = "&#xf023;"
+theme.wibox.unlocked   = "&#xf09c;"
+
+theme.wibox.chat       = "&#xf086;"    -- single  &#xf028;
+
+theme.wibox.downup     = "&#x1f504;"   -- unicode symbol
+theme.wibox.mail       = "&#xf003;"    -- outline &#xf003;  filled &#xf0e0;
+
+theme.wibox.desktop    = "&#xf108;"
+theme.wibox.laptop     = "&#xf109;"
+
+theme.wibox.cable      = "&#x1f50c;"  -- unicode symbol
+theme.wibox.battery    = "&#x1f50b;"  -- unicode symbol
+
+theme.wibox.clock      = "&#xf017;"
+theme.wibox.calendar   = "&#xf133;"
+
 -- }}}
 
 

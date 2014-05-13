@@ -56,6 +56,34 @@ end
 
 myw = {}
 
+function wiboxicon(name, color)
+
+    if beautiful.wibox[name] == nil then
+        return "nil"
+    end
+
+    local symbol = beautiful.wibox[name]
+
+    if color then
+        return string.format('<span color="%s" font="%s">%s</span>',
+                             color,
+                             beautiful.font_symbol,
+                             symbol)
+
+    else
+        return string.format('<span font="%s">%s</span>',
+                             beautiful.font_symbol,
+                             symbol)
+    end
+end
+
+
+function colortext(text, color)
+    color = color or beautiful.color_widget
+    return string.format('<span color="%s">%s</span>',
+                         color, text)
+end
+
 
 
 -----------------------------------
@@ -66,7 +94,7 @@ myw.spacer = wibox.widget.textbox()
 myw.spacer:set_markup("<span>   </span>")
 
 myw.separator = wibox.widget.textbox()
-myw.separator:set_markup(string.format("<span color='%s'>  |  </span>", beautiful.color_widget))
+myw.separator:set_markup(colortext("  |  "))
 
 
 
@@ -77,8 +105,7 @@ myw.separator:set_markup(string.format("<span color='%s'>  |  </span>", beautifu
 myw.hdw = {}
 
 myw.hdw.icon = wibox.widget.textbox()
-myw.hdw.icon:set_markup(string.format('<span color="%s" font="%s">⚙ </span>',
-                                      beautiful.color_widget, beautiful.font_symbol))
+myw.hdw.icon:set_markup(wiboxicon('gear', beautiful.color_widget) .. " ")
 
 myw.hdw.cpu  = require("abdo.widget.cpu")
 myw.hdw.mem  = require("abdo.widget.mem")
@@ -96,7 +123,7 @@ function myw.hdw.update()
     local args = myw.hdw.cpu(nil)
     if args[1] ~= myw.hdw.cpuval then
         local color = util.gradient(gradcols, 0, 100, args[1])
-        local text = string.format("<span color='%s'>%s%% </span>", color, args[1])
+        local text = colortext(string.format("%s%% ", args[1]), color)
         myw.hdw.cpuval = args[1]
         myw.hdw.cpuwdg:set_markup(text)
     end
@@ -104,7 +131,7 @@ function myw.hdw.update()
     local args = myw.hdw.temp(nil, {"coretemp.0", "core"})
     if args[1] ~= myw.hdw.tempval then
         local color = util.gradient(gradcols, 35, 70, args[1])
-        local text = string.format("<span color='%s'>%sºC </span>", color, args[1])
+        local text = colortext(string.format("%sºC ", args[1]), color)
         myw.hdw.tempval = args[1]
         myw.hdw.tempwdg:set_markup(text)
     end
@@ -112,7 +139,7 @@ function myw.hdw.update()
     local args = myw.hdw.mem(nil)
     if args[1] ~= myw.hdw.memval then
         local color = util.gradient(gradcols, 0, 100, args[1])
-        local text = string.format("<span color='%s'>%s%% </span>", color, args[1])
+        local text = colortext(string.format("%s%% ", args[1]), color)
         myw.hdw.memval = args[1]
         myw.hdw.memwdg:set_markup(text)
     end
@@ -133,8 +160,7 @@ myw.net.dwdg = wibox.widget.textbox()
 myw.net.uwdg = wibox.widget.textbox()
 
 myw.net.icon = wibox.widget.textbox()
-myw.net.icon:set_markup(string.format('<span color="%s" font="%s"> 🔄 </span>',
-                                      beautiful.color_widget, beautiful.font_symbol))
+myw.net.icon:set_markup(" " .. wiboxicon('downup', beautiful.color_widget) .. " ")
 
 myw.net.value = { up=-1, down=-1 }
 
@@ -157,9 +183,9 @@ function myw.net.update()
     end
 
     if up ~= myw.net.value.up or down ~= myw.net.value.down then
-        local uptxt = string.format('<span color="%s">%.0f</span>', beautiful.color_widget, up)
+        local uptxt = colortext(string.format('%.0f', up), beautiful.color_widget)
 
-        local downtxt = string.format('<span color="%s">%.0f</span>', beautiful.color_widget, down)
+        local downtxt = colortext(string.format('%.0f', down), beautiful.color_widget)
 
         myw.net.dwdg:set_markup(downtxt)
         myw.net.uwdg:set_markup(uptxt)
@@ -197,11 +223,9 @@ function myw.mail.update()
         local color = beautiful.color_widget
 
         -- Note: From miscelaneous symbols and pictographs. Not yet standard.
-        local icon_empty = string.format('<span color="%s" weight="bold" font="%s"> 🖂 </span>',
-                                         beautiful.color_widget, beautiful.font_symbol)
+        local icon_empty = wiboxicon('mail', beautiful.color_widget)
 
-        local icon_full = string.format('<span color="%s" weight="bold" font="%s"> 🖂 </span>',
-                                        beautiful.color_widget_alert, beautiful.font_symbol)
+        local icon_full = wiboxicon('mail', beautiful.color_widget_alert)
 
         local icon = icon_empty
         if num == nil then
@@ -216,10 +240,9 @@ function myw.mail.update()
             icon = icon_full
         end
 
-        local text = string.format("<span color='%s'>%s</span>",
-                                   color, tostring(num))
+        local text = colortext(tostring(num), color)
 
-        myw.mail.icon:set_markup(icon)
+        myw.mail.icon:set_markup(' ' .. icon .. ' ')
         myw.mail.inwdg:set_markup(text)
         myw.mail.num_inbox = num
     end
@@ -237,8 +260,7 @@ function myw.mail.update()
             color = beautiful.color_widget_alert
         end
 
-        local text = string.format("<span color='%s'>%s</span>",
-                                   color, tostring(num))
+        local text = colortext(tostring(num), color)
 
         myw.mail.outwdg:set_markup(text)
         myw.mail.num_queue = num
@@ -266,8 +288,7 @@ myw.mpd.src  = require("abdo.widget.mpd")
 myw.mpd.path = os.getenv("AB2_MUSIC_DIR")
 
 myw.mpd.icon = wibox.widget.textbox()
-myw.mpd.icon:set_markup(string.format("<span color='%s' weight='bold' font='%s'>♫ </span>",
-                                      beautiful.color_widget, beautiful.font_symbol))
+myw.mpd.icon:set_markup(wiboxicon('music', beautiful.color_widget) .. ' ')
 
 
 myw.mpd.stateicon = wibox.widget.textbox()
@@ -292,24 +313,12 @@ end
 function myw.mpd.update()
     local args = myw.mpd.src(nil)
 
-    -- Note: From miscelaneous technical. Not yet standard.
-    local play_icon = string.format("<span color='%s' weight='bold' font='%s'>⏵</span>",
-                                    beautiful.color_widget_alert, beautiful.font_symbol)
-
-    local stop_icon = string.format("<span color='%s' weight='bold' font='%s'>⏹</span>",
-                                    beautiful.color_widget, beautiful.font_symbol)
-
-    local pause_icon = string.format("<span color='%s' weight='bold' font='%s'>⏸</span>",
-                                     beautiful.color_widget, beautiful.font_symbol)
-
-    local icon = stop_icon
-
     if args['{state}'] == 'playing' then
-        icon = play_icon
-    elseif args['{state}'] == 'stopped' then
-        icon = stop_icon
+        icon = wiboxicon('play', beautiful.color_widget_alert)
     elseif args['{state}'] == 'paused' then
-        icon = pause_icon
+        icon = wiboxicon('pause', beautiful.color_widget)
+    else
+        icon = wiboxicon('stop', beautiful.color_widget)
     end
 
     if myw.mpd.current['{file}'] ~= args['{file}'] or
@@ -319,7 +328,7 @@ function myw.mpd.update()
         end
 
         if myw.mpd.current['{state}'] ~= args['{state}'] then
-            myw.mpd.stateicon:set_markup(icon)
+            myw.mpd.stateicon:set_markup(' ' .. icon)
         end
     end
 
@@ -341,34 +350,26 @@ myw.vol = {}
 myw.vol.src = require("abdo.widget.pvol")
 
 myw.vol.icon = wibox.widget.textbox()
-
-myw.vol.headphones_icon = string.format("<span color='%s' font='%s'>🎧 </span>",
-                                        beautiful.color_widget, beautiful.font_symbol)
-
-myw.vol.mute_icon = string.format("<span color='%s' font='%s'>🔇 </span>",
-                                  beautiful.color_widget, beautiful.font_symbol)
-
-myw.vol.speaker_icon = string.format("<span color='%s' font='%s'>🔊 </span>",
-                                     beautiful.color_widget, beautiful.font_symbol)
-
 myw.vol.widget = wibox.widget.textbox()
 myw.vol.value = -1
+myw.vol.port_value = -1
 
 function myw.vol.update()
     local args = myw.vol.src(nil)
-
+    local icon
     if args.port ~= myw.vol.port_value then
         if string.match(args.port, 'headphones') then
-            myw.vol.icon:set_markup(myw.vol.headphones_icon)
+            icon = wiboxicon("headphones", beautiful.color_widget)
         else
-            myw.vol.icon:set_markup(myw.vol.speaker_icon)
+            icon = wiboxicon("speaker", beautiful.color_widget)
         end
+        myw.vol.icon:set_markup(icon .. ' ')
         myw.vol.port_value = args.port
     end
 
     if args.vol ~= myw.vol.vol_value then
         local color = util.gradient(gradcols, 0, 100, args.vol)
-        local text = string.format("<span color='%s'>%s%%</span>", color, args.vol)
+        local text = colortext(string.format("%s%%", args.vol), color)
         myw.vol.widget:set_markup(text)
         myw.vol.vol_value = args.vol
     end
@@ -409,7 +410,7 @@ function myw.bat.update()
             color_rate = util.gradient(gradcols, 7, 30, args.rate)
         end
 
-        local text = string.format("<span color='%s'>%4.1fW</span>", color_rate, args.rate)
+        local text = colortext(string.format("%4.1fW", args.rate), color_rate)
         myw.bat.rtwidget:set_markup(text)
     end
 
@@ -418,11 +419,9 @@ function myw.bat.update()
         local text_icon = ""
 
         if args.state == 'charging' or args.state == 'charged' then
-            text_icon = string.format('<span color="%s" weight="bold" font="%s">🔌 </span>',
-                                            beautiful.color_widget, beautiful.font_symbol)
+            text_icon = wiboxicon("cable", beautiful.color_widget)
         else
-            text_icon = string.format('<span color="%s" weight="bold" font="%s">🔋 </span>',
-                                            beautiful.color_widget, beautiful.font_symbol)
+            text_icon = wiboxicon("battery", beautiful.color_widget)
         end
 
         local battery_state = {
@@ -433,11 +432,8 @@ function myw.bat.update()
             discharging = "-"
         }
 
-        local text_state = string.format("<span color='%s' font='%s'>%s</span>",
-                                         color_percent, beautiful.font_symbol, battery_state[args.state])
-
-        local text_percent = string.format("<span color='%s'>%s%%</span>",
-                                           color_percent, args.percent)
+        local text_state = colortext(battery_state[args.state], color_percent)
+        local text_percent = colortext(string.format("%s%%", args.percent), color_percent)
 
         myw.bat.pcwidget:set_markup(text_state .. text_percent)
         myw.bat.icon:set_markup(text_icon)
@@ -480,20 +476,18 @@ function myw.sys.update()
     local sync_state = myw.sys.sync(nil, {os.getenv("XDG_RUNTIME_DIR") .. "/synced", false})
 
     if priv_state then
-        myw.sys.privwdg:set_markup(string.format("<span color='%s' font='%s'> 🔒 </span>",
-                                                 beautiful.color_widget, beautiful.font_symbol))
+        myw.sys.privwdg:set_markup(wiboxicon("unlocked", beautiful.color_widget))
     else
-        myw.sys.privwdg:set_markup(string.format("<span color='%s' font='%s'> 🔒 </span>",
-                                                 beautiful.color_widget_alert, beautiful.font_symbol))
+        myw.sys.privwdg:set_markup(wiboxicon("locked", beautiful.color_widget_alert))
     end
 
+    local icon
     if sync_state then
-        myw.sys.syncwdg:set_markup(string.format("<span color='%s' font='%s'> ☢ </span>",
-                                                 beautiful.color_widget, beautiful.font_symbol))
+        icon = wiboxicon('sync', beautiful.color_widget)
     else
-        myw.sys.syncwdg:set_markup(string.format("<span color='%s' font='%s'> ☢ </span>",
-                                                 beautiful.color_widget_alert, beautiful.font_symbol))
+        icon = wiboxicon('sync', beautiful.color_widget_alert)
     end
+    myw.sys.syncwdg:set_markup(icon .. ' ')
 end
 
 timers.normal:connect_signal("timeout", myw.sys.update)
@@ -505,8 +499,7 @@ timers.normal:connect_signal("timeout", myw.sys.update)
 
 myw.clock = {}
 myw.clock.icon = wibox.widget.textbox()
-myw.clock.icon:set_markup(string.format("<span color='%s' font='%s'>📆 </span>",
-                                        beautiful.color_widget, beautiful.font_symbol))
+myw.clock.icon:set_markup(wiboxicon("calendar", beautiful.color_widget) .. ' ')
 
 myw.clock.clockwdg = awful.widget.textclock(string.format('<span color="%s">%%a %%d %%b %%H:%%M </span>',
                                                           beautiful.color_widget))
