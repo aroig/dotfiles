@@ -515,13 +515,14 @@ end
 timers.normal:connect_signal("timeout", myw.sys.update)
 
 
+
 -----------------------------------
 -- Clock                         --
 -----------------------------------
 
 myw.clock = {}
 myw.clock.icon = wibox.widget.textbox()
-myw.clock.icon:set_markup(wiboxicon("calendar", beautiful.color_widget) .. ' ')
+myw.clock.icon:set_markup(wiboxicon("clock", beautiful.color_widget) .. ' ')
 
 myw.clock.clockwdg = awful.widget.textclock(string.format('<span color="%s">%%a %%d %%b %%H:%%M </span>',
                                                           beautiful.color_widget))
@@ -532,6 +533,7 @@ myw.clock.clockwdg = awful.widget.textclock(string.format('<span color="%s">%%a 
 -----------------------------------
 
 myw.systray = wibox.widget.systray()
+
 
 
 -----------------------------------

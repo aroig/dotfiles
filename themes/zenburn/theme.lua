@@ -129,7 +129,7 @@ theme.wibox.gear       = "&#xf013;"
 theme.wibox.sync       = "&#xf021;"
 theme.wibox.poweroff   = "&#xf011;"
 
-theme.wibox.music      = "&#xf001;"    -- unicode: &#x266b;   -- fontawesome: &#xf001;
+theme.wibox.music      = "&#x266b;"   -- unicode: &#x266b;   -- fontawesome: &#xf001;
 theme.wibox.headphones = "&#xf025;"
 theme.wibox.speaker    = "&#xf028;"
 theme.wibox.mute       = "&#xf026;"
