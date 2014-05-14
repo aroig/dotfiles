@@ -380,13 +380,16 @@ function myw.vol.update()
     local args = myw.vol.src(nil)
     local icon
     if args.port ~= myw.vol.port_value then
-        if string.match(args.port, 'headphones') then
+        if args.port and string.match(args.port, 'headphones') then
             icon = wiboxicon("headphones", beautiful.color_widget)
         else
             icon = wiboxicon("speaker", beautiful.color_widget)
         end
+
         myw.vol.icon:set_markup(icon .. ' ')
-        myw.vol.port_value = args.port
+        if args.port then
+            myw.vol.port_value = args.port
+        end
     end
 
     if args.vol ~= myw.vol.vol_value then
