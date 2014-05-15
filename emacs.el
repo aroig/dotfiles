@@ -219,8 +219,8 @@
   (require 'abdo-keybindings)            ;; My personal keybindings
 )
 
-;; Unsure if I need it anymore
-;; (require 'cl)                          ;; Common lisp
+;; Common lisp
+(require 'cl)
 
 ;; parse vim modeline
 (require 'vim-modeline)

@@ -1,5 +1,6 @@
 (provide 'abdo-mu4e)
 
+(require 'cl)
 
 ;; settings
 ;; -----------------------------------------------
@@ -61,10 +62,6 @@
            ("/Drafts"      . ?d)
            ("/Trash"       . ?t)
            ("/All Mail"    . ?a)))
-
-  ;; sorting field and order
-  (setq mu4e~headers-sort-field :date)
-  (setq mu4e~headers-sort-direction 'ascending)
 
   ;; Bookmarks
   (setq mu4e-bookmarks
@@ -157,17 +154,15 @@
 )
 
 
-
-
-;; Custom actions
-;; -----------------------------------------------
-
 (defun abdo-mu4e ()
   (interactive)
   (abdo-mu4e-things)
   (mu4e)
 )
 
+
+;; Custom actions
+;; -----------------------------------------------
 
 (defun abdo-mu4e-retag-message (msg)
   (let ((retag (read-string "Tags: "))
@@ -255,26 +250,30 @@
 
 
 (defun mu4e~view-make-urls-clickable ()
-  "Turn references at the end into clickable urls that can be
-   opened using `mu4e-view-go-to-url'. Monkey patched from
-   mu4e-view.el so it only propertizes References section."
+  "Turn things that look like URLs into clickable things.
+   Also number them so they can be opened using `mu4e-view-go-to-url'.
+   Monkey patched from mu4e-view.el so it only propertizes
+   References section."
   (let ((num 0))
     (save-excursion
       (setq mu4e~view-link-map ;; buffer local
 	(make-hash-table :size 32 :weakness nil))
       (re-search-forward "^References$" nil t)
-;      (goto-char (point-min))
-      (while (re-search-forward mu4e~view-url-regexp nil t)
-	(let ((url (match-string 0))
-	       (map (make-sparse-keymap)))
-	  (define-key map [mouse-1] (mu4e~view-browse-url-func url))
-	  (define-key map [?\M-\r] (mu4e~view-browse-url-func url))
-      (setq num (+ num 1))
-	  (puthash num url mu4e~view-link-map)
-	  (add-text-properties 0 (length url)
-	    `(face mu4e-view-link-face
+      ; (goto-char (point-min))
+      (while (re-search-forward mu4e-view-url-regexp nil t)
+	(let* ((url (match-string 0))
+	       (ov (make-overlay (match-beginning 0) (match-end 0))))
+	  (puthash (incf num) url mu4e~view-link-map)
+	  (add-text-properties
+	   (match-beginning 0)
+	   (match-end 0)
+	    `(face mu4e-link-face
 	       mouse-face highlight
-	       keymap ,map
+	       mu4e-url ,url
+	       keymap ,mu4e-view-clickable-urls-keymap
 	       help-echo
-	       ("[mouse-1] or [M-RET] to open the link")) url)
-	  (replace-match (propertize url 'face 'mu4e-view-url-number-face)))))))
+	       "[mouse-1] or [M-RET] to open the link"))
+	  (overlay-put ov 'after-string
+		       (propertize (format "[%d]" num)
+				   'face 'mu4e-url-number-face))
+	  )))))
