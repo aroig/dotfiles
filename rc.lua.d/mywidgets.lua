@@ -491,14 +491,14 @@ timers.fast:connect_signal("timeout", myw.bat.update)
 -----------------------------------
 
 myw.sys = {}
-myw.sys.sync = require("abdo.widget.fileval")
+myw.sys.sync = require("abdo.widget.sdunit")
 myw.sys.priv = require("abdo.widget.filex")
 myw.sys.syncwdg = wibox.widget.textbox()
 myw.sys.privwdg = wibox.widget.textbox()
 
 function myw.sys.update()
-    local priv_state = myw.sys.priv(nil, {os.getenv("HOME") .. "/priv/README"})
-    local sync_state = myw.sys.sync(nil, {os.getenv("XDG_RUNTIME_DIR") .. "/synced", false})
+    local priv_state = myw.sys.priv(nil, {os.getenv("AB2_PRIV_DIR") .. "/README"})
+    local sync_state = myw.sys.sync(nil, {"user", "initial-synced-all.service"})
 
     if priv_state then
         myw.sys.privwdg:set_markup(wiboxicon("unlocked", beautiful.color_widget))
