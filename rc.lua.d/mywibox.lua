@@ -35,23 +35,27 @@ for s = 1, screen.count() do
 
    left_layout:add(myw.layoutbox[s])
    left_layout:add(myw.taglist[s])
+
    left_layout:add(myw.spacer)
+
    left_layout:add(myw.promptbox[s])
 
 
    -- Right widgets
    local right_layout = wibox.layout.fixed.horizontal()
 
-   right_layout:add(myw.separator)
-
    right_layout:add(myw.sys.syncwdg)
    right_layout:add(myw.sys.privwdg)
 
-   right_layout:add(myw.spacer)
+   right_layout:add(myw.separator)
 
-   right_layout:add(myw.hdw.icon)
+   right_layout:add(myw.hdw.cpuicon)
    right_layout:add(myw.hdw.cpuwdg)
    right_layout:add(myw.hdw.tempwdg)
+
+   right_layout:add(myw.spacer)
+
+   right_layout:add(myw.hdw.memicon)
    right_layout:add(myw.hdw.memwdg)
 
    right_layout:add(myw.separator)

@@ -91,10 +91,10 @@ end
 -----------------------------------
 
 myw.spacer = wibox.widget.textbox()
-myw.spacer:set_markup("<span>   </span>")
+myw.spacer:set_markup(colortext("  "))
 
 myw.separator = wibox.widget.textbox()
-myw.separator:set_markup(colortext("  |  "))
+myw.separator:set_markup(colortext(" |  "))
 
 
 
@@ -104,8 +104,11 @@ myw.separator:set_markup(colortext("  |  "))
 
 myw.hdw = {}
 
-myw.hdw.icon = wibox.widget.textbox()
-myw.hdw.icon:set_markup(wiboxicon('gear', beautiful.color_widget) .. " ")
+myw.hdw.cpuicon = wibox.widget.textbox()
+myw.hdw.cpuicon:set_markup(wiboxicon('cpu', beautiful.color_widget) .. " ")
+
+myw.hdw.memicon = wibox.widget.textbox()
+myw.hdw.memicon:set_markup(wiboxicon('memory', beautiful.color_widget) .. " ")
 
 myw.hdw.cpu  = require("abdo.widget.cpu")
 myw.hdw.mem  = require("abdo.widget.mem")
@@ -160,7 +163,7 @@ myw.net.dwdg = wibox.widget.textbox()
 myw.net.uwdg = wibox.widget.textbox()
 
 myw.net.icon = wibox.widget.textbox()
-myw.net.icon:set_markup(" " .. wiboxicon('downup', beautiful.color_widget) .. " ")
+myw.net.icon:set_markup(wiboxicon('downup', beautiful.color_widget) .. " ")
 
 myw.net.value = { up=-1, down=-1 }
 
@@ -187,8 +190,8 @@ function myw.net.update()
 
         local downtxt = colortext(string.format('%.0f', down), beautiful.color_widget)
 
-        myw.net.dwdg:set_markup(downtxt)
-        myw.net.uwdg:set_markup(uptxt)
+        myw.net.dwdg:set_markup(downtxt .. ' ')
+        myw.net.uwdg:set_markup(uptxt .. ' ')
     end
     myw.net.value.up = up
     myw.net.value.down = down
@@ -242,8 +245,8 @@ function myw.mail.update()
 
         local text = colortext(tostring(num), color)
 
-        myw.mail.icon:set_markup(' ' .. icon .. ' ')
-        myw.mail.inwdg:set_markup(text)
+        myw.mail.icon:set_markup(icon .. ' ')
+        myw.mail.inwdg:set_markup(text .. ' ')
         myw.mail.num_inbox = num
     end
 
@@ -262,7 +265,7 @@ function myw.mail.update()
 
         local text = colortext(tostring(num), color)
 
-        myw.mail.outwdg:set_markup(text)
+        myw.mail.outwdg:set_markup(text .. ' ')
         myw.mail.num_queue = num
     end
 
@@ -344,13 +347,13 @@ function myw.mpd.update()
     end
 
     if myw.mpd.current['{file}'] ~= args['{file}'] or
-    myw.mpd.current['{state}'] ~= args['{state}'] then
+       myw.mpd.current['{state}'] ~= args['{state}'] then
         if args['{state}'] == "playing" then
             myw.mpd.notify_song(args)
         end
 
         if myw.mpd.current['{state}'] ~= args['{state}'] then
-            myw.mpd.stateicon:set_markup(' ' .. icon)
+            myw.mpd.stateicon:set_markup(icon .. ' ')
         end
     end
 
@@ -362,6 +365,7 @@ myw.mpd.icon:buttons(awful.util.table.join( awful.button({ }, 1,
 myw.mpd.stateicon:buttons(myw.mpd.icon:buttons())
 
 timers.fast:connect_signal("timeout", myw.mpd.update)
+
 
 
 -----------------------------------
@@ -394,7 +398,7 @@ function myw.vol.update()
 
     if args.vol ~= myw.vol.vol_value then
         local color = util.gradient(gradcols, 0, 100, args.vol)
-        local text = colortext(string.format("%s%%", args.vol), color)
+        local text = colortext(string.format("%s%% ", args.vol), color)
         myw.vol.widget:set_markup(text)
         myw.vol.vol_value = args.vol
     end
@@ -405,6 +409,7 @@ myw.vol.widget:buttons(awful.util.table.join(awful.button({ }, 1,
 myw.vol.icon:buttons(myw.vol.widget:buttons())
 
 timers.fast:connect_signal("timeout", myw.vol.update)
+
 
 
 -----------------------------------
@@ -486,6 +491,7 @@ myw.bat.icon:buttons(myw.bat.rtwidget:buttons())
 timers.fast:connect_signal("timeout", myw.bat.update)
 
 
+
 -----------------------------------
 -- System                        --
 -----------------------------------
@@ -500,13 +506,14 @@ function myw.sys.update()
     local priv_state = myw.sys.priv(nil, {os.getenv("AB2_PRIV_DIR") .. "/README"})
     local sync_state = myw.sys.sync(nil, {"user", "initial-synced-all.service"})
 
-    if priv_state then
-        myw.sys.privwdg:set_markup(wiboxicon("unlocked", beautiful.color_widget))
-    else
-        myw.sys.privwdg:set_markup(wiboxicon("locked", beautiful.color_widget_alert))
-    end
-
     local icon
+    if priv_state then
+        icon = wiboxicon("unlocked", beautiful.color_widget)
+    else
+        icon = wiboxicon("locked", beautiful.color_widget_alert)
+    end
+    myw.sys.privwdg:set_markup(icon .. ' ')
+
     if sync_state then
         icon = wiboxicon('sync', beautiful.color_widget)
     else
@@ -559,6 +566,7 @@ for s = 1, screen.count() do
 end
 
 
+
 -----------------------------------
 -- Tasklist                      --
 -----------------------------------
@@ -609,6 +617,7 @@ for s = 1, screen.count() do
 end
 
 
+
 -----------------------------------
 -- Layout box                    --
 -----------------------------------
@@ -623,6 +632,7 @@ for s = 1, screen.count() do
                            awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
  end
+
 
 
 -----------------------------------

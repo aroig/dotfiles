@@ -125,11 +125,13 @@ theme.mouse_finder_color = theme.color_red
 -- {{{ Wibox font icons from Font Awesome
 theme.wibox = {}
 
-theme.wibox.gear       = "&#xf013;"
+theme.wibox.memory     = "&#xf145;"   -- hdd: &#xf0a0;  ticket: &#xf145;
+theme.wibox.cpu        = "&#xf013;"
 theme.wibox.sync       = "&#xf021;"
 theme.wibox.poweroff   = "&#xf011;"
 
-theme.wibox.music      = "&#x266b;"   -- unicode: &#x266b;   -- fontawesome: &#xf001;
+theme.wibox.music      = "&#xf001;"   -- unicode: &#x266b;   -- fontawesome: &#xf001;
+
 theme.wibox.headphones = "&#xf025;"
 theme.wibox.speaker    = "&#xf028;"
 theme.wibox.mute       = "&#xf026;"
