@@ -41,21 +41,16 @@ function systemd.run (cmd, name, scope, slice)
                                                               sdcmd,
                                                               util.shell_escape(cmd)))
     else
-
+        sdcmd = sdcmd .. cmd
         -- launch systemd service and capture the service name
         -- TODO: capture stderr to get the pid
-        local f = io.popen(sdcmd, "r")
+        local f = io.popen(string.format("%s 2>&1", sdcmd), "r")
         if f ~= nil then
             local raw = f:read("*all")
-            local unit = raw:match("(run%-[0-9]*%.service)*")
-
-            -- naughty.notify({title="sdexec", text=tostring(raw)})
+            local unit = string.match(raw, "run%-[0-9]*%.service")
             f:close()
+            return unit
         end
-    end
-
-    if pid then return tonumber(pid)
-    else        return nil
     end
 end
 

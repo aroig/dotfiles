@@ -223,7 +223,7 @@ function run(name, opts)
 
     -- prepare the function that executes cmd
     if mode == 'sdrun' then
-        exec_cmd = function() systemd.run(cmd, name, true, 'apps') end
+        exec_cmd = function() systemd.run(cmd, name, false, 'apps') end
 
     elseif mode == 'sdstart' then
         exec_cmd = function() systemd.start(cmd) end
