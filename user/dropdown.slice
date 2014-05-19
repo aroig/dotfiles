@@ -1,0 +1,5 @@
+[Unit]
+Description=dropdown applications slice
+
+Requisite=desktop.target
+After=desktop.target
