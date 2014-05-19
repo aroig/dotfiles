@@ -137,5 +137,3 @@ dofile(cfgdir .. "/rc.lua.d/mymenu.lua")      -- Menus
 dofile(cfgdir .. "/rc.lua.d/globalkeys.lua")  -- Globak keys
 dofile(cfgdir .. "/rc.lua.d/client.lua")      -- Client rules
 dofile(cfgdir .. "/rc.lua.d/signals.lua")     -- Signals
-
-dofile(cfgdir .. "/rc.lua.d/autoload.lua")    -- Autoload
