@@ -17,7 +17,8 @@ local systemd = {}
 
 -- Execute an external program and connect the output to systemd journal
 function systemd.exec (cmd, name)
-    awful.util.spawn_with_shell(cmd .. string.format(' 2>&1 | systemd-cat -t %s', name))
+    local pid = awful.util.spawn_with_shell(cmd .. string.format(' 2>&1 | systemd-cat -t %s', name))
+    return pid
 end
 
 
@@ -36,9 +37,9 @@ function systemd.run (cmd, name, scope, slice)
         end
 
         -- do not catch stdout. The process does NOT end immediately
-        awful.util.spawn_with_shell(string.format('%s sh -c %s &> /dev/null',
-                                                  sdcmd,
-                                                  util.shell_escape(cmd)))
+        local pid = awful.util.spawn_with_shell(string.format('%s sh -c %s &> /dev/null',
+                                                              sdcmd,
+                                                              util.shell_escape(cmd)))
     else
 
         -- launch systemd service and capture the service name
@@ -46,7 +47,7 @@ function systemd.run (cmd, name, scope, slice)
         local f = io.popen(sdcmd, "r")
         if f ~= nil then
             local raw = f:read("*all")
-            local pid = raw:gsub(".*run%-([0-9]*)%.service.*", "%1")
+            local unit = raw:match("(run%-[0-9]*%.service)*")
 
             -- naughty.notify({title="sdexec", text=tostring(raw)})
             f:close()
@@ -87,14 +88,27 @@ function systemd.start (unit)
                           util.shell_escape(startunit))
 
     awful.util.spawn_with_shell(shcmd)
+    return startunit
 end
 
 
 -- get cgroup from pid
-function systemd.cgroup (pid)
-    local f = io.open(string.format("/proc/%s/cgroup", tostring(pid)), 'rb')
-    local cgroup = string.match(f:read("*all"), "systemd:(.*)$")
-    f:close()
+function systemd.cgroup (s)
+    s = tostring(s)
+    local cgroup = nil
+    if string.match(s, '^[0-9]*$') then
+        local f = io.open(string.format("/proc/%s/cgroup", tostring(s)), 'rb')
+        if f then
+            cgroup = string.match(f:read("*all"), "systemd:(.*)$")
+            f:close()
+        end
+    else
+        local f = io.popen(string.format("systemctl --user show -p ControlGroup %s", s), 'r')
+        if f then
+            cgroup = string.match(f:read("*all"), "^ControlGroup=(.*)$")
+            f:close()
+        end
+    end
     return cgroup
 end
 
