@@ -256,6 +256,9 @@
 (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
+;; zsh
+(add-to-list 'auto-mode-alist '("\\.zsh$" . sh-mode))
+
 ;; vala
 (add-to-list 'auto-mode-alist '("\\.vala$" . vala-mode))
 
