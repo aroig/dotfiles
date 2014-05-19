@@ -2,14 +2,18 @@ require("apps")
 
 return {
    -- systemd units
-   dwb                       = "dwb.service",
+   dwb                       = "dwb@.service",
+   chromium                  = "chromium@.service",
+   thunar                    = "thunar@.service",
+   termite                   = "termite@.service",
+   emacsclient               = "emacsclient@.service",
+
    org                       = "orgmode.service",
    calibre                   = "calibre.service",
    mu4e                      = "mu4e.service",
    chat                      = "chat.service",
 
 
-   chromium                  = "chromium",
    firefox                   = "firefox",
    deluge                    = "deluge-gtk",
    amule                     = "amulegui",
@@ -41,7 +45,6 @@ return {
    ghci                      = apps.termcmd("ghci", "ghci"),
 
    music                     = apps.music,
-   emacs                     = apps.editor,
    xournal                   = "xournal",
    libreoffice               = "libreoffice",
    gcstar                    = "gcstar",
@@ -66,8 +69,6 @@ return {
    puddletag                 = "puddletag",
    brasero                   = "brasero",
 
-   thunar                    = "thunar",
-   nautilus                  = "nautilus",
    qtcreator                 = "qtcreator",
 
    -- system state
