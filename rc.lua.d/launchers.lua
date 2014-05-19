@@ -20,6 +20,7 @@ local dropdown  = require("abdo.dropdown")         -- dropdown clients
 local luaeval   = require("abdo.prompt.luaeval")   -- evaluation of lua code
 local promptl   = require("abdo.prompt.list")      -- user choice from a list
 local idoprompt = require("abdo.prompt.idoprompt")
+local systemd   = require("abdo.systemd")
 
 local cmd_list_file = awful.util.getdir("config") .. "/lists/cmd-list.lua"
 local doc_list_file = awful.util.getdir("config") .. "/lists/doc-list.lua"
@@ -53,113 +54,40 @@ end
 
 
 -----------------------------------
--- Systemd stuff                 --
------------------------------------
-
--- Execute an external program and connect the output to systemd journal
-function sdexec (cmd, name)
-    awful.util.spawn_with_shell(cmd .. string.format(' 2>&1 | systemd-cat -t %s', name))
-end
-
--- Execute an external program as a systemd scope or service
-function sdrun (cmd, name, scope, slice)
-    local sdcmd = "systemd-run --user "
-    if scope then sdcmd = sdcmd .. "--scope " end
-    if slice then sdcmd = sdcmd .. string.format("--slice=\"%s\" ", slice) end
-    if name  then sdcmd = sdcmd .. string.format("--description=\"%s\" ", name) end
-
-    local pid = nil
-    if scope then
-        -- capture output to journal
-        if name then cmd = string.format('%s 2>&1 | systemd-cat -t \"%s\"', cmd, name)
-        else         cmd = string.format('%s &> /dev/null', cmd)
-        end
-
-        -- do not catch stdout. The process does NOT end immediately
-        awful.util.spawn_with_shell(string.format('%s sh -c %s &> /dev/null',
-                                                  sdcmd,
-                                                  util.shell_escape(cmd)))
-    else
-
-        -- launch systemd service and capture the service name
-        -- TODO: capture stderr to get the pid
-        local f = io.popen(sdcmd, "r")
-        if f ~= nil then
-            local raw = f:read("*all")
-            local pid = raw:gsub(".*run%-([0-9]*)%.service.*", "%1")
-
-            -- naughty.notify({title="sdexec", text=tostring(raw)})
-            f:close()
-        end
-    end
-
-    if pid then return tonumber(pid)
-    else        return nil
-    end
-end
-
-
-function sd_isactive(unit)
-    local cmd = string.format("systemctl --user -q is-active %s",
-                              util.shell_escape(unit))
-    return os.execute(cmd)
-end
-
-
--- start a systemd unit. If unit is an unspecified instance of an @ unit
--- instantiate it as the first nonexistent instance it finds!
-function sdstart (unit)
-    local shcmd
-    local startunit=unit
-    if string.match(unit, '.*@%.service') then
-        for i=0,100 do
-            local newunit = string.gsub(unit, '@%.',
-                                        string.format('@%d.', i))
-
-            if not sd_isactive(newunit) then
-                startunit = newunit
-                break
-            end
-        end
-    end
-
-    shcmd = string.format('systemctl --user start %s',
-                          util.shell_escape(startunit))
-
-    awful.util.spawn_with_shell(shcmd)
-end
-
-
-
------------------------------------
 -- Dropdown apps on the top      --
 -----------------------------------
 
-local dropdown_geometry = {vert="top", horiz="center", width=1, height=0.4}
+local ddgeometry = {
+    top   = { vert="top",    horiz="center", width=1.0, height=0.4 },
+    left  = { vert="center", horiz="left",   width=0.6, height=1.0 },
+    right = { vert="center", horiz="right",  width=0.6, height=1.0 },
+    full  = { vert="center", horiz="center", width=1.0, height=1.0 },
+}
+
 
 ddclient.terminal = dropdown.new("terminal",
                                  apps.termcmd(nil, "dropdown-terminal"),
-                                 dropdown_geometry)
+                                 ddgeometry['top'])
 
 ddclient.ranger   = dropdown.new("ranger",
                                  apps.termcmd("ranger", "dropdown-ranger"),
-                                 dropdown_geometry)
+                                 ddgeometry['top'])
 
 ddclient.sage     = dropdown.new("sage",
                                  apps.termcmd("sage", "dropdown-sage"),
-                                 dropdown_geometry)
+                                 ddgeometry['top'])
 
 ddclient.octave   = dropdown.new("octave",
                                  apps.termcmd("octave", "dropdown-octave"),
-                                 dropdown_geometry)
+                                 ddgeometry['top'])
 
 ddclient.notes    = dropdown.new("notes",
                                  apps.notes,
-                                 dropdown_geometry)
+                                 ddgeometry['top'])
 
 ddclient.syslog   = dropdown.new("syslog",
                                  apps.termcmd(apps.syslog, "dropdown-syslog"),
-                                 dropdown_geometry)
+                                 ddgeometry['top'])
 
 
 
@@ -295,10 +223,10 @@ function run(name, opts)
 
     -- prepare the function that executes cmd
     if mode == 'sdrun' then
-        exec_cmd = function() sdrun(cmd, name, true, 'apps') end
+        exec_cmd = function() systemd.run(cmd, name, true, 'apps') end
 
     elseif mode == 'sdstart' then
-        exec_cmd = function() sdstart(cmd) end
+        exec_cmd = function() systemd.start(cmd) end
 
     elseif mode == 'shrun' then
         exec_cmd = function () shexec(cmd) end

@@ -40,8 +40,6 @@ local capi = {
 
 local awful   = awful
 local naughty = naughty
-local util    = require("abdo.util")
-
 
 local dropdown = { mt = {}, data = {} }
 
