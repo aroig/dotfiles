@@ -50,11 +50,6 @@ function shexec (cmd)
     awful.util.spawn_with_shell(cmd)
 end
 
--- Ask for confirmation and execute cmd
-function askexec (prmt, cmd)
-    prompt.ask_run(prmt, cmd)
-end
-
 
 
 -----------------------------------
@@ -395,16 +390,4 @@ end
 
 function prompt.lua()
     luaeval.run(myw.promptbox[mouse.screen].widget)
-end
-
-
-function prompt.ask_run(prompt, cmd)
-    opts = {
-        yes = cmd,
-        no = "true",
-    }
-
-    promptl.run(myw.promptbox[mouse.screen].widget,
-                string.format("%s? ", prompt),
-                shexec, opts, nil)
 end
