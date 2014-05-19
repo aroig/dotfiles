@@ -6,7 +6,25 @@
 
 local os = os
 
+local util = require("abdo.util")
+
 local apps = {}
+
+-- run cmd inside a terminal
+function apps.termcmd (cmd, title)
+    local shcmd = apps.terminal
+
+    if title then shcmd = shcmd .. string.format(" -t %s", util.shell_escape(title)) end
+    if cmd then   shcmd = shcmd .. string.format(" -e %s", util.shell_escape(cmd))   end
+
+    return shcmd
+end
+
+-- start a systemd unit
+function apps.sdcmd (unit)
+    return string.format("systemctl --user start %s", unit)
+end
+
 
 -- Apps from the environment
 apps.terminal            = os.getenv("TERMCMD")     or "xterm"
@@ -20,10 +38,10 @@ apps.docbrowser          = apps.browser .. " -n"
 apps.secondbrowser       = "chromium"
 apps.pdfviewer           = "zathura"
 
-apps.dictionary          = "systemctl --user start goldendict.service"
-apps.music               = "systemctl --user start gmpc.service"
-apps.library             = "systemctl --user start calibre.service"
-apps.xournal             = "systemctl --user start xournal.service"
+apps.dictionary          = apps.sdcmd("goldendict.service")
+apps.music               = apps.sdcmd("gmpc.service")
+apps.library             = apps.sdcmd("calibre.service")
+apps.xournal             = apps.sdcmd("xournal.service")
 
 -- Logging
 apps.syslog              = "sudo journalctl -n10 -f"
@@ -32,19 +50,9 @@ apps.syslog              = "sudo journalctl -n10 -f"
 apps.print               = "scrot -e 'mv $f ~/down/'"
 
 -- Emacs stuff
-apps.orgmode             = "systemctl --user start orgmode.service"
-apps.mail                = "systemctl --user start mu4e.service"
-apps.chat                = "systemctl --user start chat.service"
-apps.notes               = "systemctl --user start notes.service"
-
--- System stuff
-local cfgdir = awful.util.getdir("config")
-
-apps.quit_cmd            = "systemctl --user start quit-wm.target"
-apps.lock_cmd            = "systemctl --user start lock.target"
-apps.suspend_cmd         = "systemctl --user start suspend.target"
-apps.poweroff_cmd        = "systemctl --user start poweroff.target"
-apps.reboot_cmd          = "systemctl --user start reboot.target"
-
+apps.orgmode             = apps.sdcmd("orgmode.service")
+apps.mail                = apps.sdcmd("mu4e.service")
+apps.chat                = apps.sdcmd("chat.service")
+apps.notes               = apps.sdcmd("notes.service")
 
 return apps

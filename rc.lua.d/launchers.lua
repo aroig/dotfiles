@@ -10,29 +10,35 @@
 -----------------------------------
 
 local os = os
+local string = string
+
 local apps = apps
 
+local util      = require("abdo.util")
 local pickle    = require("abdo.pickle")           -- some crude pickling routines
 local dropdown  = require("abdo.dropdown")         -- dropdown clients
 local luaeval   = require("abdo.prompt.luaeval")   -- evaluation of lua code
 local promptl   = require("abdo.prompt.list")      -- user choice from a list
 local idoprompt = require("abdo.prompt.idoprompt")
 
+local cmd_list_file = awful.util.getdir("config") .. "/lists/cmd-list.lua"
+local doc_list_file = awful.util.getdir("config") .. "/lists/doc-list.lua"
+
+
+
+-----------------------------------
+-- Global variables              --
+-----------------------------------
 
 ddclient = {}
+cmdlist  = {}
+doclist  = {}
+
 
 
 -----------------------------------
 -- Useful functions              --
 -----------------------------------
-
-function shell_escape(s)
-    local ret = tostring(s) or ''
-    ret = ret:gsub('\\', '\\\\')
-    ret = ret:gsub('"', '\\"')
-    return '"' .. ret .. '"'
-end
-
 
 -- Execute an external program
 function exec (cmd)
@@ -49,6 +55,11 @@ function askexec (prmt, cmd)
     prompt.ask_run(prmt, cmd)
 end
 
+
+
+-----------------------------------
+-- Systemd stuff                 --
+-----------------------------------
 
 -- Execute an external program and connect the output to systemd journal
 function sdexec (cmd, name)
@@ -70,7 +81,9 @@ function sdrun (cmd, name, scope, slice)
         end
 
         -- do not catch stdout. The process does NOT end immediately
-        awful.util.spawn_with_shell(string.format('%s sh -c %s &> /dev/null', sdcmd, shell_escape(cmd)))
+        awful.util.spawn_with_shell(string.format('%s sh -c %s &> /dev/null',
+                                                  sdcmd,
+                                                  util.shell_escape(cmd)))
     else
 
         -- launch systemd service and capture the service name
@@ -93,7 +106,7 @@ end
 
 function sd_isactive(unit)
     local cmd = string.format("systemctl --user -q is-active %s",
-                              shell_escape(unit))
+                              util.shell_escape(unit))
     return os.execute(cmd)
 end
 
@@ -116,24 +129,9 @@ function sdstart (unit)
     end
 
     shcmd = string.format('systemctl --user start %s',
-                          shell_escape(startunit))
+                          util.shell_escape(startunit))
 
     awful.util.spawn_with_shell(shcmd)
-end
-
-
--- executes a shell command on a terminal
-function termcmd (cmd, title)
-    local shcmd = apps.terminal
-    if title then
-        shcmd = shcmd .. string.format(" -t \"%s\"", title)
-    end
-
-    if cmd then
-        shcmd = shcmd .. string.format(" -e \"%s\"", cmd)
-    end
-
-    return shcmd
 end
 
 
@@ -145,19 +143,19 @@ end
 local dropdown_geometry = {vert="top", horiz="center", width=1, height=0.4}
 
 ddclient.terminal = dropdown.new("terminal",
-                                 termcmd(nil, "dropdown-terminal"),
+                                 apps.termcmd(nil, "dropdown-terminal"),
                                  dropdown_geometry)
 
 ddclient.ranger   = dropdown.new("ranger",
-                                 termcmd("ranger", "dropdown-ranger"),
+                                 apps.termcmd("ranger", "dropdown-ranger"),
                                  dropdown_geometry)
 
 ddclient.sage     = dropdown.new("sage",
-                                 termcmd("sage", "dropdown-sage"),
+                                 apps.termcmd("sage", "dropdown-sage"),
                                  dropdown_geometry)
 
 ddclient.octave   = dropdown.new("octave",
-                                 termcmd("octave", "dropdown-octave"),
+                                 apps.termcmd("octave", "dropdown-octave"),
                                  dropdown_geometry)
 
 ddclient.notes    = dropdown.new("notes",
@@ -165,7 +163,7 @@ ddclient.notes    = dropdown.new("notes",
                                  dropdown_geometry)
 
 ddclient.syslog   = dropdown.new("syslog",
-                                 termcmd(apps.syslog, "dropdown-syslog"),
+                                 apps.termcmd(apps.syslog, "dropdown-syslog"),
                                  dropdown_geometry)
 
 
@@ -276,6 +274,58 @@ box.syslog     = require("abdo.box.syslog")      -- system log
 box.userlog    = require("abdo.box.userlog")     -- user log
 
 
+
+-----------------------------------
+-- Run a command                 --
+-----------------------------------
+
+function run(name, opts)
+
+    opts = opts or {ask = false}
+    local ask = opts['ask']
+
+    local cmd = cmdlist[name]
+    if not cmd then
+        naughty.notify({title="Error in run",
+                        text=string.format("Unknown command name '%s'", name)})
+        return
+    end
+
+    -- detect mode of execution
+    if string.match(cmd, '^.*%.service%s*$') or string.match(cmd, '^.*%.target%s*$') then
+        mode = 'sdstart'
+    else
+        mode = 'sdrun'
+    end
+
+    -- prepare the function that executes cmd
+    if mode == 'sdrun' then
+        exec_cmd = function() sdrun(cmd, name, true, 'apps') end
+
+    elseif mode == 'sdstart' then
+        exec_cmd = function() sdstart(cmd) end
+
+    elseif mode == 'shrun' then
+        exec_cmd = function () shexec(cmd) end
+
+    end
+
+    -- run the command
+    if ask then
+        local lst = { yes = true, no = false }
+
+        promptl.run(myw.promptbox[mouse.screen].widget,
+                    string.format("Run %s? ", name),
+                    function (c) if c then exec_cmd() end end,
+                    lst, nil)
+
+    else
+        exec_cmd()
+    end
+end
+
+
+
 -----------------------------------
 -- Prompts                       --
 -----------------------------------
@@ -306,25 +356,39 @@ end
 
 
 function prompt.docs()
-    docs = pickle.load(awful.util.getdir("config") .. "/lists/docs.list")
-    if not docs then return end
+    doclist = pickle.load(doc_list_file)
+    if not doclist then
+        naughty.notify({title="Error in document prompt",
+                        text=string.format("Can't load file '%s'", cmd_list_file)})
+        return
+    end
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Doc: ",
                 function (cmd) ddclient.document:show(cmd) end,
-                docs,
+                doclist,
                 awful.util.getdir("cache") .. "/history_docs")
 end
 
 
 function prompt.command()
-    cmds = pickle.load(awful.util.getdir("config") .. "/lists/commands.list")
-    if not cmds then return end
+    cmdlist = pickle.load(cmd_list_file)
+    if not cmdlist then
+        naughty.notify({title="Error in command prompt",
+                        text=string.format("Can't load file '%s'", cmd_list_file)})
+        return
+    end
+
+    -- want the prompt to pass progname, not prog command to the callback
+    local proglist = {}
+    for name, cmd in pairs(cmdlist) do
+        proglist[name] = name
+    end
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Run: ",
-                function (cmd) sdrun(cmd, nil, true, 'apps') end,
-                cmds,
+                function (name) run(name) end,
+                proglist,
                 awful.util.getdir("cache") .. "/history_cmd")
 end
 

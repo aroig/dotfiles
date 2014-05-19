@@ -1,9 +1,16 @@
 require("apps")
 
 return {
+   -- systemd units
+   dwb                       = "dwb.service",
+   org                       = "orgmode.service",
+   calibre                   = "calibre.service",
+   mu4e                      = "mu4e.service",
+   chat                      = "chat.service",
+
+
    chromium                  = "chromium",
    firefox                   = "firefox",
-   dwb                       = "dwb",
    deluge                    = "deluge-gtk",
    amule                     = "amulegui",
    pidgin                    = "pidgin",
@@ -22,18 +29,19 @@ return {
    virtualbox                = "virtualbox",
 
    matlab                    = "matlab",
-   sage                      = "termite -t sage -e sage",
+   sage                      = apps.termcmd("sage", "sage"),
+   octave                    = apps.termcmd("octave", "octave"),
    maple                     = "xmaple",
-   octave                    = "octave",
    stellarium                = "stellarium",
    boinc                     = "boincm",
 
+   ipython                   = apps.termcmd("ipython", "ipython"),
+   ipython2                  = apps.termcmd("ipython2", "ipython2"),
+   lua                       = apps.termcmd("lua", "lua"),
+   ghci                      = apps.termcmd("ghci", "ghci"),
+
    music                     = apps.music,
-   calibre                   = apps.library,
    emacs                     = apps.editor,
-   chat                      = apps.chat,
-   org                       = apps.orgmode,
-   mu4e                      = apps.mail,
    xournal                   = "xournal",
    libreoffice               = "libreoffice",
    gcstar                    = "gcstar",
@@ -54,11 +62,19 @@ return {
    rosegarden                = "rosegarden",
    denemo                    = "denemo",
    avidemux                  = "avidemux2_gtk",
-   subtitleeditor            = "subtitleeditor",  
+   subtitleeditor            = "subtitleeditor",
    puddletag                 = "puddletag",
    brasero                   = "brasero",
 
    thunar                    = "thunar",
    nautilus                  = "nautilus",
    qtcreator                 = "qtcreator",
+
+   -- system state
+   quit                      = "quit-wm.target",
+   lock                      = "lock.target",
+   suspend                   = "suspend.target",
+   poweroff                  = "poweroff.target",
+   reboot                    = "reboot.target",
+
 }
