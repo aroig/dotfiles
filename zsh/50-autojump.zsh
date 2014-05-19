@@ -16,7 +16,9 @@ function autojump_chpwd() {
     else
         _PWD_ARGS="-P"
     fi
-    { (autojump -a "$(pwd ${_PWD_ARGS})"&)>/dev/null 2>>|${AUTOJUMP_DATA_DIR}/autojump_errors ; } 2>/dev/null
+    if [ -f "$XDG_RUNTIME_DIR/synced" ]; then
+        { (autojump -a "$(pwd ${_PWD_ARGS})"&)>/dev/null 2>>|${AUTOJUMP_DATA_DIR}/autojump_errors ; } 2>/dev/null
+    fi
 }
 
 typeset -ga chpwd_functions
