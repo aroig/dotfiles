@@ -9,7 +9,7 @@ PartOf=mail.target
 [Service]
 Type=simple
 SyslogIdentifier=mu4e
-Slice=apps.slice
+Slice=dropdown.slice
 
 ExecStart=/usr/bin/emacs -mail --title "emacs-mail"
 KillSignal=SIGINT
