@@ -14,7 +14,11 @@ local table = table
 
 rules = require("awful.rules")
 
-local client = client
+local capi = {
+    mouse = mouse,
+    client = client,
+    screen = screen
+}
 
 
 local systemd = { cgroup = {}, rules = {} }
@@ -197,7 +201,7 @@ end
 function systemd.matching_clients(pat)
     local cgroup
     local clist = {}
-    for i, c in client.get() do
+    for i, c in pairs(capi.client.get()) do
         cgroup = systemd.cgroup[c.window]
 
         -- manage the client if we got no cgroup
@@ -224,7 +228,7 @@ local function match_cgroup(c, cgroup)
     if cgroup == nil then return false end
 
     local clientcgroup = systemd.cgroup[c.window]
-    if clientgroup == nil then return false end
+    if clientcgroup == nil then return false end
 
     return clientcgroup:match(cgroup) ~= nil
 end
@@ -285,8 +289,8 @@ end
 -----------------------------------
 
 function systemd.init()
-    client.connect_signal("manage",   function(c, startup) systemd.manage_client(c)   end)
-    client.connect_signal("unmanage", function(c)          systemd.unmanage_client(c) end)
+    capi.client.connect_signal("manage",   function(c, startup) systemd.manage_client(c)   end)
+    capi.client.connect_signal("unmanage", function(c)          systemd.unmanage_client(c) end)
 end
 
 return systemd

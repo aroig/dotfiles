@@ -163,7 +163,7 @@ end
 
 
 function toggle_client(c)
-    if client_visible(c) then
+    if is_visible_client(c) then
         hide_client(c)
     else
         show_client(c)
@@ -217,6 +217,10 @@ function toggle_cgroup(pat, cmd)
     end
 end
 
+
+function toggle_dropdown(name)
+    toggle_cgroup(string.format('dropdown.slice/%s', name), name)
+end
 
 
 -----------------------------------
@@ -326,8 +330,8 @@ ddclient.music   = dropdown.new("music", apps.music,
 ddclient.document = dropdown.new("browser", nil,
                                  {vert="center", horiz="right", width=0.7, height=1})
 
-ddclient.xournal = dropdown.new("xournal", apps.xournal,
-                                {vert="center", horiz="left", width=0.5, height=1})
+-- ddclient.xournal = dropdown.new("xournal", apps.xournal,
+--                                {vert="center", horiz="left", width=0.5, height=1})
 
 
 -- NOTE: If using a browser supporting tabs

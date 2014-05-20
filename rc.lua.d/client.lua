@@ -63,6 +63,43 @@ local function capture_emacsen(c)
 end
 
 
+local function set_geometry(c, geom)
+    local screengeom = capi.screen[c.screen].workarea
+    local width, height, x, y
+
+    -- if width or height values in the interval [0,1] represent a fraction of screen width or height.
+    if geom.width  <= 1 then width  = screengeom.width  * geom.width
+    else                     width  = geom.width
+    end
+
+    if geom.height <= 1 then height = screengeom.height * geom.height
+    else                     height = geom.height
+    end
+
+    -- horizontal alignment: top, bottom, center
+    if     geom.horiz == "left"  then x = screengeom.x
+    elseif geom.horiz == "right" then x = screengeom.x + screengeom.width - width
+    else                              x =  screengeom.x + (screengeom.width - width)/2
+    end
+
+    -- vertical alignment: top, bottom, center
+    if     geom.vert == "bottom" then y = screengeom.y + screengeom.height - height
+    elseif geom.vert == "top" then    y = screengeom.y
+    else                              y = screengeom.y + (screengeom.height - height)/2
+    end
+
+    -- set the geometry of the client
+    local bw = c.border_width
+    c:geometry({ x = x, y = y, width = width - 2*bw, height = height - 2*bw })
+end
+
+
+local function geometry_cb(geom)
+    local geom = geom
+    local func = function (c) set_geometry(c, geom) end
+    return func
+end
+
 
 -----------------------------------
 -- Client bindings and buttons   --
@@ -132,7 +169,7 @@ rules.rules = {
 
     -- Capture dropdowns
     { rule = { class = "Gmpc" },            callback = function(c) ddclient.music:capture(c) end },
-    { rule = { class = "Xournal" },         callback = function(c) ddclient.xournal:capture(c) end },
+--    { rule = { class = "Xournal" },         callback = function(c) ddclient.xournal:capture(c) end },
     { rule = { class = "Calibre-gui" },     callback = function(c) ddclient.calibre:capture(c) end },
     { rule = { class = "Goldendict" },      callback = function(c) ddclient.dict:capture(c) end },
 
@@ -165,6 +202,7 @@ rules.rules = {
 
 -- systemd cgroup rules
 systemd.rules = {
-    { cgroup = 'dropdown.slice/.*$',  properties = { floating = true } },
+    { cgroup = 'dropdown.slice/.*$',                  properties = { floating = true } },
+    { cgroup = 'dropdown.slice/xournal.service$',     callback = geometry_cb({vert="center", horiz="left", width=0.5, height=1}) },
 
 }

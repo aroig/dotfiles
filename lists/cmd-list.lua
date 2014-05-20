@@ -12,7 +12,7 @@ return {
    calibre                   = "calibre.service",
    mu4e                      = "mu4e.service",
    chat                      = "chat.service",
-
+   xournal                   = "xournal.service",
 
    firefox                   = "firefox",
    deluge                    = "deluge-gtk",
@@ -45,7 +45,6 @@ return {
    ghci                      = apps.termcmd("ghci", "ghci"),
 
    music                     = apps.music,
-   xournal                   = "xournal",
    libreoffice               = "libreoffice",
    gcstar                    = "gcstar",
 

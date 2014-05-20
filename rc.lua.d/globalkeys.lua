@@ -71,7 +71,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "d",      function () ddclient.dict:toggle() end),
     awful.key({ modkey, ctrlkey   }, "i",      function () ddclient.calibre:toggle() end),
     awful.key({ modkey, ctrlkey   }, "m",      function () ddclient.music:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "w",      function () ddclient.xournal:toggle() end),
+    awful.key({ modkey, ctrlkey   }, "w",      function () toggle_dropdown('xournal') end),
 
     awful.key({ modkey, ctrlkey   }, "o",      function () ddclient.orgmode:toggle() end),
     awful.key({ modkey, ctrlkey   }, "u",      function () ddclient.mail:toggle() end),
