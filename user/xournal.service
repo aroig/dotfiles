@@ -7,6 +7,6 @@ After=desktop.target
 [Service]
 Type=simple
 SyslogIdentifier=xournal
-Slice=apps.slice
+Slice=dropdown.slice
 
 ExecStart=/usr/bin/xournal "${AB2_WORK_DIR}/notes/scratchpad.xoj"
