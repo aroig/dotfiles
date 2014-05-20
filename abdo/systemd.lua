@@ -10,10 +10,64 @@
 
 local os = os
 local string = string
+local table = table
 
-local util = require("abdo.util")
+local client = client
 
-local systemd = {}
+
+local systemd = { cgroup = {} }
+
+
+-----------------------------------
+-- Utilities                     --
+-----------------------------------
+
+local function shell_escape(s)
+    local ret = tostring(s) or ''
+    ret = ret:gsub('\\', '\\\\')
+    ret = ret:gsub('"', '\\"')
+    return '"' .. ret .. '"'
+end
+
+
+local function pid_cgroup (pid)
+    local cgroup = nil
+    local f = io.open(string.format("/proc/%s/cgroup", tostring(pid)), 'rb')
+    if f then
+        cgroup = string.match(f:read("*all"), "systemd:(.*)$")
+        f:close()
+    end
+    return cgroup
+end
+
+local function unit_cgroup (unit)
+    local cgroup = nil
+    local f = io.popen(string.format("systemctl --user show -p ControlGroup %s", s), 'r')
+    if f then
+        cgroup = string.match(f:read("*all"), "^ControlGroup=(.*)$")
+        f:close()
+    end
+    return cgroup
+end
+
+local function free_unit_instance (unit, sep)
+    sep = sep or '@'
+    local newunit
+    for i=0,100 do
+        newunit = string.gsub(unit, '@', string.format('%s%d', sep, i))
+
+        if not systemd.is_active(newunit) then
+            return newunit
+        end
+    end
+    return nil
+end
+
+
+
+-----------------------------------
+-- Process execution             --
+-----------------------------------
 
 -- Execute an external program and connect the output to systemd journal
 function systemd.exec (cmd, name)
@@ -22,12 +76,25 @@ function systemd.exec (cmd, name)
 end
 
 
--- Execute an external program as a systemd scope or service
+-- Execute an external program as a transient systemd scope or service
 function systemd.run (cmd, name, scope, slice)
     local sdcmd = "systemd-run --user "
-    if scope then sdcmd = sdcmd .. "--scope " end
-    if slice then sdcmd = sdcmd .. string.format("--slice=\"%s\" ", slice) end
-    if name  then sdcmd = sdcmd .. string.format("--description=\"%s\" ", name) end
+
+    local unitname
+    if name then
+        if scope then
+            unitname = free_unit_instance('run-' .. name .. '@.scope', '-')
+        else
+            unitname = free_unit_instance('run-' .. name .. '@.service', '-')
+        end
+    else
+        unitname = nil
+    end
+
+    if scope    then sdcmd = sdcmd .. "--scope " end
+    if slice    then sdcmd = sdcmd .. string.format("--slice=\"%s\" ", slice) end
+    if name     then sdcmd = sdcmd .. string.format("--description=\"%s\" ", name) end
+    if unitname then sdcmd = sdcmd .. string.format("--unit=\"%s\" ", unitname) end
 
     local pid = nil
     if scope then
@@ -39,7 +106,7 @@ function systemd.run (cmd, name, scope, slice)
         -- do not catch stdout. The process does NOT end immediately
         local pid = awful.util.spawn_with_shell(string.format('%s sh -c %s &> /dev/null',
                                                               sdcmd,
-                                                              util.shell_escape(cmd)))
+                                                              shell_escape(cmd)))
     else
         sdcmd = sdcmd .. cmd
         -- launch systemd service and capture the service name
@@ -47,18 +114,16 @@ function systemd.run (cmd, name, scope, slice)
         local f = io.popen(string.format("%s 2>&1", sdcmd), "r")
         if f ~= nil then
             local raw = f:read("*all")
-            local unit = string.match(raw, "run%-[0-9]*%.service")
+            local ret
+            if unitname then
+                ret = unitname
+            else
+                ret = string.match(raw, "run%-[0-9]*%.service")
+            end
             f:close()
-            return unit
+            return ret
         end
     end
-end
-
-
-function systemd.isactive(unit)
-    local cmd = string.format("systemctl --user -q is-active %s",
-                              util.shell_escape(unit))
-    return os.execute(cmd)
 end
 
 
@@ -66,37 +131,50 @@ end
 -- instantiate it as the first nonexistent instance it finds!
 function systemd.start (unit)
     local shcmd
-    local startunit=unit
+    local startunit
     if string.match(unit, '.*@%.service') then
-        for i=0,100 do
-            local newunit = string.gsub(unit, '@%.',
-                                        string.format('@%d.', i))
-
-            if not systemd.isactive(newunit) then
-                startunit = newunit
-                break
-            end
-        end
+        startunit = free_unit_instance(unit, '@')
+    else
+        startunit=unit
     end
 
-    shcmd = string.format('systemctl --user start %s',
-                          util.shell_escape(startunit))
+    if startunit then
+        shcmd = string.format('systemctl --user start %s',
+                              shell_escape(startunit))
 
-    awful.util.spawn_with_shell(shcmd)
+        awful.util.spawn_with_shell(shcmd)
+    end
     return startunit
 end
 
 
--- get cgroup from pid
-function systemd.cgroup (s)
+
+-----------------------------------
+-- State checking                --
+-----------------------------------
+
+-- check whether a unit is active
+function systemd.is_active(unit)
+    local cmd = string.format("systemctl --user -q is-active %s",
+                              shell_escape(unit))
+    return os.execute(cmd)
+end
+
+
+-- get cgroup from pid or unit name
+function systemd.get_cgroup (s)
     s = tostring(s)
     local cgroup = nil
+
+    -- we got a pid
     if string.match(s, '^[0-9]*$') then
         local f = io.open(string.format("/proc/%s/cgroup", tostring(s)), 'rb')
         if f then
             cgroup = string.match(f:read("*all"), "systemd:(.*)$")
             f:close()
         end
+
+    -- we got a unit name
     else
         local f = io.popen(string.format("systemctl --user show -p ControlGroup %s", s), 'r')
         if f then
@@ -107,5 +185,56 @@ function systemd.cgroup (s)
     return cgroup
 end
 
+
+
+-----------------------------------
+-- Client matching               --
+-----------------------------------
+
+function systemd.match_clients(pat)
+    local cgroup
+    local clist = {}
+    for i, c in client.get() do
+        cgroup = systemd.cgroup[c.window]
+
+        -- manage the client if we got no cgroup
+        if not cgroup then
+            systemd.manage_client(c)
+            cgroup = systemd.cgroup[c.window]
+        end
+
+        -- if cgroup is not nil and pattern matches
+        if cgroup and cgroup:match(pat) then
+            table.insert(clist, c)
+        end
+    end
+    return clist
+end
+
+
+
+-----------------------------------
+-- Signals                       --
+-----------------------------------
+
+function systemd.manage_client(c)
+    systemd.cgroup[c.window] = pid_cgroup(c.pid)
+end
+
+
+function systemd.unmanage_client(c)
+    systemd.cgroup[c.window] = nil
+end
+
+
+
+-----------------------------------
+-- Setup                         --
+-----------------------------------
+
+function systemd.init()
+    client.connect_signal("manage",   function(c, startup) systemd.manage_client(c)   end)
+    client.connect_signal("unmanage", function(c)          systemd.unmanage_client(c) end)
+end
 
 return systemd

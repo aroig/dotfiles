@@ -28,12 +28,15 @@ local doc_list_file = awful.util.getdir("config") .. "/lists/doc-list.lua"
 
 
 -----------------------------------
--- Global variables              --
+-- Initialization                --
 -----------------------------------
 
 ddclient = {}
 cmdlist  = pickle.load(cmd_list_file)
 doclist  = pickle.load(doc_list_file)
+
+-- initialize systemd signals to capture cgroups
+systemd.init()
 
 
 
