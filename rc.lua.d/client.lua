@@ -7,8 +7,19 @@
 rules = require("awful.rules")
 posix = require("posix")
 
+local systemd = systemd
 local ddclient = ddclient
 
+local capi = {
+    mouse = mouse,
+    client = client,
+    screen = screen
+}
+
+
+-----------------------------------
+-- Useful functions              --
+-----------------------------------
 
 -- Run a function delayed by a timeout. Puts the args in a closure. Seems not good w hen
 -- the argument is a client, maybe the object gets copied?
@@ -52,7 +63,11 @@ local function capture_emacsen(c)
 end
 
 
--- Client keys
+
+-----------------------------------
+-- Client bindings and buttons   --
+-----------------------------------
+
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, shiftkey  }, "c",      function (c) c:kill()                         end),
@@ -78,7 +93,13 @@ clientbuttons = awful.util.table.join(
     awful.button({ modkey }, 1, awful.mouse.client.move),
     awful.button({ modkey }, 3, awful.mouse.client.resize))
 
--- Rules
+
+
+-----------------------------------
+-- Client Rules                  --
+-----------------------------------
+
+-- awful rules
 rules.rules = {
     -- All clients will match this rule.
     { rule = { },
@@ -138,4 +159,12 @@ rules.rules = {
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
+}
+
+
+
+-- systemd cgroup rules
+systemd.rules = {
+    { cgroup = 'dropdown.slice/.*$',  properties = { floating = true } },
+
 }

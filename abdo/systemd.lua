@@ -12,10 +12,13 @@ local os = os
 local string = string
 local table = table
 
+rules = require("awful.rules")
+
 local client = client
 
 
-local systemd = { cgroup = {} }
+local systemd = { cgroup = {}, rules = {} }
+
 
 
 -----------------------------------
@@ -191,7 +194,7 @@ end
 -- Client matching               --
 -----------------------------------
 
-function systemd.match_clients(pat)
+function systemd.matching_clients(pat)
     local cgroup
     local clist = {}
     for i, c in client.get() do
@@ -214,11 +217,60 @@ end
 
 
 -----------------------------------
+-- Client matching               --
+-----------------------------------
+
+local function match_cgroup(c, cgroup)
+    if cgroup == nil then return false end
+
+    local clientcgroup = systemd.cgroup[c.window]
+    if clientgroup == nil then return false end
+
+    return clientcgroup:match(cgroup) ~= nil
+end
+
+
+local function matching_rules(c, _rules)
+    local result = {}
+    for _, entry in ipairs(_rules) do
+        if match_cgroup(c, entry.cgroup) then
+            table.insert(result, entry)
+        end
+    end
+    return result
+end
+
+
+function systemd.rules_apply(c)
+    local props = {}
+    local callbacks = {}
+
+    for _, entry in ipairs(matching_rules(c, systemd.rules)) do
+        if entry.properties then
+            for property, value in pairs(entry.properties) do
+                props[property] = value
+            end
+        end
+        if entry.callback then
+            table.insert(callbacks, entry.callback)
+        end
+    end
+
+    rules.execute(c, props, callbacks)
+end
+
+
+
+-----------------------------------
 -- Signals                       --
 -----------------------------------
 
 function systemd.manage_client(c)
-    systemd.cgroup[c.window] = pid_cgroup(c.pid)
+    local cgroup = pid_cgroup(c.pid)
+    if cgroup then
+        systemd.cgroup[c.window] = cgroup
+        systemd.rules_apply(c)
+    end
 end
 
 
