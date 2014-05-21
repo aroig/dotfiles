@@ -212,12 +212,12 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "+",     function () awful.tag.incncol(-1)         end),
 
     -- System stuff
-    awful.key({ metakey, ctrlkey          }, "l",   function () run('lock')                            end),
+    awful.key({ metakey, ctrlkey          }, "l",   function () run('app:lock')                        end),
     awful.key({metakey, ctrlkey, shiftkey }, "a",   function () awesome.restart()                      end),
-    awful.key({metakey, ctrlkey, shiftkey }, "q",   function () run('quit', { ask=true })              end),
-    awful.key({metakey, ctrlkey, shiftkey }, "z",   function () run('suspend', { ask=true })           end),
-    awful.key({metakey, ctrlkey, shiftkey }, "h",   function () run('poweroff', { ask=true })          end),
-    awful.key({metakey, ctrlkey, shiftkey }, "r",   function () run('reboot', { ask=true })            end)
+    awful.key({metakey, ctrlkey, shiftkey }, "q",   function () run('app:quit',     { ask=true })      end),
+    awful.key({metakey, ctrlkey, shiftkey }, "z",   function () run('app:suspend',  { ask=true })      end),
+    awful.key({metakey, ctrlkey, shiftkey }, "h",   function () run('app:poweroff', { ask=true })      end),
+    awful.key({metakey, ctrlkey, shiftkey }, "r",   function () run('app:reboot',   { ask=true })      end)
 )
 
 
