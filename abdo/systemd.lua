@@ -284,13 +284,4 @@ end
 
 
 
------------------------------------
--- Setup                         --
------------------------------------
-
-function systemd.init()
-    capi.client.connect_signal("manage",   function(c, startup) systemd.manage_client(c)   end)
-    capi.client.connect_signal("unmanage", function(c)          systemd.unmanage_client(c) end)
-end
-
 return systemd

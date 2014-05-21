@@ -51,7 +51,15 @@ for k, path in pairs(listsrc) do
 end
 
 -- initialize systemd signals to capture cgroups
-systemd.init()
+capi.client.connect_signal("manage",
+                           function(c, startup)
+                               systemd.manage_client(c)
+                           end)
+
+capi.client.connect_signal("unmanage",
+                           function(c)
+                               systemd.unmanage_client(c)
+                           end)
 
 
 
@@ -277,6 +285,14 @@ function ddhide(name)
     hide_cgroup(string.format('dropdown.slice/.*%s', entry))
 end
 
+local function ddshow_doc(url)
+    systemd.run(string.format("dwb -p docs %s", util.shell_escape(url)), "docs", false, "dropdown")
+    local list = systemd.matching_clients('dropdown.slice/.*docs')
+    for i, c in ipairs(list) do
+        show_client(c)
+    end
+end
+
 
 
 -----------------------------------
@@ -298,9 +314,6 @@ box.userlog    = require("abdo.box.userlog")     -- user log
 -----------------------------------
 prompt = {}
 
-local function ddshow_document(url)
-    systemd.run(string.format("dwb -p docs %s", util.shell_escape(url)), "docs", false, "dropdown")
-end
 
 
 function prompt.wikipedia()
@@ -308,7 +321,7 @@ function prompt.wikipedia()
                   "Wikipedia: ",
                   function (cmd)
                       local url = string.format("http://en.wikipedia.org/wiki/Special:Search?go=Go&search=\"%s\"", cmd)
-                      ddshow_document(url)
+                      ddshow_doc(url)
                   end,
                   nil,
                   awful.util.getdir("cache") .. "/history_wikipedia")
@@ -320,7 +333,7 @@ function prompt.mathscinet()
                   "Mathscinet: ",
                   function (cmd)
                       local url = string.format("http://www.ams.org/mathscinet/search/publications.html?review_format=html&pg4=ALLF&s4=\"%s\"", cmd)
-                      ddshow_document(url)
+                      ddshow_doc(url)
                   end,
                   nil,
                   awful.util.getdir("cache") .. "/history_mathscinet")
@@ -337,7 +350,7 @@ function prompt.docs()
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Doc: ",
-                ddshow_document,
+                ddshow_doc,
                 execlist.doc,
                 awful.util.getdir("cache") .. "/history_docs")
 end
