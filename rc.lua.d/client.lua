@@ -36,33 +36,6 @@ local function run_delayed(func, timeout, args)
 end
 
 
--- Capture emacs clients depending on WM_NAME.
-
--- This hackily solves a race condition in which emacs sets the window title too
--- late for awesome rules to detect a custom WM_NAME.
-local function capture_emacsen(c)
-    -- capture dropdown according to WM_NAME
-    local name = c.name
-
-    if name == 'emacs-org' then
-        naughty.notify({title="Capturing emacs client", text=string.format("name: %s", name)})
-        ddclient.orgmode:capture(c)
-
-    elseif name == 'emacs-chat' then
-        naughty.notify({title="Capturing emacs client", text=string.format("name: %s", name)})
-        ddclient.chat:capture(c)
-
-    elseif name == 'emacs-mail' then
-        naughty.notify({title="Capturing emacs client", text=string.format("name: %s", name)})
-        ddclient.mail:capture(c)
-
-    elseif name == 'emacs-notes' then
-        naughty.notify({title="Capturing emacs client", text=string.format("name: %s", name)})
-        ddclient.notes:capture(c)
-    end
-end
-
-
 local function set_geometry(c, geom)
     local screengeom = capi.screen[c.screen].workarea
     local width, height, x, y
@@ -166,16 +139,6 @@ rules.rules = {
     { rule = { class = "Xournal" },         properties = { screen = 1 } },
     { rule = { class = "Skype" },           properties = { screen = 1 % nscreen + 1} },
 
-    -- Capture dropdowns
-    { rule = { class = "Gmpc" },            callback = function(c) ddclient.music:capture(c) end },
---    { rule = { class = "Xournal" },         callback = function(c) ddclient.xournal:capture(c) end },
-    { rule = { class = "Calibre-gui" },     callback = function(c) ddclient.calibre:capture(c) end },
-    { rule = { class = "Goldendict" },      callback = function(c) ddclient.dict:capture(c) end },
-
-    -- Capture emacs clients for dropdown, depending on the WM_NAME property.
-    -- There may be a race condition here. Now it seems to work fine...
-    { rule = { class = "Emacs" }, callback = function(c) capture_emacsen(c) end },
-
     -- Capture dropdowns in a terminal
     { rule = { class = "Termite", name = "dropdown-terminal" },
       callback = function(c) ddclient.terminal:capture(c) end },
@@ -201,7 +164,21 @@ rules.rules = {
 
 -- systemd cgroup rules
 systemd.rules = {
-    { cgroup = 'dropdown.slice/.*$',                  properties = { floating = true } },
-    { cgroup = 'dropdown.slice/xournal.service$',     callback = geometry_cb({vert="center", horiz="left", width=0.5, height=1}) },
+    -- float the dropdowns
+    { cgroup = 'dropdown%.slice/.*$',                  properties = { floating = true } },
+    { cgroup = '@dropdown.service$',                   properties = { floating = true } },
 
+    -- set the geometry for side dropdowns
+    { cgroup = 'dropdown%.slice/xournal%.service$',     callback = geometry_cb({vert="center", horiz="left", width=0.5, height=1.0}) },
+    { cgroup = 'dropdown%.slice/orgmode%.service$',     callback = geometry_cb({vert="center", horiz="left", width=1.0, height=1.0}) },
+    { cgroup = 'dropdown%.slice/calibre%.service$',     callback = geometry_cb({vert="center", horiz="left", width=1.0, height=1.0}) },
+    { cgroup = 'dropdown%.slice/mu4e%.service$',        callback = geometry_cb({vert="center", horiz="left", width=1.0, height=1.0}) },
+    { cgroup = 'dropdown%.slice/chat%.service$',        callback = geometry_cb({vert="center", horiz="left", width=0.6, height=1.0}) },
+
+    { cgroup = 'dropdown%.slice/goldendict%.service$',  callback = geometry_cb({vert="center", horiz="right", width=0.6, height=1.0}) },
+    { cgroup = 'dropdown%.slice/gmpc%.service$',        callback = geometry_cb({vert="center", horiz="right", width=0.7, height=1.0}) },
+
+    -- set the geometry for top dropdowns
+    { cgroup = 'dropdown%.slice/.*termite.*%.service$', callback = geometry_cb({vert="top", horiz="center", width=1.0, height=0.4}) },
+    { cgroup = 'dropdown%.slice/.*ranger.*%.service$',  callback = geometry_cb({vert="top", horiz="center", width=1.0, height=0.4}) },
 }

@@ -28,9 +28,6 @@ local promptl   = require("abdo.prompt.list")      -- user choice from a list
 local idoprompt = require("abdo.prompt.idoprompt")
 local systemd   = require("abdo.systemd")
 
-local app_list_file = awful.util.getdir("config") .. "/lists/app-list.lua"
-local doc_list_file = awful.util.getdir("config") .. "/lists/doc-list.lua"
-
 
 
 -----------------------------------
@@ -39,9 +36,22 @@ local doc_list_file = awful.util.getdir("config") .. "/lists/doc-list.lua"
 
 ddclient = {}
 
+listsrc = {
+    app  = awful.util.getdir("config") .. "/lists/app-list.lua",
+    doc  = awful.util.getdir("config") .. "/lists/doc-list.lua",
+    dd   = awful.util.getdir("config") .. "/lists/dd-list.lua",
+}
+
+execslice = {
+    app  = "apps",
+    doc  = "apps",
+    dd   = "dropdown",
+}
+
 execlist = {}
-execlist.doc = pickle.load(doc_list_file)
-execlist.app = pickle.load(app_list_file)
+for k, path in pairs(listsrc) do
+    execlist[k] = pickle.load(path)
+end
 
 -- initialize systemd signals to capture cgroups
 systemd.init()
@@ -97,7 +107,7 @@ function run(name, opts)
         exec_func = function () systemd.run(entry, nil, false, slice or 'apps') end
 
     elseif execlist[ns] ~= nil then
-        local cmd = execlist.app[entry]
+        local cmd = execlist[ns][entry]
         if not cmd then
             naughty.notify({title="Error in run",
                             text=string.format("Unknown command name '%s'", name)})
@@ -108,7 +118,8 @@ function run(name, opts)
         if string.match(cmd, '^.*%.service%s*$') or string.match(cmd, '^.*%.target%s*$') then
             exec_func = function() systemd.start(cmd) end
         else
-            exec_func = function() systemd.run(cmd, entry, false, slice or 'apps') end
+            slice = slice or execslice[ns] or "apps"
+            exec_func = function() systemd.run(cmd, entry, false, slice) end
         end
     end
 
@@ -233,15 +244,42 @@ function toggle_cgroup(pat, cmd)
 end
 
 
-function toggle(name)
+-----------------------------------
+-- Dropdown manipulations        --
+-----------------------------------
+-- We put all dropdowns under dropdown.slice. This is done either on the
+-- individual units or by run for the dd namespace.
+
+function ddtoggle(name)
     ns, entry = name:match("^([^:]*):(.*)$")
 
     if ns == nil then
         entry = name
     end
 
-    toggle_cgroup(string.format('dropdown.slice/%s', entry), name)
+    toggle_cgroup(string.format('dropdown.slice/.*%s', entry), name)
 end
+
+function ddshow(name)
+    ns, entry = name:match("^([^:]*):(.*)$")
+
+    if ns == nil then
+        entry = name
+    end
+
+    show_cgroup(string.format('dropdown.slice/.*%s', entry), name)
+end
+
+function ddhide(name)
+    ns, entry = name:match("^([^:]*):(.*)$")
+
+    if ns == nil then
+        entry = name
+    end
+
+    hide_cgroup(string.format('dropdown.slice/.*%s', entry))
+end
+
 
 
 -----------------------------------
@@ -254,7 +292,6 @@ local ddgeometry = {
     right = { vert="center", horiz="right",  width=0.6, height=1.0 },
     full  = { vert="center", horiz="center", width=1.0, height=1.0 },
 }
-
 
 ddclient.terminal = dropdown.new("terminal",
                                  apps.termcmd(nil, "dropdown-terminal"),
@@ -329,30 +366,9 @@ end
 -- Dropdown apps on the left     --
 -----------------------------------
 
-
-ddclient.dict    = dropdown.new("dictionary", apps.dictionary,
-                                {vert="center", horiz="right", width=0.5, height=1})
-
-ddclient.calibre = dropdown.new("calibre", apps.library,
-                                {vert="center", horiz="right", width=1,   height=1})
-
-ddclient.chat    = dropdown.new("chat", apps.chat,
-                                {vert="center", horiz="left", width=0.6, height=1})
-
-ddclient.orgmode = dropdown.new("orgmode", apps.orgmode,
-                                {vert="center", horiz="left", width=1, height=1})
-
-ddclient.mail    = dropdown.new("mail", apps.mail,
-                                {vert="center", horiz="left", width=1, height=1})
-
-ddclient.music   = dropdown.new("music", apps.music,
-                                {vert="center", horiz="right", width=0.7, height=1})
-
 ddclient.document = dropdown.new("browser", nil,
                                  {vert="center", horiz="right", width=0.7, height=1})
 
--- ddclient.xournal = dropdown.new("xournal", apps.xournal,
---                                {vert="center", horiz="left", width=0.5, height=1})
 
 
 -- NOTE: If using a browser supporting tabs
@@ -419,10 +435,10 @@ end
 
 
 function prompt.docs()
-    execlist.doc = pickle.load(doc_list_file)
+    execlist.doc = pickle.load(listsrc.doc)
     if not execlist.doc then
         naughty.notify({title="Error in document prompt",
-                        text=string.format("Can't load file '%s'", doc_list_file)})
+                        text=string.format("Can't load file '%s'", listsrc.doc)})
         return
     end
 
@@ -435,10 +451,10 @@ end
 
 
 function prompt.command()
-    execlist.app = pickle.load(app_list_file)
+    execlist.app = pickle.load(listsrc.app)
     if not execlist.app then
         naughty.notify({title="Error in command prompt",
-                        text=string.format("Can't load file '%s'", app_list_file)})
+                        text=string.format("Can't load file '%s'", listsrc.app)})
         return
     end
 

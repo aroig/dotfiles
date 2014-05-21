@@ -6,6 +6,7 @@ return {
    chromium                  = "chromium@.service",
    thunar                    = "thunar@.service",
    termite                   = "termite@.service",
+   ranger                    = "ranger@.service",
    emacsclient               = "emacsclient@.service",
 
    org                       = "orgmode.service",
@@ -13,6 +14,8 @@ return {
    mu4e                      = "mu4e.service",
    chat                      = "chat.service",
    xournal                   = "xournal.service",
+   gmpc                      = "gmpc.service",
+   goldendict                = "goldendict.service",
 
    firefox                   = "firefox",
    deluge                    = "deluge-gtk",
@@ -20,7 +23,7 @@ return {
    pidgin                    = "pidgin",
    skype                     = "skype",
    guvcview                  = "guvcview",
-   goldendict                = "goldendict",
+
 
    pavucontrol               = "pavucontrol",
    qjackctl                  = "qjackctl",
@@ -44,7 +47,7 @@ return {
    lua                       = apps.termcmd("lua", "lua"),
    ghci                      = apps.termcmd("ghci", "ghci"),
 
-   music                     = apps.music,
+
    libreoffice               = "libreoffice",
    gcstar                    = "gcstar",
 

@@ -61,21 +61,20 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "Print",  function () shexec(apps.print)       end),
 
     -- those are started as instantiated units
-    awful.key({ modkey, ctrlkey   }, "Return", function () run('app:termite')       end),
-    awful.key({ modkey, ctrlkey   }, "f",      function () run('app:thunar')        end),
-    awful.key({ modkey, ctrlkey   }, "b",      function () run('app:dwb')           end),
-    awful.key({ modkey, metakey   }, "b",      function () run('app:chromium')      end),
-    awful.key({ modkey, ctrlkey   }, "e",      function () run('app:emacsclient')   end),
+    awful.key({ modkey, ctrlkey   }, "Return", function () run('app:termite')         end),
+    awful.key({ modkey, ctrlkey   }, "f",      function () run('app:thunar')          end),
+    awful.key({ modkey, ctrlkey   }, "b",      function () run('app:dwb')             end),
+    awful.key({ modkey, metakey   }, "b",      function () run('app:chromium')        end),
+    awful.key({ modkey, ctrlkey   }, "e",      function () run('app:emacsclient')     end),
 
     -- Dropdown clients
-    awful.key({ modkey, ctrlkey   }, "d",      function () ddclient.dict:toggle()   end),
-    awful.key({ modkey, ctrlkey   }, "i",      function () ddclient.calibre:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "m",      function () ddclient.music:toggle()  end),
-    awful.key({ modkey, ctrlkey   }, "w",      function () toggle('app:xournal')    end),
-
-    awful.key({ modkey, ctrlkey   }, "o",      function () ddclient.orgmode:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "u",      function () ddclient.mail:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "t",      function () ddclient.chat:toggle() end),
+    awful.key({ modkey, ctrlkey   }, "d",      function () ddtoggle("app:goldendict") end),
+    awful.key({ modkey, ctrlkey   }, "i",      function () ddtoggle("app:calibre")    end),
+    awful.key({ modkey, ctrlkey   }, "m",      function () ddtoggle("app:gmpc")       end),
+    awful.key({ modkey, ctrlkey   }, "w",      function () ddtoggle('app:xournal')    end),
+    awful.key({ modkey, ctrlkey   }, "o",      function () ddtoggle('app:org')        end),
+    awful.key({ modkey, ctrlkey   }, "u",      function () ddtoggle('app:mu4e')       end),
+    awful.key({ modkey, ctrlkey   }, "t",      function () ddtoggle('app:chat')       end),
 
     -- Music
     awful.key({ modkey, ctrlkey   }, "Home",      function () shexec("mpc -q toggle") end),
@@ -103,9 +102,9 @@ globalkeys = awful.util.table.join(
     awful.key({ ctrlkey           }, "F11",    function() ddclient.sage:show() end),
     awful.key({                   }, "F11",    function() ddclient.octave:hide(); ddclient.sage:hide() end),
 
-    awful.key({ modkey,           }, "F12",    function() ddclient.terminal:show() end),
-    awful.key({ ctrlkey           }, "F12",    function() ddclient.ranger:show() end),
-    awful.key({                   }, "F12",    function() ddclient.terminal:hide(); ddclient.ranger:hide() end),
+    awful.key({ modkey,           }, "F12",    function() ddshow("dd:termite") end),
+    awful.key({ ctrlkey           }, "F12",    function() ddshow("dd:ranger")  end),
+    awful.key({                   }, "F12",    function() ddhide("dd:termite"); ddhide("dd:ranger") end),
 
     -- Prompts
     awful.key({ modkey,           }, "F5",     prompt.wikipedia),
