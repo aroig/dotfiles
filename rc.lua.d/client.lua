@@ -172,7 +172,7 @@ rules.rules = {
 -- systemd cgroup rules
 systemd.rules = {
     -- float the dropdowns
-    { cgroup = 'dropdown%.slice/.*$',
+    { rule = { cgroup = 'dropdown%.slice/.*$', main = true },
       properties = { floating = true,
                      size_hints_honor = false,
                      ontop = true,
@@ -180,18 +180,33 @@ systemd.rules = {
                      skip_taskbar = true } },
 
     -- default dropdown geometry
-    { cgroup = 'dropdown%.slice/.*$',                   callback = geometry_cb({vert="top",    horiz="center", width=1.0, height=0.4}) },
+    { rule = { cgroup = 'dropdown%.slice/.*$', main = true },
+      callback = geometry_cb({vert="top",    horiz="center", width=1.0, height=0.4}) },
 
     -- set the geometry for side dropdowns
-    { cgroup = 'dropdown%.slice/xournal%.service$',     callback = geometry_cb({vert="center", horiz="left",   width=0.5, height=1.0}) },
-    { cgroup = 'dropdown%.slice/orgmode%.service$',     callback = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
-    { cgroup = 'dropdown%.slice/calibre%.service$',     callback = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
-    { cgroup = 'dropdown%.slice/mu4e%.service$',        callback = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
-    { cgroup = 'dropdown%.slice/chat%.service$',        callback = geometry_cb({vert="center", horiz="left",   width=0.6, height=1.0}) },
+    { rule = { cgroup = 'dropdown%.slice/xournal%.service$', main = true },
+      callback = geometry_cb({vert="center", horiz="left",   width=0.5, height=1.0}) },
 
-    { cgroup = 'dropdown%.slice/goldendict%.service$',  callback = geometry_cb({vert="center", horiz="right",  width=0.6, height=1.0}) },
-    { cgroup = 'dropdown%.slice/gmpc%.service$',        callback = geometry_cb({vert="center", horiz="right",  width=0.7, height=1.0}) },
-    { cgroup = 'dropdown%.slice/.*docs.*%.service$',    callback = geometry_cb({vert="center", horiz="right",  width=0.6, height=1.0}) },
+    { rule = { cgroup = 'dropdown%.slice/orgmode%.service$', main = true },
+      callback = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
+
+    { rule = { cgroup = 'dropdown%.slice/calibre%.service$', main = true },
+      callback = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
+
+    { rule = { cgroup = 'dropdown%.slice/mu4e%.service$', main = true },
+      callback = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
+
+    { rule = { cgroup = 'dropdown%.slice/chat%.service$', main = true },
+      callback = geometry_cb({vert="center", horiz="left",   width=0.6, height=1.0}) },
+
+    { rule = { cgroup = 'dropdown%.slice/goldendict%.service$', main = true },
+      callback = geometry_cb({vert="center", horiz="right",  width=0.6, height=1.0}) },
+
+    { rule = { cgroup = 'dropdown%.slice/gmpc%.service$', main = true },
+      callback = geometry_cb({vert="center", horiz="right",  width=0.7, height=1.0}) },
+
+    { rule = { cgroup = 'dropdown%.slice/.*docs.*%.service$', main = true },
+      callback = geometry_cb({vert="center", horiz="right",  width=0.6, height=1.0}) },
 
 }
 

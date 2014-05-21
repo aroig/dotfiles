@@ -198,8 +198,8 @@ end
 
 -- TODO: handle launching client when none is matching
 
-function show_cgroup(pat, cmd)
-    local list = systemd.matching_clients(pat)
+function show_cgroup(rule, cmd)
+    local list = systemd.matching_clients(rule)
     if #list > 0 then
         for i, c in ipairs(list) do
             show_client(c)
@@ -210,24 +210,24 @@ function show_cgroup(pat, cmd)
 end
 
 
-function hide_cgroup(pat)
-    local list = systemd.matching_clients(pat)
+function hide_cgroup(rule)
+    local list = systemd.matching_clients(rule)
     for i, c in ipairs(list) do
         hide_client(c)
     end
 end
 
 
-function kill_cgroup(pat)
-    local list = systemd.matching_clients(pat)
+function kill_cgroup(rule)
+    local list = systemd.matching_clients(rule)
     for i, c in ipairs(list) do
         kill_client(c)
     end
 end
 
 
-function toggle_cgroup(pat, cmd)
-    local list = systemd.matching_clients(pat)
+function toggle_cgroup(rule, cmd)
+    local list = systemd.matching_clients(rule)
     if #list > 0 then
         for i, c in ipairs(list) do
             toggle_client(c)
@@ -251,7 +251,7 @@ function ddtoggle(name)
         entry = name
     end
 
-    toggle_cgroup(string.format('dropdown.slice/.*%s', entry), name)
+    toggle_cgroup({ cgroup = string.format('dropdown.slice/.*%s', entry), main = true }, name)
 end
 
 function ddshow(name)
@@ -261,7 +261,7 @@ function ddshow(name)
         entry = name
     end
 
-    show_cgroup(string.format('dropdown.slice/.*%s', entry), name)
+    show_cgroup({ cgroup = string.format('dropdown.slice/.*%s', entry), main = true }, name)
 end
 
 function ddhide(name)
@@ -271,7 +271,7 @@ function ddhide(name)
         entry = name
     end
 
-    hide_cgroup(string.format('dropdown.slice/.*%s', entry))
+    hide_cgroup({ cgroup = string.format('dropdown.slice/.*%s', entry), main = true })
 end
 
 function ddhide_all(name)
@@ -281,12 +281,12 @@ function ddhide_all(name)
         entry = name
     end
 
-    hide_cgroup('dropdown.slice/.*')
+    hide_cgroup({ cgroup = 'dropdown.slice/.*', main = true })
 end
 
 local function ddshow_doc(url)
     systemd.run(string.format("dwb -p docs %s", util.shell_escape(url)), "docs", false, "dropdown")
-    local list = systemd.matching_clients('dropdown.slice/.*docs')
+    local list = systemd.matching_clients({ cgroup = 'dropdown.slice/.*docs' })
     for i, c in ipairs(list) do
         show_client(c)
     end

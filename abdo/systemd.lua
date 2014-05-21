@@ -21,7 +21,7 @@ local capi = {
 }
 
 
-local systemd = { cgroup = {}, rules = {} }
+local systemd = { client = {}, rules = {} }
 
 
 
@@ -55,6 +55,18 @@ local function unit_cgroup (unit)
         f:close()
     end
     return cgroup
+end
+
+local function cgroup_mainpid(cgroup)
+    if cgroup then
+        local f = io.open(string.format("/sys/fs/cgroup/systemd%s/cgroup.procs", cgroup), 'rb')
+        if f then
+            local mainpid = f:read("*l")
+            f:close()
+            return tonumber(mainpid)
+        end
+    end
+    return nil
 end
 
 local function free_unit_instance (unit, sep)
@@ -195,49 +207,24 @@ end
 
 
 -----------------------------------
--- Client matching               --
+-- Rule application              --
 -----------------------------------
 
-function systemd.matching_clients(pat)
-    local cgroup
-    local clist = {}
-    for i, c in pairs(capi.client.get()) do
-        cgroup = systemd.cgroup[c.window]
+local function match_cgroup(c, rule)
+    if rule == nil then return false end
 
-        -- manage the client if we got no cgroup
-        if not cgroup then
-            systemd.manage_client(c)
-            cgroup = systemd.cgroup[c.window]
-        end
+    local dt = systemd.client[c.window]
+    if dt == nil then return false end
+    if dt.cgroup == nil then return false end
 
-        -- if cgroup is not nil and pattern matches
-        if cgroup and cgroup:match(pat) then
-            table.insert(clist, c)
-        end
-    end
-    return clist
-end
-
-
-
------------------------------------
--- Client matching               --
------------------------------------
-
-local function match_cgroup(c, cgroup)
-    if cgroup == nil then return false end
-
-    local clientcgroup = systemd.cgroup[c.window]
-    if clientcgroup == nil then return false end
-
-    return clientcgroup:match(cgroup) ~= nil
+    return dt.cgroup:match(rule.cgroup) ~= nil and (not rule.main or dt.mainpid == c.pid)
 end
 
 
 local function matching_rules(c, _rules)
     local result = {}
     for _, entry in ipairs(_rules) do
-        if match_cgroup(c, entry.cgroup) then
+        if match_cgroup(c, entry.rule) then
             table.insert(result, entry)
         end
     end
@@ -266,20 +253,47 @@ end
 
 
 -----------------------------------
+-- Client matching               --
+-----------------------------------
+
+function systemd.matching_clients(rule, main)
+    local dt
+    local clist = {}
+    for i, c in pairs(capi.client.get()) do
+        dt = systemd.client[c.window]
+
+        -- manage the client if we got no cgroup
+        if not dt then
+            systemd.manage_client(c)
+            dt = systemd.client[c.window]
+        end
+
+        -- if cgroup is not nil and pattern matches
+        if match_cgroup(c, rule) then
+            table.insert(clist, c)
+        end
+    end
+    return clist
+end
+
+
+
+-----------------------------------
 -- Signals                       --
 -----------------------------------
 
 function systemd.manage_client(c)
     local cgroup = pid_cgroup(c.pid)
+    local mainpid = cgroup_mainpid(cgroup)
     if cgroup then
-        systemd.cgroup[c.window] = cgroup
+        systemd.client[c.window] = { cgroup = cgroup, mainpid = mainpid}
         systemd.rules_apply(c)
     end
 end
 
 
 function systemd.unmanage_client(c)
-    systemd.cgroup[c.window] = nil
+    systemd.client[c.window] = nil
 end
 
 
