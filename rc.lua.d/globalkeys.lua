@@ -13,7 +13,6 @@ local capi =
 
 local ipairs = ipairs
 local apps = apps
-local ddclient = ddclient
 local box = box
 
 

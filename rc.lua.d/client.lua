@@ -8,7 +8,6 @@ rules = require("awful.rules")
 posix = require("posix")
 
 local systemd = systemd
-local ddclient = ddclient
 
 local capi = {
     mouse = mouse,

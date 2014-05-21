@@ -22,7 +22,6 @@ local apps = apps
 
 local util      = require("abdo.util")
 local pickle    = require("abdo.pickle")           -- some crude pickling routines
-local dropdown  = require("abdo.dropdown")         -- dropdown clients
 local luaeval   = require("abdo.prompt.luaeval")   -- evaluation of lua code
 local promptl   = require("abdo.prompt.list")      -- user choice from a list
 local idoprompt = require("abdo.prompt.idoprompt")
@@ -33,8 +32,6 @@ local systemd   = require("abdo.systemd")
 -----------------------------------
 -- Initialization                --
 -----------------------------------
-
-ddclient = {}
 
 listsrc = {
     app  = awful.util.getdir("config") .. "/lists/app-list.lua",
@@ -283,98 +280,6 @@ end
 
 
 -----------------------------------
--- Dropdown apps on the top      --
------------------------------------
-
-local ddgeometry = {
-    top   = { vert="top",    horiz="center", width=1.0, height=0.4 },
-    left  = { vert="center", horiz="left",   width=0.6, height=1.0 },
-    right = { vert="center", horiz="right",  width=0.6, height=1.0 },
-    full  = { vert="center", horiz="center", width=1.0, height=1.0 },
-}
-
-ddclient.terminal = dropdown.new("terminal",
-                                 apps.termcmd(nil, "dropdown-terminal"),
-                                 ddgeometry['top'])
-
-ddclient.ranger   = dropdown.new("ranger",
-                                 apps.termcmd("ranger", "dropdown-ranger"),
-                                 ddgeometry['top'])
-
-
-function ddclient.ranger.newtab(dd, path)
-    if dd.run.client then
-        dd.run.onraise_hook = function (run)
-            naughty.notify({title = "New Tab", text=path, timeout=3})
-
-            awful.util.spawn_with_shell("sleep 0.1;"
-                                        .. "xdotool key --delay 100 Escape;"
-                                        .. string.format("xdotool type --delay 15 ':tab_new %s';", path)
-                                        .. 'xdotool key --delay 20 Return;')
-            run.onraise_hook = nil
-        end
-        dd:show()
-    else
-        -- TODO: launch and go to the right directory
-        dd:show()
-    end
-
-end
-
-function ddclient.terminal.newtab(dd, path)
-    if dd.run.client then
-        dd.run.onraise_hook = function (run)
-            naughty.notify({title = "New Tab", text=path, timeout=3})
-
-            awful.util.spawn_with_shell("sleep 0.1;"
-                                        .. "xdotool key --delay 15 Control+a;"
-                                        .. "xdotool key --delay 15 c;"
-                                        .. string.format("xdotool type --delay 15 'cd \"%s\"';", path)
-                                        .. 'xdotool key --delay 20 Return;'
-                                        .. 'xdotool type clear;'
-                                        .. 'xdotool key --delay 20 Return;'
-                                       )
-            run.onraise_hook = nil
-        end
-        dd:show()
-    else
-        -- TODO: launch and go to the right directory
-        dd:show()
-    end
-end
-
-
-
------------------------------------
--- Dropdown apps on the left     --
------------------------------------
-
-ddclient.document = dropdown.new("browser", nil,
-                                 {vert="center", horiz="right", width=0.7, height=1})
-
-
-
--- NOTE: If using a browser supporting tabs
--- do not kill old client if command changes, as chromium opens new tab
--- ddclient.document.kill_old = False
-
-
-
------------------------------------
--- Functions                     --
------------------------------------
-
-function ddclient.hide_all()
-    dropdown.hide_all()
-end
-
-function ddclient.kill_all()
-    dropdown.kill_all()
-end
-
-
-
------------------------------------
 -- Dropdown naughty boxes        --
 -----------------------------------
 
@@ -393,12 +298,17 @@ box.userlog    = require("abdo.box.userlog")     -- user log
 -----------------------------------
 prompt = {}
 
+local function ddshow_document(url)
+    systemd.run(string.format("dwb -p docs %s", util.shell_escape(url)), "docs", false, "dropdown")
+end
+
+
 function prompt.wikipedia()
     idoprompt.run(myw.promptbox[mouse.screen].widget,
                   "Wikipedia: ",
                   function (cmd)
                       local url = string.format("http://en.wikipedia.org/wiki/Special:Search?go=Go&search=\"%s\"", cmd)
-                      ddclient.document:show(string.format("%s '%s'", apps.docbrowser, url))
+                      ddshow_document(url)
                   end,
                   nil,
                   awful.util.getdir("cache") .. "/history_wikipedia")
@@ -410,7 +320,7 @@ function prompt.mathscinet()
                   "Mathscinet: ",
                   function (cmd)
                       local url = string.format("http://www.ams.org/mathscinet/search/publications.html?review_format=html&pg4=ALLF&s4=\"%s\"", cmd)
-                      ddclient.document:show(string.format("%s '%s'", apps.docbrowser, url))
+                      ddshow_document(url)
                   end,
                   nil,
                   awful.util.getdir("cache") .. "/history_mathscinet")
@@ -427,7 +337,7 @@ function prompt.docs()
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Doc: ",
-                function (url) systemd.run(string.format("dwb -p docs %s", util.shell_escape(url)), "docs", false, "dropdown") end,
+                ddshow_document,
                 execlist.doc,
                 awful.util.getdir("cache") .. "/history_docs")
 end
