@@ -92,14 +92,17 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F4",     box.naughtylog.toggle_naughtylog),
 
     -- Top dropdown clients
-    awful.key({ modkey,           }, "F9",     function() ddshow("dd:syslog") end),
-    awful.key({                   }, "F9",     function() ddhide("dd:syslog") end),
+    awful.key({ modkey,           }, "F8",     function() ddshow("dd:docs")    end),
+    awful.key({                   }, "F8",     function() ddhide("dd:docs")    end),
 
-    awful.key({ modkey,           }, "F10",    function() ddshow("app:notes") end),
-    awful.key({                   }, "F10",    function() ddhide("app:notes") end),
+    awful.key({ modkey,           }, "F9",     function() ddshow("dd:syslog")  end),
+    awful.key({                   }, "F9",     function() ddhide("dd:syslog")  end),
 
-    awful.key({ modkey,           }, "F11",    function() ddshow("dd:octave") end),
-    awful.key({ ctrlkey           }, "F11",    function() ddshow("dd:sage")   end),
+    awful.key({ modkey,           }, "F10",    function() ddshow("app:notes")  end),
+    awful.key({                   }, "F10",    function() ddhide("app:notes")  end),
+
+    awful.key({ modkey,           }, "F11",    function() ddshow("dd:octave")  end),
+    awful.key({ ctrlkey           }, "F11",    function() ddshow("dd:sage")    end),
     awful.key({                   }, "F11",    function() ddhide("dd:octave"); ddhide("dd:sage") end),
 
     awful.key({ modkey,           }, "F12",    function() ddshow("dd:termite") end),
@@ -109,10 +112,8 @@ globalkeys = awful.util.table.join(
     -- Prompts
     awful.key({ modkey,           }, "F5",     prompt.wikipedia),
     awful.key({ modkey,           }, "F6",     prompt.mathscinet),
-    awful.key({ modkey,           }, "F7",     prompt.docs),
-    awful.key({ modkey,           }, "F8",     function() ddclient.document:show() end),
-    awful.key({                   }, "F8",     function() ddclient.document:hide() end),
 
+    awful.key({ modkey,           }, "d",      prompt.docs),
     awful.key({ modkey, ctrlkey   }, "x",      prompt.lua),
     awful.key({ modkey,           }, "x",      prompt.command),
 

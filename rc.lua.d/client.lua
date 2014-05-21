@@ -165,6 +165,7 @@ systemd.rules = {
 
     { cgroup = 'dropdown%.slice/goldendict%.service$',  callback = geometry_cb({vert="center", horiz="right",  width=0.6, height=1.0}) },
     { cgroup = 'dropdown%.slice/gmpc%.service$',        callback = geometry_cb({vert="center", horiz="right",  width=0.7, height=1.0}) },
+    { cgroup = 'dropdown%.slice/.*docs.*%.service$',    callback = geometry_cb({vert="center", horiz="right",  width=0.6, height=1.0}) },
 
     -- set the geometry for top dropdowns
     { cgroup = 'dropdown%.slice/.*termite.*%.service$', callback = geometry_cb({vert="top",    horiz="center", width=1.0, height=0.4}) },

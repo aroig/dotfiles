@@ -427,7 +427,7 @@ function prompt.docs()
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Doc: ",
-                function (cmd) ddclient.document:show(cmd) end,
+                function (url) systemd.run(string.format("dwb -p docs %s", util.shell_escape(url)), "docs", false, "dropdown") end,
                 execlist.doc,
                 awful.util.getdir("cache") .. "/history_docs")
 end
