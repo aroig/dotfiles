@@ -233,8 +233,14 @@ function toggle_cgroup(pat, cmd)
 end
 
 
-function toggle_dropdown(name)
-    toggle_cgroup(string.format('dropdown.slice/%s', name), name)
+function toggle(name)
+    ns, entry = name:match("^([^:]*):(.*)$")
+
+    if ns == nil then
+        entry = name
+    end
+
+    toggle_cgroup(string.format('dropdown.slice/%s', entry), name)
 end
 
 
