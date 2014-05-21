@@ -13,7 +13,7 @@ After=chat-db.service
 [Service]
 Type=simple
 SyslogIdentifier=chat
-Slice=apps.slice
+Slice=dropdown.slice
 
 ExecStart=/usr/bin/emacs -chat --title "emacs-chat"
 KillSignal=SIGINT
