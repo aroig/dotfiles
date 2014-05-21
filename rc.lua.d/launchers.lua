@@ -50,17 +50,6 @@ for k, path in pairs(listsrc) do
     execlist[k] = pickle.load(path)
 end
 
--- initialize systemd signals to capture cgroups
-capi.client.connect_signal("manage",
-                           function(c, startup)
-                               systemd.manage_client(c)
-                           end)
-
-capi.client.connect_signal("unmanage",
-                           function(c)
-                               systemd.unmanage_client(c)
-                           end)
-
 
 
 -----------------------------------

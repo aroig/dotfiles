@@ -4,7 +4,6 @@
 -- Author: Abdó Roig<abdo.roig@gmail.com>                    --
 ---------------------------------------------------------------
 
-rules = require("awful.rules")
 posix = require("posix")
 
 local systemd = systemd
@@ -104,7 +103,31 @@ clientbuttons = awful.util.table.join(
 
 
 -----------------------------------
--- Client Rules                  --
+-- Signal handlers               --
+-----------------------------------
+
+-- adds manage signal for setting rules
+rules = require("awful.rules")
+
+-- systemd signals to capture cgroups and apply rules
+capi.client.connect_signal("manage",
+                           function(c, startup)
+                               systemd.manage_client(c)
+
+                               -- remove hidden state, when everything is done
+                               c.hidden = false
+                               capi.client.focus = c
+                           end)
+
+capi.client.connect_signal("unmanage",
+                           function(c)
+                               systemd.unmanage_client(c)
+                           end)
+
+
+
+-----------------------------------
+-- Rules                         --
 -----------------------------------
 
 -- awful rules
@@ -114,7 +137,8 @@ rules.rules = {
       properties = { border_width = 1,
                      -- border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
-                     focus = true,
+                     -- initially hide clients, so they do not flicker when changing geometry
+                     hidden = true,
                      keys = clientkeys,
                      buttons = clientbuttons,
                      maximized_vertical   = false,
@@ -170,3 +194,8 @@ systemd.rules = {
     { cgroup = 'dropdown%.slice/.*docs.*%.service$',    callback = geometry_cb({vert="center", horiz="right",  width=0.6, height=1.0}) },
 
 }
+
+
+-----------------------------------
+-- Signals                       --
+-----------------------------------
