@@ -28,7 +28,7 @@ local promptl   = require("abdo.prompt.list")      -- user choice from a list
 local idoprompt = require("abdo.prompt.idoprompt")
 local systemd   = require("abdo.systemd")
 
-local cmd_list_file = awful.util.getdir("config") .. "/lists/cmd-list.lua"
+local app_list_file = awful.util.getdir("config") .. "/lists/app-list.lua"
 local doc_list_file = awful.util.getdir("config") .. "/lists/doc-list.lua"
 
 
@@ -38,8 +38,10 @@ local doc_list_file = awful.util.getdir("config") .. "/lists/doc-list.lua"
 -----------------------------------
 
 ddclient = {}
-cmdlist  = pickle.load(cmd_list_file)
-doclist  = pickle.load(doc_list_file)
+
+execlist = {}
+execlist.doc = pickle.load(doc_list_file)
+execlist.app = pickle.load(app_list_file)
 
 -- initialize systemd signals to capture cgroups
 systemd.init()
@@ -68,33 +70,46 @@ end
 
 function run(name, opts)
 
+    if name == nil then return end
+
     opts = opts or {ask = false}
-    local ask = opts['ask']
+    local ask   = opts['ask']
+    local slice = opts['slice']
 
-    local cmd = cmdlist[name]
-    if not cmd then
-        naughty.notify({title="Error in run",
-                        text=string.format("Unknown command name '%s'", name)})
-        return
+    -- get the right thing
+    ns, entry = name:match("^([^:]*):(.*)$")
+
+    -- if no namespace, just run a nameless command
+    if ns == nil then
+        ns = 'cmd'
+        entry = name
     end
 
-    -- detect mode of execution
-    if string.match(cmd, '^.*%.service%s*$') or string.match(cmd, '^.*%.target%s*$') then
-        mode = 'sdstart'
-    else
-        mode = 'sdrun'
-    end
+    -- prepare the command executing function
+    local exec_func
+    if ns == 'systemd' then
+        exec_func = function() systemd.start(entry) end
 
-    -- prepare the function that executes cmd
-    if mode == 'sdrun' then
-        exec_cmd = function() systemd.run(cmd, name, false, 'apps') end
+    elseif ns == 'sh' then
+        exec_func = function () shexec(entry) end
 
-    elseif mode == 'sdstart' then
-        exec_cmd = function() systemd.start(cmd) end
+    elseif ns == 'cmd' then
+        exec_func = function () systemd.run(entry, nil, false, slice or 'apps') end
 
-    elseif mode == 'shrun' then
-        exec_cmd = function () shexec(cmd) end
+    elseif execlist[ns] ~= nil then
+        local cmd = execlist.app[entry]
+        if not cmd then
+            naughty.notify({title="Error in run",
+                            text=string.format("Unknown command name '%s'", name)})
+            return
+        end
 
+        -- detect whether cmd is a systemd unit or a command
+        if string.match(cmd, '^.*%.service%s*$') or string.match(cmd, '^.*%.target%s*$') then
+            exec_func = function() systemd.start(cmd) end
+        else
+            exec_func = function() systemd.run(cmd, entry, false, slice or 'apps') end
+        end
     end
 
     -- run the command
@@ -103,11 +118,11 @@ function run(name, opts)
 
         promptl.run(myw.promptbox[mouse.screen].widget,
                     string.format("Run %s? ", name),
-                    function (c) if c then exec_cmd() end end,
+                    function (c) if c then exec_func() end end,
                     lst, nil)
 
     else
-        exec_cmd()
+        exec_func()
     end
 end
 
@@ -398,38 +413,38 @@ end
 
 
 function prompt.docs()
-    doclist = pickle.load(doc_list_file)
-    if not doclist then
+    execlist.doc = pickle.load(doc_list_file)
+    if not execlist.doc then
         naughty.notify({title="Error in document prompt",
-                        text=string.format("Can't load file '%s'", cmd_list_file)})
+                        text=string.format("Can't load file '%s'", doc_list_file)})
         return
     end
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Doc: ",
                 function (cmd) ddclient.document:show(cmd) end,
-                doclist,
+                execlist.doc,
                 awful.util.getdir("cache") .. "/history_docs")
 end
 
 
 function prompt.command()
-    cmdlist = pickle.load(cmd_list_file)
-    if not cmdlist then
+    execlist.app = pickle.load(app_list_file)
+    if not execlist.app then
         naughty.notify({title="Error in command prompt",
-                        text=string.format("Can't load file '%s'", cmd_list_file)})
+                        text=string.format("Can't load file '%s'", app_list_file)})
         return
     end
 
     -- want the prompt to pass progname, not prog command to the callback
     local proglist = {}
-    for name, cmd in pairs(cmdlist) do
-        proglist[name] = name
+    for name, cmd in pairs(execlist.app) do
+        proglist[name] = string.format("app:%s", name)
     end
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Run: ",
-                function (name) run(name) end,
+                run,
                 proglist,
                 awful.util.getdir("cache") .. "/history_cmd")
 end

@@ -61,11 +61,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "Print",  function () shexec(apps.print)       end),
 
     -- those are started as instantiated units
-    awful.key({ modkey, ctrlkey   }, "Return", function () run('termite')           end),
-    awful.key({ modkey, ctrlkey   }, "f",      function () run('thunar')            end),
-    awful.key({ modkey, ctrlkey   }, "b",      function () run('dwb')               end),
-    awful.key({ modkey, metakey   }, "b",      function () run('chromium')          end),
-    awful.key({ modkey, ctrlkey   }, "e",      function () run('emacsclient')       end),
+    awful.key({ modkey, ctrlkey   }, "Return", function () run('app:termite')       end),
+    awful.key({ modkey, ctrlkey   }, "f",      function () run('app:thunar')        end),
+    awful.key({ modkey, ctrlkey   }, "b",      function () run('app:dwb')           end),
+    awful.key({ modkey, metakey   }, "b",      function () run('app:chromium')      end),
+    awful.key({ modkey, ctrlkey   }, "e",      function () run('app:emacsclient')   end),
 
     -- Dropdown clients
     awful.key({ modkey, ctrlkey   }, "d",      function () ddclient.dict:toggle() end),
