@@ -154,7 +154,7 @@ end
 
 function show_client(c)
     -- move to the right tag
-    awful.client.movetotag(awful.tag.selected(c.screen), c)
+    awful.client.movetotag(awful.tag.selected(mouse.screen), c)
 
     -- raise client
     c.hidden = false
