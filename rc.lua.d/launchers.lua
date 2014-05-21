@@ -274,6 +274,16 @@ function ddhide(name)
     hide_cgroup(string.format('dropdown.slice/.*%s', entry))
 end
 
+function ddhide_all(name)
+    ns, entry = name:match("^([^:]*):(.*)$")
+
+    if ns == nil then
+        entry = name
+    end
+
+    hide_cgroup('dropdown.slice/.*')
+end
+
 local function ddshow_doc(url)
     systemd.run(string.format("dwb -p docs %s", util.shell_escape(url)), "docs", false, "dropdown")
     local list = systemd.matching_clients('dropdown.slice/.*docs')
