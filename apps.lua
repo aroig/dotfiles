@@ -38,21 +38,7 @@ apps.docbrowser          = apps.browser .. " -n"
 apps.secondbrowser       = "chromium"
 apps.pdfviewer           = "zathura"
 
-apps.dictionary          = apps.sdcmd("goldendict.service")
-apps.music               = apps.sdcmd("gmpc.service")
-apps.library             = apps.sdcmd("calibre.service")
-apps.xournal             = apps.sdcmd("xournal.service")
-
--- Logging
-apps.syslog              = "sudo journalctl -n10 -f"
-
 -- Actions
 apps.print               = "scrot -e 'mv $f ~/down/'"
-
--- Emacs stuff
-apps.orgmode             = apps.sdcmd("orgmode.service")
-apps.mail                = apps.sdcmd("mu4e.service")
-apps.chat                = apps.sdcmd("chat.service")
-apps.notes               = apps.sdcmd("notes.service")
 
 return apps

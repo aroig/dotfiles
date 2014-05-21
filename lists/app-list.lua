@@ -13,6 +13,7 @@ return {
    calibre                   = "calibre.service",
    mu4e                      = "mu4e.service",
    chat                      = "chat.service",
+   notes                     = "notes.service",
    xournal                   = "xournal.service",
    gmpc                      = "gmpc.service",
    goldendict                = "goldendict.service",

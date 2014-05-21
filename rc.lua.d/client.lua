@@ -139,22 +139,6 @@ rules.rules = {
     { rule = { class = "Xournal" },         properties = { screen = 1 } },
     { rule = { class = "Skype" },           properties = { screen = 1 % nscreen + 1} },
 
-    -- Capture dropdowns in a terminal
-    { rule = { class = "Termite", name = "dropdown-terminal" },
-      callback = function(c) ddclient.terminal:capture(c) end },
-
-    { rule = { class = "Termite", name = "dropdown-syslog" },
-      callback = function(c) ddclient.syslog:capture(c) end },
-
-    { rule = { class = "Termite", name = "dropdown-ranger" },
-      callback = function(c) ddclient.ranger:capture(c) end },
-
-    { rule = { class = "Termite", name = "dropdown-sage" },
-      callback = function(c) ddclient.sage:capture(c) end },
-
-    { rule = { class = "Termite", name = "dropdown-octave" },
-      callback = function(c) ddclient.octave:capture(c) end },
-
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
@@ -165,20 +149,29 @@ rules.rules = {
 -- systemd cgroup rules
 systemd.rules = {
     -- float the dropdowns
-    { cgroup = 'dropdown%.slice/.*$',                  properties = { floating = true } },
-    { cgroup = '@dropdown.service$',                   properties = { floating = true } },
+    { cgroup = 'dropdown%.slice/.*$',
+      properties = { floating = true,
+                     size_hints_honor = false,
+                     ontop = true,
+                     above = true,
+                     skip_taskbar = true } },
 
     -- set the geometry for side dropdowns
-    { cgroup = 'dropdown%.slice/xournal%.service$',     callback = geometry_cb({vert="center", horiz="left", width=0.5, height=1.0}) },
-    { cgroup = 'dropdown%.slice/orgmode%.service$',     callback = geometry_cb({vert="center", horiz="left", width=1.0, height=1.0}) },
-    { cgroup = 'dropdown%.slice/calibre%.service$',     callback = geometry_cb({vert="center", horiz="left", width=1.0, height=1.0}) },
-    { cgroup = 'dropdown%.slice/mu4e%.service$',        callback = geometry_cb({vert="center", horiz="left", width=1.0, height=1.0}) },
-    { cgroup = 'dropdown%.slice/chat%.service$',        callback = geometry_cb({vert="center", horiz="left", width=0.6, height=1.0}) },
+    { cgroup = 'dropdown%.slice/xournal%.service$',     callback = geometry_cb({vert="center", horiz="left",   width=0.5, height=1.0}) },
+    { cgroup = 'dropdown%.slice/orgmode%.service$',     callback = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
+    { cgroup = 'dropdown%.slice/calibre%.service$',     callback = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
+    { cgroup = 'dropdown%.slice/mu4e%.service$',        callback = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
+    { cgroup = 'dropdown%.slice/chat%.service$',        callback = geometry_cb({vert="center", horiz="left",   width=0.6, height=1.0}) },
 
-    { cgroup = 'dropdown%.slice/goldendict%.service$',  callback = geometry_cb({vert="center", horiz="right", width=0.6, height=1.0}) },
-    { cgroup = 'dropdown%.slice/gmpc%.service$',        callback = geometry_cb({vert="center", horiz="right", width=0.7, height=1.0}) },
+    { cgroup = 'dropdown%.slice/goldendict%.service$',  callback = geometry_cb({vert="center", horiz="right",  width=0.6, height=1.0}) },
+    { cgroup = 'dropdown%.slice/gmpc%.service$',        callback = geometry_cb({vert="center", horiz="right",  width=0.7, height=1.0}) },
 
     -- set the geometry for top dropdowns
-    { cgroup = 'dropdown%.slice/.*termite.*%.service$', callback = geometry_cb({vert="top", horiz="center", width=1.0, height=0.4}) },
-    { cgroup = 'dropdown%.slice/.*ranger.*%.service$',  callback = geometry_cb({vert="top", horiz="center", width=1.0, height=0.4}) },
+    { cgroup = 'dropdown%.slice/.*termite.*%.service$', callback = geometry_cb({vert="top",    horiz="center", width=1.0, height=0.4}) },
+    { cgroup = 'dropdown%.slice/.*ranger.*%.service$',  callback = geometry_cb({vert="top",    horiz="center", width=1.0, height=0.4}) },
+    { cgroup = 'dropdown%.slice/.*notes.*%.service$',   callback = geometry_cb({vert="top",    horiz="center", width=1.0, height=0.4}) },
+    { cgroup = 'dropdown%.slice/.*syslog.*%.service$',  callback = geometry_cb({vert="top",    horiz="center", width=1.0, height=0.4}) },
+
+    { cgroup = 'dropdown%.slice/.*octave.*%.service$',  callback = geometry_cb({vert="top",    horiz="center", width=1.0, height=0.4}) },
+    { cgroup = 'dropdown%.slice/.*sage.*%.service$',    callback = geometry_cb({vert="top",    horiz="center", width=1.0, height=0.4}) },
 }

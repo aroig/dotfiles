@@ -301,23 +301,6 @@ ddclient.ranger   = dropdown.new("ranger",
                                  apps.termcmd("ranger", "dropdown-ranger"),
                                  ddgeometry['top'])
 
-ddclient.sage     = dropdown.new("sage",
-                                 apps.termcmd("sage", "dropdown-sage"),
-                                 ddgeometry['top'])
-
-ddclient.octave   = dropdown.new("octave",
-                                 apps.termcmd("octave", "dropdown-octave"),
-                                 ddgeometry['top'])
-
-ddclient.notes    = dropdown.new("notes",
-                                 apps.notes,
-                                 ddgeometry['top'])
-
-ddclient.syslog   = dropdown.new("syslog",
-                                 apps.termcmd(apps.syslog, "dropdown-syslog"),
-                                 ddgeometry['top'])
-
-
 
 function ddclient.ranger.newtab(dd, path)
     if dd.run.client then

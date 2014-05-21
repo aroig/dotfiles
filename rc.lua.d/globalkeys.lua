@@ -92,15 +92,15 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F4",     box.naughtylog.toggle_naughtylog),
 
     -- Top dropdown clients
-    awful.key({ modkey,           }, "F9",     function() ddclient.syslog:show() end),
-    awful.key({                   }, "F9",     function() ddclient.syslog:hide() end),
+    awful.key({ modkey,           }, "F9",     function() ddshow("dd:syslog") end),
+    awful.key({                   }, "F9",     function() ddhide("dd:syslog") end),
 
-    awful.key({ modkey,           }, "F10",    function() ddclient.notes:show() end),
-    awful.key({                   }, "F10",    function() ddclient.notes:hide() end),
+    awful.key({ modkey,           }, "F10",    function() ddshow("app:notes") end),
+    awful.key({                   }, "F10",    function() ddhide("app:notes") end),
 
-    awful.key({ modkey,           }, "F11",    function() ddclient.octave:show() end),
-    awful.key({ ctrlkey           }, "F11",    function() ddclient.sage:show() end),
-    awful.key({                   }, "F11",    function() ddclient.octave:hide(); ddclient.sage:hide() end),
+    awful.key({ modkey,           }, "F11",    function() ddshow("dd:octave") end),
+    awful.key({ ctrlkey           }, "F11",    function() ddshow("dd:sage")   end),
+    awful.key({                   }, "F11",    function() ddhide("dd:octave"); ddhide("dd:sage") end),
 
     awful.key({ modkey,           }, "F12",    function() ddshow("dd:termite") end),
     awful.key({ ctrlkey           }, "F12",    function() ddshow("dd:ranger")  end),
