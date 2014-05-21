@@ -97,7 +97,7 @@ function run(name, opts)
 
     -- prepare the command executing function
     local exec_func
-    if ns == 'systemd' then
+    if ns == 'sd' then
         exec_func = function() systemd.start(entry) end
 
     elseif ns == 'sh' then
