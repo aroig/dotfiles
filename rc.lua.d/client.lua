@@ -96,8 +96,7 @@ end
 
 local function geometry_cb(geom)
     local geom = geom
-    local func = function (c) set_geometry(c, geom) end
-    return func
+    return function (c) set_geometry(c, geom) end
 end
 
 

@@ -41,7 +41,7 @@ local function pid_cgroup (pid)
     local cgroup = nil
     local f = io.open(string.format("/proc/%s/cgroup", tostring(pid)), 'rb')
     if f then
-        cgroup = string.match(f:read("*all"), "systemd:(.*)$")
+        cgroup = string.match(f:read("*all"), "systemd:(.-)%s*$")
         f:close()
     end
     return cgroup
@@ -51,7 +51,7 @@ local function unit_cgroup (unit)
     local cgroup = nil
     local f = io.popen(string.format("systemctl --user show -p ControlGroup %s", s), 'r')
     if f then
-        cgroup = string.match(f:read("*all"), "^ControlGroup=(.*)$")
+        cgroup = string.match(f:read("*all"), "^ControlGroup=(.-)%s*$")
         f:close()
     end
     return cgroup
