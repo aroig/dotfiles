@@ -1,10 +1,14 @@
+apps = require("apps")
 
 return {
    -- systemd units
    termite               = "termite",
-   ranger                = "termite -t ranger -e ranger",
-   syslog                = "termite -t syslog -e \"sudo journalctl -n10 -f\"",
-   octave                = "termite -t octave -e octave",
-   sage                  = "termite -t sage   -e sage",
-   docs                  = "dwb -p docs"
+   docs                  = "dwb -p docs",
+   ranger                = apps.termcmd("ranger", "ranger"),
+   syslog                = apps.termcmd("sudo journalctl -n10 -f", "syslog"),
+   octave                = apps.termcmd("octave", "octave"),
+   sage                  = apps.termcmd("sage", "sage"),
+   ipython               = apps.termcmd("ipython", "ipython"),
+   lua                   = apps.termcmd("lua", "lua"),
+   ghci                  = apps.termcmd("ghci", "ghci"),
 }

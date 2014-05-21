@@ -1,4 +1,4 @@
-require("apps")
+apps = require("apps")
 
 return {
    -- systemd units
