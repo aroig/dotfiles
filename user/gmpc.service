@@ -9,6 +9,6 @@ Requires=mpd.service
 [Service]
 Type=simple
 SyslogIdentifier=gmpc
-Slice=apps.slice
+Slice=dropdown.slice
 
 ExecStart=/usr/bin/gmpc --debug-level=0
