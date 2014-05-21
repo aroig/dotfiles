@@ -1,0 +1,15 @@
+[Unit]
+Description=ranger %i
+
+Requisite=desktop.target 
+After=desktop.target
+
+[Service]
+Type=simple
+SyslogIdentifier=ranger
+Slice=apps.slice
+KillMode=process
+
+ExecStart=/usr/bin/termite -t ranger -e ranger
+
+
