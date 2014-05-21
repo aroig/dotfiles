@@ -115,6 +115,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "d",      prompt.docs),
     awful.key({ modkey, ctrlkey   }, "x",      prompt.lua),
     awful.key({ modkey,           }, "x",      prompt.command),
+    awful.key({ modkey, metakey   }, "x",      prompt.dropdown),
 
     -- Client cycling by direction
     awful.key({ modkey,           }, "Up",     function () awful.client.focus.global_bydirection("up") end),

@@ -378,6 +378,28 @@ function prompt.command()
 end
 
 
+function prompt.dropdown()
+    execlist.dd = pickle.load(listsrc.dd)
+    if not execlist.dd then
+        naughty.notify({title="Error in command prompt",
+                        text=string.format("Can't load file '%s'", listsrc.dd)})
+        return
+    end
+
+    -- want the prompt to pass progname, not prog command to the callback
+    local proglist = {}
+    for name, cmd in pairs(execlist.dd) do
+        proglist[name] = string.format("dd:%s", name)
+    end
+
+    promptl.run(myw.promptbox[mouse.screen].widget,
+                "Dropdown: ",
+                run,
+                proglist,
+                awful.util.getdir("cache") .. "/history_dropdown")
+end
+
+
 function prompt.lua()
     luaeval.run(myw.promptbox[mouse.screen].widget)
 end
