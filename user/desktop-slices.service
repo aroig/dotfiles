@@ -1,0 +1,15 @@
+[Unit]
+Description=manage desktop slices
+
+Requires=desktop.target apps.slice dropdown.slice
+After=desktop.target apps.slice dropdown.slice
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+ExecStart=/usr/bin/systemctl --user start apps.slice
+ExecStart=/usr/bin/systemctl --user start dropdown.slice
+
+ExecStop=/usr/bin/systemctl --user kill apps.slice
+ExecStop=/usr/bin/systemctl --user kill dropdown.slice
