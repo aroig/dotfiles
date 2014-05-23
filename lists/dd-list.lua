@@ -8,6 +8,7 @@ return {
    octave                = apps.termcmd("octave", "octave"),
    sage                  = apps.termcmd("sage", "sage"),
    ipython               = apps.termcmd("ipython", "ipython"),
+   ipython2              = apps.termcmd("ipython2", "ipython2"),
    lua                   = apps.termcmd("lua", "lua"),
    ghci                  = apps.termcmd("ghci", "ghci"),
    ["awesome-client"]    = apps.termcmd("awesome-client", "awesome-client"),
