@@ -51,6 +51,20 @@ function util.shell_escape(s)
 end
 
 
+function util.debug(name, obj)
+    local str = ""
+    if type(obj) == "table" then
+        for k, v in pairs(obj) do
+            str = str .. string.format("%s = %s,\n", k, tostring(v))
+        end
+
+    else
+        str = tostring(obj)
+    end
+
+    naughty.notify({title=string.format("Debug output: %s", name), text=str})
+end
+
 
 -----------------------------------
 -- Graphic stuff                 --

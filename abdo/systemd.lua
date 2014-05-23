@@ -297,6 +297,10 @@ end
 function systemd.manage_client(c)
     local cgroup = pid_cgroup(c.pid)
     local mainpid = cgroup_mainpid(cgroup)
+
+    -- util.debug("client", { transient_for = c.transient_for, modal = c.modal,
+    --                        window = c.window, leader_window = c.leader_window })
+
     if cgroup then
         systemd.client[c.window] = { cgroup = cgroup, mainpid = mainpid}
         systemd.rules_apply(c)
