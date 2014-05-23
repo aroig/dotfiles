@@ -5,7 +5,6 @@ return {
    termite               = "termite",
    thunar                = "thunar",
    ranger                = apps.termcmd("ranger", "ranger"),
-   syslog                = apps.termcmd("sudo journalctl -n10 -f", "syslog"),
    octave                = apps.termcmd("octave", "octave"),
    sage                  = apps.termcmd("sage", "sage"),
    ipython               = apps.termcmd("ipython", "ipython"),
@@ -13,6 +12,12 @@ return {
    ghci                  = apps.termcmd("ghci", "ghci"),
    ["awesome-client"]    = apps.termcmd("awesome-client", "awesome-client"),
    notes                 = "notes.service",
+
+   -- monitoring
+   syslog                = apps.termcmd("sudo journalctl -n10 -f", "syslog"),
+   htop                  = apps.termcmd("htop", "htop"),
+   iftop                 = apps.termcmd("sudo iftop", "iftop"),
+   iotop                 = apps.termcmd("sudo iotop", "iotop"),
 
    -- sync actions
    hi                    = apps.termcmd("ictl hi.target",    "hi"),
