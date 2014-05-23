@@ -97,8 +97,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F9",     function() ddshow("dd:syslog")  end),
     awful.key({                   }, "F9",     function() ddhide("dd:syslog")  end),
 
-    awful.key({ modkey,           }, "F10",    function() ddshow("app:notes")  end),
-    awful.key({                   }, "F10",    function() ddhide("app:notes")  end),
+    awful.key({ modkey,           }, "F10",    function() ddshow("dd:notes")  end),
+    awful.key({                   }, "F10",    function() ddhide("dd:notes")  end),
 
     awful.key({ modkey,           }, "F11",    function() ddshow("dd:octave")  end),
     awful.key({ ctrlkey           }, "F11",    function() ddshow("dd:sage")    end),

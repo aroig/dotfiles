@@ -25,7 +25,6 @@ return {
    skype                     = "skype",
    guvcview                  = "guvcview",
 
-
    pavucontrol               = "pavucontrol",
    qjackctl                  = "qjackctl",
    pachage                   = "pachage",
@@ -81,4 +80,7 @@ return {
    poweroff                  = "poweroff.target",
    reboot                    = "reboot.target",
 
+   -- desktop state
+   priv                      = "mount-priv.service",
+   fake-sync                 = "initial-synced-fake.service",
 }
