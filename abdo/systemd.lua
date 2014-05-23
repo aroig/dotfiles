@@ -11,6 +11,7 @@
 local os = os
 local string = string
 local table = table
+local posix = posix
 
 rules = require("awful.rules")
 
@@ -34,6 +35,11 @@ local function shell_escape(s)
     ret = ret:gsub('\\', '\\\\')
     ret = ret:gsub('"', '\\"')
     return '"' .. ret .. '"'
+end
+
+
+local function path_exists(path)
+    return posix.stat(path) ~= nil
 end
 
 
@@ -72,10 +78,14 @@ end
 local function free_unit_instance (unit, sep)
     sep = sep or '@'
     local newunit
+    local unitpath
     for i=0,100 do
-        newunit = string.gsub(unit, '@', string.format('%s%d', sep, i))
+        newunit  = string.gsub(unit, '@', string.format('%s%d', sep, i))
+        unitpath = string.format("%s/.config/systemd/user/%s", os.getenv("HOME"), newunit)
 
-        if not systemd.is_active(newunit) then
+        if not systemd.is_active(newunit) and
+           not path_exists(unitpath) and
+           not path_exists(string.format("%s.d", unitpath)) then
             return newunit
         end
     end
