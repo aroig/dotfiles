@@ -224,7 +224,9 @@ end
 local function matching_rules(c, _rules)
     local result = {}
     for _, entry in ipairs(_rules) do
-        if match_cgroup(c, entry.rule) then
+        if (rules.match(c, entry.rule) or rules.match_any(c, entry.rule_any)) and
+            (not rules.match(c, entry.except) and not rules.match_any(c, entry.except_any)) and
+            match_cgroup(c, entry.process) then
             table.insert(result, entry)
         end
     end
