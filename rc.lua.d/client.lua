@@ -173,6 +173,7 @@ rules.rules = {
 systemd.rules = {
     -- float the dropdowns
     { rule       = { },
+      except     = { modal = true },
       process    = { cgroup = 'dropdown%.slice/.*$', main = true },
       properties = { floating = true,
                      size_hints_honor = false,
@@ -182,39 +183,48 @@ systemd.rules = {
 
     -- default dropdown geometry
     { rule       = { },
+      except     = { modal = true },
       process    = { cgroup = 'dropdown%.slice/.*$', main = true },
       callback   = geometry_cb({vert="top",    horiz="center", width=1.0, height=0.4}) },
 
     -- set the geometry for side dropdowns
     { rule       = { },
+      except     = { modal = true },
       process    = { cgroup = 'dropdown%.slice/xournal%.service$', main = true },
       callback   = geometry_cb({vert="center", horiz="left",   width=0.5, height=1.0}) },
 
     { rule       = { },
+      except     = { modal = true },
       process    = { cgroup = 'dropdown%.slice/orgmode%.service$', main = true },
       callback   = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
 
-    { rule       = { transient_for = nil },
+    { rule       = { },
+      except     = { modal = true },
       process    = { cgroup = 'dropdown%.slice/calibre%.service$', main = true },
       callback   = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
 
     { rule       = { },
+      except     = { modal = true },
       process    = { cgroup = 'dropdown%.slice/mu4e%.service$', main = true },
       callback   = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
 
     { rule       = { },
+      except     = { modal = true },
       process    = { cgroup = 'dropdown%.slice/chat%.service$', main = true },
       callback   = geometry_cb({vert="center", horiz="left",   width=0.6, height=1.0}) },
 
     { rule       = { },
+      except     = { modal = true },
       process    = { cgroup = 'dropdown%.slice/goldendict%.service$', main = true },
       callback   = geometry_cb({vert="center", horiz="right",  width=0.6, height=1.0}) },
 
     { rule       = { },
+      except     = { modal = true },
       process    = { cgroup = 'dropdown%.slice/gmpc%.service$', main = true },
       callback   = geometry_cb({vert="center", horiz="right",  width=0.7, height=1.0}) },
 
     { rule       = { },
+      except     = { modal = true },
       process    = { cgroup = 'dropdown%.slice/.*docs.*%.service$', main = true },
       callback   = geometry_cb({vert="center", horiz="right",  width=0.6, height=1.0}) },
 }
