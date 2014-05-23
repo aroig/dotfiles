@@ -399,7 +399,7 @@ function prompt.dropdown()
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Dropdown: ",
-                run,
+                ddshow,
                 proglist,
                 awful.util.getdir("cache") .. "/history_dropdown")
 end
