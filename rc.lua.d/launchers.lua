@@ -274,13 +274,7 @@ function ddhide(name)
     hide_cgroup({ cgroup = string.format('dropdown.slice/.*%s', entry), main = true })
 end
 
-function ddhide_all(name)
-    ns, entry = name:match("^([^:]*):(.*)$")
-
-    if ns == nil then
-        entry = name
-    end
-
+function ddhide_all()
     hide_cgroup({ cgroup = 'dropdown.slice/.*', main = true })
 end
 

@@ -56,17 +56,23 @@ end
 
 
 globalkeys = awful.util.table.join(
-    -- Programs
-    awful.key({ modkey, ctrlkey   }, "Print",  function () shexec(apps.print)       end),
+    -- actions
 
-    -- those are started as instantiated units
+
+    -- Applications started from instantiated units
     awful.key({ modkey, ctrlkey   }, "Return", function () run('app:termite')         end),
     awful.key({ modkey, ctrlkey   }, "f",      function () run('app:thunar')          end),
+    awful.key({ modkey, ctrlkey   }, "r",      function () run('app:ranger')          end),
+
     awful.key({ modkey, ctrlkey   }, "b",      function () run('app:dwb')             end),
     awful.key({ modkey, metakey   }, "b",      function () run('app:chromium')        end),
     awful.key({ modkey, ctrlkey   }, "e",      function () run('app:emacsclient')     end),
 
     -- Dropdown clients
+    awful.key({ modkey, metakey   }, "Return", function () ddtoggle('dd:termite')     end),
+    awful.key({ modkey, metakey   }, "f",      function () ddtoggle('dd:thunar')      end),
+    awful.key({ modkey, metakey   }, "r",      function () ddtoggle('dd:ranger')      end),
+
     awful.key({ modkey, ctrlkey   }, "d",      function () ddtoggle("app:goldendict") end),
     awful.key({ modkey, ctrlkey   }, "i",      function () ddtoggle("app:calibre")    end),
     awful.key({ modkey, ctrlkey   }, "m",      function () ddtoggle("app:gmpc")       end),
@@ -74,14 +80,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "o",      function () ddtoggle('app:org')        end),
     awful.key({ modkey, ctrlkey   }, "u",      function () ddtoggle('app:mu4e')       end),
     awful.key({ modkey, ctrlkey   }, "t",      function () ddtoggle('app:chat')       end),
-
-    -- Music
-    awful.key({ modkey, ctrlkey   }, "Home",      function () shexec("mpc -q toggle") end),
-    awful.key({ modkey, ctrlkey   }, "Page_Up",   function () shexec("mpc -q prev") end),
-    awful.key({ modkey, ctrlkey   }, "Page_Down", function () shexec("mpc -q next") end),
-
-    awful.key({ modkey, ctrlkey   }, "Insert",    function () shexec("pvol +2db") end),
-    awful.key({ modkey, ctrlkey   }, "Delete",    function () shexec("pvol -2db") end),
 
     -- Desktop boxes
     awful.key({ modkey,           }, "F1",     box.calendar.toggle_calendar),
@@ -91,22 +89,19 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F4",     box.naughtylog.toggle_naughtylog),
 
     -- Top dropdown clients
+    awful.key({                   }, "F12",    function() ddhide_all()         end),
+
     awful.key({ modkey,           }, "F8",     function() ddshow("dd:docs")    end),
     awful.key({                   }, "F8",     function() ddhide("dd:docs")    end),
 
     awful.key({ modkey,           }, "F9",     function() ddshow("dd:syslog")  end),
     awful.key({                   }, "F9",     function() ddhide("dd:syslog")  end),
 
-    awful.key({ modkey,           }, "F10",    function() ddshow("dd:notes")  end),
-    awful.key({                   }, "F10",    function() ddhide("dd:notes")  end),
+    awful.key({ modkey,           }, "F10",    function() ddshow("dd:notes")   end),
+    awful.key({                   }, "F10",    function() ddhide("dd:notes")   end),
 
     awful.key({ modkey,           }, "F11",    function() ddshow("dd:octave")  end),
-    awful.key({ ctrlkey           }, "F11",    function() ddshow("dd:sage")    end),
-    awful.key({                   }, "F11",    function() ddhide("dd:octave"); ddhide("dd:sage") end),
-
-    awful.key({ modkey,           }, "F12",    function() ddshow("dd:termite") end),
-    awful.key({ ctrlkey           }, "F12",    function() ddshow("dd:ranger")  end),
-    awful.key({                   }, "F12",    function() ddhide("dd:termite"); ddhide("dd:ranger") end),
+    awful.key({                   }, "F11",    function() ddhide("dd:octave"); end),
 
     -- Prompts
     awful.key({ modkey,           }, "F5",     prompt.wikipedia),
@@ -218,7 +213,18 @@ globalkeys = awful.util.table.join(
     awful.key({metakey, ctrlkey, shiftkey }, "q",   function () run('app:quit',     { ask=true })      end),
     awful.key({metakey, ctrlkey, shiftkey }, "z",   function () run('app:suspend',  { ask=true })      end),
     awful.key({metakey, ctrlkey, shiftkey }, "h",   function () run('app:poweroff', { ask=true })      end),
-    awful.key({metakey, ctrlkey, shiftkey }, "r",   function () run('app:reboot',   { ask=true })      end)
+    awful.key({metakey, ctrlkey, shiftkey }, "r",   function () run('app:reboot',   { ask=true })      end),
+
+    -- Desktop stuff
+    awful.key({ modkey, ctrlkey },   "Print",     function () shexec(apps.print)                       end),
+
+    -- Music
+    awful.key({ modkey, ctrlkey   }, "Home",      function () shexec("mpc -q toggle")                  end),
+    awful.key({ modkey, ctrlkey   }, "Page_Up",   function () shexec("mpc -q prev")                    end),
+    awful.key({ modkey, ctrlkey   }, "Page_Down", function () shexec("mpc -q next")                    end),
+
+    awful.key({ modkey, ctrlkey   }, "Insert",    function () shexec("pvol +2db")                      end),
+    awful.key({ modkey, ctrlkey   }, "Delete",    function () shexec("pvol -2db")                      end)
 )
 
 

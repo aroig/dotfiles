@@ -3,6 +3,7 @@ apps = require("apps")
 return {
    -- top dropdowns
    termite               = "termite",
+   thunar                = "thunar",
    ranger                = apps.termcmd("ranger", "ranger"),
    syslog                = apps.termcmd("sudo journalctl -n10 -f", "syslog"),
    octave                = apps.termcmd("octave", "octave"),
