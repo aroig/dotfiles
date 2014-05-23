@@ -50,6 +50,8 @@ for k, path in pairs(listsrc) do
     execlist[k] = pickle.load(path)
 end
 
+dropdown = {last = nil}
+
 
 
 -----------------------------------
@@ -245,26 +247,35 @@ end
 -- individual units or by run for the dd namespace.
 
 function ddtoggle(name)
+    if name == nil then return end
     ns, entry = name:match("^([^:]*):(.*)$")
 
     if ns == nil then
         entry = name
     end
 
+    dropdown.last = name
     toggle_cgroup({ cgroup = string.format('dropdown.slice/.*%s', entry), main = true }, name)
 end
 
 function ddshow(name)
+    if name == nil then return end
     ns, entry = name:match("^([^:]*):(.*)$")
 
     if ns == nil then
         entry = name
     end
 
+    dropdown.last = name
     show_cgroup({ cgroup = string.format('dropdown.slice/.*%s', entry), main = true }, name)
 end
 
+function ddshow_last()
+    ddshow(dropdown.last)
+end
+
 function ddhide(name)
+    if name == nil then return end
     ns, entry = name:match("^([^:]*):(.*)$")
 
     if ns == nil then
@@ -279,6 +290,7 @@ function ddhide_all()
 end
 
 local function ddshow_doc(url)
+    if url == nil then return end
     systemd.run(string.format("dwb -p docs %s", util.shell_escape(url)), "docs", false, "dropdown")
     local list = systemd.matching_clients({ cgroup = 'dropdown.slice/.*docs' })
     for i, c in ipairs(list) do
