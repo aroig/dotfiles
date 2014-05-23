@@ -114,8 +114,9 @@ capi.client.connect_signal("manage",
                            function(c, startup)
                                systemd.manage_client(c)
 
-                               -- remove hidden state, when everything is done
+                               -- show client
                                c.hidden = false
+                               c:raise()
                                capi.client.focus = c
                            end)
 
