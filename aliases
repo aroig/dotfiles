@@ -230,7 +230,6 @@ alias actl="systemd-analyze"
 alias nspawn="sudo systemd-nspawn"
 alias sdrun="systemd-run --user"
 
-alias cgls="systemd-cgls --no-pager"
 alias cgtop="systemd-cgtop"
 
 actl_svg() {
