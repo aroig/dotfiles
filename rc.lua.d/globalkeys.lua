@@ -90,7 +90,8 @@ globalkeys = awful.util.table.join(
 
     -- Top dropdown clients
     awful.key({ modkey,           }, "F12",    function() ddshow_last()        end),
-    awful.key({                   }, "F12",    function() ddhide_all()         end),
+    awful.key({                   }, "F12",    function() ddhide_last()        end),
+    awful.key({ shiftkey,         }, "F12",    function() ddhide_all()         end),
 
     awful.key({ modkey,           }, "F8",     function() ddshow("dd:docs")    end),
     awful.key({                   }, "F8",     function() ddhide("dd:docs")    end),

@@ -270,10 +270,6 @@ function ddshow(name)
     show_cgroup({ cgroup = string.format('dropdown.slice/.*%s', entry), main = true }, name)
 end
 
-function ddshow_last()
-    ddshow(dropdown.last)
-end
-
 function ddhide(name)
     if name == nil then return end
     ns, entry = name:match("^([^:]*):(.*)$")
@@ -287,6 +283,14 @@ end
 
 function ddhide_all()
     hide_cgroup({ cgroup = 'dropdown.slice/.*', main = true })
+end
+
+function ddshow_last()
+    ddshow(dropdown.last)
+end
+
+function ddhide_last()
+    ddhide(dropdown.last)
 end
 
 local function ddshow_doc(url)
