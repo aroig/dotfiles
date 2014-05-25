@@ -20,11 +20,12 @@ return {
    iftop                 = apps.termcmd("sudo iftop", "iftop"),
    iotop                 = apps.termcmd("sudo iotop", "iotop"),
 
-   -- sync actions
+   -- sync and update actions
    hi                    = apps.termcmd("ictl hi.target",    "hi"),
    bye                   = apps.termcmd("ictl bye.target",   "bye"),
    byez                  = apps.termcmd("ictl byez.target",  "byez"),
    fetch                 = apps.termcmd("ictl fetch.target", "fetch"),
+   ["pacman-update"]     = apps.termcmd("sudo pacman -Syu", "pacman-update"),
 
    -- side dropdowns
    docs                  = "dwb -p docs",
