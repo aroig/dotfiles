@@ -246,39 +246,47 @@ end
 -- We put all dropdowns under dropdown.slice. This is done either on the
 -- individual units or by run for the dd namespace.
 
-function ddtoggle(name)
+function ddtoggle(name, launch)
     if name == nil then return end
-    ns, entry = name:match("^([^:]*):(.*)$")
 
-    if ns == nil then
-        entry = name
-    end
+    local ns, entry
+    ns, entry = name:match("^([^:]*):(.*)$")
+    if ns == nil then entry = name end
 
     dropdown.last = name
-    toggle_cgroup({ cgroup = string.format('dropdown.slice/.*%s', entry), main = true }, name)
+
+    local cgroup = string.format('dropdown.slice/.*%s', entry)
+    local cmd = nil
+    if launch then cmd = name end
+
+    toggle_cgroup({ cgroup = cgroup, main = true }, cmd)
 end
 
-function ddshow(name)
+function ddshow(name, launch)
     if name == nil then return end
-    ns, entry = name:match("^([^:]*):(.*)$")
 
-    if ns == nil then
-        entry = name
-    end
+    local ns, entry
+    ns, entry = name:match("^([^:]*):(.*)$")
+    if ns == nil then entry = name end
 
     dropdown.last = name
-    show_cgroup({ cgroup = string.format('dropdown.slice/.*%s', entry), main = true }, name)
+
+    local cgroup = string.format('dropdown.slice/.*%s', entry)
+    local cmd = nil
+    if launch then cmd = name end
+
+    show_cgroup({ cgroup = cgroup, main = true }, cmd)
 end
 
 function ddhide(name)
     if name == nil then return end
+
+    local ns, entry
     ns, entry = name:match("^([^:]*):(.*)$")
+    if ns == nil then entry = name end
 
-    if ns == nil then
-        entry = name
-    end
-
-    hide_cgroup({ cgroup = string.format('dropdown.slice/.*%s', entry), main = true })
+    local cgroup = string.format('dropdown.slice/.*%s', entry)
+    hide_cgroup({ cgroup = cgroup, main = true })
 end
 
 function ddhide_all()
@@ -286,7 +294,7 @@ function ddhide_all()
 end
 
 function ddshow_last()
-    ddshow(dropdown.last)
+    ddshow(dropdown.last, false)
 end
 
 function ddhide_last()
@@ -295,11 +303,11 @@ end
 
 local function ddshow_doc(url)
     if url == nil then return end
-    systemd.run(string.format("dwb -p docs %s", util.shell_escape(url)), "docs", false, "dropdown")
+    local cmd = string.format("dwb -p docs %s", util.shell_escape(url))
+    systemd.run(cmd, "docs", false, "dropdown")
+
     local list = systemd.matching_clients({ cgroup = 'dropdown.slice/.*docs' })
-    for i, c in ipairs(list) do
-        show_client(c)
-    end
+    for _, c in ipairs(list) do show_client(c) end
 end
 
 
@@ -381,7 +389,7 @@ function prompt.command()
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Run: ",
-                run,
+                function (nm) run(nm) end,
                 proglist,
                 awful.util.getdir("cache") .. "/history_cmd")
 end
@@ -403,7 +411,7 @@ function prompt.dropdown()
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Dropdown: ",
-                ddshow,
+                function (nm) ddshow(nm, true) end,
                 proglist,
                 awful.util.getdir("cache") .. "/history_dropdown")
 end

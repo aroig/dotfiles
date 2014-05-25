@@ -69,17 +69,17 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "e",      function () run('app:emacsclient')     end),
 
     -- Dropdown clients
-    awful.key({ modkey, metakey   }, "Return", function () ddtoggle('dd:termite')     end),
-    awful.key({ modkey, metakey   }, "f",      function () ddtoggle('dd:thunar')      end),
-    awful.key({ modkey, metakey   }, "r",      function () ddtoggle('dd:ranger')      end),
+    awful.key({ modkey, metakey   }, "Return", function () ddtoggle('dd:termite',     true) end),
+    awful.key({ modkey, metakey   }, "f",      function () ddtoggle('dd:thunar',      true) end),
+    awful.key({ modkey, metakey   }, "r",      function () ddtoggle('dd:ranger',      true) end),
 
-    awful.key({ modkey, ctrlkey   }, "d",      function () ddtoggle("app:goldendict") end),
-    awful.key({ modkey, ctrlkey   }, "i",      function () ddtoggle("app:calibre")    end),
-    awful.key({ modkey, ctrlkey   }, "m",      function () ddtoggle("app:gmpc")       end),
-    awful.key({ modkey, ctrlkey   }, "w",      function () ddtoggle('app:xournal')    end),
-    awful.key({ modkey, ctrlkey   }, "o",      function () ddtoggle('app:org')        end),
-    awful.key({ modkey, ctrlkey   }, "u",      function () ddtoggle('app:mu4e')       end),
-    awful.key({ modkey, ctrlkey   }, "t",      function () ddtoggle('app:chat')       end),
+    awful.key({ modkey, ctrlkey   }, "d",      function () ddtoggle("app:goldendict", true) end),
+    awful.key({ modkey, ctrlkey   }, "i",      function () ddtoggle("app:calibre",    true) end),
+    awful.key({ modkey, ctrlkey   }, "m",      function () ddtoggle("app:gmpc",       true) end),
+    awful.key({ modkey, ctrlkey   }, "w",      function () ddtoggle('app:xournal',    true) end),
+    awful.key({ modkey, ctrlkey   }, "o",      function () ddtoggle('app:org',        true) end),
+    awful.key({ modkey, ctrlkey   }, "u",      function () ddtoggle('app:mu4e',       true) end),
+    awful.key({ modkey, ctrlkey   }, "t",      function () ddtoggle('app:chat',       true) end),
 
     -- Desktop boxes
     awful.key({ modkey,           }, "F1",     box.calendar.toggle_calendar),
@@ -89,21 +89,21 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F4",     box.naughtylog.toggle_naughtylog),
 
     -- Top dropdown clients
-    awful.key({ modkey,           }, "F12",    function() ddshow_last()        end),
-    awful.key({                   }, "F12",    function() ddhide_last()        end),
-    awful.key({ shiftkey,         }, "F12",    function() ddhide_all()         end),
+    awful.key({ modkey,           }, "F12",    function() ddshow_last()              end),
+    awful.key({                   }, "F12",    function() ddhide_last()              end),
+    awful.key({ shiftkey,         }, "F12",    function() ddhide_all()               end),
 
-    awful.key({ modkey,           }, "F8",     function() ddshow("dd:docs")    end),
-    awful.key({                   }, "F8",     function() ddhide("dd:docs")    end),
+    awful.key({ modkey,           }, "F8",     function() ddshow("dd:docs",    true) end),
+    awful.key({                   }, "F8",     function() ddhide("dd:docs")          end),
 
-    awful.key({ modkey,           }, "F9",     function() ddshow("dd:syslog")  end),
-    awful.key({                   }, "F9",     function() ddhide("dd:syslog")  end),
+    awful.key({ modkey,           }, "F9",     function() ddshow("dd:syslog",  true) end),
+    awful.key({                   }, "F9",     function() ddhide("dd:syslog")        end),
 
-    awful.key({ modkey,           }, "F10",    function() ddshow("dd:notes")   end),
-    awful.key({                   }, "F10",    function() ddhide("dd:notes")   end),
+    awful.key({ modkey,           }, "F10",    function() ddshow("dd:notes",   true) end),
+    awful.key({                   }, "F10",    function() ddhide("dd:notes")         end),
 
-    awful.key({ modkey,           }, "F11",    function() ddshow("dd:octave")  end),
-    awful.key({                   }, "F11",    function() ddhide("dd:octave"); end),
+    awful.key({ modkey,           }, "F11",    function() ddshow("dd:octave",  true) end),
+    awful.key({                   }, "F11",    function() ddhide("dd:octave");       end),
 
     -- Prompts
     awful.key({ modkey,           }, "F5",     prompt.wikipedia),
