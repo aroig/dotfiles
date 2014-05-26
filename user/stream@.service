@@ -1,0 +1,14 @@
+[Unit]
+Description=streaming client %i
+
+Requisite=audio.target
+After=audio.target
+
+[Service]
+Type=simple
+SyslogIdentifier=stream-%i
+Slice=apps.slice
+
+ExecStart=/home/abdo/.config/systemd/scripts/stream.sh %i
+
+
