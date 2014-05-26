@@ -255,7 +255,7 @@ function ddtoggle(name, launch)
 
     dropdown.last = name
 
-    local cgroup = string.format('dropdown.slice/.*%s', entry)
+    local cgroup = 'dropdown%.slice/.*' .. util.pattern_escape(entry)
     local cmd = nil
     if launch then cmd = name end
 
@@ -271,7 +271,7 @@ function ddshow(name, launch)
 
     dropdown.last = name
 
-    local cgroup = string.format('dropdown.slice/.*%s', entry)
+    local cgroup = 'dropdown%.slice/.*' .. util.pattern_escape(entry)
     local cmd = nil
     if launch then cmd = name end
 
@@ -285,12 +285,13 @@ function ddhide(name)
     ns, entry = name:match("^([^:]*):(.*)$")
     if ns == nil then entry = name end
 
-    local cgroup = string.format('dropdown.slice/.*%s', entry)
+    local cgroup = 'dropdown%.slice/.*' .. util.pattern_escape(entry)
     hide_cgroup({ cgroup = cgroup, main = true })
 end
 
 function ddhide_all()
-    hide_cgroup({ cgroup = 'dropdown.slice/.*', main = true })
+    local cgroup = 'dropdown%.slice/.*'
+    hide_cgroup({ cgroup = cgroup, main = true })
 end
 
 function ddshow_last()
@@ -306,7 +307,8 @@ local function ddshow_doc(url)
     local cmd = string.format("dwb -p docs %s", util.shell_escape(url))
     systemd.run(cmd, "docs", false, "dropdown")
 
-    local list = systemd.matching_clients({ cgroup = 'dropdown.slice/.*docs' })
+    local cgroup = 'dropdown%.slice/.*docs'
+    local list = systemd.matching_clients({ cgroup = cgroup })
     for _, c in ipairs(list) do show_client(c) end
 end
 

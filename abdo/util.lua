@@ -51,6 +51,28 @@ function util.shell_escape(s)
 end
 
 
+function util.pattern_escape(s)
+    local ret = tostring(s)
+    ret = s:gsub(".",
+                 {
+                     ["^"] = "%^",
+                     ["$"] = "%$",
+                     ["("] = "%(",
+                     [")"] = "%)",
+                     ["%"] = "%%",
+                     ["."] = "%.",
+                     ["["] = "%[",
+                     ["]"] = "%]",
+                     ["*"] = "%*",
+                     ["+"] = "%+",
+                     ["-"] = "%-",
+                     ["?"] = "%?",
+                     ["\0"] = "%z",
+    })
+    return ret
+end
+
+
 function util.debug(name, obj)
     local str = ""
     if type(obj) == "table" then
