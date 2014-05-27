@@ -177,6 +177,35 @@ function systemd.start (unit)
 end
 
 
+-- stop a systemd unit.
+function systemd.stop (unit)
+    local shcmd
+    local stopunit = unit
+
+    if stopunit then
+        shcmd = string.format('systemctl --user stop %s',
+                              shell_escape(stopunit))
+
+        awful.util.spawn_with_shell(shcmd)
+    end
+    return stopunit
+end
+
+
+function systemd.list_units()
+    local unitlist = {}
+    local f = io.popen('systemctl --user --no-pager --no-legend list-unit-files', 'r')
+    if f then
+        local raw = f:read("*all")
+        -- TODO: fix this. need to parse raw.
+        for un in raw:gmatch('^[^ ]*') do
+            table.insert(unitlist, un)
+        end
+        f:close()
+    end
+    return unitlist
+end
+
 
 -----------------------------------
 -- State checking                --
