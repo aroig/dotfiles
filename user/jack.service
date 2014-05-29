@@ -23,11 +23,6 @@ ExecStop=/usr/bin/jack_control exit
 # non-dbus jack
 # ExecStart=/usr/bin/jackd -R --driver alsa --device hw:Intel -r 48000 -n 2 -p 64
 
-# ExecStartPost=/usr/bin/jack_control dps device hw:Intel
-# ExecStartPost=/usr/bin/jack_control dps rate 48000
-# ExecStartPost=/usr/bin/jack_control dps nperiods 2
-# ExecStartPost=/usr/bin/jack_control dps period 64
-
 
 Slice=audio.slice
 
