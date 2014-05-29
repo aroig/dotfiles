@@ -8,13 +8,16 @@ Before=pulseaudio.service
 Type=dbus
 BusName=org.jackaudio.service
 
-# NOTE: this is non-functional at the moment. Need to sort this out.
-# Jack via dbus
+# realtime scheduling
+CpuSchedulingPolicy=rr
+CpuSchedulingPriority=20
+ExecStart=/usr/bin/jackdbus auto
+KillSignal=SIGKILL
 
-# ExecStart=/usr/bin/jackdbus auto
 # ExecStart=/usr/bin/jack_control start
 # ExecStop=/usr/bin/jack_control stop
 
+# TODO: store these in some config settings
 # ExecStartPost=/usr/bin/jack_control ds alsa
 # ExecStartPost=/usr/bin/jack_control dps device hw:Intel
 # ExecStartPost=/usr/bin/jack_control eps realtime true
