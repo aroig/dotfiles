@@ -9,10 +9,10 @@ Type=dbus
 BusName=org.jackaudio.service
 
 # realtime scheduling
-CpuSchedulingPolicy=rr
-CpuSchedulingPriority=20
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=20
 ExecStart=/usr/bin/jackdbus auto
-KillSignal=SIGKILL
+ExecStop=/usr/bin/jack_control exit
 
 # ExecStart=/usr/bin/jack_control start
 # ExecStop=/usr/bin/jack_control stop
