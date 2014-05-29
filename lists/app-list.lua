@@ -27,8 +27,8 @@ return {
 
    pavucontrol               = "pavucontrol",
    qjackctl                  = "qjackctl",
-   pachage                   = "pachage",
-   gucharmap                 = "gucharmap",
+   patchage                  = "patchage",
+   qsynth                    = "qsynth",
 
    ["gnome-control-center"]  = "gnome-control-center",
    ["gnome-disks"]           = "gnome-disks",
@@ -47,7 +47,6 @@ return {
    lua                       = apps.termcmd("lua", "lua"),
    ghci                      = apps.termcmd("ghci", "ghci"),
 
-
    libreoffice               = "libreoffice",
    gcstar                    = "gcstar",
 
@@ -62,10 +61,12 @@ return {
    k3dsurf                   = "k3dsurf",
    kpovmodeler               = "kpovmodeler",
    openoffice                = "soffice",
+   gucharmap                 = "gucharmap",
 
-   ardour                    = "ardour2",
+   ardour                    = "ardour3",
    rosegarden                = "rosegarden",
    denemo                    = "denemo",
+
    avidemux                  = "avidemux2_gtk",
    subtitleeditor            = "subtitleeditor",
    puddletag                 = "puddletag",
