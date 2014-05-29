@@ -2,9 +2,6 @@
 Description=Jack Audio Sound System
 Documentation=man:jack(1)
 
-Before=audio.target
-After=pulseaudio.service
-
 Requires=audio.slice
 After=audio.slice
 

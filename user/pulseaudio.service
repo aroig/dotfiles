@@ -2,6 +2,7 @@
 Description=PulseAudio Sound System
 Documentation=man:pulseaudio(1)
 
+Before=audio.target
 PartOf=audio.target
 
 Requires=audio.slice
