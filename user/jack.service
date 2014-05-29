@@ -1,27 +1,21 @@
 [Unit]
-Description=Jack Audio Sound System
+Description=jack server
 Documentation=man:jack(1)
 
-Requires=audio.slice
-After=audio.slice
+Requisite=audio.target pulseaudio.service
+
+Requires=jackdbus.service
+After=jackdbus.service
 
 [Service]
-Type=dbus
-BusName=org.jackaudio.service
-
-# realtime scheduling
-CPUSchedulingPolicy=rr
-CPUSchedulingPriority=20
+Type=oneshot
+RemainAfterExit=true
 
 # we use jackdbus
-ExecStart=/usr/bin/jackdbus auto
-ExecStop=/usr/bin/jack_control exit
+ExecStart=/usr/bin/jack_control start
+ExecStart=/usr/bin/pactl set-default-sink jack_out
 
-# non-dbus jack
-# ExecStart=/usr/bin/jackd -R --driver alsa --device hw:Intel -r 48000 -n 2 -p 64
-
-
-Slice=audio.slice
+ExecStop=/usr/bin/jack_control stop
 
 [Install]
 WantedBy=audio.target

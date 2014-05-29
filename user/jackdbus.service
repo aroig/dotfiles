@@ -1,0 +1,27 @@
+[Unit]
+Description=jack dbus service
+Documentation=man:jack(1)
+
+Requires=audio.slice
+After=audio.slice
+
+[Service]
+Type=dbus
+BusName=org.jackaudio.service
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=20
+
+# we use jackdbus
+ExecStart=/usr/bin/jackdbus auto
+ExecStop=/usr/bin/jack_control exit
+
+# non-dbus jack
+# ExecStart=/usr/bin/jackd -R --driver alsa --device hw:Intel -r 48000 -n 2 -p 64
+
+
+Slice=audio.slice
+
+[Install]
+WantedBy=audio.target
