@@ -97,8 +97,9 @@ function util.gradient(gradcols, min, max, value)
       return tonumber(c:sub(2,3),16), tonumber(c:sub(4,5),16), tonumber(c:sub(6,7),16)
    end
 
-   if value < min then value = min end
-   if value > max then value = max end
+   if value == nil then value = min end
+   if value < min  then value = min end
+   if value > max  then value = max end
 
    local nsegments = #gradcols - 1
    local width = max - min
