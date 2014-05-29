@@ -1,8 +1,12 @@
 [Unit]
 Description=Jack Audio Sound System
 Documentation=man:jack(1)
-Before=sound.target
-Before=pulseaudio.service
+
+Before=audio.target
+After=pulseaudio.service
+
+Requires=audio.slice
+After=audio.slice
 
 [Service]
 Type=dbus
@@ -11,23 +15,21 @@ BusName=org.jackaudio.service
 # realtime scheduling
 CPUSchedulingPolicy=rr
 CPUSchedulingPriority=20
+
+# we use jackdbus
 ExecStart=/usr/bin/jackdbus auto
 ExecStop=/usr/bin/jack_control exit
 
-# ExecStart=/usr/bin/jack_control start
-# ExecStop=/usr/bin/jack_control stop
+# non-dbus jack
+# ExecStart=/usr/bin/jackd -R --driver alsa --device hw:Intel -r 48000 -n 2 -p 64
 
-# TODO: store these in some config settings
-# ExecStartPost=/usr/bin/jack_control ds alsa
 # ExecStartPost=/usr/bin/jack_control dps device hw:Intel
-# ExecStartPost=/usr/bin/jack_control eps realtime true
 # ExecStartPost=/usr/bin/jack_control dps rate 48000
 # ExecStartPost=/usr/bin/jack_control dps nperiods 2
 # ExecStartPost=/usr/bin/jack_control dps period 64
 
-# Non-dbus version
-# get the device with ls /proc/asound/cards
-# ExecStart=/usr/bin/jackd -R --driver alsa --device hw:Intel -r 48000 -n 2 -p 64
+
+Slice=audio.slice
 
 [Install]
 WantedBy=audio.target

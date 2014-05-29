@@ -9,10 +9,15 @@ PartOf=audio.target
 Requires=pulseaudio.service
 After=pulseaudio.service
 
+Requires=audio.slice
+After=audio.slice
+
 [Service]
 Type=simple
 Environment=PULSE_PROP=application.icon_name=emblem-sound
 ExecStart=/usr/bin/mpd --no-daemon
+
+Slice=audio.slice
 
 [Install]
 WantedBy=audio.target
