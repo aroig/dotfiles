@@ -66,6 +66,7 @@ return {
    ardour                    = "ardour3",
    rosegarden                = "rosegarden",
    denemo                    = "denemo",
+   musescore                 = "mscore",
 
    avidemux                  = "avidemux2_gtk",
    subtitleeditor            = "subtitleeditor",
