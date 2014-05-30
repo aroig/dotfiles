@@ -1,0 +1,13 @@
+[Unit]
+Description=midi keyboard
+
+Requisite=jack.service jackdbus.service
+
+[Service]
+Type=simple
+SyslogIdentifier=vmpk
+Slice=apps.slice
+
+ExecStart=/usr/bin/vmpk
+
+
