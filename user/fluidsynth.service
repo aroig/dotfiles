@@ -1,0 +1,11 @@
+[Unit]
+Description=fluidsynth daemon
+
+Requires=jack.service
+After=jack.service
+
+[Service]
+ExecStart=/usr/bin/fluidsynth -is -a jack -m jack -r 48000 
+
+[Install]
+WantedBy=multi-user.target
