@@ -1,0 +1,16 @@
+[Unit]
+Description=alsa to jack midi bridge
+
+Requisite=jack.service jackdbus.service
+
+Requires=audio.slice
+After=audio.slice
+
+[Service]
+Type=simple
+SyslogIdentifier=a2jmidid
+Slice=audio.slice
+
+ExecStart=/usr/bin/a2jmidid
+
+
