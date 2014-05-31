@@ -12,6 +12,6 @@ Type=simple
 SyslogIdentifier=a2jmidid
 Slice=audio.slice
 
-ExecStart=/usr/bin/a2jmidid
+ExecStart=/usr/bin/a2jmidid -u -e
 
 
