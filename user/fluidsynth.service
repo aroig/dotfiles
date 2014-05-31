@@ -5,7 +5,12 @@ Requires=jack.service
 After=jack.service
 
 [Service]
+Type=simple
 ExecStart=/usr/bin/fluidsynth -is -a jack -m jack -r 48000 
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
 
 [Install]
 WantedBy=multi-user.target
