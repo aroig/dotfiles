@@ -1,7 +1,8 @@
 [Unit]
 Description=jack control interface
 
-Requisite=jack.service jackdbus.service
+Requisite=jack.service
+After=jack.service
 
 [Service]
 Type=simple
