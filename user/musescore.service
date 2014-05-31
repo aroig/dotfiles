@@ -1,0 +1,14 @@
+[Unit]
+Description=score editor
+
+Requisite=jack.service
+After=jack.service
+
+[Service]
+Type=simple
+SyslogIdentifier=mscore
+Slice=apps.slice
+
+ExecStart=/usr/bin/mscore
+
+

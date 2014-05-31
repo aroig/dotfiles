@@ -1,0 +1,18 @@
+[Unit]
+Description=midi sequencer
+
+Requisite=jack.service fluidsynth.service
+After=jack.service fluidsynth.service
+
+[Service]
+Type=simple
+SyslogIdentifier=rosegarden
+Slice=apps.slice
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+ExecStart=/usr/bin/rosegarden
+
+
