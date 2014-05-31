@@ -147,7 +147,8 @@ rules.rules = {
                      size_hints_honor = false } },
 
     -- Floats
-    { rule_any = { class = {"Qpaeq", "Qjackctl", "Unison-gtk2", "pinentry", "Skype", "Pavucontrol", "Pidgin"} },
+    { rule_any = { class = {"Qpaeq", "Qjackctl", "Unison-gtk2", "pinentry", "Skype", "Pavucontrol", "Pidgin",
+                            "Vmpk" } },
       properties = { floating = true } },
 
     -- Float dialogs
