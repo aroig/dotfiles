@@ -5,6 +5,9 @@ Documentation=man:jack(1)
 Requires=audio.slice
 After=audio.slice
 
+Before=sound-studio.target
+PartOf=sound-studio.target
+
 [Service]
 Type=dbus
 BusName=org.jackaudio.service
