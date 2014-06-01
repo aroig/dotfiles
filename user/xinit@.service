@@ -1,11 +1,7 @@
 [Unit]
 Description=X initialization commands
-After=xserver@%i.target
-After=xorg@%i.service
-After=vncserver@%i.service
-After=x11vnc@%i.service
-After=xephyr@%i.service
 
+After=xserver@%i.target xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
 Requisite=xserver@%i.target
 
 [Service]
