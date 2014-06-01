@@ -4,6 +4,9 @@ Description=fluidsynth daemon
 Requires=jack.service
 After=jack.service
 
+Requires=audio.slice
+After=audio.slice
+
 [Service]
 Type=simple
 ExecStart=/usr/bin/fluidsynth -is -a jack -m jack -r 48000 
@@ -11,6 +14,8 @@ ExecStart=/usr/bin/fluidsynth -is -a jack -m jack -r 48000
 # realtime scheduling
 CPUSchedulingPolicy=rr
 CPUSchedulingPriority=60
+
+Slice=audio.slice
 
 [Install]
 WantedBy=multi-user.target
