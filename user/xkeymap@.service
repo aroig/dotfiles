@@ -1,0 +1,16 @@
+[Unit]
+Description=X xkb keymap
+Documentation=man:xkbcomp(1)
+After=xserver@%i.target
+After=xorg@%i.service
+After=vncserver@%i.service
+After=x11vnc@%i.service
+After=xephyr@%i.service
+After=xinit@%i.service
+
+Requisite=xserver@%i.target
+
+[Service]
+Type=oneshot
+Environment=DISPLAY=:%i
+ExecStart=/usr/bin/xkbcomp %h/.config/systemd/conf/Xkeymap ${DISPLAY}
