@@ -1,5 +1,5 @@
 [Unit]
-Description=X resource setting
+Description=X modmap
 Documentation=man:xmodmap(1)
 After=xserver@%i.target
 After=xorg@%i.service

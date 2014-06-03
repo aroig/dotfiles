@@ -1,7 +1,7 @@
-!Remap caps lock to super
-remove Lock = Caps_Lock
-keysym Caps_Lock = Hyper_L
-clear mod4
+!hyper is mod3
+clear mod3
 add mod3 = Hyper_L
+!super is mod4
+clear mod4
 add mod4 = Super_L
 add mod4 = Super_R
