@@ -1,0 +1,10 @@
+[Unit]
+Description=wait for network to be configured
+Documentation=man:systemd-networkd-wait-network-online.service(8)
+
+[Service]
+Type=oneshot
+TimeoutSec=30s
+
+SyslogIdentifier=network-online
+ExecStart=/usr/lib/systemd/systemd-networkd-wait-online

@@ -1,7 +1,7 @@
 [Unit]
 Description=update packages
-Requires=online.service
-After=online.service
+Requires=network-online.service
+After=network-online.service
 
 [Service]
 Type=oneshot

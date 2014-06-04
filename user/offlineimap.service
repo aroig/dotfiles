@@ -7,8 +7,8 @@ After=mount-priv.service
 Requisite=initial-synced-all.service
 After=initial-synced-all.service
 
-Requires=online.service
-After=online.service
+Requires=network-online.service
+After=network-online.service
 
 [Service]
 Type=oneshot

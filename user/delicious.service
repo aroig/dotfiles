@@ -1,7 +1,7 @@
 [Unit]
 Description=fetch delicious bookmarks
-Requires=online.service
-After=online.service
+Requires=network-online.service
+After=network-online.service
 
 [Service]
 Type=oneshot
