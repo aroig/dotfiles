@@ -1,6 +1,9 @@
 [Unit]
 Description=monitor journal
 
+Requires=network-online.service
+After=network-online.service
+
 [Service]
 Type=oneshot
 SyslogIdentifier=journal-mailer
