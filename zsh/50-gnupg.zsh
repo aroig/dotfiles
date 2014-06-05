@@ -97,3 +97,31 @@ gpg_agent_update() {
     gpg-connect-agent updatestartuptty /bye
 }
 
+# 
+gpg_agent_passphrase() {
+    
+    case "$1" in
+        -s|--set)
+            read -s "?Passphrase: " passwd            
+            ;;
+
+        *)
+            echo "Usage: gpg_agent_passphrase [ --set | --forget ]"
+            return 0
+            ;;
+    esac
+
+    gpg --with-fingerprint --with-fingerprint --with-colons --fixed-list-mode --list-keys | \
+    grep fpr | sed 's/fpr:*\([^:]*\):/\1/' | \
+    while read fingerprint; do
+        case "$1" in
+            -f|--forget)
+                /usr/lib/gnupg/gpg-preset-passphrase --forget "$fingerprint"
+                ;;
+
+            -s|--set)
+                /usr/lib/gnupg/gpg-preset-passphrase --preset "$fingerprint" <<< "$passwd"
+                ;;
+        esac
+    done
+}
