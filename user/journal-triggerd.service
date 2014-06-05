@@ -1,0 +1,8 @@
+[Unit]
+Description=triggers on journal messages
+ConditionHost=!skynet
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/journal-triggerd "%h/.config/journal-triggerd"
+
