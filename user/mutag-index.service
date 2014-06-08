@@ -4,10 +4,10 @@ Description=index mail and news
 Requisite=initial-synced-all.service
 After=initial-synced-all.service
 
-After=offlineimap.service
-After=rss2maildir.service
+After=offlineimap.service rss2maildir.service mutag-autotag.service
 Conflicts=mu4e.service
 
 [Service]
 Type=oneshot
+SyslogIdentifier=mutag-index
 ExecStart=/usr/bin/mutag --index --silent

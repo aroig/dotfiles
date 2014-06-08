@@ -4,12 +4,12 @@ Description=postprocess mail and news
 Requisite=initial-synced-all.service
 After=initial-synced-all.service
 
-After=offlineimap.service
-After=rss2maildir.service
+After=offlineimap.service rss2maildir.service
 Conflicts=mu4e.service
 
 [Service]
 Type=oneshot
+SyslogIdentifier=mutag-autotag
 ExecStart=/usr/bin/mutag --index --silent
 ExecStart=/usr/bin/mutag --autotag --modified --update --silent -q 'date:1m..now'
-ExecStart=/usr/bin/mutag --index --silent
+
