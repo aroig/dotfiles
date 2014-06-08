@@ -67,6 +67,16 @@
   (setq compilation-scroll-output 'first-error)
 )
 
+(defun abdo-devel-compile ()
+  (interactive)
+  (cond
+   ((file-exists-p (concat default-directory "Makefile"))
+    (compile "make -k"))
+   ((file-exists-p (concat (abdo-vcs-root (buffer-file-name)) "Makefile"))
+    (compile (format "make -k -C \"%s\"" (abdo-vcs-root (buffer-file-name)))))
+   (t (message "Can't find a suitable Makefile"))))
+
+
 
 ;; Prog mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -192,7 +202,7 @@
 
 
 ;; Switch from .c to .h
-(defun switch-cc-to-h ()
+(defun switch-c-to-h ()
    (interactive)
    (when (string-match "^\\(.*\\)\\.\\([^.]*\\)$" buffer-file-name)
      (let ((name (match-string 1 buffer-file-name))

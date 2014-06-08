@@ -208,7 +208,7 @@
         ;; enable flyspell
         (flyspell-mode 1)
 
-	    (local-set-key (kbd "C-c c") 'abdo-latex-compile-buffer)   ;; Compile
+	    (local-set-key (kbd "C-c c") 'abdo-latex-compile)          ;; Compile
 	    (local-set-key (kbd "C-c k") 'kill-compilation)            ;; Kill compilation
 	    (local-set-key (kbd "C-c d") 'abdo-latex-make-diff)        ;; Makes a diff
 
@@ -224,7 +224,7 @@
 
 ;; C/C++
 (defun abdo-c-mode-keybindings()
-            (local-set-key (kbd "C-c c") 'compile)                    ;; Compile
+            (local-set-key (kbd "C-c c") 'abdo-devel-compile)         ;; Compile
             (local-set-key (kbd "C-c g") 'gdb)                        ;; gdb
 
             (local-set-key (kbd "C-c n") 'next-error)                 ;; next error

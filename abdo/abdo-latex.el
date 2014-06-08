@@ -185,7 +185,7 @@
 
 
 ;; Compile the current buffer
-(defun abdo-latex-compile-buffer()
+(defun abdo-latex-compile()
   (interactive)
   (if (file-exists-p (concat default-directory "Makefile"))
       (compile "make -B pdf")
