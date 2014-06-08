@@ -8,6 +8,7 @@ TimeoutSec=30s
 
 SyslogIdentifier=network-online
 
-StandardOutput=null
-ExecStart=/usr/bin/ping -W 10 -c 1 -q www.google.com
+ExecStart=/home/abdo/.config/systemd/scripts/wait-online.sh
+# StandardOutput=null
+# ExecStart=/usr/bin/ping -W 10 -c 1 -q www.google.com
 # ExecStart=/usr/lib/systemd/systemd-networkd-wait-online
