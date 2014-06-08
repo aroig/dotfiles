@@ -59,9 +59,17 @@
     (message "Failed :("))
 )
 
+(defun colorize-buffer ()
+  (toggle-read-only)
+  (ansi-color-apply-on-region (point-min) (point-max))
+  (toggle-read-only))
+
 (defun abdo-compile-buffer-things()
   ;; When compilation  finishes
   (add-to-list 'compilation-finish-functions 'abdo-compilation-finished)
+
+  ;; display ansi colors in compilation buffers
+  (add-hook 'compilation-filter-hook 'colorize-buffer)
 
   ;; Scroll compilation until first error
   (setq compilation-scroll-output 'first-error)

@@ -119,6 +119,7 @@
 ;; Basic stuff
 (require 'sensitive-mode)              ;; Mode for sensitive data (disable backups)
 (require 'netrc)                       ;; read passwords from .netrc
+(require 'ansi-color)                  ;; tools to handle ansi escape sequences
 
 ;; Basic interactive stuff
 (unless batch-mode
