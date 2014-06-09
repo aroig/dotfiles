@@ -1,8 +1,8 @@
 [Unit]
 Description=Deluge Daemon
 
-Requires=network-online.target
-After=network-online.target
+Requires=network-online.service
+After=network-online.service
 
 [Service]
 ExecStartPre=/usr/bin/sudo /usr/bin/iptables -A firewall -p tcp --dport 49300:49309 -j ACCEPT
