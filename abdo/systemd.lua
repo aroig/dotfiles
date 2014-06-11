@@ -342,5 +342,10 @@ function systemd.unmanage_client(c)
 end
 
 
+function systemd.focus_client(c)
+
+end
+
+
 
 return systemd

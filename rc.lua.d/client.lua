@@ -118,11 +118,26 @@ capi.client.connect_signal("manage",
                                c.hidden = false
                                c:raise()
                                capi.client.focus = c
+
+                               -- handle it as a dropdown
+                               dropdown.manage_client(c)
                            end)
 
 capi.client.connect_signal("unmanage",
                            function(c)
                                systemd.unmanage_client(c)
+
+                               -- handle it as a dropdown
+                               dropdown.unmanage_client(c)
+                           end)
+
+
+capi.client.connect_signal("focus",
+                           function(c)
+                               systemd.focus_client(c)
+
+                               -- handle it as a dropdown
+                               dropdown.focus_client(c)
                            end)
 
 

@@ -50,7 +50,8 @@ for k, path in pairs(listsrc) do
     execlist[k] = pickle.load(path)
 end
 
-dropdown = {last = nil}
+dropdown = { last_client = nil }
+
 
 
 
@@ -140,35 +141,45 @@ end
 -----------------------------------
 
 function hide_client(c)
-    c.hidden = true
-    local ctags = c:tags()
-    for i, t in pairs(ctags) do
-        ctags[i] = nil
+    if c then
+        c.hidden = true
+        local ctags = c:tags()
+        for i, t in pairs(ctags) do
+            ctags[i] = nil
+        end
+        c:tags(ctags)
     end
-    c:tags(ctags)
 end
 
 
 function kill_client(c)
-    c:kill()
+    if c then
+        c:kill()
+    end
 end
 
 
 function show_client(c)
-    -- move to the right tag
-    awful.client.movetotag(awful.tag.selected(mouse.screen), c)
+    if c then
+        -- move to the right tag
+        awful.client.movetotag(awful.tag.selected(mouse.screen), c)
 
-    -- raise client
-    c.hidden = false
-    c:raise()
-    capi.client.focus = c
+        -- raise client
+        c.hidden = false
+        c:raise()
+        capi.client.focus = c
 
-    -- reapply rules
-    systemd.rules_apply(c)
+        -- reapply rules
+        systemd.rules_apply(c)
+
+        -- remember last client
+        dropdown.last_client = c
+    end
 end
 
 
 function is_visible_client(c)
+    if c == nil then return false end
     if c.hidden then return false end
 
     local ctags = c:tags()
@@ -184,6 +195,18 @@ function is_visible_client(c)
 end
 
 
+function is_dropdown_client(c)
+    if c == nil then return false end
+
+    local cgroup = systemd.get_cgroup(c.pid)
+    if cgroup then
+        return cgroup:match('dropdown%.slice/.*') ~= nil
+    else
+        return false
+    end
+end
+
+
 function toggle_client(c)
     if is_visible_client(c) then
         hide_client(c)
@@ -192,6 +215,33 @@ function toggle_client(c)
     end
 end
 
+
+function dropdown.manage_client(c)
+    if c == nil then return end
+
+    if is_dropdown_client(c) then
+        dropdown.last_client = c
+    end
+end
+
+
+function dropdown.focus_client(c)
+    if c == nil then return end
+
+    if is_dropdown_client(c) then
+        dropdown.last_client = c
+    end
+end
+
+
+function dropdown.unmanage_client(c)
+    if c == nil then return end
+
+    -- forget about last client
+    if dropdown.last_client and c.window == dropdown.last_client.window then
+        dropdown.last_client = nil
+    end
+end
 
 
 -----------------------------------
@@ -240,6 +290,7 @@ function toggle_cgroup(rule, cmd)
 end
 
 
+
 -----------------------------------
 -- Dropdown manipulations        --
 -----------------------------------
@@ -252,8 +303,6 @@ function ddtoggle(name, launch)
     local ns, entry
     ns, entry = name:match("^([^:]*):(.*)$")
     if ns == nil then entry = name end
-
-    dropdown.last = name
 
     local cgroup = 'dropdown%.slice/.*' .. util.pattern_escape(entry)
     local cmd = nil
@@ -268,8 +317,6 @@ function ddshow(name, launch)
     local ns, entry
     ns, entry = name:match("^([^:]*):(.*)$")
     if ns == nil then entry = name end
-
-    dropdown.last = name
 
     local cgroup = 'dropdown%.slice/.*' .. util.pattern_escape(entry)
     local cmd = nil
@@ -295,11 +342,11 @@ function ddhide_all()
 end
 
 function ddshow_last()
-    ddshow(dropdown.last, false)
+    show_client(dropdown.last_client)
 end
 
 function ddhide_last()
-    ddhide(dropdown.last)
+    hide_client(dropdown.last_client)
 end
 
 local function ddshow_doc(url)
