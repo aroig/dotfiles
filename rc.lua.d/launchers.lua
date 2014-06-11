@@ -198,12 +198,8 @@ end
 function is_dropdown_client(c)
     if c == nil then return false end
 
-    local cgroup = systemd.get_cgroup(c.pid)
-    if cgroup then
-        return cgroup:match('dropdown%.slice/.*') ~= nil
-    else
-        return false
-    end
+    -- dropdowns are the main process on a cgroup living under dropdown.slice.
+    systemd.match_cgroup(c, {cgroup = 'dropdown%.slice/.*', main = true})
 end
 
 

@@ -244,13 +244,10 @@ function systemd.get_cgroup (s)
 end
 
 
-
------------------------------------
--- Rule application              --
------------------------------------
-
-local function match_cgroup(c, rule)
+-- check if client matches rule
+function systemd.match_cgroup(c, rule)
     if rule == nil then return false end
+    if c == nil then return false end
 
     local dt = systemd.client[c.window]
     if dt == nil then return false end
@@ -260,12 +257,17 @@ local function match_cgroup(c, rule)
 end
 
 
+
+-----------------------------------
+-- Rule application              --
+-----------------------------------
+
 local function matching_rules(c, _rules)
     local result = {}
     for _, entry in ipairs(_rules) do
         if (rules.match(c, entry.rule) or rules.match_any(c, entry.rule_any)) and
             (not rules.match(c, entry.except) and not rules.match_any(c, entry.except_any)) and
-            match_cgroup(c, entry.process) then
+            systemd.match_cgroup(c, entry.process) then
             table.insert(result, entry)
         end
     end
@@ -310,7 +312,7 @@ function systemd.matching_clients(rule, main)
         end
 
         -- if cgroup is not nil and pattern matches
-        if match_cgroup(c, rule) then
+        if systemd.match_cgroup(c, rule) then
             table.insert(clist, c)
         end
     end
