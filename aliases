@@ -92,8 +92,8 @@ trimtrail() {
 # Systemd aliases
 #------------------------------
 
-alias jctl="sudo journalctl --since=yesterday"
-alias ectl="sudo journalctl --since=yesterday --priority=0..3"
+alias jctl="journalctl --since=yesterday"
+alias ectl="journalctl --since=yesterday --priority=0..3"
 
 alias nctl="sudo netctl"
 alias mctl="sudo machinectl"
