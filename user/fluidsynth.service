@@ -9,7 +9,7 @@ After=audio.slice
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/fluidsynth -is -a jack -m jack -r 48000 
+ExecStart=/usr/bin/fluidsynth --server --no-shell --audio-driver jack --midi-driver jack --sample-rate 48000 --gain 3.0
 
 # realtime scheduling
 CPUSchedulingPolicy=rr
