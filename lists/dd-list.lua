@@ -19,6 +19,7 @@ return {
    htop                  = apps.termcmd("htop", "htop"),
    iftop                 = apps.termcmd("sudo iftop", "iftop"),
    iotop                 = apps.termcmd("sudo iotop", "iotop"),
+   midi                  = apps.termcmd("jack_midi_dump", "midi"),
 
    -- sync and update actions
    hi                    = apps.termcmd("ictl hi.target",    "hi"),
