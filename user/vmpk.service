@@ -2,7 +2,7 @@
 Description=midi keyboard
 
 Requisite=jack.service
-After=jack.service
+After=jack.service jack.target jackdbus.service
 
 [Service]
 Type=simple

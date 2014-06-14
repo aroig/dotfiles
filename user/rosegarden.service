@@ -2,7 +2,7 @@
 Description=midi sequencer
 
 Requisite=jack.service fluidsynth.service
-After=jack.service fluidsynth.service
+After=jack.service fluidsynth.service jackdbus.service jack.target
 
 [Service]
 Type=simple
