@@ -1,0 +1,8 @@
+[Unit]
+Description=jack sound server
+
+Requires=pulseaudio.service
+After=pulseaudio.service
+
+
+

@@ -7,6 +7,9 @@ Requisite=audio.target pulseaudio.service
 Requires=jackdbus.service
 After=jackdbus.service
 
+Requires=audio.slice
+After=audio.slice
+
 [Service]
 Type=oneshot
 RemainAfterExit=true

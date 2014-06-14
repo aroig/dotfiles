@@ -2,11 +2,13 @@
 Description=jack dbus service
 Documentation=man:jack(1)
 
+After=pulseaudio.service
+
 Requires=audio.slice
 After=audio.slice
 
-Before=sound-studio.target
-PartOf=sound-studio.target
+Before=jack.target
+PartOf=jack.target
 
 [Service]
 Type=dbus
