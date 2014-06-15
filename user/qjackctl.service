@@ -1,14 +1,1 @@
-[Unit]
-Description=jack control interface
-
-Requisite=jack.service
-After=jack.service
-
-[Service]
-Type=simple
-SyslogIdentifier=qjackctl
-Slice=apps.slice
-
-ExecStart=/usr/bin/qjackctl
-
-
+qjackctl-play.service
