@@ -1,0 +1,17 @@
+[Unit]
+Description=linuxsampler frontend
+
+Requisite=jack.service
+After=jack.service jackdbus.service jack.target
+
+Requires=linuxsampler.service
+After=linuxsampler.service
+
+[Service]
+Type=simple
+SyslogIdentifier=qsampler
+Slice=apps.slice
+
+ExecStart=/usr/bin/qsampler
+
+
