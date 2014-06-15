@@ -1,5 +1,6 @@
 [Unit]
 Description=novation impulse
+ConditionHost=grothendieck
 
 [Service]
 Type=oneshot
