@@ -1,5 +1,5 @@
 [Unit]
-Description=midi sequencer
+Description=qtractor midi sequencer
 
 Requisite=jack.service
 After=jack.service jackdbus.service jack.target
