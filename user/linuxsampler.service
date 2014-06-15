@@ -13,9 +13,6 @@ After=audio.slice
 Type=simple
 ExecStart=/usr/bin/linuxsampler --lscp-port 8888 --instruments-db-location "${AB2_VAR_DIR}/audio/linuxsampler/instruments.db"
 
-# load configuration. linuxsampler listens at port 8888
-ExecStartPost=/usr/bin/bash -c "sleep 5; cat ${AB2_CONF_DIR}/audio/linuxsampler/config.lscp | netcat localhost 8888"
-
 # realtime scheduling
 CPUSchedulingPolicy=rr
 CPUSchedulingPriority=60
