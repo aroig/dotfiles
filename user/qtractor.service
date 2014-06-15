@@ -8,13 +8,13 @@ After=fluidsynth.service linuxsampler.service
 
 [Service]
 Type=simple
-SyslogIdentifier=rosegarden
+SyslogIdentifier=qtractor
 Slice=apps.slice
 
 # realtime scheduling
 CPUSchedulingPolicy=rr
 CPUSchedulingPriority=60
 
-ExecStart=/usr/bin/rosegarden
+ExecStart=/usr/bin/qtractor
 
 
