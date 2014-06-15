@@ -1,7 +1,7 @@
 [Unit]
 Description=fluidsynth daemon
 
-Requires=jack.service
+Requisite=jack.service
 After=jack.service
 
 Requires=audio.slice
