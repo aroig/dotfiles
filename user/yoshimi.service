@@ -1,0 +1,18 @@
+[Unit]
+Description=yoshimi synthetizer
+
+Requisite=jack.service
+After=jack.service jackdbus.service jack.target
+
+[Service]
+Type=simple
+SyslogIdentifier=yoshimi
+Slice=apps.slice
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+ExecStart=/usr/bin/yoshimi
+
+
