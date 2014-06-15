@@ -1,8 +1,8 @@
 [Unit]
-Description=midi keyboard
+Description=virtual midi keyboard
 
 Requisite=jack.service
-After=jack.service jack.target jackdbus.service
+After=jack.service
 
 [Service]
 Type=simple

@@ -6,9 +6,7 @@ After=pulseaudio.service
 
 Requires=audio.slice
 After=audio.slice
-
-Before=jack.target
-PartOf=jack.target
+StopWhenUnneeded=true
 
 [Service]
 Type=dbus

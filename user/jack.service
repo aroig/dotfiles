@@ -10,6 +10,9 @@ After=jackdbus.service
 Requires=audio.slice
 After=audio.slice
 
+Wants=a2jmidid.service
+Before=a2jmidid.service
+
 [Service]
 Type=oneshot
 RemainAfterExit=true
