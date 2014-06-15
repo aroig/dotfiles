@@ -1,3 +1,4 @@
 [Unit]
-Description=music studio
+Description=music midi studio
 
+Wants=jack.target qjackctl-studio.service qtractor.service yoshimi.service fluidsynth.service

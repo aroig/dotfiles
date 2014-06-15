@@ -1,0 +1,4 @@
+[Unit]
+Description=play sampled cello
+
+Wants=jack.target linuxsampler.service linuxsampler-conf@cello.service qjackctl-play.service
