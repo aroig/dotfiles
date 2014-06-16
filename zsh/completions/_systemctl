@@ -57,16 +57,23 @@
     "exit:Ask for user instance termination"
   )
 
-  local -a nonopts
-  nonopts=(${(@)words:#-*})
+  # catch first nonoption argument
+  local nonopt
+  local -i nopos
+  for (( i=2; $i <= ${#words[*]}; i++ )); do
+    if [[ ! "${words[$i]}" =~ "^-.*" ]]; then
+      nonopt=${words[$i]}
+      nopos=$i
+      break
+    fi           
+  done 
 
-  if (( $#nonopts == 1 )); then
+  if (( $nopos == $CURRENT )); then
     _describe -t commands 'systemctl command' _systemctl_cmds || compadd "$@"
   else
     local curcontext="$curcontext"
 
-    cmd="${${_systemctl_cmds[(r)$nonopts[2]:*]%%:*}}"
-
+    cmd="${${_systemctl_cmds[(r)$nonopt:*]%%:*}}"
     # Deal with any aliases
     case $cmd in
       condrestart) cmd="try-restart";;
@@ -84,7 +91,7 @@
 
       _call_function ret _systemctl_$cmd || _message 'no more arguments'
     else
-      _message "unknown systemctl command: $nonopts[2]"
+      _message "unknown systemctl command: $nonopt"
     fi
     return ret
   fi
