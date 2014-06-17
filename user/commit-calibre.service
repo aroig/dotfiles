@@ -7,4 +7,9 @@ Conflicts=calibre.service calibre-server.service calibre-db.service
 Type=oneshot
 
 SyslogIdentifier=commit-calibre
+
+# dump calibre metadata even when no other files are changed
+ExecStart=/home/abdo/.config/systemd/scripts/calibre-metadata.sh "${AB2_CALIBRE_DIR}"
+
+# commit the changes
 ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "${AB2_CALIBRE_DIR}"
