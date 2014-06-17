@@ -211,6 +211,7 @@
 (require 'abdo-utils)                  ;; Utility stuff
 (require 'abdo-devel)                  ;; Personal devel stuff
 (require 'abdo-text)                   ;; Text mode tweaks
+(require 'abdo-music)                  ;; Music related modes
 
 ;; personal settings for interactive emacs
 (unless batch-mode
@@ -306,6 +307,7 @@
 (add-to-list 'command-switch-alist '("mail" . abdo-launch-mail))
 (add-to-list 'command-switch-alist '("chat" . abdo-launch-chat))
 (add-to-list 'command-switch-alist '("sage" . abdo-launch-sage))
+(add-to-list 'command-switch-alist '("sclang" . abdo-launch-sclang))
 
 (defun abdo-launch-org (arg)
   (add-hook 'emacs-startup-hook 'abdo-org-main-buffer)
@@ -323,6 +325,10 @@
 
 (defun abdo-launch-sage (arg)
   (sage))
+
+(defun abdo-launch-sclang (arg)
+  (require 'sclang)
+  (sclang-start))
 
 (defun abdo-launch-chat (arg)
   (require 'abdo-chat)
