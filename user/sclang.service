@@ -1,0 +1,18 @@
+[Unit]
+Description=supercollider emacs client
+
+Requisite=desktop.target
+After=desktop.target
+
+Requires=scsynth.service
+After=scsynth.service
+
+[Service]
+Type=simple
+SyslogIdentifier=sclang
+Slice=apps.slice
+
+ExecStart=/usr/bin/emacs -sclang --title "emacs-sclang"
+KillSignal=SIGINT
+
+
