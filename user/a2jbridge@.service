@@ -1,0 +1,25 @@
+[Unit]
+Description=alsa to jack bridge %i
+
+Requisite=jack.service
+After=jack.service
+
+Requires=audio.slice
+After=audio.slice
+
+[Service]
+Type=simple
+SyslogIdentifier=a2jbridge
+Slice=audio.slice
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+# check for loopback device
+ExecStartPre=/usr/bin/sh -c 'aplay -l | grep Loopback > /dev/null'
+
+# start an alsa -> jack bridge
+ExecStart=/usr/bin/alsa_in -j "Alsa Bridge %i" -dalsa_input_%i -q 1
+
+
