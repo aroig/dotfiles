@@ -118,7 +118,7 @@ export SAGE_ROOT=$AB2_HOME/sage
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
 # java
-export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
 
 
 #------------------------------
