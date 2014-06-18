@@ -12,6 +12,10 @@ Type=simple
 SyslogIdentifier=a2jmidid
 Slice=audio.slice
 
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
 ExecStart=/usr/bin/a2jmidid -u -e
 
 
