@@ -1,6 +1,8 @@
 [Unit]
 Description=commit chat logs
 
+ConditionPathExists=${AB2_VAR_DIR}/chat/emacs
+
 Conflicts=chat.service chat-db.service
 
 [Service]

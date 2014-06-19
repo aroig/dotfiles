@@ -1,6 +1,8 @@
 [Unit]
 Description=commit calibre library
 
+ConditionPathExists=${AB2_CALIBRE_DIR}
+
 Conflicts=calibre.service calibre-server.service calibre-db.service
 
 [Service]

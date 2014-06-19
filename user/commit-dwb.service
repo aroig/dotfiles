@@ -1,6 +1,8 @@
 [Unit]
 Description=commit dwb cookies
 
+ConditionPathExists=${AB2_PRIV_DIR/var/dwb/default
+
 Conflicts=dwb-db.service
 
 [Service]
