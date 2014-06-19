@@ -1,7 +1,7 @@
 [Unit]
 Description=commit orgmode
 
-ConditionPathExists=${AB2_WIKI_DIR}
+ConditionPathExists=/home/%u/work/wiki
 
 Conflicts=orgmode-db.service orgmode.service 
 

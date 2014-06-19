@@ -2,7 +2,7 @@
 Description=unlock calibre database
 
 StopWhenUnneeded=true
-ConditionPathExists=${AB2_CALIBRE_DIR}
+ConditionPathExists=/home/%u/lib
 
 Requisite=initial-synced-all.service
 After=initial-synced-all.service

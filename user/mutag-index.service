@@ -1,7 +1,7 @@
 [Unit]
 Description=index mail and news
 
-ConditionPathExists=${AB2_MAIL_DIR}
+ConditionPathExists=/home/%u/mail
 
 Requisite=initial-synced-all.service
 After=initial-synced-all.service

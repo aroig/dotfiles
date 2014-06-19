@@ -1,7 +1,7 @@
 [Unit]
 Description=collect new mail list
 
-ConditionPathExists=${AB2_MAIL_DIR}
+ConditionPathExists=/home/%u/mail
 
 After=offlineimap.service
 After=rss2maildir.service

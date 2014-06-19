@@ -2,7 +2,7 @@
 Description=orgmode database
 
 StopWhenUnneeded=true
-ConditionPathExists=${AB2_WIKI_DIR}
+ConditionPathExists=/home/%u/work/wiki
 
 Requisite=initial-synced-all.service
 After=initial-synced-all.service

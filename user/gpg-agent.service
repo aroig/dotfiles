@@ -1,7 +1,7 @@
 [Unit]
 Description=gpg-agent daemon
 
-ConditionPathExists=${HOME}/.gnupg
+ConditionPathExists=/home/%u/.gnupg
 
 [Service]
 Type=forking

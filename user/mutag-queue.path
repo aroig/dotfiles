@@ -1,7 +1,7 @@
 [Unit]
 Description=watch mail queue
 
-ConditionPathExists=${AB2_MAIL_DIR}
+ConditionPathExists=/home/abdo/mail
 
 [Path]
 PathChanged=/home/abdo/mail/queue
