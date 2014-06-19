@@ -1,7 +1,8 @@
 [Unit]
 Description=watch mail queue
-ConditionHost=!skynet
+
+ConditionPathExists=${AB2_MAIL_DIR}
 
 [Path]
-PathChanged=/home/abdo/.msmtp.queue
+PathChanged=/home/abdo/mail/queue
 Unit=mutag-newmail.service

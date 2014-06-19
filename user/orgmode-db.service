@@ -1,6 +1,8 @@
 [Unit]
 Description=orgmode database
+
 StopWhenUnneeded=true
+ConditionPathExists=${AB2_WIKI_DIR}
 
 Requisite=initial-synced-all.service
 After=initial-synced-all.service

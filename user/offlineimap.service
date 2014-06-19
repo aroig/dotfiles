@@ -1,6 +1,8 @@
 [Unit]
 Description=offlineimap
 
+ConditionPathExists=${AB2_MAIL_DIR}
+
 Requires=mount-priv.service
 After=mount-priv.service
 

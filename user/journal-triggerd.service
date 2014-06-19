@@ -1,6 +1,5 @@
 [Unit]
 Description=triggers on journal messages
-ConditionHost=!skynet
 
 [Service]
 Type=simple

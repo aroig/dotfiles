@@ -1,6 +1,8 @@
 [Unit]
 Description=collect new mail list
 
+ConditionPathExists=${AB2_MAIL_DIR}
+
 After=offlineimap.service
 After=rss2maildir.service
 After=mutag-index.service

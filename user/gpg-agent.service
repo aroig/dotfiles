@@ -1,6 +1,7 @@
 [Unit]
 Description=gpg-agent daemon
-ConditionHost=!skynet
+
+ConditionPathExists=${HOME}/.gnupg
 
 [Service]
 Type=forking

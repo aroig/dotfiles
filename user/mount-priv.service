@@ -1,7 +1,7 @@
 [Unit]
 Description=mount priv
 
-ConditionPathExists=/home/abdo/.ecryptfs/priv.conf
+ConditionPathExists=${HOME}/.ecryptfs/priv.conf
 
 Wants=gpg-agent.service
 After=gpg-agent.service

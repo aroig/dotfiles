@@ -1,6 +1,8 @@
 [Unit]
 Description=unlock calibre database
+
 StopWhenUnneeded=true
+ConditionPathExists=${AB2_CALIBRE_DIR}
 
 Requisite=initial-synced-all.service
 After=initial-synced-all.service

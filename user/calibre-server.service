@@ -1,6 +1,8 @@
 [Unit]
 Description=Calibre Server
 
+ConditionPathExists=${AB2_CALIBRE_DIR}
+
 Requires=calibre-db.service
 After=calibre-db.service
 
