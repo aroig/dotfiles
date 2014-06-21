@@ -75,13 +75,28 @@
   (setq compilation-scroll-output 'first-error)
 )
 
+(defun get-closest-pathname (file)
+  "Determine the pathanem of the first instance of FILE starting
+from the current directory towards the root. This may not do the
+correct ting in the presence of links. If it does not find FILE,
+then it shall return the name of FILE in the current directory,
+suitable for creation."
+  (let ((root (expand-file-name "/"))) ; the win32 builds should translate this correctly
+	(expand-file-name file
+					  (loop
+					   for d = default-directory then (expand-file-name ".." d)
+					   if (file-exists-p (expand-file-name file d))
+					   return d
+					   if (equal d root)
+					   return nil))))
+
 (defun abdo-devel-compile ()
   (interactive)
   (cond
    ((file-exists-p (concat default-directory "Makefile"))
     (compile "make -k"))
-   ((file-exists-p (concat (abdo-vcs-root (buffer-file-name)) "Makefile"))
-    (compile (format "make -k -C \"%s\"" (abdo-vcs-root (buffer-file-name)))))
+   ((file-exists-p (get-closest-pathname "Makefile"))
+    (compile (format "make -k -C \"%s\"" (file-name-directory (get-closest-pathname "Makefile")))))
    (t (message "Can't find a suitable Makefile"))))
 
 
