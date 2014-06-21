@@ -1,9 +1,12 @@
 [Unit]
 Description=Xorg server at display %i
-Before=xserver@%i.target
 
 PartOf=xorg.target
+Before=xorg.target
+
 BindsTo=xserver@%i.target
+Before=xserver@%i.target
+
 Conflicts=x11vnc@%i.service vncserver@%i.service xephyr@%i.service
 
 [Service]
