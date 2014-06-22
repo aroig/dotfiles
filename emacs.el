@@ -117,9 +117,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Basic stuff
-(require 'sensitive-mode)              ;; Mode for sensitive data (disable backups)
-(require 'netrc)                       ;; read passwords from .netrc
-(require 'ansi-color)                  ;; tools to handle ansi escape sequences
+(require 'sensitive-mode)                ;; Mode for sensitive data (disable backups)
+(require 'netrc)                         ;; read passwords from .netrc
+(require 'ansi-color)                    ;; tools to handle ansi escape sequences
+(require 'cl)                            ;; Common lisp support
+
 
 ;; Basic interactive stuff
 (unless batch-mode
@@ -220,9 +222,6 @@
   (require 'abdo-languages)              ;; Spell checking stuff
   (require 'abdo-keybindings)            ;; My personal keybindings
 )
-
-;; Common lisp
-(require 'cl)
 
 ;; parse vim modeline
 (require 'vim-modeline)
