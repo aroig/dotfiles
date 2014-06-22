@@ -4,15 +4,14 @@
 
 ;; Adjusting key mappings
 
-; For some reason this does not work! I'd want to separate C-i from TAB
-; (add-hook 'term-setup-hook
+;; For some reason this does not work! I'd want to separate C-i from TAB
+
+;; http://stackoverflow.com/questions/1792326/how-do-i-bind-a-command-to-c-i-without-changing-tab
+;; http://www.gnu.org/savannah-checkouts/gnu/emacs/manual/html_node/elisp/Function-Keys.html
+;(add-hook 'term-setup-hook
 ;          (lambda ()
-  ;; Mappings
-  ; don't map C-i to TAB!
-  ; http://stackoverflow.com/questions/1792326/how-do-i-bind-a-command-to-c-i-without-changing-tab
-  ; http://www.gnu.org/savannah-checkouts/gnu/emacs/manual/html_node/elisp/Function-Keys.html
-;            (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
-;            (global-set-key (kbd "C-i") 'forward-word)))
+;            (message "removing C-i to TAB remap")
+;            (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))))
 
 
 ;; Helm
@@ -110,6 +109,15 @@
 (global-set-key (kbd "H-s-l") 'windmove-right)
 (global-set-key (kbd "H-s-k")    'windmove-up)
 (global-set-key (kbd "H-s-j")  'windmove-down)
+
+;; Yasnippet
+(define-key yas-minor-mode-map (kbd "<H-tab>")  'yas-expand)
+(define-key yas-minor-mode-map (kbd "<tab>")     nil)
+(define-key yas-minor-mode-map (kbd "TAB")       nil)
+
+;; Autocomplete
+(ac-set-trigger-key "C-TAB")
+
 
 
 ;; Exit functions
@@ -253,6 +261,11 @@
           ;; enable flyspell
           (flyspell-mode 1)))
 
+
+;; yasnippets
+(add-hook 'yas-minor-mode-hook
+          (lambda ()
+))
 
 
 (provide 'abdo-keybindings)

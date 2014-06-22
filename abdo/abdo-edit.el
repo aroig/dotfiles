@@ -26,8 +26,6 @@
 ; enable auto-complete for latex-mode
 (add-to-list 'ac-modes 'latex-mode)
 
-; (ac-set-trigger-key "TAB")       ; Set trigger
-
 
 
 ;; yasnippets
@@ -37,7 +35,3 @@
 (setq yas-snippet-dirs `(,(concat abdo-emacs-directory "snippets")))
 (yas-global-mode 1)
 (setq yas-verbosity 1)
-
-; change yasnippet trigger key
-; (define-key yas-minor-mode-map (kbd "<C-tab>")  'yas-expand)
-; (define-key yas-minor-mode-map (kbd "<tab>")     nil)
