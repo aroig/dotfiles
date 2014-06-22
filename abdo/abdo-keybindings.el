@@ -232,6 +232,7 @@
 
 (add-hook 'c++-mode-hook 'abdo-c-mode-keybindings)
 (add-hook 'c-mode-hook 'abdo-c-mode-keybindings)
+(add-hook 'qml-mode-hook 'abdo-c-mode-keybindings)
 
 
 ;; org mode
