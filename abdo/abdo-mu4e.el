@@ -36,7 +36,7 @@
   (setq user-full-name  "Abdó Roig-Maranges")
 
   ;; signature
-  (setq mu4e-compose-signature nil)
+  (setq mu4e-compose-signature-auto-include nil)
 
   ;; accounts to chose when composing or replying
   (setq abdo-mu4e-account-alist
