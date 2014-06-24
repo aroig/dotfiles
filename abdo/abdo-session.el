@@ -2,15 +2,17 @@
 ;; Emacs session handling
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defface abdo-commit-question
-  '((t :inherit default))
+(defface abdo-commit-question '((t :inherit default))
   "Face for commit question")
 
-(defface abdo-save-question
-  '((t :inherit default))
+(defface abdo-save-question '((t :inherit default))
   "Face for save question")
 
-(defvar abdo-commit-on-kill t "If non-nil asks to commit on kill")
+(defvar abdo-commit-on-kill t
+  "If non-nil asks to commit on kill")
+
+(defvar abdo-save-buffers-new-frame-kill-processes nil)
+
 
 
 (defun y-or-n-face-p (query face)
@@ -199,6 +201,82 @@
 	  ;; WTF
 	  (t (error "Invalid client frame"))))
     ))
+
+
+;; The following is based on this
+;; https://github.com/kriesoff/emacs-save-yourself/blob/master/save-yourself.el
+
+(defun abdo-save-buffers-new-frame ()
+  "Ask to save buffers on a new frame"
+  (let ((buffer-pred (lambda (buffer)
+                       (and (buffer-live-p buffer)
+                            (buffer-modified-p buffer)
+                            (not (buffer-base-buffer buffer))
+                            (or
+                             (buffer-file-name buffer)
+                             (with-current-buffer buffer
+                               (and buffer-offer-save
+                                    (> (buffer-size) 0)))))))
+
+        (process-pred (lambda (process)
+                        (and (memq (process-status process)
+                                   '(run stop open listen))
+                             (process-query-on-exit-flag process))))
+
+        (filter (lambda (pred lst)
+                  (let (aux)
+                    (dolist (elem lst)
+                      (when (funcall pred elem)
+                        (setq aux (cons elem aux))))
+                    (reverse aux)))))
+
+    (let ((modified (funcall filter buffer-pred (buffer-list)))
+          (active (and (not abdo-save-buffers-new-frame-kill-processes)
+                       (funcall filter process-pred (process-list)))))
+
+      (when (or modified active)
+        (save-excursion
+          (when (and (not (eq window-system 'x))
+                     (not x-initialized))
+            (x-initialize-window-system))
+          (select-frame (make-frame-on-display (getenv "DISPLAY")
+                                               (cons
+                                                '(window-system . x)
+                                                '((height . 30)
+                                                  (top . 10)
+                                                  (left . 10)))))
+
+          (let ((buflist (when modified (list-buffers-noselect nil modified)))
+                (proclsit (when active (get-buffer-create "*Process List*"))))
+
+            (cond
+             ((and modified active)
+              (switch-to-buffer buflist)
+              (switch-to-buffer-other-window proclist)
+              (list-processes t))
+
+             (modified
+              (switch-to-buffer buflist))
+
+             (active
+              (switch-to-buffer proclist)
+              (list-processes t))))
+
+          (let* ((new-frame (selected-frame))
+                 (inhibit-quit t)
+                 (use-dialog-box nil)
+                 (cancel (or (with-local-quit
+                               (save-some-buffers)
+                               (and active
+                                    (not (yes-or-no-p
+                                          "Active processes exist; exit anyway? "))))
+                             quit-flag)))
+            (setq quit-flag nil)
+            (delete-frame new-frame)
+            cancel))))))
+
+
+
 
 
 (defun abdo-exit ()
