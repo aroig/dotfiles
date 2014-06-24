@@ -4,6 +4,8 @@ Description=ask to save emacs buffers
 [Service]
 Type=oneshot
 SyslogIdentifier=emacs-session
-# TODO: do not fail if emacs is not running
-ExecStart=/usr/bin/sh -c "${EMACSCLIENT} --eval '(abdo-save-buffers-new-frame)' | grep nil > /dev/null"
+
+# NOTE: If emacs.service is not active, always succeed since there is nothing to be done.
+#       It would be nice to write the dependency on emacs.service directly in systemd!
+ExecStart=/usr/bin/sh -c "! systemctl --user is-active -q emacs.service || ${EMACSCLIENT} --eval '(abdo-save-buffers-new-frame)' | grep nil > /dev/null"
 
