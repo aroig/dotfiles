@@ -154,6 +154,7 @@
 
 ;; git
 (when (and (locate-library "magit") (not batch-mode))
+  ;; NOTE 2014-06-24: magit causes "strinp nil" error when starting new emacs via emacsclient. WTF?!
   (require 'magit))
 
 (when (and (locate-library "git-commit-mode") (not batch-mode))
