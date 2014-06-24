@@ -74,6 +74,22 @@
 
 
 
+;; recentf
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; http://www.emacswiki.org/emacs/RecentFiles
+
+;; There is a tiny window of opportunity for two emacs processes to write to
+;; recentf at the same time. If this happens with two emacsen running as a
+;; server when they shut down, one of them becomes deadlocked.
+;; Let's only use recentf for the main emacs daemon.
+(when (and (server-running-p) (string= server-name "server"))
+  (setq recentf-save-file (convert-standard-filename "~/.recentf.%s"))
+  (setq recentf-auto-cleanup 'never)  ;; need it because of tramp
+  (recentf-mode 1)
+  (setq recentf-max-saved-items 500))
+
+
+
 ;; Emacs backups
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Store backups on to abdo-emacs-backups for 5 days.
@@ -218,6 +234,10 @@
 ;; Ido config
 ;; WARNING: This is not compatible with icicles !
 
+;; Let's prevent ido from saving state data to disk
+; (setq ido-save-directory-list-file (convert-standard-filename "~/.ido.last"))
+(setq ido-save-directory-list-file nil)
+
 (ido-mode t)
 (ido-everywhere t)
 (setq ido-max-prospects 8)
@@ -255,16 +275,6 @@
 		     (set-window-configuration ediff-saved-window-configuration))))
 	      (add-hook 'ediff-quit-hook restore-window-configuration 'append)
 	      (add-hook 'ediff-suspend-hook restore-window-configuration 'append))))
-
-
-
-;; recentf
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; http://www.emacswiki.org/emacs/RecentFiles
-
-(setq recentf-auto-cleanup 'never)  ;; need it because of tramp
-(recentf-mode 1)
-(setq recentf-max-saved-items 500)
 
 
 

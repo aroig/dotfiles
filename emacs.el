@@ -313,14 +313,14 @@
 (defun abdo-launch-org (arg)
   (add-hook 'emacs-startup-hook 'abdo-org-main-buffer)
 
-  ;; start emacs server with socket 'chat'
+  ;; start emacs server with socket 'org'
   (setq server-name "org")
   (server-start))
 
 (defun abdo-launch-notes (arg)
   (add-hook 'emacs-startup-hook 'abdo-org-notes-buffer)
 
-  ;; start emacs server with socket 'chat'
+  ;; start emacs server with socket 'notes'
   (setq server-name "notes")
   (server-start))
 
