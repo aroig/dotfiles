@@ -1,5 +1,0 @@
-[Unit]
-Description=quit window manager
-
-Wants=console.target
-Before=console.target

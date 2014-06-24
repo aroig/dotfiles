@@ -1,0 +1,9 @@
+[Unit]
+Description=quit window manager
+
+Requires=emacs-ask-save.service
+After=emacs-ask-save.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl --user start console.target

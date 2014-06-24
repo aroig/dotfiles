@@ -6,5 +6,5 @@ Description=save emacs session
 [Service]
 Type=oneshot
 SyslogIdentifier=emacs-session
-ExecStart=/usr/bin/sh -c "$EMACSCLIENT --eval '(emacs-session-save)' | grep nil /dev/null"
+ExecStart=/usr/bin/sh -c "${EMACSCLIENT} --eval '(emacs-session-save)' | grep nil > /dev/null"
 
