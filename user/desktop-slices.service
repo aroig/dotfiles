@@ -1,8 +1,10 @@
 [Unit]
 Description=manage desktop slices
 
-Requires=desktop.target apps.slice dropdown.slice
-After=desktop.target apps.slice dropdown.slice
+Before=desktop.target
+
+Requires=apps.slice dropdown.slice
+After=apps.slice dropdown.slice
 
 [Service]
 Type=oneshot

@@ -1,10 +1,10 @@
 [Unit]
 Description=Redshift
 
-After=xorg.target
-After=compton.service
-
 Requisite=xorg.target
+After=xorg.target
+
+After=compton.service
 
 [Service]
 Type=simple

@@ -4,6 +4,7 @@ Description=gvfs daemon
 Requisite=xorg.target
 After=xorg.target
 
+Requires=gconf.service
 After=gconf.service
 
 

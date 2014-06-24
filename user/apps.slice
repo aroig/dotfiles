@@ -1,5 +1,2 @@
 [Unit]
 Description=applications
-
-Requisite=desktop.target
-After=desktop.target

@@ -4,6 +4,9 @@ Description=accessibility technologies
 Requisite=xorg.target
 After=xorg.target
 
+Requires=gconf.service
+After=gconf.service
+
 [Service]
 Type=dbus
 BusName=org.a11y.Bus
