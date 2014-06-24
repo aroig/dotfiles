@@ -331,6 +331,8 @@
 ;; TODO: There is a problem here. revert-buffer in file.el.gz calls
 ;; insert-file-contents with a fifth argument preventing a full "remove all"
 ;; "insert all" change in the undo list. This leads to a broken undo-list.
+;;
+;; NOTE: It seems that emacs 24.4 will fix this issue!
 
 ;; Enable auto-revert prog and text buffers
 (setq auto-revert-mode-text " ar")
