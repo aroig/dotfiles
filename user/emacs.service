@@ -15,7 +15,7 @@ SyslogIdentifier=emacs
 ExecStart=/usr/bin/emacs --daemon
 SuccessExitStatus=0 15
 
-# Kill with a SIGINT. Usually at this point emacs is gone
+# Kill with a SIGINT. This calls kill-emacs. No buffer saving is done.
 KillSignal=SIGINT
 
 Slice=apps.slice

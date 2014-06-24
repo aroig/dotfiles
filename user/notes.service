@@ -15,5 +15,3 @@ Slice=dropdown.slice
 ExecStart=/usr/bin/emacs -notes --title "emacs-notes"
 KillSignal=SIGINT
 
-# This fails if emacs is already stopped
-# ExecStop=/usr/bin/emacsclient -s %t/emacs/notes -e '(progn (save-some-buffers t) (kill-emacs))'
