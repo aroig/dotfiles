@@ -1,6 +1,7 @@
 [Unit]
 Description=manage desktop slices
 
+PartOf=desktop.target
 Before=desktop.target
 
 Requires=apps.slice dropdown.slice

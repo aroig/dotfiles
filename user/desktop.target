@@ -4,6 +4,8 @@ Description=desktop environment
 StopWhenUnneeded=true
 AllowIsolate=true
 
+Conflicts=console.target
+
 Requires=xorg.target
 After=xorg.target
 
