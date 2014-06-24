@@ -59,22 +59,19 @@
 ;; Launch terminal to current directory
 (defun abdo-launch-terminal (arg)
   (interactive "P")
-  (let ((path (expand-file-name default-directory)))
-    (call-process "urxvt" nil 0 nil "-cd" path)))
+  (let ((path (expand-file-name default-directory))
+        (cmd (getenv "TERMCMD")))
+    (call-process cmd nil 0 nil "-d" path)))
+
+
 
 ;; Launch file manager on current directory
 (defun abdo-launch-filemanager ()
   (interactive)
-  (let ((path (expand-file-name default-directory)))
+  (let ((path (expand-file-name default-directory))
+        (cmd (getenv "FILEMANAGER")))
+    (call-process cmd nil 0 nil path)))
 
-    ;; When there is a prefix, resolve symlinks
-    ;; Seems it is not needed after all. Oh well.
-;      (when (eq arg 4)
-;      (setq path (file-truename (buffer-file-name)))
-;      (string-match "\\(.*\\)/\\(.*\\)" path)
-;      (setq path (match-string 1 path)))
-
-    (call-process "nautilus" nil 0 nil path)))
 
 
 ;; Emacs backups
