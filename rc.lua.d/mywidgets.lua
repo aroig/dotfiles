@@ -131,11 +131,11 @@ function myw.hdw.update()
         myw.hdw.cpuwdg:set_markup(text)
     end
 
-    local args = myw.hdw.temp(nil, {"coretemp.0", "core"})
-    if args[1] ~= myw.hdw.tempval then
-        local color = util.gradient(gradcols, 35, 70, args[1])
-        local text = colortext(string.format("%sºC ", args[1]), color)
-        myw.hdw.tempval = args[1]
+    local args = myw.hdw.temp(nil, {"hwmon1", "temp1"})
+    if args.temp ~= myw.hdw.tempval then
+        local color = util.gradient(gradcols, 35, 70, args.temp)
+        local text = colortext(string.format("%dºC ", args.temp), color)
+        myw.hdw.tempval = args.temp
         myw.hdw.tempwdg:set_markup(text)
     end
 
