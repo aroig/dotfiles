@@ -1,0 +1,9 @@
+[Unit]
+Description=ask to save emacs buffers
+Before=wm-quit.target
+
+[Service]
+Type=oneshot
+SyslogIdentifier=emacs-session
+ExecStart=/usr/bin/sh -c "$EMACSCLIENT --eval '(abdo-save-buffers-new-frame)' | grep nil /dev/null"
+

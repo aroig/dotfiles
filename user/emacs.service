@@ -18,9 +18,6 @@ SuccessExitStatus=0 15
 # Kill with a SIGINT. Usually at this point emacs is gone
 KillSignal=SIGINT
 
-# This fails if emacs is already stopped
-# ExecStop=/usr/bin/emacsclient -s %t/emacs/server --eval "(client-save-kill-emacs)"
-
 Slice=apps.slice
 
 [Install]

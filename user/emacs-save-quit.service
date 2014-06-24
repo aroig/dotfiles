@@ -1,8 +1,0 @@
-[Unit]
-Description=emacs save and quit
-
-[Service]
-Type=simple
-SyslogIdentifier=emacs-stop
-ExecStart=/usr/bin/emacsclient -s %t/emacs/server --eval "(client-save-kill-emacs)"
-
