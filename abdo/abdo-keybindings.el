@@ -118,32 +118,13 @@
 ;; Autocomplete
 (ac-set-trigger-key "C-TAB")
 
-
-
-;; Exit functions
-
-(defvar abdo-commit-on-kill t "If non-nil asks to commit on kill")
-
-(defun abdo-exit ()
-  (interactive)
-  (if abdo-commit-on-kill
-      (abdo-save-buffers-kill-terminal-commit)
-    (save-buffers-kill-terminal)))
-
-(defun abdo-done ()
-  (interactive)
-  (if abdo-commit-on-kill
-      (abdo-buffer-done-commit)
-    (abdo-buffer-done)))
-
 ;; Exit keybindings
 (global-set-key (kbd "C-x C-z") 'abdo-exit)
 (global-set-key (kbd "C-x C-<") 'abdo-done)
 (if (daemonp)
     (progn
       (global-set-key (kbd "C-x C-c") 'abdo-done)
-      (add-hook 'find-file-hook (lambda () (abdo-client-visit-buffer (current-buffer))))
-    )
+      (add-hook 'find-file-hook (lambda () (abdo-client-visit-buffer (current-buffer)))))
   (global-set-key (kbd "C-x C-c") 'abdo-exit))
 
 

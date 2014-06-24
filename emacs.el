@@ -218,6 +218,7 @@
 ;; personal settings for interactive emacs
 (unless batch-mode
   (require 'abdo-interactive)            ;; Basic settings for interactive emacs
+  (require 'abdo-session)                ;; Session handling setup
   (require 'abdo-edit)                   ;; Basic editing settings
   (require 'abdo-languages)              ;; Spell checking stuff
   (require 'abdo-keybindings)            ;; My personal keybindings
