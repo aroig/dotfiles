@@ -1,4 +1,3 @@
-
 ---------------------------------------------------------------
 -- File:    mywidgets.lua     PersonalWidgets                --
 -- Version:                                                  --
@@ -16,6 +15,8 @@ local wibox = require("wibox")
 local beautiful = beautiful
 
 local os = os
+
+local host_config = host_config
 
 -----------------------------------
 -- Timers                        --
@@ -124,15 +125,15 @@ myw.hdw.tempval = '?'
 
 function myw.hdw.update()
     local args = myw.hdw.cpu(nil)
-    if args[1] ~= myw.hdw.cpuval then
+    if args and args[1] and args[1] ~= myw.hdw.cpuval then
         local color = util.gradient(gradcols, 0, 100, args[1])
         local text = colortext(string.format("%s%% ", args[1]), color)
         myw.hdw.cpuval = args[1]
         myw.hdw.cpuwdg:set_markup(text)
     end
 
-    local args = myw.hdw.temp(nil, {"hwmon1", "temp1"})
-    if args.temp ~= myw.hdw.tempval then
+    local args = myw.hdw.temp(nil, host_config['thermal'])
+    if args and args.temp and args.temp ~= myw.hdw.tempval then
         local color = util.gradient(gradcols, 35, 70, args.temp)
         local text = colortext(string.format("%dºC ", args.temp), color)
         myw.hdw.tempval = args.temp
@@ -140,7 +141,7 @@ function myw.hdw.update()
     end
 
     local args = myw.hdw.mem(nil)
-    if args[1] ~= myw.hdw.memval then
+    if args and args[1] and args[1] ~= myw.hdw.memval then
         local color = util.gradient(gradcols, 0, 100, args[1])
         local text = colortext(string.format("%s%% ", args[1]), color)
         myw.hdw.memval = args[1]

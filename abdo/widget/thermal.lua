@@ -18,8 +18,8 @@ local function worker(format, warg)
     local name = warg[2] or "temp1"
 
     if data then
-        local value = {temp = tonumber(data[name .. "_input"]) / 1000,
-                       crit = tonumber(data[name .. "_crit"]) / 1000,
+        local value = {temp = data[name .. "_input"] and tonumber(data[name .. "_input"]) / 1000,
+                       crit = data[name .. "_crit"] and tonumber(data[name .. "_crit"]) / 1000,
                        label = data[name .. "_label"] or "<unknown>"}
         return value
     end

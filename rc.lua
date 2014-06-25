@@ -128,6 +128,7 @@ end
 -- Sourcing stuff                --
 -----------------------------------
 
+dofile(cfgdir .. "/rc.lua.d/hostconfig.lua")  -- Host specific
 dofile(cfgdir .. "/rc.lua.d/wallpaper.lua")   -- Setup wallpaper
 dofile(cfgdir .. "/rc.lua.d/launchers.lua")   -- Launcher functions
 dofile(cfgdir .. "/rc.lua.d/naughty.lua")     -- Notifications
