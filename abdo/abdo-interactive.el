@@ -83,7 +83,7 @@
 ;; server when they shut down, one of them becomes deadlocked.
 ;; Let's only use recentf for the main emacs daemon.
 (when (and (server-running-p) (string= server-name "server"))
-  (setq recentf-save-file (convert-standard-filename "~/.recentf.%s"))
+  (setq recentf-save-file (convert-standard-filename "~/.recentf"))
   (setq recentf-auto-cleanup 'never)  ;; need it because of tramp
   (recentf-mode 1)
   (setq recentf-max-saved-items 500))
