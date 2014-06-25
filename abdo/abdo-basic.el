@@ -65,20 +65,6 @@
   (setq vc-make-backup-files t)                 ; also for files under vc
 )
 
-(defun abdo-backup-cleanup ()
-  (interactive)
-  (message "Deleting old backup files...")
-
-  ;; Cleanup backup directory
-  (let ((week (* 60 60 24 7))
-        (current (float-time (current-time))))
-    (dolist (file (directory-files abdo-emacs-backups t))
-      (when (and (backup-file-name-p file)
-                 (> (- current (float-time (fifth (file-attributes file))))
-                    week))
-        (message "  %s" file)
-        (delete-file file)))))
-
 
 
 ;; Version Control
