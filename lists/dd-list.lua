@@ -15,11 +15,12 @@ return {
    notes                 = "notes.service",
 
    -- monitoring
-   syslog                = apps.termcmd("ictl -f", "syslog"),
-   htop                  = apps.termcmd("htop", "htop"),
-   iftop                 = apps.termcmd("sudo iftop", "iftop"),
-   iotop                 = apps.termcmd("sudo iotop", "iotop"),
-   midi                  = apps.termcmd("jack_midi_dump", "midi"),
+   syslog                = apps.termcmd("ictl -f", "syslog-monitor"),
+   htop                  = apps.termcmd("htop", "htop-monitor"),
+   iftop                 = apps.termcmd("sudo iftop", "iftop-monitor"),
+   iotop                 = apps.termcmd("sudo iotop", "iotop-monitor"),
+   radeontop             = apps.termcmd("sudo radeontop", "radeontop-monitor"),
+   midi                  = apps.termcmd("jack_midi_dump", "midi-monitor"),
 
    -- sync and update actions
    hi                    = apps.termcmd("ictl hi.target",    "hi"),
