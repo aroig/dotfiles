@@ -1,0 +1,9 @@
+[Unit]
+Description=clean backup files
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=clean-backups
+ExecStart=/usr/bin/find "%h/var/emacs/bak/" -type f -ctime +90 -print -delete
+ExecStart=/usr/bin/find "%h/var/vim/bak/" -type f -ctime +90 -print -delete
