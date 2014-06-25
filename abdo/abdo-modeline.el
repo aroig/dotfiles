@@ -209,7 +209,7 @@
       (when global-mode-string
         (powerline-raw (format " %s" (format-mode-line '(global-mode-string global-mode-string))) face2 'r))
 
-      (powerline-fill face2 25)     ; everything on the right is fixed width
+      (powerline-fill face2 22)     ; everything on the right is fixed width
       ;; TODO: truncate this if it gets too long
      ))))
 
