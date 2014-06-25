@@ -38,20 +38,54 @@
 
 
 
-;; outline magic
+;; Emacs backups
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Store backups on to abdo-emacs-backups for 5 days.
 
+(when abdo-emacs-backups
+  ;; Create backup dir if inexistent
+  (make-directory abdo-emacs-backups t)
 
-;; when t, outline-cycle acts as tab on non-heading text
-(setq outline-cycle-emulate-tab nil)
+  (setq auto-save-file-name-transforms
+   `((".*" ,abdo-emacs-backups t)))             ; store autosave files away
 
-(add-hook 'outline-mode-hook
-          (lambda ()
-            (require 'outline-magic)))
+  (setq backup-directory-alist
+    `((".*" . ,abdo-emacs-backups)))            ; store backups away
 
-(add-hook 'outline-minor-mode-hook
-          (lambda ()
-            (require 'outline-magic)))
+  ;; When using tramp with su or sudo, should store it for user root.
+  (setq tramp-backup-directory-alist
+        backup-directory-alist)                 ; also for tramp
+
+  (setq backup-by-copying t)                    ; don't clobber symlinks
+  (setq delete-old-versions t)
+  (setq kept-new-versions 6)
+  (setq kept-old-versions 2)
+  (setq version-control t)                      ; use versioned backups
+  (setq make-backup-files t)                    ; make backup files
+  (setq vc-make-backup-files t)                 ; also for files under vc
+)
+
+;; Disable backups for some files
+(add-to-list 'auto-mode-alist '("\\.gpg$" . sensitive-mode))
+(add-to-list 'auto-mode-alist `(,(abdo-escape-regexp (getenv "AB2_PRIV_DIR")) . sensitive-mode))
+(add-to-list 'auto-mode-alist `(,(abdo-escape-regexp (file-truename "~/.ssh")) . sensitive-mode))
+
+(add-to-list 'auto-mode-alist '(,(abdo-escape-regexp ".ido.last") . sensitive-mode))
+(add-to-list 'auto-mode-alist '(,(abdo-escape-regexp ".recentf") . sensitive-mode))
+
+(defun abdo-backup-cleanup ()
+  (interactive)
+  (message "Deleting old backup files...")
+
+  ;; Cleanup backup directory
+  (let ((week (* 60 60 24 7))
+        (current (float-time (current-time))))
+    (dolist (file (directory-files abdo-emacs-backups t))
+      (when (and (backup-file-name-p file)
+                 (> (- current (float-time (fifth (file-attributes file))))
+                    week))
+        (message "  %s" file)
+        (delete-file file)))))
 
 
 

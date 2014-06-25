@@ -438,33 +438,6 @@
 
 
 
-(defun escape-regexp-repl (s)
-  (cond
-    ((string= s "\\") "\\\\\\\\")
-    ((string= s ".") "\\\\.")
-    ((string= s "*") "\\\\*")
-    ((string= s "+") "\\\\+")
-    ((string= s "?") "\\\\?")
-    ((string= s "[") "\\\\[")
-    ((string= s "^") "\\\\^")
-    ((string= s "$") "\\\\$")
-  )
-)
-
-(defun escape-regexp(str)
-  "Escapes str to get a regular expression that matches it"
-  (setq str (replace-regexp-in-string "\\\\" 'escape-regexp-repl str))
-  (setq str (replace-regexp-in-string "\\." 'escape-regexp-repl str))
-  (setq str (replace-regexp-in-string "\\*" 'escape-regexp-repl str))
-  (setq str (replace-regexp-in-string "\\+" 'escape-regexp-repl str))
-  (setq str (replace-regexp-in-string "\\?" 'escape-regexp-repl str))
-  (setq str (replace-regexp-in-string "\\[" 'escape-regexp-repl str))
-  (setq str (replace-regexp-in-string "\\^" 'escape-regexp-repl str))
-  (setq str (replace-regexp-in-string "\\^" 'escape-regexp-repl str))
-  (setq str (replace-regexp-in-string "\\$" 'escape-regexp-repl str))
-)
-
-
 ;; Custom Agenda views
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -835,7 +808,7 @@
 ;;       This is tricky !
 
 (defun abdo-org-org-store-link ()
-  (when (string-match (concat (escape-regexp org-directory-wiki) "\\(.*\\)\\.org") (buffer-file-name))
+  (when (string-match (concat (abdo-escape-regexp org-directory-wiki) "\\(.*\\)\\.org") (buffer-file-name))
     (let ((link (match-string 1))
           (description (format "Page %s in org tree" link)))
       (org-store-link-props

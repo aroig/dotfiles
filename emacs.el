@@ -122,7 +122,6 @@
 (require 'ansi-color)                    ;; tools to handle ansi escape sequences
 (require 'cl)                            ;; Common lisp support
 
-
 ;; Basic interactive stuff
 (unless batch-mode
   (require 'undo-tree)                   ;; Undo tree
@@ -210,19 +209,19 @@
 )
 
 ;; personal settings
-(require 'abdo-basic)                  ;; Basic emacs settings
 (require 'abdo-utils)                  ;; Utility stuff
+(require 'abdo-basic)                  ;; Basic emacs settings
 (require 'abdo-devel)                  ;; Personal devel stuff
 (require 'abdo-text)                   ;; Text mode tweaks
 (require 'abdo-music)                  ;; Music related modes
 
 ;; personal settings for interactive emacs
 (unless batch-mode
-  (require 'abdo-interactive)            ;; Basic settings for interactive emacs
-  (require 'abdo-session)                ;; Session handling setup
-  (require 'abdo-edit)                   ;; Basic editing settings
-  (require 'abdo-languages)              ;; Spell checking stuff
-  (require 'abdo-keybindings)            ;; My personal keybindings
+  (require 'abdo-interactive)          ;; Basic settings for interactive emacs
+  (require 'abdo-session)              ;; Session handling setup
+  (require 'abdo-edit)                 ;; Basic editing settings
+  (require 'abdo-languages)            ;; Spell checking stuff
+  (require 'abdo-keybindings)          ;; My personal keybindings
 )
 
 ;; parse vim modeline
