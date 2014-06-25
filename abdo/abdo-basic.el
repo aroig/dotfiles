@@ -65,14 +65,6 @@
   (setq vc-make-backup-files t)                 ; also for files under vc
 )
 
-;; Disable backups for some files
-(add-to-list 'auto-mode-alist '("\\.gpg$" . sensitive-mode))
-(add-to-list 'auto-mode-alist `(,(abdo-escape-regexp (getenv "AB2_PRIV_DIR")) . sensitive-mode))
-(add-to-list 'auto-mode-alist `(,(abdo-escape-regexp (file-truename "~/.ssh")) . sensitive-mode))
-
-(add-to-list 'auto-mode-alist '(,(abdo-escape-regexp ".ido.last") . sensitive-mode))
-(add-to-list 'auto-mode-alist '(,(abdo-escape-regexp ".recentf") . sensitive-mode))
-
 (defun abdo-backup-cleanup ()
   (interactive)
   (message "Deleting old backup files...")

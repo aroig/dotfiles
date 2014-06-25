@@ -295,6 +295,14 @@
 ;; mr
 (add-to-list 'auto-mode-alist '("\\.mrconfig$" . conf-mode))
 
+;; disable backups for some files
+(add-to-list 'auto-mode-alist '("\\.gpg$" . sensitive-mode))
+(add-to-list 'auto-mode-alist '("\\.ido\\.last" . sensitive-mode))
+(add-to-list 'auto-mode-alist '("\\.recentf" . sensitive-mode))
+
+(add-to-list 'auto-mode-alist `(,(abdo-escape-regexp (getenv "AB2_PRIV_DIR")) . sensitive-mode))
+(add-to-list 'auto-mode-alist `(,(abdo-escape-regexp (file-truename "~/.ssh")) . sensitive-mode))
+
 
 
 ;; Command line switches
