@@ -1,0 +1,7 @@
+# name: \begin{rmk}\label{rmk:?} ... \end{rmk}
+# contributor: Abdo Roig-Maranges <abdo.roig@gmail.com>
+# key: rmk
+# --
+\\begin{rmk}\\label{rmk:${1:bla}}
+  $0
+\\end{rmk}
