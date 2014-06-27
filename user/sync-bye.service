@@ -12,4 +12,5 @@ OnFailure=journal-mailer.service
 [Service]
 Type=oneshot
 SyslogIdentifier=sync-bye
+ExecStart=/usr/bin/sleep 10
 ExecStart=/usr/bin/systemctl --user start poweroff.target
