@@ -6,8 +6,8 @@ ConditionPathExists=/home/%u/mail
 Requires=mount-priv.service
 After=mount-priv.service
 
-Requisite=sync-hi.service
-After=sync-hi.service
+Requisite=synced.target
+After=synced.target
 
 Requires=network-online.service
 After=network-online.service

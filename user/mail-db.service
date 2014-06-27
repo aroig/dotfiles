@@ -4,8 +4,8 @@ Description=mail database
 StopWhenUnneeded=true
 ConditionPathExists=/home/%u/mail
 
-Requisite=sync-hi.service
-After=sync-hi.service
+Requisite=synced.target
+After=synced.target
 
 [Service]
 Type=oneshot

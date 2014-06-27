@@ -4,8 +4,8 @@ Description=orgmode database
 StopWhenUnneeded=true
 ConditionPathExists=/home/%u/work/wiki
 
-Requisite=sync-hi.service
-After=sync-hi.service
+Requisite=synced.target
+After=synced.target
 
 [Service]
 Type=oneshot
