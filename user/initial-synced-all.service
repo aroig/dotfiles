@@ -4,9 +4,6 @@ Description=initial synced state
 Requires=async-default-needed.service
 After=async-default-needed.service
 
-Requires=synced.target
-Before=synced.target
-
 OnFailure=journal-mailer.service
 
 
@@ -15,6 +12,8 @@ Type=oneshot
 RemainAfterExit=true
 
 SyslogIdentifier=synced-all
-ExecStart=/usr/bin/touch %t/synced
-ExecStop=/usr/bin/rm %t/synced
+ExecStart=/usr/bin/systemctl --user start synced.target                         
+ExecStart=/usr/bin/touch %t/synced                         
 
+ExecStop=/usr/bin/rm %t/synced
+ExecStop=/usr/bin/systemctl --user stop synced.target                         
