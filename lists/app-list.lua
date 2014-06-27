@@ -84,5 +84,5 @@ return {
 
    -- desktop state
    priv                      = "mount-priv.service",
-   ["fake-sync"]             = "initial-synced-fake.service",
+   ["sync-fake"]             = "sync-fake.service",
 }

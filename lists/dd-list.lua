@@ -23,11 +23,11 @@ return {
    midi                  = apps.termcmd("jack_midi_dump", "midi-monitor"),
 
    -- sync and update actions
-   hi                    = apps.termcmd("ictl hi.target",    "hi"),
-   bye                   = apps.termcmd("ictl bye.target",   "bye"),
-   byez                  = apps.termcmd("ictl byez.target",  "byez"),
-   fetch                 = apps.termcmd("ictl fetch.target", "fetch"),
-   ["pacman-update"]     = apps.termcmd("sudo pacman -Syu", "pacman-update"),
+   hi                    = apps.termcmd("ictl sync-hi.service",    "hi"),
+   bye                   = apps.termcmd("ictl sync-bye-service",   "bye"),
+   byez                  = apps.termcmd("ictl sync-byez.service",  "byez"),
+   fetch                 = apps.termcmd("ictl fetch.target",       "fetch"),
+   sysupgrade            = apps.termcmd("ictl sysupgrade.service", "sysupgrade"),
 
    -- side dropdowns
    docs                  = "dwb -p docs",
