@@ -4,6 +4,9 @@ Description=initial synced state
 Requires=async-default-needed.service
 After=async-default-needed.service
 
+Requires=synced.target
+Before=synced.target
+
 OnFailure=journal-mailer.service
 
 
