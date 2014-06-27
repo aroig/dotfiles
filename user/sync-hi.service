@@ -4,9 +4,6 @@ Description=initial sync
 Requires=async-default-needed.service
 After=async-default-needed.service
 
-BindsTo=flag@synced.service
-Before=flag@synced.service
-
 OnFailure=journal-mailer.service
 
 
@@ -15,4 +12,3 @@ Type=oneshot
 
 SyslogIdentifier=sync-hi
 ExecStart=/usr/bin/systemctl --user start synced.target                         
-ExecStop=/usr/bin/systemctl --user stop synced.target                         
