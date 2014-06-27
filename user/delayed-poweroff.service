@@ -1,8 +1,0 @@
-[Unit]
-Description=poweroff system in 20 seconds
-DefaultDependencies=no
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/sleep 20
-ExecStart=/usr/bin/sudo systemctl poweroff
