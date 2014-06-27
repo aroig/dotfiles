@@ -1,0 +1,15 @@
+[Unit]
+Description=final homedir sync and poweroff
+
+Conflicts=sync-hi.service sync-fake.service synced.target
+
+Requires=async-default-all.service
+After=async-default-all.service
+
+OnFailure=journal-mailer.service
+
+
+[Service]
+Type=oneshot
+SyslogIdentifier=sync-bye
+ExecStart=/usr/bin/systemctl --user start delayed-poweroff.service

@@ -3,8 +3,8 @@ Description=rss2maildir
 
 ConditionPathExists=/home/%u/mail
 
-Requisite=initial-synced-all.service
-After=initial-synced-all.service
+Requisite=sync-hi.service
+After=sync-hi.service
 
 Requires=network-online.service
 After=network-online.service

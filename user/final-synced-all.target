@@ -1,9 +1,0 @@
-[Unit]
-Description=final homedir sync
-
-Conflicts=initial-synced-all.service initial-synced-fake.service
-Conflicts=synced.target
-
-Requires=async-default-all.service
-After=async-default-all.service
-

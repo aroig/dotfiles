@@ -6,8 +6,8 @@ Requires=mount-priv.service
 After=mount-priv.service
 
 # dwb cookies are under ~/priv
-Requisite=initial-synced-all.service
-After=initial-synced-all.service
+Requisite=sync-hi.service
+After=sync-hi.service
 
 
 [Service]
