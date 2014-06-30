@@ -1,5 +1,6 @@
 [Unit]
 Description=filesystem '%i' flag
+StopWhenUnneeded=true
 
 [Service]
 Type=oneshot
