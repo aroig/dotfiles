@@ -9,13 +9,11 @@ local awful = awful
 local hosts = {
     grothendieck = {
         thermal = {"hwmon1", "temp1"},
-
     },
 
     galois = {
-        thermal = {"hwmon1", "temp1"},
+        thermal = {"hwmon0", "temp2"},
     },
-
 
     hodge = {
         thermal = {"hwmon0", "temp2"},
