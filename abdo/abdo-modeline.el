@@ -227,7 +227,7 @@
     (powerline-render
      (list
       (funcall separator face1 face0)
-      (powerline-raw "%5l %3c  %p" face0 'r)))))
+      (powerline-raw "%5l %3c  %p  " face0 'r)))))
 
 
 (defun abdo-powerline-state ()
@@ -337,7 +337,7 @@ It defaults to the UCS character \"Horizontal Ellipsis\", or
                  '(:eval (abdo-powerline-mode-list))        ; mode list
                  '(:eval (abdo-powerline-middle))
                  '(:eval (abdo-powerline-state))            ; state
-                 '(-15 (:eval (abdo-powerline-position)))   ; position
+                 '(:eval (abdo-powerline-position))         ; position
                  )))
 
 
