@@ -6,6 +6,9 @@
 (defvar abdo-modeline-skip-modes-regexp "undo-tree\\|fill\\|server"
   "Regexp matching minor modes I want to hide from the modeline")
 
+(defvar abdo-powerline-right-width 22
+  "With of the right block of the powerline")
+
 
 ;; Faces
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -111,6 +114,7 @@
         ((evil-emacs-state-p)    "E")
         (t                       "U")))
 
+
 (defun abdo-powerline-evil-state ()
   (let* ((active (eq (frame-selected-window) (selected-window)))
          (face0 (abdo-powerline-face 'face0))
@@ -118,6 +122,7 @@
           (intern (format "powerline-%s-%s" powerline-default-separator
                           (car powerline-default-separator-dir))))
          (evilstate (abdo-evil-state))
+         (narrowstate (if (buffer-narrowed-p) "n" " "))
          (evilface (cond
                     ((not active)            'powerline-evil-inactive)
                     ((evil-normal-state-p)   'powerline-evil-normal)
@@ -130,9 +135,8 @@
                     (t                       'powerline-evil-unknown))))
     (powerline-render
      (list
-      (propertize (format " %s " evilstate) 'face evilface)
-      (funcall separator evilface face0)
-      ))))
+      (propertize (format " %s%s" evilstate narrowstate) 'face evilface)
+      (funcall separator evilface face0)))))
 
 
 (defun abdo-powerline-buffer-name ()
@@ -209,7 +213,7 @@
       (when global-mode-string
         (powerline-raw (format " %s" (format-mode-line '(global-mode-string global-mode-string))) face2 'r))
 
-      (powerline-fill face2 22)     ; everything on the right is fixed width
+      (powerline-fill face2 abdo-powerline-right-width)     ; everything on the right is fixed width
       ;; TODO: truncate this if it gets too long
      ))))
 
@@ -223,8 +227,7 @@
     (powerline-render
      (list
       (funcall separator face1 face0)
-      (powerline-raw "%5l %3c  %p" face0 'r)
-      (powerline-narrow face0 'r)))))
+      (powerline-raw "%5l %3c  %p" face0 'r)))))
 
 
 (defun abdo-powerline-state ()
@@ -334,7 +337,7 @@ It defaults to the UCS character \"Horizontal Ellipsis\", or
                  '(:eval (abdo-powerline-mode-list))        ; mode list
                  '(:eval (abdo-powerline-middle))
                  '(:eval (abdo-powerline-state))            ; state
-                 '(-15 (:eval (abdo-powerline-position)))    ; position
+                 '(-15 (:eval (abdo-powerline-position)))   ; position
                  )))
 
 
