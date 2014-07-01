@@ -99,8 +99,10 @@
 ;;
 ;; NOTE: It seems that emacs 24.4 will fix this issue!
 
+(setq auto-revert-mode-text " ar")     ;; auto-revert modeline string
+(setq auto-revert-check-vc-info t)     ;; update vcs state
+
 ;; Enable auto-revert prog and text buffers
-(setq auto-revert-mode-text " ar")
 (add-hook 'prog-mode-hook (lambda () (auto-revert-mode)))
 (add-hook 'text-mode-hook (lambda () (auto-revert-mode)))
 
