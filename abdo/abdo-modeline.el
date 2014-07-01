@@ -1,5 +1,6 @@
 (provide 'abdo-modeline)
 
+
 ;; Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -244,7 +245,11 @@
     (powerline-render
      (list
       (funcall separator face1 face0)
-      (powerline-raw "%5l %3c  %p  " face0 'r)))))
+      (powerline-raw (concat (format-mode-line "%5l %3c  ")
+                             (replace-regexp-in-string "%" "%%"
+                              (downcase (substring (format-mode-line "%p") 0 3)))
+                             "  ")
+                             face0 'r)))))
 
 
 (defun abdo-powerline-state ()
