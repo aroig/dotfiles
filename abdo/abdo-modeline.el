@@ -151,15 +151,15 @@
       (funcall separator face0 face1)))))
 
 
-(defun abdo-powerline-mode-list ()
+(defun abdo-powerline-major-mode ()
   (let* ((face1 (abdo-powerline-face 'face1))
          (face2 (abdo-powerline-face 'face2))
-         (separator
-          (intern (format "powerline-%s-%s" powerline-default-separator
-                          (car powerline-default-separator-dir))))
-         (major (propertize
-                 (downcase (format-mode-line mode-name))
+         (majormode (downcase (format-mode-line mode-name))))
 
+    (list
+     (propertize " " 'face face1)
+     (propertize majormode
+           'face face1
            'help-echo "Major mode\n\ mouse-1: Display major mode menu\n\ mouse-2: Show help for major mode\n\ mouse-3: Toggle minor modes"
 
            'local-map (let ((map (make-sparse-keymap)))
@@ -168,16 +168,19 @@
                                       :filter (lambda (_) (mouse-menu-major-mode-map))))
                         (define-key map [mode-line mouse-2]      'describe-mode)
                         (define-key map [mode-line down-mouse-3] mode-line-mode-menu)
-                        map)))
+                        map)))))
 
-        (minor (mapconcat
-                'identity
-                (delq nil
+
+(defun abdo-powerline-minor-modes ()
+  (let* ((face1 (abdo-powerline-face 'face1))
+         (face2 (abdo-powerline-face 'face2))
+         (minormodes (delq nil
                       (mapcar
                        (lambda (mm)
                          (when (and mm (not (string-match abdo-modeline-skip-modes-regexp (downcase mm))))
                            (propertize
                             (downcase mm)
+                            'face face1
                             'help-echo "Minor mode\n mouse-1: Display minor mode menu\n mouse-2: Show help for minor mode\n mouse-3: Toggle minor modes"
 
                             'local-map (let ((map (make-sparse-keymap)))
@@ -186,14 +189,28 @@
                                          (define-key map [mode-line down-mouse-3]   (powerline-mouse 'minor 'menu mm))
                                          (define-key map [header-line down-mouse-3] (powerline-mouse 'minor 'menu mm))
                                          map))))
-                (split-string (format-mode-line minor-mode-alist)))) " ")))
+                (split-string (format-mode-line minor-mode-alist))))))
 
+     (when (> (safe-length minormodes) 0)
+       (list
+        (propertize " | " 'face face1)
+        (propertize (mapconcat 'identity minormodes " ") 'face face1)))))
+
+
+(defun abdo-powerline-mode-list ()
+  (let* ((face1 (abdo-powerline-face 'face1))
+         (face2 (abdo-powerline-face 'face2))
+         (separator
+          (intern (format "powerline-%s-%s" powerline-default-separator
+                          (car powerline-default-separator-dir)))))
     (powerline-render
-     (list
-      (if (not (string= minor ""))
-          (propertize (concat " " major " | " minor " ") 'face face1)
-        (propertize (concat " " major " ") 'face face1))
-      (funcall separator face1 face2)))))
+     (append
+      (abdo-powerline-major-mode)
+      (when (> (window-total-width powerline-selected-window) 90)
+        (abdo-powerline-minor-modes))
+      (list
+       (propertize " " 'face face1)
+       (funcall separator face1 face2))))))
 
 
 (defun abdo-powerline-middle ()
@@ -240,7 +257,6 @@
      (list
       (funcall separator face2 face1)
       (powerline-raw " %*%Z" face1 'r)))))
-
 
 
 
