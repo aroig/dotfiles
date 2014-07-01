@@ -36,6 +36,10 @@
 (display-time-mode 0)                         ;; hide time
 (setq column-number-mode t)                   ;; display column number
 
+;; Since I use git outside of emacs, do not rely on magit-auto-revert-mode.
+;; I instead I use my own-auto-revert
+(setq magit-auto-revert-mode nil)
+
 
 
 ;; Emacs backups
