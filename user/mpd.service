@@ -1,6 +1,9 @@
 [Unit]
 Description=music player daemon
 
+Requisite=synced.target
+After=synced.target
+
 Requires=mpd.socket
 Wants=mpdscribble.service
 

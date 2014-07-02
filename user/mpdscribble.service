@@ -1,6 +1,9 @@
 [Unit]
 Description=mpd scribbler
 
+Requisite=synced.target
+After=synced.target
+
 Requires=mpd.socket mpd.service
 After=mpd.service
 
