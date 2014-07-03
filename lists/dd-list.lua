@@ -24,7 +24,7 @@ return {
 
    -- sync and update actions
    hi                    = apps.termcmd("ictl sync-hi.service",    "hi"),
-   bye                   = apps.termcmd("ictl sync-bye-service",   "bye"),
+   bye                   = apps.termcmd("ictl sync-bye.service",   "bye"),
    byez                  = apps.termcmd("ictl sync-byez.service",  "byez"),
    fetch                 = apps.termcmd("ictl fetch.target",       "fetch"),
    sysupgrade            = apps.termcmd("ictl sysupgrade.service", "sysupgrade"),
