@@ -4,7 +4,7 @@ ConditionHost=hodge
 
 [Timer]
 OnCalendar=20:00
-Unit=byez.target
+Unit=sync-byez.service
 
 [Install]
 WantedBy=timers.target
