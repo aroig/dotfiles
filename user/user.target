@@ -1,3 +1,6 @@
 [Unit]
 Description=user target
 AllowIsolate=true
+
+Wants=dbus.service
+After=dbus.service
