@@ -13,5 +13,5 @@ SyslogIdentifier=dwb
 Slice=apps.slice
 
 ExecStart=/usr/bin/dwb
-
+StandardOutput=null
 

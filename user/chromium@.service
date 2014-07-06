@@ -10,5 +10,6 @@ SyslogIdentifier=chromium
 Slice=apps.slice
 
 ExecStart=/usr/bin/chromium
+StandardOutput=null
 
 
