@@ -12,8 +12,10 @@ After=apps.slice
 [Service]
 Type=forking
 
-SyslogIdentifier=emacs
 RuntimeDirectory=emacs
+RuntimeDirectoryMode=700
+
+SyslogIdentifier=emacs
 
 ExecStart=/usr/bin/emacs --daemon
 SuccessExitStatus=0 15
