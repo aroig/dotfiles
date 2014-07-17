@@ -10,6 +10,8 @@ After=audio.slice
 
 [Service]
 Type=dbus
+RuntimeDirectory=pulse
+
 BusName=org.pulseaudio.Server
 BusName=org.PulseAudio1
 

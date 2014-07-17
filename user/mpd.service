@@ -17,6 +17,8 @@ After=audio.slice
 
 [Service]
 Type=simple
+RuntimeDirectory=mpd
+
 Environment=PULSE_PROP=application.icon_name=emblem-sound
 ExecStart=/usr/bin/mpd --no-daemon
 
