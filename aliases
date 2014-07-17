@@ -256,14 +256,10 @@ tmd() { echo "ddclient.terminal:newtab('$PWD')" | awesome-client; }
 
 # stx() { startx awesome -- vt$(fgconsole 2>/dev/null); }
 stx() {
-    if [ ! "$1" ]; then  wm=awesome
-    else                 wm="$1"
-    fi
-
     xvt=vt$(fgconsole)
     if [ "$?" = '0' ]; then
         systemctl --user set-environment XORG_VT=$xvt
-        systemctl --user start wm@$wm.target;
+        systemctl --user start desktop.target;
     fi
 
     # wait until X server finishes and reset the tty
