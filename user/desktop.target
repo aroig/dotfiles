@@ -6,6 +6,6 @@ AllowIsolate=true
 
 Conflicts=console.target
 
-Requires=xorg.target
-After=xorg.target
+Requires=graphical.target
+After=graphical.target
 

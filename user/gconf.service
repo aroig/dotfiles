@@ -1,8 +1,8 @@
 [Unit]
 Description=gconf daemon
 
-Requisite=xorg.target
-After=xorg.target
+Requisite=graphical.target
+After=graphical.target
 
 [Service]
 Type=dbus

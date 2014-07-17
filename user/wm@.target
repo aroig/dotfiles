@@ -3,8 +3,8 @@ Description=%i window manager via xorg
 
 Conflicts=console.target
 
-BindsTo=xorg.target
-After=xorg.target
+BindsTo=graphical.target
+After=graphical.target
 
 BindsTo=%i@0.service
 After=%i@0.service

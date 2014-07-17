@@ -1,6 +1,6 @@
 [Unit]
 Description=calibre
-After=xorg.target
+After=graphical.target
 
 Requisite=desktop.target 
 After=desktop.target

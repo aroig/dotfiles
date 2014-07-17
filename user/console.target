@@ -4,6 +4,6 @@ Description=tty console
 StopWhenUnneeded=true
 AllowIsolate=true
 
-Conflicts=xorg.target
+Conflicts=graphical.target
 
 

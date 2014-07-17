@@ -1,8 +1,8 @@
 [Unit]
 Description=Compton X compositor
 
-Requisite=xorg.target
-After=xorg.target
+Requisite=graphical.target
+After=graphical.target
 
 [Service]
 Type=simple

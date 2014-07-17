@@ -1,8 +1,8 @@
 [Unit]
 Description=Redshift
 
-Requisite=xorg.target
-After=xorg.target
+Requisite=graphical.target
+After=graphical.target
 
 After=compton.service
 

@@ -1,8 +1,8 @@
 [Unit]
 Description=accessibility technologies
 
-Requisite=xorg.target
-After=xorg.target
+Requisite=graphical.target
+After=graphical.target
 
 Requires=gconf.service
 After=gconf.service

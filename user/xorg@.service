@@ -1,8 +1,8 @@
 [Unit]
 Description=Xorg server at display %i
 
-PartOf=xorg.target
-Before=xorg.target
+PartOf=graphical.target
+Before=graphical.target
 
 BindsTo=xserver@%i.target
 Before=xserver@%i.target
