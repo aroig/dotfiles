@@ -1,0 +1,7 @@
+[Unit]
+Description=window manager
+Conflicts=console.target
+
+StopWhenUnneeded=true
+
+After=awesome@0.service xmonad@0.service openbox@0.service

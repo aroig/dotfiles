@@ -3,8 +3,8 @@ Description=connman UI
 
 ConditionHost=galois
 
-Requisite=desktop.target
-After=desktop.target
+Requisite=wm.target
+After=wm.target
 
 Requires=wm.slice
 After=wm.slice

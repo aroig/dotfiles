@@ -10,7 +10,9 @@ Before=desktop.target
 
 Requisite=xserver@%i.target
 Requires=tint2@%i.service
-PartOf=wm@openbox.target
+
+Requires=wm.target
+PartOf=wm.target
 
 [Service]
 Type=simple

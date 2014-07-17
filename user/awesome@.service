@@ -7,7 +7,9 @@ After=compton.service xrandr-auto.service
 Before=desktop.target
 
 Requisite=xserver@%i.target
-PartOf=wm@awesome.target
+
+Requires=wm.target
+PartOf=wm.target
 
 [Service]
 Type=simple

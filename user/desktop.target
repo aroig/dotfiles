@@ -1,7 +1,5 @@
 [Unit]
 Description=desktop environment
-
-StopWhenUnneeded=true
 AllowIsolate=true
 
 Conflicts=console.target
