@@ -3,7 +3,9 @@ Description=X xkb keymap
 Documentation=man:xkbcomp(1)
 
 Requisite=xserver@%i.target
-After=xserver@%i.target xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
+After=xserver@%i.target
+
+After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
 After=xinit@%i.service
 
 [Service]
