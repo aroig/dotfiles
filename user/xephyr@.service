@@ -1,10 +1,8 @@
 [Unit]
 Description=Xephyr server at display %i
-After=graphical.target
 
 Requisite=graphical.target
-
-Conflicts=x11vnc@%i.service vncserver@%i.service xorg@%i.service
+After=graphical.target
 
 Requires=xserver@%i.target
 Before=xserver@%i.target

@@ -1,8 +1,6 @@
 [Unit]
 Description=VNC server at display %i
 
-Conflicts=xorg@%i.service x11vnc@%i.service xephyr@%i.service
-
 Requires=xserver@%i.target
 Before=xserver@%i.target
 
