@@ -4,6 +4,7 @@ return {
    -- systemd units
    dwb                       = "dwb@.service",
    chromium                  = "chromium@.service",
+   firefox                   = "firefox@.service",
    thunar                    = "thunar@.service",
    termite                   = "termite@.service",
    ranger                    = "ranger@.service",
@@ -18,7 +19,6 @@ return {
    gmpc                      = "gmpc.service",
    goldendict                = "goldendict.service",
 
-   firefox                   = "firefox",
    deluge                    = "deluge-gtk",
    amule                     = "amulegui",
    pidgin                    = "pidgin",
