@@ -1,5 +1,5 @@
 [Unit]
-Description=play sampled piano
+Description=play synthetizer
 
 Wants=jack.service impulse.service
 After=jack.service impulse.service
