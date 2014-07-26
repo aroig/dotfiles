@@ -16,4 +16,4 @@ SuccessExitStatus=0 1
 
 # NOTE: need to launch X session at the same tty, otherwise it becomes inactive
 # NOTE: we could set the keyboard rate delay and rate frequency with: xset r rate 500 40
-ExecStart=/usr/bin/xorg-launch-helper :%i -nolisten tcp -noreset -verbose 2 -ardelay 500 -arinterval 25 "${XDG_VTNR}"
+ExecStart=/usr/bin/xorg-launch-helper :%i -nolisten tcp -noreset -verbose 2 -ardelay 500 -arinterval 25 "vt${XDG_VTNR}"
