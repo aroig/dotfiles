@@ -256,11 +256,7 @@ tmd() { echo "ddclient.terminal:newtab('$PWD')" | awesome-client; }
 
 # stx() { startx awesome -- vt$(fgconsole 2>/dev/null); }
 stx() {
-    xvt=$(fgconsole)
-    if [ "$?" = '0' ]; then
-        systemctl --user set-environment XDG_VTNR=$xvt
-        systemctl --user start desktop.target;
-    fi
+    systemctl --user start desktop.target;
 
     # wait until X server finishes and reset the tty
     wait $(pgrep xorg)

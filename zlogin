@@ -13,8 +13,17 @@
 # source aliases
 [[ -f $HOME/.aliases ]] && . $HOME/.aliases
 
+
+
+#------------------------------
+# Set systemd environment
+#------------------------------
+
 # set path for systemd user session
 systemctl --user set-environment "PATH=$PATH"
+
+# set the VT number from the session
+systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
 
 
 
