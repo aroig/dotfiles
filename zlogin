@@ -23,7 +23,9 @@
 systemctl --user set-environment "PATH=$PATH"
 
 # set the VT number from the session
-systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
+if [ "$XDG_VTNR" ]; then
+    systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
+fi
 
 
 
