@@ -106,7 +106,10 @@
   (setq LaTeX-default-environment "equation")
 
   ;; do not scale font on sections
-  (setq font-latex-fontify-sectioning 1.0)
+  (setq font-latex-fontify-sectioning 1)
+
+  ;; do not fontify subscript and superscripts
+  ; (setq font-latex-fontify-script nil)
 
   ;; Keywords
   ;(add-to-list 'font-latex-match-warning-keywords '("\&"))
