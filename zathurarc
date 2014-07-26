@@ -81,6 +81,14 @@ set link-zoom               false
 
 
 
+# Synctex
+# ----------------------------------------------------------
+
+set synctex                 true
+set synctex-dbus-service    true
+
+
+
 # Key maps
 # ----------------------------------------------------------
 
