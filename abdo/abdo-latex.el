@@ -287,7 +287,6 @@
   (let
     ((editor (concat (getenv "EMACSCLIENT") " -e '(abdo-latex-reverse-sync \"%{input}\" %{line} %{column})'")))
     (call-process "zathura" nil 0 nil
-                  "--synctex"
                   "--synctex-editor-command"
                   editor
                   pdf)
