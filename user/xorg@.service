@@ -1,6 +1,9 @@
 [Unit]
 Description=Xorg server at display %i
 
+Requires=xorg@%i.socket
+After=xorg@%i.socket
+
 PartOf=graphical.target
 Before=graphical.target
 
