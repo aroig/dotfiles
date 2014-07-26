@@ -105,6 +105,10 @@
   ;; default environment
   (setq LaTeX-default-environment "equation")
 
+  ;; do not fontify scripts and superscripts
+  (setq font-latex-fontify-script nil)
+  (setq font-latex-fontify-sectioning nil)
+
   ;; Keywords
   ;(add-to-list 'font-latex-match-warning-keywords '("\&"))
 
