@@ -256,9 +256,9 @@ tmd() { echo "ddclient.terminal:newtab('$PWD')" | awesome-client; }
 
 # stx() { startx awesome -- vt$(fgconsole 2>/dev/null); }
 stx() {
-    xvt=vt$(fgconsole)
+    xvt=$(fgconsole)
     if [ "$?" = '0' ]; then
-        systemctl --user set-environment XORG_VT=$xvt
+        systemctl --user set-environment XDG_VTNR=$xvt
         systemctl --user start desktop.target;
     fi
 
