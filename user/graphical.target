@@ -5,7 +5,7 @@ StopWhenUnneeded=true
 Requires=user.target
 After=user.target
 
-BindsTo=xorg@0.service
-After=xorg@0.service
+BindsTo=xorg@0.socket
+After=xorg@0.socket
 
 Conflicts=console.target

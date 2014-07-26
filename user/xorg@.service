@@ -4,11 +4,11 @@ Description=Xorg server at display %i
 PartOf=graphical.target
 Before=graphical.target
 
-Requires=xserver@%i.target
-Before=xserver@%i.target
-
 [Service]
-Type=notify
+
+# Type=notify
+Type=simple
+
 SyslogIdentifier=xorg
 Slice=wm.slice
 
@@ -16,4 +16,8 @@ SuccessExitStatus=0 1
 
 # NOTE: need to launch X session at the same tty, otherwise it becomes inactive
 # NOTE: we could set the keyboard rate delay and rate frequency with: xset r rate 500 40
-ExecStart=/usr/bin/xorg-launch-helper :%i -nolisten tcp -noreset -verbose 2 -ardelay 500 -arinterval 25 "vt${XDG_VTNR}"
+ExecStart=/usr/bin/Xorg :%i -nolisten tcp -noreset -verbose 2 -ardelay 500 -arinterval 25 "vt${XDG_VTNR}"
+# ExecStartPost=/usr/bin/sleep 5
+
+# NOTE: Seem to need this otherwise get a blank tty after X exits
+# ExecStop=/usr/bin/deallocvt

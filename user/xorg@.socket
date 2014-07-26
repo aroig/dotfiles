@@ -1,0 +1,11 @@
+[Unit]
+Description=Socket for xorg at display %i
+
+Requires=xserver@%i.target
+Before=xserver@%i.target
+
+[Socket]
+ListenStream=/tmp/.X11-unix/X%i
+
+[Install]
+WantedBy=sockets.target
