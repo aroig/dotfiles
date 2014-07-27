@@ -46,10 +46,10 @@
     `(powerline-inactive2      ((t (:foreground ,zenburn-green  :background ,zenburn-bg-05    :inherit mode-line))))
     `(powerline-inactive-alert ((t (:foreground ,zenburn-red+1  :background ,zenburn-bg-05    :inherit mode-line))))
 
-    `(powerline-root0        ((t (:foreground ,zenburn-yellow   :background ,zenburn-root-1   :inherit mode-line))))
-    `(powerline-root1        ((t (:foreground ,zenburn-green+1  :background ,zenburn-root     :inherit mode-line))))
-    `(powerline-root2        ((t (:foreground ,zenburn-blue     :background ,zenburn-root+1   :inherit mode-line))))
-    `(powerline-root-alert   ((t (:foreground ,zenburn-red+1    :background ,zenburn-root+1   :inherit mode-line))))
+    `(powerline-root0        ((t (:foreground ,zenburn-yellow   :background ,zenburn-sat-red-2 :inherit mode-line))))
+    `(powerline-root1        ((t (:foreground ,zenburn-green+1  :background ,zenburn-sat-red-1 :inherit mode-line))))
+    `(powerline-root2        ((t (:foreground ,zenburn-blue     :background ,zenburn-sat-red   :inherit mode-line))))
+    `(powerline-root-alert   ((t (:foreground ,zenburn-red+1    :background ,zenburn-sat-red   :inherit mode-line))))
 
     `(powerline-evil-inactive  ((t (:foreground ,zenburn-green  :background ,zenburn-bg-05    :inherit mode-line))))
     `(powerline-evil-normal    ((t (:foreground ,zenburn-bg-1   :background ,zenburn-bg+3     :inherit mode-line))))

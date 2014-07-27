@@ -81,8 +81,9 @@
     ("zenburn-sat-yellow-1"      . "#E1BB37")
     ("zenburn-sat-orange"        . "#FF8F35")
     ("zenburn-sat-orange-1"      . "#DD7621")
-    ("zenburn-sat-red"           . "#D54343")
-    ("zenburn-sat-red-1"         . "#B53333")
+    ("zenburn-sat-red"           . "#D55252")
+    ("zenburn-sat-red-1"         . "#B53232")
+    ("zenburn-sat-red-2"         . "#850202")
     ("zenburn-sat-green"         . "#00CD66")  ;; SpringGreen3
     ("zenburn-sat-green-1"       . "#008B45")  ;; SpringGreen4
     ("zenburn-sat-lightgreen"    . "#9AFF9A")  ;; PaleGreen1
@@ -96,11 +97,7 @@
     ("zenburn-dark-green"        . "#2D5842")
     ("zenburn-dark-red"          . "#681313")
     ("zenburn-dark-blue"         . "#2F4276")
-
-    ;; root colors
-    ("zenburn-root-1"            . "#4B0B0B")
-    ("zenburn-root"              . "#872727")
-    ("zenburn-root+1"            . "#B74747"))
+    )
   "List of Zenburn colors.
 Each element has the form (NAME . HEX).
 
@@ -601,9 +598,9 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(jabber-roster-user-away ((t (:foreground ,zenburn-green+2))))
    `(jabber-roster-user-online ((t (:foreground ,zenburn-blue-1))))
    `(jabber-roster-user-dnd ((t (:foreground ,zenburn-red+1))))
-   `(jabber-rare-time-face ((t (:foreground ,zenburn-green+1))))
-   `(jabber-chat-prompt-local ((t (:foreground ,zenburn-blue-1))))
-   `(jabber-chat-prompt-foreign ((t (:foreground ,zenburn-red+1))))
+   `(jabber-rare-time-face ((t (:foreground ,zenburn-blue+1 :weight bold))))
+   `(jabber-chat-prompt-local ((t (:foreground ,zenburn-green+3 :weight bold))))
+   `(jabber-chat-prompt-foreign ((t (:foreground ,zenburn-orange :weight bold))))
    `(jabber-activity-face((t (:foreground ,zenburn-red+1))))
    `(jabber-activity-personal-face ((t (:foreground ,zenburn-blue+1))))
    `(jabber-title-small ((t (:height 1.1 :weight bold))))
@@ -962,6 +959,11 @@ Also bind `class' to ((class color) (min-colors 89))."
                                        :background ,zenburn-fg-1))))
    '(term-default-fg-color ((t (:inherit term-color-white))))
    '(term-default-bg-color ((t (:inherit term-color-black))))
+;;;;; twittering-mode
+   `(twittering-timeline-header-face ((t (:foreground ,zenburn-blue+1 :weight bold))))
+   `(twittering-timeline-footer-face ((t (:foreground ,zenburn-blue+1 :weight bold))))
+   `(twittering-uri-face ((t (:foreground ,zenburn-green+3))))
+   `(twittering-username-face ((t (:foreground ,zenburn-red+1 :weight bold))))
 ;;;;; undo-tree
    `(undo-tree-visualizer-active-branch-face ((t (:foreground ,zenburn-fg+1 :weight bold))))
    `(undo-tree-visualizer-current-face ((t (:foreground ,zenburn-red-1 :weight bold))))
