@@ -231,12 +231,12 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(anzu-mode-line ((t (:foreground ,zenburn-cyan :weight bold))))
 ;;;;; auctex
    `(font-latex-bold-face ((t (:inherit bold))))
-   `(font-latex-warning-face ((t (:foreground nil :inherit font-lock-warning-face))))
-   `(font-latex-sectioning-5-face ((t (:foreground ,zenburn-red :weight bold ))))
+   `(font-latex-warning-face ((t (:foreground ,zenburn-sat-red))))
+   `(font-latex-sectioning-5-face ((t (:foreground ,zenburn-sat-orange-1 :weight bold :inherit fixed-pitch))))
    `(font-latex-sedate-face ((t (:foreground ,zenburn-yellow))))
-   `(font-latex-italic-face ((t (:foreground ,zenburn-cyan :slant italic))))
-   `(font-latex-string-face ((t (:inherit ,font-lock-string-face))))
    `(font-latex-math-face ((t (:foreground ,zenburn-orange))))
+   `(font-latex-string-face ((t (:foreground ,zenburn-red+1))))
+   `(font-latex-slide-title-face ((t (:foreground ,zenburn-blue :inherit fixed-pitch :weight bold))))
 ;;;;; auto-complete
    `(ac-candidate-face ((t (:background ,zenburn-bg+3 :foreground ,zenburn-bg-2))))
    `(ac-candidate-mouse-face ((t (:background ,zenburn-blue+1 :foreground ,zenburn-bg-2))))
