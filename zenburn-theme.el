@@ -74,7 +74,30 @@
     ("zenburn-blue-3"   . "#5C888B")
     ("zenburn-blue-4"   . "#4C7073")
     ("zenburn-blue-5"   . "#366060")
-    ("zenburn-magenta"  . "#DC8CC3"))
+    ("zenburn-magenta"  . "#DC8CC3")
+
+    ;; saturated colors
+    ("zenburn-sat-yellow"        . "#FFE241")
+    ("zenburn-sat-yellow-1"      . "#E1BB37")
+    ("zenburn-sat-orange"        . "#FF8F35")
+    ("zenburn-sat-orange-1"      . "#DD7621")
+    ("zenburn-sat-red"           . "#D55252")
+    ("zenburn-sat-red-1"         . "#B53232")
+    ("zenburn-sat-red-2"         . "#850202")
+    ("zenburn-sat-green"         . "#00CD66")  ;; SpringGreen3
+    ("zenburn-sat-green-1"       . "#008B45")  ;; SpringGreen4
+    ("zenburn-sat-lightgreen"    . "#9AFF9A")  ;; PaleGreen1
+    ("zenburn-sat-lightgreen-1"  . "#7CCD7C")  ;; PaleGreen3
+    ("zenburn-sat-blue"          . "#67B1F6")
+    ("zenburn-sat-blue-1"        . "#448CD0")
+    ("zenburn-sat-purple"        . "#9B30FF")  ;; purple1
+
+    ;; dark colors
+    ("zenburn-dark-brown"        . "#533319")
+    ("zenburn-dark-green"        . "#2D5842")
+    ("zenburn-dark-red"          . "#681313")
+    ("zenburn-dark-blue"         . "#2F4276")
+    )
   "List of Zenburn colors.
 Each element has the form (NAME . HEX).
 
