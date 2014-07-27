@@ -986,6 +986,11 @@ Also bind `class' to ((class color) (min-colors 89))."
                                        :background ,zenburn-fg-1))))
    '(term-default-fg-color ((t (:inherit term-color-white))))
    '(term-default-bg-color ((t (:inherit term-color-black))))
+;;;;; twittering-mode
+   `(twittering-timeline-header-face ((t (:foreground ,zenburn-blue+1 :weight bold))))
+   `(twittering-timeline-footer-face ((t (:foreground ,zenburn-blue+1 :weight bold))))
+   `(twittering-uri-face ((t (:foreground ,zenburn-green+3))))
+   `(twittering-username-face ((t (:foreground ,zenburn-red+1 :weight bold))))
 ;;;;; undo-tree
    `(undo-tree-visualizer-active-branch-face ((t (:foreground ,zenburn-fg+1 :weight bold))))
    `(undo-tree-visualizer-current-face ((t (:foreground ,zenburn-red-1 :weight bold))))
