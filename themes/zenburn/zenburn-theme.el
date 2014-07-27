@@ -47,7 +47,6 @@
     ("zenburn-bg+1"     . "#3F3F3F")
     ("zenburn-bg+2"     . "#4F4F4F")
     ("zenburn-bg+3"     . "#5F5F5F")
-    ("zenburn-bg+4"     . "#6F6F6F")
     ("zenburn-red+1"    . "#DCA3A3")
     ("zenburn-red"      . "#CC9393")
     ("zenburn-red-1"    . "#BC8383")
@@ -128,7 +127,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(link ((t (:foreground ,zenburn-yellow :underline t :weight bold))))
    `(link-visited ((t (:foreground ,zenburn-yellow-2 :underline t :weight normal))))
    `(default ((t (:foreground ,zenburn-fg :background ,zenburn-bg))))
-   `(cursor ((t  (:foreground ,zenburn-fg :background ,zenburn-fg))))
+   `(cursor ((t (:foreground ,zenburn-fg :background ,zenburn-fg))))
    `(escape-glyph ((t (:foreground ,zenburn-red))))
    `(fringe ((t (:foreground ,zenburn-fg :background ,zenburn-bg))))
    `(header-line ((t (:foreground ,zenburn-yellow
@@ -242,12 +241,24 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(font-latex-string-face ((t (:foreground ,zenburn-red+1))))
    `(font-latex-slide-title-face ((t (:foreground ,zenburn-blue :inherit fixed-pitch :weight bold))))
 ;;;;; auto-complete
-   `(ac-candidate-face ((t (:background ,zenburn-bg+3 :foreground ,zenburn-bg-1))))
-   `(ac-selection-face ((t (:background ,zenburn-blue-4 :foreground ,zenburn-fg))))
-   `(popup-tip-face ((t (:background ,zenburn-yellow-2 :foreground ,zenburn-bg-1))))
+   `(ac-candidate-face ((t (:background ,zenburn-bg+3 :foreground ,zenburn-bg-2))))
+   `(ac-candidate-mouse-face ((t (:background ,zenburn-blue+1 :foreground ,zenburn-bg-2))))
+   `(ac-completion-face ((t (:background ,zenburn-bg :foreground ,zenburn-fg-1))))
+   `(ac-gtags-candidate-face ((t (:background ,zenburn-bg+3 :foreground ,zenburn-bg-2))))
+   `(ac-gtags-selection-face ((t (:background ,zenburn-blue-2 :foreground ,zenburn-bg-2))))
+   `(ac-selection-face ((t (:background ,zenburn-blue-2 :foreground ,zenburn-bg-2))))
+   `(ac-yasnippet-candidate-face ((t (:background ,zenburn-bg+3 :foreground ,zenburn-bg-2))))
+   `(ac-yasnippet-selection-face ((t (:background ,zenburn-orange :foreground ,zenburn-bg-2))))
+   `(popup-face ((t (:background ,zenburn-bg+3 :foreground ,zenburn-bg-2))))
+   `(popup-isearch-match ((t (:background ,zenburn-bg :foreground ,zenburn-fg))))
+   `(popup-menu-face ((t (:inherit popup-face))))
+   `(popup-menu-mouse-face ((t (:background ,zenburn-blue+1 :foreground ,zenburn-bg-2))))
+   `(popup-menu-summary-face ((t (:inherit popup-summary-face))))
+   `(popup-menu-selection-face ((t (:background ,zenburn-blue+1 :foreground ,zenburn-bg-2))))
    `(popup-scroll-bar-foreground-face ((t (:background ,zenburn-blue-5))))
    `(popup-scroll-bar-background-face ((t (:background ,zenburn-bg-1))))
-   `(popup-isearch-match ((t (:background ,zenburn-bg :foreground ,zenburn-fg))))
+   `(popup-summary-face ((t (:background ,zenburn-bg+3 :foreground ,zenburn-bg-2))))
+   `(popup-tip-face ((t (:background ,zenburn-yellow-2 :foreground ,zenburn-bg-2))))
 ;;;;; company-mode
    `(company-tooltip ((t (:foreground ,zenburn-fg :background ,zenburn-bg+1))))
    `(company-tooltip-selection ((t (:foreground ,zenburn-fg :background ,zenburn-bg-1))))
@@ -645,7 +656,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(magit-branch ((t (:foreground ,zenburn-blue :weight bold))))
    `(magit-cherry-equivalent ((t (:foreground ,zenburn-magenta))))
    `(magit-cherry-unmatched ((t (:foreground ,zenburn-cyan))))
-   `(magit-item-highlight ((t (:background ,zenburn-bg+1))))
+   `(magit-item-highlight ((t (:background ,zenburn-bg+05))))
    `(magit-log-author ((t (:foreground ,zenburn-orange))))
    `(magit-log-date ((t (:foreground ,zenburn-fg))))
    `(magit-log-graph ((t (:foreground ,zenburn-fg))))
@@ -1111,5 +1122,6 @@ This requires library `rainbow-mode'.")
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; indent-tabs-mode: nil
+;; eval: (when (require 'rainbow-mode nil t) (rainbow-mode 1))
 ;; End:
 ;;; zenburn-theme.el ends here

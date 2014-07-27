@@ -52,7 +52,7 @@
     `(powerline-root-alert   ((t (:foreground ,zenburn-red+1    :background ,zenburn-root+1   :inherit mode-line))))
 
     `(powerline-evil-inactive  ((t (:foreground ,zenburn-green  :background ,zenburn-bg-05    :inherit mode-line))))
-    `(powerline-evil-normal    ((t (:foreground ,zenburn-bg-1   :background ,zenburn-bg+4     :inherit mode-line))))
+    `(powerline-evil-normal    ((t (:foreground ,zenburn-bg-1   :background ,zenburn-bg+3     :inherit mode-line))))
     `(powerline-evil-insert    ((t (:foreground ,zenburn-bg-1   :background ,zenburn-green    :inherit mode-line))))
     `(powerline-evil-visual    ((t (:foreground ,zenburn-bg-1   :background ,zenburn-blue+1   :inherit mode-line))))
     `(powerline-evil-operator  ((t (:foreground ,zenburn-bg-1   :background ,zenburn-red-1    :inherit mode-line))))
