@@ -30,7 +30,7 @@
     `(abdo-save-question ((t (:foreground ,zenburn-sat-lightgreen-1))))
     `(abdo-commit-question ((t (:foreground ,zenburn-sat-orange))))
 ;;;;; org
-    `(org-priority-level-1 ((t (:foreground ,zenburn-sat-red-1))))
+    `(org-priority-level-1 ((t (:foreground ,zenburn-sat-red))))
     `(org-priority-level-2 ((t (:foreground ,zenburn-sat-orange-1))))
     `(org-priority-level-3 ((t (:foreground ,zenburn-yellow-2))))
     `(org-priority-level-4 ((t (:foreground ,zenburn-green+1))))
