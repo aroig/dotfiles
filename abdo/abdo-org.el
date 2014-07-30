@@ -71,10 +71,10 @@
 
   ;; setting topic file lists
   (setq abdo-org-papers-file-list
-        (abdo-regexp-filter "papers/.*\\.org$" org-agenda-files))
+        (abdo-regexp-filter "math/papers\\.org$" org-agenda-files))
 
   (setq abdo-org-proj-file-list
-        (abdo-regexp-filter "proj/.*\\.org$" org-agenda-files))
+        (abdo-regexp-filter "tech/proj\\.org$" org-agenda-files))
 
   (setq abdo-org-comp-file-list
         (abdo-regexp-filter "comp/.*\\.org$" org-agenda-files))
