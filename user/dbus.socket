@@ -6,4 +6,4 @@ Before=sockets.target
 ListenStream=/run/user/%U/bus
 
 [Install]
-WantedBy=default.target
+WantedBy=sockets.target
