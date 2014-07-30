@@ -645,7 +645,7 @@
 (defun abdo-org-generate-uids ()
   (interactive)
   (message "Generating ids")
-  ;; TODO: I'd lile to put ID's only where they are needed!
+  ;; TODO: I'd like to put ID's only where they are needed!
   (mapcar (lambda (file)
             (abdo-org-generate-uids-file (find-file-noselect file)))
           org-agenda-files)
@@ -685,11 +685,29 @@
 ;; Archiving
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Archives done tasks in the subtree
-(defun abdo-org-archive-done-tasks ()
-  (interactive)
-  (org-map-entries 'org-archive-subtree "/DONE" 'tree))
+(defun abdo-org-archive-done-buffer (buf)
+  (with-current-buffer buf
+    (org-map-entries 'org-archive-subtree "/DONE" 'file)
+    (when (buffer-modified-p buf) (save-buffer))))
 
+
+;; Archives done tasks in the current file
+(defun abdo-org-archive-done-file ()
+  (interactive)
+  (abdo-org-archive-done-buffer (current-buffer)))
+
+
+(defun abdo-org-archive-done-tree ()
+  (interactive)
+  (org-map-entries 'org-archive-subtree "/DONE" 'file))
+
+
+;; Archives done tasks in the subtree
+(defun abdo-org-archive-done-all-files ()
+  (mapcar (lambda (file)
+            (message (format "Archiving done tasks in %s" file))
+            (abdo-org-archive-done-buffer (find-file-noselect file)))
+          org-agenda-files))
 
 
 
