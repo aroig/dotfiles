@@ -3,12 +3,8 @@
 ZSHENV=~/.zshenv
 source $ZSHENV
 
-cat ~/.zshenv | egrep -o '^\s*export\s*.*=' | sed 's/^\s*export\s*\([^=]*\)=.*$/\1/' | \
-while read key; do
-    eval value=\"\$$key\"
-    # echo "$key=$value"    
-    systemctl --user set-environment "$key=$value"
-done
+variables=( `cat ~/.zshenv | egrep -o '^\s*export\s*.*=' | sed 's/^\s*export\s*\([^=]*\)=.*$/\1/'` )
 
-
-
+if [ "$variables" ]; then
+    systemctl --user import-environment $variables
+fi
