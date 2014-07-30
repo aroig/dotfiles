@@ -442,6 +442,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun abdo-org-custom-agenda-setup ()
+
+  ;; Some agenda speedups
+  (setq org-agenda-use-tag-inheritance nil)
+  (setq org-agenda-ignore-drawer-properties '(effort appt category))
+  (setq org-agenda-dim-blocked-tasks nil)
+  (setq org-agenda-inhibit-startup nil)
+
   (let ((devel-list     abdo-org-comp-file-list)
         (research-list  abdo-org-math-file-list)
         (teaching-list  abdo-org-teaching-file-list)
