@@ -439,11 +439,11 @@
 
 (defun abdo-org-custom-agenda-setup ()
 
-  ;; Some agenda speedups
+  ;; Some agenda tweaks for speed
   (setq org-agenda-use-tag-inheritance nil)
   (setq org-agenda-ignore-drawer-properties '(effort appt category))
   (setq org-agenda-dim-blocked-tasks nil)
-  (setq org-agenda-inhibit-startup nil)
+  (setq org-agenda-inhibit-startup t)
 
   (let ((devel-list     abdo-org-devel-files)
         (bbrain-list    abdo-org-bbrain-files)
