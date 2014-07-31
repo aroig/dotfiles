@@ -457,147 +457,145 @@
 
         (mathlog-list   (list abdo-org-math-journal-file))
         (persolog-list  (list abdo-org-perso-journal-file)))
+
     (setq org-agenda-custom-commands
           `(
             ;; DEVELOPMENT
             ("d" . "Development")
 
-            ; Agenda for development items
             ("da" "Agenda"      agenda ""
              ((org-agenda-files (quote ,devel-list))))
 
-            ; Search in development docs
             ("ds" "Search"      search ""
              ((org-agenda-files (quote ,devel-list))
               (org-agenda-search-view-max-outline-level 2)))
 
-            ; Development TODO list
-            ("dt" "Todo"        tags-todo ""
+            ("dt" "Todo"        todo ""
              ((org-agenda-files (quote ,devel-list))))
 
-
-;            ("dp" "Projects"         tags "+project+LEVEL=1")
-;            ("dP" "Projects TODO"    tags-todo "+project")
+            ("dg" "Tag"         tags-todo ""
+             ((org-agenda-files (quote ,devel-list))))
 
 
             ;; BIBRAIN
             ("b" . "Bibrain")
 
-            ; Agenda for Bibrain items
             ("ba" "Agenda"      agenda ""
              ((org-agenda-files (quote ,bbrain-list))))
 
-            ; Search in Bibrain docs
             ("bs" "Search"      search ""
              ((org-agenda-files (quote ,bbrain-list))
               (org-agenda-search-view-max-outline-level 2)))
 
-            ; Bibrain TODO list
-            ("bt" "Todo"        tags-todo ""
+            ("bt" "Todo"        todo ""
+             ((org-agenda-files (quote ,bbrain-list))))
+
+            ("bg" "Tag"         tags-todo ""
              ((org-agenda-files (quote ,bbrain-list))))
 
 
             ;; MATHS
             ("h" . "Maths")
 
-            ; Agenda for math items
-            ("ha" "Agenda"          agenda ""
+            ("ha" "Agenda"         agenda ""
              ((org-agenda-files (quote ,math-list))))
 
-            ; Search in math documents
-            ("hs" "Search"          search ""
+            ("hs" "Search"         search ""
              ((org-agenda-files (quote ,math-list))
               (org-agenda-search-view-max-outline-level 2)))
 
-            ; List of math ideas
-            ("hi" "Ideas"           tags "+LEVEL=3"
+            ("ht" "Todo"           todo ""
+             ((org-agenda-files (quote ,math-list))))
+
+            ("hg" "Tag"            tags-todo ""
+             ((org-agenda-files (quote ,math-list))))
+
+            ("hi" "Ideas"          tags "+LEVEL=3"
              ((org-agenda-files (quote ,ideas-list))
               (org-agenda-prefix-format "")))
 
-            ; Search in math ideas
-            ("hI" "Search ideas"           search ""
+            ("hI" "Search ideas"   search ""
              ((org-agenda-files (quote ,ideas-list))
               (org-agenda-search-view-max-outline-level 3)
               (org-agenda-prefix-format "")))
 
-            ; List of math notes
-            ("hn" "Notes"           tags "+LEVEL=3"
+            ("hn" "Notes"          tags "+LEVEL=3"
              ((org-agenda-files (quote ,notes-list))
               (org-agenda-prefix-format "")))
 
-            ; Search in math notes
-            ("hN" "Search notes"           search ""
+            ("hN" "Search notes"   search ""
              ((org-agenda-files (quote ,notes-list))
               (org-agenda-search-view-max-outline-level 3)
               (org-agenda-prefix-format "")))
 
-            ; Search in math journal
-            ("hj" "Search journal"         search ""
+            ("hj" "Journal"        tags "+LEVEL=4"
+             ((org-agenda-files (quote ,mathlog-list))
+              (org-agenda-prefix-format "")))
+
+            ("hJ" "Search journal" search ""
              ((org-agenda-files (quote ,mathlog-list))
               (org-agenda-search-view-max-outline-level 4)
               (org-agenda-prefix-format "")))
-
-            ; Math TODO list
-            ("ht" "Todo"            tags-todo ""
-             ((org-agenda-files (quote ,math-list))))
 
 
             ;; PAPERS
             ("r" . "Papers")
 
-            ; Agenda for Bibrain items
             ("ra" "Agenda"      agenda ""
              ((org-agenda-files (quote ,paper-list))))
 
-            ; Search in Bibrain docs
             ("rs" "Search"      search ""
              ((org-agenda-files (quote ,paper-list))
               (org-agenda-search-view-max-outline-level 2)))
 
-            ; Bibrain TODO list
             ("rt" "Todo"        tags-todo ""
+             ((org-agenda-files (quote ,paper-list))))
+
+            ("rg" "Tag"         tags ""
              ((org-agenda-files (quote ,paper-list))))
 
 
             ;; TEACHING
             ("c" . "Teaching")
 
-            ; Agenda for teaching items
             ("ca" "Agenda"          agenda ""
              ((org-agenda-files (quote ,(append teach-list)))))
 
-            ; Search in teaching documents
             ("cs" "Search"          search ""
              ((org-agenda-files (quote ,(append teach-list)))
               (org-agenda-search-view-max-outline-level 2)))
 
-            ; Teaching TODO list
             ("ct" "Todo"            tags-todo ""
+             ((org-agenda-files (quote ,(append teach-list)))))
+
+            ("ct" "Tag"             tags ""
              ((org-agenda-files (quote ,(append teach-list)))))
 
 
             ;; PERSONAL
             ("p" . "Personal")
 
-            ; Personal agenda
-            ("pa" "Agenda"      agenda ""
+            ("pa" "Agenda"         agenda ""
              ((org-agenda-files (quote ,perso-list))))
 
-            ; Search personal notes
-            ("ps" "Search"      search ""
+            ("ps" "Search"         search ""
              ((org-agenda-files (quote ,perso-list))
               (org-agenda-search-view-max-outline-level 2)))
 
-            ; Personal TODO list
-            ("pt" "Todo"        tags-todo ""
+            ("pt" "Todo"           tags-todo ""
              ((org-agenda-files (quote ,perso-list))))
 
-            ; Search personal journal
-            ("pj" "Search journal"     search ""
+            ("pt" "Tag"            tags ""
+             ((org-agenda-files (quote ,perso-list))))
+
+            ("pj" "Journal"        tags "+LEVEL=4"
+             ((org-agenda-files (quote ,persolog-list))
+              (org-agenda-prefix-format "")))
+
+            ("pJ" "Search journal" search ""
              ((org-agenda-files (quote ,persolog-list))
               (org-agenda-search-view-max-outline-level 4)
               (org-agenda-prefix-format "")))
-
 
             ))))
 
