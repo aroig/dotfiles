@@ -65,68 +65,64 @@
   (setq org-directory-wiki
         (concat org-directory "org/"))
 
-  ;; Set agenda file list from a file.
-  (setq org-agenda-files
-        (abdo-find-files-recursively "\\.org$" org-directory-wiki))
+  ;; All org files
+  (setq org-all-files (abdo-find-files-recursively "\\.org$" org-directory-wiki))
+  (setq org-agenda-files '())
 
-  ;; setting topic file lists
-  (setq abdo-org-papers-file-list
-        (abdo-regexp-filter "math/papers\\.org$" org-agenda-files))
+  ;; Tech files
+  (setq abdo-org-arts-files (abdo-regexp-filter "arts/.*\\.org$" org-all-files))
+  (setq org-agenda-files (append abdo-org-arts-files org-agenda-files))
 
-  (setq abdo-org-proj-file-list
-        (abdo-regexp-filter "tech/proj\\.org$" org-agenda-files))
+  ;; Bibrain files
+  (setq abdo-org-bbrain-files (abdo-regexp-filter "bbrain/.*\\.org$" org-all-files))
+  (setq org-agenda-files (append abdo-org-bbrain-files org-agenda-files))
 
-  (setq abdo-org-comp-file-list
-        (abdo-regexp-filter "comp/.*\\.org$" org-agenda-files))
+  ;; Hardware files
+  (setq abdo-org-hard-files (abdo-regexp-filter "hard/.*\\.org$" org-all-files))
+  (setq org-agenda-files (append abdo-org-hard-files org-agenda-files))
 
-  (setq abdo-org-math-file-list
-        (abdo-regexp-filter "math/.*\\.org$" org-agenda-files))
+  ;; Software files
+  (setq abdo-org-soft-files (abdo-regexp-filter "soft/.*\\.org$" org-all-files))
+  (setq org-agenda-files (append abdo-org-soft-files org-agenda-files))
 
-  (setq abdo-org-teaching-file-list
-        (abdo-regexp-filter "teaching/.*\\.org$" org-agenda-files))
+  ;; Devel files files
+  (setq abdo-org-devel-files (append abdo-org-hard-files abdo-org-soft-files))
 
-  (setq abdo-org-perso-file-list
-        (abdo-regexp-filter "perso/.*\\.org$" org-agenda-files))
+  ;; Math files
+  (setq abdo-org-math-files (abdo-regexp-filter "math/.*\\.org$" org-all-files))
+  (setq org-agenda-files (append abdo-org-math-files org-agenda-files))
+
+  ;; Paper files
+  (setq abdo-org-paper-files (abdo-regexp-filter "paper/.*\\.org$" org-all-files))
+  (setq org-agenda-files (append abdo-org-paper-files org-agenda-files))
+
+  ;; Personal files
+  (setq abdo-org-perso-files (abdo-regexp-filter "perso/.*\\.org$" org-all-files))
+  (setq org-agenda-files (append abdo-org-perso-files org-agenda-files))
+
+  ;; Teaching files
+  (setq abdo-org-teach-files (abdo-regexp-filter "teach/.*\\.org$" org-all-files))
+  (setq org-agenda-files (append abdo-org-teach-files org-agenda-files))
 
   ;; Some individual org files
-  (setq abdo-org-devel-notes-file
-        (concat org-directory-wiki "comp/notes.org"))
-
-  (setq abdo-org-devel-ideas-file
-        (concat org-directory-wiki "comp/ideas.org"))
-
-  (setq abdo-org-math-notes-file
-        (concat org-directory-wiki "math/notes.org"))
-
-  (setq abdo-org-math-ideas-file
-        (concat org-directory-wiki "math/ideas.org"))
-
-  (setq abdo-org-math-journal-file
-        (concat org-directory-wiki "math/log.org"))
-
-  (setq abdo-org-personal-notes-file
-        (concat org-directory-wiki  "perso/notes.org"))
-
-  (setq abdo-org-personal-journal-file
-        (concat org-directory-wiki "perso/log.org"))
-
-  (setq abdo-org-main-file
-        (concat org-directory-wiki "main.org"))
-
-  (setq abdo-org-notes-file
-        (concat org-directory-wiki "capture.org"))
+  (setq abdo-org-devel-notes-file (concat org-directory-wiki "soft/notes.org"))
+  (setq abdo-org-devel-ideas-file (concat org-directory-wiki "soft/ideas.org"))
+  (setq abdo-org-math-notes-file (concat org-directory-wiki "math/notes.org"))
+  (setq abdo-org-math-ideas-file (concat org-directory-wiki "math/ideas.org"))
+  (setq abdo-org-math-journal-file (concat org-directory-wiki "math/log.org"))
+  (setq abdo-org-perso-notes-file (concat org-directory-wiki  "perso/notes.org"))
+  (setq abdo-org-perso-journal-file (concat org-directory-wiki "perso/log.org"))
+  (setq abdo-org-main-file (concat org-directory-wiki "main.org"))
+  (setq abdo-org-notes-file (concat org-directory-wiki "capture.org"))
 
   ;; default place for notes
-  (setq org-default-notes-file
-        (concat org-directory-wiki "capture.org"))
+  (setq org-default-notes-file (concat org-directory-wiki "capture.org"))
 
   ;; inbox for mobileorg
-  (setq org-mobile-inbox-for-pull
-        (concat org-directory-wiki "mobile.org"))
+  (setq org-mobile-inbox-for-pull (concat org-directory-wiki "mobile.org"))
 
   ;; Set html output
-  (setq org-publish-html-directory
-        (concat org-directory "html/"))
+  (setq org-publish-html-directory (concat org-directory "html/"))
 
   ;; Custom agenda commands
   (abdo-org-custom-agenda-setup)
@@ -449,17 +445,18 @@
   (setq org-agenda-dim-blocked-tasks nil)
   (setq org-agenda-inhibit-startup nil)
 
-  (let ((devel-list     abdo-org-comp-file-list)
-        (research-list  abdo-org-math-file-list)
-        (teaching-list  abdo-org-teaching-file-list)
-        (perso-list     abdo-org-perso-file-list)
-        (papers-list    abdo-org-papers-file-list)
+  (let ((devel-list     abdo-org-devel-files)
+        (bbrain-list    abdo-org-bbrain-files)
+        (math-list      abdo-org-math-files)
+        (paper-list     abdo-org-paper-files)
+        (teach-list     abdo-org-teach-files)
+        (perso-list     abdo-org-perso-files)
 
         (ideas-list     (list abdo-org-math-ideas-file))
         (notes-list     (list abdo-org-math-notes-file))
 
         (mathlog-list   (list abdo-org-math-journal-file))
-        (persolog-list  (list abdo-org-personal-journal-file)))
+        (persolog-list  (list abdo-org-perso-journal-file)))
     (setq org-agenda-custom-commands
           `(
             ;; DEVELOPMENT
@@ -483,71 +480,100 @@
 ;            ("dP" "Projects TODO"    tags-todo "+project")
 
 
-            ;; RESEARCH
-            ("r" . "Research")
+            ;; BIBRAIN
+            ("b" . "Bibrain")
 
-            ; Agenda for research items
-            ("ra" "Agenda"          agenda ""
-             ((org-agenda-files (quote ,(append research-list papers-list)))))
+            ; Agenda for Bibrain items
+            ("ba" "Agenda"      agenda ""
+             ((org-agenda-files (quote ,bbrain-list))))
 
-            ; Search in research documents
-            ("rs" "Search"          search ""
-             ((org-agenda-files (quote ,(append research-list papers-list)))
+            ; Search in Bibrain docs
+            ("bs" "Search"      search ""
+             ((org-agenda-files (quote ,bbrain-list))
               (org-agenda-search-view-max-outline-level 2)))
 
-            ; List of research ideas
-            ("ri" "Ideas"           tags "+LEVEL=3"
+            ; Bibrain TODO list
+            ("bt" "Todo"        tags-todo ""
+             ((org-agenda-files (quote ,bbrain-list))))
+
+
+            ;; MATHS
+            ("h" . "Maths")
+
+            ; Agenda for math items
+            ("ha" "Agenda"          agenda ""
+             ((org-agenda-files (quote ,math-list))))
+
+            ; Search in math documents
+            ("hs" "Search"          search ""
+             ((org-agenda-files (quote ,math-list))
+              (org-agenda-search-view-max-outline-level 2)))
+
+            ; List of math ideas
+            ("hi" "Ideas"           tags "+LEVEL=3"
              ((org-agenda-files (quote ,ideas-list))
               (org-agenda-prefix-format "")))
 
-            ; Search in research ideas
-            ("rI" "Search ideas"           search ""
+            ; Search in math ideas
+            ("hI" "Search ideas"           search ""
              ((org-agenda-files (quote ,ideas-list))
               (org-agenda-search-view-max-outline-level 3)
               (org-agenda-prefix-format "")))
 
-            ; List of research notes
-            ("rn" "Notes"           tags "+LEVEL=3"
+            ; List of math notes
+            ("hn" "Notes"           tags "+LEVEL=3"
              ((org-agenda-files (quote ,notes-list))
               (org-agenda-prefix-format "")))
 
-            ; Search in research notes
-            ("rN" "Search notes"           search ""
+            ; Search in math notes
+            ("hN" "Search notes"           search ""
              ((org-agenda-files (quote ,notes-list))
               (org-agenda-search-view-max-outline-level 3)
               (org-agenda-prefix-format "")))
 
-            ; List of papers
-            ("rp" "Papers"          tags "+paper+LEVEL=1"
-             ((org-agenda-files (quote ,papers-list))
-              (org-agenda-search-view-max-outline-level 1)))
-
-            ; Search in research journal
-            ("rj" "Search journal"         search ""
+            ; Search in math journal
+            ("hj" "Search journal"         search ""
              ((org-agenda-files (quote ,mathlog-list))
               (org-agenda-search-view-max-outline-level 4)
               (org-agenda-prefix-format "")))
 
-            ; Research TODO list
-            ("rt" "Todo"            tags-todo ""
-             ((org-agenda-files (quote ,(append research-list papers-list)))))
+            ; Math TODO list
+            ("ht" "Todo"            tags-todo ""
+             ((org-agenda-files (quote ,math-list))))
+
+
+            ;; PAPERS
+            ("r" . "Papers")
+
+            ; Agenda for Bibrain items
+            ("ra" "Agenda"      agenda ""
+             ((org-agenda-files (quote ,paper-list))))
+
+            ; Search in Bibrain docs
+            ("rs" "Search"      search ""
+             ((org-agenda-files (quote ,paper-list))
+              (org-agenda-search-view-max-outline-level 2)))
+
+            ; Bibrain TODO list
+            ("rt" "Todo"        tags-todo ""
+             ((org-agenda-files (quote ,paper-list))))
 
 
             ;; TEACHING
-            ("t" . "Teaching")
+            ("c" . "Teaching")
 
             ; Agenda for teaching items
-            ("ta" "Agenda"          agenda ""
-             ((org-agenda-files (quote ,(append teaching-list)))))
+            ("ca" "Agenda"          agenda ""
+             ((org-agenda-files (quote ,(append teach-list)))))
 
             ; Search in teaching documents
-            ("ts" "Search"          search ""
-             ((org-agenda-files (quote ,(append teaching-list)))
+            ("cs" "Search"          search ""
+             ((org-agenda-files (quote ,(append teach-list)))
               (org-agenda-search-view-max-outline-level 2)))
 
             ; Teaching TODO list
-            ("tt" "Todo"            tags-todo ""
-             ((org-agenda-files (quote ,(append teaching-list)))))
+            ("ct" "Todo"            tags-todo ""
+             ((org-agenda-files (quote ,(append teach-list)))))
 
 
             ;; PERSONAL
@@ -647,10 +673,10 @@
   (message "Generating ids")
   ;; TODO: I'd like to put ID's only where they are needed!
   (mapcar (lambda (file)
+            (message (format "Updating ID's: %s" file))
             (abdo-org-generate-uids-file (find-file-noselect file)))
           org-agenda-files)
   (org-id-update-id-locations))
-
 
 
 (defun abdo-org-export-icalendar-agenda (file-list calendar-file)
@@ -667,11 +693,12 @@
   (require 'ox-icalendar)
   (abdo-org-icalendar-export-setup)
 
-  (abdo-org-export-icalendar-agenda abdo-org-perso-file-list "personal.ics")
-  (abdo-org-export-icalendar-agenda abdo-org-papers-file-list "papers.ics")
-  (abdo-org-export-icalendar-agenda abdo-org-math-file-list "maths.ics")
-  (abdo-org-export-icalendar-agenda abdo-org-teaching-file-list "teaching.ics")
-  (abdo-org-export-icalendar-agenda abdo-org-comp-file-list "devel.ics"))
+  (abdo-org-export-icalendar-agenda abdo-org-perso-files  "personal.ics")
+  (abdo-org-export-icalendar-agenda abdo-org-math-files   "maths.ics")
+  (abdo-org-export-icalendar-agenda abdo-org-paper-files  "papers.ics")
+  (abdo-org-export-icalendar-agenda abdo-org-teach-files  "teaching.ics")
+  (abdo-org-export-icalendar-agenda abdo-org-devel-files  "devel.ics")
+  (abdo-org-export-icalendar-agenda abdo-org-bbrain-files "bbrain.ics"))
 
 
 
@@ -736,7 +763,7 @@
       (captured-file org-default-notes-file)
       (math-ideas-file abdo-org-math-ideas-file)
       (math-journal-file abdo-org-math-journal-file)
-      (personal-journal-file abdo-org-personal-journal-file)
+      (perso-journal-file abdo-org-perso-journal-file)
     )
     (setq org-capture-templates (append org-capture-templates
       `(("t" "todo" entry (file+headline ,captured-file "Tasks")
@@ -751,7 +778,7 @@
         ("m" "math journal" entry (file+datetree ,math-journal-file)
           (file ,(concat templates-dir "math-journal-entry.tpl")))
 
-        ("p" "personal journal" entry (file+datetree ,personal-journal-file)
+        ("p" "personal journal" entry (file+datetree ,perso-journal-file)
           (file ,(concat templates-dir "personal-journal-entry.tpl")))
 
         ("w" "wiki page" plain (function abdo-org-prompt-file)
