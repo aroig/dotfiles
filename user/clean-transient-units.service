@@ -6,6 +6,6 @@ Conflicts=desktop-slices.service
 Type=oneshot
 
 SyslogIdentifier=clean-transient
-ExecStart=/usr/bin/find "%h/.config/systemd/user/" -regex '.*/run-\(.+\)\.\(scope\|service\)\(\.d\)?$' -print -delete
+ExecStart=/usr/bin/find "%h/.config/systemd/user/" -regex '.*/run-\(.+\)\.\(scope\|service\)\(\.d\)?$' -print -exec rm -Rf {} \;
 
 
