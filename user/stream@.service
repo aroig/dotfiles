@@ -7,15 +7,11 @@ After=network-online.service
 Requisite=audio.target
 After=audio.target
 
-Requires=audio.slice
-After=audio.slice
-
 [Service]
 Type=simple
 SyslogIdentifier=stream-%i
-Slice=apps.slice
+Slice=audio.slice
 
 ExecStart=/home/abdo/.config/systemd/scripts/stream.sh %i
 
-Slice=audio.slice
 
