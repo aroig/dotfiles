@@ -10,8 +10,10 @@ After=calibre-db.service
 
 [Service]
 Type=simple
+
 SyslogIdentifier=calibre
 Slice=dropdown.slice
+Environment=XDG_CURRENT_DESKTOP=gnome
 
 ExecStart=/usr/bin/calibre --with-library "${AB2_CALIBRE_DIR}"
 
