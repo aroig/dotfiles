@@ -106,12 +106,12 @@ end
 
 
 -- Execute an external program as a transient systemd scope or service
-function systemd.run (cmd, name, scope, slice)
+function systemd.run (cmd, name, props)
     local sdcmd = "systemd-run --user "
 
     local unitname
     if name then
-        if scope then
+        if props.scope then
             unitname = free_unit_instance('run-' .. name .. '@.scope', '-')
         else
             unitname = free_unit_instance('run-' .. name .. '@.service', '-')
@@ -120,13 +120,14 @@ function systemd.run (cmd, name, scope, slice)
         unitname = nil
     end
 
-    if scope    then sdcmd = sdcmd .. "--scope " end
-    if slice    then sdcmd = sdcmd .. string.format("--slice=\"%s\" ", slice) end
-    if name     then sdcmd = sdcmd .. string.format("--description=\"%s\" ", name) end
-    if unitname then sdcmd = sdcmd .. string.format("--unit=\"%s\" ", unitname) end
+    if props.scope     then sdcmd = sdcmd .. "--scope " end
+    if props.slice     then sdcmd = sdcmd .. string.format("--slice=\"%s\" ", props.slice) end
+
+    if name           then sdcmd = sdcmd .. string.format("--description=\"%s\" ", name) end
+    if unitname       then sdcmd = sdcmd .. string.format("--unit=\"%s\" ", unitname) end
 
     local pid = nil
-    if scope then
+    if props.scope then
         -- capture output to journal
         if name then cmd = string.format('%s 2>&1 | systemd-cat -t \"%s\"', cmd, name)
         else         cmd = string.format('%s &> /dev/null', cmd)

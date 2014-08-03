@@ -101,7 +101,9 @@ function run(name, opts)
         exec_func = function () shexec(entry) end
 
     elseif ns == 'cmd' then
-        exec_func = function () systemd.run(entry, nil, false, slice or 'apps') end
+        local props = {scope=false,
+                       slice=slice or "apps"}
+        exec_func = function () systemd.run(entry, nil, props) end
 
     elseif execlist[ns] ~= nil then
         local cmd = execlist[ns][entry]
@@ -115,8 +117,9 @@ function run(name, opts)
         if string.match(cmd, '^.*%.service%s*$') or string.match(cmd, '^.*%.target%s*$') then
             exec_func = function() systemd.start(cmd) end
         else
-            slice = slice or execslice[ns] or "apps"
-            exec_func = function() systemd.run(cmd, entry, false, slice) end
+            local props = {scope=false,
+                           slice=slice or execslice[ns] or "apps"}
+            exec_func = function() systemd.run(cmd, entry, props) end
         end
     end
 
@@ -348,7 +351,9 @@ end
 local function ddshow_doc(url)
     if url == nil then return end
     local cmd = string.format("dwb -p docs %s", util.shell_escape(url))
-    systemd.run(cmd, "docs", false, "dropdown")
+    local props = {scope=false,
+                   slice="dropdown"}
+    systemd.run(cmd, "docs", props)
 
     local cgroup = 'dropdown%.slice/.*docs'
     local list = systemd.matching_clients({ cgroup = cgroup })
