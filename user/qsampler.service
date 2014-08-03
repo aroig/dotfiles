@@ -1,6 +1,9 @@
 [Unit]
 Description=linuxsampler frontend
 
+Requisite=desktop.target
+After=desktop.target
+
 Requisite=jack.service
 After=jack.service
 
