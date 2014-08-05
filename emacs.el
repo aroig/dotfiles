@@ -273,6 +273,7 @@
 
 ;; Markdown
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.mdi$" . markdown-mode))
 
 ;; latex
 (add-to-list 'auto-mode-alist '("\\.ltb$" . latex-mode))
