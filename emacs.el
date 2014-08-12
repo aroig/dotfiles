@@ -337,6 +337,7 @@
 
 (defun abdo-launch-sclang (arg)
   (require 'sclang)
+  (require 'abdo-supercollider)
   (sclang-start))
 
 (defun abdo-launch-chat (arg)
