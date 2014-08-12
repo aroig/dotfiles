@@ -4,8 +4,8 @@ Description=jack patch bay
 Requisite=desktop.target
 After=desktop.target
 
-Requisite=jack.service jackdbus.service
-After=jack.service jackdbus.service                      
+Requires=jack.service
+After=jack.service
 
 [Service]
 Type=simple

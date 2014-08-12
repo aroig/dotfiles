@@ -1,7 +1,7 @@
 [Unit]
 Description=alsa to jack midi bridge
 
-Requisite=jack.service
+Requires=jack.service
 After=jack.service
 
 Requires=audio.slice

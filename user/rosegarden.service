@@ -4,7 +4,7 @@ Description=rosegarden midi sequencer
 Requisite=desktop.target
 After=desktop.target
 
-Requisite=jack.service
+Requires=jack.service
 After=jack.service
 
 After=fluidsynth.service linuxsampler.service

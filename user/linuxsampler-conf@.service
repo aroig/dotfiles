@@ -1,7 +1,7 @@
 [Unit]
 Description=linuxsampler config %i
 
-Requisite=jack.service
+Requires=jack.service
 After=jack.service
 
 Requires=audio.slice

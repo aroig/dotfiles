@@ -1,7 +1,7 @@
 [Unit]
 Description=jack to alsa bridge %i
 
-Requisite=jack.service
+Requires=jack.service
 After=jack.service
 
 Requires=audio.slice
