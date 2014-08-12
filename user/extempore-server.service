@@ -1,0 +1,28 @@
+[Unit]
+Description=extempore server
+
+Requires=jack.service
+After=jack.service
+
+Requires=audio.slice
+After=audio.slice
+
+# we route extempore audio through an alsa 2 jack bridge, using an alsa
+# loopback device.
+Requires=a2jbridge@1.service
+After=a2jbridge@1.service
+
+[Service]
+Type=simple
+
+WorkingDirectory=/usr/lib/extempore
+ExecStart=/usr/bin/extempore --device 1
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+Slice=audio.slice
+
+[Install]
+WantedBy=multi-user.target
