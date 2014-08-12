@@ -1,7 +1,7 @@
 [Unit]
 Description=supercollider daemon
 
-Requisite=jack.service
+Requires=jack.service
 After=jack.service
 
 Requires=audio.slice
@@ -9,7 +9,11 @@ After=audio.slice
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/scsynth -t 8889
+
+Environment=SC_JACK_DEFAULT_INPUTS=system 
+Environment=SC_JACK_DEFAULT_OUTPUTS=system 
+
+ExecStart=/usr/bin/scsynth -u 57110 -i 2 -o 2 -a 128 -b 1026 -R 0
 
 
 # realtime scheduling
