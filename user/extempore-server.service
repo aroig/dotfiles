@@ -14,11 +14,13 @@ Type=simple
 Environment=EXT_LLVM_DIR=/usr/lib/extempore/llvm
 WorkingDirectory=/usr/lib/extempore
 
+SyslogIdentifier=extempore
+
 # NOTE: Extempore uses portaudio, which is an abstraction layer. Extempore can
 # work with jack, provided the sample rate matches, otherwise it will refuse to
 # connect.
 
-ExecStart=/home/abdo/.config/systemd/scripts/extempore-server.sh --port 7099 --samplerate 48000 
+ExecStart=/home/abdo/.config/systemd/scripts/extempore-server.sh --port 7099 --samplerate 48000 --frames 1 
 
 # NOTE: This produces a lot of XRUN's on jack. I don't know what's the problem...
 
