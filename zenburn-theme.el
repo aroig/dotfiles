@@ -148,6 +148,10 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(compilation-mode-line-exit ((t (:foreground ,zenburn-green+2 :weight bold))))
    `(compilation-mode-line-fail ((t (:foreground ,zenburn-red :weight bold))))
    `(compilation-mode-line-run ((t (:foreground ,zenburn-yellow :weight bold))))
+;;;;; extempore
+   `(extempore-blink-face ((t (:background ,zenburn-bg-1 :foreground ,zenburn-orange+1 :weight bold))))
+   `(extempore-paren-face ((t (:foreground ,zenburn-fg-1))))
+   `(extempore-sb-blink-face ((t (:background ,zenburn-bg-1 :foreground ,zenburn-cyan :weight bold))))
 ;;;;; grep
    `(grep-context-face ((t (:foreground ,zenburn-fg))))
    `(grep-error-face ((t (:foreground ,zenburn-red-1 :weight bold :underline t))))
