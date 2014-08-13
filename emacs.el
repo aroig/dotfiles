@@ -211,12 +211,13 @@
 ;; Extempore
 (when (locate-library "extempore")
   (require 'extempore)
+  (require 'abdo-audio)
 )
 
 ;; Supercollider sclang
 (when (locate-library "sclang")
   (require 'sclang)
-  (require 'abdo-supercollider)
+  (require 'abdo-audio)
 )
 
 ;; personal settings
