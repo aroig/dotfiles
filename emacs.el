@@ -208,6 +208,17 @@
   (require 'abdo-latex)                ;; personal latex stuff
 )
 
+;; Extempore
+(when (locate-library "extempore")
+  (require 'extempore)
+)
+
+;; Supercollider sclang
+(when (locate-library "sclang")
+  (require 'sclang)
+  (require 'abdo-supercollider)
+)
+
 ;; personal settings
 (require 'abdo-utils)                  ;; Utility stuff
 (require 'abdo-basic)                  ;; Basic emacs settings
@@ -239,7 +250,6 @@
 (when daemon-mode
   (require 'abdo-emacsdaemon)
 )
-
 
 
 ;; File associations
@@ -304,6 +314,12 @@
 (add-to-list 'auto-mode-alist `(,(abdo-escape-regexp (getenv "AB2_PRIV_DIR")) . sensitive-mode))
 (add-to-list 'auto-mode-alist `(,(abdo-escape-regexp (file-truename "~/.ssh")) . sensitive-mode))
 
+;; extempore
+(add-to-list 'auto-mode-alist '("\\.xtm$" . extempore-mode))
+
+;; sclang
+(add-to-list 'auto-mode-alist '("\\.scd$" . sclang-mode))
+
 
 
 ;; Command line switches
@@ -336,8 +352,6 @@
   (sage))
 
 (defun abdo-launch-sclang (arg)
-  (require 'sclang)
-  (require 'abdo-supercollider)
   (sclang-start))
 
 (defun abdo-launch-chat (arg)
