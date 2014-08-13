@@ -20,6 +20,8 @@ CPUSchedulingPriority=60
 ExecStartPre=/usr/bin/sh -c 'aplay -l | grep Loopback > /dev/null'
 
 # start an alsa -> jack bridge
-ExecStart=/usr/bin/alsa_in -j "Alsa Bridge %i" -dalsa_input_%i -q 1
+# Look at ~/.asoundrc for the alsa devices.
+# alsa_input_1 is the jack facing part, attached to loopback device 1.
+ExecStart=/usr/bin/alsa_in -j "Alsa Bridge %i" -d "alsa_input_%i" -q 1
 
 

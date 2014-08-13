@@ -15,8 +15,15 @@ After=a2jbridge@1.service
 [Service]
 Type=simple
 
+# While llvm needs patching, we must use this
+Environment=EXT_LLVM_DIR=/usr/lib/extempore/llvm
 WorkingDirectory=/usr/lib/extempore
-ExecStart=/usr/bin/extempore --device 1
+
+# We use an alsa to jack bridge. Look at ~/.asoundrc for the alsa devices setup.
+# The alsa facing part of the bridge is the alsa device 0.
+#
+# NOTE: It doesn't work. I still have something to figure out regarding devices...
+ExecStart=/usr/bin/extempore --device 0
 
 # realtime scheduling
 CPUSchedulingPolicy=rr
