@@ -25,9 +25,9 @@ return {
    skype                     = "skype",
    guvcview                  = "guvcview",
 
-   pavucontrol               = "pavucontrol",
-   qjackctl                  = "qjackctl",
-   patchage                  = "patchage",
+   pavucontrol               = "pavucontrol.service",
+   qjackctl                  = "qjackctl.service",
+   patchage                  = "patchage.service",
    qsynth                    = "qsynth",
 
    ["gnome-control-center"]  = "gnome-control-center",
@@ -64,9 +64,9 @@ return {
    gucharmap                 = "gucharmap",
 
    ardour                    = "ardour3",
-   rosegarden                = "rosegarden",
+   rosegarden                = "rosegarden.service",
    denemo                    = "denemo",
-   musescore                 = "mscore",
+   musescore                 = "musescore.service",
 
    avidemux                  = "avidemux2_gtk",
    subtitleeditor            = "subtitleeditor",
@@ -82,7 +82,10 @@ return {
    poweroff                  = "poweroff.target",
    reboot                    = "reboot.target",
 
-   -- desktop state
    priv                      = "mount-priv.service",
-   ["sync-fake"]             = "sync-fake.service",
+
+   hi                        = "sync-hi.service",
+   bye                       = "sync-bye.service",
+   byez                      = "sync-byez.service",
+   fakesync                  = "sync-fake.service",
 }
