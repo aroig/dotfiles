@@ -111,7 +111,9 @@ export SAILFISH_SDK_ROOT="$HOME/sdk/sailfish/sdk"
 # export NO_AT_BRIDGE=1 
 
 # sage
-# export SAGE_KEEP_BUILT_SPKGS=yes    # don't rebuild from scratch
+export SAGE_KEEP_BUILT_SPKGS='yes'    # don't rebuild from scratch
+export SAGE_INSTALL_GCC='no'
+
 export SAGE_ROOT=$AB2_HOME/sage
 
 # ranger
