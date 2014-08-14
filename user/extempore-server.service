@@ -20,7 +20,7 @@ SyslogIdentifier=extempore
 # work with jack, provided the sample rate matches, otherwise it will refuse to
 # connect.
 
-ExecStart=/home/abdo/.config/systemd/scripts/extempore-server.sh --port 7099 --samplerate 48000 --frames 1 
+ExecStart=/home/abdo/.config/systemd/scripts/extempore-server.sh --port 7099 --samplerate 48000 --frames 128 
 
 # NOTE: This produces a lot of XRUN's on jack. I don't know what's the problem...
 
