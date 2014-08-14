@@ -334,6 +334,7 @@
 (add-to-list 'command-switch-alist '("chat" . abdo-launch-chat))
 (add-to-list 'command-switch-alist '("sage" . abdo-launch-sage))
 (add-to-list 'command-switch-alist '("sclang" . abdo-launch-sclang))
+(add-to-list 'command-switch-alist '("extempore" . abdo-launch-extempore))
 
 (defun abdo-launch-org (arg)
   (add-hook 'emacs-startup-hook 'abdo-org-main-buffer)
@@ -354,6 +355,9 @@
 
 (defun abdo-launch-sclang (arg)
   (sclang-start))
+
+(defun abdo-launch-extempore (arg)
+  (extempore-mode))
 
 (defun abdo-launch-chat (arg)
   (require 'abdo-chat)
