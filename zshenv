@@ -88,6 +88,10 @@ export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent::1"
 # Development environment
 #------------------------------
 
+# Default C/C++ compiler
+export CC=gcc
+export CXX=g++
+
 # Mingw
 export MINGW_ROOT="/usr/x86_64-w64-mingw32"
 
