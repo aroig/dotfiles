@@ -7,7 +7,7 @@ After=desktop.target
 Requires=jack.service
 After=jack.service
 
-Conflicts=qjackctl-studio.service
+Conflicts=qjackctl-studio.service qjackctl.service
 
 [Service]
 Type=simple
