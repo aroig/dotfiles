@@ -30,7 +30,7 @@
     `(abdo-save-question ((t (:foreground ,zenburn-sat-lightgreen-1))))
     `(abdo-commit-question ((t (:foreground ,zenburn-sat-orange))))
 ;;;;; org
-    `(org-priority-level-1 ((t (:foreground ,zenburn-sat-red-1))))
+    `(org-priority-level-1 ((t (:foreground ,zenburn-sat-red))))
     `(org-priority-level-2 ((t (:foreground ,zenburn-sat-orange-1))))
     `(org-priority-level-3 ((t (:foreground ,zenburn-yellow-2))))
     `(org-priority-level-4 ((t (:foreground ,zenburn-green+1))))
@@ -46,13 +46,13 @@
     `(powerline-inactive2      ((t (:foreground ,zenburn-green  :background ,zenburn-bg-05    :inherit mode-line))))
     `(powerline-inactive-alert ((t (:foreground ,zenburn-red+1  :background ,zenburn-bg-05    :inherit mode-line))))
 
-    `(powerline-root0        ((t (:foreground ,zenburn-yellow   :background ,zenburn-root-1   :inherit mode-line))))
-    `(powerline-root1        ((t (:foreground ,zenburn-green+1  :background ,zenburn-root     :inherit mode-line))))
-    `(powerline-root2        ((t (:foreground ,zenburn-blue     :background ,zenburn-root+1   :inherit mode-line))))
-    `(powerline-root-alert   ((t (:foreground ,zenburn-red+1    :background ,zenburn-root+1   :inherit mode-line))))
+    `(powerline-root0        ((t (:foreground ,zenburn-yellow   :background ,zenburn-sat-red-2 :inherit mode-line))))
+    `(powerline-root1        ((t (:foreground ,zenburn-green+1  :background ,zenburn-sat-red-1 :inherit mode-line))))
+    `(powerline-root2        ((t (:foreground ,zenburn-blue     :background ,zenburn-sat-red   :inherit mode-line))))
+    `(powerline-root-alert   ((t (:foreground ,zenburn-red+1    :background ,zenburn-sat-red   :inherit mode-line))))
 
     `(powerline-evil-inactive  ((t (:foreground ,zenburn-green  :background ,zenburn-bg-05    :inherit mode-line))))
-    `(powerline-evil-normal    ((t (:foreground ,zenburn-bg-1   :background ,zenburn-bg+4     :inherit mode-line))))
+    `(powerline-evil-normal    ((t (:foreground ,zenburn-bg-1   :background ,zenburn-bg+3     :inherit mode-line))))
     `(powerline-evil-insert    ((t (:foreground ,zenburn-bg-1   :background ,zenburn-green    :inherit mode-line))))
     `(powerline-evil-visual    ((t (:foreground ,zenburn-bg-1   :background ,zenburn-blue+1   :inherit mode-line))))
     `(powerline-evil-operator  ((t (:foreground ,zenburn-bg-1   :background ,zenburn-red-1    :inherit mode-line))))

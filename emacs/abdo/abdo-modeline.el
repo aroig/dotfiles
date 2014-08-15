@@ -1,10 +1,14 @@
 (provide 'abdo-modeline)
 
+
 ;; Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defvar abdo-modeline-skip-modes-regexp "undo-tree\\|fill\\|server"
   "Regexp matching minor modes I want to hide from the modeline")
+
+(defvar abdo-powerline-right-width 22
+  "With of the right block of the powerline")
 
 
 ;; Faces
@@ -111,6 +115,7 @@
         ((evil-emacs-state-p)    "E")
         (t                       "U")))
 
+
 (defun abdo-powerline-evil-state ()
   (let* ((active (eq (frame-selected-window) (selected-window)))
          (face0 (abdo-powerline-face 'face0))
@@ -118,6 +123,7 @@
           (intern (format "powerline-%s-%s" powerline-default-separator
                           (car powerline-default-separator-dir))))
          (evilstate (abdo-evil-state))
+         (narrowstate (if (buffer-narrowed-p) "n" " "))
          (evilface (cond
                     ((not active)            'powerline-evil-inactive)
                     ((evil-normal-state-p)   'powerline-evil-normal)
@@ -130,9 +136,8 @@
                     (t                       'powerline-evil-unknown))))
     (powerline-render
      (list
-      (propertize (format " %s " evilstate) 'face evilface)
-      (funcall separator evilface face0)
-      ))))
+      (propertize (format " %s%s" evilstate narrowstate) 'face evilface)
+      (funcall separator evilface face0)))))
 
 
 (defun abdo-powerline-buffer-name ()
@@ -147,15 +152,15 @@
       (funcall separator face0 face1)))))
 
 
-(defun abdo-powerline-mode-list ()
+(defun abdo-powerline-major-mode ()
   (let* ((face1 (abdo-powerline-face 'face1))
          (face2 (abdo-powerline-face 'face2))
-         (separator
-          (intern (format "powerline-%s-%s" powerline-default-separator
-                          (car powerline-default-separator-dir))))
-         (major (propertize
-                 (downcase (format-mode-line mode-name))
+         (majormode (downcase (format-mode-line mode-name))))
 
+    (list
+     (propertize " " 'face face1)
+     (propertize majormode
+           'face face1
            'help-echo "Major mode\n\ mouse-1: Display major mode menu\n\ mouse-2: Show help for major mode\n\ mouse-3: Toggle minor modes"
 
            'local-map (let ((map (make-sparse-keymap)))
@@ -164,16 +169,19 @@
                                       :filter (lambda (_) (mouse-menu-major-mode-map))))
                         (define-key map [mode-line mouse-2]      'describe-mode)
                         (define-key map [mode-line down-mouse-3] mode-line-mode-menu)
-                        map)))
+                        map)))))
 
-        (minor (mapconcat
-                'identity
-                (delq nil
+
+(defun abdo-powerline-minor-modes ()
+  (let* ((face1 (abdo-powerline-face 'face1))
+         (face2 (abdo-powerline-face 'face2))
+         (minormodes (delq nil
                       (mapcar
                        (lambda (mm)
                          (when (and mm (not (string-match abdo-modeline-skip-modes-regexp (downcase mm))))
                            (propertize
                             (downcase mm)
+                            'face face1
                             'help-echo "Minor mode\n mouse-1: Display minor mode menu\n mouse-2: Show help for minor mode\n mouse-3: Toggle minor modes"
 
                             'local-map (let ((map (make-sparse-keymap)))
@@ -182,14 +190,28 @@
                                          (define-key map [mode-line down-mouse-3]   (powerline-mouse 'minor 'menu mm))
                                          (define-key map [header-line down-mouse-3] (powerline-mouse 'minor 'menu mm))
                                          map))))
-                (split-string (format-mode-line minor-mode-alist)))) " ")))
+                (split-string (format-mode-line minor-mode-alist))))))
 
+     (when (> (safe-length minormodes) 0)
+       (list
+        (propertize " | " 'face face1)
+        (propertize (mapconcat 'identity minormodes " ") 'face face1)))))
+
+
+(defun abdo-powerline-mode-list ()
+  (let* ((face1 (abdo-powerline-face 'face1))
+         (face2 (abdo-powerline-face 'face2))
+         (separator
+          (intern (format "powerline-%s-%s" powerline-default-separator
+                          (car powerline-default-separator-dir)))))
     (powerline-render
-     (list
-      (if (not (string= minor ""))
-          (propertize (concat " " major " | " minor " ") 'face face1)
-        (propertize (concat " " major " ") 'face face1))
-      (funcall separator face1 face2)))))
+     (append
+      (abdo-powerline-major-mode)
+      (when (> (window-total-width powerline-selected-window) 90)
+        (abdo-powerline-minor-modes))
+      (list
+       (propertize " " 'face face1)
+       (funcall separator face1 face2))))))
 
 
 (defun abdo-powerline-middle ()
@@ -209,7 +231,7 @@
       (when global-mode-string
         (powerline-raw (format " %s" (format-mode-line '(global-mode-string global-mode-string))) face2 'r))
 
-      (powerline-fill face2 25)     ; everything on the right is fixed width
+      (powerline-fill face2 abdo-powerline-right-width)     ; everything on the right is fixed width
       ;; TODO: truncate this if it gets too long
      ))))
 
@@ -223,8 +245,11 @@
     (powerline-render
      (list
       (funcall separator face1 face0)
-      (powerline-raw "%5l %3c  %p" face0 'r)
-      (powerline-narrow face0 'r)))))
+      (powerline-raw (concat (format-mode-line "%5l %3c  ")
+                             (replace-regexp-in-string "%" "%%"
+                              (downcase (substring (format-mode-line "%p") 0 3)))
+                             "  ")
+                             face0 'r)))))
 
 
 (defun abdo-powerline-state ()
@@ -237,7 +262,6 @@
      (list
       (funcall separator face2 face1)
       (powerline-raw " %*%Z" face1 'r)))))
-
 
 
 
@@ -334,7 +358,7 @@ It defaults to the UCS character \"Horizontal Ellipsis\", or
                  '(:eval (abdo-powerline-mode-list))        ; mode list
                  '(:eval (abdo-powerline-middle))
                  '(:eval (abdo-powerline-state))            ; state
-                 '(-15 (:eval (abdo-powerline-position)))    ; position
+                 '(:eval (abdo-powerline-position))         ; position
                  )))
 
 

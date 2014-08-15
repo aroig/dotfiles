@@ -59,13 +59,57 @@
     (message "Failed :("))
 )
 
+(defun colorize-buffer ()
+  (toggle-read-only)
+  (ansi-color-apply-on-region (point-min) (point-max))
+  (toggle-read-only))
+
 (defun abdo-compile-buffer-things()
   ;; When compilation  finishes
   (add-to-list 'compilation-finish-functions 'abdo-compilation-finished)
 
+  ;; display ansi colors in compilation buffers
+  (add-hook 'compilation-filter-hook 'colorize-buffer)
+
   ;; Scroll compilation until first error
   (setq compilation-scroll-output 'first-error)
 )
+
+
+(defun find-file-upwards (filename &optional startdir)
+  "Move up directories until we find a certain filename. If we
+  manage to find it, return the containing directory. Else if we
+  get to the toplevel directory and still can't find it, return
+  nil. Start at startdir or . if startdir not given"
+
+  (let ((dirname (expand-file-name (if startdir startdir ".")))
+        (found nil) ; found is set as a flag to leave loop if we find it
+        (top nil))  ; top is set when we get to /
+
+    ; While we've neither been at the top last time nor have we found the file.
+    (while (not (or found top))
+      ; If we're at / set top flag.
+      (if (string= (expand-file-name dirname) "/")
+          (setq top t))
+
+      ; Check for the file and move up one directory if not found
+      (if (file-exists-p (expand-file-name filename dirname))
+          (setq found t)
+        (setq dirname (expand-file-name ".." dirname))))
+
+    ; return statement
+    (if found dirname nil)))
+
+
+(defun abdo-devel-compile ()
+  (interactive)
+  (cond
+   ((file-exists-p (concat default-directory "Makefile"))
+    (compile "make -k"))
+   ((file-exists-p (find-file-upwards "Makefile"))
+    (compile (format "make -k -C \"%s\"" (find-file-upwards "Makefile"))))
+   (t (message "Can't find a suitable Makefile"))))
+
 
 
 ;; Prog mode
@@ -76,9 +120,10 @@
   (setq tab-width 4)
 
   ;; Development tools
-  (semantic-mode 1)
-  (require 'semantic/sb)
-;  (ede-minor-mode 1)
+  ;; NOTE: semantic mode does not want to be loaded from a hook!
+  ; (require 'semantic/sb)
+  ; (semantic-mode 1)
+  ; (ede-minor-mode 1)
 )
 
 ;; Hook
@@ -167,18 +212,57 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun abdo-c-mode-things()
+  ;; flyspell for comments
   (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
   (abdo-change-dictionary "english")      ;; I always program in english
 
-  ;; indentation
-  (setq c-basic-offset 4)
+  ;; Set C style (indentation, etc)
+  (c-set-style "stroustrup")
 
   ;; Delete trailing whitespaces before save
   (trailing-whitespace-mode)
 
   ;; Setup compile buffer stuff
   (abdo-compile-buffer-things)
+
+  ;; extra QT Keywords
+  (setq c-protection-key (concat "\\<\\(public\\|public slot\\|protected"
+                                 "\\|protected slot\\|private\\|private slot"
+                                 "\\)\\>"))
+  (setq c-C++-access-key (concat "\\<\\(signals\\|public\\|protected\\|private"
+                                 "\\|public slots\\|protected slots\\|private slots"
+                                 "\\)\\>[ \t]*:"))
 )
+
+
+;; Switch from .c to .h
+(defun switch-c-to-h ()
+   (interactive)
+   (when (string-match "^\\(.*\\)\\.\\([^.]*\\)$" buffer-file-name)
+     (let ((name (match-string 1 buffer-file-name))
+ 	  (suffix (match-string 2 buffer-file-name)))
+       (cond ((string-match suffix "c\\|cc\\|C\\|cpp")
+ 	     (cond ((file-exists-p (concat name ".h"))
+ 		    (find-file (concat name ".h"))
+ 		   )
+ 		   ((file-exists-p (concat name ".hh"))
+ 		    (find-file (concat name ".hh"))
+ 		   )
+ 	    ))
+ 	    ((string-match suffix "h\\|hh")
+ 	     (cond ((file-exists-p (concat name ".cc"))
+ 		    (find-file (concat name ".cc"))
+ 		   )
+ 		   ((file-exists-p (concat name ".C"))
+ 		    (find-file (concat name ".C"))
+ 		   )
+ 		   ((file-exists-p (concat name ".cpp"))
+ 		    (find-file (concat name ".cpp"))
+ 		   )
+ 		   ((file-exists-p (concat name ".c"))
+ 		    (find-file (concat name ".c"))
+ 		   )))))))
+
 
 
 ;; Hooks

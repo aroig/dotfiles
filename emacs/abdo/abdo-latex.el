@@ -105,6 +105,12 @@
   ;; default environment
   (setq LaTeX-default-environment "equation")
 
+  ;; do not scale font on sections
+  (setq font-latex-fontify-sectioning 1)
+
+  ;; do not fontify subscript and superscripts
+  ; (setq font-latex-fontify-script nil)
+
   ;; Keywords
   ;(add-to-list 'font-latex-match-warning-keywords '("\&"))
 
@@ -185,7 +191,7 @@
 
 
 ;; Compile the current buffer
-(defun abdo-latex-compile-buffer()
+(defun abdo-latex-compile()
   (interactive)
   (if (file-exists-p (concat default-directory "Makefile"))
       (compile "make -B pdf")
@@ -285,9 +291,8 @@
 ;; view pdf in zathura
 (defun abdo-latex-zathura-view (pdf)
   (let
-    ((editor (concat (getenv "EMACS") " -e '(abdo-latex-reverse-sync \"%{input}\" %{line} %{column})'")))
+    ((editor (concat (getenv "EMACSCLIENT") " -e '(abdo-latex-reverse-sync \"%{input}\" %{line} %{column})'")))
     (call-process "zathura" nil 0 nil
-                  "--synctex"
                   "--synctex-editor-command"
                   editor
                   pdf)

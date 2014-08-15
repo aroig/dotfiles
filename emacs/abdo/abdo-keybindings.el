@@ -4,15 +4,14 @@
 
 ;; Adjusting key mappings
 
-; For some reason this does not work! I'd want to separate C-i from TAB
-; (add-hook 'term-setup-hook
+;; For some reason this does not work! I'd want to separate C-i from TAB
+
+;; http://stackoverflow.com/questions/1792326/how-do-i-bind-a-command-to-c-i-without-changing-tab
+;; http://www.gnu.org/savannah-checkouts/gnu/emacs/manual/html_node/elisp/Function-Keys.html
+;(add-hook 'term-setup-hook
 ;          (lambda ()
-  ;; Mappings
-  ; don't map C-i to TAB!
-  ; http://stackoverflow.com/questions/1792326/how-do-i-bind-a-command-to-c-i-without-changing-tab
-  ; http://www.gnu.org/savannah-checkouts/gnu/emacs/manual/html_node/elisp/Function-Keys.html
-;            (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
-;            (global-set-key (kbd "C-i") 'forward-word)))
+;            (message "removing C-i to TAB remap")
+;            (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))))
 
 
 ;; Helm
@@ -111,22 +110,13 @@
 (global-set-key (kbd "H-s-k")    'windmove-up)
 (global-set-key (kbd "H-s-j")  'windmove-down)
 
+;; Yasnippet
+(define-key yas-minor-mode-map (kbd "<H-tab>")  'yas-expand)
+(define-key yas-minor-mode-map (kbd "<tab>")     nil)
+(define-key yas-minor-mode-map (kbd "TAB")       nil)
 
-;; Exit functions
-
-(defvar abdo-commit-on-kill t "If non-nil asks to commit on kill")
-
-(defun abdo-exit ()
-  (interactive)
-  (if abdo-commit-on-kill
-      (abdo-save-buffers-kill-terminal-commit)
-    (save-buffers-kill-terminal)))
-
-(defun abdo-done ()
-  (interactive)
-  (if abdo-commit-on-kill
-      (abdo-buffer-done-commit)
-    (abdo-buffer-done)))
+;; Autocomplete
+(ac-set-trigger-key "C-TAB")
 
 ;; Exit keybindings
 (global-set-key (kbd "C-x C-z") 'abdo-exit)
@@ -134,8 +124,7 @@
 (if (daemonp)
     (progn
       (global-set-key (kbd "C-x C-c") 'abdo-done)
-      (add-hook 'find-file-hook (lambda () (abdo-client-visit-buffer (current-buffer))))
-    )
+      (add-hook 'find-file-hook (lambda () (abdo-client-visit-buffer (current-buffer)))))
   (global-set-key (kbd "C-x C-c") 'abdo-exit))
 
 
@@ -208,7 +197,7 @@
         ;; enable flyspell
         (flyspell-mode 1)
 
-	    (local-set-key (kbd "C-c c") 'abdo-latex-compile-buffer)   ;; Compile
+	    (local-set-key (kbd "C-c c") 'abdo-latex-compile)          ;; Compile
 	    (local-set-key (kbd "C-c k") 'kill-compilation)            ;; Kill compilation
 	    (local-set-key (kbd "C-c d") 'abdo-latex-make-diff)        ;; Makes a diff
 
@@ -224,7 +213,7 @@
 
 ;; C/C++
 (defun abdo-c-mode-keybindings()
-            (local-set-key (kbd "C-c c") 'compile)                    ;; Compile
+            (local-set-key (kbd "C-c c") 'abdo-devel-compile)         ;; Compile
             (local-set-key (kbd "C-c g") 'gdb)                        ;; gdb
 
             (local-set-key (kbd "C-c n") 'next-error)                 ;; next error
@@ -232,6 +221,7 @@
 
 (add-hook 'c++-mode-hook 'abdo-c-mode-keybindings)
 (add-hook 'c-mode-hook 'abdo-c-mode-keybindings)
+(add-hook 'qml-mode-hook 'abdo-c-mode-keybindings)
 
 
 ;; org mode
@@ -252,6 +242,11 @@
           ;; enable flyspell
           (flyspell-mode 1)))
 
+
+;; yasnippets
+(add-hook 'yas-minor-mode-hook
+          (lambda ()
+))
 
 
 (provide 'abdo-keybindings)
