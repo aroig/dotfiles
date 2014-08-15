@@ -41,6 +41,53 @@ function util.file_exists(name)
    end
 end
 
+
+
+function util.shell_escape(s)
+    local ret = tostring(s) or ''
+    ret = ret:gsub('\\', '\\\\')
+    ret = ret:gsub('"', '\\"')
+    return '"' .. ret .. '"'
+end
+
+
+function util.pattern_escape(s)
+    local ret = tostring(s)
+    ret = s:gsub(".",
+                 {
+                     ["^"] = "%^",
+                     ["$"] = "%$",
+                     ["("] = "%(",
+                     [")"] = "%)",
+                     ["%"] = "%%",
+                     ["."] = "%.",
+                     ["["] = "%[",
+                     ["]"] = "%]",
+                     ["*"] = "%*",
+                     ["+"] = "%+",
+                     ["-"] = "%-",
+                     ["?"] = "%?",
+                     ["\0"] = "%z",
+    })
+    return ret
+end
+
+
+function util.debug(name, obj)
+    local str = ""
+    if type(obj) == "table" then
+        for k, v in pairs(obj) do
+            str = str .. string.format("%s = %s,\n", k, tostring(v))
+        end
+
+    else
+        str = tostring(obj)
+    end
+
+    naughty.notify({title=string.format("Debug output: %s", name), text=str})
+end
+
+
 -----------------------------------
 -- Graphic stuff                 --
 -----------------------------------
@@ -50,8 +97,9 @@ function util.gradient(gradcols, min, max, value)
       return tonumber(c:sub(2,3),16), tonumber(c:sub(4,5),16), tonumber(c:sub(6,7),16)
    end
 
-   if value < min then value = min end
-   if value > max then value = max end
+   if value == nil then value = min end
+   if value < min  then value = min end
+   if value > max  then value = max end
 
    local nsegments = #gradcols - 1
    local width = max - min
@@ -62,9 +110,9 @@ function util.gradient(gradcols, min, max, value)
 
    local colorA = gradcols[segment+1]
    local colorB = gradcols[segment+2]
-   
-   local redA, greenA, blueA = color2dec(colorA) 
-   local redB, greenB, blueB = color2dec(colorB) 
+
+   local redA, greenA, blueA = color2dec(colorA)
+   local redB, greenB, blueB = color2dec(colorB)
 
    local red   = redA   + (t - segment) * (redB   - redA)
    local green = greenA + (t - segment) * (greenB - greenA)

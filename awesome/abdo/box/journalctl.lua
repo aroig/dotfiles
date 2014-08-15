@@ -9,9 +9,9 @@ local num_entries = 40
 
 function journalctl(args)
    local font = beautiful.font_box
-   local time_color = beautiful.fg_grey
-   local text_color = beautiful.fg_normal
-   local daemon_color = {kernel = beautiful.fg_red, default = beautiful.fg_green}
+   local time_color = beautiful.color_gray
+   local text_color = beautiful.color_fg
+   local daemon_color = {kernel = beautiful.color_red, default = beautiful.color_green}
 
    local text = "\n"
 

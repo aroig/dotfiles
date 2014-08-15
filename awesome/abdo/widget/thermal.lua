@@ -3,40 +3,28 @@
 --  * (c) 2010, Adrian C. <anrxc@sysphere.org>
 ---------------------------------------------------
 
--- Abdo Roig
--- I have patched the core path. temp1_input changed to temp2_input
-
 local type = type
 local tonumber = tonumber
 local string = { match = string.match }
 local helpers = require("helpers")
 
-
+local thermal = {}
 
 local function worker(format, warg)
     if not warg then return end
 
-    local zone = { -- Known temperature data sources
-        ["sys"]  = {"/sys/class/thermal/",     file = "temp",       div = 1000},
-        ["core"] = {"/sys/devices/platform/",  file = "temp2_input",div = 1000},
-        ["proc"] = {"/proc/acpi/thermal_zone/",file = "temperature"}
-    } --  Default to /sys/class/thermal
-    warg = type(warg) == "table" and warg or { warg, "sys" }
-
     -- Get temperature from thermal zone
-    local thermal = helpers.pathtotable(zone[warg[2]][1] .. warg[1])
+    local data = helpers.pathtotable("/sys/class/hwmon/" .. warg[1])
+    local name = warg[2] or "temp1"
 
-    if thermal[zone[warg[2]].file] then
-        if zone[warg[2]].div then
-            return {thermal[zone[warg[2]].file] / zone[warg[2]].div}
-        else -- /proc/acpi "temperature: N C"
-            return {tonumber(string.match(thermal[zone[warg[2]].file], "[%d]+"))}
-        end
+    if data then
+        local value = {temp = data[name .. "_input"] and tonumber(data[name .. "_input"]) / 1000,
+                       crit = data[name .. "_crit"] and tonumber(data[name .. "_crit"]) / 1000,
+                       label = data[name .. "_label"] or "<unknown>"}
+        return value
     end
 
-    return {0}
+    return {temp = 0, crit = 0, label = "<unknown>"}
 end
 
--- setmetatable(_M, { __call = function(_, ...) return worker(...) end })
-
-return worker
+return setmetatable(thermal, { __call = function(_, ...) return worker(...) end })

@@ -56,7 +56,7 @@ local function lua_completion (line, cur_pos, ncomp)
    if #completions == 0 then
       return line, cur_pos
    end
-   
+
    while ncomp > #completions do
       ncomp = ncomp - #completions
    end
@@ -81,7 +81,7 @@ local function nice_eval(s)
    if not f then
       f, err = loadstring(s);
    end
-	
+
    if f then
       setfenv(f, _G);
       local ret = { pcall(f) };
@@ -117,7 +117,7 @@ end
 
 
 function luaeval.run(promptwidget)
-   prompt.run({ prompt = "Lua: ", font = theme.font_mono },
+   prompt.run({ prompt = "<b>Lua:</b> ", font = theme.font_mono },
 	      promptwidget,
 	      nice_eval,
 	      lua_completion,

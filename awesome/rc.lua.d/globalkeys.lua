@@ -13,7 +13,6 @@ local capi =
 
 local ipairs = ipairs
 local apps = apps
-local ddclient = ddclient
 local box = box
 
 
@@ -57,35 +56,30 @@ end
 
 
 globalkeys = awful.util.table.join(
-    -- Programs
-    awful.key({ modkey, ctrlkey   }, "Print",  function () exec(apps.print) end),
+    -- actions
 
-    -- those are forked as usual, and belong to the awesome systemd unit
-    awful.key({ modkey, ctrlkey   }, "Return", function () sdrun(apps.terminal,       'termite',     true, 'apps') end),
-    awful.key({ modkey, ctrlkey   }, "e",      function () sdrun(apps.editor,         'emacsclient', true, 'apps') end),
-    awful.key({ modkey, ctrlkey   }, "f",      function () sdrun(apps.filemanager,    'thunar',      true, 'apps') end),
 
-    -- those are spawned with systemd-run, and get their own unit.
-    awful.key({ modkey, ctrlkey   }, "b",      function () sdrun(apps.browser,        'dwb',         true, 'apps') end),
-    awful.key({ modkey, metakey   }, "b",      function () sdrun(apps.secondbrowser,  'chromium',    true, 'apps') end),
+    -- Applications started from instantiated units
+    awful.key({ modkey, ctrlkey   }, "Return", function () run('app:termite')         end),
+    awful.key({ modkey, ctrlkey   }, "f",      function () run('app:thunar')          end),
+    awful.key({ modkey, ctrlkey   }, "r",      function () run('app:ranger')          end),
+
+    awful.key({ modkey, ctrlkey   }, "b",      function () run('app:dwb')             end),
+    awful.key({ modkey, metakey   }, "b",      function () run('app:chromium')        end),
+    awful.key({ modkey, ctrlkey   }, "e",      function () run('app:emacsclient')     end),
 
     -- Dropdown clients
-    awful.key({ modkey, ctrlkey   }, "d",      function () ddclient.dict:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "i",      function () ddclient.calibre:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "m",      function () ddclient.music:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "w",      function () ddclient.xournal:toggle() end),
+    awful.key({ modkey, metakey   }, "Return", function () ddtoggle('dd:termite',     true) end),
+    awful.key({ modkey, metakey   }, "f",      function () ddtoggle('dd:thunar',      true) end),
+    awful.key({ modkey, metakey   }, "r",      function () ddtoggle('dd:ranger',      true) end),
 
-    awful.key({ modkey, ctrlkey   }, "o",      function () ddclient.orgmode:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "u",      function () ddclient.mail:toggle() end),
-    awful.key({ modkey, ctrlkey   }, "t",      function () ddclient.chat:toggle() end),
-
-    -- Music
-    awful.key({ modkey, ctrlkey   }, "Home",      function () exec("mpc -q toggle") end),
-    awful.key({ modkey, ctrlkey   }, "Page_Up",   function () exec("mpc -q prev") end),
-    awful.key({ modkey, ctrlkey   }, "Page_Down", function () exec("mpc -q next") end),
-
-    awful.key({ modkey, ctrlkey   }, "Insert",    function () exec("pvol +2db") end),
-    awful.key({ modkey, ctrlkey   }, "Delete",    function () exec("pvol -2db") end),
+    awful.key({ modkey, ctrlkey   }, "d",      function () ddtoggle("app:goldendict", true) end),
+    awful.key({ modkey, ctrlkey   }, "i",      function () ddtoggle("app:calibre",    true) end),
+    awful.key({ modkey, ctrlkey   }, "m",      function () ddtoggle("app:gmpc",       true) end),
+    awful.key({ modkey, ctrlkey   }, "w",      function () ddtoggle('app:xournal',    true) end),
+    awful.key({ modkey, ctrlkey   }, "o",      function () ddtoggle('app:org',        true) end),
+    awful.key({ modkey, ctrlkey   }, "u",      function () ddtoggle('app:mu4e',       true) end),
+    awful.key({ modkey, ctrlkey   }, "t",      function () ddtoggle('app:chat',       true) end),
 
     -- Desktop boxes
     awful.key({ modkey,           }, "F1",     box.calendar.toggle_calendar),
@@ -95,29 +89,30 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F4",     box.naughtylog.toggle_naughtylog),
 
     -- Top dropdown clients
-    awful.key({ modkey,           }, "F9",     function() ddclient.syslog:show() end),
-    awful.key({                   }, "F9",     function() ddclient.syslog:hide() end),
+    awful.key({ modkey,           }, "F12",    function() ddshow_last()              end),
+    awful.key({                   }, "F12",    function() ddhide_last()              end),
+    awful.key({ shiftkey,         }, "F12",    function() ddhide_all()               end),
 
-    awful.key({ modkey,           }, "F10",    function() ddclient.notes:show() end),
-    awful.key({                   }, "F10",    function() ddclient.notes:hide() end),
+    awful.key({ modkey,           }, "F8",     function() ddshow("dd:docs",    true) end),
+    awful.key({                   }, "F8",     function() ddhide("dd:docs")          end),
 
-    awful.key({ modkey,           }, "F11",    function() ddclient.octave:show() end),
-    awful.key({ ctrlkey           }, "F11",    function() ddclient.sage:show() end),
-    awful.key({                   }, "F11",    function() ddclient.octave:hide(); ddclient.sage:hide() end),
+    awful.key({ modkey,           }, "F9",     function() ddshow("dd:syslog",  true) end),
+    awful.key({                   }, "F9",     function() ddhide("dd:syslog")        end),
 
-    awful.key({ modkey,           }, "F12",    function() ddclient.terminal:show() end),
-    awful.key({ ctrlkey           }, "F12",    function() ddclient.ranger:show() end),
-    awful.key({                   }, "F12",    function() ddclient.terminal:hide(); ddclient.ranger:hide() end),
+    awful.key({ modkey,           }, "F10",    function() ddshow("dd:notes",   true) end),
+    awful.key({                   }, "F10",    function() ddhide("dd:notes")         end),
+
+    awful.key({ modkey,           }, "F11",    function() ddshow("dd:octave",  true) end),
+    awful.key({                   }, "F11",    function() ddhide("dd:octave");       end),
 
     -- Prompts
     awful.key({ modkey,           }, "F5",     prompt.wikipedia),
     awful.key({ modkey,           }, "F6",     prompt.mathscinet),
-    awful.key({ modkey,           }, "F7",     prompt.docs),
-    awful.key({ modkey,           }, "F8",     function() ddclient.document:show() end),
-    awful.key({                   }, "F8",     function() ddclient.document:hide() end),
 
-    awful.key({ modkey, ctrlkey   }, "x",      prompt.lua),
+    awful.key({ modkey,           }, "c",      prompt.docs),
+    awful.key({ modkey,           }, "s",      prompt.lua),
     awful.key({ modkey,           }, "x",      prompt.command),
+    awful.key({ modkey,           }, "d",      prompt.dropdown),
 
     -- Client cycling by direction
     awful.key({ modkey,           }, "Up",     function () awful.client.focus.global_bydirection("up") end),
@@ -203,8 +198,8 @@ globalkeys = awful.util.table.join(
               end),
 
     -- Layout cycling
-    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
-    awful.key({ modkey, shiftkey  }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey,           }, "space", function () awful.layout.inc(1, nil, layouts) end),
+    awful.key({ modkey, shiftkey  }, "space", function () awful.layout.inc(-1, nil, layouts) end),
 
     -- Layout manipulation
     awful.key({ modkey,           }, "+",     function () awful.tag.incmwfact( 0.05)    end),
@@ -215,28 +210,23 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "+",     function () awful.tag.incncol(-1)         end),
 
     -- System stuff
-    awful.key({ metakey, ctrlkey          }, "l",     function () exec(apps.lock_cmd) end),
-    awful.key({metakey, ctrlkey, shiftkey }, "a",     awesome.restart),
+    awful.key({ metakey, ctrlkey          }, "l",   function () run('app:lock')                        end),
+    awful.key({metakey, ctrlkey, shiftkey }, "a",   function () awesome.restart()                      end),
+    awful.key({metakey, ctrlkey, shiftkey }, "q",   function () run('app:quit',     { ask=true })      end),
+    awful.key({metakey, ctrlkey, shiftkey }, "z",   function () run('app:suspend',  { ask=true })      end),
+    awful.key({metakey, ctrlkey, shiftkey }, "h",   function () run('app:poweroff', { ask=true })      end),
+    awful.key({metakey, ctrlkey, shiftkey }, "r",   function () run('app:reboot',   { ask=true })      end),
 
-    awful.key({metakey, ctrlkey, shiftkey }, "q",
-              function ()
-                  prompt.ask_run("Quit", apps.quit_cmd)
-              end),
+    -- Desktop stuff
+    awful.key({ modkey, ctrlkey },   "Print",     function () shexec(apps.print)                       end),
 
-    awful.key({metakey, ctrlkey, shiftkey }, "z",
-              function ()
-                  prompt.ask_run("Suspend", apps.suspend_cmd)
-              end),
+    -- Music
+    awful.key({ modkey, ctrlkey   }, "Home",      function () shexec("mpc -q toggle")                  end),
+    awful.key({ modkey, ctrlkey   }, "Page_Up",   function () shexec("mpc -q prev")                    end),
+    awful.key({ modkey, ctrlkey   }, "Page_Down", function () shexec("mpc -q next")                    end),
 
-    awful.key({metakey, ctrlkey, shiftkey }, "h",
-              function ()
-                  prompt.ask_run("Poweroff", apps.poweroff_cmd)
-              end),
-
-    awful.key({metakey, ctrlkey, shiftkey }, "r",
-              function ()
-                  prompt.ask_run("Reboot", apps.reboot_cmd)
-              end)
+    awful.key({ modkey, ctrlkey   }, "Insert",    function () shexec("pvol +2db")                      end),
+    awful.key({ modkey, ctrlkey   }, "Delete",    function () shexec("pvol -2db")                      end)
 )
 
 

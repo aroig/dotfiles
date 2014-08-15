@@ -25,15 +25,8 @@ local function worker(format, warg)
     if not warg then return end
 
     local battery = helpers.pathtotable("/sys/class/power_supply/"..warg)
-    local battery_state = {
-        ["Full\n"]        = "↯",
-        ["Unknown\n"]     = "⌁",
-        ["Charged\n"]     = "↯",
-        ["Charging\n"]    = "+",
-        ["Discharging\n"] = "-"
-    }
 
-    local state = battery_state["Unknown\n"]
+    local state = "unknown"
     local rate = 0
     local percent = 0
     local time = "?"
@@ -47,8 +40,9 @@ local function worker(format, warg)
         return {state=state, percent=percent, rate=rate, time=time}
     end
 
-    -- Get state information
-    state = battery_state[battery.status] or battery_state["Unknown\n"]
+    -- Get state information. Can be: full, unknown, charged, charging, discharging.
+    state = battery.status or "unknown"
+    state = state:lower():gsub("\n", "")
 
     -- Get capacity information
     if battery.charge_now then
@@ -71,9 +65,9 @@ local function worker(format, warg)
 
     -- Calculate remaining (charging or discharging) time
     if remaining ~= nil and capacity ~= nil and rate ~= nil and rate ~= 0 then
-        if state == "+" then
+        if state == "charging" then
             timeleft = (tonumber(capacity) - tonumber(remaining)) / tonumber(rate)
-        elseif state == "-" then
+        elseif state == "discharging" then
             timeleft = tonumber(remaining) / tonumber(rate)
         end
 

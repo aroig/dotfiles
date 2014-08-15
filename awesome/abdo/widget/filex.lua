@@ -4,22 +4,19 @@
 ---------------------------------------------------
 
 -- {{{ Grab environment
-local tonumber = tonumber
 local io = { open = io.open }
 -- }}}
 
-fileval = {}
+filex = {}
 
 local function worker(format, args)
-
    local f = io.open(args[1], "r")
    if f ~= nil then
-      local val = f:read("*all")
-      f:close()
-      return val
+       f:close()
+       return true
    else
-      return args[2]
+       return false
    end
 end
 
-return setmetatable(fileval, { __call = function(_, ...) return worker(...) end })
+return setmetatable(filex, { __call = function(_, ...) return worker(...) end })

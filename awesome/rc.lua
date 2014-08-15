@@ -7,6 +7,9 @@
 -----------------------------------
 -- Module Loading                --
 -----------------------------------
+-- Standard lua stuff
+string       = require("string")
+posix        = require("posix")
 
 -- Standard awesome library
 awful        = require("awful")
@@ -20,10 +23,10 @@ menubar      = require("menubar")
 gears        = require("gears")
 naughty      = require("naughty")
 
-
 -- Personal stuff
 util        = require("abdo.util")           -- Utility functions
 layout      = require("abdo.layout")         -- My layouts
+systemd     = require("abdo.systemd")        -- systemd commands
 apps        = require("apps")                -- My preferred apps
 revelation  = require("abdo.revelation")     -- Tweaked expose
 
@@ -65,6 +68,7 @@ local cfgdir = awful.util.getdir("config")
 
 -- Global
 hostname  = awful.util.pread("hostname"):gsub("\n", "")
+username  = awful.util.pread("id -nu"):gsub("\n", "")
 homedir   = os.getenv("HOME")
 
 -- Modkeys
@@ -124,6 +128,7 @@ end
 -- Sourcing stuff                --
 -----------------------------------
 
+dofile(cfgdir .. "/rc.lua.d/hostconfig.lua")  -- Host specific
 dofile(cfgdir .. "/rc.lua.d/wallpaper.lua")   -- Setup wallpaper
 dofile(cfgdir .. "/rc.lua.d/launchers.lua")   -- Launcher functions
 dofile(cfgdir .. "/rc.lua.d/naughty.lua")     -- Notifications
@@ -133,5 +138,3 @@ dofile(cfgdir .. "/rc.lua.d/mymenu.lua")      -- Menus
 dofile(cfgdir .. "/rc.lua.d/globalkeys.lua")  -- Globak keys
 dofile(cfgdir .. "/rc.lua.d/client.lua")      -- Client rules
 dofile(cfgdir .. "/rc.lua.d/signals.lua")     -- Signals
-
-dofile(cfgdir .. "/rc.lua.d/autoload.lua")    -- Autoload

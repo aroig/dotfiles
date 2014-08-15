@@ -10,34 +10,54 @@
 -----------------------------------
 
 local os = os
+local string = string
+
+local capi = {
+    mouse = mouse,
+    client = client,
+    screen = screen
+}
+
 local apps = apps
 
+local util      = require("abdo.util")
 local pickle    = require("abdo.pickle")           -- some crude pickling routines
-local dropdown  = require("abdo.dropdown")         -- dropdown clients
 local luaeval   = require("abdo.prompt.luaeval")   -- evaluation of lua code
 local promptl   = require("abdo.prompt.list")      -- user choice from a list
 local idoprompt = require("abdo.prompt.idoprompt")
+local systemd   = require("abdo.systemd")
 
 
-ddclient = {}
+
+-----------------------------------
+-- Initialization                --
+-----------------------------------
+
+listsrc = {
+    app  = awful.util.getdir("config") .. "/lists/app-list.lua",
+    doc  = awful.util.getdir("config") .. "/lists/doc-list.lua",
+    dd   = awful.util.getdir("config") .. "/lists/dd-list.lua",
+}
+
+execslice = {
+    app  = "apps",
+    doc  = "apps",
+    dd   = "dropdown",
+}
+
+execlist = {}
+for k, path in pairs(listsrc) do
+    execlist[k] = pickle.load(path)
+end
+
+dropdown = { last_client = nil }
+
+
 
 
 -----------------------------------
 -- Useful functions              --
 -----------------------------------
-
-function shell_escape(s)
-    s = (tostring(s) or ''):gsub('"', '\\"')
-
-    if s:find('[^A-Za-z0-9_."/-]') then
-        s = '"' .. s .. '"'
-    elseif s == '' then
-        s = '""'
-    end
-
-    return s
-end
-
 
 -- Execute an external program
 function exec (cmd)
@@ -49,183 +69,295 @@ function shexec (cmd)
     awful.util.spawn_with_shell(cmd)
 end
 
--- Execute an external program and connect the output to systemd journal
-function sdexec (cmd, name)
-    awful.util.spawn_with_shell(cmd .. string.format(' 2>&1 | systemd-cat -t %s', name))
-end
 
--- Execute an external program as a systemd scope or service
-function sdrun (cmd, name, scope, slice)
-    local sdcmd = "systemd-run --user "
-    if scope then sdcmd = sdcmd .. "--scope " end
-    if slice then sdcmd = sdcmd .. string.format("--slice=\"%s\" ", slice) end
-    if name  then sdcmd = sdcmd .. string.format("--description=\"%s\" ", name) end
 
-    local pid = nil
-    if scope then
-        -- capture output to journal
-        if name then cmd = string.format('%s 2>&1 | systemd-cat -t \"%s\"', cmd, name)
-        else         cmd = string.format('%s &> /dev/null', cmd)
+-----------------------------------
+-- Run a command                 --
+-----------------------------------
+
+function run(name, opts)
+
+    if name == nil then return end
+
+    opts = opts or {ask = false}
+    local ask   = opts['ask']
+    local slice = opts['slice']
+
+    -- get the right thing
+    ns, entry = name:match("^([^:]*):(.*)$")
+
+    -- if no namespace, just run a nameless command
+    if ns == nil then
+        ns = 'cmd'
+        entry = name
+    end
+
+    -- prepare the command executing function
+    local exec_func
+    if ns == 'sd' then
+        exec_func = function() systemd.start(entry) end
+
+    elseif ns == 'sh' then
+        exec_func = function () shexec(entry) end
+
+    elseif ns == 'cmd' then
+        local props = {scope=false,
+                       slice=slice or "apps"}
+        exec_func = function () systemd.run(entry, nil, props) end
+
+    elseif execlist[ns] ~= nil then
+        local cmd = execlist[ns][entry]
+        if not cmd then
+            naughty.notify({title="Error in run",
+                            text=string.format("Unknown command name '%s'", name)})
+            return
         end
 
-        -- do not catch stdout. The process does NOT end immediately
-        awful.util.spawn_with_shell(string.format('%s sh -c %s &> /dev/null', sdcmd, shell_escape(cmd)))
+        -- detect whether cmd is a systemd unit or a command
+        if string.match(cmd, '^.*%.service%s*$') or string.match(cmd, '^.*%.target%s*$') then
+            exec_func = function() systemd.start(cmd) end
+        else
+            local props = {scope=false,
+                           slice=slice or execslice[ns] or "apps"}
+            exec_func = function() systemd.run(cmd, entry, props) end
+        end
+    end
+
+    -- run the command
+    if ask then
+        local lst = { yes = true, no = false }
+
+        promptl.run(myw.promptbox[mouse.screen].widget,
+                    string.format("Run %s? ", entry),
+                    function (c) if c then exec_func() end end,
+                    lst, nil)
+
     else
-
-        -- launch systemd service and capture the service name
-        -- TODO: capture stderr to get the pid
-        local f = io.popen(sdcmd, "r")
-        if f ~= nil then
-            local raw = f:read("*all")
-            local pid = raw:gsub(".*run%-([0-9]*)%.service.*", "%1")
-
-            -- naughty.notify({title="sdexec", text=tostring(raw)})
-            f:close()
-        end
+        exec_func()
     end
-
-    if pid then return tonumber(pid)
-    else        return nil
-    end
-end
-
--- executes a shell command on a terminal
-function termcmd (cmd, title)
-    shcmd = apps.terminal
-    if title then
-        shcmd = shcmd .. string.format(" -t \"%s\"", title)
-    end
-
-    if cmd then
-        shcmd = shcmd .. string.format(" -e \"%s\"", cmd)
-    end
-
-    return shcmd
 end
 
 
 
 -----------------------------------
--- Dropdown apps on the top      --
+-- Client manipulations          --
 -----------------------------------
 
-local dropdown_geometry = {vert="top", horiz="center", width=1, height=0.4}
-
-ddclient.terminal = dropdown.new("terminal",
-                                 termcmd(nil, "dropdown-terminal"),
-                                 dropdown_geometry)
-
-ddclient.ranger   = dropdown.new("ranger",
-                                 termcmd("ranger", "dropdown-ranger"),
-                                 dropdown_geometry)
-
-ddclient.sage     = dropdown.new("sage",
-                                 termcmd("sage", "dropdown-sage"),
-                                 dropdown_geometry)
-
-ddclient.octave   = dropdown.new("octave",
-                                 termcmd("octave", "dropdown-octave"),
-                                 dropdown_geometry)
-
-ddclient.notes    = dropdown.new("notes",
-                                 apps.notes,
-                                 dropdown_geometry)
-
-ddclient.syslog   = dropdown.new("syslog",
-                                 termcmd(apps.syslog, "dropdown-syslog"),
-                                 dropdown_geometry)
-
-
-
-function ddclient.ranger.newtab(dd, path)
-    if dd.run.client then
-        dd.run.onraise_hook = function (run)
-            naughty.notify({title = "New Tab", text=path, timeout=3})
-
-            awful.util.spawn_with_shell("sleep 0.1;"
-                                        .. "xdotool key --delay 100 Escape;"
-                                        .. string.format("xdotool type --delay 15 ':tab_new %s';", path)
-                                        .. 'xdotool key --delay 20 Return;')
-            run.onraise_hook = nil
+function hide_client(c)
+    if c then
+        c.hidden = true
+        local ctags = c:tags()
+        for i, t in pairs(ctags) do
+            ctags[i] = nil
         end
-        dd:show()
+        c:tags(ctags)
+    end
+end
+
+
+function kill_client(c)
+    if c then
+        c:kill()
+    end
+end
+
+
+function show_client(c)
+    if c then
+        -- move to the right tag
+        awful.client.movetotag(awful.tag.selected(mouse.screen), c)
+
+        -- raise client
+        c.hidden = false
+        c:raise()
+        capi.client.focus = c
+
+        -- reapply rules
+        systemd.rules_apply(c)
+
+        -- remember last client
+        dropdown.last_client = c
+    end
+end
+
+
+function is_visible_client(c)
+    if c == nil then return false end
+    if c.hidden then return false end
+
+    local ctags = c:tags()
+    local tag = awful.tag.selected(mouse.screen)
+
+    for i, t in pairs(ctags) do
+        if t == tag then
+            return true
+        end
+    end
+
+    return false
+end
+
+
+function is_dropdown_client(c)
+    if c == nil then return false end
+
+    -- dropdowns are the main process on a cgroup living under dropdown.slice.
+    return systemd.match_cgroup(c, {cgroup = 'dropdown%.slice/.*', main = true})
+end
+
+
+function toggle_client(c)
+    if is_visible_client(c) then
+        hide_client(c)
     else
-        -- TODO: launch and go to the right directory
-        dd:show()
+        show_client(c)
     end
-
 end
 
-function ddclient.terminal.newtab(dd, path)
-    if dd.run.client then
-        dd.run.onraise_hook = function (run)
-            naughty.notify({title = "New Tab", text=path, timeout=3})
 
-            awful.util.spawn_with_shell("sleep 0.1;"
-                                        .. "xdotool key --delay 15 Control+a;"
-                                        .. "xdotool key --delay 15 c;"
-                                        .. string.format("xdotool type --delay 15 'cd \"%s\"';", path)
-                                        .. 'xdotool key --delay 20 Return;'
-                                        .. 'xdotool type clear;'
-                                        .. 'xdotool key --delay 20 Return;'
-                                       )
-            run.onraise_hook = nil
+function dropdown.manage_client(c)
+    if c == nil then return end
+
+    if is_dropdown_client(c) then
+        dropdown.last_client = c
+    end
+end
+
+
+function dropdown.focus_client(c)
+    if c == nil then return end
+
+    if is_dropdown_client(c) then
+        dropdown.last_client = c
+    end
+end
+
+
+function dropdown.unmanage_client(c)
+    if c == nil then return end
+
+    -- forget about last client
+    if dropdown.last_client and c.window == dropdown.last_client.window then
+        dropdown.last_client = nil
+    end
+end
+
+
+-----------------------------------
+-- Client cgroup manipulations   --
+-----------------------------------
+
+-- TODO: handle launching client when none is matching
+
+function show_cgroup(rule, cmd)
+    local list = systemd.matching_clients(rule)
+    if #list > 0 then
+        for i, c in ipairs(list) do
+            show_client(c)
         end
-        dd:show()
-    else
-        -- TODO: launch and go to the right directory
-        dd:show()
+    elseif cmd ~= nil then
+        run(cmd)
+    end
+end
+
+
+function hide_cgroup(rule)
+    local list = systemd.matching_clients(rule)
+    for i, c in ipairs(list) do
+        hide_client(c)
+    end
+end
+
+
+function kill_cgroup(rule)
+    local list = systemd.matching_clients(rule)
+    for i, c in ipairs(list) do
+        kill_client(c)
+    end
+end
+
+
+function toggle_cgroup(rule, cmd)
+    local list = systemd.matching_clients(rule)
+    if #list > 0 then
+        for i, c in ipairs(list) do
+            toggle_client(c)
+        end
+    elseif cmd ~= nil then
+        run(cmd)
     end
 end
 
 
 
 -----------------------------------
--- Dropdown apps on the left     --
+-- Dropdown manipulations        --
 -----------------------------------
+-- We put all dropdowns under dropdown.slice. This is done either on the
+-- individual units or by run for the dd namespace.
 
+function ddtoggle(name, launch)
+    if name == nil then return end
 
-ddclient.dict    = dropdown.new("dictionary", apps.dictionary,
-                                {vert="center", horiz="right", width=0.5, height=1})
+    local ns, entry
+    ns, entry = name:match("^([^:]*):(.*)$")
+    if ns == nil then entry = name end
 
-ddclient.calibre = dropdown.new("calibre", apps.library,
-                                {vert="center", horiz="right", width=1,   height=1})
+    local cgroup = 'dropdown%.slice/.*' .. util.pattern_escape(entry)
+    local cmd = nil
+    if launch then cmd = name end
 
-ddclient.chat    = dropdown.new("chat", apps.chat,
-                                {vert="center", horiz="left", width=0.6, height=1})
-
-ddclient.orgmode = dropdown.new("orgmode", apps.orgmode,
-                                {vert="center", horiz="left", width=1, height=1})
-
-ddclient.mail    = dropdown.new("mail", apps.mail,
-                                {vert="center", horiz="left", width=1, height=1})
-
-ddclient.music   = dropdown.new("music", apps.music,
-                                {vert="center", horiz="right", width=0.7, height=1})
-
-ddclient.document = dropdown.new("browser", nil,
-                                 {vert="center", horiz="right", width=0.7, height=1})
-
-ddclient.xournal = dropdown.new("xournal", apps.xournal,
-                                {vert="center", horiz="left", width=0.5, height=1})
-
-
--- NOTE: If using a browser supporting tabs
--- do not kill old client if command changes, as chromium opens new tab
--- ddclient.document.kill_old = False
-
-
-
------------------------------------
--- Functions                     --
------------------------------------
-
-function ddclient.hide_all()
-    dropdown.hide_all()
+    toggle_cgroup({ cgroup = cgroup, main = true }, cmd)
 end
 
-function ddclient.kill_all()
-    dropdown.kill_all()
+function ddshow(name, launch)
+    if name == nil then return end
+
+    local ns, entry
+    ns, entry = name:match("^([^:]*):(.*)$")
+    if ns == nil then entry = name end
+
+    local cgroup = 'dropdown%.slice/.*' .. util.pattern_escape(entry)
+    local cmd = nil
+    if launch then cmd = name end
+
+    show_cgroup({ cgroup = cgroup, main = true }, cmd)
+end
+
+function ddhide(name)
+    if name == nil then return end
+
+    local ns, entry
+    ns, entry = name:match("^([^:]*):(.*)$")
+    if ns == nil then entry = name end
+
+    local cgroup = 'dropdown%.slice/.*' .. util.pattern_escape(entry)
+    hide_cgroup({ cgroup = cgroup, main = true })
+end
+
+function ddhide_all()
+    local cgroup = 'dropdown%.slice/.*'
+    hide_cgroup({ cgroup = cgroup, main = true })
+end
+
+function ddshow_last()
+    show_client(dropdown.last_client)
+end
+
+function ddhide_last()
+    hide_client(dropdown.last_client)
+end
+
+local function ddshow_doc(url)
+    if url == nil then return end
+    local cmd = string.format("dwb -p docs %s", util.shell_escape(url))
+    local props = {scope=false,
+                   slice="dropdown"}
+    systemd.run(cmd, "docs", props)
+
+    local cgroup = 'dropdown%.slice/.*docs'
+    local list = systemd.matching_clients({ cgroup = cgroup })
+    for _, c in ipairs(list) do show_client(c) end
 end
 
 
@@ -243,17 +375,20 @@ box.syslog     = require("abdo.box.syslog")      -- system log
 box.userlog    = require("abdo.box.userlog")     -- user log
 
 
+
 -----------------------------------
 -- Prompts                       --
 -----------------------------------
 prompt = {}
+
+
 
 function prompt.wikipedia()
     idoprompt.run(myw.promptbox[mouse.screen].widget,
                   "Wikipedia: ",
                   function (cmd)
                       local url = string.format("http://en.wikipedia.org/wiki/Special:Search?go=Go&search=\"%s\"", cmd)
-                      ddclient.document:show(string.format("%s '%s'", apps.docbrowser, url))
+                      ddshow_doc(url)
                   end,
                   nil,
                   awful.util.getdir("cache") .. "/history_wikipedia")
@@ -265,7 +400,7 @@ function prompt.mathscinet()
                   "Mathscinet: ",
                   function (cmd)
                       local url = string.format("http://www.ams.org/mathscinet/search/publications.html?review_format=html&pg4=ALLF&s4=\"%s\"", cmd)
-                      ddclient.document:show(string.format("%s '%s'", apps.docbrowser, url))
+                      ddshow_doc(url)
                   end,
                   nil,
                   awful.util.getdir("cache") .. "/history_mathscinet")
@@ -273,43 +408,65 @@ end
 
 
 function prompt.docs()
-    docs = pickle.load(awful.util.getdir("config") .. "/lists/docs.list")
-    if not docs then return end
+    execlist.doc = pickle.load(listsrc.doc)
+    if not execlist.doc then
+        naughty.notify({title="Error in document prompt",
+                        text=string.format("Can't load file '%s'", listsrc.doc)})
+        return
+    end
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Doc: ",
-                function (cmd) ddclient.document:show(cmd) end,
-                docs,
+                ddshow_doc,
+                execlist.doc,
                 awful.util.getdir("cache") .. "/history_docs")
 end
 
 
 function prompt.command()
-    cmds = pickle.load(awful.util.getdir("config") .. "/lists/commands.list")
-    if not cmds then return end
+    execlist.app = pickle.load(listsrc.app)
+    if not execlist.app then
+        naughty.notify({title="Error in command prompt",
+                        text=string.format("Can't load file '%s'", listsrc.app)})
+        return
+    end
+
+    -- want the prompt to pass progname, not prog command to the callback
+    local proglist = {}
+    for name, cmd in pairs(execlist.app) do
+        proglist[name] = string.format("app:%s", name)
+    end
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Run: ",
-                function (cmd) sdrun(cmd, nil, true, 'apps') end,
-                cmds,
+                function (nm) run(nm) end,
+                proglist,
                 awful.util.getdir("cache") .. "/history_cmd")
+end
+
+
+function prompt.dropdown()
+    execlist.dd = pickle.load(listsrc.dd)
+    if not execlist.dd then
+        naughty.notify({title="Error in command prompt",
+                        text=string.format("Can't load file '%s'", listsrc.dd)})
+        return
+    end
+
+    -- want the prompt to pass progname, not prog command to the callback
+    local proglist = {}
+    for name, cmd in pairs(execlist.dd) do
+        proglist[name] = string.format("dd:%s", name)
+    end
+
+    promptl.run(myw.promptbox[mouse.screen].widget,
+                "Dropdown: ",
+                function (nm) ddshow(nm, true) end,
+                proglist,
+                awful.util.getdir("cache") .. "/history_dropdown")
 end
 
 
 function prompt.lua()
     luaeval.run(myw.promptbox[mouse.screen].widget)
-end
-
-
-function prompt.ask_run(prompt, cmd)
-    opts = {
-        yes = cmd,
-        no = "true",
-    }
-
-    promptl.run(myw.promptbox[mouse.screen].widget,
-                string.format("%s? ", prompt),
-                shexec,
-                opts,
-                nil)
 end

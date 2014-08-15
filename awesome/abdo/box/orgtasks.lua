@@ -11,7 +11,7 @@ local beautiful = beautiful
 local util = require("awful.util")
 local abdoutil = require("abdo.util")
 
-local agenda_files = os.getenv("AB2_WIKI_DIR") .. "/etc/agenda-files"
+local wiki_dir = os.getenv("AB2_WIKI_DIR") .. "/org"
 
 local char_width = 7.3
 local parse_on_show = true
@@ -24,14 +24,17 @@ orgtasks.todo = nil
 orgtasks.data = nil
 orgtasks.files = {}
 
-local function read_filelist(filelist)
+
+local function get_org_filelist()
     local files = {}
-    local fd = io.open(filelist, "r")
+
+    local fd = io.popen(string.format("find %s \\( -name '*.org' ! -name '.*' \\)", wiki_dir), "r")
     for line in fd:lines() do
         table.insert(files, line)
     end
     return files
 end
+
 
 local function pop_spaces(s1, s2, maxsize)
     local sps = ""
@@ -45,7 +48,7 @@ local function parse_agenda(files)
     local text_color = beautiful.fg_normal or "#FFFFFF"
     local today_color = beautiful.fg_focus or "#00FF00"
     local event_color = beautiful.fg_urgent or "#FF0000"
-    local priority_color = beautiful.fg_org_priority
+    local priority_color = beautiful.color_org_priority
     local font = beautiful.font_box
 
     local today = os.date("%Y-%m-%d")
@@ -112,7 +115,7 @@ local function create_todo(data)
     local text_color = beautiful.fg_normal or "#FFFFFF"
     local today_color = beautiful.fg_focus or "#00FF00"
     local event_color = beautiful.fg_urgent or "#FF0000"
-    local priority_color = beautiful.fg_org_priority
+    local priority_color = beautiful.color_org_priority
     local font = beautiful.font_box
 
     local result = ""
@@ -172,7 +175,7 @@ end
 
 function orgtasks.add_todo()
     orgtasks.remove_todo()
-    orgtasks.files = read_filelist(agenda_files)
+    orgtasks.files = get_org_filelist()
     orgtasks.data = parse_agenda(orgtasks.files)
     local datastr = create_todo(orgtasks.data)
     orgtasks.todo = naughty.notify({ title = "Tasks",
