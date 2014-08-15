@@ -1,0 +1,6 @@
+[Unit]
+Description=synced
+AllowIsolate=true
+
+BindsTo=flag@synced.service
+After=flag@synced.service

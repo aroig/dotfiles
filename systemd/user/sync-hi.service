@@ -1,0 +1,14 @@
+[Unit]
+Description=initial sync
+
+Requires=async-default-needed.service
+After=async-default-needed.service
+
+OnFailure=journal-mailer.service
+
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=sync-hi
+ExecStart=/usr/bin/systemctl --user start synced.target                         

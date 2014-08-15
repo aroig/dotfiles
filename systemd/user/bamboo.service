@@ -1,9 +1,9 @@
 [Unit]
 Description=Setup bamboo tablet coordinates
-After=xorg.target
+After=graphical.target
 ConditionHost=grothendieck
 
-Requisite=xorg.target
+Requisite=graphical.target
 
 [Service]
 Type=oneshot

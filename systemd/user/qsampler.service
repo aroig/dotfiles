@@ -1,0 +1,20 @@
+[Unit]
+Description=linuxsampler frontend
+
+Requisite=desktop.target
+After=desktop.target
+
+Requires=jack.service
+After=jack.service
+
+Requires=linuxsampler.service
+After=linuxsampler.service
+
+[Service]
+Type=simple
+SyslogIdentifier=qsampler
+Slice=apps.slice
+
+ExecStart=/usr/bin/qsampler
+
+

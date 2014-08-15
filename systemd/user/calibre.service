@@ -1,15 +1,20 @@
 [Unit]
 Description=calibre
-After=xorg.target
+After=graphical.target
 
 Requisite=desktop.target 
+After=desktop.target
+
 Requires=calibre-db.service
 After=calibre-db.service
 
 [Service]
 Type=simple
-SyslogIdentifier=calibre
 
-ExecStart=/usr/bin/calibre --with-library "$AB2_CALIBRE_DIR"
+SyslogIdentifier=calibre
+Slice=dropdown.slice
+Environment=XDG_CURRENT_DESKTOP=gnome
+
+ExecStart=/usr/bin/calibre --with-library "${AB2_CALIBRE_DIR}"
 
 

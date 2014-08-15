@@ -3,3 +3,4 @@ Description=lock screen
 
 # bind to slimlock, so that when unlocking lock.target goes down
 BindsTo=slimlock.service
+After=slimlock.service

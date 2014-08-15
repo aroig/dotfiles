@@ -1,0 +1,9 @@
+[Unit]
+Description=triggers on journal messages
+
+After=desktop.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/journal-triggerd "%h/.config/journal-triggerd"
+

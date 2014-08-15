@@ -1,0 +1,37 @@
+[Unit]
+Description=extempore server
+
+Requires=jack.service
+After=jack.service
+
+Requires=audio.slice
+After=audio.slice
+
+[Service]
+Type=simple
+
+# While llvm needs patching, we must use this
+Environment=EXT_LLVM_DIR=/usr/lib/extempore/llvm
+WorkingDirectory=/usr/lib/extempore
+
+SyslogIdentifier=extempore
+
+# NOTE: Extempore uses portaudio, which is an abstraction layer. Extempore can
+# work with jack, provided the sample rate matches, otherwise it will refuse to
+# connect.
+# 
+# Also, the it does not provide a stand-alone jack port, it must be connected to
+# something else (via the --device argument), to make the jack port appear...
+
+ExecStart=/home/abdo/.config/systemd/scripts/extempore-server.sh --port 7099 --samplerate 48000 --frames 128 
+
+# NOTE: This produces a lot of XRUN's on jack. I don't know what's the problem...
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+Slice=audio.slice
+
+[Install]
+WantedBy=multi-user.target

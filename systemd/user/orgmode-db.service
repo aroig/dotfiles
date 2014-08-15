@@ -1,10 +1,11 @@
 [Unit]
 Description=orgmode database
-StopWhenUnneeded=true
 
-# orgmode changes data in ~/work/wiki
-Requisite=initial-synced-work.target
-After=initial-synced-work.target
+StopWhenUnneeded=true
+ConditionPathExists=/home/%u/work/wiki
+
+Requisite=synced.target
+After=synced.target
 
 [Service]
 Type=oneshot

@@ -1,10 +1,12 @@
 [Unit]
 Description=commit dwb cookies
 
+ConditionPathExists=/home/%u/priv/var/dwb/default
+
 Conflicts=dwb-db.service
 
 [Service]
 Type=oneshot
 
 SyslogIdentifier=commit-dwb
-ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "$AB2_PRIV_DIR/var/dwb/default"
+ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "${AB2_PRIV_DIR}/var/dwb/default"

@@ -1,6 +1,9 @@
 [Unit]
 Description=chat
 
+Requires=mount-priv.service
+After=mount-priv.service
+
 Requisite=desktop.target
 After=desktop.target
 
@@ -10,9 +13,7 @@ After=chat-db.service
 [Service]
 Type=simple
 SyslogIdentifier=chat
+Slice=dropdown.slice
 
 ExecStart=/usr/bin/emacs -chat --title "emacs-chat"
 KillSignal=SIGINT
-
-# This fails if emacs is already stopped
-# ExecStop=/usr/bin/emacsclient -s %t/emacs/chat --eval "(client-save-kill-emacs)"

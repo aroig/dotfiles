@@ -1,0 +1,7 @@
+[Unit]
+Description=stop stream player
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl --user stop stream@*.service
+

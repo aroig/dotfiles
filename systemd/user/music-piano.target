@@ -1,0 +1,8 @@
+[Unit]
+Description=play sampled piano
+
+Wants=jack.service impulse.service
+After=jack.service impulse.service
+
+Wants=linuxsampler.service linuxsampler-conf@piano.service qjackctl-play.service
+After=linuxsampler.service linuxsampler-conf@piano.service qjackctl-play.service

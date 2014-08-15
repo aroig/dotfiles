@@ -1,19 +1,20 @@
 [Unit]
 Description=awesome window manager at display %i
 
-After=xserver@%i.target
 After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
 After=compton.service xrandr-auto.service
-Before=desktop.target
 
 Requisite=xserver@%i.target
-PartOf=wm@awesome.target
+After=xserver@%i.target
+
+Before=wm.target
 
 [Service]
 Type=simple
 SyslogIdentifier=awesome
-Environment=DISPLAY=:%i
+Slice=wm.slice
 
+Environment=DISPLAY=:%i
 ExecStart=/usr/bin/awesome
 KillSignal=SIGINT
 TimeoutSec=15

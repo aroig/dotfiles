@@ -1,9 +1,12 @@
 [Unit]
 Description=Compton X compositor
-After=xorg.target
 
-Requisite=xorg.target
+Requisite=graphical.target
+After=graphical.target
 
 [Service]
 Type=simple
+SyslogIdentifier=compton
+Slice=wm.slice
+
 ExecStart=/usr/bin/compton

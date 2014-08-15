@@ -1,0 +1,19 @@
+[Unit]
+Description=jack control interface
+
+Requisite=desktop.target
+After=desktop.target
+
+Requires=jack.service
+After=jack.service
+
+Conflicts=qjackctl-studio.service qjackctl.service
+
+[Service]
+Type=simple
+SyslogIdentifier=qjackctl
+Slice=apps.slice
+
+ExecStart=/usr/bin/qjackctl -a "${AB2_CONF_DIR}/audio/qjackctl/play.xml"
+
+

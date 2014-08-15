@@ -1,12 +1,15 @@
 [Unit]
 Description=sync google contacts
 
-# gcont store contacts in ~/mail
-Requisite=initial-synced-mail.target
-After=initial-synced-mail.target
+Requires=mount-priv.service
+After=mount-priv.service
 
-Requires=online.service
-After=online.service
+# gcont store contacts in ~/mail
+Requisite=synced.target
+After=synced.target
+
+Requires=network-online.service
+After=network-online.service
 
 [Service]
 Type=oneshot

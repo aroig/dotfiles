@@ -1,0 +1,16 @@
+[Unit]
+Description=collect new mail list
+
+ConditionPathExists=/home/%u/mail
+
+After=offlineimap.service
+After=rss2maildir.service
+After=mutag-index.service
+After=mutag-autotag.service
+
+[Service]
+Type=oneshot
+SyslogIdentifier=mutag-newmail
+ExecStart=/usr/bin/mkdir -p %t/mutag
+ExecStart=/usr/bin/sh -c "mutag -L -q 'flag:unread AND tag:\\\\Inbox' > %t/mutag/mail"
+ExecStart=/usr/bin/sh -c "mutag -Q > %t/mutag/queue"

@@ -1,8 +1,8 @@
 [Unit]
 Description=xrandr auto
-After=xorg.target
+After=graphical.target
 
-Requisite=xorg.target
+Requisite=graphical.target
 
 [Service]
 Type=oneshot

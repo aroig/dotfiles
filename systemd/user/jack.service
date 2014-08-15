@@ -1,30 +1,27 @@
 [Unit]
-Description=Jack Audio Sound System
+Description=jack server
 Documentation=man:jack(1)
-Before=sound.target
-Before=pulseaudio.service
+
+Requisite=audio.target pulseaudio.service
+
+Requires=jackdbus.service
+After=jackdbus.service
+
+Requires=audio.slice
+After=audio.slice
+
+Wants=a2jmidid.service
+Before=a2jmidid.service
 
 [Service]
-Type=dbus
-BusName=org.jackaudio.service
+Type=oneshot
+RemainAfterExit=true
 
-# NOTE: this is non-functional at the moment. Need to sort this out.
-# Jack via dbus
+# we use jackdbus
+ExecStart=/usr/bin/jack_control start
+ExecStart=/usr/bin/pactl set-default-sink jack_out
 
-# ExecStart=/usr/bin/jackdbus auto
-# ExecStart=/usr/bin/jack_control start
-# ExecStop=/usr/bin/jack_control stop
-
-# ExecStartPost=/usr/bin/jack_control ds alsa
-# ExecStartPost=/usr/bin/jack_control dps device hw:Intel
-# ExecStartPost=/usr/bin/jack_control eps realtime true
-# ExecStartPost=/usr/bin/jack_control dps rate 48000
-# ExecStartPost=/usr/bin/jack_control dps nperiods 2
-# ExecStartPost=/usr/bin/jack_control dps period 64
-
-# Non-dbus version
-# get the device with ls /proc/asound/cards
-# ExecStart=/usr/bin/jackd -R --driver alsa --device hw:Intel -r 48000 -n 2 -p 64
+ExecStop=/usr/bin/jack_control stop
 
 [Install]
 WantedBy=audio.target

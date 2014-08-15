@@ -5,5 +5,8 @@ StopWhenUnneeded=true
 Requires=mail-db.service
 After=mail-db.service
 
-Requires=mutag.service rss2maildir.service
-After=mutag.service rss2maildir.service
+Requires=rss2maildir.service
+After=rss2maildir.service
+
+Requires=mutag-autotag.service mutag-index.service
+After=mutag-autotag.service mutag-index.service

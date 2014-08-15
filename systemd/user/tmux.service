@@ -1,0 +1,14 @@
+[Unit]
+Description=tmux session
+Documentation=man:tmux(1)
+
+[Service]
+Type=forking
+
+RuntimeDirectory=tmux
+RuntimeDirectoryMode=700
+
+SuccessExitStatus=0 1
+ExecStart=/usr/bin/tmux -S "%t/tmux/default" new-session -d -s default
+ExecStop=/usr/bin/tmux -S "%t/tmux/default" kill-session -t default
+

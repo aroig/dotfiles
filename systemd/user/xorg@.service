@@ -1,15 +1,31 @@
 [Unit]
 Description=Xorg server at display %i
+
+Requires=xorg@%i.socket
+After=xorg@%i.socket
+
+Requires=xserver@%i.target
 Before=xserver@%i.target
 
-PartOf=xorg.target
-BindsTo=xserver@%i.target
-Conflicts=x11vnc@%i.service vncserver@%i.service xephyr@%i.service
+PartOf=graphical.target
+Before=graphical.target
 
 [Service]
-Type=notify
-SyslogIdentifier=xorg
 
-# need to launch X session at the same tty, otherwise it becomes inactive
-ExecStart=/usr/bin/xorg-launch-helper :%i -nolisten tcp -noreset $XORG_VT
-ExecStopPost=/usr/bin/deallocvt
+# Type=notify
+Type=simple
+
+SyslogIdentifier=xorg
+Slice=wm.slice
+
+# NOTE: something like this would be needed if I manage to run xorg unprivileged
+# StandardError=tty
+# TTYPath=/dev/tty2
+# TTYReset=yes
+
+SuccessExitStatus=0 1
+
+# NOTE: need to launch X session at the same tty, otherwise it becomes inactive
+# NOTE: we could set the keyboard rate delay and rate frequency with: xset r rate 500 40
+ExecStart=/usr/bin/Xorg :%i -nolisten tcp -noreset -verbose 2 -ardelay 500 -arinterval 25 "vt${XDG_VTNR}"
+

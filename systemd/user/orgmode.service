@@ -10,11 +10,9 @@ After=orgmode-db.service
 [Service]
 Type=simple
 SyslogIdentifier=orgmode
+Slice=dropdown.slice
 
 ExecStart=/usr/bin/emacs -org --title "emacs-org"
 KillSignal=SIGINT
-
-# This fails if emacs is already stopped
-# ExecStop=/usr/bin/emacsclient -s %t/emacs/org -e '(progn (save-some-buffers t) (kill-emacs))'
 
 

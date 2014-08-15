@@ -1,8 +1,8 @@
 [Unit]
 Description=dropbox daemon
 
-After=xorg.target
-Requisite=xorg.target
+After=graphical.target
+Requisite=graphical.target
 
 [Service]
 Type=simple

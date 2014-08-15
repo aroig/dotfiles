@@ -1,0 +1,17 @@
+[Unit]
+Description=dwb %i
+
+Requisite=desktop.target 
+After=desktop.target
+
+Requires=dwb-db.service
+After=dwb-db.service
+
+[Service]
+Type=simple
+SyslogIdentifier=dwb
+Slice=apps.slice
+
+ExecStart=/usr/bin/dwb
+StandardOutput=null
+

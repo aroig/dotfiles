@@ -1,0 +1,26 @@
+[Unit]
+Description=supercollider daemon
+
+Requires=jack.service
+After=jack.service
+
+Requires=audio.slice
+After=audio.slice
+
+[Service]
+Type=simple
+
+Environment=SC_JACK_DEFAULT_INPUTS=system 
+Environment=SC_JACK_DEFAULT_OUTPUTS=system 
+
+ExecStart=/usr/bin/scsynth -u 57110 -i 2 -o 2 -a 128 -b 1026 -R 0
+
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+Slice=audio.slice
+
+[Install]
+WantedBy=multi-user.target

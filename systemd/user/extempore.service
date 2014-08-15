@@ -1,0 +1,18 @@
+[Unit]
+Description=extempore client
+
+Requisite=desktop.target
+After=desktop.target
+
+Requires=extempore-server.service
+After=extempore-server.service
+
+[Service]
+Type=simple
+SyslogIdentifier=extempore
+Slice=apps.slice
+
+ExecStart=/usr/bin/emacs -extempore --title "emacs-extempore"
+KillSignal=SIGINT
+
+

@@ -5,5 +5,11 @@ StopWhenUnneeded=true
 Requires=mail-db.service
 After=mail-db.service
 
-Requires=gcal-sync.service gcont-sync.service mutag.service offlineimap.service rss2maildir.service
-After=gcal-sync.service gcont-sync.service mutag.service offlineimap.service rss2maildir.service
+# Requires=gcal-sync.service 
+# After=gcal-sync.service
+
+Requires=gcont-sync.service offlineimap.service rss2maildir.service
+After=gcont-sync.service offlineimap.service rss2maildir.service
+
+Requires=mutag-autotag.service mutag-index.service
+After=mutag-autotag.service mutag-index.service

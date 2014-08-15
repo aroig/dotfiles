@@ -1,5 +1,5 @@
 [Unit]
-Description=user target
+Description=default user target
 AllowIsolate=true
 
 Wants=user.target console.target

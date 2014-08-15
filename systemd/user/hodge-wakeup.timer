@@ -5,7 +5,7 @@ ConditionHost=hodge
 [Timer]
 OnCalendar=Mon-Fri 09:30
 WakeSystem=true
-Unit=initial-synced-all.target
+Unit=wakeup.target
 
 [Install]
 WantedBy=timers.target

@@ -9,4 +9,5 @@ SocketMode=0700
 Accept=yes
 
 [Install]
-WantedBy=xinitrc.target
+WantedBy=sockets.target
+

@@ -1,9 +1,8 @@
 [Unit]
 Description=VNC server at display %i
 
-BindsTo=xserver@%i.target
+Requires=xserver@%i.target
 Before=xserver@%i.target
-Conflicts=xorg@%i.service x11vnc@%i.service xephyr@%i.service
 
 [Service]
 Type=forking

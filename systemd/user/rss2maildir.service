@@ -1,12 +1,13 @@
 [Unit]
 Description=rss2maildir
 
-# rss2maildir chages ~/mail
-Requisite=initial-synced-mail.target
-After=initial-synced-mail.target
+ConditionPathExists=/home/%u/mail
 
-Requires=online.service
-After=online.service
+Requisite=synced.target
+After=synced.target
+
+Requires=network-online.service
+After=network-online.service
 
 [Service]
 Type=oneshot

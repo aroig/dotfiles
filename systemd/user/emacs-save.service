@@ -1,0 +1,14 @@
+[Unit]
+Description=save emacs buffers
+
+# So that emacs.service is stoped after this. The stopping order gets reversed.
+After=emacs.service
+
+[Service]
+Type=oneshot
+SyslogIdentifier=emacs-session
+
+# NOTE: If emacs.service is not active, always succeed since there is nothing to be done.
+#       It would be nice to write the dependency on emacs.service directly in systemd!
+ExecStart=/usr/bin/sh -c "! systemctl --user is-active -q emacs.service || ${EMACSCLIENT} --eval '(save-some-buffers t)'"
+

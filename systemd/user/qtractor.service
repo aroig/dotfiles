@@ -1,0 +1,23 @@
+[Unit]
+Description=qtractor midi sequencer
+
+Requisite=desktop.target
+After=desktop.target
+
+Requires=jack.service
+After=jack.service
+
+After=fluidsynth.service linuxsampler.service
+
+[Service]
+Type=simple
+SyslogIdentifier=qtractor
+Slice=apps.slice
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+ExecStart=/usr/bin/qtractor
+
+

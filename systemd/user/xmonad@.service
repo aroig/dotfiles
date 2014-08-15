@@ -1,19 +1,21 @@
 [Unit]
 Description=xmonad window manager at display %i
 
-After=xserver@%i.target
 After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
 After=compton.service xrandr-auto.service
 
+Requires=tint2@%i.service
 Before=tint2@%i.service
-Before=desktop.target
 
 Requisite=xserver@%i.target
-Requires=tint2@%i.service
-PartOf=wm@xmonad.target
+After=xserver@%i.target
+
+Before=wm.target
 
 [Service]
 Type=simple
 SyslogIdentifier=xmonad
+Slice=wm.slice
+
 Environment=DISPLAY=:%i
 ExecStart=/usr/bin/xmonad

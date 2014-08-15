@@ -1,0 +1,17 @@
+[Unit]
+Description=streaming client %i
+
+Requires=network-online.service
+After=network-online.service
+
+Requisite=audio.target
+After=audio.target
+
+[Service]
+Type=simple
+SyslogIdentifier=stream-%i
+Slice=audio.slice
+
+ExecStart=/home/abdo/.config/systemd/scripts/stream.sh %i
+
+

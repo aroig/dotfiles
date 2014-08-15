@@ -7,6 +7,8 @@ After=gvfsd.service
 [Service]
 Type=dbus
 BusName=org.gtk.Private.UDisks2VolumeMonitor
+Slice=wm.slice
+
 ExecStart=/usr/lib/gvfs/gvfs-udisks2-volume-monitor
 
 [Install]

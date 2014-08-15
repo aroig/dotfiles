@@ -1,10 +1,17 @@
 [Unit]
 Description=connman UI
+
 ConditionHost=galois
 
-Requisite=desktop.target
-After=desktop.target
+Requisite=wm.target
+After=wm.target
+
+Requires=wm.slice
+After=wm.slice
+
 
 [Service]
 Type=simple
 ExecStart=/usr/bin/connman-ui-gtk
+
+Slice=wm.slice

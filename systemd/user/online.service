@@ -1,8 +1,0 @@
-[Unit]
-Description=online check
-
-[Service]
-Type=oneshot
-SyslogIdentifier=online
-StandardOutput=null
-ExecStart=/usr/bin/ping -W 10 -c 1 -q www.google.com

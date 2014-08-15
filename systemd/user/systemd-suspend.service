@@ -1,5 +1,7 @@
 [Unit]
 Description=enter suspend state
+DefaultDependencies=no
+
 After=lock.target
 
 [Service]

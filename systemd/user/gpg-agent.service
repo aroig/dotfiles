@@ -1,10 +1,12 @@
 [Unit]
 Description=gpg-agent daemon
-ConditionHost=!skynet
 
+ConditionPathExists=/home/%u/.gnupg
 
 [Service]
 Type=forking
-
 SyslogIdentifier=gpg-agent
-ExecStart=/home/abdo/.config/systemd/scripts/gpg-agent.sh start
+ExecStart=/usr/bin/gpg-agent --daemon --use-standard-socket
+
+# give it some time
+ExecStartPost=/usr/bin/sleep 1

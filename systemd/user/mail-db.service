@@ -1,9 +1,11 @@
 [Unit]
 Description=mail database
-StopWhenUnneeded=true
 
-Requisite=initial-synced-mail.target
-After=initial-synced-mail.target
+StopWhenUnneeded=true
+ConditionPathExists=/home/%u/mail
+
+Requisite=synced.target
+After=synced.target
 
 [Service]
 Type=oneshot

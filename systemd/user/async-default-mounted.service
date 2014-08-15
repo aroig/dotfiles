@@ -2,9 +2,16 @@
 Description=mount default host and keep ssh open
 StopWhenUnneeded=true
 
+Requires=network-online.service
+After=network-online.service
+
+Requires=mount-priv.service
+After=mount-priv.service
+
 [Service]
 # async notifies systemd when state is reached
 Type=notify
 NotifyAccess=all
 SyslogIdentifier=async-mount
+KillSignal=SIGINT
 ExecStart=/usr/bin/async cmd --instate mounted default sleep 3600

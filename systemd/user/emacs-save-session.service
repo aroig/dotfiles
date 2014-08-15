@@ -1,0 +1,10 @@
+[Unit]
+Description=save emacs session
+# Note, need to configure some handler for this signal, otherwise saves nothing to the session
+# Take a look ay https://github.com/kriesoff/emacs-save-yourself
+
+[Service]
+Type=oneshot
+SyslogIdentifier=emacs-session
+ExecStart=/usr/bin/sh -c "${EMACSCLIENT} --eval '(emacs-session-save)' | grep nil > /dev/null"
+

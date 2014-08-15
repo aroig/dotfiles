@@ -1,6 +1,0 @@
-[Unit]
-Description=initial base sync
-
-Requires=async-default-base.service
-After=async-default-base.service
-

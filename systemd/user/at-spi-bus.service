@@ -1,12 +1,17 @@
 [Unit]
 Description=accessibility technologies
 
-Requisite=xorg.target
-After=xorg.target
+Requisite=graphical.target
+After=graphical.target
+
+Requires=gconf.service
+After=gconf.service
 
 [Service]
 Type=dbus
 BusName=org.a11y.Bus
+Slice=wm.slice
+
 ExecStart=/usr/lib/at-spi2-core/at-spi-bus-launcher
 
 [Install]

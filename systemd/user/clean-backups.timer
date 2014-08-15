@@ -1,0 +1,12 @@
+[Unit]
+Description=daily backup cleanup
+StopWhenUnneeded=true
+
+[Timer]
+OnCalendar=daily
+AccuracySec=12h
+Persistent=true
+Unit=clean-backups.service
+
+[Install]
+WantedBy=synced.target

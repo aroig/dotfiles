@@ -1,0 +1,26 @@
+[Unit]
+Description=linuxsampler daemon
+
+Requires=jack.service
+After=jack.service
+
+Requires=audio.slice
+After=audio.slice
+
+# Requires=linuxsampler.socket
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/linuxsampler --lscp-port 8888 --instruments-db-location "${AB2_VAR_DIR}/audio/linuxsampler/instruments.db"
+
+#delay a bit, to let network socket settle
+ExecStartPost=/usr/bin/sleep 5
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+Slice=audio.slice
+
+[Install]
+WantedBy=multi-user.target

@@ -7,6 +7,8 @@ After=gvfsd.service
 [Service]
 Type=dbus
 BusName=org.gtk.vfs.Metadata
+Slice=wm.slice
+
 ExecStart=/usr/lib/gvfs/gvfsd-metadata
 
 [Install]

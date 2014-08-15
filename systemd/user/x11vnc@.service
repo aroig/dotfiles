@@ -1,8 +1,11 @@
 [Unit]
 Description=X11VNC server at display %i
-After=xorg@%i.service
 
-Requisite=xorg@%i.service
+Requisite=xorg@%i.socket
+After=xorg@%i.socket
+
+Requires=xserver@%i.target
+Before=xserver@%i.target
 
 [Service]
 Type=forking

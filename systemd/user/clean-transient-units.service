@@ -1,9 +1,11 @@
 [Unit]
 Description=Clean user transient units
-Conflicts=apps.service
+Conflicts=desktop-slices.service
 
 [Service]
 Type=oneshot
 
 SyslogIdentifier=clean-transient
-ExecStart=/home/abdo/.config/systemd/scripts/clean-transient-units.sh
+ExecStart=/usr/bin/find "%h/.config/systemd/user/" -regex '.*/run-\(.+\)\.\(scope\|service\)\(\.d\)?$' -print -exec rm -Rf {} \;
+
+

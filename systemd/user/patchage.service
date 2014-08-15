@@ -1,0 +1,17 @@
+[Unit]
+Description=jack patch bay
+
+Requisite=desktop.target
+After=desktop.target
+
+Requires=jack.service
+After=jack.service
+
+[Service]
+Type=simple
+SyslogIdentifier=patchage
+Slice=apps.slice
+
+ExecStart=/usr/bin/patchage
+
+

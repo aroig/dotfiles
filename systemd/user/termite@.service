@@ -1,0 +1,15 @@
+[Unit]
+Description=termite %i
+
+Requisite=desktop.target 
+After=desktop.target
+
+[Service]
+Type=simple
+SyslogIdentifier=termite
+Slice=apps.slice
+KillMode=process
+
+ExecStart=/usr/bin/termite
+
+

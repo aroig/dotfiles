@@ -1,15 +1,18 @@
 [Unit]
 Description=gvfs daemon
 
-Requisite=xorg.target
-After=xorg.target
+Requisite=graphical.target
+After=graphical.target
 
+Requires=gconf.service
 After=gconf.service
 
 
 [Service]
 Type=dbus
 BusName=org.gtk.vfs.Daemon
+Slice=wm.slice
+
 ExecStart=/usr/lib/gvfs/gvfsd
 
 [Install]

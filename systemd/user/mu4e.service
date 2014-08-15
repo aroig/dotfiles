@@ -9,11 +9,8 @@ PartOf=mail.target
 [Service]
 Type=simple
 SyslogIdentifier=mu4e
+Slice=dropdown.slice
 
 ExecStart=/usr/bin/emacs -mail --title "emacs-mail"
 KillSignal=SIGINT
-
-# This fails if emacs is already stopped
-# ExecStop=/usr/bin/emacsclient -s %t/emacs/mail -e '(progn (save-some-buffers t) (kill-emacs))'
-
 

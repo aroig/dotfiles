@@ -1,15 +1,20 @@
 [Unit]
 Description=sync google calendar
 
-# gcal accesses and changes ~/work/wiki
-Requisite=initial-synced-work.target
-After=initial-synced-work.target
+ConditionPathExists=/home/%u/work/wiki
 
-Requires=online.service
-After=online.service
+Requires=mount-priv.service
+After=mount-priv.service
+
+# gcal accesses and changes ~/work/wiki
+Requisite=synced.target
+After=synced.target
+
+Requires=network-online.service
+After=network-online.service
 
 [Service]
 Type=oneshot
 SyslogIdentifier=gcal-sync
-ExecStart=/usr/bin/make -C "$AB2_WIKI_DIR" ical
+ExecStart=/usr/bin/make -C "${AB2_WIKI_DIR}" ical
 ExecStart=/usr/bin/gcal -S

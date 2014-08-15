@@ -1,9 +1,9 @@
 [Unit]
 Description=desktop environment
-
-StopWhenUnneeded=true
 AllowIsolate=true
 
-Requires=xorg.target
-After=xorg.target
+Conflicts=console.target
+
+Requires=graphical.target
+After=graphical.target
 

@@ -1,11 +1,11 @@
 [Unit]
 Description=Xephyr server at display %i
-After=xorg.target
 
-Requisite=xorg.target
-BindsTo=xserver@%i.target
+Requisite=graphical.target
+After=graphical.target
+
+Requires=xserver@%i.target
 Before=xserver@%i.target
-Conflicts=x11vnc@%i.service vncserver@%i.service xorg@%i.service
 
 [Service]
 Type=simple

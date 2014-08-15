@@ -1,7 +1,7 @@
 [Unit]
 Description=mail checker daemon
-Requires=online.service
-After=online.service
+Requires=network-online.service
+After=network-online.service
 
 [Service]
 Type=simple

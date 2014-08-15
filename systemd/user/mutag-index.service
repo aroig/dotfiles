@@ -1,0 +1,15 @@
+[Unit]
+Description=index mail and news
+
+ConditionPathExists=/home/%u/mail
+
+Requisite=synced.target
+After=synced.target
+
+After=offlineimap.service rss2maildir.service mutag-autotag.service
+Conflicts=mu4e.service
+
+[Service]
+Type=oneshot
+SyslogIdentifier=mutag-index
+ExecStart=/usr/bin/mutag --index --silent

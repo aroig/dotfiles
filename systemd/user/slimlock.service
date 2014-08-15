@@ -1,9 +1,9 @@
 
 [Unit]
 Description=slimlock screen locker
-After=xorg.target
+After=graphical.target
 
-Requisite=xorg.target
+Requisite=graphical.target
 
 # so that when slimlock ends lock.target goes down
 PartOf=lock.target

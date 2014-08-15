@@ -1,0 +1,31 @@
+xkb_keymap {
+    xkb_keycodes {
+        include "evdev+aliases(qwerty)"
+    };
+
+    xkb_types {
+        include "complete" 
+    };
+
+    xkb_compat {
+        include "complete"
+    };
+
+    xkb_symbols {
+        include "pc+es(cat)+inet(evdev)+terminate(ctrl_alt_bksp)"
+
+        key <HYPR> { [ Hyper_L ] };
+        key <CAPS> { [ Hyper_L ] };
+        modifier_map Mod3 { <CAPS>, <HYPR> };
+
+        key <SUPR> { [ Super_L ] };
+        key <LWIN> { [ Super_L ] };
+        key <RWIN> { [ Super_R ] };
+        modifier_map Mod4 { <SUPR>, <LWIN>, <RWIN> };
+    };
+
+    xkb_geometry  { 
+        include "pc(pc105)"
+    };
+};
+

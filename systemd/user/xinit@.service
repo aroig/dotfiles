@@ -1,16 +1,12 @@
 [Unit]
 Description=X initialization commands
-After=xserver@%i.target
-After=xorg@%i.service
-After=vncserver@%i.service
-After=x11vnc@%i.service
-After=xephyr@%i.service
 
 Requisite=xserver@%i.target
+After=xserver@%i.target
+
+After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
 
 [Service]
 Type=oneshot
 Environment=DISPLAY=:%i
-ExecStart=/usr/bin/setxkbmap -option terminate:ctrl_alt_bksp 
-ExecStart=/usr/bin/xset r rate 500 40  
 ExecStart=/bin/bash %h/.config/systemd/conf/xinitrc.d/%H

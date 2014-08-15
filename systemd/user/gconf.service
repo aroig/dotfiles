@@ -1,12 +1,14 @@
 [Unit]
 Description=gconf daemon
 
-Requisite=xorg.target
-After=xorg.target
+Requisite=graphical.target
+After=graphical.target
 
 [Service]
 Type=dbus
 BusName=org.gnome.GConf
+Slice=wm.slice
+
 ExecStart=/usr/lib/GConf/gconfd-2
 SuccessExitStatus=0 1
 
