@@ -51,7 +51,7 @@ alias vp='vimpager'
 alias vc='vimcat'
 alias rsy='rsync -avz --progress --delete'
 alias ediff='emacs -diff'
-alias mr='mr --stats'
+alias mr='mr --stats -t'
 
 alias mailq='msmtp-queue'
 
@@ -87,59 +87,13 @@ trimtrail() {
 }
 
 
-#------------------------------
-# tmux functions
-#------------------------------
-
-# create a new master session detached from the world
-tmux_master() {
-    session="$1"
-    shift
-
-    if [ -f ~/.tmux/$session ]; then  opts_file="$HOME/.tmux/$session"
-    else                              opts_file="$HOME/.tmux/default"
-    fi
-
-    tmux new-session -d -s $session\; source-file "$opts_file"\; "$@"
-}
-
-
-# create a new client session attached to an existing one
-tmux_client() {
-    session="$1"
-    shift
-
-    if [ -f ~/.tmux/$session ]; then  opts_file="$HOME/.tmux/$session"
-    else                              opts_file="$HOME/.tmux/default"
-    fi
-
-    tmux new-session -t $session -s $session-$$\; \
-        source-file "$opts_file"\; set destroy-unattached on\; "$@"
-}
-
-
-# create a new tmux session, launching the master if necessary
-tmux_session() {
-    if [ ! "$1" ]; then 
-        echo "No session specified."
-        exit 1
-    fi
-
-    session="$1"
-    shift
-
-    ( tmux_client $session && exit 0 ) || \
-        ( tmux_master $session && tmux_client $session && exit 0 )
-}
-
 
 #------------------------------
 # Systemd aliases
 #------------------------------
 
-
-alias jctl="sudo journalctl --since=yesterday"
-alias ectl="sudo journalctl --since=yesterday --priority=0..3"
+alias jctl="journalctl --since=yesterday"
+alias ectl="journalctl --since=yesterday --priority=0..3"
 
 alias nctl="sudo netctl"
 alias mctl="sudo machinectl"
@@ -151,7 +105,8 @@ alias actl="systemd-analyze"
 alias nspawn="sudo systemd-nspawn"
 alias sdrun="systemd-run --user"
 
-alias cgls="systemd-cgls --no-pager"
+alias cgls="sdls cgroups"
+alias unls="sdls units"
 alias cgtop="systemd-cgtop"
 
 actl_svg() {
@@ -186,11 +141,13 @@ esac
 
 mk() { MAKE="make -j$threads" make "$@" 2>&1 | colormake; return ${PIPESTATUS[0]}; }
 
+alias make="TERM=xterm make"
+
 alias gan="git annex"
 
 
 #------------------------------
-# sudo gpg etc
+# sudo
 #------------------------------
 
 # If the argument has an alias, expand it, if it has a function, 
@@ -214,11 +171,6 @@ sudo () {
 
 # alias sudo='sudo '        # Enables expanding aliases for next command. not functions though :(
 
-# alias to update tty for the gpg-agent. gpg itself can be aware of the tty,
-# maybe via GPG_TTY environment var, but there is no way that programs using
-# gpg-agent as a ssh-agent can tell it about the tty. So we are stuck with this.
-alias gatty='gpg-connect-agent updatestartuptty /bye'
-
 
 #------------------------------
 # Program shortcuts
@@ -231,13 +183,15 @@ op()  { xdg-open "$@" &> /dev/null &!; }
 # The following commands are aware of the type of terminal they are on. For
 # example ed launches GTK emacs on any terminal except tty's or remote logins
 
+# emacs
 ee() {
     case "$TERM" in
-        screen*|linux*) eval "$EMACSCLIENT -t \"\$@\" > /dev/null" ;;
-        *)              eval "$EMACSCLIENT -c \"\$@\" > /dev/null &!" ;;
+        screen*|linux) eval "$EMACSCLIENT -t \"\$@\"" ;;
+        *)             eval "$EMACSCLIENT -c \"\$@\" > /dev/null &!" ;;
     esac
 }
 
+# kill emacs
 kle() {
     case "$TERM" in
         screen*|linux) eval "$EMACSCLIENT -eval \"(client-save-kill-emacs)\" &> /dev/null"  ;;
@@ -245,12 +199,27 @@ kle() {
     esac
 }
 
+# open tmux session
 tx() {
     if [ "$TMUX" ]; then   tmux new-window
-    else                   tmux_session term
+    else                   tmux_session default
     fi
 }
 
+# detach from tmux
+dt() {
+    if [ "$TMUX" ]; then   tmux detach-client
+    fi
+}
+
+# if inside tmux close window and detach, otherwise just exit
+cl() {
+    if [ "$TMUX" ]; then   tmux unlink-window -k\; detach-client
+    else                   exit 0
+    fi
+}
+
+# new terminal
 tm()  {
     case "$TERM" in
         screen*|linux) tx ;;
@@ -258,6 +227,7 @@ tm()  {
     esac
 }
 
+# ranger session
 rg()  {
     case "$TERM" in
         screen*|linux) eval "ranger \"\$@\"" ;;
@@ -265,6 +235,7 @@ rg()  {
     esac
 }
 
+# open file manager
 fm()  {
     case "$TERM" in
         screen*|linux) eval "ranger \"\$@\"" ;;
@@ -285,15 +256,12 @@ tmd() { echo "ddclient.terminal:newtab('$PWD')" | awesome-client; }
 
 # stx() { startx awesome -- vt$(fgconsole 2>/dev/null); }
 stx() {
-    if [ ! "$1" ]; then  wm=awesome
-    else                 wm="$1"
-    fi
+    
+    # set the vt number from current vt
+    systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
 
-    xvt=vt$(fgconsole)
-    if [ "$?" = '0' ]; then
-        systemctl --user set-environment XORG_VT=$xvt
-        systemctl --user start wm@$wm.target;
-    fi
+    # start the desktop
+    systemctl --user start desktop.target;
 
     # wait until X server finishes and reset the tty
     wait $(pgrep xorg)

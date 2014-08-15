@@ -36,7 +36,7 @@ function add_to_pathlist_left () {
 #------------------------------
 
 export EMACSCLIENT="/usr/bin/emacsclient -s $XDG_RUNTIME_DIR/emacs/server"
-export EMACS="$EMACSCLIENT"                             # emacs
+export EMACS="$EMACSCLIENT -c"                          # emacs
 export EDITOR="/usr/bin/vim"                            # default editor
 export ALTERNATE_EDITOR="/usr/bin/emacs"                # emacsclient uses this if can't find server
 
@@ -69,14 +69,18 @@ export AB2_WIKI_DIR="$AB2_HOME/work/wiki"
 export AB2_PAPERS_DIR="$AB2_HOME/work/papers"
 
 
+
 #------------------------------
 # Gpg Agent settings
 #------------------------------
 
-# NOTE: I use standard sockets, so no need for GPG_AGENT_INFO, which requires
-# runtime info. We only need to set SSH_AUTH_SOCK for emulating the ssh-agent
+# Those sockets are proxied for socket activation!
 export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
-export GPG_TTY=$(tty)
+export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent::1"
+
+# NOTE: I'll use this once I get socket activation working
+# export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.ssh"
+# export GPG_AGENT_INFO="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent::1"
 
 
 
@@ -84,12 +88,20 @@ export GPG_TTY=$(tty)
 # Development environment
 #------------------------------
 
+# Default C/C++ compiler
+export CC=gcc
+export CXX=g++
+
+# Mingw
+export MINGW_ROOT="/usr/x86_64-w64-mingw32"
+
 # Android
-export ANDROID_NDK_TOOLCHAIN_ROOT="$HOME/sdk/android/ndk"
-export ANDROID_SDK_TOOLCHAIN_ROOT="$HOME/sdk/android/sdk"
+export ANDROID_NDK_ROOT="$HOME/sdk/android/ndk"
+export ANDROID_SDK_ROOT="$HOME/sdk/android/sdk"
+export ANDROID_QT_ROOT="$HOME/sdk/android/qt5.2"
 
 # Sailfish
-export SAILFISH_SDK_TOOLCHAIN_ROOT="$HOME/sdk/sailfish/sdk"
+export SAILFISH_SDK_ROOT="$HOME/sdk/sailfish/sdk"
 
 
 
@@ -103,11 +115,16 @@ export SAILFISH_SDK_TOOLCHAIN_ROOT="$HOME/sdk/sailfish/sdk"
 # export NO_AT_BRIDGE=1 
 
 # sage
-# export SAGE_KEEP_BUILT_SPKGS=yes    # don't rebuild from scratch
+export SAGE_KEEP_BUILT_SPKGS='yes'    # don't rebuild from scratch
+export SAGE_INSTALL_GCC='no'
+
 export SAGE_ROOT=$AB2_HOME/sage
 
 # ranger
 export RANGER_LOAD_DEFAULT_RC=FALSE
+
+# java
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
 
 
 #------------------------------
@@ -208,6 +225,14 @@ _SYSTEMD_COLORS=(
 )
 export SYSTEMD_COLORS=$(printf "%s:" "${_SYSTEMD_COLORS[@]}")
 
+# gcc colors
+_GCC_COLORS=(
+    'error=01;31'   'warning=01;33'   'note=01;36' 
+    'caret=01;32'   'locus=00;36'     'quote=00;36'
+)
+
+export GCC_COLORS=$(printf "%s:" "${_GCC_COLORS[@]}")
+
 
 
 #------------------------------
@@ -227,6 +252,9 @@ export PYTHONDOCS=/usr/share/docs/python/html/
 if [[ -d $HOME/.terminfo ]]; then
     export TERMINFO="$HOME/.terminfo:/usr/share/terminfo"
 fi
+
+# cdpath
+# export CDPATH=""
 
 # The path
 add_to_pathlist_left PATH "/usr/lib/ccache/bin"   # ccache binaries before gcc ones
