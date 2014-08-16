@@ -71,7 +71,13 @@ case $action in
 	    xrandr --output $primary --auto --primary --output $secondary --auto --same-as $primary --output $tertiary --off
         xset dpms $dpms_timeout s 0 600      # set dpms and screensaver        
 	    ;;
-	
+
+	hdmi)
+        echo "mirror: $primary, $tertiary"
+	    xrandr --output $primary --auto --primary --output $tertiary --auto --right-of $primary --output $secondary --off
+        xset dpms $dpms_timeout s 0 600      # set dpms and screensaver        
+        ;;
+
     single)
 	    echo "single: $primary"
 	    xrandr --output $primary --auto --primary --output $secondary --off --output $tertiary --off

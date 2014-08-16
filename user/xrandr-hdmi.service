@@ -1,0 +1,10 @@
+[Unit]
+Description=xrandr hdmi xinerama
+After=graphical.target
+Requisite=graphical.target
+
+[Service]
+Type=oneshot
+SyslogIdentifier=xrandr
+ExecStart=/home/abdo/.config/systemd/scripts/xrandr.sh hdmi
+
