@@ -5,7 +5,7 @@ ConditionHost=skynet
 
 OnActiveSec=5
 OnUnitInactiveSec=6h
-Unit=fetch-mail.target
+Unit=fetch-skynet.target
 
 [Install]
 WantedBy=timers.target
