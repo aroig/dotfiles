@@ -1,0 +1,16 @@
+[Unit]
+
+ConditionHost=skynet
+
+Description=fetch mail and news
+StopWhenUnneeded=true
+
+Requires=mail-db.service
+After=mail-db.service
+
+Requires=offlineimap.service
+After=offlineimap.service
+
+Requires=rss2maildir.service
+After=rss2maildir.service
+

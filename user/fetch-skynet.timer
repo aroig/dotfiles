@@ -1,0 +1,11 @@
+[Unit]
+ConditionHost=skynet
+
+[Timer]
+
+OnActiveSec=5
+OnUnitInactiveSec=6h
+Unit=fetch-mail.target
+
+[Install]
+WantedBy=timers.target
