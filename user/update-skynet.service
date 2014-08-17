@@ -1,0 +1,14 @@
+[Unit]
+Description=update home dir files
+
+ConditionHost=skynet
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=update
+ExecStart=/usr/bin/asym recover usersession
+ExecStart=/usr/bin/asym recover shell
+
+ExecStart=/usr/bin/systemctl --user restart setenv
+ExecStart=/usr/bin/systemctl --user daemon-reload
