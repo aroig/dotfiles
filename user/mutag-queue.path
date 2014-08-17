@@ -2,7 +2,6 @@
 Description=watch mail queue
 
 ConditionPathExists=/home/abdo/mail
-ConditionPathExists=/usr/bin/mutag
 
 [Path]
 PathChanged=/home/abdo/mail/queue
