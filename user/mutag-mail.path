@@ -3,6 +3,7 @@ Description=watch mail database changes
 
 ConditionPathExists=/home/abdo/mail
 ConditionPathExists=/home/abdo/.mu/xapian
+ConditionPathExists=/usr/bin/mutag
 
 [Path]
 PathChanged=/home/abdo/.mu/xapian

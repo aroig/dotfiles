@@ -2,6 +2,7 @@
 Description=collect new mail list
 
 ConditionPathExists=/home/%u/mail
+ConditionPathExists=/usr/bin/mutag
 
 After=offlineimap.service
 After=rss2maildir.service

@@ -2,6 +2,7 @@
 Description=index mail and news
 
 ConditionPathExists=/home/%u/mail
+ConditionPathExists=/usr/bin/mutag
 
 Requisite=synced.target
 After=synced.target
