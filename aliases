@@ -95,7 +95,7 @@ trimtrail() {
 alias jctl="journalctl --since=yesterday"
 alias ectl="journalctl --since=yesterday --priority=0..3"
 
-alias nctl="sudo netctl"
+alias nctl="networkctl --no-pager"
 alias mctl="sudo machinectl"
 alias lctl="sudo loginctl"
 alias sctl="sudo systemctl --system"
