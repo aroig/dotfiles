@@ -45,7 +45,8 @@ find_bus_port() {
 
 case $action in
     on)
-        if [ ! -e "/sys/bus/usb/drivers/usb/$usbport" ]; then
+        if [ ! -e "/sys/bus/usb/drivers/usb/$usbport" ] &&
+           [   -e "/sys/bus/usb/drivers/usb/bind" ]; then
             echo "$usbport" > /sys/bus/usb/drivers/usb/bind
         fi
         ;;
