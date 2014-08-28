@@ -1,0 +1,12 @@
+[Unit]
+Description=backup encrypted priv
+
+Requires=mount-priv.service
+After=mount-priv.service
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=backup-priv
+ExecStart=/home/abdo/.config/systemd/scripts/backup-priv.sh
+
