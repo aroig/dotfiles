@@ -106,6 +106,15 @@ export SAILFISH_SDK_ROOT="$HOME/sdk/sailfish/sdk"
 
 
 #------------------------------
+# Wine
+#------------------------------
+
+export WINEPREFIX="$HOME/.wine"
+export WINEARCH=win64
+
+
+
+#------------------------------
 # Application variables
 #------------------------------
 

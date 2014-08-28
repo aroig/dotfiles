@@ -38,6 +38,8 @@ set_tty_colors() {
 #------------------------------
 # Wine aliases
 #------------------------------
+alias winec='wineconsole --backend=curses'
+
 alias kindle='wine "$HOME/.wine/drive_c/Program Files (x86)/Amazon/Kindle/Kindle.exe"'
 alias digitaleditions='wine "$HOME/.wine/drive_c/Program Files (x86)/Adobe/Adobe Digital Editions/digitaleditions.exe"'
 
