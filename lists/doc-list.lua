@@ -35,6 +35,8 @@ return {
 
    xapian                = "file:///usr/share/doc/xapian-core/index.html",
 
+   boost                 = "file:///usr/share/doc/boost/index.html",
+
    -- online docs
    archwiki              = "https://wiki.archlinux.org/index.php/Main_Page",
    zshwiki               = "http://zshwiki.org/home/start",
