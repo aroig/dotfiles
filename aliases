@@ -53,6 +53,7 @@ alias vp='vimpager'
 alias vc='vimcat'
 alias rsy='rsync -avz --progress --delete'
 alias ediff='emacs -diff'
+alias egit='emacs -git'
 alias mr='mr --stats -t'
 
 alias mailq='msmtp-queue'
