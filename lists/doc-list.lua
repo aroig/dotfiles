@@ -5,6 +5,7 @@ local qref_dir = "/home/abdo/work/qref"
 return {
    -- local html docs
    doxygen               = "file:///usr/share/doc/packages/doxygen/html/index.html",
+   cmake                 = "file:///usr/share/doc/cmake/index.html",
 
    python2               = "file:///usr/share/doc/python2/html/index.html",
    python3               = "file:///usr/share/doc/python/html/index.html",
@@ -32,6 +33,7 @@ return {
 
    haskell               = "file:///usr/share/doc/ghc/html/libraries/index.html",
    zsh                   = "file:///usr/share/doc/zsh/zsh.html",
+   bash                  = "file:///usr/share/doc/bash/bashref.html",
    awesome               = "file:///usr/share/doc/awesome/doc/index.html",
 
    org                   = "file:///usr/share/doc/org-mode/org.html",
@@ -43,11 +45,13 @@ return {
 
    boost                 = "file:///usr/share/doc/boost/index.html",
    ogre                  = "file:///usr/share/doc/OGRE/api/html/index.html",
+   openscenegraph        = "file:///usr/share/doc/openscenegraph/openscenegraph/index.html",
+   openthreads           = "file:///usr/share/doc/openscenegraph/openthreads/index.html",
 
    -- online docs
-   archwiki              = "https://wiki.archlinux.org/index.php/Main_Page",
-   zshwiki               = "http://zshwiki.org/home/start",
-   bashwiki              = "http://wiki.bash-hackers.org/doku.php",
+   ["arch-wiki"]         = "https://wiki.archlinux.org/index.php/Main_Page",
+   ["zsh-wiki"]          = "http://zshwiki.org/home/start",
+   ["bash-wiki"]         = "http://wiki.bash-hackers.org/doku.php",
 
    -- TODO: replace PDF docs with html ones
    -- ["latex-qref"]        = apps.pdfviewer  .. string.format(" %s/latex.pdf", qref_dir),
