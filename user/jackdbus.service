@@ -2,8 +2,7 @@
 Description=jack dbus service
 Documentation=man:jack(1)
 
-After=pulseaudio-master.service
-Before=pulseaudio-slave.service
+After=pulseaudio.service
 
 Requires=audio.slice
 After=audio.slice

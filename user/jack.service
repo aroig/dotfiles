@@ -1,1 +1,21 @@
-jack-slave.service
+[Unit]
+Description=jack server
+Documentation=man:jack(1)
+
+Requires=jackdbus.service
+After=jackdbus.service
+
+Requires=audio.slice
+After=audio.slice
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+# we use jackdbus
+ExecStart=/usr/bin/jack_control start
+ExecStop=/usr/bin/jack_control stop
+
+[Install]
+Alias=jack.service
+Also=pulseaudio-master.service
