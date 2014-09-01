@@ -1,0 +1,28 @@
+[Unit]
+Description=jack server
+Documentation=man:jack(1)
+
+Requisite=pulseaudio-master.service
+After=pulseaudio-master.service
+
+Requires=jackdbus.service
+After=jackdbus.service
+
+Requires=audio.slice
+After=audio.slice
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+# we use jackdbus
+ExecStart=/usr/bin/jack_control start
+
+# change sink on pulseaudio master
+# ExecStart=/usr/bin/pactl set-default-sink jack_out
+
+ExecStop=/usr/bin/jack_control stop
+
+[Install]
+Alias=jack.service
+Also=pulseaudio-master.service
