@@ -47,6 +47,7 @@ return {
    ogre                  = "file:///usr/share/doc/OGRE/api/html/index.html",
    openscenegraph        = "file:///usr/share/doc/openscenegraph/openscenegraph/index.html",
    openthreads           = "file:///usr/share/doc/openscenegraph/openthreads/index.html",
+   bullet                = "file:///usr/share/doc/bullet/html/index.html",
 
    -- online docs
    ["arch-wiki"]         = "https://wiki.archlinux.org/index.php/Main_Page",
