@@ -109,7 +109,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F5",     prompt.wikipedia),
     awful.key({ modkey,           }, "F6",     prompt.mathscinet),
 
-    awful.key({ modkey,           }, "c",      prompt.docs),
+    awful.key({ modkey,           }, "z",      prompt.docs),
     awful.key({ modkey,           }, "s",      prompt.lua),
     awful.key({ modkey,           }, "x",      prompt.command),
     awful.key({ modkey,           }, "d",      prompt.dropdown),
