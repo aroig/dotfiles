@@ -1,5 +1,8 @@
 [Unit]
 Description=alsa to jack bridge %i
+# NOTE: this bridge requires:
+#  - kernel module snd_aloop 
+#  - special config in ~/.asoundrc
 
 Requires=jack.service
 After=jack.service
