@@ -1,5 +1,5 @@
 [Unit]
-Description=novation impulse
+Description=novation impulse power
 ConditionHost=grothendieck
 
 [Service]
@@ -7,7 +7,7 @@ Type=oneshot
 SyslogIdentifier=impulse
 RemainAfterExit=true
 
-ExecStart=/usr/bin/sudo /home/abdo/.config/systemd/scripts/usbpower.sh "on" "6-2"
-ExecStop=/usr/bin/sudo /home/abdo/.config/systemd/scripts/usbpower.sh "off" "6-2"
+ExecStart=/home/abdo/.config/systemd/scripts/usbpower.sh "on" "6-2"
+ExecStop=/home/abdo/.config/systemd/scripts/usbpower.sh "off" "6-2"
 
 

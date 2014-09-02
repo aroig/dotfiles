@@ -9,6 +9,14 @@
 action="$1"
 usbport="$2"
 
+# Echo something as root
+# Example:
+#  $ sudo_echo "blah" /home/abdo/test
+
+sudo_echo() {
+    sudo sh -c "echo \"$1\" > \"$2\"" 
+}
+
 
 # Find bus device from a vendor string
 # Example:
@@ -47,15 +55,15 @@ case $action in
     on)
         if [ ! -e "/sys/bus/usb/drivers/usb/$usbport" ] &&
            [   -e "/sys/bus/usb/drivers/usb/bind" ]; then
-            echo "$usbport" > /sys/bus/usb/drivers/usb/bind
+            sudo_echo "$usbport" /sys/bus/usb/drivers/usb/bind
         fi
         ;;
     
     off)
         if [ -e "/sys/bus/usb/drivers/usb/$usbport" ]; then       
-            echo "0" > /sys/bus/usb/devices/$usbport/power/autosuspend
-            echo "auto" > /sys/bus/usb/devices/$usbport/power/control
-            echo "$usbport" > /sys/bus/usb/drivers/usb/unbind
+            sudo_echo "0" /sys/bus/usb/devices/$usbport/power/autosuspend
+            sudo_echo "auto" /sys/bus/usb/devices/$usbport/power/control
+            sudo_echo "$usbport" /sys/bus/usb/drivers/usb/unbind
         fi
         ;;
 
