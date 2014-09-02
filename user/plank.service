@@ -1,0 +1,9 @@
+[Unit]
+Description=Plank dock
+
+Requisite=graphical.target
+After=graphical.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/plank
