@@ -112,6 +112,9 @@ alias cgls="sdls cgroups"
 alias unls="sdls units"
 alias cgtop="systemd-cgtop"
 
+alias cmctl="connmanctl"
+alias udctl="udisksctl"
+
 actl_svg() {
     cmd="$1"; shift
     if [ "$cmd" = "dot" ]; then systemd-analyze dot "$@" | dot -Tsvg
