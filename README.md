@@ -14,3 +14,25 @@ User Units
   enforces to run xorg within a session.
   
   http://lists.x.org/archives/xorg-devel/2014-February/040476.html
+
+
+## Targets and services
+* Window manager states
+  - `desktop.target`
+  - `laptop.target`
+  - `tablet.target`
+* Sync services
+  - `sync-hi.service`
+  - `sync-bye.service`
+  - `sync-byez.service`
+  - `sync-fake.service`
+* Audio
+  - `audio.target`
+  - `jack.target`
+* Fetching
+  - `fetch.target`
+  - `fetch-mail.target`
+  - `fetch-news.target`
+  - `fetch-contacts.target`
+
+
