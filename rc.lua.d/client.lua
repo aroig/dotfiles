@@ -166,6 +166,10 @@ rules.rules = {
                             "Vmpk" } },
       properties = { floating = true } },
 
+    -- Panel
+    { rule_any = { class = { "Tint2", "Plank"} },
+      properties = { floating = true } },
+
     -- Float dialogs
     { rule_any = { name = {"Print"} },
       properties = { floating = true } },
