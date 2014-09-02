@@ -4,8 +4,8 @@ Description=chat
 Requires=mount-priv.service
 After=mount-priv.service
 
-Requisite=desktop.target
-After=desktop.target
+Requisite=wm.target
+After=wm.target
 
 Requires=chat-db.service
 After=chat-db.service

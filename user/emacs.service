@@ -3,8 +3,8 @@ Description=emacs daemon
 
 # need a dependency on xorg. otherwise, when X quits emacs crashes.
 # emacsclient says something about a long standing GTK bug.
-Requisite=desktop.target
-After=desktop.target
+Requisite=wm.target
+After=wm.target
 
 Requires=apps.slice
 After=apps.slice

@@ -1,8 +1,8 @@
 [Unit]
 Description=supercollider emacs client
 
-Requisite=desktop.target
-After=desktop.target
+Requisite=wm.target
+After=wm.target
 
 Requires=scsynth.service
 After=scsynth.service

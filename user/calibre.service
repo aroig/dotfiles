@@ -2,8 +2,8 @@
 Description=calibre
 After=graphical.target
 
-Requisite=desktop.target 
-After=desktop.target
+Requisite=wm.target 
+After=wm.target
 
 Requires=calibre-db.service
 After=calibre-db.service

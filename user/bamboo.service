@@ -9,6 +9,3 @@ Requisite=graphical.target
 Type=oneshot
 SyslogIdentifier=bamboo
 ExecStart=/home/abdo/.config/systemd/scripts/bamboo.sh
-
-[Install]
-WantedBy=desktop.target

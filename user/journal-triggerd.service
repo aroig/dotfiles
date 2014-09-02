@@ -1,7 +1,7 @@
 [Unit]
 Description=triggers on journal messages
 
-After=desktop.target
+After=wm.target
 
 [Service]
 Type=simple

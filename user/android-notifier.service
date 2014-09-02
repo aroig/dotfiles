@@ -9,5 +9,3 @@ Type=simple
 ExecStart=/usr/bin/android-notifier
 ExecStop=/usr/bin/android-notifier --stop
 
-[Install]
-WantedBy=desktop.target
