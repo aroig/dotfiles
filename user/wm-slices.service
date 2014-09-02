@@ -1,10 +1,10 @@
 [Unit]
-Description=manage desktop slices
+Description=manage wm slices
 # NOTE: we need this because we can't add Requires deps on transient units, and
-# need to manually kill those slices before desktop goes down.
+# need to manually kill those slices before wm goes down.
 
-PartOf=desktop.target
-Before=desktop.target
+PartOf=wm.target
+Before=wm.target
 
 Requires=apps.slice dropdown.slice
 After=apps.slice dropdown.slice

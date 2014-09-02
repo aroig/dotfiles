@@ -1,8 +1,8 @@
 [Unit]
-Description=desktop environment
+Description=desktop configuration
 AllowIsolate=true
 
-Conflicts=console.target
+Conflicts=console.target laptop.target tablet.target
 
 Requires=graphical.target
 After=graphical.target

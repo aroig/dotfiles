@@ -1,0 +1,9 @@
+[Unit]
+Description=window manager
+Conflicts=console.target
+
+Requires=wm.target
+After=wm.target
+
+
+After=awesome@0.service

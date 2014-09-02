@@ -1,0 +1,6 @@
+[Unit]
+Description=graphical daemons
+
+Requires=graphical.target
+After=graphical.target
+

@@ -1,9 +1,8 @@
 [Unit]
-Description=tty console
-
-StopWhenUnneeded=true
+Description=console configuration
 AllowIsolate=true
 
-Conflicts=graphical.target
+Conflicts=graphical.target 
+Conflicts=laptop.target desktop.target tablet.target
 
 

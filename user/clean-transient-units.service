@@ -1,6 +1,5 @@
 [Unit]
 Description=Clean user transient units
-Conflicts=desktop-slices.service
 
 [Service]
 Type=oneshot
