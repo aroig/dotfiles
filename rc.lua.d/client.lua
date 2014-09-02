@@ -149,7 +149,7 @@ capi.client.connect_signal("focus",
 -- awful rules
 rules.rules = {
     -- All clients will match this rule.
-    { rule = { },
+    { rule = { }, except_any = { class = {"Tint2", "Plank"} },
       properties = { border_width = 1,
                      -- border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
@@ -161,13 +161,15 @@ rules.rules = {
                      maximized_horizontal = false,
                      size_hints_honor = false } },
 
+    -- Panels or docks
+    { rule_any = { class = { "Tint2", "Plank"} },
+      properties = { floating = true,
+                     focus = false } },
+
+
     -- Floats
     { rule_any = { class = {"Qpaeq", "Qjackctl", "Unison-gtk2", "pinentry", "Skype", "Pavucontrol", "Pidgin",
                             "Vmpk" } },
-      properties = { floating = true } },
-
-    -- Panel
-    { rule_any = { class = { "Tint2", "Plank"} },
       properties = { floating = true } },
 
     -- Float dialogs
