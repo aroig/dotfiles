@@ -1,8 +1,8 @@
 [Unit]
 Description=music midi studio
 
-Wants=jack.service impulse.service
-After=jack.service impulse.service
+Wants=jack.service
+After=jack.service
 
 Wants=qjackctl-studio.service qtractor.service yoshimi.service fluidsynth.service
 After=qjackctl-studio.service qtractor.service yoshimi.service fluidsynth.service

@@ -1,0 +1,5 @@
+[Unit]
+Description=Jack server
+
+# We let pulse handle everything and then jack steals the main device.
+Requires=pulseaudio.service

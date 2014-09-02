@@ -5,6 +5,9 @@ Documentation=man:jack(1)
 Requires=jackdbus.service
 After=jackdbus.service
 
+PartOf=jack.target
+Before=jack.target
+
 Requires=audio.slice
 After=audio.slice
 
