@@ -1,16 +1,16 @@
 [Unit]
-Description=gconf daemon
+Description=dconf daemon
 
 Requisite=graphical.target
 After=graphical.target
 
 [Service]
 Type=dbus
-BusName=org.gnome.GConf
+BusName=ca.desrt.dconf
 Slice=wm.slice
 
-ExecStart=/usr/lib/GConf/gconfd-2
+ExecStart=/usr/lib/dconf/dconf-service
 SuccessExitStatus=0 1
 
 [Install]
-Alias=dbus-org.gnome.GConf.service
+Alias=dbus-ca.desrt.dconf.service

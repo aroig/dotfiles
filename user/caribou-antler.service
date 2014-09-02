@@ -1,0 +1,23 @@
+[Unit]
+Description=onscreen keyboard daemon
+
+Requires=graphical.target
+After=graphical.target
+
+Requires=dconf.service
+After=dconf.service
+
+Requisite=at-spi-bus.service
+After=at-spi-bus.service
+
+PartOf=caribou.service
+
+[Service]
+Type=dbus
+BusName=org.gnome.Caribou.Keyboard
+Slice=wm.slice
+
+ExecStart=/usr/lib/caribou/antler-keyboard
+
+[Install]
+Alias=dbus-org.gnome.Caribou.Keyboard.service

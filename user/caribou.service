@@ -1,0 +1,18 @@
+[Unit]
+Description=onscreen keyboard
+
+Requires=at-spi-bus.service
+After=at-spi-bus.service
+
+Requisite=graphical.target
+After=graphical.target
+
+Requires=caribou-antler.service
+After=caribou-antler.service
+
+[Service]
+Type=simple
+Slice=wm.slice
+
+ExecStart=/usr/bin/caribou
+
