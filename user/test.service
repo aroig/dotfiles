@@ -3,4 +3,5 @@ Description=a testing service
 
 [Service]
 Type=oneshot
+SyslogIdentifier=test
 ExecStart=/usr/bin/echo "Hello World"
