@@ -15,14 +15,16 @@ theme.confdir = util.getdir("config") .. "/themes/zenburn"
 
 
 -- {{{ Fonts
+-- TODO: devise a scheme to use fontconfig to rescale fonts and keep this
+-- machine agnostic. The problem is the wibox_height!
 local font_size    = 13
 
 -- basic awesome fonts
-theme.font         = string.format("Lucida Sans %d", font_size - 2)
-theme.font_naughty = string.format("Overlock %s", font_size)
+theme.font         = string.format("Overlock %d", font_size - 1)
+theme.font_naughty = string.format("Overlock %s", font_size + 1)
 theme.font_symbol  = string.format("FontAwesome, Symbola %d", font_size - 3)
 
-theme.font_mono    = string.format("Ubuntu Mono %d", font_size-1)
+theme.font_mono    = string.format("monospace %d", font_size - 1)
 theme.font_box     = theme.font_mono
 -- }}}
 
