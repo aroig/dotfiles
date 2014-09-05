@@ -194,13 +194,13 @@
 )
 
 ;; coq
-(when (locate-library "coq")
-  (require 'coq)
-  (require 'abdo-coq)
-)
-(when (locate-library "proof-site")
-  (require 'proof-site)
-)
+; (when (locate-library "coq")
+;   (require 'coq)
+;   (require 'abdo-coq)
+; )
+; (when (locate-library "proof-site")
+;   (require 'proof-site)
+; )
 
 ;; tex
 (when (locate-library "tex-site")
