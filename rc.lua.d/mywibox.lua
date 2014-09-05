@@ -4,7 +4,9 @@
 -- Author:  Abdó Roig<abdo.roig@gmail.com>                   --
 ---------------------------------------------------------------
 
-local wibox   = require("wibox")
+local wibox     = require("wibox")
+local beautiful = beautiful
+
 
 
 -----------------------------------
@@ -24,7 +26,7 @@ mywibox = {}
 -- Create a wibox for each screen and add it
 for s = 1, screen.count() do
    -- Create the wibox
-   mywibox[s] = awful.wibox({ position = "top", screen = s, height=16 })
+   mywibox[s] = awful.wibox({ position = "top", screen = s, height=beautiful.wibox_height })
    -- Add widgets to the wibox - order matters
 
 

@@ -5,6 +5,8 @@
 -------------------------------
 
 local util = require("awful.util")
+local string = string
+
 
 -- {{{ Main
 theme = {}
@@ -13,16 +15,21 @@ theme.confdir = util.getdir("config") .. "/themes/zenburn"
 
 
 -- {{{ Fonts
-theme.font         = "Lucida Sans 10"
-theme.font_naughty = "Overlock 12"
+local font_size    = 13
 
---- theme.font_symbol  = "Symbola 9"
-theme.font_symbol  = "FontAwesome, Symbola 9"
+-- basic awesome fonts
+theme.font         = string.format("Lucida Sans %d", font_size - 2)
+theme.font_naughty = string.format("Overlock %s", font_size)
+theme.font_symbol  = string.format("FontAwesome, Symbola %d", font_size - 2)
 
-theme.font_mono    = "Ubuntu Mono 11"
+theme.font_mono    = string.format("Ubuntu Mono %d", font_size - 1)
 theme.font_box     = theme.font_mono
 -- }}}
 
+-- {{{ Wibox
+-- let's do a linear interpolation from known values I like, so font_size controls everything!
+theme.wibox_height = 16 + 3 * (font_size - 12)
+-- }}}
 
 -- {{{ Named Colors
 theme.color_fg     = "#dcdccc"
