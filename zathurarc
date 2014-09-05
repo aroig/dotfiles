@@ -46,7 +46,7 @@ set statusbar-bg            "#1f1f1f"
 # GUI options
 # ----------------------------------------------------------
 
-set font                    "terminal"
+set font                    "terminal 12"
 
 set statusbar-basename      true
 set selection-clipboard     clipboard
