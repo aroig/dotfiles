@@ -5,7 +5,8 @@
 ---------------------------------------------------------------
 
 local wibox     = require("wibox")
-local beautiful = beautiful
+
+local host_config = host_config
 
 
 
@@ -26,7 +27,7 @@ mywibox = {}
 -- Create a wibox for each screen and add it
 for s = 1, screen.count() do
    -- Create the wibox
-   mywibox[s] = awful.wibox({ position = "top", screen = s, height=beautiful.wibox_height })
+   mywibox[s] = awful.wibox({ position = "top", screen = s, height=host_config.wibox_height })
    -- Add widgets to the wibox - order matters
 
 

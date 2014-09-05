@@ -9,18 +9,22 @@ local awful = awful
 local hosts = {
     grothendieck = {
         thermal = {"hwmon1", {"temp1"} },
+        wibox_height = 16,
     },
 
     galois = {
         thermal = {"hwmon1", { "temp2", "temp3"} },
+        wibox_height = 20,
     },
 
     hodge = {
         thermal = {"hwmon0", { "temp2"} },
+        wibox_height = 16,
     },
 
     default = {
         thermal = {"hwmon0", {"temp2"} },
+        wibox_height = 16,
     }
 }
 
