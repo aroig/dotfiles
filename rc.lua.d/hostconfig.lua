@@ -8,19 +8,19 @@ local awful = awful
 
 local hosts = {
     grothendieck = {
-        thermal = {"hwmon1", "temp1"},
+        thermal = {"hwmon1", {"temp1"} },
     },
 
     galois = {
-        thermal = {"hwmon0", "temp2"},
+        thermal = {"hwmon1", { "temp2", "temp3"} },
     },
 
     hodge = {
-        thermal = {"hwmon0", "temp2"},
+        thermal = {"hwmon0", { "temp2"} },
     },
 
     default = {
-        thermal = {"hwmon0", "temp2"},
+        thermal = {"hwmon0", {"temp2"} },
     }
 }
 
