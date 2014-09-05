@@ -479,6 +479,7 @@ function myw.bat.update()
         myw.bat.tooltip.textbox:set_markup("<b>Time remaining:</b> " .. args.time)
     end
 
+    myw.bat.state = args.state
     myw.bat.rate = args.rate
     myw.bat.percent = args.percent
     myw.bat.time = args.time
