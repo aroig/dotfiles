@@ -220,10 +220,24 @@ globalkeys = awful.util.table.join(
     -- Desktop stuff
     awful.key({ modkey, ctrlkey },   "Print",     function () shexec(apps.print)                       end),
 
+    -- awful.key({}, "XF86Tools",                    function ()                                          end),
+    -- awful.key({}, "XF86Search",                   function ()                                          end),
+    -- awful.key({}, "XF86LaunchA",                  function ()                                          end),
+    -- awful.key({}, "XF86MyComputer",               function ()                                          end),
+
+    -- Brightness
+    awful.key({}, "XF86MonBrightnessUp",          function () shexec("xbacklight -inc 5%")             end),
+    awful.key({}, "XF86MonBrightnessDown",        function () shexec("xbacklight -dec 5%")             end),
+
     -- Music
     awful.key({ modkey, ctrlkey   }, "Home",      function () shexec("mpc -q toggle")                  end),
     awful.key({ modkey, ctrlkey   }, "Page_Up",   function () shexec("mpc -q prev")                    end),
     awful.key({ modkey, ctrlkey   }, "Page_Down", function () shexec("mpc -q next")                    end),
+
+    awful.key({}, "XF86AudioRaiseVolume",         function () shexec("pvol +2db")                      end),
+    awful.key({}, "XF86AudioLowerVolume",         function () shexec("pvol -2db")                      end),
+    -- awful.key({}, "XF86AudioMute",                function () shexec("???")                            end),
+    -- awful.key({}, "XF86AudioMicMute",             function () shexec("???")                            end),
 
     awful.key({ modkey, ctrlkey   }, "Insert",    function () shexec("pvol +2db")                      end),
     awful.key({ modkey, ctrlkey   }, "Delete",    function () shexec("pvol -2db")                      end)
