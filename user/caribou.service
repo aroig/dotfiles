@@ -10,6 +10,8 @@ After=graphical.target
 Requires=caribou-antler.service
 After=caribou-antler.service
 
+StopWhenUnneeded=true
+
 [Service]
 Type=simple
 Slice=wm.slice

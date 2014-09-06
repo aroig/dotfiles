@@ -4,6 +4,8 @@ Description=Plank dock
 Requisite=graphical.target
 After=graphical.target
 
+StopWhenUnneeded=true
+
 [Service]
 Type=simple
 ExecStart=/usr/bin/plank

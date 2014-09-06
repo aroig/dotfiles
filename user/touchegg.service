@@ -4,6 +4,8 @@ Description=gesture recognizer
 Requisite=graphical.target
 After=graphical.target
 
+StopWhenUnneeded=true
+
 [Service]
 Type=simple
 Slice=wm.slice
