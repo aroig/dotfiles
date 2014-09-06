@@ -9,7 +9,7 @@ local awful = awful
 local hosts = {
     grothendieck = {
         thermal = {"hwmon1", {"temp1"} },
-        wibox_height = 16,
+        wibox_height = 18,
     },
 
     galois = {

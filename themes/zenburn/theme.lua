@@ -20,9 +20,9 @@ theme.confdir = util.getdir("config") .. "/themes/zenburn"
 -- fontconfig on a per-host basis.
 
 -- basic awesome fonts
-theme.font         = "desktop 10.5"
-theme.font_mono    = "terminal 10.5"
-theme.font_symbol  = "desktop-symbols 10.5"
+theme.font         = "desktop 11"
+theme.font_mono    = "terminal 11"
+theme.font_symbol  = "desktop-symbols 11"
 
 theme.font_naughty = "desktop 14"
 theme.font_box     = "terminal 12"
