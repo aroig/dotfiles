@@ -164,7 +164,7 @@ myw.net.dwdg = wibox.widget.textbox()
 myw.net.uwdg = wibox.widget.textbox()
 
 myw.net.icon = wibox.widget.textbox()
-myw.net.icon:set_markup(wiboxicon('downup', beautiful.color_widget) .. " ")
+myw.net.icon:set_markup(wiboxicon('download', beautiful.color_widget) .. " ")
 
 myw.net.value = { up=-1, down=-1 }
 
@@ -449,16 +449,12 @@ function myw.bat.update()
         local color_percent = util.gradient(gradcols_rev, 0, 100, args.percent)
         local text_icon = ""
 
-        if args.state == 'charging' or args.state == 'charged' then
-            text_icon = wiboxicon("cable", beautiful.color_widget)
-        else
-            text_icon = wiboxicon("battery", beautiful.color_widget)
-        end
+        text_icon = wiboxicon("power", beautiful.color_widget)
 
         local battery_state = {
-            full        = "⚡",
+            full        = " ",
             unknown     = "?",
-            charged     = "⚡",
+            charged     = " ",
             charging    = "+",
             discharging = "-"
         }
@@ -501,27 +497,32 @@ timers.fast:connect_signal("timeout", myw.bat.update)
 myw.sys = {}
 myw.sys.sync = require("abdo.widget.filex")
 myw.sys.priv = require("abdo.widget.filex")
+myw.sys.data = require("abdo.widget.filex")
+
 myw.sys.syncwdg = wibox.widget.textbox()
 myw.sys.privwdg = wibox.widget.textbox()
+myw.sys.datawdg = wibox.widget.textbox()
 
 function myw.sys.update()
     local priv_state = myw.sys.priv(nil, {os.getenv("AB2_PRIV_DIR") .. "/README"})
     local sync_state = myw.sys.sync(nil, {os.getenv("XDG_RUNTIME_DIR") .. "/synced"})
+    local data_state = myw.sys.sync(nil, {"/data/abdo"})
 
     local icon
-    if priv_state then
-        icon = wiboxicon("unlocked", beautiful.color_widget)
-    else
-        icon = wiboxicon("locked", beautiful.color_widget_alert)
+    if priv_state then icon = wiboxicon("unlocked", beautiful.color_widget)
+    else               icon = wiboxicon("locked", beautiful.color_widget_alert)
     end
     myw.sys.privwdg:set_markup(icon .. ' ')
 
-    if sync_state then
-        icon = wiboxicon('sync', beautiful.color_widget)
-    else
-        icon = wiboxicon('sync', beautiful.color_widget_alert)
+    if sync_state then icon = wiboxicon('sync', beautiful.color_widget)
+    else               icon = wiboxicon('sync', beautiful.color_widget_alert)
     end
     myw.sys.syncwdg:set_markup(icon .. ' ')
+
+    if data_state then icon = wiboxicon('disk', beautiful.color_widget)
+    else               icon = wiboxicon('disk', beautiful.color_widget_alert)
+    end
+    myw.sys.datawdg:set_markup(icon .. ' ')
 end
 
 timers.normal:connect_signal("timeout", myw.sys.update)

@@ -132,13 +132,20 @@ theme.mouse_finder_color = theme.color_red
 -- {{{ Wibox font icons from Font Awesome
 theme.wibox = {}
 
-theme.wibox.memory     = "&#xf145;"   -- hdd: &#xf0a0;  ticket: &#xf145;
+theme.wibox.check      = "&#xf00c;"
+theme.wibox.cross      = "&#xf00d;"
+
+theme.wibox.memory     = "&#xf145;"   -- ticket: &#xf145;
 theme.wibox.cpu        = "&#xf013;"
+theme.wibox.disk       = "&#xf0a0;"
+theme.wibox.gauge      = "&#xf0e4;"
+theme.wibox.network    = "&#xf0e8;"
+theme.wibox.wifi       = "&#xf012;"
 theme.wibox.sync       = "&#xf021;"
+
 theme.wibox.poweroff   = "&#xf011;"
 
-theme.wibox.music      = "&#xf001;"   -- unicode: &#x266b;   -- fontawesome: &#xf001;
-
+theme.wibox.music      = "&#xf001;"
 theme.wibox.headphones = "&#xf025;"
 theme.wibox.speaker    = "&#xf028;"
 theme.wibox.mute       = "&#xf026;"
@@ -151,6 +158,8 @@ theme.wibox.warning    = "&#xf06a;"
 theme.wibox.locked     = "&#xf023;"
 theme.wibox.unlocked   = "&#xf09c;"
 
+theme.wibox.upload     = "&#xf093;"
+theme.wibox.download   = "&#xf019;"
 theme.wibox.downup     = "&#x1f504;"   -- unicode symbol
 theme.wibox.mail       = "&#xf003;"    -- outline &#xf003;  filled &#xf0e0;
 
@@ -160,6 +169,7 @@ theme.wibox.orgmode    = "&#xf022;"
 theme.wibox.desktop    = "&#xf108;"
 theme.wibox.laptop     = "&#xf109;"
 
+theme.wibox.power      = "&#xf0e7;"
 theme.wibox.cable      = "&#x1f50c;"  -- unicode symbol
 theme.wibox.battery    = "&#x1f50b;"  -- unicode symbol
 
