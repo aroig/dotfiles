@@ -1,5 +1,6 @@
 [Unit]
 Description=novation impulse device
 
+# Alias set in udev rules
 BindsTo=sys-subsystem-sound-devices-impulse.device
 After=sys-subsystem-sound-devices-impulse.device

@@ -1,2 +1,6 @@
 [Unit]
 Description=computer docked
+
+# Alias set in udev rules
+BindsTo=sys-subsystem-usb-devices-dock.device
+After=sys-subsystem-usb-devices-dock.device

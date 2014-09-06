@@ -1,12 +1,7 @@
 [Unit]
 Description=hypathia device
 
-# I set this as a SYSTEMD_ALIAS in the udev rule, according to where
-# sysfs naming scheme is going.
+# Alias set in udev rules
 BindsTo=sys-subsystem-block-devices-hypathia.device
 After=sys-subsystem-block-devices-hypathia.device
 
-# If If I wanted to wait until it is mounted. I prefer to handle mounting
-# myself so that I can make sure it gets umounted after use.
-# BindsTo=media-hypathia.mount
-# After=media-hypathia.mount

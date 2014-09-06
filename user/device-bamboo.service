@@ -1,9 +1,15 @@
 [Unit]
-Description=Setup bamboo tablet coordinates
-After=graphical.target
+Description=bamboo tablet setup
+
+# The settings are tuned to grothendieck
 ConditionHost=grothendieck
 
 Requisite=graphical.target
+After=graphical.target
+
+# Alias set in udev rules
+BindsTo=sys-subsystem-input-devices-bamboo.device
+After=sys-subsystem-input-devices-bamboo.device
 
 [Service]
 Type=oneshot
