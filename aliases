@@ -113,7 +113,10 @@ alias unls="sdls units"
 alias cgtop="systemd-cgtop"
 
 alias cmctl="connmanctl"
+
 alias udctl="udisksctl"
+alias mount-data="udisksctl mount -b /dev/disk/by-label/galois:data"
+alias umount-data="udisksctl unmount -b /dev/disk/by-label/galois:data"
 
 actl_svg() {
     cmd="$1"; shift
