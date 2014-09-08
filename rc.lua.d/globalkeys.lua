@@ -239,8 +239,8 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioLowerVolume",         function () shexec("pvol -2db")                      end),
 
     -- TODO: mute stuff
-    -- awful.key({}, "XF86AudioMute",                function () shexec("???")                            end),
-    -- awful.key({}, "XF86AudioMicMute",             function () shexec("???")                            end),
+    awful.key({}, "XF86AudioMute",                function () shexec("pvol mute-sink")                 end),
+    awful.key({}, "XF86AudioMicMute",             function () shexec("pvol mute-source")               end),
 
     awful.key({ modkey, ctrlkey   }, "Insert",    function () shexec("pvol +2db")                      end),
     awful.key({ modkey, ctrlkey   }, "End",       function () shexec("pvol +2db")                      end), -- for galois
