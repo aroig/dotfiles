@@ -630,10 +630,10 @@ myw.layoutbox = {}
 for s = 1, screen.count() do
    myw.layoutbox[s] = awful.widget.layoutbox(s)
    myw.layoutbox[s]:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-                           awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
+                           awful.button({ }, 1, function () awful.layout.inc(1, nil, layouts) end),
+                           awful.button({ }, 3, function () awful.layout.inc(-1, nil, layouts) end),
+                           awful.button({ }, 4, function () awful.layout.inc(1, nil, layouts) end),
+                           awful.button({ }, 5, function () awful.layout.inc(-1, nil, layouts) end)))
  end
 
 
