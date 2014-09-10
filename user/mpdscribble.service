@@ -4,8 +4,8 @@ Description=mpd scribbler
 Requisite=synced.target
 After=synced.target
 
-Requires=mpd.socket mpd.service
-After=mpd.service
+Requisite=mpd.socket
+After=mpd.socket
 
 Requires=audio.slice
 After=audio.slice
@@ -13,6 +13,5 @@ After=audio.slice
 [Service]
 Type = simple
 ExecStart = /usr/bin/mpdscribble -D
-Restart = always
 
 Slice=audio.slice
