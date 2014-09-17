@@ -19,8 +19,9 @@ return {
    gmpc                      = "gmpc.service",
    goldendict                = "goldendict.service",
 
-   deluge                    = "deluge-gtk",
-   amule                     = "amulegui",
+   deluge                    = "deluge.service",
+   amule                     = "amule.service",
+
    pidgin                    = "pidgin",
    skype                     = "skype",
    guvcview                  = "guvcview",
