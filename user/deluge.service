@@ -1,0 +1,19 @@
+[Unit]
+Description=deluge client
+After=graphical.target
+
+Requisite=wm.target 
+After=wm.target
+
+Requires=deluged.service
+After=deluged.service
+
+[Service]
+Type=simple
+
+SyslogIdentifier=deluge
+Slice=apps.slice
+
+ExecStart=/usr/bin/deluge
+
+

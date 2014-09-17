@@ -1,0 +1,19 @@
+[Unit]
+Description=amule client
+After=graphical.target
+
+Requisite=wm.target 
+After=wm.target
+
+Requires=amuled.service
+After=amuled.service
+
+[Service]
+Type=simple
+
+SyslogIdentifier=amule
+Slice=apps.slice
+
+ExecStart=/usr/bin/amulegui
+
+
