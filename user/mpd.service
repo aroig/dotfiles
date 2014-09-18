@@ -7,10 +7,6 @@ After=synced.target
 Requires=mpd.socket
 After=mpd.socket
 
-Wants=mpdscribble.service
-
-PartOf=audio.target
-
 Requires=pulseaudio.service
 After=pulseaudio.service
 

@@ -4,8 +4,8 @@ Description=mpd scribbler
 Requisite=synced.target
 After=synced.target
 
-Requisite=mpd.socket
-After=mpd.socket
+Requires=mpd.socket mpd.service
+After=mpd.socket mpd.service
 
 Requires=audio.slice
 After=audio.slice
