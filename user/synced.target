@@ -1,6 +1,6 @@
 [Unit]
 Description=synced
-AllowIsolate=true
+RefuseManualStart=true
 
 BindsTo=flag@synced.service
 After=flag@synced.service
