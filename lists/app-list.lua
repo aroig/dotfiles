@@ -22,6 +22,9 @@ return {
    deluge                    = "deluge.service",
    amule                     = "amule.service",
 
+   extempore                 = "extempore.service",
+   sclang                    = "sclang.service",
+
    pidgin                    = "pidgin",
    skype                     = "skype",
    guvcview                  = "guvcview",
