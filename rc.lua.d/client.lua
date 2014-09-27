@@ -176,6 +176,10 @@ rules.rules = {
     { rule_any = { name = {"Print"} },
       properties = { floating = true } },
 
+    -- Float youtube, etc.
+    { rule_any = { instance = { "plugin-container", "exe" } },
+      properties = { floating = true, focus = true } },
+
     -- Centered floats
     { rule_any = { class = {"mpv", "MPlayer", "feh"} },
       properties = { floating = true },
