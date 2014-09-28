@@ -23,7 +23,7 @@ SyslogIdentifier=extempore
 # Also, the it does not provide a stand-alone jack port, it must be connected to
 # something else (via the --device argument), to make the jack port appear...
 
-ExecStart=/home/abdo/.config/systemd/scripts/extempore-server.sh --port 7099 --samplerate 48000 --frames 128 
+ExecStart=/home/abdo/.config/systemd/scripts/extempore-server.sh --port 7099 --samplerate 44100 --frames 128 
 
 # NOTE: This produces a lot of XRUN's on jack. I don't know what's the problem...
 

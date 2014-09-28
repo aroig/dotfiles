@@ -9,7 +9,7 @@ After=audio.slice
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/fluidsynth -si -a jack -m jack -r 48000 -o synth.cpu-cores=2
+ExecStart=/usr/bin/fluidsynth -si -a jack -m jack -r 44100 -o synth.cpu-cores=2
 
 
 # realtime scheduling
