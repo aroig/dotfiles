@@ -20,6 +20,7 @@ return {
    iftop                 = apps.termcmd("sudo iftop", "iftop-monitor"),
    iotop                 = apps.termcmd("sudo iotop", "iotop-monitor"),
    radeontop             = apps.termcmd("sudo radeontop", "radeontop-monitor"),
+   atop                  = apps.termcmd("atop -af 1", "atop"),
    midi                  = apps.termcmd("jack_midi_dump", "midi-monitor"),
 
    -- sync and update actions
