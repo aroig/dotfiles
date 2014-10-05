@@ -122,22 +122,30 @@
 (require 'ansi-color)                    ;; tools to handle ansi escape sequences
 (require 'cl)                            ;; Common lisp support
 
-;; Basic interactive stuff
-(unless batch-mode
+;; Undo-tree
+(when (and (locate-library "undo-tree") (not batch-mode))
   (require 'undo-tree)                   ;; Undo tree
-  (require 'abdo-modeline)               ;; modeline tweaks
-  (require 'ido)                         ;; Ido prompt
-  (require 'uniquify)                    ;; Make buffer names unique
-  (require 'ibuffer)                     ;; Nice buffer list
-  (require 'ibuffer-vc)                  ;; Nice buffer list of files under vc
-  (require 'recentf)                     ;; Recent files
-  (require 'sr-speedbar)                 ;; speedbar as a window
 )
 
 ;; evil
 (when (and (locate-library "evil") (not batch-mode))
   (require 'evil)                        ;; vi-like keys
   (require 'abdo-vi)                     ;; Settings for vi mode
+)
+
+;; tweak the modeline. needs evil
+(when (and (locate-library "abdo-modeline") (not batch-mode))
+  (require 'abdo-modeline)               ;; modeline tweaks
+)
+
+;; Basic interactive stuff
+(unless batch-mode
+  (require 'ido)                         ;; Ido prompt
+  (require 'uniquify)                    ;; Make buffer names unique
+  (require 'ibuffer)                     ;; Nice buffer list
+  (require 'ibuffer-vc)                  ;; Nice buffer list of files under vc
+  (require 'recentf)                     ;; Recent files
+  (require 'sr-speedbar)                 ;; speedbar as a window
 )
 
 ;; autocompletion
