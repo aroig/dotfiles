@@ -221,6 +221,9 @@
   ;; Set C style (indentation, etc)
   (c-set-style "stroustrup")
 
+  ;; Load clang format
+  (when (locate-library "clang-format") (require 'clang-format))
+
   ;; Delete trailing whitespaces before save
   (trailing-whitespace-mode)
 
