@@ -207,12 +207,20 @@
 ; (setq ido-save-directory-list-file (convert-standard-filename "~/.ido.last"))
 (setq ido-save-directory-list-file nil)
 
+;; enable ido with flx-mode
 (ido-mode t)
 (ido-everywhere t)
+(flx-ido-mode t)
+
+;; disable ido faces to see flx highlights.
+;; (setq ido-use-faces nil)
+
+;; tuning
+(setq ido-enable-flex-matching t)
 (setq ido-max-prospects 8)
 (setq ido-rotate t)
-(setq ido-enable-flex-matching t)
 (setq ido-enable-regexp t)
+
 ;; (setq ido-use-filename-at-point t)
 (setq ido-auto-merge-work-directories-length -1)
 (setq ido-default-buffer-method 'selected-window)
