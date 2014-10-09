@@ -89,6 +89,13 @@
   (require 'abdo-zenburn))
 
 
+;; Core emacs tweaking
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Set garbage collection threshold to 20 Mb, for better performance on modern machines
+(setq gc-cons-threshold 20000000)
+
+
 
 ;; Autoload stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
