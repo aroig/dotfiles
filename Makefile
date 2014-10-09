@@ -1,11 +1,12 @@
 REMOTES=modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
         modes/rainbow-mode modes/yaml-mode modes/qml-mode \
         packages/ibuffer-vc packages/powerline packages/helm-mu \
-        themes/zenburn
+        themes/zenburn packages/flx packages/perspective
 
 COMPILE=modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
         modes/rainbow-mode modes/yaml-mode modes/qml-mode \
-        packages/ibuffer-vc packages/powerline \
+        packages/ibuffer-vc packages/powerline packages/flx \
+	    packages/perspective \
 	    abdo misc hacks
 
 REMOTES_MERGE=$(patsubst %,%-merge,$(REMOTES))
