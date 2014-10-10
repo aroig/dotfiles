@@ -1,8 +1,8 @@
 [Unit]
 Description=update gpg-agent tty
 
-# Wants=gpg-agent.service
-# After=gpg-agent.service
+Wants=gpg-agent.service
+After=gpg-agent.service
 
 [Service]
 Type=oneshot
