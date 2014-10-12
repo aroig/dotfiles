@@ -42,19 +42,9 @@ fpath=($HOME/.zsh/completions $fpath)
 
 # Stop here if unknown terminal
 case $TERM in
-    rxvt*|screen*|xterm*|linux*|eterm-color)
-	    ;;
-    
-    *)
-	    return
-	    ;;
+    rxvt*|screen*|xterm*|linux*|eterm-color) ;;    
+    *) return                                ;;
 esac
-
-# Load colors if possible
-autoload -U colors zsh/terminfo
-if [[ "$terminfo[colors]" -ge 8 ]]; then
-    colors
-fi
 
 autoload -U add-zsh-hook
 
@@ -73,6 +63,8 @@ autoload -U add-zsh-hook
 # source files in ~/.zsh
 _ZSH_DIR="$HOME/.zsh"
 if [ -d $_ZSH_DIR ]; then
+    # NOTE: We put the find at the end because otherwise the while is
+    # run in a sub-shell...
     while read src; do
         # we admit symlinks, but only source them if thay are not broken
         src_path=$(readlink -f $src)
@@ -86,13 +78,25 @@ fi
 # Hooks
 # ----------------------------
 
-add-zsh-hook precmd save_return_value          # catch the return value
+# catch the return value before setting any prompt.
+save_return_value() { ANS=$?; };
+add-zsh-hook precmd save_return_value        
 
 add-zsh-hook chpwd update_current_vcs_vars     # update vcs info
 add-zsh-hook precmd refresh_current_vcs_vars
 
 add-zsh-hook precmd set-window-title           # set window title
 # add-zsh-hook preexec set-window-title
+
+
+
+# ----------------------------
+# Prompt
+# ----------------------------
+
+setopt prompt_subst
+PROMPT='$(promptabdo) $(promptdir) $(promptsymbol $ANS) '
+PROMPT2='$(promptcont) '
 
 
 

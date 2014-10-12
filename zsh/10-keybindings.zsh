@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 #------------------------------------------------------------------#
 # File:     keybindings.zsh    Keybinding adjustments              #
 # Version:                                                         #
@@ -6,9 +6,14 @@
 #------------------------------------------------------------------#
 
 
+# NOTE: on a terminal do C-v + key, to see the escaped character!
+
+# NOTE: This is specific to termite, and does not seem to work... oh well
+
+
 
 #------------------------------
-# Keybindings
+# General Keybindings
 #------------------------------
 bindkey -e              # Emacs
 typeset -g -A key
@@ -30,10 +35,28 @@ bindkey '^[[D' backward-char
 bindkey '^[[B' down-line-or-search
 bindkey '^[[C' forward-char 
 
-# for rxvt
-bindkey "\e[8~" end-of-line
-bindkey "\e[7~" beginning-of-line
 
-# for gnome-terminal
-bindkey "\eOH" beginning-of-line
-bindkey "\eOF" end-of-line
+#------------------------------
+# Terminal Specific
+#------------------------------
+
+case $TERM in
+    xterm-termite*)    
+        bindkey "\e[H"    beginning-of-line            # [Home] - move to beginning of line
+        bindkey "\e[F"    end-of-line                  # [End]  - move to the end of line
+        
+        bindkey "\e[1;5C" forward-word                 # [C-Right] - move forward one word
+        bindkey "\e[1;5D" backward-word                # [C-Left]  - move backward one word
+        ;;
+
+    rxvt*)
+        bindkey "\e[8~" end-of-line
+        bindkey "\e[7~" beginning-of-line
+        ;;
+
+    gnome-terminal*)
+        bindkey "\eOH" beginning-of-line
+        bindkey "\eOF" end-of-line
+        ;;    
+esac
+
