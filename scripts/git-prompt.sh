@@ -487,8 +487,8 @@ __git_ps1 ()
 
 	local z="${GIT_PS1_STATESEPARATOR-" "}"
 
-	# NO color option unless in PROMPT_COMMAND mode
-	if [ $pcmode = yes ] && [ -n "${GIT_PS1_SHOWCOLORHINTS-}" ]; then
+	# NO color option unless in PROMPT_COMMAND mode in bash
+	if ( [ $pcmode = yes ] || [[ -n ${ZSH_VERSION-} ]] ) && [ -n "${GIT_PS1_SHOWCOLORHINTS-}" ]; then
 		__git_ps1_colorize_gitstring
 	fi
 
