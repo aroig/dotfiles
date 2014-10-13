@@ -255,9 +255,13 @@ __git_ps1_colorize_gitstring ()
 	else
 		branch_color="$bad_color"
 	fi
-	c="$branch_color$c"
+    
+    # this affects branch too
+ 	c="$branch_color$c"
 
-	z="$c_clear$z"
+    if [ -n "$z" ]; then
+	    z="$c_clear$z"
+    fi
 
 	if [ "$w" = "*" ]; then
 		w="$bad_color$w"
@@ -292,7 +296,7 @@ __git_ps1_colorize_gitstring ()
         esac
     fi
 
-    p="$p$c_clear"
+    r="$r$c_clear"
 }
 
 __git_eread ()
@@ -517,7 +521,7 @@ __git_ps1 ()
 	local z="${GIT_PS1_STATESEPARATOR-" "}"
 
 	# NO color option unless in PROMPT_COMMAND mode in bash
-	if ( [ $pcmode = yes ] || [[ -n ${ZSH_VERSION-} ]] ) && [ -n "${GIT_PS1_SHOWCOLORHINTS-}" ]; then
+	if ( [ $pcmode = yes ] || [[ -n ${ZSH_VERSION} ]] ) && [ -n "${GIT_PS1_SHOWCOLORHINTS-}" ]; then
 		__git_ps1_colorize_gitstring
 	fi
 
@@ -528,7 +532,7 @@ __git_ps1 ()
 	fi
 
 	local f="$w$i$s$u"
-	local gitstring="$c$b${f:+$z$f}$r$p"
+	local gitstring="$p$c$b${f:+$z$f}$r"
 
 	if [ $pcmode = yes ]; then
 		if [ "${__git_printf_supports_v-}" != yes ]; then
