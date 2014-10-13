@@ -259,35 +259,39 @@ __git_ps1_colorize_gitstring ()
     # this affects branch too
  	c="$branch_color$c"
 
-    if [ -n "$z" ]; then
+    if [[ -n "$z" ]]; then
 	    z="$c_clear$z"
     fi
 
-	if [ "$w" = "*" ]; then
-		w="$bad_color$w"
+	if [[ -n "$w" ]]; then
+        case "$w" in 
+            "*") w="$bad_color$w"  ;;
+            "√") w="$ok_color$w"   ;;
+            "?") w="$warn_color$w" ;;
+        esac
 	fi
     
-    if [ -n "$i" ]; then
+    if [[ -n "$i" ]]; then
         case "$i" in
-            "#") i="$bad_color$i" ;;
-            "X") i="$bad_color$i" ;;
-              *) i="$ok_color$i"  ;;
+            "#") i="$warn_color$i" ;;
+            "X") i="$bad_color$i"  ;;
+            "+") i="$ok_color$i"   ;;
         esac
     fi
 
-	if [ -n "$s" ]; then
+	if [[ -n "$s" ]]; then
 		s="$flags_color$s"
 	fi
 
-	if [ -n "$u" ]; then
+	if [[ -n "$u" ]]; then
 		u="$bad_color$u"
 	fi
 
-	if [ -n "$r" ]; then
+	if [[ -n "$r" ]]; then
 		r="$c_clear|$flags_color${r#|}"
 	fi
 
-    if [ -n "$p" ]; then
+    if [[ -n "$p" ]]; then
         case "$p" in
             "=") p="$ok_color$p"  ;;
             ">") p="$c_magenta$p" ;;
@@ -488,17 +492,22 @@ __git_ps1 ()
 			b="GIT!"
 		fi
 	elif [ "true" = "$inside_worktree" ]; then
-		if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ] &&
-		   [ "$(git config --bool bash.showDirtyState)" != "false" ]
-		then            
-			git diff --no-ext-diff --quiet --exit-code || w="*"
-			if [ -n "$short_sha" ]; then
-				git diff-index --cached --diff-filter="UXB" --quiet HEAD -- || i="X"
-                git diff-index --cached --diff-filter="ACDMRT" --quiet HEAD -- || i="+"
-			else
-				i="#"
-			fi
-		fi
+		if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ]; then
+            if [ "$(git config --bool bash.showDirtyState)" != "false" ]; then            
+                if ! git diff --no-ext-diff --quiet --exit-code; then w="*"
+                fi
+
+			    if [ -n "$short_sha" ]; then
+				    if ! git diff-index --cached --diff-filter="UXB" --quiet HEAD --; then i="X"
+                    elif ! git diff-index --cached --diff-filter="ACDMRT" --quiet HEAD --; then i="+"
+                    fi
+			    else
+				    i="#"
+			    fi
+		    else
+                w="?"
+            fi
+        fi
 
 		if [ -n "${GIT_PS1_SHOWSTASHSTATE-}" ] &&
 		   git rev-parse --verify --quiet refs/stash >/dev/null
@@ -506,12 +515,21 @@ __git_ps1 ()
 			s="$"
 		fi
 
-		if [ -n "${GIT_PS1_SHOWUNTRACKEDFILES-}" ] &&
-		   [ "$(git config --bool bash.showUntrackedFiles)" != "false" ] &&
-		   git ls-files --others --exclude-standard --error-unmatch -- '*' >/dev/null 2>/dev/null
-		then
-			u="%${ZSH_VERSION+%}"
+		if [ -n "${GIT_PS1_SHOWUNTRACKEDFILES-}" ]; then
+            if [ "$(git config --bool bash.showUntrackedFiles)" != "false" ]; then
+		        if git ls-files --others --exclude-standard --error-unmatch -- '*' >/dev/null 2>/dev/null; then   
+			        # u="%${ZSH_VERSION+%}"
+                    u='!'
+                fi
+            else
+                u='?'
+            fi
 		fi
+        
+        # explicitly mark directory as clean
+        if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ] && [[ ! -n "$w" ]] && [[ ! -n "$u" ]] && [[ ! -n "$i" ]]; then 
+			w="√"
+        fi
 
 		if [ -n "${GIT_PS1_SHOWUPSTREAM-}" ]; then
 			__git_ps1_show_upstream
