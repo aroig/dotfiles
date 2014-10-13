@@ -19,3 +19,40 @@ abdo_get_vcs() {
         [[ "$path" == "$pathold" ]] && return
     done
 }
+
+abdo_git_dirinfo() {
+    local dir="$1"
+    (
+        cd $dir;
+        
+        if [ "$(abdo_get_vcs "$dir")" = 'git' ]; then
+            # The -P tells print to format it as a prompt
+            print -P " $(abdo_prompt_vcs "%s")" | tr -d '\n'
+            printf "  "
+            git --no-pager log -n 1 --pretty="format:%C(green)%ad%C(reset) %C(red)%an%C(reset). %C(yellow)%s%C(reset)" --date=short
+        fi
+    ) 
+}
+
+# do a ls with additional git status details.
+abdo_git_ls() {
+    local list
+    if [ -n "$1" ]; then
+        list=$@
+    else
+        list="."
+    fi
+
+    local dirname
+    for arg in $list; do
+        if [ -d "$arg" ]; then
+            find "$arg" -mindepth 1 -maxdepth 1 -type d -not -path '*/\.*' | \
+            while read dir; do
+                dirname=${dir#$arg/}
+                printf "\e[1;34m%10s\e[0m" "$dirname"
+                abdo_git_dirinfo "$dir"
+                echo ""
+            done
+        fi
+    done
+}

@@ -21,6 +21,8 @@ alias top='htop'
 alias diff='diff -u -d'
 alias grep='grep --color=auto'
 
+alias gls="abdo_git_ls"
+
 
 # alias ping='$HOME/Software/conf/color-wrappers/ping'
 # alias unisonb='$HOME/Software/conf/color-wrappers/unison -batch'

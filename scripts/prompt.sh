@@ -37,6 +37,7 @@ GIT_PS1_SHOWCOLORHINTS=1
 GIT_PS1_STATESEPARATOR=""
 
 
+
 # ----------------------------
 # Prompt Stuff
 # ----------------------------
@@ -145,24 +146,25 @@ abdo_prompt_vcs_old () {
 }
 
 
+# TODO: complete for ther vcs
 abdo_prompt_vcs() {
     local vcs
     vcs=$(abdo_get_vcs "$PWD")
     case $vcs in
         git)
-            __git_ps1 " [%s]"
+            __git_ps1 " $1"
             ;;
 
         hg)
-            echo " [hg]"
+            printf " $1" "hg"
             ;;
 
         bzr)
-            echo " [bzr]"
+            echo " $1" "bzr"
             ;;
 
         darcs)
-            echo " [darcs]"
+            echo " $1" "darcs"
             ;;
     esac
 }
@@ -200,8 +202,8 @@ abdo_prompt_directory() {
 abdo_prompt_main () {
     local prompt_pre prompt_post
     prompt_pre="$(abdo_prompt_tmux)$(abdo_prompt_userhost)"
-    prompt_post="$(abdo_prompt_vcs)$(abdo_prompt_directory)$(abdo_prompt_symbol)"
-    echo "${prompt_pre}${prompt_post} "
+    prompt_post="$(abdo_prompt_vcs '[%s]')$(abdo_prompt_directory)$(abdo_prompt_symbol)"
+    echo -n "${prompt_pre}${prompt_post} "
 }
 
 
@@ -209,7 +211,7 @@ abdo_prompt_cont () {
     local symb
     symb=' ·· '
     [[ -n "$ZSH_VERSION" ]] && symb=' %_'    
-    echo -e "${_cb}${fg_bold[yellow]}${_ce}$symb${_cb}${fx[reset]}${_ce}> "
+    echo -en "${_cb}${fg_bold[yellow]}${_ce}$symb${_cb}${fx[reset]}${_ce}> "
 }
 
 
