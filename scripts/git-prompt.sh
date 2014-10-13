@@ -266,6 +266,7 @@ __git_ps1_colorize_gitstring ()
     if [ -n "$i" ]; then
         case "$i" in
             "#") i="$bad_color$i" ;;
+            "X") i="$bad_color$i" ;;
               *) i="$ok_color$i"  ;;
         esac
     fi
@@ -480,19 +481,21 @@ __git_ps1 ()
 		if [ "true" = "$bare_repo" ]; then
 			c="BARE:"
 		else
-			b="GIT_DIR!"
+			b="GIT!"
 		fi
 	elif [ "true" = "$inside_worktree" ]; then
 		if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ] &&
 		   [ "$(git config --bool bash.showDirtyState)" != "false" ]
-		then
+		then            
 			git diff --no-ext-diff --quiet --exit-code || w="*"
 			if [ -n "$short_sha" ]; then
-				git diff-index --cached --quiet HEAD -- || i="+"
+				git diff-index --cached --diff-filter="UXB" --quiet HEAD -- || i="X"
+                git diff-index --cached --diff-filter="ACDMRT" --quiet HEAD -- || i="+"
 			else
 				i="#"
 			fi
 		fi
+
 		if [ -n "${GIT_PS1_SHOWSTASHSTATE-}" ] &&
 		   git rev-parse --verify --quiet refs/stash >/dev/null
 		then
