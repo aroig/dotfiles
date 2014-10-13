@@ -232,6 +232,7 @@ __git_ps1_colorize_gitstring ()
 		local c_green='%F{green}'
 		local c_yellow='%F{yellow}'
 		local c_lblue='%F{blue}'
+        local c_cyan='%F{cyan}'
 		local c_magenta='%F{magenta}'
 		local c_clear='%f'
 	else
@@ -242,6 +243,7 @@ __git_ps1_colorize_gitstring ()
 		local c_yellow='\[\e[33m\]'
 		local c_lblue='\[\e[1;34m\]'
 		local c_magenta='\[\e[1;35m\]'
+        local c_lblue='\[\e[1;36m\]'
 		local c_clear='\[\e[0m\]'
 	fi
 	local bad_color=$c_red
@@ -253,7 +255,7 @@ __git_ps1_colorize_gitstring ()
 	if [ $detached = no ]; then
 		branch_color="$c_lblue"
 	else
-		branch_color="$bad_color"
+		branch_color="$c_red"
 	fi
     
     # this affects branch too
