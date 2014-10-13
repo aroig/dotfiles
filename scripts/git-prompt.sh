@@ -241,9 +241,9 @@ __git_ps1_colorize_gitstring ()
 		local c_red='\[\e[31m\]'
 		local c_green='\[\e[32m\]'
 		local c_yellow='\[\e[33m\]'
-		local c_lblue='\[\e[1;34m\]'
-		local c_magenta='\[\e[1;35m\]'
-        local c_lblue='\[\e[1;36m\]'
+		local c_lblue='\[\e[34m\]'
+		local c_magenta='\[\e[35m\]'
+        local c_cyan='\[\e[36m\]'
 		local c_clear='\[\e[0m\]'
 	fi
 	local bad_color=$c_red
@@ -540,8 +540,8 @@ __git_ps1 ()
 
 	local z="${GIT_PS1_STATESEPARATOR-" "}"
 
-	# NO color option unless in PROMPT_COMMAND mode in bash
-	if ( [ $pcmode = yes ] || [[ -n ${ZSH_VERSION} ]] ) && [ -n "${GIT_PS1_SHOWCOLORHINTS-}" ]; then
+    # do allow colors even in non-PROMPT_COMMAND mode
+	if [ -n "${GIT_PS1_SHOWCOLORHINTS-}" ]; then
 		__git_ps1_colorize_gitstring
 	fi
 
