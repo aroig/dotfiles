@@ -41,9 +41,17 @@ fi
 # Hooks
 # ----------------------------
 
-# catch the return value before setting any prompt.
-save_return_value() { ANS=$?; };
-PROMPT_COMMAND=save_return_value
+# We set the prompt from here. bash is not as flexible as zsh. Can't set colors
+# dynamically and escape the color sequences with \[ and \] all from a function
+# that runs at "prompt time". So we add a hook that sets the prompt from scratch
+# every time!
+
+abdo_set_bash_prompt() {
+    # save it for later
+    ANS="$?"
+    PS1=$(abdo_prompt_main)
+};
+PROMPT_COMMAND=abdo_set_bash_prompt
 
 
 
@@ -51,6 +59,6 @@ PROMPT_COMMAND=save_return_value
 # Set Prompt
 #------------------------------
 
-PS1="\$(abdo_prompt_main)"
+# PS1="\$(abdo_prompt_main)"
 PS2="\$(abdo_prompt_cont)"
 

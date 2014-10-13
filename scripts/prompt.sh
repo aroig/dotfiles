@@ -10,19 +10,16 @@
 # Prepare colors for the prompt
 # ----------------------------
 
-# Colors in the prompt need to be escaped as follows, to get the
-# length computations right and prevent artifacts when browsing command 
-# history, etc.
+# Colors in the prompt need to be escaped between %{ %} (zsh) or \[ \] (bash). 
+# This lets the shell know about characters that do not occupy space. This prevents
+#  artifacts when browsing command history, etc.
 if [[ -n "$ZSH_VERSION" ]]; then
     _cb="%{"
     _ce="%}"
 
-# TODO: I disable this for now, because I can't get bash to evaluate this right.
-# I think I should expand everything except the actual data at setup time!
-# zsh is more flexible in this regard.
 else        
-    _cb=""
-    _ce=""  
+    _cb="\["
+    _ce="\]"  
 fi
 
 
@@ -113,7 +110,7 @@ abdo_prompt_symbol () {
 
 # Unicode symbols ↯ ☼ ☠ ☺ ☻ ✓ ⚡ ⚪ ⚬ ⚫ ☀ ⦁ √ ⋆ 
 # TODO: eclose clors with _cb and _ce
-abdo_prompt_vcs () {
+abdo_prompt_vcs_old () {
     local vcremote
     case $__CURRENT_VCS_REMOTE_STATUS in
         sync)      vcremote="${fg[green]}=${fx[reset]}"   ;;
@@ -157,15 +154,15 @@ abdo_prompt_vcs() {
             ;;
 
         hg)
-            echo " (hg)"
+            echo " [hg]"
             ;;
 
         bzr)
-            echo " (bzr)"
+            echo " [bzr]"
             ;;
 
         darcs)
-            echo " (darcs)"
+            echo " [darcs]"
             ;;
     esac
 }
@@ -190,7 +187,7 @@ abdo_prompt_directory() {
         *)            dcol="${fg_bold[yellow]}"              ;;
     esac
 
-    echo "$(abdo_prompt_vcs) ${_cb}${dcol}${_ce}$currdir${_cb}${fx[reset]}${_ce}"
+    echo " ${_cb}${dcol}${_ce}$currdir${_cb}${fx[reset]}${_ce}"
 
 }
 
@@ -201,7 +198,10 @@ abdo_prompt_directory() {
 # ----------------------------
 
 abdo_prompt_main () {
-    echo -e "$(abdo_prompt_tmux)$(abdo_prompt_userhost)$(abdo_prompt_directory)$(abdo_prompt_symbol) "
+    local prompt_pre prompt_post
+    prompt_pre="$(abdo_prompt_tmux)$(abdo_prompt_userhost)"
+    prompt_post="$(abdo_prompt_vcs)$(abdo_prompt_directory)$(abdo_prompt_symbol)"
+    echo "${prompt_pre}${prompt_post} "
 }
 
 
