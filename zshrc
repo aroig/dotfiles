@@ -87,8 +87,10 @@ fi
 save_return_value() { ANS=$?; };
 add-zsh-hook precmd save_return_value        
 
-add-zsh-hook chpwd update_current_vcs_vars     # update vcs info
-add-zsh-hook precmd refresh_current_vcs_vars
+# TODO: this is part of the old vcs code, but maybe I want to use them
+# on the new stuff!
+# add-zsh-hook chpwd update_current_vcs_vars     
+# add-zsh-hook precmd refresh_current_vcs_vars
 
 add-zsh-hook precmd set-window-title           # set window title
 # add-zsh-hook preexec set-window-title
