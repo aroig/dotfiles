@@ -17,9 +17,6 @@ PS1='[\u@\h \W]\$ '
 # source environment variables
 [[ -f $HOME/.zshenv ]] && . $HOME/.zshenv
 
-# source aliases
-[[ -f $HOME/.aliases ]] && . $HOME/.aliases
-
 # If not running interactively, do nothing
 # [[ $- != *i* ]] && return
 
@@ -31,7 +28,7 @@ if [ -d $_BASH_DIR ]; then
     while read src; do
         # we admit symlinks, but only source them if thay are not broken
         src_path=$(readlink -f $src)
-        [ -f "$src_path" ] && source "$src_path"
+        [[ -f "$src_path" ]] && source "$src_path"
     done < <(find "$_BASH_DIR/" -maxdepth 1 -regex '^.*\.sh$' | sort)
 fi
 

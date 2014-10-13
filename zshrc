@@ -62,9 +62,6 @@ autoload -U add-zsh-hook
 # source environment variables
 [[ -f $HOME/.zshenv ]] && . $HOME/.zshenv
 
-# source aliases
-[[ -f $HOME/.aliases ]] && . $HOME/.aliases
-
 # source files in ~/.zsh
 _ZSH_DIR="$HOME/.zsh"
 if [ -d $_ZSH_DIR ]; then
@@ -73,7 +70,7 @@ if [ -d $_ZSH_DIR ]; then
     while read src; do
         # we admit symlinks, but only source them if thay are not broken
         src_path=$(readlink -f $src)
-        [ -f "$src_path" ] && source "$src_path"
+        [[ -f "$src_path" ]] && source "$src_path"
     done < <(find "$_ZSH_DIR/" -maxdepth 1 -regex '^.*\.zsh$' | sort)
 fi
 
