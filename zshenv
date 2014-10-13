@@ -67,6 +67,7 @@ export AB2_VAR_DIR="$AB2_HOME/var"
 export AB2_WORK_DIR="$AB2_HOME/work"
 export AB2_WIKI_DIR="$AB2_HOME/work/wiki"
 export AB2_PAPERS_DIR="$AB2_HOME/work/papers"
+export AB2_VIRT_DIRS="$AB2_HOME/virt"
 
 
 
