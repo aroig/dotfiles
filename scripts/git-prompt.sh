@@ -230,42 +230,68 @@ __git_ps1_colorize_gitstring ()
 	if [[ -n ${ZSH_VERSION-} ]]; then
 		local c_red='%F{red}'
 		local c_green='%F{green}'
+		local c_yellow='%F{yellow}'
 		local c_lblue='%F{blue}'
+		local c_magenta='%F{magenta}'
 		local c_clear='%f'
 	else
 		# Using \[ and \] around colors is necessary to prevent
 		# issues with command line editing/browsing/completion!
 		local c_red='\[\e[31m\]'
 		local c_green='\[\e[32m\]'
+		local c_yellow='\[\e[33m\]'
 		local c_lblue='\[\e[1;34m\]'
+		local c_magenta='\[\e[1;35m\]'
 		local c_clear='\[\e[0m\]'
 	fi
 	local bad_color=$c_red
+	local warn_color=$c_yellow
 	local ok_color=$c_green
-	local flags_color="$c_lblue"
+	local flags_color=$c_magenta
 
 	local branch_color=""
 	if [ $detached = no ]; then
-		branch_color="$ok_color"
+		branch_color="$c_lblue"
 	else
 		branch_color="$bad_color"
 	fi
 	c="$branch_color$c"
 
 	z="$c_clear$z"
+
 	if [ "$w" = "*" ]; then
 		w="$bad_color$w"
 	fi
-	if [ -n "$i" ]; then
-		i="$ok_color$i"
-	fi
+    
+    if [ -n "$i" ]; then
+        case "$i" in
+            "#") i="$bad_color$i" ;;
+              *) i="$ok_color$i"  ;;
+        esac
+    fi
+
 	if [ -n "$s" ]; then
 		s="$flags_color$s"
 	fi
+
 	if [ -n "$u" ]; then
 		u="$bad_color$u"
 	fi
-	r="$c_clear$r"
+
+	if [ -n "$r" ]; then
+		r="$c_clear|$flags_color${r#|}"
+	fi
+
+    if [ -n "$p" ]; then
+        case "$p" in
+            "=") p="$ok_color$p"  ;;
+            ">") p="$c_magenta$p" ;;
+            "<") p="$c_red$p"     ;;
+            "Y") p="$bad_color$p" ;;
+        esac
+    fi
+
+    p="$p$c_clear"
 }
 
 __git_eread ()

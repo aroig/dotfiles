@@ -163,12 +163,13 @@ abdo_get_vcs() {
     done
 }
 
+
 abdo_prompt_vcs() {
     local vcs
     vcs=$(abdo_get_vcs "$PWD")
     case $vcs in
         git)
-            __git_ps1 " (%s)"
+            __git_ps1 " [%s]"
             ;;
 
         hg)
