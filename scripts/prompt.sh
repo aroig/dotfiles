@@ -6,81 +6,114 @@
 #------------------------------------------------------------------#
 
 
-promptwindow () {
-    local window
-    if [[ "$TMUX" != "" ]]; then
-        window=$(tmux display-message -p '#I')
-        window="${fg_bold[white]}[$window]${fx[reset]} "
-    else
-        window=""
+# ----------------------------
+# Prepare colors for the prompt
+# ----------------------------
+
+# Colors in the prompt need to be escaped as follows, to get the
+# length computations right and prevent artifacts when browsing command 
+# history, etc.
+if [[ -n "$ZSH_VERSION" ]]; then
+    _cb="%{"
+    _ce="%}"
+
+# TODO: I disable this for now, because I can't get bash to evaluate this right.
+# I think I should expand everything except the actual data at setup time!
+# zsh is more flexible in this regard.
+else        
+    _cb=""
+    _ce=""  
+fi
+
+
+
+# ----------------------------
+# Git Prompt config
+# ----------------------------
+
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWSTASHSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWUPSTREAM="auto"
+GIT_PS1_DESCRIBE_STYLE="branch"
+GIT_PS1_SHOWCOLORHINTS=1
+
+
+
+# ----------------------------
+# Prompt Stuff
+# ----------------------------
+
+abdo_prompt_tmux () {
+    local win wcol
+
+    wcol="${fg_bold[white]}"
+
+    if [[ -n "$TMUX" ]]; then  win=$(tmux display-message -p '[#I] ')
+    else                       win=""
     fi
-    echo "$window"
+
+    echo "${_cb}${wcol}${_ce}$win${_cb}${fx[reset]}${_ce}"
 }
 
 
-promptuser () {
-    local user_fmt=""
-    case $(id -u -n) in
-	    root) user_fmt="${fg[red]}$(id -u -n)"   ;;
-        *)    user_fmt="${fg[green]}$(id -u -n)" ;;
-    esac
-    echo "$user_fmt${fx[reset]}"
-}
-
-
-promptat () {
-    if [ -n "$ZSH_VERSION" ]; then
-        echo "@"
-    elif [ -n "$BASH_VERSION" ]; then
-        echo "${fg[cyan]}@${fx[reset]}"
-    else
-        echo "${fg[magenta]}@${fx[reset]}"
+abdo_prompt_shell_color() {
+    if [[ -n "$ZSH_VERSION" ]]; then    echo "${fg[white]}"
+    elif [[ -n "$BASH_VERSION" ]]; then echo "${fg[cyan]}"
+    else                                echo "${fg[magenta]}"
     fi
 }
 
 
-prompthost () {
-    local host_fmt=""
+abdo_prompt_userhost() {
+    local user host ucol hcol acol
 
-    case "$HOST" in
-	    grothendieck) host_fmt="${fg[yellow]}$HOST"       ;;
-        hodge)        host_fmt="${fg_bold[blue]}$HOST"    ;;
-        galois)       host_fmt="${fg_bold[red]}$HOST"     ;;
-        skynet)       host_fmt="${fg_bold[cyan]}$HOST"    ;;
-        ada)          host_fmt="${fg_bold[magenta]}$HOST" ;;        
-        *)            host_fmt="${fg_bold[white]}$HOST"   ;;
+    if [[ -n "$ZSH_VERSION" ]]; then
+        user=$USER
+        host=$HOST
+    else
+        user=$(id -u -n)
+        host=$(hostname -s)
+    fi
+
+    acol=$(abdo_prompt_shell_color)
+
+    case "$user" in
+	    root) ucol="${fg[red]}"   ;;
+        *)    ucol="${fg[green]}" ;;
     esac
-    echo "$host_fmt${fx[reset]}"
+
+    case "$host" in
+	    grothendieck) hcol="${fg[yellow]}"       ;;
+        hodge)        hcol="${fg_bold[blue]}"    ;;
+        galois)       hcol="${fg_bold[red]}"     ;;
+        skynet)       hcol="${fg_bold[cyan]}"    ;;
+        ada)          hcol="${fg_bold[magenta]}" ;;        
+        *)            hcol="${fg_bold[white]}"   ;;
+    esac
+
+    echo "${_cb}${ucol}${_ce}$user${_cb}${fx[reset]}${acol}${_ce}@${_cb}${fx[reset]}${hcol}${_ce}$host${_cb}${fx[reset]}${_ce}"
 }
 
 
-promptsymbol () {
-    local psymb
-    local promptcol
+abdo_prompt_symbol () {
+    local psym pcol
 
-    case "$1" in
-        0) promptcol="${fg[white]}"  ;;
-        *) promptcol="${fg[red]}"    ;;
-    esac
+    pcol=$(abdo_prompt_shell_color)
+    [[ ! "$ANS" = '0' ]] && pcol="${fg[red]}"
 
-    if [ -n "$ZSH_VERSION" ]; then
-        psymb='$'
-
-    elif [ -n "$BASH_VERSION" ]; then
-        psymb='#'
-        promptcol="${fg[cyan]}"
-
-    else
-        psymb='%'
-        promptcol="${fg[magenta]}"
+    if [[ -n "$ZSH_VERSION" ]]; then    psym='$'
+    elif [[ -n "$BASH_VERSION" ]]; then psym='#'
+    else                                psym='%'
     fi   
 
-    echo "${promptcol}${psymb}${fx[reset]}"
+    echo " ${_cb}${pcol}${_ce}$psym${_cb}${fx[reset]}${_ce}"
 }
 
 
 # Unicode symbols ↯ ☼ ☠ ☺ ☻ ✓ ⚡ ⚪ ⚬ ⚫ ☀ ⦁ √ ⋆ 
-promptvcs () {
+# TODO: eclose clors with _cb and _ce
+abdo_prompt_vcs () {
     local vcremote
     case $__CURRENT_VCS_REMOTE_STATUS in
         sync)      vcremote="${fg[green]}=${fx[reset]}"   ;;
@@ -107,57 +140,102 @@ promptvcs () {
     local vcrev="$__CURRENT_VCS_REV"
 
     case $__CURRENT_VCS_PROGRAM in
-        git) echo "${vcstatus}${fg[blue]}(${vcbranch})${vcremote}${fx[reset]}" ;;
-        hg)  echo "${vcstatus}${fg[blue]}(${vcrev})${fx[reset]}"               ;;
-        bzr) echo "${vcstatus}${fg[blue]}(${vcrev})${fx[reset]}"               ;;        
-        *)   echo ""                                                           ;;
+        git) echo " ${vcstatus}${fg[blue]}(${vcbranch})${vcremote}${fx[reset]}" ;;
+        hg)  echo " ${vcstatus}${fg[blue]}(${vcrev})${fx[reset]}"               ;;
+        bzr) echo " ${vcstatus}${fg[blue]}(${vcrev})${fx[reset]}"               ;;        
+        *)   echo ""                                                            ;;
     esac
 }
 
 
-promptabdo () {
-    local prompt
-    case $__CURRENT_VCS_PROGRAM in
-        git|hg|bzr) prompt="$(promptwindow)$(promptuser)$(promptat)$(prompthost) $(promptvcs)"  ;;
-	    none|*)    prompt="$(promptwindow)$(promptuser)$(promptat)$(prompthost)"                ;;
+abdo_get_vcs() {
+    local path pathold
+    path="$1"
+    while [[ -n "$path" ]]; do
+        [[ -e "$path/.git"   ]] && echo 'git'   && return
+        [[ -e "$path/.hg"    ]] && echo 'hg'    && return
+        [[ -e "$path/.bzr"   ]] && echo 'bzr'   && return
+        [[ -e "$path/.darcs" ]] && echo 'darcs' && return
+
+        pathold="$path"
+        path="${path%/*}"
+        [[ "$path" == "$pathold" ]] && return
+    done
+}
+
+abdo_prompt_vcs() {
+    local vcs
+    vcs=$(abdo_get_vcs "$PWD")
+    case $vcs in
+        git)
+            __git_ps1 " (%s)"
+            ;;
+
+        hg)
+            echo " (hg)"
+            ;;
+
+        bzr)
+            echo " (bzr)"
+            ;;
+
+        darcs)
+            echo " (darcs)"
+            ;;
     esac
-    echo "$prompt"
 }
 
 
-promptdir () {
-    local currdir
+abdo_prompt_directory() {
+    local currdir user dcol
+
+    if [[ -n "$ZSH_VERSION" ]]; then
+        user=$USER
+    else
+        user=$(id -u -n)
+    fi
+
     case "$PWD" in
-        /home/$USER) currdir="~"                ;;
+        /home/$user) currdir="~"                ;;
         *)           currdir="$(basename $PWD)" ;;
     esac   
 
     case "$TERM" in
-	    rxvt*|xterm*) echo "${fx[italic]}${fg_bold[yellow]}$currdir${fx[reset]}" ;;
-        *)            echo "${fg_bold[yellow]}$currdir${fx[reset]}"              ;;
+	    rxvt*|xterm*) dcol="${fx[italic]}${fg_bold[yellow]}" ;;
+        *)            dcol="${fg_bold[yellow]}"              ;;
     esac
+
+    echo "$(abdo_prompt_vcs) ${_cb}${dcol}${_ce}$currdir${_cb}${fx[reset]}${_ce}"
+
 }
 
 
-promptcont () {
+
+# ----------------------------
+# Main Prompt functions
+# ----------------------------
+
+abdo_prompt_main () {
+    echo -e "$(abdo_prompt_tmux)$(abdo_prompt_userhost)$(abdo_prompt_directory)$(abdo_prompt_symbol) "
+}
+
+
+abdo_prompt_cont () {
     local symb
-    if [ -n "$ZSH_VERSION" ]; then
-        symb=' %_'
-    else
-        symb=' ·· '
-    fi
-    echo "${fg_bold[yellow]}$symb${fx[reset]}>"
+    symb=' ·· '
+    [[ -n "$ZSH_VERSION" ]] && symb=' %_'    
+    echo -e "${_cb}${fg_bold[yellow]}${_ce}$symb${_cb}${fx[reset]}${_ce}> "
 }
 
 
-messagehello() {
-#    echo "${fg_bold[blue]}Arch Linux.${fx[reset]}"
+abdo_prompt_messagehello() {
+#    echo -e "${fg_bold[blue]}Arch Linux.${fx[reset]}"
 
     local creationdate
-    if [[ "$TMUX" != "" ]]; then
+    if [[ -n "$TMUX" ]]; then
 	    creationdate=$(tmux list-sessions | grep ssh | sed 's/^[0-9a-zA-Z :]*(created\s*\([^\[]*\)).*$/\1/g')
-	    if [[ "$creationdate" != "" ]]; then
-	        echo "${fg_bold[yellow]}Tmux${fx[reset]} session created on $creationdate."
+	    if [[ -n "$creationdate" ]]; then
+	        echo -e "${fg_bold[yellow]}Tmux${fx[reset]} session created on $creationdate."
 	        echo ""
 	    fi
     fi

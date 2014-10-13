@@ -6,6 +6,11 @@
 #------------------------------------------------------------------#
 
 
+# Arch prompt, just in case
+PROMPT='[%n@%m %1~] $ '
+
+
+
 # ----------------------------
 # In case of tramp login
 # ----------------------------
@@ -95,8 +100,8 @@ add-zsh-hook precmd set-window-title           # set window title
 # ----------------------------
 
 setopt prompt_subst
-PROMPT='$(promptabdo) $(promptdir) $(promptsymbol $ANS) '
-PROMPT2='$(promptcont) '
+PROMPT='$(abdo_prompt_main)'
+PROMPT2='$(abdo_prompt_cont)'
 
 
 
@@ -104,4 +109,5 @@ PROMPT2='$(promptcont) '
 # Startup actions
 # ----------------------------
 
-messagehello                  # welcome message for tmux sessions
+# welcome message for tmux sessions
+abdo_prompt_messagehello                  

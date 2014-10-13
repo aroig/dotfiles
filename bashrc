@@ -9,13 +9,6 @@
 PS1='[\u@\h \W]\$ '
 
 
-#------------------------------
-# Variables
-#------------------------------
-
-HOST=`hostname`
-
-
 
 #------------------------------
 # Set environment
@@ -44,10 +37,20 @@ fi
 
 
 
+# ----------------------------
+# Hooks
+# ----------------------------
+
+# catch the return value before setting any prompt.
+save_return_value() { ANS=$?; };
+PROMPT_COMMAND=save_return_value
+
+
+
 #------------------------------
 # Set Prompt
 #------------------------------
 
-PS1="$(promptabdo) $(promptdir) $(promptsymbol $ANS) "
-PS2="$(promptcont) "
+PS1="\$(abdo_prompt_main)"
+PS2="\$(abdo_prompt_cont)"
 

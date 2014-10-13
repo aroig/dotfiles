@@ -54,7 +54,7 @@
 #
 # If you would like to see the difference between HEAD and its upstream,
 # set GIT_PS1_SHOWUPSTREAM="auto".  A "<" indicates you are behind, ">"
-# indicates you are ahead, "<>" indicates you have diverged and "="
+# indicates you are ahead, "Y" indicates you have diverged and "="
 # indicates that there is no difference. You can further control
 # behaviour by setting GIT_PS1_SHOWUPSTREAM to a space-separated list
 # of values:
@@ -191,7 +191,7 @@ __git_ps1_show_upstream ()
 		*"	0") # behind upstream
 			p="<" ;;
 		*)	    # diverged from upstream
-			p="<>" ;;
+			p="Y" ;;
 		esac
 	else
 		case "$count" in
