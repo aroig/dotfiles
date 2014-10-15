@@ -71,6 +71,17 @@ print_color_test() {
         echo ""
     done
     echo ""
+
+    local -i a b x
+    for a in {0..15}; do
+        for b in {0..15}; do
+            x=16*$a+$b;
+            c=$(printf "%03d" $x)
+            printf "${bg[$c]}%3d${fx[reset]} " $x
+        done
+        echo ""
+    done
+    echo ""
 }
 
 # print_color_test
