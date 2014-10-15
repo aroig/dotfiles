@@ -15,7 +15,7 @@ return {
    notes                 = "notes.service",
 
    -- monitoring
-   syslog                = apps.termcmd("ictl -f", "syslog-monitor"),
+   syslog                = apps.termcmd("jctl -f -n10", "syslog-monitor"),
    htop                  = apps.termcmd("htop", "htop-monitor"),
    iftop                 = apps.termcmd("sudo iftop", "iftop-monitor"),
    iotop                 = apps.termcmd("sudo iotop", "iotop-monitor"),
