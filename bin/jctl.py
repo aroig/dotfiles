@@ -221,9 +221,12 @@ class Journal:
 
 if __name__ == "__main__":
     try:
-        args = sys.argv[1:]
+        args = list(sys.argv[1:])
         follow = ('-f' in args) or ('--follow' in args)
         use_pager = not follow
+
+        if not follow:
+            args = ['--since=-2d'] + args
 
         if use_pager:
             with Pager(follow=follow, color=True) as pager:
