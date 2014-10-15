@@ -24,6 +24,7 @@ import sys
 import json
 import datetime
 
+from collections import OrderedDict
 from subprocess import Popen, check_call, CalledProcessError, PIPE
 from threading import Thread
 
@@ -37,15 +38,44 @@ _color = {
     'magenta' : "\033[0;95m",
     'cyan'    : "\033[0;96m",
     'white'   : "\033[0;97m",
-    'reset'   : "\033[0m",
+
+    'black'    : "\033[0;30m",
+    'dred'     : "\033[0;31m",
+    'dgreen'   : "\033[0;32m",
+    'dyellow'  : "\033[0;33m",
+    'dblue'    : "\033[0;34m",
+    'dmagenta' : "\033[0;35m",
+    'dcyan'    : "\033[0;36m",
+    'dwhite'   : "\033[0;37m",
+
+    'reset'   : "\033[0m"
 }
 
-_keywords = {
-    '(W|w)arning' : 'yellow',
-    'WARNING'     : 'yellow',
-    '(E|e)rror'   : 'red',
-    'ERROR'       : 'red',
-}
+_services = OrderedDict([
+    ('systemd.*'      , 'green'),
+    ('connman.*'      , 'blue'),
+    ('wpa_supplicant' , 'blue'),
+    ('xorg'           , 'magenta'),
+    ('kernel'         , 'red'),
+    ('.*'             , 'yellow'),
+])
+
+_hostnames = OrderedDict([
+    ('.*'             , 'cyan'),
+])
+
+_keywords = OrderedDict([
+    ('(W|w)arning'    , 'yellow'),
+    ('WARNING'        , 'yellow'),
+    ('(E|e)rror'      , 'red'),
+    ('ERROR'          , 'red'),
+    ('(F|f)ail'       , 'red'),
+])
+
+_patterns = OrderedDict([
+    ('\d+\.\d+\.\d+\.\d+'               , 'yellow')
+])
+
 
 class StreamWriter(Thread):
     """Gets lines from a stream and processes them"""
@@ -57,23 +87,36 @@ class StreamWriter(Thread):
 
     def format_service(self, name):
         if name == None: return "<none>"
-        c = _color['reset']
-        if self.color:
-            if name == 'systemd': c = _color['green']
-            else:                 c = _color['yellow']
 
-        return '%s%s%s' % (c, name, _color['reset'])
+        for regexp, c in _services.items():
+            if re.match(regexp, str(name)):
+                return '%s%s%s' % (_color[c], str(name), _color['reset'])
+
+    def format_hostname(self, name):
+        if name == None: return "<none>"
+
+        for regexp, c in _hostnames.items():
+            if re.match(regexp, str(name)):
+                return '%s%s%s' % (_color[c], str(name), _color['reset'])
 
     def format_timestamp(self, timestamp):
         if timestamp == None: return ""
-        c = _color['reset']
-        if self.color: c = _color['gray']
+
+        if self.color: c = _color['dwhite']
+        else         : c = _color['reset']
+
         return '%s%s%s' % (c, timestamp.strftime('%H:%M:%S'), _color['reset'])
 
     def format_message(self, message):
         if message == None: return ""
+
         for regexp, c in _keywords.items():
+            if re.search(regexp, str(message)):
+                return '%s%s%s' % (_color[c], str(message), _color['reset'])
+
+        for regexp, c in _patterns.items():
             message = re.sub(regexp, "%s\g<0>%s" % (_color[c], _color['reset']), str(message))
+
         return message
 
     def print_entry(self, entry):
@@ -89,10 +132,11 @@ class StreamWriter(Thread):
         if timestamp != None: timestamp = datetime.datetime.fromtimestamp(1e-6 * int(timestamp))
 
         service_txt   = self.format_service(name)
+        hostname_txt  = self.format_hostname(hostname)
         timestamp_txt = self.format_timestamp(timestamp)
         message_txt   = self.format_message(message)
 
-        print("%s %s: %s" % (timestamp_txt, service_txt, message_txt))
+        print("%s %s %s: %s" % (timestamp_txt, hostname_txt, service_txt, message_txt))
 
     def run(self):
         for line in self.stream:
@@ -125,6 +169,20 @@ class Journal:
 
 
 
+class Stdin:
+    def __init__(self, color=False):
+        self.stream = None
+        self.color = color
+
+    def __enter__(self):
+        self.stream = StreamWriter(stream=sys.stdin, color=self.color)
+        self.stream.start()
+
+    def __exit__(self, type, value, traceback):
+        self.stream = None
+
+
+
 usage = """usage: %prog <units>...
 
 Run systemctl --user start, and prints the journal log while units are starting.
@@ -134,22 +192,29 @@ parser = OptionParser(usage=usage)
 parser.add_option("-c", "--no-color", action="store_true", dest="nocolor",
                   help="Do not colorize output.")
 
-parser.add_option("-f", "--follow", action="store_true", dest="follow",
+parser.add_option("-f", "--follow", action="store_const", const='follow', dest="mode",
                   help="Follow journal.")
+
+# parser.add_option("--filter", action="store_const", const='filter', dest="mode",
+#                   help="Run as a filter from stdin")
+
+
+
 
 (opts, args) = parser.parse_args()
 
 try:
     # just follow journal and do nothing else
-    if opts.follow:
+    if opts.mode == 'follow':
         with Journal(color = not opts.nocolor, lines = 20) as proc:
             proc.wait()
         sys.exit(0)
 
-    # start service while monitoring journal
-    with Journal(color = not opts.nocolor):
-        check_call(['systemctl', '--user', 'start'] + args)
-    sys.exit(0)
+    else:
+        # start service while monitoring journal
+        with Journal(color = not opts.nocolor):
+            check_call(['systemctl', '--user', 'start'] + args)
+        sys.exit(0)
 
 
 except CalledProcessError as err:
