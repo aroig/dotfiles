@@ -94,6 +94,7 @@ trimtrail() {
 alias jtail="jctl -f -n5"
 alias jctl="jctl"
 alias ectl="jctl --priority=0..3"
+alias ictl="ictl"
 
 alias nctl="networkctl --no-pager"
 alias mctl="sudo machinectl"
@@ -110,8 +111,8 @@ alias unls="sdls units"
 alias cgtop="systemd-cgtop"
 
 alias cmctl="connmanctl"
-
 alias udctl="udisksctl"
+
 alias mount-data="udisksctl mount -b /dev/disk/by-label/galois:data"
 alias umount-data="udisksctl unmount -b /dev/disk/by-label/galois:data"
 
@@ -127,6 +128,7 @@ alias lock='systemctl --user lock.target'
 # firewall
 fws() { sudo iptables -L firewall; echo ""; sudo iptables -n -L sshguard; }
 fwban() { sudo iptables -A sshguard -s "$1" -j DROP; }
+
 
 
 #------------------------------
@@ -145,11 +147,12 @@ case $(hostname -s) in
         ;;
 esac
 
-mk() { MAKE="make -j$threads" make "$@" 2>&1 | colormake; return ${PIPESTATUS[0]}; }
+mk() { MAKE="make -j$threads" TERM=xterm make "$@" }
 
 alias make="TERM=xterm make"
 
 alias gan="git annex"
+
 
 
 #------------------------------

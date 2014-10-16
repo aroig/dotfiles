@@ -32,12 +32,13 @@ zstyle ':completion:*' menu select=4                                      # menu
 # Function completions     #
 #--------------------------#
 
-# define completions
-compdef _run_with_journal run_with_journal
-
 # copy a completions from oldcmd to newcmd
 # compdef newcmd=oldcmd
 compdef mk=make
+
+compdef jctl=journalctl
+
+
 
 # zstyle ':completion::*:expand:*' tag-order all-expansions
 
