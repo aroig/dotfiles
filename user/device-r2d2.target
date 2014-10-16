@@ -3,4 +3,5 @@ Description=r2d2 device
 
 # Alias set in udev rules
 BindsTo=sys-subsystem-net-devices-r2d2.device
-After=sys-subsystem-net-devices-r2d2.devicels
+After=sys-subsystem-net-devices-r2d2.device
+
