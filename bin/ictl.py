@@ -22,7 +22,7 @@ from optparse import OptionParser
 import sys
 
 from subprocess import check_call, CalledProcessError
-from jctlc import Journal
+from jctl import Journal
 
 
 usage = """usage: %prog <units>...
