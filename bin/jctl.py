@@ -22,6 +22,7 @@ import re
 import sys
 import json
 import datetime
+import argparse
 
 from collections import OrderedDict
 from subprocess import Popen, check_call, CalledProcessError, PIPE
@@ -171,10 +172,14 @@ class StreamWriter(Thread):
 
 
 class Pager:
-    def __init__(self, follow=False, color=False):
-        self.args = ['less']
-        if follow: self.args.append('+F')
-        if color:  self.args.append('-R')
+    def __init__(self, follow=False, color=False, no_pager=False):
+        if no_pager:
+            self.args = ['cat']
+
+        else:
+            self.args = ['less']
+            if follow: self.args.append('+F')
+            if color:  self.args.append('-R')
 
         self.proc = None
 
@@ -193,16 +198,22 @@ class Pager:
 
 
 class Journal:
-    def __init__(self, args, ostream=sys.stdout.buffer, color=False):
+    def __init__(self, args, ostream=sys.stdout.buffer, host=None, color=False):
         self.args = args
+        self.color = color
+        self.host = host
+
         self.proc = None
         self.stream = None
-        self.color = color
         self.ostream = ostream
 
     def __enter__(self):
-        self.proc = Popen(['journalctl', '--quiet', '--output=json'] + self.args,
-                          stdout=PIPE, bufsize=-1)
+        if self.host: jctl_cmd = ['ssh', self.host]
+        else:         jctl_cmd = []
+
+        jctl_cmd = jctl_cmd + ['journalctl', '--quiet', '--output=json'] + self.args
+
+        self.proc = Popen(jctl_cmd, stdout=PIPE, bufsize=-1)
 
         self.stream = StreamWriter(istream=self.proc.stdout, ostream=self.ostream, color=self.color)
         self.stream.start()
@@ -219,24 +230,25 @@ class Journal:
         self.stream = None
 
 
+
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(description='Print colored systemd journal data')
+    parser.add_argument("-H", "--host", metavar='<host>', type=str, help="Host")
+
+    args, rest = parser.parse_known_args()
+
     try:
-        args = list(sys.argv[1:])
-        follow = ('-f' in args) or ('--follow' in args)
-        use_pager = not follow
+        follow = ('-f' in rest) or ('--follow' in rest)
+        no_pager = follow or ('--no-pager' in rest)
 
         if not follow:
-            args = ['--since=-2d'] + args
+            jctl_args = ['--since=-2d'] + rest
 
-        if use_pager:
-            with Pager(follow=follow, color=True) as pager:
-                with Journal(args, ostream=pager.stdin, color=True) as proc:
-                    proc.wait()
-                    pager.wait()
-
-        else:
-            with Journal(args, ostream=sys.stdout.buffer, color=True) as proc:
+        with Pager(follow=follow, color=True, no_pager=no_pager) as pager:
+            with Journal(jctl_args, ostream=pager.stdin, host=args.host, color=True) as proc:
                 proc.wait()
+                pager.wait()
 
         sys.exit(0)
 
