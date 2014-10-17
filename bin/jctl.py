@@ -242,8 +242,9 @@ if __name__ == "__main__":
         follow = ('-f' in rest) or ('--follow' in rest)
         no_pager = follow or ('--no-pager' in rest)
 
+        jctl_args = rest
         if not follow:
-            jctl_args = ['--since=-2d'] + rest
+            jctl_args = ['--since=-2d'] + jctl_args
 
         with Pager(follow=follow, color=True, no_pager=no_pager) as pager:
             with Journal(jctl_args, ostream=pager.stdin, host=args.host, color=True) as proc:
