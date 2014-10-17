@@ -147,7 +147,9 @@ case $(hostname -s) in
         ;;
 esac
 
-mk() { MAKE="make -j$threads" TERM=xterm make "$@" }
+mk() { 
+    PATH="/usr/lib/ccache/bin:$PATH" MAKE="make -j$threads" TERM=xterm make "$@"
+}
 
 alias make="TERM=xterm make"
 

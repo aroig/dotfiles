@@ -271,6 +271,5 @@ fi
 # export CDPATH=""
 
 # The path
-add_to_pathlist_left PATH "/usr/lib/ccache/bin"   # ccache binaries before gcc ones
 add_to_pathlist_left PATH "$HOME/bin"             # ~/bin
 export PATH=$PATH
