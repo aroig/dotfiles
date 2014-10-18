@@ -97,9 +97,10 @@ export CXX=g++
 export MINGW_ROOT="/usr/x86_64-w64-mingw32"
 
 # Android
-export ANDROID_NDK_ROOT="$HOME/sdk/android/ndk"
-export ANDROID_SDK_ROOT="$HOME/sdk/android/sdk"
-export ANDROID_QT_ROOT="$HOME/sdk/android/qt5.2"
+export ANDROID_NDK_ROOT="/opt/android-ndk"
+export ANDROID_SDK_ROOT="/opt/android-sdk"
+export ANDROID_QT_ROOT="/opt/android-qt"
+export ANDROID_API_VERSION="android-19"
 
 # Sailfish
 export SAILFISH_SDK_ROOT="$HOME/sdk/sailfish/sdk"
