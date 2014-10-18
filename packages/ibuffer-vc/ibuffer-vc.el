@@ -1,6 +1,6 @@
 ;;; ibuffer-vc.el --- Group ibuffer's list by VC project, or show VC status
 ;;
-;; Copyright (C) 2011-2012 Steve Purcell
+;; Copyright (C) 2011-2014 Steve Purcell
 ;;
 ;; Author: Steve Purcell <steve@sanityinc.com>
 ;; Keywords: themes
@@ -85,12 +85,24 @@
   :type 'boolean
   :group 'ibuffer-vc)
 
+(defcustom ibuffer-vc-include-function 'identity
+  "A function which tells whether a given file should be grouped.
+
+The function is passed a filename, and should return non-nil if the file
+is to be grouped.
+
+This option can be used to exclude certain files from the grouping mechanism."
+  :type 'function
+  :group 'ibuffer-vc)
+
 ;;; Group and filter ibuffer entries by parent vc directory
 
 (defun ibuffer-vc--include-file-p (file)
   "Return t iff FILE should be included in ibuffer-vc's filtering."
-  (and file (or (null ibuffer-vc-skip-if-remote)
-                (not (file-remote-p file)))))
+  (and file
+       (or (null ibuffer-vc-skip-if-remote)
+           (not (file-remote-p file)))
+       (funcall ibuffer-vc-include-function file)))
 
 (defun ibuffer-vc--deduce-backend (file)
   "Return the vc backend for FILE, or nil if not under VC supervision."
