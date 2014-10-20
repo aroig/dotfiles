@@ -101,14 +101,14 @@ export MINGW_ROOT="/usr/x86_64-w64-mingw32"
 # Java development
 export JAVA_HOME="/usr/lib/jvm/default"
 
-# Android variables used upstream
-export ANDROID_NDK_ROOT="/opt/android-ndk"
-export ANDROID_SDK_ROOT="/opt/android-sdk"
+# Android variables for the toolchain
+export ANDROID_NDK_ROOT="/opt/android-ndk"    # root for NDK (understood upstream)
+export ANDROID_SDK_ROOT="/opt/android-sdk"    # root for SDK (understood upstream)
+export ANDROID_LIBS_ROOT="/opt/android-libs"  # root for custom libs (just mine)
 
+# Android SDK wants to set this
 export ANDROID_HOME="/opt/android-sdk"
 export ANDROID_SWT="/usr/share/java"
-
-export ANDROID_NDK_HOST="linux-x86_64"
 
 
 
