@@ -156,7 +156,11 @@
 
   ;; Tags column (negative means flush-right)
   (setq org-agenda-tags-column (- fill-column))
+
+  ;; compact view when following files on agenda mode
+  (add-hook 'org-agenda-after-show-hook 'abdo-org-compact-follow)
 )
+
 
 (defun abdo-org-mode-things()
   "Things to do on the org mode"
@@ -283,6 +287,17 @@
     (?4 org-priority-level-4)
     (?5 org-priority-level-5)))
 )
+
+(defun abdo-org-compact-follow ()
+  "Make the view compact, then show the necessary minimum."
+  (org-overview)
+  (let ((org-show-siblings t)
+        (org-show-hierarchy-above t))
+    (org-reveal))
+  (save-excursion
+    (org-back-to-heading t)
+    (show-children)))
+
 
 
 
