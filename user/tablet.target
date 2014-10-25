@@ -2,8 +2,12 @@
 Description=tablet configuration
 AllowIsolate=true
 
+# target conflicts
 Conflicts=console.target desktop.target laptop.target
 
 Requires=graphical.target
 After=graphical.target
 
+# service requirements
+Requires=caribou.service plank.service touchegg.service
+After=caribou.service plank.service touchegg.service

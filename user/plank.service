@@ -4,7 +4,7 @@ Description=Plank dock
 Requisite=graphical.target
 After=graphical.target
 
-StopWhenUnneeded=true
+PartOf=tablet.target
 
 [Service]
 Type=simple

@@ -4,7 +4,7 @@ Description=gesture recognizer
 Requisite=graphical.target
 After=graphical.target
 
-StopWhenUnneeded=true
+PartOf=tablet.target
 
 [Service]
 Type=simple
