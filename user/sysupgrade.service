@@ -1,8 +1,8 @@
 [Unit]
 Description=upgrade system and reboot
 
-Requires=pacman-upgrade.service
-After=pacman-upgrade.service
+Requires=pacman-update.service
+After=pacman-update.service
 
 OnFailure=journal-mailer.service
 
