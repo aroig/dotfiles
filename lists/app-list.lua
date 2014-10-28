@@ -40,16 +40,16 @@ return {
    virtualbox                = "virtualbox",
 
    matlab                    = "matlab",
-   sage                      = apps.termcmd("sage", "sage"),
-   octave                    = apps.termcmd("octave", "octave"),
+   sage                      = "tm:sage",
+   octave                    = "tm:octave",
    maple                     = "xmaple",
    stellarium                = "stellarium",
    boinc                     = "boincm",
 
-   ipython                   = apps.termcmd("ipython", "ipython"),
-   ipython2                  = apps.termcmd("ipython2", "ipython2"),
-   lua                       = apps.termcmd("lua", "lua"),
-   ghci                      = apps.termcmd("ghci", "ghci"),
+   ipython                   = "tm:ipython",
+   ipython2                  = "tm:ipython2",
+   lua                       = "tm:lua",
+   ghci                      = "tm:ghci",
 
    libreoffice               = "libreoffice",
    gcstar                    = "gcstar",

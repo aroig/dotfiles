@@ -11,6 +11,7 @@
 
 local os = os
 local string = string
+local coroutine = coroutine
 
 local capi = {
     mouse = mouse,
@@ -80,15 +81,38 @@ function run(name, opts)
     if name == nil then return end
 
     opts = opts or {ask = false}
-    local ask   = opts['ask']
-    local slice = opts['slice']
+    local ask       = opts['ask']
+    local slice     = opts['slice']
+    local unit_name = opts['unit_name']
+    local scope     = opts['scope']
 
     -- get the right thing
+    local ns, entry
     ns, entry = name:match("^([^:]*):(.*)$")
 
-    -- if no namespace, just run a nameless command
+    -- look for commands at the lists. This redefines the following variables: name, ns, entry.
+    if execlist[ns] ~= nil then
+        name = execlist[ns][entry]
+        slice = slice or execslice[ns]
+        unit_name = unit_name or entry
+
+        if not name then
+            naughty.notify({title="Error in run",
+                            text=string.format("command name '%s' not found on the command lists", entry)})
+            return
+        end
+
+        -- now that we have dereferenced the command through the list, let's compute ns and entry again.
+        ns, entry = name:match("^([^:]*):(.*)$")
+    end
+
+    -- if no namespace is given, attempt to guess it
     if ns == nil then
-        ns = 'cmd'
+        if string.match(name, '^.*%.service%s*$') or string.match(name, '^.*%.target%s*$') then
+            ns = 'sd'
+        else
+            ns = 'cm'
+        end
         entry = name
     end
 
@@ -100,27 +124,22 @@ function run(name, opts)
     elseif ns == 'sh' then
         exec_func = function () shexec(entry) end
 
-    elseif ns == 'cmd' then
+    elseif ns == 'cm' or ns == 'tm' then
+        local cmd
+        if ns == 'tm' then
+            cmd = apps.termcmd(entry, unit_name)
+        else
+            cmd = entry
+        end
+
         local props = {scope=false,
                        slice=slice or "apps"}
-        exec_func = function () systemd.run(entry, nil, props) end
+        exec_func = function () systemd.run(cmd, unit_name, props) end
 
-    elseif execlist[ns] ~= nil then
-        local cmd = execlist[ns][entry]
-        if not cmd then
-            naughty.notify({title="Error in run",
-                            text=string.format("Unknown command name '%s'", name)})
-            return
-        end
+    else
+        naughty.notify({title="Unknown command prefix",
+                        text=string.format("command prefix '%s' is not recognized", ns)})
 
-        -- detect whether cmd is a systemd unit or a command
-        if string.match(cmd, '^.*%.service%s*$') or string.match(cmd, '^.*%.target%s*$') then
-            exec_func = function() systemd.start(cmd) end
-        else
-            local props = {scope=false,
-                           slice=slice or execslice[ns] or "apps"}
-            exec_func = function() systemd.run(cmd, entry, props) end
-        end
     end
 
     -- run the command

@@ -1,34 +1,43 @@
 apps = require("apps")
 
+-- This configures a list of commands. Every command can have a prefix as follows:
+--     cm: command to be run in a transient systemd unit
+--     tm: command to be run. It runs it in a terminal
+--     sd: systemd unit to start. if unit is blah@.service, starts
+--         different instances every time it is executed.
+--
+
+
 return {
    -- top dropdowns
-   termite               = "termite",
-   thunar                = "thunar",
-   ranger                = apps.termcmd("ranger", "ranger"),
-   octave                = apps.termcmd("octave", "octave"),
-   sage                  = apps.termcmd("sage", "sage"),
-   ipython               = apps.termcmd("ipython", "ipython"),
-   ipython2              = apps.termcmd("ipython2", "ipython2"),
-   lua                   = apps.termcmd("lua", "lua"),
-   ghci                  = apps.termcmd("ghci", "ghci"),
-   ["awesome-client"]    = apps.termcmd("awesome-client", "awesome-client"),
-   notes                 = "notes.service",
+   termite               = "termite-dropdown@.service",
+   thunar                = "thunar-dropdown@.service",
+   notes                 = "notes-dropdown.service",
+
+   ranger                = "tm:ranger",
+   octave                = "tm:octave",
+   sage                  = "tm:sage",
+   ipython               = "tm:ipython",
+   ipython2              = "tm:ipython2",
+   lua                   = "tm:lua",
+   ghci                  = "tm:ghci",
+   ["awesome-client"]    = "tm:awesome-client",
 
    -- monitoring
-   syslog                = "journal-terminal.service",
-   htop                  = apps.termcmd("htop", "htop-monitor"),
-   iftop                 = apps.termcmd("sudo iftop", "iftop-monitor"),
-   iotop                 = apps.termcmd("sudo iotop", "iotop-monitor"),
-   radeontop             = apps.termcmd("sudo radeontop", "radeontop-monitor"),
-   atop                  = apps.termcmd("atop -af 1", "atop"),
-   midi                  = apps.termcmd("jack_midi_dump", "midi-monitor"),
+   journal               = "journal-dropdown.service",
+   htop                  = "tm:htop",
+   iftop                 = "tm:sudo iftop",
+   iotop                 = "tm:sudo iotop",
+   radeontop             = "tm:sudo radeontop",
+   atop                  = "tm:atop -af 1",
+   midi                  = "tm:jack_midi_dump",
 
    -- sync and update actions
-   hi                    = apps.termcmd("ictl sync-hi.service",    "hi"),
-   bye                   = apps.termcmd("ictl sync-bye.service",   "bye"),
-   byez                  = apps.termcmd("ictl sync-byez.service",  "byez"),
-   fetch                 = apps.termcmd("ictl fetch.target",       "fetch"),
-   sysupgrade            = apps.termcmd("ictl sysupgrade.service", "sysupgrade"),
+   hi                    = "sync-hi.service",
+   bye                   = "sync-bye.service",
+   byez                  = "sync-byez.service",
+   fetch                 = "fetch.target",
+   sysupgrade            = "sysupgrade.service",
 
    -- side dropdowns
    docs                  = "dwb -p docs",

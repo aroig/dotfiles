@@ -96,10 +96,10 @@ globalkeys = awful.util.table.join(
     awful.key({          }, "XF86MyComputer",  function() ddhide_last()              end),
     awful.key({ shiftkey }, "XF86MyComputer",  function() ddshow_all()               end),
 
-    awful.key({ modkey   }, "F9",              function() ddshow("dd:syslog",  true) end),
-    awful.key({          }, "F9",              function() ddhide("dd:syslog")        end),
-    awful.key({ modkey   }, "XF86Tools",       function() ddshow("dd:syslog",  true) end),
-    awful.key({          }, "XF86Tools",       function() ddhide("dd:syslog")        end),
+    awful.key({ modkey   }, "F9",              function() ddshow("dd:journal", true) end),
+    awful.key({          }, "F9",              function() ddhide("dd:journal")       end),
+    awful.key({ modkey   }, "XF86Tools",       function() ddshow("dd:journal", true) end),
+    awful.key({          }, "XF86Tools",       function() ddhide("dd:journal")       end),
 
     awful.key({ modkey   }, "F10",             function() ddshow("dd:notes",   true) end),
     awful.key({          }, "F10",             function() ddhide("dd:notes")         end),
