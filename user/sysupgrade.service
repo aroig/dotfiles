@@ -1,6 +1,9 @@
 [Unit]
 Description=upgrade system and reboot
 
+Wants=journal-show.service
+After=journal-show.service
+
 Requires=pacman-update.service
 After=pacman-update.service
 

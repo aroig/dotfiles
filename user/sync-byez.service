@@ -3,6 +3,9 @@ Description=final homedir sync and suspend
 
 Conflicts=sync-hi.service sync-fake.service synced.target
 
+Wants=journal-show.service
+After=journal-show.service
+
 Requires=async-default-all.service
 After=async-default-all.service
 

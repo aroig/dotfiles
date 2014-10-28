@@ -1,6 +1,9 @@
 [Unit]
 Description=initial sync
 
+Wants=journal-show.service
+After=journal-show.service
+
 Requires=async-default-needed.service
 After=async-default-needed.service
 
