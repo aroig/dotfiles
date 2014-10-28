@@ -1,5 +1,5 @@
 [Unit]
-Description=Journal monitor
+Description=journal syslog terminal
 
 [Service]
 Type=simple

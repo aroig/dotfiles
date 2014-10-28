@@ -1,0 +1,15 @@
+[Unit]
+Description=termite %i
+
+Requisite=wm.target 
+After=wm.target
+
+[Service]
+Type=simple
+SyslogIdentifier=termite
+Slice=dropdown.slice
+KillMode=process
+
+ExecStart=/usr/bin/termite
+
+

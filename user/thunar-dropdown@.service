@@ -1,0 +1,14 @@
+[Unit]
+Description=thunar %i
+
+Requisite=wm.target 
+After=wm.target
+
+[Service]
+Type=simple
+SyslogIdentifier=thunar
+Slice=dropdown.slice
+
+ExecStart=/usr/bin/thunar
+
+
