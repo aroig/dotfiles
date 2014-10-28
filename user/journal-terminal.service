@@ -1,0 +1,9 @@
+[Unit]
+Description=Journal monitor
+
+[Service]
+Type=simple
+SyslogIdentifier=syslog
+ExecStart=/usr/bin/termite -e "jctl -f -n50"
+
+Slice=dropdown.slice
