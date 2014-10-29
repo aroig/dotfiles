@@ -11,5 +11,5 @@ Type=oneshot
 RemainAfterExit=true
 
 SyslogIdentifier=syslog-show
-ExecStart=/home/abdo/.config/systemd/scripts/awesome-cmd.sh 'ddshow("journal", true)'
-ExecStop=/home/abdo/.config/systemd/scripts/awesome-cmd.sh 'ddhide("journal")'
+ExecStart=/home/abdo/.config/systemd/scripts/awesome-cmd.sh 'ddshow("dd:journal", true)'
+ExecStop=/home/abdo/.config/systemd/scripts/awesome-cmd.sh 'ddhide("dd:journal")'
