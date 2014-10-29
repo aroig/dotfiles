@@ -86,8 +86,11 @@ class StreamWriter(Thread):
         self.ostream = ostream
         self.color = color
 
-    def format_service(self, name):
+    def format_service(self, name, pid):
         if name == None: return "<none>"
+
+        if pid == '1':
+            return '%s%s%s' % (_color['red'], str(name), _color['reset'])
 
         for regexp, c in _services.items():
             if re.match(regexp, str(name)):
@@ -121,6 +124,7 @@ class StreamWriter(Thread):
         return message
 
     def print_entry(self, entry):
+        pid       = entry.get('_PID', None)
         unit      = entry.get('_SYSTEMD_USER_UNIT', None) or entry.get('USER_UNIT', None)
         name      = entry.get('SYSLOG_IDENTIFIER', None)
         message   = entry.get('MESSAGE', None)
@@ -132,7 +136,7 @@ class StreamWriter(Thread):
         timestamp = entry.get('__REALTIME_TIMESTAMP', None)
         if timestamp != None: timestamp = datetime.datetime.fromtimestamp(1e-6 * int(timestamp))
 
-        service_txt   = self.format_service(name)
+        service_txt   = self.format_service(name, pid)
         hostname_txt  = self.format_hostname(hostname)
         timestamp_txt = self.format_timestamp(timestamp)
         message_txt   = self.format_message(message)
