@@ -57,6 +57,7 @@ _services = OrderedDict([
     ('wpa_supplicant' , 'blue'),
     ('xorg'           , 'magenta'),
     ('kernel'         , 'red'),
+    ('sudo'           , 'red'),
     ('.*'             , 'yellow'),
 ])
 
