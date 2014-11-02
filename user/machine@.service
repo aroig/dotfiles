@@ -1,0 +1,9 @@
+[Unit]
+Description=virtual machine %i
+
+[Service]
+Type=forking
+
+SyslogIdentifier=machine
+ExecStart=/home/abdo/virt/bin/machine.py start %i
+
