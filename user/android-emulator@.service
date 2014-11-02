@@ -1,0 +1,12 @@
+[Unit]
+Description=android emulator %i
+
+Requires=android-adb.service
+After=android-adb.service
+
+[Service]
+Type=forking
+
+SyslogIdentifier=android-emulator
+ExecStart=/home/abdo/virt/bin/machine.py start android-%i
+
