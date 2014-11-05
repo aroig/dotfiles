@@ -221,14 +221,10 @@
   (setq org-log-into-drawer "LOGBOOK")
 
   (setq org-todo-keywords
-    '((sequence "TODO(!)" "|" "DONE(!)")            ; Todos in the external world
-      (sequence "WORK(!)" "|")
-      (sequence "NOTE(!)" "|")
-      (sequence "FIXME(!)" "|" "FIXED(!)")          ; Issues with the wiki
+    '((sequence "FIXME(!)" "|" "FIXED(!)")          ; Issues with the wiki
       (sequence "BUG(!)" "|" "SOLVED(!)")           ; Bugs in software
-      (sequence "IDEA(!)" "|")
-      (sequence "PROJ(!)" "|")
-      (sequence "|" "WAIT(!)")                      ; Delay but not forget
+      (type "WORK(!)" "NOTE(!)" "IDEA(!)" "PROJ(!)" "|")
+      (sequence "TODO(!)" "|" "DONE(!)")            ; Todos in the external world
   ))
 
   ;; Enforce dependencies
