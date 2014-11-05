@@ -801,6 +801,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(org-formula ((t (:foreground ,zenburn-yellow-2))))
    `(org-headline-done ((t (:foreground ,zenburn-green+3))))
    `(org-hide ((t (:foreground ,zenburn-bg-1))))
+   `(org-latex-and-related ((t (:foreground ,zenburn-orange))))
    `(org-level-1 ((t (:foreground ,zenburn-sat-orange-1))))
    `(org-level-2 ((t (:foreground ,zenburn-sat-lightgreen-1))))
    `(org-level-3 ((t (:foreground ,zenburn-sat-blue))))
