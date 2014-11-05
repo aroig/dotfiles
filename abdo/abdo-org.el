@@ -312,6 +312,9 @@
 
 (defun abdo-org-latex-common-setup()
 
+  ;; lighlight latex code in org buffers
+  (setq org-highlight-latex-and-related '(latex))
+
   ;; Enable native syntax highlighting for babel
   (require 'ob-latex)
   (setq org-src-fontify-natively t)
