@@ -17,7 +17,7 @@
   ;; This one is on my emacs-lisp dir.
   (load "cdlatex.el")
   (setq-default indent-tabs-mode nil)            ;; No tabs on indent
-  (set-fill-column 82)                           ;; In LaTeX I want it this way
+  (set-fill-column 90)                           ;; In LaTeX I want it this way
 
   (outline-minor-mode)                           ;; Outline mode
   (turn-on-reftex)                               ;; RefTex

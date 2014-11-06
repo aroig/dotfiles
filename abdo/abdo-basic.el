@@ -13,7 +13,7 @@
 (show-paren-mode t)                           ;; Matching parenthesis
 
 (put 'narrow-to-region 'disabled nil)         ;; Enable narrowing
-(setq-default fill-column 80)                 ;; Default Fill column.
+(setq-default fill-column 90)                 ;; Default Fill column.
 (blink-cursor-mode t)                         ;; like it blinking
 
 
