@@ -147,7 +147,7 @@ function run(name, opts)
         local lst = { yes = true, no = false }
 
         promptl.run(myw.promptbox[mouse.screen].widget,
-                    string.format("Run %s? ", entry),
+                    string.format("Run %s? ", unit_name),
                     function (c) if c then exec_func() end end,
                     lst, nil)
 
