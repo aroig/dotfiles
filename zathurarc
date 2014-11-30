@@ -85,7 +85,6 @@ set link-zoom               false
 # ----------------------------------------------------------
 
 set synctex                 true
-set synctex-dbus-service    true
 
 
 
