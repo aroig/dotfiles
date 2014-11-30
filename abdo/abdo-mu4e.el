@@ -94,7 +94,10 @@
 
   ;; Commonly used tags for completion
   (setq mu4e-action-tags-completion-list
-        '( "upc" "devel" "math" "postdoc" "arch" "friends" "fme" "family" "ma1"
+        '( "upc" "maths" "postdoc" "fme" "ma1" "etseib" "research" "seminar"
+           "arch" "devel" "msys2" "github" "bitbucket"
+           "newsletter" "list" "bug"
+           "friends" "family" "bit"
            ))
 
   ;; Times and dates
