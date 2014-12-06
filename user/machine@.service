@@ -6,4 +6,5 @@ Type=forking
 
 SyslogIdentifier=machine
 ExecStart=/home/abdo/virt/bin/machine.py start %i
+ExecStop=/home/abdo/virt/bin/machine.py stop %i
 
