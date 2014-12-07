@@ -62,7 +62,7 @@ dropdown = { last_client = nil }
 
 -- Execute an external program
 function exec (cmd)
-    awful.util.spawn(cmd)
+    awful.util.spawn(cmd, false)
 end
 
 -- Execute an external program inside a shell
