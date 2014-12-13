@@ -1,0 +1,9 @@
+[Unit]
+Description=novation impulse keyboard
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sudo systemctl start impulse.service
+ExecStop=/usr/bin/sudo systemctl stop impulse.service
+
+

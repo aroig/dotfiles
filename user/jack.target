@@ -1,5 +1,8 @@
 [Unit]
-Description=Jack server
+Description=jack server
 
 # We let pulse handle everything and then jack steals the main device.
 Requires=pulseaudio.service
+
+Requires=jack.service jackdbus.service a2jmidid.service
+After=jack.service jackdbus.service a2jmidid.service

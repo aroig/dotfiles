@@ -1,7 +1,9 @@
 [Unit]
 Description=play sampled piano
 
-Wants=jack.target
+Wants=impulse.service
+
+Requires=jack.target
 After=jack.target
 
 Wants=linuxsampler.service linuxsampler-conf@piano.service qjackctl-play.service
