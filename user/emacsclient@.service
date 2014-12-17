@@ -9,6 +9,6 @@ Type=simple
 SyslogIdentifier=emacsclient
 Slice=apps.slice
 
-ExecStart=/usr/bin/emacsclient -s /run/user/1000/emacs/server -c
+ExecStart=/usr/bin/emacsclient -s "${XDG_RUNTIME_DIR}/emacs/server" -c
 
 
