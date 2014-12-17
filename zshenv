@@ -73,16 +73,19 @@ export AB2_VIRT_DIR="$AB2_HOME/virt"
 
 
 #------------------------------
-# Gpg Agent settings
+# Sockets
 #------------------------------
 
-# Those sockets are proxied for socket activation!
+# gpg-agent sockets. Those sockets are proxied for socket activation!
 export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
 export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent::1"
 
 # NOTE: I'll use this once I get socket activation working
 # export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.ssh"
 # export GPG_AGENT_INFO="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent::1"
+
+# mpd socket
+export MPD_HOST="$XDG_RUNTIME_DIR/mpd/mpd.socket"
 
 
 
