@@ -86,6 +86,10 @@ set link-zoom               false
 
 set synctex                 true
 
+# NOTE: we do not set this here because we want to use
+#       $EMACSCLIENT environment var.
+# set synctex-editor-command
+
 
 
 # Key maps
