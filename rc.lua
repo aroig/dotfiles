@@ -10,7 +10,7 @@
 -- Standard lua stuff
 string       = require("string")
 posix        = require("posix")
-timer        = require("gears.timer")
+gears        = require("gears")
 
 -- Standard awesome library
 awful        = require("awful")
@@ -19,6 +19,7 @@ awful.remote = require("awful.remote")
 awful.tag    = require("awful.tag")
 awful.util   = require("awful.util")
 
+wibox        = require("wibox")
 beautiful    = require("beautiful")
 menubar      = require("menubar")
 gears        = require("gears")

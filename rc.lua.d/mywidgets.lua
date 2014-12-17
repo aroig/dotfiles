@@ -9,9 +9,9 @@
 -----------------------------------
 
 -- require("awful")
-local capi  = { timer = timer }
 
-local wibox = require("wibox")
+local gears = gears
+local wibox = wibox
 local beautiful = beautiful
 
 local os = os
@@ -23,9 +23,9 @@ local host_config = host_config
 -----------------------------------
 
 local timers = {}
-timers.slow    = timer({ timeout = 60 })
-timers.normal  = timer({ timeout = 10 })
-timers.fast    = timer({ timeout = 2 })
+timers.slow    = gears.timer({ timeout = 60 })
+timers.normal  = gears.timer({ timeout = 10 })
+timers.fast    = gears.timer({ timeout = 2 })
 
 function start_widgets()
     for _,t in pairs(timers) do
