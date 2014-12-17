@@ -1,6 +1,11 @@
 [Unit]
 Description=ssh connection proxy for %i
 
+# WARNING: Currently this is broken!
+# This shoud give socket activation for sshmux@.service
+#  For some reason, it produces an error:
+#      Failed to splice: Invalid argument
+
 Requires=sshmux@%i.service
 After=sshmux@%i.service
 
