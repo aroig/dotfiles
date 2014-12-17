@@ -3,7 +3,7 @@ Description=Music Player Daemon socket
 
 [Socket]
 ListenStream=%t/mpd/mpd.socket
-ListenStream=6600
+# ListenStream=6600
 
 [Install]
 WantedBy=sockets.target
