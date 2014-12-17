@@ -1,15 +1,16 @@
 [Unit]
 Description=ssh connection proxy for %i
 
-# Requires=ssh-proxy@%i.socket
-# After=ssh-proxy@%i.socket
+Requires=sshmux@%i.service
+After=sshmux@%i.service
+
+Requires=ssh-proxy@%i.socket
+After=ssh-proxy@%i.socket
 
 [Service]
-Type=forking
+Type=simple
 
-RuntimeDirectory=ssh
-RuntimeDirectoryMode=700
-
-ExecStart=/usr/bin/ssh -M %i true
+SyslogIdentifier=ssh-proxy
+ExecStart=/usr/lib/systemd/systemd-socket-proxyd %t/ssh/%i.socket
 
 

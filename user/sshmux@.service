@@ -1,0 +1,13 @@
+[Unit]
+Description=ssh master connection for %i
+
+[Service]
+Type=forking
+
+# RuntimeDirectory=ssh
+# RuntimeDirectoryMode=700
+
+SyslogIdentifier=sshmux
+ExecStart=/usr/bin/ssh -M -o "ControlPath=%t/ssh/%i.socket" %i true
+
+
