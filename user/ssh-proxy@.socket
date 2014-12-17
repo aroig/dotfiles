@@ -1,8 +1,0 @@
-[Unit]
-Description=ssh connection proxy socket for %i
-
-[Socket]
-ListenStream=%t/ssh/%i.socket
-
-[Install]
-WantedBy=sockets.target

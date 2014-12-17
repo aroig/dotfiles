@@ -1,11 +1,14 @@
 [Unit]
 Description=ssh connection proxy for %i
 
-Requires=ssh-proxy@%i.socket
-After=ssh-proxy@%i.socket
+# Requires=ssh-proxy@%i.socket
+# After=ssh-proxy@%i.socket
 
 [Service]
 Type=forking
+
+RuntimeDirectory=ssh
+RuntimeDirectoryMode=700
 
 ExecStart=/usr/bin/ssh -M %i true
 
