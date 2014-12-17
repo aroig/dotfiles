@@ -291,7 +291,10 @@
 ;; view pdf in zathura
 (defun abdo-latex-zathura-view (pdf)
   (let
-    ((editor (concat (getenv "EMACSCLIENT") " -e '(abdo-latex-reverse-sync \"%{input}\" %{line} %{column})'")))
+      ;; NOTE: we do not configure the editor in zathurarc so we can get emacs stuff from
+      ;;       environment variables!
+      ((editor (concat (getenv "EMACSCLIENT")
+                       " -e '(abdo-latex-reverse-sync \"%{input}\" %{line} %{column})'")))
     (call-process "zathura" nil 0 nil
                   "--synctex-editor-command"
                   editor
