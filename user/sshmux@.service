@@ -8,6 +8,7 @@ Type=forking
 # RuntimeDirectoryMode=700
 
 SyslogIdentifier=sshmux
+ExecStartPre=/usr/bin/mkdir -p "%t/ssh"
 ExecStart=/usr/bin/ssh -M -o "ControlPath=%t/ssh/%i.socket" %i true
 
 
