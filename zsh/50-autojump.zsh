@@ -1,81 +1,117 @@
+export AUTOJUMP_SOURCED=1
 
-# determine the data directory according to the XDG Base Directory Specification
-if [[ -n ${XDG_DATA_HOME} ]] && [[ ${XDG_DATA_HOME} == *${USER}* ]]; then
-    export AUTOJUMP_DATA_DIR="${XDG_DATA_HOME}/autojump"
+# set user installation paths
+if [[ -d ~/.autojump/bin ]]; then
+    path=(~/.autojump/bin ${path})
+fi
+if [[ -d ~/.autojump/functions ]]; then
+    fpath=(~/.autojump/functions ${fpath})
+fi
+
+
+# set homebrew installation paths
+if command -v brew &>/dev/null && [[ -d "$(brew --prefix)/share/zsh/site-functions" ]]; then
+    fpath=("$(brew --prefix)/share/zsh/site-functions" ${fpath})
+fi
+
+
+# set error file location
+if [[ "$(uname)" == "Darwin" ]]; then
+    export AUTOJUMP_ERROR_PATH=~/Library/autojump/errors.log
+elif [[ -n "${XDG_DATA_HOME}" ]]; then
+    export AUTOJUMP_ERROR_PATH="${XDG_DATA_HOME}/autojump/errors.log"
 else
-    export AUTOJUMP_DATA_DIR=${HOME}/.local/share/autojump
+    export AUTOJUMP_ERROR_PATH=~/.local/share/autojump/errors.log
 fi
 
-if [[ ! -e ${AUTOJUMP_DATA_DIR} ]]; then
-    mkdir -p "${AUTOJUMP_DATA_DIR}"
+if [[ ! -d ${AUTOJUMP_ERROR_PATH:h} ]]; then
+    mkdir -p ${AUTOJUMP_ERROR_PATH:h}
 fi
 
-function autojump_chpwd() {
-    if [[ "${AUTOJUMP_KEEP_SYMLINKS}" == "1" ]]; then
-        _PWD_ARGS=""
+
+# change pwd hook
+autojump_chpwd() {
+    if [[ -f "${AUTOJUMP_ERROR_PATH}" ]]; then
+        autojump --add "$(pwd)" >/dev/null 2>>${AUTOJUMP_ERROR_PATH} &!
     else
-        _PWD_ARGS="-P"
-    fi
-    if [ -f "$XDG_RUNTIME_DIR/synced" ]; then
-        { (autojump -a "$(pwd ${_PWD_ARGS})"&)>/dev/null 2>>|${AUTOJUMP_DATA_DIR}/autojump_errors ; } 2>/dev/null
+        autojump --add "$(pwd)" >/dev/null &!
     fi
 }
 
-typeset -ga chpwd_functions
+typeset -gaU chpwd_functions
 chpwd_functions+=autojump_chpwd
 
-function j {
-    # Cannot use =~ due to MacPorts zsh v4.2, see issue #125.
-    if [[ ${@} == -* ]]; then
+
+# default autojump command
+j() {
+    if [[ ${1} == -* ]] && [[ ${1} != "--" ]]; then
         autojump ${@}
         return
     fi
 
-    local new_path="$(autojump ${@})"
-    if [ -d "${new_path}" ]; then
-        echo -e "\\033[31m${new_path}\\033[0m"
-        cd "${new_path}"
+    setopt localoptions noautonamedirs
+    local output="$(autojump ${@})"
+    if [[ -d "${output}" ]]; then
+        echo -e "\\033[31m${output}\\033[0m"
+        cd "${output}"
     else
         echo "autojump: directory '${@}' not found"
+        echo "\n${output}\n"
         echo "Try \`autojump --help\` for more information."
         false
     fi
 }
 
-function jc {
-    if [[ ${@} == -* ]]; then
-        j ${@}
+
+# jump to child directory (subdirectory of current path)
+jc() {
+    if [[ ${1} == -* ]] && [[ ${1} != "--" ]]; then
+        autojump ${@}
+        return
     else
-        j $(pwd)/ ${@}
+        j $(pwd) ${@}
     fi
 }
 
-function jo {
-    if [ -z $(autojump $@) ]; then
-        echo "autojump: directory '${@}' not found"
-        echo "Try \`autojump --help\` for more information."
-        false
-    else
+
+# open autojump results in file browser
+jo() {
+    if [[ ${1} == -* ]] && [[ ${1} != "--" ]]; then
+        autojump ${@}
+        return
+    fi
+
+    setopt localoptions noautonamedirs
+    local output="$(autojump ${@})"
+    if [[ -d "${output}" ]]; then
         case ${OSTYPE} in
-            linux-gnu)
-                xdg-open "$(autojump $@)"
+            linux*)
+                xdg-open "${output}"
                 ;;
             darwin*)
-                open "$(autojump $@)"
+                open "${output}"
                 ;;
             cygwin)
-                cygstart "" $(cygpath -w -a $(pwd))
+                cygstart "" $(cygpath -w -a ${output})
                 ;;
             *)
-                echo "Unknown operating system." 1>&2
+                echo "Unknown operating system: ${OSTYPE}" 1>&2
                 ;;
         esac
+    else
+        echo "autojump: directory '${@}' not found"
+        echo "\n${output}\n"
+        echo "Try \`autojump --help\` for more information."
+        false
     fi
 }
 
-function jco {
-    if [[ ${@} == -* ]]; then
-        j ${@}
+
+# open autojump results (child directory) in file browser
+jco() {
+    if [[ ${1} == -* ]] && [[ ${1} != "--" ]]; then
+        autojump ${@}
+        return
     else
         jo $(pwd) ${@}
     fi
