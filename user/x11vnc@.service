@@ -1,14 +1,12 @@
 [Unit]
-Description=X11VNC server at display %i
+Description=x11vnc server at display %i
 
-Requisite=xorg@%i.socket
-After=xorg@%i.socket
-
-Requires=xserver@%i.target
-Before=xserver@%i.target
+Requisite=xorg@%i.service
+After=xorg@%i.service
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/x11vnc -usepw -forever -display :%i -rfbport 5902 -bg
+ExecStartPre=/usr/bin/mkdir -p %t/x11vnc
+ExecStart=/usr/bin/x11vnc -nopw -forever -ncache 10 -display :%i -unixsockonly %t/x11vnc/x11vnc.socket -bg
 
 

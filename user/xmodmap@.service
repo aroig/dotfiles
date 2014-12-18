@@ -5,7 +5,7 @@ Documentation=man:xmodmap(1)
 Requisite=xserver@%i.target
 After=xserver@%i.target
 
-After=xorg@%i.service vncserver@%i.service x11vnc@%i.service xephyr@%i.service
+After=xorg@%i.service vncserver@%i.service xephyr@%i.service
 After=xinit@%i.service
 
 
