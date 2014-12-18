@@ -10,9 +10,6 @@
 # Set environment
 #------------------------------
 
-# source aliases
-[[ -f $HOME/.aliases ]] && . $HOME/.aliases
-
 # symling $XDG_RUNTIME_DIR from homedir, so we can access it via ~/.runtime
 if [[ ! -d "$HOME/.runtime" ]]; then
     [[ -d "$XDG_RUNTIME_DIR" ]] && ln -sf "$XDG_RUNTIME_DIR" "$HOME/.runtime"
@@ -30,6 +27,13 @@ systemctl --user set-environment "PATH=$PATH"
 if [ "$XDG_VTNR" ]; then
     systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
 fi
+
+
+#------------------------------
+# source zshrc
+#------------------------------
+
+[[ -e ~/.zshrc ]] && source ~/.zshrc
 
 
 
@@ -55,6 +59,12 @@ if [[ "$SSH_TTY" != "" && "$TMUX" == "" && "$NOTMUX" == "" ]]; then
         echo "tmux not installed. Falling back to plain shell."
     fi
 fi
+
+
+
+# ----------------------------
+# gpg agent
+# ----------------------------
 
 # if ssh session, set gpg-agent variables
 if [[ "$SSH_CONNECTION" != "" ]]; then
