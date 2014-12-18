@@ -31,10 +31,12 @@ fi
 
 # change pwd hook
 autojump_chpwd() {
-    if [[ -f "${AUTOJUMP_ERROR_PATH}" ]]; then
-        autojump --add "$(pwd)" >/dev/null 2>>${AUTOJUMP_ERROR_PATH} &!
-    else
-        autojump --add "$(pwd)" >/dev/null &!
+    if [[ -f "${XDG_RUNTIME_DIR}/synced" ]]; then
+        if [[ -f "${AUTOJUMP_ERROR_PATH}" ]]; then
+            autojump --add "$(pwd)" >/dev/null 2>>${AUTOJUMP_ERROR_PATH} &!
+        else
+            autojump --add "$(pwd)" >/dev/null &!
+        fi
     fi
 }
 
