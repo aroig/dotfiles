@@ -9,6 +9,6 @@ Type=forking
 
 SyslogIdentifier=sshmux
 ExecStartPre=/usr/bin/mkdir -p "%t/ssh"
-ExecStart=/usr/bin/ssh -M -o "ControlPath=%t/ssh/%i.socket" %i true
+ExecStart=/usr/bin/ssh -M -o "ControlPersist=yes" %i true
 
 
