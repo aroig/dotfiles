@@ -75,7 +75,7 @@ is no active region.  If no style is given uses `clang-format-style'."
                (point-min) (point-max) clang-format-executable
                'delete keep-stderr nil
 
-               "-assume-filename" (buffer-file-name)
+               "-assume-filename" (or (buffer-file-name) "")
                "-style" style
                "-offset" (number-to-string (1- start))
                "-length" (number-to-string (- end start))
