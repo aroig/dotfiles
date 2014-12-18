@@ -4,9 +4,6 @@ Description=ssh master connection for %i
 [Service]
 Type=forking
 
-# RuntimeDirectory=ssh
-# RuntimeDirectoryMode=700
-
 SyslogIdentifier=sshmux
 ExecStartPre=/usr/bin/mkdir -p "%t/ssh"
 ExecStart=/usr/bin/ssh -M -o "ControlPersist=yes" %i true
