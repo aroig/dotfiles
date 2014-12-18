@@ -6,7 +6,12 @@ After=xorg@%i.service
 
 [Service]
 Type=forking
-ExecStartPre=/usr/bin/mkdir -p %t/x11vnc
-ExecStart=/usr/bin/x11vnc -nopw -forever -ncache 10 -display :%i -unixsockonly %t/x11vnc/x11vnc.socket -bg
+
+# TODO: when I get a vncviewer that supports unix sockets, use this
+#    -unixsockonly %t/x11vnc/x11vnc.socket
+#
+# ExecStartPre=/usr/bin/mkdir -p %t/x11vnc
+
+ExecStart=/usr/bin/x11vnc -nopw -forever -ncache 10 -display :%i -rfbport 5900 -bg
 
 
