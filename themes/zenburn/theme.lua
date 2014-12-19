@@ -165,6 +165,9 @@ theme.wibox.orgmode    = "&#xf022;"
 
 theme.wibox.desktop    = "&#xf108;"
 theme.wibox.laptop     = "&#xf109;"
+theme.wibox.tablet     = "&#xf10a;"
+theme.wibox.mobile     = "&#xf10b;"
+theme.wibox.keyboard   = "&#xf11c;"
 
 theme.wibox.power      = "&#xf0e7;"
 theme.wibox.cable      = "&#x1f50c;"  -- unicode symbol
