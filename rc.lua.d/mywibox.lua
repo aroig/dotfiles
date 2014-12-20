@@ -4,7 +4,7 @@
 -- Author:  Abdó Roig<abdo.roig@gmail.com>                   --
 ---------------------------------------------------------------
 
-local wibox     = require("wibox")
+local wibox = wibox
 
 local host_config = host_config
 
@@ -100,6 +100,8 @@ for s = 1, screen.count() do
 
    right_layout:add(myw.clock.icon)
    right_layout:add(myw.clock.clockwdg)
+
+   -- right_layout:add(myw.keyb.icon)
 
    local middle_layout = wibox.layout.fixed.horizontal()
    middle_layout:add(myw.tasklist[s])

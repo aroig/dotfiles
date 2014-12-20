@@ -16,17 +16,18 @@
 --   screen   - optional, screen.count() by default
 ----------------------------------------------------
 
+-- WARNING: this is still broken. Need to update it to use new wibox
+
+
 -- Grab environment
 local util     = require("awful.util")
-local wibox    = require("awful.wibox")
 local button   = require("awful.button")
-local layout   = require("awful.widget.layout")
+local wibox    = require("wibox")
 local table    = table
 local ipairs   = ipairs
 local tostring = tostring
 local setmetatable = setmetatable
 local capi     = {
-    widget     = widget,
     screen     = screen,
     fake_input = root.fake_input
 }
@@ -44,11 +45,11 @@ kbd.codes = {
 
 -- Create a chain of key widgets for an OSK row
 local function create_button_row(...)
-    local widgets = { layout = layout.horizontal.flex }
+    local widgets = { horizontal = wibox.layout.flex.horizontal }
 
-    for _, i in ipairs(arg) do
-        local w = capi.widget({ type = "textbox" })
-        w:margin({ top = 10, left = 10, right = 10, bottom = 10 })
+    for _, i in ipairs({...}) do
+        local w = wibox.widget.textbox()
+--        w:margin({ top = 10, left = 10, right = 10, bottom = 10 })
         w.border_width = 1
         w.text_align   = "center"
         w.border_color = "#1E2320"
@@ -70,7 +71,8 @@ end
 setmetatable(_M, { __call = function (_, pos, scr)
     if not kbd.init then
         kbd.box = wibox({
-            height   = 100,
+                height   = 100,
+                width = 100,
             position = pos or "bottom",
             screen   = scr or capi.screen.count(),
             fg       = "#F0DFAF",
@@ -79,7 +81,7 @@ setmetatable(_M, { __call = function (_, pos, scr)
                 { create_button_row("q", "w", "e", "r", "t", "z", "u", "i", "o", "p", ".") },
                 { create_button_row("a", "s", "d", "f", "g", "h", "j", "k", "l") },
                 { create_button_row("Caps", "y", "x", "c", "v", "b", "n", "m", "Spc", "Ret", "Del") },
-                layout = layout.vertical.flex
+                layout = wibox.layout.flex.vertical
             }
         })
         kbd.init = true

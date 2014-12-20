@@ -31,6 +31,7 @@ layout      = require("abdo.layout")         -- My layouts
 systemd     = require("abdo.systemd")        -- systemd commands
 apps        = require("apps")                -- My preferred apps
 revelation  = require("abdo.revelation")     -- Tweaked expose
+keyboard    = require("abdo.osk")            -- On-screen keyboard
 
 
 -----------------------------------

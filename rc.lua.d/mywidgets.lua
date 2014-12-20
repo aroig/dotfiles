@@ -13,6 +13,7 @@
 local gears = gears
 local wibox = wibox
 local beautiful = beautiful
+local keyboard = keyboard
 
 local os = os
 
@@ -539,6 +540,19 @@ myw.clock.icon:set_markup(wiboxicon("clock", beautiful.color_widget) .. ' ')
 
 myw.clock.clockwdg = awful.widget.textclock(string.format('<span color="%s">%%a %%d %%b %%H:%%M </span>',
                                                           beautiful.color_widget))
+
+
+
+-----------------------------------
+-- Keyboard                      --
+-----------------------------------
+
+myw.keyb = {}
+myw.keyb.icon = wibox.widget.textbox()
+myw.keyb.icon:set_markup(wiboxicon("keyboard", beautiful.color_widget) .. ' ')
+
+myw.keyb.icon:buttons(awful.util.table.join(
+                          awful.button({ }, 1, function () osk() end)))
 
 
 -----------------------------------
