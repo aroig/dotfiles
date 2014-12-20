@@ -3,7 +3,7 @@
 This package allows to filter code through clang-format to fix its formatting.
 clang-format is a tool that formats C/C++/Obj-C code according to a set of
 style options, see [Clang-Format Style Options][style].
-Note that clang-format 3.3 or newer is required.
+Note that clang-format 3.4 or newer is required.
 
 The main functionality provided by this package is contained in
 `clang-format-region`.  If called interactively, the region (or the
