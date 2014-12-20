@@ -35,7 +35,10 @@
   :group 'tools)
 
 (defcustom clang-format-executable
-  (or (executable-find "clang-format") "clang-format")
+  (or (executable-find "clang-format")
+      (when (boundp 'clang-format-binary)
+        clang-format-binary)
+      "clang-format")
   "Location of the clang-format executable."
   :group 'clang-format
   :type 'string)
@@ -105,6 +108,15 @@ is no active region.  If no style is given uses `clang-format-style'."
     (mapc (lambda (w) (apply #'set-window-start w))
           window-starts)
     (goto-char (1+ (cdr (assoc 'Cursor json))))))
+
+;;;###autoload
+(defun clang-format-buffer (&optional style)
+  "Use clang-format to format the current buffer according to STYLE."
+  (interactive)
+  (clang-format-region (point-min) (point-max) style))
+
+;;;###autoload
+(defalias 'clang-format 'clang-format-region)
 
 (provide 'clang-format)
 ;;; clang-format.el ends here
