@@ -184,17 +184,26 @@ local icon_theme            = "Numix"
 local icon_path             = os.getenv("HOME") .. "/.icons/" .. icon_theme .. "/64x64/"
 
 -- {{{ Naughty icons
-theme.naughty_mail_icon     = icon_path .. "emblems/emblem-mail.svg"
-theme.naughty_chat_icon     = icon_path .. "emblems/emblem-people.svg"
-theme.naughty_alert_icon    = icon_path .. "emblems/emblem-important.svg"
-theme.naughty_event_icon    = icon_path .. "emblems/emblem-urgent.svg"
-theme.naughty_app_icon      = icon_path .. "emblems/emblem-system.svg"
+theme.naughty = {}
+theme.naughty.info_icon     = icon_path .. "status/dialog-information.svg"
+theme.naughty.alert_icon    = icon_path .. "status/dialog-warning.svg"
+theme.naughty.unknown_icon  = icon_path .. "status/dialog-question.svg"
+theme.naughty.crash_icon    = icon_path .. "status/dialog-error.svg"
 
-theme.naughty_battery_icon  = icon_path .. "devices/battery.svg"
+theme.naughty.mail_icon     = icon_path .. "categories/applications-mail.svg"
+theme.naughty.chat_icon     = icon_path .. "categories/applications-chat.svg"
+theme.naughty.app_icon      = icon_path .. "categories/system_section.svg"
+theme.naughty.system_icon   = icon_path .. "categories/system_section.svg"
+theme.naughty.event_icon    = icon_path .. "actions/appointment.svg"
 
-theme.naughty_mail_sound    = theme.confdir .. "/sounds/soothing/Gentle Roll.wav"
-theme.naughty_chat_sound    = theme.confdir .. "/sounds/soothing/Looking Up.wav"
-theme.naughty_alert_sound   = theme.confdir .. "/sounds/soothing/Connected.wav"
+theme.naughty.battery_icon  = icon_path .. "devices/battery.svg"
+theme.naughty.disk_icon     = icon_path .. "devices/drive-harddisk.svg"
+
+
+
+theme.naughty.mail_sound    = theme.confdir .. "/sounds/soothing/Gentle Roll.wav"
+theme.naughty.chat_sound    = theme.confdir .. "/sounds/soothing/Looking Up.wav"
+theme.naughty.alert_sound   = theme.confdir .. "/sounds/soothing/Connected.wav"
 -- }}}
 
 -- {{{ Taglist icons
