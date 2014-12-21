@@ -30,7 +30,7 @@ local function worker(format, warg)
     }
 
     -- get mpd process state
-    local pid_file = os.getenv("XDG_RUNTIME_DIR") .. "/mpd/pid"
+    local pid_file = os.getenv("XDG_RUNTIME_DIR") .. "/mpd/mpd.pid"
     local f = io.open(pid_file, "r")
     if f == nil then
         return mpd_state
