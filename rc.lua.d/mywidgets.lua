@@ -165,7 +165,7 @@ myw.net.dwdg = wibox.widget.textbox()
 myw.net.uwdg = wibox.widget.textbox()
 
 myw.net.icon = wibox.widget.textbox()
-myw.net.icon:set_markup(wiboxicon('download', beautiful.color_widget) .. " ")
+myw.net.icon:set_markup(wiboxicon('network', beautiful.color_widget) .. " ")
 
 myw.net.value = { up=-1, down=-1 }
 

@@ -144,7 +144,7 @@ theme.wibox.poweroff   = "&#xf011;"
 
 theme.wibox.music      = "&#xf001;"
 theme.wibox.headphones = "&#xf025;"
-theme.wibox.speaker    = "&#xf028;"
+theme.wibox.speaker    = "&#xf028;"   -- also "&#xf026;" "&#xf027;" "&#xf028;"
 theme.wibox.mute       = "&#xf026;"
 
 theme.wibox.play       = "&#x23f5;"   -- unassigned unicode: &#x23f5;   fontawesome: &#xf04b;
@@ -170,7 +170,7 @@ theme.wibox.mobile     = "&#xf10b;"
 theme.wibox.keyboard   = "&#xf11c;"
 
 theme.wibox.power      = "&#xf0e7;"
-theme.wibox.cable      = "&#x1f50c;"  -- unicode symbol
+theme.wibox.cable      = "&#xf1e6;"   -- unicode: "&#x1f50c;"
 theme.wibox.battery    = "&#x1f50b;"  -- unicode symbol
 
 theme.wibox.clock      = "&#xf017;"
