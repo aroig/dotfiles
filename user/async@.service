@@ -10,6 +10,8 @@ After=network-online.service
 Requires=sshmux@%i.service
 After=ssgmux@%i.service
 
+Before=synced.target
+
 [Service]
 Type=oneshot
 SyslogIdentifier=async-%i

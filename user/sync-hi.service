@@ -4,8 +4,8 @@ Description=initial sync
 Wants=journal-show.service
 After=journal-show.service
 
-Requires=async-default-needed.service
-After=async-default-needed.service
+Requires=async@skynet.service
+After=async@skynet.service
 
 OnFailure=journal-mailer.service
 
