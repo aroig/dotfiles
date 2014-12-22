@@ -91,5 +91,6 @@ return {
    hi                        = "sync-hi.service",
    bye                       = "sync-bye.service",
    byez                      = "sync-byez.service",
+   byez                      = "sync-byeh.service",
    fakesync                  = "sync-fake.service",
 }
