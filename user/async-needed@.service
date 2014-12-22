@@ -11,4 +11,4 @@ After=network-online.service
 Type=oneshot
 SyslogIdentifier=async-%i
 KillSignal=SIGINT
-ExecStart=/usr/bin/async -b sync %i --terse 
+ExecStart=/usr/bin/async -b sync %i --terse --needed 
