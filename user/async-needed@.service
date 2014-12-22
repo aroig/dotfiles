@@ -7,6 +7,9 @@ After=mount-priv.service
 Requires=network-online.service
 After=network-online.service
 
+Requires=sshmux@%i.service
+After=ssgmux@%i.service
+
 [Service]
 Type=oneshot
 SyslogIdentifier=async-%i

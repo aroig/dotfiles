@@ -1,6 +1,12 @@
 [Unit]
 Description=ssh master connection for %i
 
+Requires=mount-priv.service
+After=mount-priv.service
+
+Requires=network-online.service
+After=network-online.service
+
 [Service]
 Type=forking
 
