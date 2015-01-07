@@ -10,18 +10,18 @@ apps = require("apps")
 
 return {
    -- top dropdowns
-   termite               = "termite-dropdown@.service",
-   thunar                = "thunar-dropdown@.service",
+   termite               = "termite-dropdown.service",
+   thunar                = "thunar-dropdown.service",
    notes                 = "notes-dropdown.service",
+   ranger                = "ranger-dropdown.service",
 
-   ranger                = "tm:ranger",
    octave                = "tm:octave",
    sage                  = "tm:sage",
    ipython               = "tm:ipython",
    ipython2              = "tm:ipython2",
    lua                   = "tm:lua",
    ghci                  = "tm:ghci",
-   ["awesome-client"]    = "tm:awesome-client",
+   awesomeclient         = "tm:awesome-client",
 
    -- monitoring
    journal               = "journal-dropdown.service",
