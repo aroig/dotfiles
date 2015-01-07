@@ -4,7 +4,7 @@
 
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: http://github.com/bbatsov/zenburn-emacs
-;; Version: 2.1
+;; Version: 2.3-cvs
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -266,10 +266,10 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(company-tooltip-mouse ((t (:background ,zenburn-bg-1))))
    `(company-tooltip-common ((t (:foreground ,zenburn-green+2))))
    `(company-tooltip-common-selection ((t (:foreground ,zenburn-green+2))))
-   `(company-scrollbar-fg ((t (:background ,zenburn-green+1))))
-   `(company-scrollbar-bg ((t (:background ,zenburn-bg-1))))
-   `(company-preview ((t (:background ,zenburn-green+1))))
-   `(company-preview-common ((t (:background ,zenburn-bg-1))))
+   `(company-scrollbar-fg ((t (:background ,zenburn-bg-1))))
+   `(company-scrollbar-bg ((t (:background ,zenburn-bg+2))))
+   `(company-preview ((t (:background ,zenburn-green+2))))
+   `(company-preview-common ((t (:foreground ,zenburn-green+2 :background ,zenburn-bg-1))))
 ;;;;; bm
    `(bm-face ((t (:background ,zenburn-yellow-1 :foreground ,zenburn-bg))))
    `(bm-fringe-face ((t (:background ,zenburn-yellow-1 :foreground ,zenburn-bg))))
@@ -603,8 +603,10 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(jabber-roster-user-online ((t (:foreground ,zenburn-blue-1))))
    `(jabber-roster-user-dnd ((t (:foreground ,zenburn-red+1))))
    `(jabber-rare-time-face ((t (:foreground ,zenburn-blue+1 :weight bold))))
+   `(jabber-chat-error ((t (:foreground ,zenburn-red-1 :weight bold))))
    `(jabber-chat-prompt-local ((t (:foreground ,zenburn-green+1 :weight bold))))
    `(jabber-chat-prompt-foreign ((t (:foreground ,zenburn-orange-1 :weight bold))))
+   `(jabber-chat-prompt-system ((t (:foreground ,zenburn-blue-1 :weight bold))))
    `(jabber-activity-face((t (:foreground ,zenburn-red+1))))
    `(jabber-activity-personal-face ((t (:foreground ,zenburn-blue+1))))
    `(jabber-title-small ((t (:height 1.1 :weight bold))))
