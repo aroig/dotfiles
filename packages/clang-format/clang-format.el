@@ -24,7 +24,7 @@
 ;; This package allows to filter code through clang-format to fix its formatting.
 ;; clang-format is a tool that formats C/C++/Obj-C code according to a set of
 ;; style options, see <http://clang.llvm.org/docs/ClangFormatStyleOptions.html>.
-;; Note that clang-format 3.3 or newer is required.
+;; Note that clang-format 3.4 or newer is required.
 
 ;;; Code:
 
@@ -35,7 +35,10 @@
   :group 'tools)
 
 (defcustom clang-format-executable
-  (or (executable-find "clang-format") "clang-format")
+  (or (executable-find "clang-format")
+      (when (boundp 'clang-format-binary)
+        clang-format-binary)
+      "clang-format")
   "Location of the clang-format executable."
   :group 'clang-format
   :type 'string)
@@ -105,6 +108,15 @@ is no active region.  If no style is given uses `clang-format-style'."
     (mapc (lambda (w) (apply #'set-window-start w))
           window-starts)
     (goto-char (1+ (cdr (assoc 'Cursor json))))))
+
+;;;###autoload
+(defun clang-format-buffer (&optional style)
+  "Use clang-format to format the current buffer according to STYLE."
+  (interactive)
+  (clang-format-region (point-min) (point-max) style))
+
+;;;###autoload
+(defalias 'clang-format 'clang-format-region)
 
 (provide 'clang-format)
 ;;; clang-format.el ends here
