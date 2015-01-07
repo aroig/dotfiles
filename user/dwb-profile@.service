@@ -1,5 +1,5 @@
 [Unit]
-Description=dwb %i
+Description=dwb profile %i
 
 Requisite=wm.target 
 After=wm.target
@@ -8,11 +8,11 @@ Requires=dwb-db.service
 After=dwb-db.service
 
 [Service]
-Type=simple
-SyslogIdentifier=dwb
+Type=dbus
+BusName=org.bitbucket.dwb.%i
+SyslogIdentifier=dwb-%i
 Slice=apps.slice
 
-# Start new instance of dwb without dbus
-ExecStart=/usr/bin/dwb -n
+ExecStart=/usr/bin/dwb -p %i
 StandardOutput=null
 
