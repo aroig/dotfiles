@@ -1,5 +1,5 @@
 [Unit]
-Description=thunar %i
+Description=thunar dropdown
 
 Requisite=wm.target 
 After=wm.target
