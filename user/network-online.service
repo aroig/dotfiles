@@ -2,6 +2,8 @@
 Description=wait for network to be configured
 Documentation=man:systemd-networkd-wait-network-online.service(8)
 
+Conflicts=systemd-suspend.service systemd-poweroff.service systemd-reboot.service
+
 [Service]
 Type=oneshot
 TimeoutSec=30s
