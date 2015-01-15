@@ -15,7 +15,7 @@ BusName=org.jackaudio.service
 
 # realtime scheduling
 CPUSchedulingPolicy=rr
-CPUSchedulingPriority=90
+CPUSchedulingPriority=60
 
 # we use jackdbus
 ExecStart=/usr/bin/jackdbus auto

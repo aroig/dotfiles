@@ -19,7 +19,7 @@ BusName=org.PulseAudio1
 
 # realtime scheduling
 CPUSchedulingPolicy=rr
-CPUSchedulingPriority=50
+CPUSchedulingPriority=60
 
 ExecStart=/usr/bin/pulseaudio
 SuccessExitStatus=0 1
