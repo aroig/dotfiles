@@ -1,3 +1,4 @@
 [Unit]
 Description=network is online
-
+DefaultDependencies=no
+Conflicts=suspend.target poweroff.target reboot.target
