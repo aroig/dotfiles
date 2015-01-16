@@ -6,8 +6,8 @@ ConditionPathExists=/home/%u/mail
 Requisite=synced.target
 After=synced.target
 
-Requires=network-online.service
-After=network-online.service
+Requires=network-online.target
+After=network-online.target
 
 [Service]
 Type=oneshot
