@@ -1,6 +1,6 @@
 [Unit]
 Description=chat away state
-ConditionPathExists=/tmp/emacs%U/chat
+ConditionPathExists=%t/emacs/chat
 
 [Service]
 Type=oneshot

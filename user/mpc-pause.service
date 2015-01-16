@@ -1,6 +1,6 @@
 [Unit]
 Description=run mpc pause
-ConditionPathExists=%t/mpd/pid
+ConditionPathExists=%t/mpd/mpd.pid
 
 [Service]
 Type=oneshot

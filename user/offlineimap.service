@@ -2,7 +2,6 @@
 Description=offlineimap
 
 ConditionPathExists=/home/%u/mail
-ConditionPathExists=/home/%u/.netrc
 
 Requires=mount-priv.service
 After=mount-priv.service

@@ -3,8 +3,6 @@ Description=fetch delicious bookmarks
 Requires=network-online.target
 After=network-online.target
 
-ConditionPathExists=/home/%u/.netrc
-
 [Service]
 Type=oneshot
 SyslogIdentifier=delicious
