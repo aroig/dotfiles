@@ -1,0 +1,8 @@
+[Unit]
+Description=clean tmp files
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=clean-tmp
+ExecStart=/usr/bin/find "%h/tmp/" -ctime +90 -delete
