@@ -6,11 +6,9 @@ Description=emacs daemon
 Requisite=wm.target
 After=wm.target
 
-Requires=apps.slice
-After=apps.slice
-
 [Service]
 Type=forking
+Slice=daemons.slice
 
 SyslogIdentifier=emacs
 
@@ -20,7 +18,5 @@ SuccessExitStatus=0 15
 # Kill with a SIGINT. This calls kill-emacs. No buffer saving is done.
 KillSignal=SIGINT
 
-Slice=apps.slice
-
 [Install]
-WantedBy=default.target
+WantedBy=daemons.target

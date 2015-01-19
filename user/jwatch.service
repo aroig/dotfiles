@@ -1,7 +1,12 @@
 [Unit]
 Description=journal monitor
 
+Before=daemons.target
+
 [Service]
 Type=simple
 Slice=daemons.slice
 ExecStart=/usr/bin/jwatch trigger -f
+
+[Install]
+WantedBy=daemons.target

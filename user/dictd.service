@@ -1,8 +1,11 @@
 [Unit]
-Description=Dictd Dictionary Server Daemon
+Description=dictd Dictionary Server Daemon
 
 [Service]
 Type=forking
-
+Slice=daemons.slice
 SuccessExitStatus=143
 ExecStart=/usr/sbin/dictd -c %h/etc/dictd/dictd.conf --pid-file %t/dictd.pid
+
+[Install]
+WantedBy=daemons.target
