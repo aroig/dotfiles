@@ -1,0 +1,12 @@
+[Unit]
+Description=quit window manager
+
+DefaultDependencies=no
+
+Requires=wmquit.target
+After=wmquit.target
+
+[Service]
+Type=oneshot
+
+ExecStart=/usr/bin/systemctl --user start console.target

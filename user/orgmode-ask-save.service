@@ -4,11 +4,16 @@ Description=ask to save orgmode buffers
 # So that orgmode.service is stoped after this. The stopping order gets reversed.
 After=orgmode.service
 
+Before=wmquit.target
+
 [Service]
 Type=oneshot
-SyslogIdentifier=orgmode-session
+SyslogIdentifier=orgmode-ask
 
-# NOTE: If orgmode.service is not active, always succeed since there is nothing to be done.
-#       It would be nice to write the dependency on orgmode.service directly in systemd!
-ExecStart=/usr/bin/sh -c "! systemctl --user is-active -q orgmode.service || emacsclient -s %t/emacs/org --eval '(abdo-save-buffers-new-frame)' | grep nil > /dev/null"
+ExecStart=/home/abdo/.config/systemd/scripts/emacs-ask-save.sh orgmode.service %t/emacs/org
 
+# NOTE: this is a command-line using inhibitors. Currently is messy: need to put inhibitors as root
+# ExecStart=/usr/bin/sudo systemd-inhibit --mode=delay --what=sleep:shutdown --who=%p --why="Manually closing files" %h/.config/systemd/scripts/emacs-ask-save.sh orgmode.servce %t/emacs/org
+
+[Install]
+WantedBy=wmquit.target

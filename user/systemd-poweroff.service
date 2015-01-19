@@ -3,9 +3,6 @@ Description=poweroff system
 
 DefaultDependencies=no
 
-Requires=shutdown.target umount.target
-After=shutdown.target umount.target
-
 [Service]
 Type=oneshot
 

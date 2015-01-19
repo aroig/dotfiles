@@ -4,11 +4,16 @@ Description=ask to save emacs buffers
 # So that emacs.service is stoped after this. The stopping order gets reversed.
 After=emacs.service
 
+Before=wmquit.target
+
 [Service]
 Type=oneshot
-SyslogIdentifier=emacs-session
+SyslogIdentifier=emacs-ask
 
-# NOTE: If emacs.service is not active, always succeed since there is nothing to be done.
-#       It would be nice to write the dependency on emacs.service directly in systemd!
-ExecStart=/usr/bin/sh -c "! systemctl --user is-active -q emacs.service || ${EMACSCLIENT} --eval '(abdo-save-buffers-new-frame)' | grep nil > /dev/null"
+ExecStart=/home/abdo/.config/systemd/scripts/emacs-ask-save.sh emacs.service %t/emacs/server
 
+# NOTE: this is a command-line using inhibitors. Currently is messy: need to put inhibitors as root
+# ExecStart=/usr/bin/sudo systemd-inhibit --mode=delay --what=sleep:shutdown --who=%p --why="Manually closing files" %h/.config/systemd/scripts/emacs-ask-save.sh emacs.servce %t/emacs/server
+
+[Install]
+WantedBy=wmquit.target
