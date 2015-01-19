@@ -3,5 +3,5 @@ Description=journal monitor
 
 [Service]
 Type=simple
+Slice=daemons.slice
 ExecStart=/usr/bin/jwatch trigger -f
-

@@ -1,5 +1,10 @@
 [Unit]
 Description=user daemons
 
+Before=user.target
+
 Wants=dbus.service
 After=dbus.service
+
+[Install]
+WantedBy=user.target

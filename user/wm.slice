@@ -1,2 +1,7 @@
 [Unit]
 Description=window manager slice
+
+Before=slices.target
+
+[Install]
+WanedBy=slices.target

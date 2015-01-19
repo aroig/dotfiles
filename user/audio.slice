@@ -1,3 +1,7 @@
 [Unit]
 Description=audio servers
 
+Before=slices.target
+
+[Install]
+WanedBy=slices.target

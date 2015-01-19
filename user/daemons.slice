@@ -1,5 +1,5 @@
 [Unit]
-Description=dropdown applications
+Description=user daemons
 
 Before=slices.target
 

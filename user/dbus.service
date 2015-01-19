@@ -1,11 +1,17 @@
-
 [Unit]
 Description=d-bus user message bus
 
 Requires=dbus.socket
 After=dbus.socket
 
+Before=daemons.target
+
 [Service]
+Type=simple
+Slice=daemons.slice
+
 ExecStart=/usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation
 ExecReload=/usr/bin/dbus-send --print-reply --session --type=method_call --dest=org.freedesktop.DBus / org.freedesktop.DBus.ReloadConfig
 
+[Install]
+WantedBy=daemons.target
