@@ -22,8 +22,8 @@ naughty.config.defaults = {
    font             = beautiful.font_naughty or "sans 8",
 -- icon             = nil,
    icon_size        = 64,
-   fg               = beautiful.fg_focus,
-   bg               = beautiful.bg_focus,
+   fg               = beautiful.color_fg,
+   bg               = beautiful.color_bg,
    border_color     = beautiful.border_naughty,
    opacity          = 0.9,
    border_width     = 1,
@@ -60,10 +60,16 @@ local icon = {
 
 -- Set presets for different urgency levels
 naughty.config.presets.low.timeout = 5
+naughty.config.presets.low.fg = beautiful.color_fg
+naughty.config.presets.low.bg = beautiful.color_bg
+
+naughty.config.presets.normal.timeout = 5
+naughty.config.presets.normal.fg = beautiful.color_yellow
+naughty.config.presets.normal.bg = beautiful.color_black
 
 naughty.config.presets.critical.timeout = 0
-naughty.config.presets.critical.fg = "#FFFFFF"
-naughty.config.presets.critical.bg = "#B74747"
+naughty.config.presets.critical.fg = beautiful.color_red
+naughty.config.presets.critical.bg = beautiful.color_black
 
 
 -- Naughty callback

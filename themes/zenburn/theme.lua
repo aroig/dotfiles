@@ -74,7 +74,7 @@ theme.color_widget_gray     = theme.color_gray
 -- }}}
 
 
--- {{{ Colors
+-- {{{ Colors for the application bar
 theme.fg_normal = theme.color_fg
 theme.bg_normal = theme.color_bg
 
@@ -97,6 +97,7 @@ theme.border_marked = theme.color_sat_red
 
 theme.border_naughty  = theme.color_sat_green
 -- }}}
+
 
 -- {{{ Titlebars
 theme.titlebar_bg_focus  = theme.color_black
