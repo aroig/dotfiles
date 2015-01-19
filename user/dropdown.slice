@@ -4,4 +4,4 @@ Description=dropdown applications
 Before=slices.target
 
 [Install]
-WanedBy=slices.target
+WantedBy=slices.target
