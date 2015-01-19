@@ -1,0 +1,7 @@
+[Unit]
+Description=journal monitor
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/jwatch trigger -f
+
