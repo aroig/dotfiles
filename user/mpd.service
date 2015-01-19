@@ -1,17 +1,11 @@
 [Unit]
 Description=music player daemon
 
-Requisite=synced.target
-After=synced.target
-
 Requires=mpd.socket
 After=mpd.socket
 
 Requires=pulseaudio.service
 After=pulseaudio.service
-
-Requires=audio.slice
-After=audio.slice
 
 [Service]
 Type=simple
