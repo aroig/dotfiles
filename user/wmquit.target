@@ -1,7 +1,7 @@
 [Unit]
-Description=wmquit
-
-RefuseManualStart=yes
+Description=quit window manager
 
 Before=poweroff.target reboot.target suspend.target
-Before=systemd-poweroff.service systemd-reboot.service systemd-suspend.service
+
+Requires=systemd-wmquit.service
+After=systemd-wmquit.service

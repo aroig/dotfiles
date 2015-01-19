@@ -21,6 +21,7 @@ User Units
   - `poweroff.target`: suspend system, maybe asking the user to close stuff (emacs...) 
   - `reboot.target`: reboot system, maybe asking the user to close stuff (emacs...)
   - `suspend.target`: suspend system, taking care to settle stuff (ssh, stop music...)
+  - `wmquit.target`: quit window manager, taking care to settle stuff
 
 * Hardware state
   - `ac.target`: using AC power
@@ -43,7 +44,7 @@ User Units
   - `wakeup.target`: pulls any actions to be taken on timer-triggered wakeups
   - `synced.target`: pull any service that must be started after a successful sync
   - `umount.target`: conflicts with all filesystems I may have mounted
-  - `wmquit.target`: pulled before quiting wm. Asks user to close emacs buffers, etc.
+  - `wmclean.target`: pulled before quiting wm. Asks user to close emacs buffers, etc.
 
 * Window manager states
   - `console.target`: no wm, only terminal

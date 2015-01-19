@@ -4,7 +4,7 @@ Description=ask to save emacs buffers
 # So that emacs.service is stoped after this. The stopping order gets reversed.
 After=emacs.service
 
-Before=wmquit.target
+Before=wmclean.target
 
 [Service]
 Type=oneshot
@@ -16,4 +16,4 @@ ExecStart=/home/abdo/.config/systemd/scripts/emacs-ask-save.sh emacs.service %t/
 # ExecStart=/usr/bin/sudo systemd-inhibit --mode=delay --what=sleep:shutdown --who=%p --why="Manually closing files" %h/.config/systemd/scripts/emacs-ask-save.sh emacs.servce %t/emacs/server
 
 [Install]
-WantedBy=wmquit.target
+WantedBy=wmclean.target
