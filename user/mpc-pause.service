@@ -2,6 +2,8 @@
 Description=run mpc pause
 ConditionPathExists=%t/mpd/mpd.pid
 
+Before=sleep.target shutdown.target
+
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/mpc pause

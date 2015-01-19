@@ -1,8 +1,13 @@
 [Unit]
 Description=reboot system
 
+DefaultDependencies=no
+Requires=shutdown.target umount.target
+After=shutdown.target umount.target
+
 [Service]
 Type=oneshot
 
+# NOTE: don't want --force here like the system instance.
 ExecStart=/usr/bin/sudo systemctl reboot
 

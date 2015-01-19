@@ -1,6 +1,6 @@
 [Unit]
 Description=wait for network to be configured
-DefaultDependencies=no
+
 Conflicts=shutdown.target suspend.target reboot.target
 Before=network-online.target
 

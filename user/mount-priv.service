@@ -6,6 +6,8 @@ ConditionPathExists=/home/%u/.ecryptfs/priv.conf
 Wants=gpg-agent.service
 After=gpg-agent.service
 
+Conflicts=umount.target
+
 [Service]
 Type=oneshot
 RemainAfterExit=true

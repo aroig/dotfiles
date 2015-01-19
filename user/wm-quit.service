@@ -1,6 +1,8 @@
 [Unit]
 Description=quit window manager
 
+Before=shutdown.target sleep.target
+
 Requires=emacs-ask-save.service
 After=emacs-ask-save.service
 

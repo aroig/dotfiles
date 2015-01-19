@@ -1,0 +1,9 @@
+[Unit]
+Description=sleep
+
+DefaultDependencies=no
+RefuseManualStart=yes
+StopWhenUnneeded=yes
+
+Requires=lock.target
+After=lock.target

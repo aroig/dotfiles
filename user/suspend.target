@@ -2,8 +2,5 @@
 Description=suspend system
 DefaultDependencies=no
 
-BindsTo=lock.target
-After=lock.target
-
-BindsTo=systemd-suspend.service
-Before=systemd-suspend.service
+Requires=systemd-suspend.service
+After=systemd-suspend.service
