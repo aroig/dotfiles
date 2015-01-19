@@ -80,7 +80,7 @@ return {
    qtcreator                 = "qtcreator",
 
    -- system state
-   quit                      = "wm-quit.service",
+   quit                      = "wm-quit.target",
    lock                      = "lock.target",
    suspend                   = "suspend.target",
    poweroff                  = "poweroff.target",
