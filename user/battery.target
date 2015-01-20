@@ -1,3 +1,0 @@
-[Unit]
-Description=battery power
-Conflicts=ac.target
