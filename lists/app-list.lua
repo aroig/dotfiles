@@ -34,8 +34,7 @@ return {
    patchage                  = "patchage.service",
    qsynth                    = "qsynth",
 
-   ["gnome-control-center"]  = "gnome-control-center",
-   ["gnome-disks"]           = "gnome-disks",
+   gnomedisks                = "gnome-disks",
    unison                    = "unison-gtk2",
    virtualbox                = "virtualbox",
 

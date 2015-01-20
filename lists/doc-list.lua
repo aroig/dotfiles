@@ -53,6 +53,9 @@ return {
    ["android-sdk"]       = "file:///opt/android-sdk/docs/index.html",
 
    -- online docs
+   rst                   = "http://docutils.sourceforge.net/docs/user/rst/quickref.html",
+   markdown              = "http://daringfireball.net/projects/markdown/syntax",
+
    ["arch-wiki"]         = "https://wiki.archlinux.org/index.php/Main_Page",
    ["zsh-wiki"]          = "http://zshwiki.org/home/start",
    ["bash-wiki"]         = "http://wiki.bash-hackers.org/doku.php",
