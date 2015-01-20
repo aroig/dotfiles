@@ -225,7 +225,11 @@ abdo_prompt_messagehello() {
 	        echo -e "${fg_bold[yellow]}Tmux${fx[reset]} session created on $creationdate."
 	        echo ""
 	    fi
+    else
+        echo -e "${fg_bold[white]}Arch${fx[reset]} ${fg_light[blue]}Linux${fx[reset]}"
+        echo -e ""
     fi
+    
 }
 
 

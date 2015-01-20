@@ -109,4 +109,7 @@ PROMPT2='$(abdo_prompt_cont)'
 # ----------------------------
 
 # welcome message for tmux sessions
-abdo_prompt_messagehello                  
+# abdo_prompt_messagehello                  
+
+# It seems sometimes my terminal gets stuck without printing the prompt
+echo -n ""
