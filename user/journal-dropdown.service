@@ -1,6 +1,9 @@
 [Unit]
 Description=journal syslog terminal
 
+Requisite=wm.target 
+After=wm.target
+
 [Service]
 Type=simple
 SyslogIdentifier=syslog
