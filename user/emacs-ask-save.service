@@ -4,6 +4,7 @@ Description=ask to save emacs buffers
 # So that emacs.service is stoped after this. The stopping order gets reversed.
 After=emacs.service
 
+Before=kill-apps.service kill-dropdown.service
 Before=wmclean.target
 
 [Service]
