@@ -297,6 +297,7 @@
 
 ;; PKGBUILD's
 (add-to-list 'auto-mode-alist '("PKGBUILD$" . pkgbuild-mode))
+(add-to-list 'auto-mode-alist '("\\.install$" . sh-mode))
 
 ;; Markdown
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
