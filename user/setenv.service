@@ -3,4 +3,9 @@ Description=Set the environment
 
 [Service]
 Type=oneshot
+
+# set environment variables for systemd --user sesion.
 ExecStart=/home/abdo/.config/systemd/scripts/setenv.sh
+
+# symlink $XDG_RUNTIME_DIR to ~/.runtime
+ExecStart=/usr/bin/ln -sf "%t" "%h/.runtime"
