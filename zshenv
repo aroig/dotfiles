@@ -47,6 +47,8 @@ export PAGER="/usr/bin/vimpager"                        # wrapper for vim
 export TERMCMD="/usr/bin/termite"                       # terminal
 export SHELL="/bin/zsh"
 
+# so we can use $HOSTNAME everywhere
+export HOSTNAME=$(hostname)
 
 
 #------------------------------
