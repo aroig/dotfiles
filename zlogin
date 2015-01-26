@@ -7,16 +7,6 @@
 
 
 #------------------------------
-# Set environment
-#------------------------------
-
-# symling $XDG_RUNTIME_DIR from homedir, so we can access it via ~/.runtime
-if [[ ! -d "$HOME/.runtime" ]]; then
-    [[ -d "$XDG_RUNTIME_DIR" ]] && ln -sf "$XDG_RUNTIME_DIR" "$HOME/.runtime"
-fi
-
-
-#------------------------------
 # Set systemd environment
 #------------------------------
 
