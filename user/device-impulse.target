@@ -1,0 +1,7 @@
+[Unit]
+Description=novation impulse keyboard
+
+# Alias set in udev rules
+BindsTo=sys-subsystem-sound-devices-impulse.device
+After=sys-subsystem-sound-devices-impulse.device
+
