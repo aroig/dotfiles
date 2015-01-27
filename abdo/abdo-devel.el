@@ -197,6 +197,18 @@
 
 
 
+;; pkgbuild mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun abdo-pkgbuild-mode-things()
+  (setq pkgbuild-initialize nil)
+  (setq pkgbuild-update-sums-on-save nil)
+  )
+
+(add-hook 'pkgbuild-mode-hook 'abdo-pkgbuild-mode-things)
+
+
+
 ;; Haskell mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
