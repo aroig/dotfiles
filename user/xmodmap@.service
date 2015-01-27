@@ -6,8 +6,6 @@ Requisite=xserver@%i.target
 After=xserver@%i.target
 
 After=xorg@%i.service vncserver@%i.service xephyr@%i.service
-After=xinit@%i.service
-
 
 [Service]
 Type=oneshot
