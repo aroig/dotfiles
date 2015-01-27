@@ -227,8 +227,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey },   "Print",     function () shexec(apps.print)                       end),
 
     -- Brightness
-    awful.key({}, "XF86MonBrightnessUp",          function () shexec("xbacklight -inc 10%")            end),
-    awful.key({}, "XF86MonBrightnessDown",        function () shexec("xbacklight -dec 10%")            end),
+    awful.key({}, "XF86MonBrightnessUp",          function () shexec("xbacklight -inc 5%")             end),
+    awful.key({}, "XF86MonBrightnessDown",        function () shexec("xbacklight -dec 5%")             end),
 
     -- Music
     awful.key({ modkey, ctrlkey   }, "Home",      function () shexec("mpc -q toggle")                  end),
