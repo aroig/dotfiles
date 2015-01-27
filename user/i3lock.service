@@ -1,0 +1,15 @@
+[Unit]
+Description=i3lock screen locker
+
+Requisite=graphical.target
+After=graphical.target
+
+# so that when i3lock ends lock.target goes down
+PartOf=lock.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/i3lock --nofork --color=000000
+
+[Install]
+WantedBy=lock.target
