@@ -1,6 +1,6 @@
 [Unit]
 Description=window manager
-Conflicts=console.target quit-wm.target
+Conflicts=console.target
 
 Requires=graphical.target
 After=graphical.target

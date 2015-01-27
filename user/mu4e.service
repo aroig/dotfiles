@@ -4,8 +4,6 @@ Description=mu4e mail client
 Requisite=wm.target
 After=wm.target
 
-PartOf=mail.target
-
 [Service]
 Type=simple
 SyslogIdentifier=mu4e
