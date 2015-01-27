@@ -1,0 +1,10 @@
+[Unit]
+Description=automatic screen locking
+
+Requisite=graphical.target
+After=graphical.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/xautolock -time 10 -locker "xset dpms force off"
+
