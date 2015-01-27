@@ -1,0 +1,9 @@
+[Unit]
+Description=presentation configuration
+AllowIsolate=true
+
+# target conflicts
+Conflicts=console.target desktop.target laptop.target tablet.target
+
+Requires=graphical.target
+After=graphical.target

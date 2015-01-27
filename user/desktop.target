@@ -2,7 +2,7 @@
 Description=desktop configuration
 AllowIsolate=true
 
-Conflicts=console.target laptop.target tablet.target
+Conflicts=console.target laptop.target tablet.target presentation.target
 
 Requires=graphical.target
 After=graphical.target

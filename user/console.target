@@ -3,6 +3,6 @@ Description=console configuration
 AllowIsolate=true
 
 Conflicts=graphical.target 
-Conflicts=laptop.target desktop.target tablet.target
+Conflicts=laptop.target desktop.target tablet.target presentation.target
 
 
