@@ -9,7 +9,7 @@ PartOf=lock.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/i3lock --nofork --color=000000
+ExecStart=/usr/bin/i3lock --dpms -I 10 --nofork --color=000000
 
 [Install]
 WantedBy=lock.target
