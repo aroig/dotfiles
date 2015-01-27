@@ -2,7 +2,7 @@
 Description=awesome window manager at display %i
 
 After=xorg@%i.service vncserver@%i.service xephyr@%i.service
-After=compton.service xrandr-auto.service
+After=compton.service xrandr-single.service xrandr-mirror.service xrandr-dual.service
 
 Requisite=xserver@%i.target
 After=xserver@%i.target
