@@ -57,6 +57,8 @@ alias abye='ictl bye.target'
 
 alias pac='sudo pacman'
 alias pat='pactree -c'
+alias paf='comm -13 <(pactree host-$(hostname)-cfg  -u | sort) <(pacman -Qsq | sort)'
+
 alias cow='cower'
 amr() { ( cd "$AB2_ARCH_DIR/$1"; shift; mr "$@"; ) }
 
