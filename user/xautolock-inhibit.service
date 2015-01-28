@@ -1,0 +1,16 @@
+[Unit]
+Description=temporarily inhibit autolock
+
+StopWhenUneeded=true
+
+Requisite=graphical.target
+After=graphical.target
+
+Requisite=xautolock.service
+After=xautolock.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/xautolock -disable
+ExecStop=/usr/bin/xautolock -enable
+
