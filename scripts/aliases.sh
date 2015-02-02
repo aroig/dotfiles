@@ -166,20 +166,19 @@ alias gan="git annex"
 
 # If the argument has an alias, expand it, if it has a function, 
 # run it on a root shell and if no arguments given, go to a root shell.
-sudo () {
-    sudo=/usr/bin/sudo
-    
+sudo () {   
     if [[ -n "$1" ]]; then
-        if [[ -n "${=aliases[$1]}" ]]; then
-            $sudo ${=aliases[$1]} $argv[2,-1]
-        elif [[ -n "${=functions[$1]}" ]]; then
-            # TODO: need to escape $argv
-            $sudo zsh -ic "$argv"
+        if alias "$1" 2>/dev/null >/dev/null; then
+            /usr/bin/sudo $SHELL -ic "$@"
+
+        elif type "$1" | grep -q 'function' 2>/dev/null >/dev/null; then
+            /usr/bin/sudo $SHELL -ic "$@"
+
         else
-            $sudo $argv
+            /usr/bin/sudo "$@"
         fi
     else
-        $sudo zsh
+        /usr/bin/sudo $SHELL
     fi
 }
 
