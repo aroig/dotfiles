@@ -169,10 +169,10 @@ alias gan="git annex"
 sudo () {   
     if [[ -n "$1" ]]; then
         if alias "$1" 2>/dev/null >/dev/null; then
-            /usr/bin/sudo $SHELL -ic "$@"
+            /usr/bin/sudo $SHELL -ic "$*"
 
         elif type "$1" | grep -q 'function' 2>/dev/null >/dev/null; then
-            /usr/bin/sudo $SHELL -ic "$@"
+            /usr/bin/sudo $SHELL -ic "$*"
 
         else
             /usr/bin/sudo "$@"
