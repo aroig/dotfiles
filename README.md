@@ -33,7 +33,6 @@ User Units
   - `slices.target`: all slices are in place
   - `audio.target`: audio services
   - `daemons.target`: user daemons
-  - `graphical-daemons.target`: daemons that need xorg
   - `network-online.target`: network is reachable
 
 * Hooks
