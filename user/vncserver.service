@@ -11,3 +11,8 @@ Before=graphical.target
 Type=forking
 ExecStart=/usr/bin/vncserver ${DISPLAY} -nolisten tcp -localhost -nevershared -geometry 800x600 -depth 24
 
+# Make sure we clean stuff if vncserver exits on its own
+ExecStopPost=/usr/bin/systemctl --user start console.target
+
+[Install]
+WantedBy=vncserver.target

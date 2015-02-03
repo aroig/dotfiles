@@ -14,8 +14,6 @@ Requires=wm.target
 PartOf=wm.target
 Before=wm.target
 
-PartOf=openbox.target
-
 [Service]
 Type=simple
 SyslogIdentifier=openbox
@@ -24,3 +22,9 @@ Slice=wm.slice
 ExecStart=/usr/bin/openbox
 KillSignal=SIGINT
 TimeoutSec=15
+
+[Install]
+WantedBy=desktop.target
+WantedBy=laptop.target
+WantedBy=tablet.target
+WantedBy=vncserver.target

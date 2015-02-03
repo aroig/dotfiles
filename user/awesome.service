@@ -11,8 +11,6 @@ Requires=wm.target
 PartOf=wm.target
 Before=wm.target
 
-PartOf=awesome.target
-
 [Service]
 Type=simple
 SyslogIdentifier=awesome
@@ -21,3 +19,9 @@ Slice=wm.slice
 ExecStart=/usr/bin/awesome
 KillSignal=SIGINT
 TimeoutSec=15
+
+[Install]
+WantedBy=desktop.target
+WantedBy=laptop.target
+WantedBy=tablet.target
+WantedBy=vncserver.target

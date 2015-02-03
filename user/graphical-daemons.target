@@ -1,5 +1,0 @@
-[Unit]
-Description=graphical daemons
-
-Requisite=graphical.target
-After=graphical.target

@@ -28,5 +28,11 @@ SuccessExitStatus=0 1
 # NOTE: we could set the keyboard rate delay and rate frequency with: xset r rate 500 40
 ExecStart=/usr/bin/Xorg ${DISPLAY} -nolisten tcp -noreset -verbose 2 -ardelay 500 -arinterval 25 "vt${XDG_VTNR}"
 
+# Make sure we clean stuff if xorg exits on its own
+ExecStopPost=/usr/bin/systemctl --user start console.target
+
 [Install]
-RequiredBy=graphical.target
+WantedBy=desktop.target
+WantedBy=laptop.target
+WantedBy=tablet.target
+

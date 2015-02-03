@@ -14,3 +14,4 @@ SuccessExitStatus=0 1
 
 [Install]
 Alias=dbus-org.gnome.GConf.service
+WantedBy=wm.target

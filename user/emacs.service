@@ -3,8 +3,8 @@ Description=emacs daemon
 
 # need a dependency on xorg. otherwise, when X quits emacs crashes.
 # emacsclient says something about a long standing GTK bug.
-Requisite=wm.target
-After=wm.target
+Requisite=graphical.target
+After=graphical.target
 
 [Service]
 Type=forking
@@ -19,4 +19,4 @@ SuccessExitStatus=0 15
 KillSignal=SIGINT
 
 [Install]
-WantedBy=graphical-daemons.target
+WantedBy=wm.target

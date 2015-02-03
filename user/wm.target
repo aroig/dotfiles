@@ -1,7 +1,8 @@
 [Unit]
 Description=window manager
 
-RefuseManualStart=yes
+RefuseManualStart=true
+StopWhenUnneeded=true
 
 Conflicts=console.target
 

@@ -14,11 +14,15 @@ Requires=wm.target
 PartOf=wm.target
 Before=wm.target
 
-PartOf=xmonad.target
-
 [Service]
 Type=simple
 SyslogIdentifier=xmonad
 Slice=wm.slice
 
 ExecStart=/usr/bin/xmonad
+
+[Install]
+WantedBy=desktop.target
+WantedBy=laptop.target
+WantedBy=tablet.target
+WantedBy=vncserver.target

@@ -1,8 +1,8 @@
 [Unit]
 Description=x11vnc server at display :0
 
-Requires=xorg.service
-After=xorg.service
+Requisite=xorg.service graphical.target
+After=xorg.service graphical.target
 
 [Service]
 Type=forking

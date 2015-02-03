@@ -1,7 +1,8 @@
 [Unit]
 Description=graphical server
 
-RefuseManualStart=yes
+RefuseManualStart=true
+StopWhenUnneeded=true
 
 Requires=user.target
 After=user.target
