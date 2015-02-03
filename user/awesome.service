@@ -11,6 +11,8 @@ Requires=wm.target
 PartOf=wm.target
 Before=wm.target
 
+PartOf=awesome.target
+
 [Service]
 Type=simple
 SyslogIdentifier=awesome

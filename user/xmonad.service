@@ -14,6 +14,8 @@ Requires=wm.target
 PartOf=wm.target
 Before=wm.target
 
+PartOf=xmonad.target
+
 [Service]
 Type=simple
 SyslogIdentifier=xmonad
