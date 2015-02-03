@@ -17,4 +17,4 @@ ExecStart=/home/abdo/.config/systemd/scripts/emacs-ask-save.sh orgmode.service %
 # ExecStart=/usr/bin/sudo systemd-inhibit --mode=delay --what=sleep:shutdown --who=%p --why="Manually closing files" %h/.config/systemd/scripts/emacs-ask-save.sh orgmode.servce %t/emacs/org
 
 [Install]
-WantedBy=wmclean.target
+RequiredBy=wmclean.target

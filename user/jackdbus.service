@@ -28,4 +28,4 @@ ExecStop=/usr/bin/jack_control exit
 Slice=audio.slice
 
 [Install]
-WantedBy=audio.target
+WantedBy=jack.target

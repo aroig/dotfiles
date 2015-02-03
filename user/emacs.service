@@ -19,4 +19,4 @@ SuccessExitStatus=0 15
 KillSignal=SIGINT
 
 [Install]
-WantedBy=daemons.target
+WantedBy=graphical-daemons.target

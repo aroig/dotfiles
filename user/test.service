@@ -5,3 +5,6 @@ Description=a testing service
 Type=oneshot
 SyslogIdentifier=test
 ExecStart=/usr/bin/echo "Hello World"
+
+[Install]
+WantedBy=desktop.target

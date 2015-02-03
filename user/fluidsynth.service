@@ -11,12 +11,9 @@ After=audio.slice
 Type=simple
 ExecStart=/usr/bin/fluidsynth -si -a jack -m jack -r 44100 -o synth.cpu-cores=2
 
-
 # realtime scheduling
 CPUSchedulingPolicy=rr
 CPUSchedulingPriority=60
 
 Slice=audio.slice
 
-[Install]
-WantedBy=multi-user.target

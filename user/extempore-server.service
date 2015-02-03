@@ -32,6 +32,3 @@ CPUSchedulingPolicy=rr
 CPUSchedulingPriority=60
 
 Slice=audio.slice
-
-[Install]
-WantedBy=multi-user.target
