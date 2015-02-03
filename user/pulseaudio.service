@@ -25,3 +25,6 @@ ExecStart=/usr/bin/pulseaudio
 SuccessExitStatus=0 1
 
 Slice=audio.slice
+
+[Install]
+WantedBy=audio.target

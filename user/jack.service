@@ -20,5 +20,4 @@ ExecStart=/usr/bin/jack_control start
 ExecStop=/usr/bin/jack_control stop
 
 [Install]
-Alias=jack.service
-Also=pulseaudio-master.service
+WantedBy=jack.target

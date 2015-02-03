@@ -4,4 +4,4 @@ Description=audio servers
 Before=slices.target
 
 [Install]
-WantedBy=slices.target
+WantedBy=audio.target

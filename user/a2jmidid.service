@@ -18,4 +18,5 @@ CPUSchedulingPriority=60
 
 ExecStart=/usr/bin/a2jmidid -u -e
 
-
+[Install]
+WantedBy=jack.target
