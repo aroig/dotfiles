@@ -224,7 +224,7 @@
         '((sequence "TODO(!)" "|" "DONE(!)")            ; Todos in the external world
           (sequence "FIXME(!)" "|" "FIXED(!)")          ; Issues with the wiki
           (sequence "BUG(!)" "|" "SOLVED(!)")           ; Bugs in software
-          (type "WORK(!)" "NOTE(!)" "IDEA(!)" "PROJ(!)" "|")
+          (type "WORK" "NOTE" "IDEA" "PROJ" "|")
   ))
 
   ;; Enforce dependencies
