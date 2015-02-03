@@ -12,4 +12,4 @@ SyslogIdentifier=kill-apps
 ExecStart=/usr/bin/systemctl --user kill apps.slice
 
 [Install]
-RequiredBy=wmclean.target
+WantedBy=wmclean.target

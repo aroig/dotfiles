@@ -12,4 +12,4 @@ SyslogIdentifier=kill-dropdown
 ExecStart=/usr/bin/systemctl --user kill dropdown.slice
 
 [Install]
-RequiredBy=wmclean.target
+WantedBy=wmclean.target

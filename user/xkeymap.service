@@ -11,4 +11,4 @@ ExecStart=/usr/bin/xkbcomp %h/.config/systemd/conf/Xkeymap ${DISPLAY}
 StandardOutput=null
 
 [Install]
-RequiredBy=graphical.target
+WantedBy=graphical.target
