@@ -1,0 +1,6 @@
+[Unit]
+Description=awesome desktop environment
+Conflicts=console.target
+
+BindsTo=awesome.service
+After=awesome.service

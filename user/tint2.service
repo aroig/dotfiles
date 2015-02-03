@@ -1,0 +1,11 @@
+[Unit]
+Description=tint2 panel
+
+After=xorg.service vncserver.service
+
+Requisite=graphical.target
+After=graphical.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/tint2

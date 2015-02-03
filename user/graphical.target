@@ -1,14 +1,11 @@
 [Unit]
-Description=xorg server on display 0
-StopWhenUnneeded=true
+Description=graphical server
+
+RefuseManualStart=yes
 
 Requires=user.target
 After=user.target
 
-BindsTo=xorg@0.socket
-After=xorg@0.socket
+After=xorg.service vncserver.service
 
-BindsTo=xorg@0.service
-After=xorg@0.service
 
-Conflicts=console.target

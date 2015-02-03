@@ -1,9 +1,6 @@
 [Unit]
 Description=gvfs daemon
 
-Requisite=graphical.target
-After=graphical.target
-
 Requires=gconf.service
 After=gconf.service
 

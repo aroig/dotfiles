@@ -1,6 +1,8 @@
 TODO
 ====
 
+* can vncserver be made socket activated, like xorg?
+
 * make sure the sync + shutdown still works fine
 
 * Cleanup the xorg services

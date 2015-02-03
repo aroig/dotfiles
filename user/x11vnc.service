@@ -1,8 +1,8 @@
 [Unit]
-Description=x11vnc server at display %i
+Description=x11vnc server at display :0
 
-Requisite=xorg@%i.service
-After=xorg@%i.service
+Requires=xorg.service
+After=xorg.service
 
 [Service]
 Type=forking
@@ -12,6 +12,6 @@ Type=forking
 #
 # ExecStartPre=/usr/bin/mkdir -p %t/x11vnc
 
-ExecStart=/usr/bin/x11vnc -nopw -forever -ncache 10 -display :%i -rfbport 5900 -bg
+ExecStart=/usr/bin/x11vnc -nopw -forever -ncache 10 -display ${DISPLAY} -rfbport 5900 -bg
 
 

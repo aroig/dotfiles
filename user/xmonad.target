@@ -1,0 +1,6 @@
+[Unit]
+Description=xmonad desktop environment
+Conflicts=console.target
+
+BindsTo=xmonad.service
+After=xmonad.service

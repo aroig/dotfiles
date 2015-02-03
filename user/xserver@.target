@@ -1,8 +1,0 @@
-[Unit]
-Description=X server
-RefuseManualStart=true
-
-PartOf=xorg@%i.service vncserver@%i.service xephyr@%i.service
-# NOTE: The PartOf above implies that I can't make all X servers conflict with
-# each other, because it would lead to contradicting start / stop jobs. Oh well.
-

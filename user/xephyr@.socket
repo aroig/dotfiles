@@ -1,8 +1,0 @@
-[Unit]
-Description=Socket for xephyr at display %i
-
-[Socket]
-ListenStream=/tmp/.X11-unix/X%i
-
-[Install]
-WantedBy=sockets.target

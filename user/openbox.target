@@ -1,0 +1,6 @@
+[Unit]
+Description=openbox desktop environment
+Conflicts=console.target
+
+BindsTo=openbox.service
+After=openbox.service
