@@ -1,6 +1,8 @@
 [Unit]
 Description=xmonad window manager
 
+Conflicts=awesome.service openbox.service
+
 After=xorg.service vncserver.service compton.service
 After=xrandr-single.service xrandr-mirror.service xrandr-dual.service
 
@@ -11,7 +13,6 @@ Requires=tint2.service
 Before=tint2.service
 
 Requires=wm.target
-PartOf=wm.target
 Before=wm.target
 
 [Service]

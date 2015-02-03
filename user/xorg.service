@@ -7,7 +7,6 @@ Requires=xorg.socket
 After=xorg.socket
 
 Requires=graphical.target
-PartOf=graphical.target
 Before=graphical.target
 
 [Service]
@@ -27,9 +26,6 @@ SuccessExitStatus=0 1
 # NOTE: need to launch X session at the same tty, otherwise it becomes inactive
 # NOTE: we could set the keyboard rate delay and rate frequency with: xset r rate 500 40
 ExecStart=/usr/bin/Xorg ${DISPLAY} -nolisten tcp -noreset -verbose 2 -ardelay 500 -arinterval 25 "vt${XDG_VTNR}"
-
-# Make sure we clean stuff if xorg exits on its own
-ExecStopPost=/usr/bin/systemctl --user start console.target
 
 [Install]
 WantedBy=desktop.target

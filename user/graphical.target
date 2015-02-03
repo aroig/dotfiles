@@ -7,6 +7,5 @@ StopWhenUnneeded=true
 Requires=user.target
 After=user.target
 
-After=xorg.service vncserver.service
 
 
