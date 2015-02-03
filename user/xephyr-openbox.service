@@ -1,0 +1,18 @@
+[Unit]
+Description=openbox window manager in xephyr
+
+Conflicts=xephyr-awesome.service xephyr-xmonad.service
+
+Requires=xephyr.service
+After=xephyr.service
+
+[Service]
+Type=simple
+SyslogIdentifier=xephyr-openbox
+Slice=wm.slice
+
+Environment=DISPLAY=:1
+ExecStart=/usr/bin/openbox
+KillSignal=SIGINT
+TimeoutSec=15
+
