@@ -4,4 +4,4 @@ Description=user applications
 Before=slices.target
 
 [Install]
-WantedBy=slices.target
+WantedBy=wm.target

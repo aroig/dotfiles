@@ -1,7 +1,7 @@
 [Unit]
 Description=onscreen keyboard daemon
 
-Requires=graphical.target
+Requisite=graphical.target
 After=graphical.target
 
 Requires=dconf.service

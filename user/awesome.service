@@ -1,0 +1,28 @@
+[Unit]
+Description=awesome window manager
+
+Conflicts=openbox.service xmonad.service tint2.service
+
+After=xorg.service vncserver.service compton.service
+After=xrandr-single.service xrandr-mirror.service xrandr-dual.service
+
+Requisite=graphical.target
+After=graphical.target
+
+Requires=wm.target
+Before=wm.target
+
+[Service]
+Type=simple
+SyslogIdentifier=awesome
+Slice=wm.slice
+
+ExecStart=/usr/bin/awesome
+KillSignal=SIGINT
+TimeoutSec=15
+
+[Install]
+WantedBy=desktop.target
+WantedBy=laptop.target
+WantedBy=tablet.target
+WantedBy=vncserver.target

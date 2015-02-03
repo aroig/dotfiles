@@ -33,10 +33,7 @@ User Units
   - `slices.target`: all slices are in place
   - `audio.target`: audio services
   - `daemons.target`: user daemons
-  - `graphical-daemons.target`: daemons that need xorg
-  - `graphical.target`: the graphical system
   - `network-online.target`: network is reachable
-  - `wm.target`: window manager
 
 * Hooks
   - `shutdown.target`: pulls any automatic action that needs to be taken before shutdown
@@ -44,6 +41,8 @@ User Units
   - `wakeup.target`: pulls any actions to be taken on timer-triggered wakeups
   - `synced.target`: pull any service that must be started after a successful sync
   - `umount.target`: conflicts with all filesystems I may have mounted
+  - `graphical.target`: pulled from the graphical server.
+  - `wm.target`: pulled from the window manager
   - `wmclean.target`: pulled before quiting wm. Asks user to close emacs buffers, etc.
 
 * Window manager states
@@ -51,6 +50,7 @@ User Units
   - `desktop.target`: wm in desktop mode
   - `laptop.target`: wm in laptop mode
   - `tablet.target`: wm in tablet mode
+  - `vncserver.target`: wm in a vnc server
   - `lock.target`: wm is locked
 
 * Sync services

@@ -12,3 +12,6 @@ SyslogIdentifier=redshift
 Slice=wm.slice
 
 ExecStart=/usr/bin/redshift -l 41.383:2.183 -t 6500:4700 -g 1.0 -m randr
+
+[Install]
+WantedBy=wm.target

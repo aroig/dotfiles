@@ -13,3 +13,4 @@ ExecStart=/usr/lib/xfce4/xfconf/xfconfd
 
 [Install]
 Alias=dbus-org.xfce.Xfconf.service
+WantedBy=wm.target
