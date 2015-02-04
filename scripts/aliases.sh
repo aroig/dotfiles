@@ -102,7 +102,7 @@ alias ictl="ictl"
 alias nctl="networkctl --no-pager"
 alias mctl="sudo machinectl"
 alias lctl="sudo loginctl"
-alias sctl="sudo systemctl --system"
+alias sctl="systemctl --system"
 alias uctl="systemctl --user"
 
 alias actl="systemd-analyze"
@@ -116,8 +116,16 @@ alias cgtop="systemd-cgtop"
 alias cmctl="connmanctl"
 alias udctl="udisksctl"
 
-alias mount-data="udisksctl mount -b /dev/disk/by-label/galois:data"
-alias umount-data="udisksctl unmount -b /dev/disk/by-label/galois:data"
+# Manage mounts the 
+alias mount-priv="systemctl --user start mount-priv.service"
+alias umount-priv="systemctl --user stop mount-priv.service"
+
+alias mount-data="systemctl start data.mount"
+alias umount-data="systemctl stop data.mount"
+
+# old udisks way
+# alias mount-data="udisksctl mount -b /dev/disk/by-label/galois:data"
+# alias umount-data="udisksctl unmount -b /dev/disk/by-label/galois:data"
 
 actl_svg() {
     cmd="$1"; shift
