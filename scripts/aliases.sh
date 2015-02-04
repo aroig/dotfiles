@@ -306,7 +306,7 @@ klx() {
 # Rebooting and halting
 #------------------------------
 
-alias reboot="sudo systemctl reboot"
-alias poweroff="sudo systemctl poweroff"
-alias suspend="sudo systemctl suspend"
+alias reboot="systemctl reboot"
+alias poweroff="systemctl poweroff"
+alias suspend="systemctl suspend"
 
