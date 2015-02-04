@@ -10,7 +10,7 @@ Type=oneshot
 SyslogIdentifier=impulse
 RemainAfterExit=true
 
-ExecStart=/usr/bin/sudo systemctl start impulse.service
-ExecStop=/usr/bin/sudo systemctl stop impulse.service
+ExecStart=/usr/bin/systemctl start impulse.service
+ExecStop=/usr/bin/systemctl stop impulse.service
 
 

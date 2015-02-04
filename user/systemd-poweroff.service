@@ -8,5 +8,5 @@ Type=oneshot
 
 ExecStart=/usr/bin/sleep 1
 # NOTE: don't want --force here like the system instance.
-ExecStart=/usr/bin/sudo systemctl poweroff
+ExecStart=/usr/bin/systemctl poweroff
 
