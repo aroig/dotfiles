@@ -1,8 +1,6 @@
 [Unit]
 Description=play sampled cello
 
-Wants=impulse.service
-
 Requires=jack.target
 After=jack.target
 

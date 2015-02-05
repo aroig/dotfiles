@@ -1,8 +1,6 @@
 [Unit]
 Description=music midi studio
 
-Wants=impulse.service
-
 Requires=jack.target
 After=jack.target
 

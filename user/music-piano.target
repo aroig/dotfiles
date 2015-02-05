@@ -1,8 +1,6 @@
 [Unit]
 Description=play sampled piano
 
-Wants=impulse.service
-
 Requires=jack.target
 After=jack.target
 
