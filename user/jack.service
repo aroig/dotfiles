@@ -11,12 +11,22 @@ Before=jack.target
 Requires=audio.slice
 After=audio.slice
 
+Requires=pulseaudio.service
+After=pulseaudio.service
+
 [Service]
 Type=oneshot
 RemainAfterExit=true
 
+SyslogIdentifier=jack
+
 # we use jackdbus
 ExecStart=/usr/bin/jack_control start
+
+# set pulseaudio default sink and source
+ExecStartPost=/usr/bin/pactl set-default-sink jack_out
+ExecStartPost=/usr/bin/pactl set-default-source jack_in
+
 ExecStop=/usr/bin/jack_control stop
 
 [Install]
