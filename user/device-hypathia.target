@@ -1,6 +1,8 @@
 [Unit]
 Description=hypathia device
 
+RefuseManualStart=yes
+
 # Alias set in udev rules
 BindsTo=sys-subsystem-block-devices-hypathia.device
 After=sys-subsystem-block-devices-hypathia.device

@@ -7,6 +7,8 @@ ConditionHost=grothendieck
 Requisite=graphical.target
 After=graphical.target
 
+RefuseManualStart=yes
+
 # Alias set in udev rules
 BindsTo=sys-subsystem-input-devices-bamboo.device
 After=sys-subsystem-input-devices-bamboo.device
