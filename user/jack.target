@@ -1,3 +1,5 @@
 [Unit]
 Description=jack server
 
+BindsTo=jack.service
+After=jack.service
