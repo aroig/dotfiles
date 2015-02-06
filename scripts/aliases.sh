@@ -113,6 +113,9 @@ alias cgls="sdls cgroups"
 alias unls="sdls units"
 alias cgtop="systemd-cgtop"
 
+# print active target list
+tlst() { systemctl --user --no-legend --state=active --t target list-units "$@" | perl -n -e'/(.*)\.target/ && print "$1\n"'; }
+
 alias cmctl="connmanctl"
 alias udctl="udisksctl"
 
