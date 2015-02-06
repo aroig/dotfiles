@@ -1,6 +1,8 @@
 [Unit]
 Description=journal monitor
 
+ConditionHost=!skynet !quark
+
 Before=daemons.target
 
 [Service]
