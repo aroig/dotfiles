@@ -1,7 +1,7 @@
 [Unit]
 Description=xorg server at display :0
 
-Conflicts=vncserver.service
+Conflicts=vncserver.service weston.service weston.socket
 
 Requires=xorg.socket
 After=xorg.socket
