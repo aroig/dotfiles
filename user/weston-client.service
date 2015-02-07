@@ -1,5 +1,8 @@
 [Unit]
-Description=weston compositor client
+Description=weston compositor client at display 1
+
+Requires=weston-client.socket
+After=weston-client.socket
 
 Requisite=graphical.target
 After=graphical.target
@@ -11,6 +14,6 @@ Type=simple
 SyslogIdentifier=weston-client
 Slice=wm.slice
 
-ExecStart=/usr/bin/weston
+ExecStart=/usr/bin/weston --socket=wayland-1
 
 
