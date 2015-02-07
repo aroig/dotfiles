@@ -1,8 +1,10 @@
 [Unit]
 Description=xrandr mirror
 
-Requisite=graphical.target
-After=graphical.target
+Requisite=xorg.service
+After=xorg.service compton.service
+Before=compton.service
+Before=graphical.target
 
 [Service]
 Type=oneshot

@@ -1,8 +1,10 @@
 [Unit]
 Description=xrandr dual
 
-Requisite=graphical.target
-After=graphical.target
+Requisite=xorg.service
+After=xorg.service 
+Before=compton.service
+Before=graphical.target
 
 [Service]
 Type=oneshot
