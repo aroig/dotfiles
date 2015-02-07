@@ -6,8 +6,8 @@ Conflicts=vncserver.service
 Requires=xorg.socket
 After=xorg.socket
 
-Requires=graphical.target
 Before=graphical.target
+PartOf=compositor.target
 
 [Service]
 # Type=notify
@@ -28,7 +28,5 @@ SuccessExitStatus=0 1
 ExecStart=/usr/bin/Xorg ${DISPLAY} -nolisten tcp -noreset -verbose 2 -ardelay 500 -arinterval 25 "vt${XDG_VTNR}"
 
 [Install]
-WantedBy=desktop.target
-WantedBy=laptop.target
-WantedBy=tablet.target
-
+RequiredBy=compositor.target
+Also=compton.service

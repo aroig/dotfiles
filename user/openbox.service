@@ -3,9 +3,6 @@ Description=openbox window manager
 
 Conflicts=awesome.service xmonad.service
 
-After=xorg.service vncserver.service compton.service
-After=xrandr-single.service xrandr-mirror.service xrandr-dual.service
-
 Requisite=graphical.target
 After=graphical.target
 

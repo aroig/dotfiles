@@ -47,6 +47,7 @@ User Units
 
 * Window manager states
   - `console.target`: no wm, only terminal
+  - `compositor.target`: starts compositor (either xorg or weston)
   - `desktop.target`: wm in desktop mode
   - `laptop.target`: wm in laptop mode
   - `tablet.target`: wm in tablet mode

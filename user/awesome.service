@@ -3,9 +3,6 @@ Description=awesome window manager
 
 Conflicts=openbox.service xmonad.service tint2.service
 
-After=xorg.service vncserver.service compton.service
-After=xrandr-single.service xrandr-mirror.service xrandr-dual.service
-
 Requisite=graphical.target
 After=graphical.target
 

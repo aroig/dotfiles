@@ -1,8 +1,10 @@
 [Unit]
 Description=Compton X compositor
 
-Requisite=graphical.target
-After=graphical.target
+Requisite=xorg.service
+After=xorg.service
+
+Before=graphical.target
 
 [Service]
 Type=simple
@@ -12,4 +14,4 @@ Slice=wm.slice
 ExecStart=/usr/bin/compton
 
 [Install]
-WantedBy=wm.target
+RequiredBy=compositor.target

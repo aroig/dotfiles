@@ -1,7 +1,8 @@
 [Unit]
 Description=xrandr single
-After=graphical.target
+
 Requisite=graphical.target
+After=graphical.target
 
 [Service]
 Type=oneshot
