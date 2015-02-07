@@ -1,0 +1,8 @@
+[Unit]
+Description=socket for mu server
+
+[Socket]
+ListenStream=%t/mu/mu.socket
+
+[Install]
+WantedBy=sockets.target
