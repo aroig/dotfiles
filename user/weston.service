@@ -3,8 +3,8 @@ Description=weston compositor
 
 Conflicts=vncserver.service xorg.service xorg.socket
 
-# Requires=weston.socket
-# After=weston.socket
+Requires=weston.socket
+After=weston.socket
 
 Before=graphical.target
 PartOf=compositor.target
@@ -21,7 +21,13 @@ Slice=wm.slice
 # - either move to the new session semantics (check whether user has an active session,
 #   not process descends from a session leader)
 # - or add my user to weston-launch group.
-#
+
+# NOTE: this does not work. It fails with a permission on stdin...
+
+StandardInput=tty
+
+# TODO: get rid of this hard-coded tty
+TTYPath=/dev/tty2
 ExecStart=/usr/bin/weston-launch
 
 [Install]

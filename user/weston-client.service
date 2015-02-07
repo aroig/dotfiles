@@ -1,0 +1,16 @@
+[Unit]
+Description=weston compositor client
+
+Requisite=graphical.target
+After=graphical.target
+
+[Service]
+# Type=notify
+Type=simple
+
+SyslogIdentifier=weston-client
+Slice=wm.slice
+
+ExecStart=/usr/bin/weston
+
+
