@@ -6,7 +6,9 @@ After=synced.target
 
 [Socket]
 ListenStream=%t/mpd/mpd.socket
-# ListenStream=6600
+
+# gmpc doesn't know about unix sockets...
+ListenStream=6600
 
 [Install]
 WantedBy=sockets.target
