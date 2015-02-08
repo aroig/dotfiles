@@ -45,6 +45,19 @@ trim() { head -n "$maxln"; }
 # wraps highlight to treat exit code 141 (killed by SIGPIPE) as success
 highlight() { command highlight "$@"; test $? = 0 -o $? = 141; }
 
+# run text through vimcat for syntax highlighting
+vimcat() {
+    local path="$1"
+    local tmpfile="${XDG_RUNTIME_DIR}/vimcat/"`basename $path`
+    local -i ret
+    mkdir -p "${XDG_RUNTIME_DIR}/vimcat"
+    head -n "$maxln" "$path" > "$tmpfile"
+    /usr/bin/vimcat "$tmpfile"
+    ret=$?
+    rm -Rf "$tmpfile"
+    return $ret
+}
+
 case "$extension" in
     # Archive extensions:
     7z|a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|\
@@ -71,7 +84,7 @@ esac
 case "$mimetype" in
     # Syntax highlight for text files:
     text/* | */xml)
-        cat "$path" | trim | vimcat && exit 5 || exit 2;;
+        vimcat "$path" && exit 5 || exit 2;;
         # try highlight --out-format=ansi "$path" && { dump | trim; exit 5; } || exit 2;;
     # Ascii-previews of images:
     # image/*)
