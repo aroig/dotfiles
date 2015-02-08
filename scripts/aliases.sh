@@ -62,7 +62,6 @@ alias paf='comm -13 <(pactree host-$(hostname)-cfg  -u | sort) <(pacman -Qsq | s
 alias cow='cower'
 amr() { ( cd "$AB2_ARCH_DIR/$1"; shift; mr "$@"; ) }
 
-alias feh='feh --magick-timeout 2 --scale-down --fontpath /usr/share/fonts/TTF/ --font DejaVuSans/10'
 alias ipy='ipython'
 alias ipy2='ipython2'
 
