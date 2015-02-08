@@ -258,6 +258,11 @@ rg()  {
     esac
 }
 
+# open file with rifle
+rf() {
+    rifle "$@"
+}
+
 # open file manager
 fm()  {
     case "$TERM" in
