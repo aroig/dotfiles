@@ -201,6 +201,7 @@ sudo () {
 
 vi()  { eval "$EDITOR \"\$@\""; }
 op()  { xdg-open "$@" &> /dev/null &!; }
+rf()  { rifle "$@"; }
 
 
 # The following commands are aware of the type of terminal they are on. For
@@ -211,14 +212,6 @@ ee() {
     case "$TERM" in
         screen*|linux) eval "$EMACSCLIENT -t \"\$@\"" ;;
         *)             eval "$EMACSCLIENT -c \"\$@\" > /dev/null &!" ;;
-    esac
-}
-
-# kill emacs
-kle() {
-    case "$TERM" in
-        screen*|linux) eval "$EMACSCLIENT -eval \"(client-save-kill-emacs)\" &> /dev/null"  ;;
-        *)             eval "$EMACSCLIENT --display=:0 --eval \"(client-save-kill-emacs)\" &> /dev/null \"\$@\" &!" ;;
     esac
 }
 
@@ -246,7 +239,7 @@ cl() {
 tm()  {
     case "$TERM" in
         screen*|linux) tx ;;
-        *)             eval "$TERMCMD -d \"\$PWD\" \"\$@\" &!" ;;
+        *)             eval "sdrun $TERMCMD -d \"\$PWD\" \"\$@\" &!" ;;
     esac
 }
 
@@ -254,28 +247,23 @@ tm()  {
 rg()  {
     case "$TERM" in
         screen*|linux) eval "ranger \"\$@\"" ;;
-        *)             eval "$TERMCMD -d \"\$PWD\" -e ranger \"\$@\" &!" ;;
+        *)             eval "sdrun $TERMCMD -d \"\$PWD\" -e ranger \"\$@\" &!" ;;
     esac
-}
-
-# open file with rifle
-rf() {
-    rifle "$@"
 }
 
 # open file manager
 fm()  {
     case "$TERM" in
         screen*|linux) eval "ranger \"\$@\"" ;;
-        *)             eval "$FILEMANAGER \"\$@\" &> /dev/null &!" ;;
+        *)             eval "sdrun $FILEMANAGER \"\$@\" &> /dev/null &!" ;;
     esac
 }
-
 
 
 # These commands open awesome dropdown clients
 rgd() { echo "ddclient.ranger:newtab('$PWD')"   | awesome-client; }
 tmd() { echo "ddclient.terminal:newtab('$PWD')" | awesome-client; }
+
 
 
 #------------------------------
