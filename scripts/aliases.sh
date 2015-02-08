@@ -107,7 +107,6 @@ alias uctl="systemctl --user"
 
 alias actl="systemd-analyze"
 alias nspawn="sudo systemd-nspawn"
-alias sdrun="systemd-run --user"
 
 alias cgls="sdls cgroups"
 alias unls="sdls units"
