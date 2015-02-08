@@ -1,13 +1,15 @@
 [Default Applications]
 inode/directory=thunar.desktop;
 
+# URLs
 x-scheme-handler/http=dwb.desktop;
 x-scheme-handler/https=dwb.desktop;
-application/xhtml+xml=dwb.desktop;
-text/html=dwb.desktop;
 
-text/plain=emacsclient.desktop;
+application/xhtml+xml=dwb.desktop;
 application/x-shellscript=emacsclient.desktop;
+
+text/html=dwb.desktop;
+text/plain=emacsclient.desktop;
 text/x-tex=emacsclient.desktop;
 text/x-c++src=emacsclient.desktop;
 text/x-chdr=emacsclient.desktop;
@@ -16,7 +18,7 @@ text/x-python=emacsclient.desktop;
 text/x-lua=emacsclient.desktop;
 text/x-haskell=emacsclient.desktop;
 text/x-makefile=emacsclient.desktop;
-
+ 
 image/jpeg=feh.desktop;
 image/png=feh.desktop;
 image/svg+xml=feh.desktop;
@@ -36,5 +38,3 @@ video/x-msvideo=mpv.desktop;
 video/x-flv=mpv.desktop;
 video/x-matroska=mpv.desktop;
 video/x-ms-wmv=mpv.desktop;
-
-application/x-gcstar=gcstar.desktop;
