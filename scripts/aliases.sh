@@ -45,6 +45,7 @@ alias digitaleditions='wine "$HOME/.wine/drive_c/Program Files (x86)/Adobe/Adobe
 alias trash='gvfs-trash'
 alias vp='vimpager'
 alias vc='vimcat'
+alias fehp='feh -Tpreview'
 alias rsy='rsync -avz --progress --delete'
 alias ediff='emacs -diff'
 alias egit='emacs -git'
