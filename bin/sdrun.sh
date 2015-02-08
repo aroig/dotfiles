@@ -4,14 +4,6 @@
 slice=apps.slice
 
 
-if [ $# == 0 ]; then
-    echo "usage: sdrun [<cmd> | <service>]"
-    echo ""
-    echo "Starts a command in a transient service, or an existing service template"
-    echo "instantiated at the first available integer parameter. "
-
-    exit 0
-fi
 
 
 
@@ -32,37 +24,49 @@ available_index() {
     exit 1
 }
 
+usage() {
+    echo "usage: $0 [ -s <slice> | -n <name> | -u <unit> ] <cmd> | <service>"
+    echo ""
+    echo "Starts a command in a transient service, or an existing service template"
+    echo "instantiated at the first available integer parameter. "
+}
+
+if [ $# == 0 ]; then
+    usage
+    exit 0
+fi
+
+while getopts :n:u:s: opt; do
+    case "$opt" in
+        s) slice="$OPTARG.slice" ;;
+        n) desc="$OPTARG" ;;
+        u) unit="$OPTARG" ;;
+    esac
+done
+shift $((OPTIND-1))
+
 case "$1" in
     *@.service)
         basename="${1%\.*}"
         index=`available_index "$basename"`
-        unit="$basename$index"
-        desc="$basename $index"
+        [ ! "$unit" ] && unit="$basename$index"
+        [ ! "$desc" ] && desc="$basename $index"
         cmd="systemctl --user start $unit"
         ;;
     *.service)
         basename="${1%\.*}"
-        unit="$basename"
-        desc="$basename"
+        [ ! "$unit" ] && unit="$basename"
+        [ ! "$desc" ] && desc="$basename"
         cmd="systemctl --user start $unit"
         ;;
     *)
         basename="run-"`basename "$1"`"-"
         index=`available_index "$basename"`
-        unit="$basename$index"
-        desc="transient "`basename "$1"`" $index"
+        [ ! "$unit" ] && unit="$basename$index"
+        [ ! "$desc" ] && desc="transient "`basename "$1"`" $index"
         cmd="systemd-run --user --slice=$slice --unit=$unit --description=\"$desc\" $@"
         ;;
 esac
-
-while getopts n:u:s: opt; do
-    case "$opt" in
-        s) slice=$OPTARG ;;
-        n) desc=$OPTARG ;;
-        u) unit=$OPTARG ;;
-    esac
-    shift
-done
 
 case "$1" in
     *@.service)
