@@ -102,7 +102,7 @@ alias ictl="ictl"
 alias nctl="networkctl --no-pager"
 alias mctl="sudo machinectl"
 alias lctl="sudo loginctl"
-alias sctl="systemctl --system"
+alias sctl="sudo systemctl --system"
 alias uctl="systemctl --user"
 
 alias actl="systemd-analyze"
