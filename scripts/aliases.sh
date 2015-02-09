@@ -199,21 +199,15 @@ sudo () {
 # Program shortcuts
 #------------------------------
 
-vi()  { eval "$EDITOR \"\$@\""; }
+vi()  { $EDITOR "$@"; }
+ee()  { $EMACS "$@"; }
+
 op()  { xdg-open "$@" &> /dev/null &!; }
 rf()  { rifle "$@"; }
 
 
 # The following commands are aware of the type of terminal they are on. For
-# example ed launches GTK emacs on any terminal except tty's or remote logins
-
-# emacs
-ee() {
-    case "$TERM" in
-        screen*|linux) eval "$EMACSCLIENT -t \"\$@\"" ;;
-        *)             eval "$EMACSCLIENT -c \"\$@\" > /dev/null &!" ;;
-    esac
-}
+# example fm launches GTK file manager on any terminal except tty's or remote logins
 
 # open tmux session
 tx() {
@@ -239,23 +233,23 @@ cl() {
 tm()  {
     case "$TERM" in
         screen*|linux) tx ;;
-        *)             eval "sdrun $TERMCMD -d \"\$PWD\" \"\$@\" &!" ;;
+        *)             rifle -p terminal "$@" ;;
     esac
 }
 
 # ranger session
 rg()  {
     case "$TERM" in
-        screen*|linux) eval "ranger \"\$@\"" ;;
-        *)             eval "sdrun $TERMCMD -d \"\$PWD\" -e ranger \"\$@\" &!" ;;
+        screen*|linux) ranger "$@" ;;
+        *)             rifle -p ranger "$@" ;;
     esac
 }
 
 # open file manager
 fm()  {
     case "$TERM" in
-        screen*|linux) eval "ranger \"\$@\"" ;;
-        *)             eval "sdrun $FILEMANAGER \"\$@\" &> /dev/null &!" ;;
+        screen*|linux) ranger "$@" ;;
+        *)             rifle -p filemanager "$@" ;;
     esac
 }
 
