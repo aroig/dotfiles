@@ -199,15 +199,31 @@ sudo () {
 # Program shortcuts
 #------------------------------
 
-vi()  { $EDITOR "$@"; }
-ee()  { $EMACS "$@"; }
+# NOTE1: &! detaches and disowns process. The shell no longer keeps track of it.
 
+# NOTE2: rifle always expects arguments
+
+# NOTE3: rifle either completely detaches or runs a terminal program in-place.
+
+# NOTE4: The following commands are aware of the type of terminal they are on. For
+# example fm launches GTK file manager on any terminal except tty's or remote logins
+
+
+# file opener
 op()  { xdg-open "$@" &> /dev/null &!; }
 rf()  { rifle "$@"; }
 
+# terminal editor
+vi()  { $EDITOR "$@"; }
 
-# The following commands are aware of the type of terminal they are on. For
-# example fm launches GTK file manager on any terminal except tty's or remote logins
+# NOTE: Do not use --no-wait. emacs does not keep buffer-list per frame this way.
+# TODO: make emacsclient properly detect the tty and get rid of this case.
+ee()  {
+    case "$TERM" in
+        screen*|linux) $EMACS -nw "$@" ;;
+        *)             $EMACS "$@" &! ;;
+    esac
+}
 
 # open tmux session
 tx() {
@@ -232,24 +248,42 @@ cl() {
 # new terminal
 tm()  {
     case "$TERM" in
-        screen*|linux) tx ;;
-        *)             rifle -p terminal "$@" ;;
+        screen*|linux)
+            tx
+            ;;
+        *)
+            if [ "$1" ]; then rifle -p terminal "$1"
+            else              rifle -p terminal "$PWD"
+            fi
+            ;;
     esac
 }
 
 # ranger session
 rg()  {
     case "$TERM" in
-        screen*|linux) ranger "$@" ;;
-        *)             rifle -p ranger "$@" ;;
+        screen*|linux)
+            ranger "$1"
+            ;;
+        *)
+            if [ "$1" ]; then rifle -p ranger "$1"
+            else              rifle -p ranger "$PWD"
+            fi
+            ;;
     esac
 }
 
 # open file manager
 fm()  {
     case "$TERM" in
-        screen*|linux) ranger "$@" ;;
-        *)             rifle -p filemanager "$@" ;;
+        screen*|linux)
+            ranger "$@"
+            ;;
+        *)
+            if [ "$1" ]; then rifle -p filemanager "$1"
+            else              rifle -p filemanager "$PWD"
+            fi
+            ;;
     esac
 }
 
