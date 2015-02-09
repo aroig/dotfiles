@@ -1,2 +1,13 @@
 #!/bin/sh
-exec /usr/bin/emacs -diff "$@"
+
+# TODO: run on the emacs server. make sure that buffers get cleaned when marking them as done
+if [ "$#" == "3" ]; then
+    exec /usr/bin/emacs --eval "(ediff-files3 \"$1\" \"$2\" \"$3\")"
+
+elif [ "$#" == "2" ]; then 
+    exec /usr/bin/emacs --eval "(ediff-files \"$1\" \"$2\")"
+
+else
+    echo "usage: $0 <file A> <file B> [<file C>]"
+    exit 1
+fi

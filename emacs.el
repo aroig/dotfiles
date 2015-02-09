@@ -343,8 +343,8 @@
 ;; Command line switches
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'command-switch-alist '("diff"   . abdo-command-line-diff))
-(add-to-list 'command-switch-alist '("merge"  . abdo-command-line-merge))
+(add-to-list 'command-switch-alist '("diff"   . abdo-launch-diff))
+(add-to-list 'command-switch-alist '("merge"  . abdo-launch-merge))
 (add-to-list 'command-switch-alist '("git"    . abdo-launch-magit))
 (add-to-list 'command-switch-alist '("org"    . abdo-launch-org))
 (add-to-list 'command-switch-alist '("notes"  . abdo-launch-notes))
@@ -353,6 +353,29 @@
 (add-to-list 'command-switch-alist '("sage"   . abdo-launch-sage))
 (add-to-list 'command-switch-alist '("sclang" . abdo-launch-sclang))
 (add-to-list 'command-switch-alist '("extempore" . abdo-launch-extempore))
+
+
+;; Performs a diff from command line parameters
+(defun abdo-launch-diff (arg)
+  (let ((file1 (pop command-line-args-left))
+	(file2 (pop command-line-args-left))
+	(file3 (pop command-line-args-left)))
+    (if file3
+	(ediff-files3 file1 file2 file3)
+      (ediff-files file1 file2))))
+
+
+;; Performs a merge from the command line parameters
+(defun abdo-launch-merge (arg)
+  (let ((file1 (pop command-line-args-left))    ; file A
+	(file2 (pop command-line-args-left))    ; file B
+	(file3 (pop command-line-args-left))    ; merge file
+	(file4 (pop command-line-args-left)))   ; ancestor
+    (if file4
+	(ediff-merge-files-with-ancestor file1 file2 file4 nil file3)
+      (ediff-merge-files file1 file2 nil file3))))
+
+
 
 (defun abdo-launch-magit (arg)
   (abdo-vcs-log)
