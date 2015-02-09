@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Feh
 Comment=Fast Imlib2-based Image Viewer
-Exec=feh %F
+Exec=rifle -p feh %F
 Terminal=false
 Type=Application
 Icon=feh

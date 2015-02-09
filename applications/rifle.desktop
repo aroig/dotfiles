@@ -3,5 +3,5 @@ Version=1.0
 Type=Application
 Name=Rifle File Opener
 Comment=A file opener
-Exec=rifle %f
+Exec=rifle %F
 Terminal=false
