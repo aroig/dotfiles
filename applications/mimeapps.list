@@ -1,7 +1,6 @@
 [Default Applications]
 inode/directory=thunar.desktop;
 
-# URLs
 x-scheme-handler/http=dwb.desktop;
 x-scheme-handler/https=dwb.desktop;
 
@@ -24,8 +23,8 @@ image/png=feh.desktop;
 image/svg+xml=feh.desktop;
 image/x-webp=feh.desktop;
 
-application/epub=calibre-ebook-viewer.desktop;
-application/epub+zip=calibre-ebook-viewer.desktop;
+application/epub=ebook-viewer.desktop;
+application/epub+zip=ebook-viewer.desktop;
 
 application/pdf=zathura.desktop;
 application/postscript=zathura.desktop;
