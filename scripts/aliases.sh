@@ -47,9 +47,10 @@ alias vp='vimpager'
 alias vc='vimcat'
 alias fehp='feh -Tpreview'
 alias rsy='rsync -avz --progress --delete'
-alias ediff='emacs -diff'
-alias egit='emacs -git'
 alias mr='mr --stats -t'
+
+alias ediff='emacs-diff'
+alias egit='emacs-git'
 
 alias mailq='msmtp-queue'
 
@@ -97,7 +98,6 @@ trimtrail() {
 alias jtail="jctl -f -n5"
 alias jctl="jctl"
 alias ectl="jctl --priority=0..3"
-alias ictl="ictl"
 
 alias nctl="networkctl --no-pager"
 alias mctl="sudo machinectl"
