@@ -35,14 +35,13 @@ function add_to_pathlist_left () {
 # Some software
 #------------------------------
 
-export EMACSCLIENT="/usr/bin/emacsclient -s $XDG_RUNTIME_DIR/emacs/server"
-export EMACS="$EMACSCLIENT -c"                          # emacs
+export EMACS="$HOME/bin/emacs-client"                   # emacs
 export EDITOR="/usr/bin/vim"                            # default editor
 export ALTERNATE_EDITOR="/usr/bin/emacs"                # emacsclient uses this if can't find server
 
 export BROWSER="/usr/bin/dwb"                           # default browser
 export FILEMANAGER="/usr/bin/thunar"                    # the file manager
-export DIFFPROG="/usr/bin/emacs -diff"
+export DIFFPROG="$HOME/bin/emacs-diff"                  # tool to display diffs
 export PAGER="/usr/bin/vimpager"                        # wrapper for vim
 export TERMCMD="/usr/bin/termite"                       # terminal
 export SHELL="/bin/zsh"
