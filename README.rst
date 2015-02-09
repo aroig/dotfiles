@@ -3,6 +3,13 @@ Emacs configuration
 
 My emacs configuration.
 
+Directories
+-----------
+
+* bin/: wrapper scripts to launch emacs as a client. Some start a server if needed, some
+        just launch a stand-alone emacs.
+
+
 Dependencies
 ------------
 

@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Client to emacs chat
+
+exec /usr/bin/emacsclient -s "$XDG_RUNTIME_DIR/emacs/chat" "$@"
