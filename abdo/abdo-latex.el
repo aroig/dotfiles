@@ -290,24 +290,13 @@
 
 ;; view pdf in zathura
 (defun abdo-latex-zathura-view (pdf)
-  (let
-      ;; NOTE: we do not configure the editor in zathurarc so we can get emacs stuff from
-      ;;       environment variables!
-      ((editor (concat (getenv "EMACSCLIENT")
-                       " -e '(abdo-latex-reverse-sync \"%{input}\" %{line} %{column})'")))
-    (call-process "zathura" nil 0 nil
-                  "--synctex-editor-command"
-                  editor
-                  pdf)
-    ))
+  (call-process "zathura" nil 0 nil pdf))
 
 
 ;; zathura forward sync
 (defun abdo-latex-zathura-forward-sync (pdf tex line col)
   (call-process "zathura" nil 0 nil
-                (format "--synctex-forward=%s:%s:%s" line col tex)
-                pdf)
-  )
+                (format "--synctex-forward=%s:%s:%s" line col tex) pdf))
 
 
 ;; zathura reverse sync
