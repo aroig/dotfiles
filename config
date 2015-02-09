@@ -26,7 +26,7 @@ cursor_blink = system
 cursor_shape = underline
 
 # $BROWSER is used by default
-#browser = firefox
+browser = xdg-open
 
 # word characters used for word selection
 # (default if unset: all graphic non-punctuation/space characters)
