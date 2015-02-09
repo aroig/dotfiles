@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=dwb
 Comment=Small and fast webkit browser 
-Exec=dwb %u
+Exec=sdrun dwb %u
 Icon=dwb
 Terminal=false
 Type=Application

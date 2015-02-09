@@ -2,8 +2,7 @@
 Type=Application
 Name=Mpv Media Player
 Icon=mplayer
-TryExec=mpv
-Exec=mpv --really-quiet %F
+Exec=sh -c 'sdrun mpv --really-quiet `realpath %F`'
 Terminal=false
 NoDisplay=true
 Categories=GTK;AudioVideo;Audio;Video;Player;TV;
