@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# Run command on the emacs server
+
+socket="server"
+while getopts s:q opt; do
+    case "$opt" in
+        s) socket="$OPTARG" ;;
+        q) quiet="1" ;;
+    esac
+done
+shift $((OPTIND-1))
+
+cmd="$1"
+
+if [ "$quiet" ]; then
+    exec >/dev/null /usr/bin/emacsclient -s "$XDG_RUNTIME_DIR/emacs/$socket" -e "$cmd"
+else
+    exec >/dev/null /usr/bin/emacsclient -s "$XDG_RUNTIME_DIR/emacs/$socket" -e "$cmd"
+fi
