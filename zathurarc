@@ -85,10 +85,7 @@ set link-zoom               false
 # ----------------------------------------------------------
 
 set synctex                 true
-
-# NOTE: we do not set this here because we want to use
-#       $EMACSCLIENT environment var.
-# set synctex-editor-command
+set synctex-editor-command "emacs-run -q '(abdo-latex-reverse-sync \"%{input}\" %{line} %{column})'"
 
 
 
