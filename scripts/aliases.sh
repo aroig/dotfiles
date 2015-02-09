@@ -220,8 +220,12 @@ vi()  { $EDITOR "$@"; }
 # TODO: make emacsclient properly detect the tty and get rid of this case.
 ee()  {
     case "$TERM" in
-        screen*|linux) $EMACS -nw "$@" ;;
-        *)             $EMACS "$@" &! ;;
+        screen*|linux)
+            $EMACS -nw "$@"
+            ;;
+        *)
+            $EMACS "$@" &!
+            ;;
     esac
 }
 
