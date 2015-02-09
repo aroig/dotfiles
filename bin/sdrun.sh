@@ -51,36 +51,27 @@ case "$1" in
         index=`available_index "$basename"`
         [ ! "$unit" ] && unit="$basename$index"
         [ ! "$desc" ] && desc="$basename $index"
-        cmd="systemctl --user start $unit"
         ;;
     *.service)
         basename="${1%\.*}"
         [ ! "$unit" ] && unit="$basename"
         [ ! "$desc" ] && desc="$basename"
-        cmd="systemctl --user start $unit"
         ;;
     *)
+        transient='1'
         basename="run-"`basename "$1"`"-"
         index=`available_index "$basename"`
         [ ! "$unit" ] && unit="$basename$index"
         [ ! "$desc" ] && desc="transient "`basename "$1"`" $index"
-        cmd="systemd-run --user --slice=$slice --unit=$unit --description=\"$desc\" $@"
         ;;
 esac
 
-case "$1" in
-    *@.service)
-        cmd="systemctl --user start $unit"
-        ;;
-    *.service)
-        cmd="systemctl --user start $unit"
-        ;;
-    *)
-        cmd="systemd-run --user --slice=\"$slice\" --unit=\"$unit\" --description=\"$desc\" $@"
-        ;;
-esac
+if [ "$transient" ]; then
+    systemd-run --user --slice="$slice" --unit="$unit" --description="$desc" "$@"
 
-eval "$cmd"
+else
+    systemctl --user start "$unit"
+fi
 
 
 
