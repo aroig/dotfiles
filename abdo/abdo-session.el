@@ -109,7 +109,7 @@
 
 (defun abdo~buffer-done-or-kill ()
   (let ((proc (frame-parameter (selected-frame) 'client)))
-    (if (and proc (process-get proc 'buffers))
+    (if (and (processp proc) (process-get proc 'buffers))
         (server-edit)
     (save-buffers-kill-terminal))))
 
