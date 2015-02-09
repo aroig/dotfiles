@@ -1,8 +1,8 @@
 [Default Applications]
 inode/directory=thunar.desktop;
 
-x-scheme-handler/http=dwb.desktop;
-x-scheme-handler/https=dwb.desktop;
+x-scheme-handler/http=dwb.desktop
+x-scheme-handler/https=dwb.desktop
 
 application/xhtml+xml=dwb.desktop;
 application/x-shellscript=emacsclient.desktop;
