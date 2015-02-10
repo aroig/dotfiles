@@ -219,18 +219,17 @@ rf()  { rifle "$@"; }
 # terminal editor
 vi()  { $EDITOR "$@"; }
 
-
-# NOTE: Do not use --no-wait. emacs does not keep buffer-list per frame this way.
-# TODO: make emacsclient properly detect the tty and get rid of this case.
+# emacs
 ee()  {
-    case "$TERM" in
-        screen*|linux)
-            $EMACS -nw "$@"
-            ;;
-        *)
-            $EMACS "$@" &!
-            ;;
-    esac
+    if [ "$1" ]; then rifle -p emacs "$1"
+    else              rifle -p emacs "$PWD"
+    fi    
+}
+
+mg() {
+    if [ "$1" ]; then rifle -p magit "$1"
+    else              rifle -p magit "$PWD"
+    fi
 }
 
 # open tmux session
@@ -255,49 +254,22 @@ cl() {
 
 # new terminal
 tm()  {
-    case "$TERM" in
-        screen*|linux)
-            tx
-            ;;
-        *)
-            if [ "$1" ]; then rifle -p terminal "$1"
-            else              rifle -p terminal "$PWD"
-            fi
-            ;;
-    esac
+    if [ "$1" ]; then rifle -p terminal "$1"
+    else              rifle -p terminal "$PWD"
+    fi
 }
 
 # ranger session
 rg()  {
-    case "$TERM" in
-        screen*|linux)
-            ranger "$1"
-            ;;
-        *)
-            if [ "$1" ]; then rifle -p ranger "$1"
-            else              rifle -p ranger "$PWD"
-            fi
-            ;;
-    esac
+    if [ "$1" ]; then rifle -p ranger "$1"
+    else              rifle -p ranger "$PWD"
+    fi
 }
 
 # open file manager
 fm()  {
-    case "$TERM" in
-        screen*|linux)
-            ranger "$@"
-            ;;
-        *)
-            if [ "$1" ]; then rifle -p filemanager "$1"
-            else              rifle -p filemanager "$PWD"
-            fi
-            ;;
-    esac
-}
-
-mg() {
-    if [ "$1" ]; then rifle -p magit "$1"
-    else              rifle -p magit "$PWD"
+    if [ "$1" ]; then rifle -p filemanager "$1"
+    else              rifle -p filemanager "$PWD"
     fi
 }
 
