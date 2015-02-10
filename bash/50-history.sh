@@ -1,15 +1,19 @@
-#!/bin/zsh
+#!/bin/bash
 #------------------------------------------------------------------#
-# File:     history.zsh        History stuff                       #
+# File:     history.sh         History stuff                       #
 # Version:                                                         #
 # Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
 #------------------------------------------------------------------#
 
-HISTFILE="$XDG_RUNTIME_DIR/shell/zsh_history"
+HISTFILE="$XDG_RUNTIME_DIR/shell/bash_history"
 HISTSIZE=1000
 SAVEHIST=1000
 
+# Avoid duplicates
+export HISTCONTROL=ignoredups:erasedups  
+
 mkdir -p "$(dirname "$HISTFILE")"
-setopt incappendhistory 
-setopt sharehistory
-setopt extendedhistory
+
+shopt -s histappend
+
+sync_history() { history -a; history -c; history -r; }

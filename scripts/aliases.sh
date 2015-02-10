@@ -13,6 +13,9 @@ alias ls='ls --human-readable --color=auto -F'
 alias ll='ls++ --potsf'
 alias lt='tree -C'
 
+alias ud='pushd'
+alias od='popd'
+
 alias df='pydf'
 alias dul='cdu -dLh -i'
 alias du='cdu -dh -i'
