@@ -343,22 +343,17 @@
 ;; Command line switches
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'command-switch-alist '("git"    . abdo-launch-magit))
+;; instances with server
 (add-to-list 'command-switch-alist '("org"    . abdo-launch-org))
 (add-to-list 'command-switch-alist '("notes"  . abdo-launch-notes))
 (add-to-list 'command-switch-alist '("mail"   . abdo-launch-mail))
 (add-to-list 'command-switch-alist '("chat"   . abdo-launch-chat))
+
+;; standalone instances
 (add-to-list 'command-switch-alist '("sage"   . abdo-launch-sage))
 (add-to-list 'command-switch-alist '("sclang" . abdo-launch-sclang))
 (add-to-list 'command-switch-alist '("extempore" . abdo-launch-extempore))
 
-
-
-(defun abdo-launch-magit (arg)
-  (abdo-vcs-log)
-  (delete-other-windows (selected-window))
-  (abdo-vcs-status)
-)
 
 (defun abdo-launch-org (arg)
   (add-hook 'emacs-startup-hook 'abdo-org-main-buffer)
