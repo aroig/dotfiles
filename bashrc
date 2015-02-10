@@ -22,12 +22,12 @@ PS1='[\u@\h \W]\$ '
 
 # source files in ~/.bash
 _BASH_DIR=$HOME/.bash
-if [ -d $_BASH_DIR ]; then
+if [ -d "$_BASH_DIR" ]; then
     # NOTE: We put the find at the end because otherwise the while is
     # run in a sub-shell...
     while read src; do
         # we admit symlinks, but only source them if thay are not broken
-        src_path=$(readlink -f $src)
+        src_path="$(readlink -f "$src")"
         [[ -f "$src_path" ]] && source "$src_path"
     done < <(find "$_BASH_DIR/" -maxdepth 1 -regex '^.*\.sh$' | sort)
 fi
