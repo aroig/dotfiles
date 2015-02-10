@@ -10,5 +10,5 @@ SyslogIdentifier=emacs-session
 
 # NOTE: If emacs.service is not active, always succeed since there is nothing to be done.
 #       It would be nice to write the dependency on emacs.service directly in systemd!
-ExecStart=/usr/bin/sh -c "! systemctl --user is-active -q emacs.service || ${EMACSCLIENT} --eval '(save-some-buffers t)'"
+ExecStart=/home/abdo/bin/emacs-run -q -s emacs.service -k server '(save-some-buffers t)'
 

@@ -11,7 +11,7 @@ Before=wmclean.target
 Type=oneshot
 SyslogIdentifier=orgmode-ask
 
-ExecStart=/home/abdo/.config/systemd/scripts/emacs-ask-save.sh orgmode.service %t/emacs/org
+ExecStart=/home/abdo/bin/emacs-run -q -s orgmode.service -k orgmode '(abdo-save-buffers-new-frame)'
 
 # NOTE: this is a command-line using inhibitors. Currently is messy: need to put inhibitors as root
 # ExecStart=/usr/bin/sudo systemd-inhibit --mode=delay --what=sleep:shutdown --who=%p --why="Manually closing files" %h/.config/systemd/scripts/emacs-ask-save.sh orgmode.servce %t/emacs/org

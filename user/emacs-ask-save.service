@@ -11,7 +11,7 @@ Before=wmclean.target
 Type=oneshot
 SyslogIdentifier=emacs-ask
 
-ExecStart=/home/abdo/.config/systemd/scripts/emacs-ask-save.sh emacs.service %t/emacs/server
+ExecStart=/home/abdo/bin/emacs-run -q -s emacs.service -k server '(abdo-save-buffers-new-frame)'
 
 # NOTE: this is a command-line using inhibitors. Currently is messy: need to put inhibitors as root
 # ExecStart=/usr/bin/sudo systemd-inhibit --mode=delay --what=sleep:shutdown --who=%p --why="Manually closing files" %h/.config/systemd/scripts/emacs-ask-save.sh emacs.servce %t/emacs/server
