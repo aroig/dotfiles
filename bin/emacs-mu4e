@@ -2,4 +2,10 @@
 #
 # Client to emacs mail
 
+# don't run as root
+if [ `id -u -n` = 'root' ]; then
+    echo "Never run emacs as root!"
+    exit 1
+fi
+
 exec /usr/bin/emacsclient -s "$XDG_RUNTIME_DIR/emacs/mu4e" "$@"

@@ -2,6 +2,12 @@
 #
 # Run command on the emacs server
 
+# don't run as root
+if [ `id -u -n` = 'root' ]; then
+    echo "Never run emacs as root!"
+    exit 1
+fi
+
 socket="server"
 while getopts s:k:q opt; do
     case "$opt" in
