@@ -37,6 +37,10 @@
 (defconst daemon-mode (member "--daemon" command-line-args)
   "True when running daemon mode.")
 
+;; Detect root
+(defconst root-mode (string-equal (user-login-name) "root")
+  "True when running as root.")
+
 ;; Let emacs know the machine's hostname
 (setq system-name (substring (shell-command-to-string "hostname -s") 0 -1))
 (setq full-system-name (substring (shell-command-to-string "hostname -f") 0 -1))
@@ -69,9 +73,14 @@
 
 
 
-;; Startup and window tweaking
+;; Startup and frame tweaking
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Never run as root
+(when root-mode
+  (error "Emacs should never be started as root!"))
+
+;; Don't setup frame in batch mode
 (unless batch-mode
   (setq inhibit-startup-screen t)                 ;; Disable startup screen
   (setq initial-scratch-message "")               ;; Clean scratch buffer
@@ -128,6 +137,7 @@
 (require 'netrc)                         ;; read passwords from .netrc
 (require 'ansi-color)                    ;; tools to handle ansi escape sequences
 (require 'cl)                            ;; Common lisp support
+(require 'dbus)                          ;; dbus interface
 
 ;; Undo-tree
 (when (and (locate-library "undo-tree") (not batch-mode))
