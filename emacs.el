@@ -363,8 +363,8 @@
 (defun abdo-launch-org (arg)
   (add-hook 'emacs-startup-hook 'abdo-org-main-buffer)
 
-  ;; start emacs server with socket 'org'
-  (setq server-name "org")
+  ;; start emacs server with socket 'orgmode'
+  (setq server-name "orgmode")
   (server-start))
 
 (defun abdo-launch-notes (arg)
@@ -403,7 +403,7 @@
 (defun abdo-launch-mail (arg)
 
   ;; start emacs server with socket 'mail'
-  (setq server-name "mail")
+  (setq server-name "mu4e")
   (server-start)
 
   ;; launch mu4e
