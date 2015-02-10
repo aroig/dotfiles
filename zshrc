@@ -21,8 +21,15 @@ stty start undef
 
 # Stop here if unknown terminal
 case $TERM in
-    rxvt*|screen*|xterm*|linux*|eterm-color) ;;    
-    *) return                                ;;
+    rxvt*|xterm*|eterm-color)   # graphical terminal
+        ;; 
+
+    screen*|linux*)             # tty or screen / tmux.
+        unset DISPLAY
+        ;;  
+    *)                          # unknown terminal, stop right here.
+        return
+        ;;   
 esac
 
 # source environment variables
