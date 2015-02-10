@@ -7,6 +7,6 @@ After=wm.target
 [Service]
 Type=simple
 SyslogIdentifier=syslog
-ExecStart=/usr/bin/termite -e "%h/etc/systemd/bin/jctl.py -f -n50"
+ExecStart=/usr/bin/termite -e "%h/etc/systemd/bin/jctl -f -n50"
 
 Slice=dropdown.slice
