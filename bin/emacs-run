@@ -3,7 +3,7 @@
 # Run command on the emacs server
 
 socket="server"
-while getopts s:q opt; do
+while getopts s:k:q opt; do
     case "$opt" in
         k) socket="$OPTARG" ;;
         s) service="$OPTARG" ;;
@@ -13,7 +13,7 @@ done
 shift $((OPTIND-1))
 
 cmd="$1"
-socket="$XD_RUNTIME_DIR/emacs/$socket"
+socket="$XDG_RUNTIME_DIR/emacs/$socket"
 
 
 # if serivce is provided and not active, skip.
