@@ -5,11 +5,15 @@
 # Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
 #------------------------------------------------------------------#
 
+# add completions to fpath
+fpath=($HOME/.zsh/completions $fpath)
+
+# enable completion
 zmodload zsh/complist 
 autoload -U compinit
 compinit -u
 
-
+# settings
 setopt bash_auto_list     # Bring list on second tab.
 setopt glob_complete      # Autocomplete with glob
 

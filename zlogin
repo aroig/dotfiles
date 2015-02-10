@@ -11,29 +11,23 @@
 #------------------------------
 
 # set path for systemd user session
-systemctl --user set-environment "PATH=$PATH"
+[ "$PATH" ] && systemctl --user set-environment "PATH=$PATH"
 
 # set the VT number from the session
-if [ "$XDG_VTNR" ]; then
-    systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
-fi
+[ "$XDG_VTNR" ] && systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
 
+# source zshrc on zsh
+[ "$ZSH_VERSION" ] && [ -e "~/.zshrc" ] && source "~/.zshrc"
 
-#------------------------------
-# source zshrc
-#------------------------------
-
-[[ -e ~/.zshrc ]] && source ~/.zshrc
-
-
-
-# ----------------------------
-# TTY Setup 
-# ----------------------------
+# source bashrc on bash
+[ "$BASH_VERSION" ] && [ -e "~/.bashrc" ] && source "~/.bashrc"
 
 # set tty colors on virtual console
-[[ "$TERM" = "linux" ]] && set_tty_colors
-    
+[ "$TERM" = "linux" ] && set_tty_colors
+
+# if ssh session, set gpg-agent variables
+# TODO: what about this in gpg 2.1?
+[ "$SSH_CONNECTION" ] && gpg_agent_mode ssh
 
 
 # ----------------------------
@@ -41,7 +35,7 @@ fi
 # ----------------------------
 
 # if interactive ssh outside tmux
-if [[ "$SSH_TTY" != "" && "$TMUX" == "" && "$NOTMUX" == "" ]]; then
+if [ "$SSH_TTY" ] && [ "$TMUX" = "" ] && [ "$NOTMUX" = "" ]; then
     # start tmux
     if type tmux 2>&1 >/dev/null && type tmux_session 2>&1 >/dev/null; then
         tmux_session default && exit 0
@@ -50,13 +44,3 @@ if [[ "$SSH_TTY" != "" && "$TMUX" == "" && "$NOTMUX" == "" ]]; then
     fi
 fi
 
-
-
-# ----------------------------
-# gpg agent
-# ----------------------------
-
-# if ssh session, set gpg-agent variables
-if [[ "$SSH_CONNECTION" != "" ]]; then
-    gpg_agent_mode ssh
-fi
