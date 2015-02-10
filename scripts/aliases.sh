@@ -219,6 +219,7 @@ rf()  { rifle "$@"; }
 # terminal editor
 vi()  { $EDITOR "$@"; }
 
+
 # NOTE: Do not use --no-wait. emacs does not keep buffer-list per frame this way.
 # TODO: make emacsclient properly detect the tty and get rid of this case.
 ee()  {
@@ -292,6 +293,12 @@ fm()  {
             fi
             ;;
     esac
+}
+
+mg() {
+    if [ "$1" ]; then rifle -p magit "$1"
+    else              rifle -p magit "$PWD"
+    fi
 }
 
 
