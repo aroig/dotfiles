@@ -16,7 +16,7 @@ alias lt='tree -C'
 alias ud='pushd'
 alias od='popd'
 
-alias df='pydf'
+alias df='dfc'
 alias dul='cdu -dLh -i'
 alias du='cdu -dh -i'
 alias top='htop'
