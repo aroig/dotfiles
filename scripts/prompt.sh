@@ -86,6 +86,7 @@ abdo_prompt_userhost() {
         hodge)        hcol="${fg_bold[blue]}"    ;;
         galois)       hcol="${fg_bold[red]}"     ;;
         skynet)       hcol="${fg_bold[cyan]}"    ;;
+        quark)        hcol="${fg_bold[cyan]}"    ;;
         ada)          hcol="${fg_bold[magenta]}" ;;        
         *)            hcol="${fg_bold[white]}"   ;;
     esac
