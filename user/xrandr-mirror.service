@@ -2,7 +2,7 @@
 Description=xrandr mirror
 
 Requisite=xorg.service
-After=xorg.service compton.service
+After=xorg.service
 Before=compton.service
 Before=graphical.target
 
