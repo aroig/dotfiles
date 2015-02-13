@@ -113,21 +113,12 @@ rules = require("awful.rules")
 capi.client.connect_signal("manage",
                            function(c, startup)
                                systemd.manage_client(c)
-
-                               -- show client
-                               c.hidden = false
-                               c:raise()
-                               capi.client.focus = c
-
-                               -- handle it as a dropdown
                                dropdown.manage_client(c)
                            end)
 
 capi.client.connect_signal("unmanage",
                            function(c)
                                systemd.unmanage_client(c)
-
-                               -- handle it as a dropdown
                                dropdown.unmanage_client(c)
                            end)
 
@@ -135,8 +126,6 @@ capi.client.connect_signal("unmanage",
 capi.client.connect_signal("focus",
                            function(c)
                                systemd.focus_client(c)
-
-                               -- handle it as a dropdown
                                dropdown.focus_client(c)
                            end)
 
@@ -151,10 +140,9 @@ rules.rules = {
     -- All clients will match this rule.
     { rule = { }, except_any = { class = {"Tint2", "Plank"} },
       properties = { border_width = 1,
+                     focus = true,
                      -- border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
-                     -- initially hide clients, so they do not flicker when changing geometry
-                     hidden = true,
                      keys = clientkeys,
                      buttons = clientbuttons,
                      maximized_vertical   = false,
