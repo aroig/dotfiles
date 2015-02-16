@@ -112,6 +112,7 @@ rules = require("awful.rules")
 -- systemd signals to capture cgroups and apply rules
 capi.client.connect_signal("manage",
                            function(c, startup)
+                               -- capi.client.focus = c
                                systemd.manage_client(c)
                                dropdown.manage_client(c)
                            end)
@@ -141,7 +142,6 @@ rules.rules = {
     { rule = { }, except_any = { class = {"Tint2", "Plank"} },
       properties = { border_width = 1,
                      focus = true,
-                     -- border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      keys = clientkeys,
                      buttons = clientbuttons,
