@@ -141,8 +141,10 @@ rules.rules = {
     -- All clients will match this rule.
     { rule = { }, except_any = { class = {"Tint2", "Plank"} },
       properties = { border_width = 1,
-                     focus = true,
-                     border_color = beautiful.border_normal,
+                     -- NOTE: This races against focus handler.
+                     -- border_color = beautiful.border_normal,
+                     focus = awful.client.focus.filter,
+                     raise=true,
                      keys = clientkeys,
                      buttons = clientbuttons,
                      maximized_vertical   = false,
