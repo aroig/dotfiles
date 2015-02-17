@@ -103,7 +103,7 @@ abdo_prompt_symbol () {
     [[ ! "$ANS" = '0' ]] && pcol="${fg[red]}"
 
     if [[ -n "$ZSH_VERSION" ]]; then    psym='$'
-    elif [[ -n "$BASH_VERSION" ]]; then psym='#'
+    elif [[ -n "$BASH_VERSION" ]]; then psym='$'
     else                                psym='%'
     fi   
 
