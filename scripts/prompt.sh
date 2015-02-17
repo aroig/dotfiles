@@ -77,16 +77,17 @@ abdo_prompt_userhost() {
     acol=$(abdo_prompt_shell_color)
 
     case "$user" in
-	    root) ucol="${fg[red]}"   ;;
-        *)    ucol="${fg[green]}" ;;
+	    root)    ucol="${fg[red]}"   ;;
+        abdo)    ucol="${fg[green]}" ;;
+        bibrain) ucol="${fg[cyan]}" ;;
+        *)       ucol="${fg[white]}" ;;
     esac
 
     case "$host" in
 	    grothendieck) hcol="${fg[yellow]}"       ;;
-        hodge)        hcol="${fg_bold[blue]}"    ;;
         galois)       hcol="${fg_bold[red]}"     ;;
         skynet)       hcol="${fg_bold[cyan]}"    ;;
-        quark)        hcol="${fg_bold[cyan]}"    ;;
+        quark)        hcol="${fg_bold[blue]}"    ;;
         ada)          hcol="${fg_bold[magenta]}" ;;        
         *)            hcol="${fg_bold[white]}"   ;;
     esac
