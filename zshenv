@@ -88,6 +88,8 @@ export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent::1"
 # mpd socket
 export MPD_HOST="$XDG_RUNTIME_DIR/mpd/mpd.socket"
 
+export SCREENDIR="$XDG_RUNTIME_DIR/screen"
+
 
 
 #------------------------------
