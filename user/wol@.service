@@ -6,4 +6,4 @@ After=network-online.target
 [Service]
 Type=oneshot
 SyslogIdentifier=wol
-ExecStart=/usr/bin/wol -f /etc/ethers %i
+ExecStart=/home/abdo/.config/systemd/scripts/wol.sh %i
