@@ -197,6 +197,12 @@ systemd.rules = {
                      above = true,
                      skip_taskbar = true } },
 
+    -- float virtual machines
+    { rule       = { },
+      process    = { cgroup = 'machines%.slice/.*$', main = false },
+      properties = { floating = true },
+      callback   = function(c) awful.placement.centered(c) end },
+
     -- default dropdown geometry
     { rule       = { },
       except     = { modal = true },
