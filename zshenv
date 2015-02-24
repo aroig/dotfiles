@@ -88,6 +88,7 @@ export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent::1"
 # mpd socket
 export MPD_HOST="$XDG_RUNTIME_DIR/mpd/mpd.socket"
 
+# screen socket
 export SCREENDIR="$XDG_RUNTIME_DIR/screen"
 
 
@@ -143,7 +144,7 @@ export WINEARCH=win32
 # export NO_AT_BRIDGE=1 
 
 # sage
-export SAGE_KEEP_BUILT_SPKGS='yes'    # don't rebuild from scratch
+export SAGE_KEEP_BUILT_SPKGS='no'    # yes te prevent sage from removing build files
 export SAGE_INSTALL_GCC='no'
 
 export SAGE_ROOT=$AB2_HOME/sage
