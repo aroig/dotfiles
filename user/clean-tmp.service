@@ -6,3 +6,5 @@ Type=oneshot
 
 SyslogIdentifier=clean-tmp
 ExecStart=/usr/bin/find "%h/tmp/" -ctime +90 -delete
+ExecStart=/usr/bin/find "%h/opt/build/arch" -ctime +30 -delete
+ExecStart=/usr/bin/find "%h/opt/build/sage" -ctime +30 -delete
