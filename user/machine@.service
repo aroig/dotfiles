@@ -2,9 +2,10 @@
 Description=virtual machine %i
 
 [Service]
-Type=forking
+Type=simple
 
-SyslogIdentifier=machine
+SyslogIdentifier=machine-%i
+Slice=machines.slice
 ExecStart=/home/abdo/virt/bin/machine.py start %i
 ExecStop=/home/abdo/virt/bin/machine.py stop %i
 
