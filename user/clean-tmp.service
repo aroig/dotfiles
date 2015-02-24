@@ -5,6 +5,7 @@ Description=clean tmp files
 Type=oneshot
 
 SyslogIdentifier=clean-tmp
-ExecStart=/usr/bin/find "%h/tmp/" -ctime +90 -delete
-ExecStart=/usr/bin/find "%h/opt/build/arch" -ctime +30 -delete
-ExecStart=/usr/bin/find "%h/opt/build/sage" -ctime +30 -delete
+# NOTE: Do not use environment variables here. If they are empty, it can mess things up royally.
+ExecStart=/usr/bin/find "~/tmp" -ctime +90 -mindepth 1 -exec rm -Rf {} +
+ExecStart=/usr/bin/find "~/opt/build/arch" -ctime +10 -mindepth 1 -maxdepth 1 -exec rm -Rf {} +
+ExecStart=/usr/bin/find "~/opt/build/sage" -ctime +10 -mindepth 1 -maxdepth 1 -exec rm -Rf {} +
