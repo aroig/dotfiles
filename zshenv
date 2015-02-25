@@ -72,6 +72,7 @@ export AB2_WIKI_DIR="$AB2_HOME/work/wiki"
 export AB2_PAPERS_DIR="$AB2_HOME/work/papers"
 export AB2_VIRT_DIR="$AB2_HOME/virt"
 export AB2_BUILD_DIR="$AB2_HOME/opt/build"
+export AB2_REPOS_DIR="$AB2_HOME/repos"
 export AB2_TMP_DIR="$AB2_HOME/tmp"
 
 
