@@ -1,0 +1,14 @@
+[Unit]
+Description=commit repos
+
+ConditionPathExists=/home/%u/repos
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=commit-repos
+ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "${AB2_REPOS_DIR}"
+
+# NOTE: if we change calibre config in the database, I need to trigger a commit manually
+#       to run the git hooks and dump the database. Otherwise the working tree appears clean
+#       and nothing happens.
