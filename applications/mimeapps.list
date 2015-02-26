@@ -17,6 +17,7 @@ text/x-python=emacsclient.desktop;
 text/x-lua=emacsclient.desktop;
 text/x-haskell=emacsclient.desktop;
 text/x-makefile=emacsclient.desktop;
+text/x-changelog=emacsclient.desktop;
  
 image/jpeg=feh.desktop;
 image/png=feh.desktop;
