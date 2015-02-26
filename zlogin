@@ -5,16 +5,9 @@
 # Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
 #------------------------------------------------------------------#
 
-
 #------------------------------
-# Set systemd environment
+# Set environment
 #------------------------------
-
-# set path for systemd user session
-[ "$PATH" ] && systemctl --user set-environment "PATH=$PATH"
-
-# set the VT number from the session
-[ "$XDG_VTNR" ] && systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
 
 # source zshrc on zsh
 [ "$ZSH_VERSION" ] && [ -e "~/.zshrc" ] && source "~/.zshrc"
@@ -22,12 +15,19 @@
 # source bashrc on bash
 [ "$BASH_VERSION" ] && [ -e "~/.bashrc" ] && source "~/.bashrc"
 
+# set path for systemd user session
+[ "$PATH" ] && systemctl --user set-environment "PATH=$PATH"
+
+# set the VT number from the session
+[ "$XDG_VTNR" ] && systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
+
 # set tty colors on virtual console
 [ "$TERM" = "linux" ] && set_tty_colors
 
 # if ssh session, set gpg-agent variables
 # TODO: what about this in gpg 2.1?
 [ "$SSH_CONNECTION" ] && gpg_agent_mode ssh
+
 
 
 # ----------------------------
