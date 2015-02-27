@@ -20,6 +20,7 @@ alias df='dfc'
 alias dul='cdu -dLh -i'
 alias du='cdu -dh -i'
 alias top='htop'
+alias gl='glances'
 
 alias diff='diff -u -d'
 alias grep='grep --color=auto'
