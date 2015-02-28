@@ -148,10 +148,6 @@ export WINEARCH=win32
 # export NO_AT_BRIDGE=1 
 
 # sage
-export SAGE_BUILD_DIR="$AB2_BUILD_DIR/sage"
-export SAGE_KEEP_BUILT_SPKGS='yes'    # yes te prevent sage from removing build files
-export SAGE_INSTALL_GCC='no'
-
 export SAGE_ROOT="$AB2_HOME/sage"
 
 # ranger
