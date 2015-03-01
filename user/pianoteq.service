@@ -12,7 +12,7 @@ After=audio.slice
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/pianoteq
+ExecStart=/usr/bin/pianoteq --headless
 
 # realtime scheduling
 CPUSchedulingPolicy=rr
