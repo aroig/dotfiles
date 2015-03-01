@@ -55,6 +55,15 @@ abdo_prompt_tmux () {
 }
 
 
+abdo_prompt_nix() {
+    if type "nix-env" >/dev/null 2>&1; then
+        local profile_full="$(readlink ~/.nix-profile)"
+        local profile="$(basename "$profile_full")"
+        echo "[${_cb}${fg_bold[blue]}${_ce}$profile${_cb}${fx[reset]}${_ce}] "
+    fi    
+}
+
+
 abdo_prompt_shell_color() {
     if [[ -n "$ZSH_VERSION" ]]; then    echo "${fg[white]}"
     elif [[ -n "$BASH_VERSION" ]]; then echo "${fg[cyan]}"
@@ -203,7 +212,7 @@ abdo_prompt_directory() {
 
 abdo_prompt_main () {
     local prompt_pre prompt_post
-    prompt_pre="$(abdo_prompt_tmux)$(abdo_prompt_userhost)"
+    prompt_pre="$(abdo_prompt_tmux)$(abdo_prompt_nix)$(abdo_prompt_userhost)"
     prompt_post="$(abdo_prompt_vcs '[%s]')$(abdo_prompt_directory)$(abdo_prompt_symbol)"
     echo -n "${prompt_pre}${prompt_post} "
 }
