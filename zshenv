@@ -16,17 +16,15 @@
 
 
 function add_to_pathlist_left () {
-   local cl=$1
-   local item=$2
+   local cl="$1"
+   local item="$2"
    local cl_content
 
    eval "cl_content=\$$cl"
-   if [[ -d $item ]]; then
-      case ":$cl_content:" in
-          *":$item:"*)                    ;;       # already there
-          *) eval "$cl=$item:$cl_content" ;;
-      esac
-   fi
+   case ":$cl_content:" in
+       *":$item:"*)                    ;;       # already there
+       *) eval "$cl=$item:$cl_content" ;;
+   esac
 }
 
 
@@ -303,4 +301,4 @@ fi
 add_to_pathlist_left PATH "$NIX_LINK/sbin"        # ~/.nix-profile/bin
 add_to_pathlist_left PATH "$NIX_LINK/bin"         # ~/.nix-profile/bin
 add_to_pathlist_left PATH "$HOME/bin"             # ~/bin
-export PATH=$PATH
+export PATH="$PATH"
