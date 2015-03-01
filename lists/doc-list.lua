@@ -9,7 +9,7 @@ return {
 
    python2               = "file:///usr/share/doc/python2/html/index.html",
    python3               = "file:///usr/share/doc/python/html/index.html",
-   sage                  = "file:///home/abdo/sage/src/doc/output/html/en/index.html",
+   sage                  = "file:///usr/share/doc/sage/output/html/en/index.html",
    scipy                 = "file:///usr/share/doc/python-scipy/html",
    lua                   = "file:///usr/share/doc/lua/contents.html",
 
