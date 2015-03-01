@@ -1,0 +1,21 @@
+[Unit]
+Description=pianotec synth
+
+Requisite=wm.target
+After=wm.target
+
+Requires=jack.service
+After=jack.service
+
+Requires=audio.slice
+After=audio.slice
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/pianoteq
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+Slice=audio.slice
