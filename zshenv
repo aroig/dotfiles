@@ -30,6 +30,14 @@ function add_to_pathlist_left () {
 }
 
 
+#------------------------------
+# Nix package manager
+#------------------------------
+export NIX_LINK="$HOME/.nix-profile"
+export NIX_PATH="nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs"
+export SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt"
+
+
 
 #------------------------------
 # Some software
@@ -292,5 +300,7 @@ fi
 # export CDPATH=""
 
 # The path
+add_to_pathlist_left PATH "$NIX_LINK/sbin"        # ~/.nix-profile/bin
+add_to_pathlist_left PATH "$NIX_LINK/bin"         # ~/.nix-profile/bin
 add_to_pathlist_left PATH "$HOME/bin"             # ~/bin
 export PATH=$PATH
