@@ -1,0 +1,8 @@
+[Unit]
+Description=play pianoteq
+
+Requires=jack.target
+After=jack.target
+
+Wants=pianoteq.service qjackctl-play.service
+After=pianoteq.service qjackctl-play.service
