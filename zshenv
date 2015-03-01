@@ -29,15 +29,6 @@ function add_to_pathlist_left () {
 
 
 #------------------------------
-# Nix package manager
-#------------------------------
-export NIX_LINK="$HOME/.nix-profile"
-export NIX_PATH="nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs"
-export SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt"
-
-
-
-#------------------------------
 # Some software
 #------------------------------
 
@@ -165,6 +156,9 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dawt
 
 # QT5 style
 export QT_STYLE_OVERRIDE=gtk
+
+# nix uses this
+export SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt"
 
 
 
@@ -298,7 +292,5 @@ fi
 # export CDPATH=""
 
 # The path
-add_to_pathlist_left PATH "$NIX_LINK/sbin"        # ~/.nix-profile/bin
-add_to_pathlist_left PATH "$NIX_LINK/bin"         # ~/.nix-profile/bin
 add_to_pathlist_left PATH "$HOME/bin"             # ~/bin
 export PATH="$PATH"
