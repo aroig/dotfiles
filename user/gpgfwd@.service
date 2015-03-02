@@ -4,7 +4,6 @@ Description=forward gpg-agent to %i
 Requires=gpg-agent.service
 After=gpg-agent.service
 
-Requires=sshmux@%i.service
 After=sshmux@%i.service
 
 [Service]
