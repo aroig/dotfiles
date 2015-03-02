@@ -4,8 +4,11 @@ Description=forward gpg-agent to %i
 Requires=gpg-agent.service
 After=gpg-agent.service
 
+Requires=sshmux@%i.service
+After=sshmux@%i.service
+
 [Service]
 Type=simple
-SyslogIdentifier=gpg-agent-proxy
+SyslogIdentifier=gpgfwd
 ExecStart=/usr/bin/ssh -o ControlMaster=no -o ControlPath=none -R /home/abdo/.gnupg/S.gpg-agent:/home/abdo/.gnupg/S.gpg-agent -R /home/abdo/.gnupg/S.gpg-agent.ssh:/home/abdo/.gnupg/S.gpg-agent.ssh %i -N
 
