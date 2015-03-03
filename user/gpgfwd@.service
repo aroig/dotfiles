@@ -1,6 +1,8 @@
 [Unit]
 Description=forward gpg-agent to %i
 
+AssertHost=!%i
+
 Requires=gpg-agent.service
 After=gpg-agent.service
 

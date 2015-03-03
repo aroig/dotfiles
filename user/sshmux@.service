@@ -1,6 +1,8 @@
 [Unit]
 Description=ssh master connection for %i
 
+AssertHost=!%i
+
 Requires=mount-priv.service
 After=mount-priv.service
 
