@@ -4,5 +4,5 @@ Description=play sampled piano
 Requires=jack.service
 After=jack.service
 
-Wants=linuxsampler.service linuxsampler-conf@piano.service qjackctl-play.service
-After=linuxsampler.service linuxsampler-conf@piano.service qjackctl-play.service
+Wants=pianoteq.service
+After=pianoteq.service

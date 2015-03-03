@@ -4,6 +4,6 @@ Description=music midi studio
 Requires=jack.service
 After=jack.service
 
-Wants=qjackctl-studio.service qtractor.service yoshimi.service fluidsynth.service
-After=qjackctl-studio.service qtractor.service yoshimi.service fluidsynth.service
+Wants=qjackctl-studio.service ardour.service yoshimi.service fluidsynth.service pianoteq.service
+After=qjackctl-studio.service ardour.service yoshimi.service fluidsynth.service pianoteq.service
 

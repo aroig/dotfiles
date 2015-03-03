@@ -4,5 +4,5 @@ Description=play synthetizer
 Requires=jack.service
 After=jack.service
 
-Wants=fluidsynth.service qjackctl-play.service
-After=fluidsynth.service qjackctl-play.service
+Wants=fluidsynth.service
+After=fluidsynth.service

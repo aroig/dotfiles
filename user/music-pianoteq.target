@@ -1,8 +1,0 @@
-[Unit]
-Description=play pianoteq
-
-Requires=jack.service
-After=jack.service
-
-Wants=pianoteq.service
-After=pianoteq.service
