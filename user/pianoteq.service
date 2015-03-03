@@ -11,6 +11,10 @@ After=audio.slice
 Type=simple
 ExecStart=/usr/bin/pianoteq --headless
 
+# Do jack connections
+ExecStartPost=/usr/bin/sleep 1
+ExecStartPost=-/usr/bin/jack_connect system:midi_capture_1 Pianoteq51:midi_in
+
 # realtime scheduling
 CPUSchedulingPolicy=rr
 CPUSchedulingPriority=60
