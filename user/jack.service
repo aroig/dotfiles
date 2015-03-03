@@ -5,9 +5,6 @@ Documentation=man:jack(1)
 Requires=jackdbus.service
 After=jackdbus.service
 
-PartOf=jack.target
-Before=jack.target
-
 Requires=audio.slice
 After=audio.slice
 
@@ -28,6 +25,3 @@ ExecStartPost=/usr/bin/pactl set-default-sink jack_out
 ExecStartPost=/usr/bin/pactl set-default-source jack_in
 
 ExecStop=/usr/bin/jack_control stop
-
-[Install]
-WantedBy=jack.target

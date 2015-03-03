@@ -1,8 +1,8 @@
 [Unit]
 Description=play pianoteq
 
-Requires=jack.target
-After=jack.target
+Requires=jack.service
+After=jack.service
 
 Wants=pianoteq.service
 After=pianoteq.service

@@ -1,8 +1,8 @@
 [Unit]
 Description=play sampled cello
 
-Requires=jack.target
-After=jack.target
+Requires=jack.service
+After=jack.service
 
 Wants=linuxsampler.service linuxsampler-conf@cello.service qjackctl-play.service
 After=linuxsampler.service linuxsampler-conf@cello.service qjackctl-play.service

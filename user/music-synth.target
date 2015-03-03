@@ -1,8 +1,8 @@
 [Unit]
 Description=play synthetizer
 
-Requires=jack.target
-After=jack.target
+Requires=jack.service
+After=jack.service
 
 Wants=fluidsynth.service qjackctl-play.service
 After=fluidsynth.service qjackctl-play.service
