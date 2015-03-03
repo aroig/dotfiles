@@ -1,5 +1,10 @@
 [Unit]
-Description=pianotec synth
+Description=pianotec synth GUI
+
+Conflicts=pianoteq.service
+
+Requisite=wm.target
+After=wm.target
 
 Requires=jack.service
 After=jack.service
@@ -9,7 +14,7 @@ After=audio.slice
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/pianoteq --headless
+ExecStart=/usr/bin/pianoteq
 
 # realtime scheduling
 CPUSchedulingPolicy=rr
