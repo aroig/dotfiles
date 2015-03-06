@@ -1,0 +1,16 @@
+[Unit]
+Description=qtile window manager in xephyr
+
+Conflicts=xephyr-awesome.service xephyr-openbox.service xephyr-xmonad.service
+
+Requires=xephyr.service
+After=xephyr.service
+
+[Service]
+Type=simple
+SyslogIdentifier=xephyr-qtile
+Slice=wm.slice
+
+Environment=DISPLAY=:1
+ExecStart=/usr/bin/qtile
+
