@@ -1,0 +1,21 @@
+[Unit]
+Description=pulseaudio sink for r2d2
+
+Requisite=pulseaudio.service
+After=pulseaudio.service
+
+[Service]
+Type=oneshot
+SyslogIdentifier=audio-r2d2
+
+Environment=REMOTE=r2d2.wifi.local
+
+# NOTE: Currently not functional
+# https://together.jolla.com/question/20344/audio-output-over-network/
+# http://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/Modules/
+
+ExecStart=/usr/bin/ssh $REMOTE pactl load-module module-native-protocol-tcp auth-ip-acl="127.0.0.1;192.168.0.0/16"
+ExecStart=/usr/bin/pactl load-module module-tunnel-sink server=$REMOTE
+
+# TODO : unload module on the remote server
+# ExecStop=/usr/bin/pactl unload-module module-tunnel-sink
