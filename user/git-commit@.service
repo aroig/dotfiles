@@ -1,0 +1,10 @@
+[Unit]
+Description=commit %I
+
+ConditionPathExists=/home/%u/%I/.git
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=commit-%i
+ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "%h/%I"

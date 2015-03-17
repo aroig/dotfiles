@@ -1,0 +1,10 @@
+[Unit]
+Description=garbage collect %I
+
+ConditionPathExists=/home/%u/%I/.git
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=git-gc-%i
+ExecStart=/usr/bin/git -C "%h/%I" gc --auto 6700

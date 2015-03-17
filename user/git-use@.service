@@ -1,0 +1,17 @@
+[Unit]
+Description=use %I
+
+StopWhenUnneeded=true
+ConditionPathExists=/home/%u/%I/.git
+
+Requisite=synced.target
+After=synced.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+SyslogIdentifier=use-%i
+
+ExecStart=/usr/bin/true
+ExecStop=/usr/bin/systemctl --user start git-commit@%i.service
+
