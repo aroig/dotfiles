@@ -10,23 +10,39 @@
 #------------------------------
 
 # source zshrc on zsh
-[ "$ZSH_VERSION" ] && [ -e "~/.zshrc" ] && source "~/.zshrc"
-
+if [ "$ZSH_VERSION" ] && [ -e "~/.zshrc" ]; then
+    source "~/.zshrc"
+    sd_log "load zshrc"
+    
 # source bashrc on bash
-[ "$BASH_VERSION" ] && [ -e "~/.bashrc" ] && source "~/.bashrc"
+elif [ "$BASH_VERSION" ] && [ -e "~/.bashrc" ]; then
+    source "~/.bashrc"
+    sd_log "load bashrc"
+   
+fi
 
 # set path for systemd user session
-[ "$PATH" ] && systemctl --user set-environment "PATH=$PATH"
+if [ "$PATH" ]; then
+    systemctl --user set-environment "PATH=$PATH"
+    sd_log "setting environment variable PATH=$PATH"
+fi
 
 # set the VT number from the session
-[ "$XDG_VTNR" ] && systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
+if [ "$XDG_VTNR" ]; then
+    systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
+    sd_log "setting environment variable XDG_VTNR=$XDG_VTNR"
+fi
 
 # set tty colors on virtual console
-[ "$TERM" = "linux" ] && set_tty_colors
+if [ "$TERM" = "linux" ]; then
+    set_tty_colors
+fi
 
 # if ssh session, set gpg-agent variables
 # TODO: what about this in gpg 2.1?
-[ "$SSH_CONNECTION" ] && gpg_agent_mode ssh
+if [ "$SSH_CONNECTION" ]; then
+    gpg_agent_mode ssh
+fi
 
 
 
