@@ -10,14 +10,14 @@
 #------------------------------
 
 # source zshrc on zsh
-if [ "$ZSH_VERSION" ] && [ -e "~/.zshrc" ]; then
-    source "~/.zshrc"
-    sd_log "load zshrc"
+if [ "$ZSH_VERSION" ] && [ -e "$HOME/.zshrc" ]; then
+    source "$HOME/.zshrc"
+    sd_log "loading zshrc"
     
 # source bashrc on bash
-elif [ "$BASH_VERSION" ] && [ -e "~/.bashrc" ]; then
-    source "~/.bashrc"
-    sd_log "load bashrc"
+elif [ "$BASH_VERSION" ] && [ -e "$HOME/.bashrc" ]; then
+    source "$HOME/.bashrc"
+    sd_log "loading bashrc"
    
 fi
 
