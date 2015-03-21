@@ -9,13 +9,13 @@ Description=ssh connection proxy for %i
 Requires=sshmux@%i.service
 After=sshmux@%i.service
 
-Requires=ssh-proxy@%i.socket
-After=ssh-proxy@%i.socket
+Requires=sshmux-proxy@%i.socket
+After=sshmux-proxy@%i.socket
 
 [Service]
 Type=simple
 
-SyslogIdentifier=ssh-proxy
+SyslogIdentifier=sshmux-proxy
 ExecStart=/usr/lib/systemd/systemd-socket-proxyd %t/ssh/%i.socket
 
 
