@@ -5,81 +5,138 @@
 # Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
 #------------------------------------------------------------------#
 
-
-#------------------------------
-# Coloring stuff
-#------------------------------
-alias ls='ls --human-readable --color=auto -F'
-alias ll='ls++ --potsf'
-alias lt='tree -C'
-
-alias ud='pushd'
-alias od='popd'
-
-alias df='dfc'
-alias dul='cdu -dLh -i'
-alias du='cdu -dh -i'
-alias top='htop'
-alias gl='glances'
-
-alias diff='diff -u -d'
-alias grep='grep --color=auto'
-
-alias gls="abdo_git_ls"
-
-
-# alias ping='$HOME/Software/conf/color-wrappers/ping'
-# alias unisonb='$HOME/Software/conf/color-wrappers/unison -batch'
-
-
-
-#------------------------------
-# Wine aliases
-#------------------------------
-alias winec='wineconsole --backend=curses'
-
-alias kindle='wine "$HOME/.wine/drive_c/Program Files (x86)/Amazon/Kindle/Kindle.exe"'
-alias digitaleditions='wine "$HOME/.wine/drive_c/Program Files (x86)/Adobe/Adobe Digital Editions/digitaleditions.exe"'
-
-
 #------------------------------
 # Utility aliases
 #------------------------------
 
-alias trash='gvfs-trash'
-alias vp='vimpager'
-alias vc='vimcat'
-alias fehp='feh -Tpreview'
-alias rsy='rsync -avz --progress --delete'
-alias mr='mr --stats -t'
+# ls
+alias ls='ls --human-readable --color=auto -F'
+alias ll='ls++ --potsf'
+alias lt='tree -C'
 
-alias ediff='emacs-diff'
-alias egit='emacs-git'
+# filesystem stuff
+alias df='dfc'
+alias dul='cdu -dLh -i'
+alias du='cdu -dh -i'
 
-alias mailq='msmtp-queue'
+# monitoring
+alias top='htop'
+alias gl='glances'
 
-alias ahi='ictl hi.target'
-alias abye='ictl bye.target'
-
-alias pac='sudo pacman'
-alias pat='pactree -c'
-alias paf='comm -13 <(pactree host-$(hostname)-cfg  -u | sort) <(pacman -Qsq | sort)'
-
-alias cow='cower'
-amr() { ( cd "$AB2_ARCH_DIR/$1"; shift; mr "$@"; ) }
-
-alias ipy='ipython'
-alias ipy2='ipython2'
-
-alias wee='weechat-curses'
-
-gateway() { host `ip route list 0/0 | awk '{print $3}'` | awk '{print $5}'; }
-
+# navigation
+alias ud='pushd'
+alias od='popd'
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
+
+# file manipulation
+alias trash='gvfs-trash'
+alias rsy='rsync -avz --progress --delete'
+
+# file viewing
+alias vp='vimpager'
+alias vc='vimcat'
+alias diff='diff -u -d'
+alias grep='grep --color=auto'
+
+# emacs aliases
+alias ediff='emacs-diff'
+alias egit='emacs-git'
+
+# development
+alias mr='mr --stats -t'
+alias make="TERM=xterm make"
+alias mk='PATH="/usr/lib/ccache/bin:$PATH" MAKEFLAGS="-j 4" TERM=xterm make'
+
+# git aliases
+alias ggr='git --no-pager grep'
+alias gan="git annex"
+alias glg='git log'
+alias gls="abdo_git_ls"
+
+# arch package management
+alias pac='sudo pacman'
+alias pat='pactree -c'
+alias paf='comm -13 <(pactree host-$(hostname)-cfg  -u | sort) <(pacman -Qsq | sort)'
+alias cow='cower'
+
+amr() { ( cd "$AB2_ARCH_DIR/$1"; shift; mr "$@"; ) }
+
+# python
+alias ipy='ipython'
+alias ipy2='ipython2'
+
+# software
+alias wee='weechat-curses'
+alias fehp='feh -Tpreview'
+alias mailq='msmtp-queue'
+alias uzbl="uzbl-tabbed"
+
+
+
+#------------------------------
+# Systemd aliases
+#------------------------------
+
+# journal
+alias jtail="jctl -f -n5"
+alias jctl="jctl"
+alias ectl="jctl --priority=0..3"
+
+# systemd tools
+alias nctl="networkctl --no-pager"
+alias mctl="sudo machinectl"
+alias lctl="sudo loginctl"
+alias sctl="sudo systemctl --system"
+alias uctl="systemctl --user"
+alias nspn="sudo systemd-nspawn"
+alias lock='systemctl --user lock.target'
+
+# monitoring
+alias cgls="sdls cgroups"
+alias unls="sdls units"
+alias cgtop="systemd-cgtop"
+
+# power management
+alias reboot="systemctl reboot"
+alias poweroff="systemctl poweroff"
+alias suspend="systemctl suspend"
+
+# other system tools
+alias cmctl="connmanctl"
+alias udctl="udisksctl"
+
+# manage mounts
+alias mount-priv="systemctl --user start mount-priv.service"
+alias umount-priv="systemctl --user stop mount-priv.service"
+
+alias mount-data="systemctl start data.mount"
+alias umount-data="systemctl stop data.mount"
+
+# print active target list
+tlst() {
+    systemctl --user --no-legend --state=active --t target list-units "$@" | \
+        perl -n -e'/(.*)\.target/ && print "$1\n"'
+}
+
+# produce an svg dependency graph
+sdan_svg() {
+    cmd="$1"; shift
+    if [ "$cmd" = "dot" ]; then systemd-analyze dot "$@" | dot -Tsvg
+    else                        systemd-analyze "$cmd" "$@"
+    fi
+}
+
+# firewall
+fws() { sudo iptables -L firewall; echo ""; sudo iptables -n -L sshguard; }
+fwban() { sudo iptables -A sshguard -s "$1" -j DROP; }
+
+# network
+gateway() { host `ip route list 0/0 | awk '{print $3}'` | awk '{print $5}'; }
+
 
 
 #------------------------------
@@ -96,83 +153,12 @@ trimtrail() {
 
 
 #------------------------------
-# Systemd aliases
+# Wine aliases
 #------------------------------
+alias winec='wineconsole --backend=curses'
 
-alias jtail="jctl -f -n5"
-alias jctl="jctl"
-alias ectl="jctl --priority=0..3"
-
-alias nctl="networkctl --no-pager"
-alias mctl="sudo machinectl"
-alias lctl="sudo loginctl"
-alias sctl="sudo systemctl --system"
-alias uctl="systemctl --user"
-
-alias actl="systemd-analyze"
-alias nspawn="sudo systemd-nspawn"
-
-alias cgls="sdls cgroups"
-alias unls="sdls units"
-alias cgtop="systemd-cgtop"
-
-alias uzbl="uzbl-tabbed"
-
-# print active target list
-tlst() { systemctl --user --no-legend --state=active --t target list-units "$@" | perl -n -e'/(.*)\.target/ && print "$1\n"'; }
-
-alias cmctl="connmanctl"
-alias udctl="udisksctl"
-
-# Manage mounts the 
-alias mount-priv="systemctl --user start mount-priv.service"
-alias umount-priv="systemctl --user stop mount-priv.service"
-
-alias mount-data="systemctl start data.mount"
-alias umount-data="systemctl stop data.mount"
-
-# old udisks way
-# alias mount-data="udisksctl mount -b /dev/disk/by-label/galois:data"
-# alias umount-data="udisksctl unmount -b /dev/disk/by-label/galois:data"
-
-actl_svg() {
-    cmd="$1"; shift
-    if [ "$cmd" = "dot" ]; then systemd-analyze dot "$@" | dot -Tsvg
-    else                        systemd-analyze "$cmd" "$@"
-    fi
-}
-
-alias lock='systemctl --user lock.target'
-
-# firewall
-fws() { sudo iptables -L firewall; echo ""; sudo iptables -n -L sshguard; }
-fwban() { sudo iptables -A sshguard -s "$1" -j DROP; }
-
-
-
-#------------------------------
-# development
-#------------------------------
-
-case $(hostname -s) in
-    grothendieck)
-        threads=10
-        ;;
-    galois|hodge)
-        threads=3
-        ;;
-    *)
-        threads=1
-        ;;
-esac
-
-mk() { 
-    PATH="/usr/lib/ccache/bin:$PATH" MAKE="make -j$threads" TERM=xterm make "$@"
-}
-
-alias make="TERM=xterm make"
-
-alias gan="git annex"
+alias kindle='wine "$HOME/.wine/drive_c/Program Files (x86)/Amazon/Kindle/Kindle.exe"'
+alias digitaleditions='wine "$HOME/.wine/drive_c/Program Files (x86)/Adobe/Adobe Digital Editions/digitaleditions.exe"'
 
 
 
@@ -215,9 +201,14 @@ sudo () {
 # example fm launches GTK file manager on any terminal except tty's or remote logins
 
 
-# file opener
-op()  { xdg-open "$@" &> /dev/null &!; }
-rf()  { rifle "$@"; }
+# file openers
+op()  {
+    xdg-open "$@" &> /dev/null &!
+}
+
+rf()  {
+    rifle "$@"
+}
 
 # terminal editor
 vi()  { $EDITOR "$@"; }
@@ -278,8 +269,13 @@ fm()  {
 
 
 # These commands open awesome dropdown clients
-rgd() { echo "ddclient.ranger:newtab('$PWD')"   | awesome-client; }
-tmd() { echo "ddclient.terminal:newtab('$PWD')" | awesome-client; }
+rgd() {
+    echo "ddclient.ranger:newtab('$PWD')"   | awesome-client
+}
+
+tmd() {
+    echo "ddclient.terminal:newtab('$PWD')" | awesome-client
+}
 
 
 
@@ -287,15 +283,14 @@ tmd() { echo "ddclient.terminal:newtab('$PWD')" | awesome-client; }
 # Starting and killing X
 #------------------------------
 
-# stx() { startx awesome -- vt$(fgconsole 2>/dev/null); }
 stx() {
     
     # set the vt number from current vt
     systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
 
     # start the desktop according to the device
-    chassis=$(hostnamectl status | awk '/Chassis/{print $2}')
-    case $chassis in
+    local chassis=$(hostnamectl status | awk '/Chassis/{print $2}')
+    case "$chassis" in
         tablet)  systemctl --user start tablet.target ;;
         laptop)  systemctl --user start laptop.target ;;
         desktop) systemctl --user start desktop.target ;;
@@ -303,8 +298,10 @@ stx() {
     esac
 
     # wait until X server finishes and reset the tty
-    wait $(pgrep xorg)
+    wait $(pgrep Xorg)
     sleep 1
+
+    # reset tty and reset colors
     reset
     set_tty_colors
 }
@@ -312,13 +309,4 @@ stx() {
 klx() { 
     systemctl --user start console.target;
 }
-
-
-#------------------------------
-# Rebooting and halting
-#------------------------------
-
-alias reboot="systemctl reboot"
-alias poweroff="systemctl poweroff"
-alias suspend="systemctl suspend"
 
