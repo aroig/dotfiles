@@ -1,7 +1,7 @@
 [Unit]
 Description=temporarily inhibit autolock
 
-StopWhenUneeded=true
+StopWhenUnneeded=true
 
 Requisite=graphical.target
 After=graphical.target
