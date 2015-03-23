@@ -12,25 +12,21 @@
 # source zshrc on zsh
 if [ "$ZSH_VERSION" ] && [ -e "$HOME/.zshrc" ]; then
     source "$HOME/.zshrc"
-    sd_log "loading zshrc"
     
 # source bashrc on bash
 elif [ "$BASH_VERSION" ] && [ -e "$HOME/.bashrc" ]; then
     source "$HOME/.bashrc"
-    sd_log "loading bashrc"
    
 fi
 
 # set path for systemd user session
 if [ "$PATH" ]; then
     systemctl --user set-environment "PATH=$PATH"
-    sd_log "setting environment variable PATH=$PATH"
 fi
 
 # set the VT number from the session
 if [ "$XDG_VTNR" ]; then
     systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
-    sd_log "setting environment variable XDG_VTNR=$XDG_VTNR"
 fi
 
 # set tty colors on virtual console
