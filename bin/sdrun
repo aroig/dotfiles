@@ -5,15 +5,17 @@ slice=apps.slice
 
 
 
-
-
 available_index() {
     local basename="$1"
     local -i index
     local unit
-    for index in $(seq 0 100); do
+
+    # TODO: We avoid failed units too, since systemd-run does not start a transient unit if
+    # exists and is already failed. We should fix systemd and get rid of the failed test.
+    for index in $(seq 0 1000); do
         unit="$basename$index.service" 
-        if systemctl --user is-active "$unit" > /dev/null; then
+        if systemctl --user is-active "$unit" > /dev/null ||
+           systemctl --user is-failed "$unit" > /dev/null; then
             continue;
         fi
         echo "$index"
@@ -68,7 +70,7 @@ esac
 
 if [ "$transient" ]; then
     systemd-run --user --slice="$slice" --unit="$unit" --description="$desc" "$@"
-
+    
 else
     systemctl --user start "$unit"
 fi
