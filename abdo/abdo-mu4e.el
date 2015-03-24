@@ -328,22 +328,24 @@
     (save-excursion
       (setq mu4e~view-link-map ;; buffer local
 	(make-hash-table :size 32 :weakness nil))
-      (re-search-forward "^References$" nil t)
+      ; NOTE: we change this to go directly to references
       ; (goto-char (point-min))
-      (while (re-search-forward mu4e-view-url-regexp nil t)
-	(let* ((url (match-string 0))
-	       (ov (make-overlay (match-beginning 0) (match-end 0))))
-	  (puthash (incf num) url mu4e~view-link-map)
-	  (add-text-properties
-	   (match-beginning 0)
-	   (match-end 0)
-	    `(face mu4e-link-face
-	       mouse-face highlight
-	       mu4e-url ,url
-	       keymap ,mu4e-view-clickable-urls-keymap
-	       help-echo
-	       "[mouse-1] or [M-RET] to open the link"))
-	  (overlay-put ov 'after-string
-		       (propertize (format "[%d]" num)
-				   'face 'mu4e-url-number-face))
-	  )))))
+      (re-search-forward "^References$" nil t)
+      (while (re-search-forward mu4e~view-beginning-of-url-regexp nil t)
+	(let ((bounds (thing-at-point-bounds-of-url-at-point)))
+	  (when bounds
+	    (let* ((url (thing-at-point-url-at-point))
+		    (ov (make-overlay (car bounds) (cdr bounds))))
+	      (puthash (incf num) url mu4e~view-link-map)
+	      (add-text-properties
+		(car bounds)
+		(cdr bounds)
+		`(face mu4e-link-face
+		   mouse-face highlight
+		   mu4e-url ,url
+		   keymap ,mu4e-view-clickable-urls-keymap
+		   help-echo
+		   "[mouse-1] or [M-RET] to open the link"))
+	      (overlay-put ov 'after-string
+		(propertize (format "[%d]" num)
+		  'face 'mu4e-url-number-face)))))))))
