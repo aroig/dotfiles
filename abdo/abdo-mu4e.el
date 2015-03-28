@@ -6,6 +6,7 @@
 ;; -----------------------------------------------
 
 (defun abdo-mu4e-things ()
+  (require 'mu4e-contrib)
 
   ;; Paths
   (setq mu4e-mu-home "~/.mu")
@@ -145,9 +146,10 @@
   ;; Fancy chars
   ; (setq mu4e-use-fancy-chars t)
 
-  ;; use builtin html2text
-  (setq mu4e-html2text-command 'html2text)
+  ;; use shr wrapper from mu4e-contrib
+  (setq mu4e-html2text-command 'mu4e-shr2text)
 
+  ; (setq mu4e-html2text-command 'html2text)                                              ; builtin html2text
   ; (setq mu4e-html2text-command "html2text")                                             ; python-html2text
   ; (setq mu4e-html2text-command "html2text -utf8 -width 80")                             ; html2text with utf8
   ; (setq mu4e-html2text-command "lynx -dump -stdin -width=100 -display_charset=utf-8")   ; lynx
