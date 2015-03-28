@@ -145,7 +145,9 @@
   ;; Fancy chars
   ; (setq mu4e-use-fancy-chars t)
 
-  ;; convert html messages to markdown syntax
+  ;; use builtin html2text
+  (setq mu4e-html2text-command 'html2text)
+
   ; (setq mu4e-html2text-command "html2text")                                             ; python-html2text
   ; (setq mu4e-html2text-command "html2text -utf8 -width 80")                             ; html2text with utf8
   ; (setq mu4e-html2text-command "lynx -dump -stdin -width=100 -display_charset=utf-8")   ; lynx
@@ -155,10 +157,10 @@
   ; elinks
   ; NOTE: I do a sed to remove explicit 'background-color'.
   ; elinks can do that with lua hooks, but not in -dump mode
-  (setq mu4e-html2text-command (concat "sed '/<.*>/ s/background-color:[^;]*;//gI' | "
-                                "elinks" " -no-connect" " -dump" " -force-html"
-                                (format " -dump-width %d" fill-column)
-                                " -dump-color-mode 1"))
+  ; (setq mu4e-html2text-command (concat "sed '/<.*>/ s/background-color:[^;]*;//gI' | "
+  ;                              "elinks" " -no-connect" " -dump" " -force-html"
+  ;                              (format " -dump-width %d" fill-column)
+  ;                              " -dump-color-mode 1"))
 )
 
 
