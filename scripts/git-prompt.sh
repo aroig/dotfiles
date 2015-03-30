@@ -84,6 +84,11 @@
 # GIT_PS1_SHOWCOLORHINTS to a nonempty value. The colors are based on
 # the colored output of "git status -sb" and are available only when
 # using __git_ps1 for PROMPT_COMMAND or precmd.
+#
+# If you would like __git_ps1 to do nothing in the case when the current
+# directory is set up to be ignored by git, then set
+# GIT_PS1_HIDE_IF_PWD_IGNORED to a nonempty value. Override this on the
+# repository level by setting bash.hideIfPwdIgnored to "false".
 
 # check whether printf supports -v
 __git_printf_supports_v=
@@ -225,6 +230,8 @@ __git_ps1_show_upstream ()
 # Helper function that is meant to be called from __git_ps1.  It
 # injects color codes into the appropriate gitstring variables used
 # to build a gitstring.
+#
+# CHANGED: use my own color preferences
 __git_ps1_colorize_gitstring ()
 {
 	if [[ -n ${ZSH_VERSION-} ]]; then
@@ -257,8 +264,6 @@ __git_ps1_colorize_gitstring ()
 	else
 		branch_color="$c_red"
 	fi
-    
-    # this affects branch too
  	c="$branch_color$c"
 
     if [[ -n "$z" ]]; then
@@ -307,7 +312,7 @@ __git_ps1_colorize_gitstring ()
 
 __git_eread ()
 {
-	f="$1"
+	local f="$1"
 	shift
 	test -r "$f" && read "$@" <"$f"
 }
@@ -325,6 +330,8 @@ __git_eread ()
 # In this mode you can request colored hints using GIT_PS1_SHOWCOLORHINTS=true
 __git_ps1 ()
 {
+	# preserve exit status
+	local exit=$?
 	local pcmode=no
 	local detached=no
 	local ps1pc_start='\u@\h:\w '
@@ -336,10 +343,14 @@ __git_ps1 ()
 			ps1pc_start="$1"
 			ps1pc_end="$2"
 			printf_format="${3:-$printf_format}"
+			# set PS1 to a plain prompt so that we can
+			# simply return early if the prompt should not
+			# be decorated
+			PS1="$ps1pc_start$ps1pc_end"
 		;;
 		0|1)	printf_format="${1:-$printf_format}"
 		;;
-		*)	return
+		*)	return $exit
 		;;
 	esac
 
@@ -387,11 +398,7 @@ __git_ps1 ()
 	rev_parse_exit_code="$?"
 
 	if [ -z "$repo_info" ]; then
-		if [ $pcmode = yes ]; then
-			#In PC mode PS1 always needs to be set
-			PS1="$ps1pc_start$ps1pc_end"
-		fi
-		return
+		return $exit
 	fi
 
 	local short_sha
@@ -405,6 +412,14 @@ __git_ps1 ()
 	repo_info="${repo_info%$'\n'*}"
 	local inside_gitdir="${repo_info##*$'\n'}"
 	local g="${repo_info%$'\n'*}"
+
+	if [ "true" = "$inside_worktree" ] &&
+	   [ -n "${GIT_PS1_HIDE_IF_PWD_IGNORED-}" ] &&
+	   [ "$(git config --bool bash.hideIfPwdIgnored)" != "false" ] &&
+	   git check-ignore -q .
+	then
+		return $exit
+	fi
 
 	local r=""
 	local b=""
@@ -449,10 +464,7 @@ __git_ps1 ()
 		else
 			local head=""
 			if ! __git_eread "$g/HEAD" head; then
-				if [ $pcmode = yes ]; then
-					PS1="$ps1pc_start$ps1pc_end"
-				fi
-				return
+				return $exit
 			fi
 			# is it a symbolic ref?
 			b="${head#ref: }"
@@ -491,9 +503,10 @@ __git_ps1 ()
 		if [ "true" = "$bare_repo" ]; then
 			c="BARE:"
 		else
-			b="GIT!"
+			b="GIT_DIR!"
 		fi
 	elif [ "true" = "$inside_worktree" ]; then
+        # CHANGED
 		if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ]; then
             if [ "$(git config --bool bash.showDirtyState)" != "false" ]; then            
                 if ! git diff --no-ext-diff --quiet --exit-code; then w="*"
@@ -517,6 +530,7 @@ __git_ps1 ()
 			s="$"
 		fi
 
+        # CHANGED
 		if [ -n "${GIT_PS1_SHOWUNTRACKEDFILES-}" ]; then
             if [ "$(git config --bool bash.showUntrackedFiles)" != "false" ]; then
 		        if git ls-files --others --exclude-standard --error-unmatch -- '*' >/dev/null 2>/dev/null; then   
@@ -528,7 +542,7 @@ __git_ps1 ()
             fi
 		fi
         
-        # explicitly mark directory as clean
+        # CHANGED: explicitly mark directory as clean
         if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ] && [[ ! -n "$w" ]] && [[ ! -n "$u" ]] && [[ ! -n "$i" ]]; then 
 			w="√"
         fi
@@ -540,7 +554,7 @@ __git_ps1 ()
 
 	local z="${GIT_PS1_STATESEPARATOR-" "}"
 
-    # do allow colors even in non-PROMPT_COMMAND mode
+    # CHANGED: do allow colors even in non-PROMPT_COMMAND mode
 	if [ -n "${GIT_PS1_SHOWCOLORHINTS-}" ]; then
 		__git_ps1_colorize_gitstring
 	fi
@@ -552,6 +566,7 @@ __git_ps1 ()
 	fi
 
 	local f="$w$i$s$u"
+    # CHANGED: use different format
 	local gitstring="$p$c$b${f:+$z$f}$r"
 
 	if [ $pcmode = yes ]; then
@@ -564,4 +579,6 @@ __git_ps1 ()
 	else
 		printf -- "$printf_format" "$gitstring"
 	fi
+
+	return $exit
 }
