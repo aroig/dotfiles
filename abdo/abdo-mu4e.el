@@ -320,36 +320,3 @@
   (setq ad-return-value (ansi-color-apply ad-return-value)))
 
 (ad-activate 'mu4e-view-message-text)
-
-
-
-(defun mu4e~view-make-urls-clickable ()
-  "Turn things that look like URLs into clickable things.
-   Also number them so they can be opened using `mu4e-view-go-to-url'.
-   Monkey patched from mu4e-view.el so it only propertizes
-   References section."
-  (let ((num 0))
-    (save-excursion
-      (setq mu4e~view-link-map ;; buffer local
-	(make-hash-table :size 32 :weakness nil))
-      ; NOTE: we change this to go directly to references
-      ; (goto-char (point-min))
-      (re-search-forward "^References$" nil t)
-      (while (re-search-forward mu4e~view-beginning-of-url-regexp nil t)
-	(let ((bounds (thing-at-point-bounds-of-url-at-point)))
-	  (when bounds
-	    (let* ((url (thing-at-point-url-at-point))
-		    (ov (make-overlay (car bounds) (cdr bounds))))
-	      (puthash (incf num) url mu4e~view-link-map)
-	      (add-text-properties
-		(car bounds)
-		(cdr bounds)
-		`(face mu4e-link-face
-		   mouse-face highlight
-		   mu4e-url ,url
-		   keymap ,mu4e-view-clickable-urls-keymap
-		   help-echo
-		   "[mouse-1] or [M-RET] to open the link"))
-	      (overlay-put ov 'after-string
-		(propertize (format "[%d]" num)
-		  'face 'mu4e-url-number-face)))))))))
