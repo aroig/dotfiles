@@ -1,6 +1,7 @@
 [Unit]
 Description=gpg-agent daemon
 
+ConditionHost=!skynet
 ConditionPathExists=/home/%u/.gnupg
 
 Before=daemons.target
