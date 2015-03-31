@@ -168,14 +168,17 @@ abdo_prompt_vcs() {
             ;;
 
         annex)
-            local missing="${_cb}${fg[yellow]}${_ce}$(abdo_annex_missing "$PWD")${_cb}${fx[reset]}${_ce}"
-            local conflict=""
-            if [ "$(abdo_annex_conflicts "$PWD")" ]; then
-                conflict=" ${_cb}${fg[red]}${_ce}X${_cb}${fx[reset]}${_ce}"
-            fi
+            local missing conflict
+            # NOTE: This is too slow
+            #
+            # conflict=""
+            # missing=" ${_cb}${fg[yellow]}${_ce}$(abdo_annex_missing "$PWD")${_cb}${fx[reset]}${_ce}"
+            # if [ "$(abdo_annex_conflicts "$PWD")" ]; then
+            #     conflict=" ${_cb}${fg[red]}${_ce}X${_cb}${fx[reset]}${_ce}"
+            # fi
             
             local gitprompt="$(__git_ps1 "%s")"
-            echo -en " [$gitprompt $missing$conflict]"
+            echo -en " [$gitprompt$missing$conflict]"
             ;;
         
         hg)
