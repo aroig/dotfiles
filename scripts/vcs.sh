@@ -9,16 +9,23 @@ abdo_get_vcs() {
     local path pathold
     path="$1"
     while [[ -n "$path" ]]; do
-        [[ -e "$path/.git"   ]] && echo 'git'   && return
-        [[ -e "$path/.hg"    ]] && echo 'hg'    && return
-        [[ -e "$path/.bzr"   ]] && echo 'bzr'   && return
-        [[ -e "$path/.darcs" ]] && echo 'darcs' && return
+        [[ -e "$path/.git/annex" ]] && echo 'annex' && return
+        [[ -e "$path/.git"       ]] && echo 'git'   && return
+        [[ -e "$path/.hg"        ]] && echo 'hg'    && return
+        [[ -e "$path/.bzr"       ]] && echo 'bzr'   && return
+        [[ -e "$path/.darcs"     ]] && echo 'darcs' && return
 
         pathold="$path"
         path="${path%/*}"
         [[ "$path" == "$pathold" ]] && return
     done
 }
+
+
+abdo_annex_missing() {
+    find -L "$1" -type l | wc -l | numfmt --to=si
+}
+
 
 abdo_git_dirinfo() {
     local dir="$1"

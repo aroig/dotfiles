@@ -166,6 +166,12 @@ abdo_prompt_vcs() {
             __git_ps1 " $1"
             ;;
 
+        annex)
+            __git_ps1 " $1"
+            local missing=$(abdo_annex_missing "$PWD")
+            echo "[${_cb}${fg[red]}${_ce}$missing${_cb}${fx[reset]}${_ce}]"
+            ;;
+        
         hg)
             printf " $1" "hg"
             ;;
