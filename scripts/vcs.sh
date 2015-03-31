@@ -27,6 +27,11 @@ abdo_annex_missing() {
 }
 
 
+abdo_annex_conflicts() {
+    find "$1" -path './.git' -prune -or -regex '^.*\.variant-[a-zA-Z0-9]+$' -print
+}
+
+
 abdo_git_dirinfo() {
     local dir="$1"
     (
