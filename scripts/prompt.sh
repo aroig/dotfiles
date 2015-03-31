@@ -163,25 +163,26 @@ abdo_prompt_vcs() {
     vcs=$(abdo_get_vcs "$PWD")
     case $vcs in
         git)
-            __git_ps1 " $1"
+            local gitprompt="$(__git_ps1 "%s")"
+            echo -en " [$gitprompt]"
             ;;
 
         annex)
-            __git_ps1 " $1"
-            local missing=$(abdo_annex_missing "$PWD")
-            echo "[${_cb}${fg[red]}${_ce}$missing${_cb}${fx[reset]}${_ce}]"
+            local missing="${_cb}${fg[red]}${_ce}$(abdo_annex_missing "$PWD")${_cb}${fx[reset]}${_ce}"
+            local gitprompt="$(__git_ps1 "%s")"
+            echo -en " [$gitprompt $missing]"
             ;;
         
         hg)
-            printf " $1" "hg"
+            echo -en "[${_cb}${fg[red]}${_ce}hg${_cb}${fx[reset]}${_ce}]"
             ;;
 
         bzr)
-            echo " $1" "bzr"
+            echo -en "[${_cb}${fx[yellow]}${_ce}bzr${_cb}${fx[reset]}${_ce}]"
             ;;
 
         darcs)
-            echo " $1" "darcs"
+            echo -en "[${_cb}${fx[green]}${_ce}darcs${_cb}${fx[reset]}${_ce}]"
             ;;
     esac
 }
@@ -219,7 +220,7 @@ abdo_prompt_directory() {
 abdo_prompt_main () {
     local prompt_pre prompt_post
     prompt_pre="$(abdo_prompt_tmux)$(abdo_prompt_nix)$(abdo_prompt_userhost)"
-    prompt_post="$(abdo_prompt_vcs '[%s]')$(abdo_prompt_directory)$(abdo_prompt_symbol)"
+    prompt_post="$(abdo_prompt_vcs)$(abdo_prompt_directory)$(abdo_prompt_symbol)"
     echo -n "${prompt_pre}${prompt_post} "
 }
 
