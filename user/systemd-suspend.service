@@ -10,5 +10,4 @@ After=sleep.target
 Type=oneshot
 
 ExecStartPre=/usr/bin/sleep 1
-ExecStart=/usr/bin/systemctl suspend
-SuccessExitStatus=1
+ExecStart=/usr/bin/systemctl --no-block suspend
