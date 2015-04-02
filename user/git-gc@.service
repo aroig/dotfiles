@@ -1,5 +1,5 @@
 [Unit]
-Description=garbage collect %I
+Description=garbage collect git repo at %I
 
 ConditionPathExists=/home/%u/%I/.git
 

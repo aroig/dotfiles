@@ -1,0 +1,10 @@
+[Unit]
+Description=check git repo at %I
+
+ConditionPathExists=/home/%u/%I/.git
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=git-check-%i
+ExecStart=/usr/bin/git -C "%h/%I" fsck --no-progress

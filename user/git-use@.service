@@ -1,5 +1,5 @@
 [Unit]
-Description=use %I
+Description=use git repo at %I
 
 StopWhenUnneeded=true
 ConditionPathExists=/home/%u/%I/.git

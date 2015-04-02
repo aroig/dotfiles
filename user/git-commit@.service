@@ -1,5 +1,5 @@
 [Unit]
-Description=commit %I
+Description=commit git repo at %I
 
 ConditionPathExists=/home/%u/%I/.git
 
