@@ -110,11 +110,26 @@ alias cmctl="connmanctl"
 alias udctl="udisksctl"
 
 # manage mounts
-alias mount-priv="systemctl --user start mount-priv.service"
-alias umount-priv="systemctl --user stop mount-priv.service"
-
-alias mount-data="systemctl start data.mount"
-alias umount-data="systemctl stop data.mount"
+mnt()  {
+    local unit
+    case "$1" in
+        data)    instance="--system"; unit="data.mount"         ;;
+        priv)    instance="--user";   unit="mount-priv.service" ;;
+        *)       instance="--system"; unit="media-$1.mount"     ;;
+    esac
+            
+    sudo systemctl "$instance" start "$unit"
+}
+umnt() {
+    local unit
+    case "$1" in
+        data)    instance="--system"; unit="data.mount"         ;;
+        priv)    instance="--user";   unit="mount-priv.service" ;;
+        *)       instance="--system"; unit="media-$1.mount"     ;;
+    esac
+            
+    sudo systemctl "$instance" stop "$unit"
+}
 
 # print active target list
 tlst() {
