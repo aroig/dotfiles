@@ -1,9 +1,0 @@
-[Unit]
-Description=r2d2 device
-
-RefuseManualStart=yes
-
-# Alias set in udev rules
-BindsTo=sys-subsystem-net-devices-r2d2.device
-After=sys-subsystem-net-devices-r2d2.device
-

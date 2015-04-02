@@ -1,9 +1,0 @@
-[Unit]
-Description=novation impulse keyboard
-
-RefuseManualStart=yes
-
-# Alias set in udev rules
-BindsTo=sys-subsystem-usb-devices-impulse.device
-After=sys-subsystem-usb-devices-impulse.device
-

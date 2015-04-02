@@ -1,4 +1,0 @@
-[Unit]
-Description=AC Power
-
-BindsTo=sys-subsystem-power_supply-devices-AC.device
