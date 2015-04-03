@@ -13,4 +13,4 @@ RemainAfterExit=true
 SyslogIdentifier=calibre-db
 
 ExecStart=/usr/bin/true
-ExecStop=/usr/bin/systemctl --user start commit-calibre.service
+ExecStop=/usr/bin/systemctl --user --no-block start commit-calibre.service

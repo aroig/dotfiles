@@ -13,6 +13,6 @@ RemainAfterExit=true
 
 SyslogIdentifier=mail-db
 ExecStart=/usr/bin/true
-ExecStop=/usr/bin/systemctl --user start commit-mail.service
+ExecStop=/usr/bin/systemctl --user --no-block start commit-mail.service
 
 

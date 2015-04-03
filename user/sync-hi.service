@@ -14,4 +14,4 @@ OnFailure=journal-mailer.service
 Type=oneshot
 
 SyslogIdentifier=sync-hi
-ExecStart=/usr/bin/systemctl --user start synced.target                         
+ExecStart=/usr/bin/systemctl --user --no-block start synced.target

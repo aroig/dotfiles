@@ -16,4 +16,4 @@ RemainAfterExit=true
 
 SyslogIdentifier=dwb-db
 ExecStart=/usr/bin/true
-ExecStop=/usr/bin/systemctl --user start commit-dwb.service
+ExecStop=/usr/bin/systemctl --user --no-block start commit-dwb.service

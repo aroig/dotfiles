@@ -12,4 +12,4 @@ Before=systemd-poweroff.service systemd-reboot.service systemd-suspend.service
 Type=oneshot
 
 SyslogIdentifier=wmquit
-ExecStart=/usr/bin/systemctl --user start --no-block console.target
+ExecStart=/usr/bin/systemctl --user --no-block start console.target

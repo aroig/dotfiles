@@ -10,4 +10,4 @@ Type=oneshot
 SyslogIdentifier=sync-byez
 # TODO: Notify sleep
 ExecStart=/usr/bin/sleep 10
-ExecStart=/usr/bin/systemctl --user start suspend.target
+ExecStart=/usr/bin/systemctl --user --no-block start suspend.target

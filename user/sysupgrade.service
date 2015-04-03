@@ -12,4 +12,4 @@ OnFailure=journal-mailer.service
 [Service]
 Type=oneshot
 SyslogIdentifier=sysupgrade
-ExecStart=/usr/bin/systemctl --user start reboot.target
+ExecStart=/usr/bin/systemctl --user --no-block start reboot.target

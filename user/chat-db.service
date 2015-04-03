@@ -12,5 +12,5 @@ RemainAfterExit=true
 
 SyslogIdentifier=chat-db
 ExecStart=/usr/bin/true
-ExecStop=/usr/bin/systemctl --user start commit-chat.service
+ExecStop=/usr/bin/systemctl --user --no-block start commit-chat.service
 
