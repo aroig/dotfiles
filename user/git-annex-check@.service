@@ -1,5 +1,5 @@
 [Unit]
-Description=check git annex repo at %I
+Description=check git annex repo at /home/%u/%I
 
 ConditionPathExists=/home/%u/%I/.git
 
