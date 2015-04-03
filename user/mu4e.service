@@ -4,8 +4,8 @@ Description=mu4e mail client
 Requisite=wm.target
 After=wm.target
 
-Requires=mail-db.service
-After=mail-db.service
+Requires=git-use@mail.service
+After=git-use@mail.service
 
 [Service]
 Type=simple

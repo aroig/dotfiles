@@ -13,5 +13,5 @@ RemainAfterExit=true
 SyslogIdentifier=use-%i
 
 ExecStart=/usr/bin/true
-ExecStop=/usr/bin/systemctl --user --no-block start git-commit@%i.service
+ExecStop=/usr/bin/systemctl --user start git-commit@%i.service
 

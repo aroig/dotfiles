@@ -7,4 +7,4 @@ ConditionPathExists=/home/%u/%I/.git
 Type=oneshot
 
 SyslogIdentifier=git-gc-%i
-ExecStart=/usr/bin/git -C "%h/%I" gc --auto 6700
+ExecStart=/usr/bin/git -C "/home/%u/%I" gc --auto 6700

@@ -2,8 +2,8 @@
 Description=fetch news
 StopWhenUnneeded=true
 
-Requires=mail-db.service
-After=mail-db.service
+Requires=git-use@mail.service
+After=git-use@mail.service
 
 Requires=rss2maildir.service
 After=rss2maildir.service

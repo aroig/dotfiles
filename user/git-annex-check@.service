@@ -7,4 +7,4 @@ ConditionPathExists=/home/%u/%I/.git
 Type=oneshot
 
 SyslogIdentifier=git-annex-check-%i
-ExecStart=/usr/bin/git -C "%h/%I" annex fsck --no-progress
+ExecStart=/usr/bin/git -C "/home/%u/%I" annex fsck --no-progress

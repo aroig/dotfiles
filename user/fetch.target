@@ -5,8 +5,8 @@ StopWhenUnneeded=true
 Wants=journal-show.service
 After=journal-show.service
 
-Requires=mail-db.service
-After=mail-db.service
+Requires=git-use@mail.service
+After=git-use@mail.service
 
 # Requires=gcal-sync.service 
 # After=gcal-sync.service

@@ -2,8 +2,8 @@
 Description=fetch mail
 StopWhenUnneeded=true
 
-Requires=mail-db.service
-After=mail-db.service
+Requires=git-use@mail.service
+After=git-use@mail.service
 
 Requires=offlineimap.service
 After=offlineimap.service
