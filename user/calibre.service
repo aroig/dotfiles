@@ -17,4 +17,6 @@ Environment=XDG_CURRENT_DESKTOP=gnome
 
 ExecStart=/usr/bin/calibre --with-library "${AB2_CALIBRE_DIR}"
 
-
+# NOTE: if we change calibre config in the database, I need to trigger a commit manually
+#       to run the git hooks and dump the database. Otherwise the working tree appears clean
+#       and git-commit@lib.service does not do the job.
