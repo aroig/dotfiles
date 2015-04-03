@@ -7,8 +7,8 @@ After=mount-priv.service
 Requisite=wm.target
 After=wm.target
 
-Requires=chat-db.service
-After=chat-db.service
+Requires=git-use@var-chat-emacs.service
+After=git-use@var-chat-emacs.service
 
 [Service]
 Type=simple
