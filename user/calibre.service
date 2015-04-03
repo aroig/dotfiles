@@ -5,8 +5,8 @@ After=graphical.target
 Requisite=wm.target 
 After=wm.target
 
-Requires=calibre-db.service
-After=calibre-db.service
+Requires=git-use@lib.service
+After=git-use@lib.service
 
 [Service]
 Type=simple

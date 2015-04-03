@@ -3,8 +3,8 @@ Description=Calibre Server
 
 ConditionPathExists=/home/%u/lib
 
-Requires=calibre-db.service
-After=calibre-db.service
+Requires=git-use@lib.service
+After=git-use@lib.service
 
 [Service]
 Type=simple
