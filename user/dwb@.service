@@ -4,8 +4,8 @@ Description=dwb %i
 Requisite=wm.target 
 After=wm.target
 
-Requires=dwb-db.service
-After=dwb-db.service
+Requires=git-use@priv-var-dwb-default.service
+After=git-use@priv-var-dwb-default.service
 
 [Service]
 Type=simple
