@@ -113,22 +113,29 @@ alias udctl="udisksctl"
 mnt()  {
     local unit
     case "$1" in
-        data)    instance="--system"; unit="data.mount"         ;;
-        priv)    instance="--user";   unit="mount-priv.service" ;;
-        *)       instance="--system"; unit="media-$1.mount"     ;;
+        data)    instance="system"; unit="data.mount"         ;;
+        priv)    instance="user";   unit="mount-priv.service" ;;
+        *)       instance="system"; unit="media-$1.mount"     ;;
     esac
-            
-    sudo systemctl "$instance" start "$unit"
+
+    case "$instance" in
+          user)  systemctl --user start "$unit"               ;;        
+        system)  sudo systemctl --system start "$unit"        ;;
+    esac    
 }
+
 umnt() {
     local unit
     case "$1" in
-        data)    instance="--system"; unit="data.mount"         ;;
-        priv)    instance="--user";   unit="mount-priv.service" ;;
-        *)       instance="--system"; unit="media-$1.mount"     ;;
+        data)    instance="system"; unit="data.mount"         ;;
+        priv)    instance="user";   unit="mount-priv.service" ;;
+        *)       instance="system"; unit="media-$1.mount"     ;;
     esac
-            
-    sudo systemctl "$instance" stop "$unit"
+
+    case "$instance" in
+          user)  systemctl --user stop "$unit"                ;;        
+        system)  sudo systemctl --system stop "$unit"         ;;
+    esac
 }
 
 # print active target list
