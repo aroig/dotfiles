@@ -3,6 +3,7 @@ Description=clean backup files
 
 [Service]
 Type=oneshot
+Slice=workers.slice
 
 SyslogIdentifier=clean-backups
 ExecStart=/usr/bin/find "%h/var/emacs/bak/" -type f -ctime +90 -mindepth 1 -print -delete

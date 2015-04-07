@@ -1,0 +1,7 @@
+[Unit]
+Description=user workers
+
+Before=slices.target
+
+[Install]
+WantedBy=slices.target

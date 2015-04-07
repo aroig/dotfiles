@@ -3,6 +3,7 @@ Description=clean tmp files
 
 [Service]
 Type=oneshot
+Slice=workers.slice
 
 SyslogIdentifier=clean-tmp
 # NOTE: Do not use environment variables here. If they are empty, it can mess things up royally.

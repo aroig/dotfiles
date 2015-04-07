@@ -5,6 +5,7 @@ ConditionPathExists=/home/%u/%I/.git
 
 [Service]
 Type=oneshot
+Slice=workers.slice
 
 SyslogIdentifier=git-annex-check-%i
 ExecStart=/usr/bin/git -C "/home/%u/%I" annex fsck --no-progress

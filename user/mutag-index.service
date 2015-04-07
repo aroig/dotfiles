@@ -11,5 +11,7 @@ Conflicts=mu4e.service
 
 [Service]
 Type=oneshot
+Slice=workers.slice
+
 SyslogIdentifier=mutag-index
 ExecStart=/usr/bin/mutag --index --silent

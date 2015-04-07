@@ -11,4 +11,6 @@ After=network-online.target
 
 [Service]
 Type=oneshot
+Slice=workers.slice
+
 ExecStart=/usr/bin/rss2maildir -v 

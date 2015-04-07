@@ -5,6 +5,7 @@ ConditionPathExists=/home/%u/%I/.git
 
 [Service]
 Type=oneshot
+Slice=workers.slice
 
 SyslogIdentifier=git-check-%i
 ExecStart=/usr/bin/git -C "/home/%u/%I" fsck --no-progress

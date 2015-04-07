@@ -14,6 +14,8 @@ Before=synced.target
 
 [Service]
 Type=oneshot
+Slice=workers.slice
+
 SyslogIdentifier=async-%i
 KillSignal=SIGINT
 ExecStart=/usr/bin/async -b sync %i --terse 
