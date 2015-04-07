@@ -1,6 +1,0 @@
-[Unit]
-Description=umount devices
-
-DefaultDependencies=no
-RefuseManualStart=yes
-
