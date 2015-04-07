@@ -112,10 +112,11 @@ alias udctl="udisksctl"
 # manage mounts
 mnt()  {
     local unit
+    local arg="$(systemd-escape -p "$1")"
     case "$1" in
         data)    instance="system"; unit="data.mount"         ;;
         priv)    instance="user";   unit="mount-priv.service" ;;
-        *)       instance="system"; unit="media-$1.mount"     ;;
+        *)       instance="system"; unit="media-$arg.mount"   ;;
     esac
 
     case "$instance" in
@@ -126,10 +127,11 @@ mnt()  {
 
 umnt() {
     local unit
+    local arg="$(systemd-escape -p "$1")"
     case "$1" in
         data)    instance="system"; unit="data.mount"         ;;
         priv)    instance="user";   unit="mount-priv.service" ;;
-        *)       instance="system"; unit="media-$1.mount"     ;;
+        *)       instance="system"; unit="media-$arg.mount"   ;;
     esac
 
     case "$instance" in
