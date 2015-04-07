@@ -507,7 +507,7 @@ myw.sys.datawdg = wibox.widget.textbox()
 function myw.sys.update()
     local priv_state = myw.sys.priv(nil, {os.getenv("AB2_PRIV_DIR") .. "/README"})
     local sync_state = myw.sys.sync(nil, {os.getenv("XDG_RUNTIME_DIR") .. "/synced"})
-    local data_state = myw.sys.sync(nil, {"/data/abdo"})
+    local data_state = myw.sys.data(nil, {"/data/abdo"})
 
     local icon
     if priv_state then icon = wiboxicon("unlocked", beautiful.color_widget)
