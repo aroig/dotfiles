@@ -1,0 +1,12 @@
+[Unit]
+Description=drop unused annex files at /home/%u/%I
+
+ConditionPathExists=/home/%u/%I/.git/annex
+
+[Service]
+Type=oneshot
+Slice=workers.slice
+
+SyslogIdentifier=git-drop-%i
+ExecStart=/usr/bin/git -C "/home/%u/%I" annex unused --quiet
+ExecStart=/usr/bin/git -C "/home/%u/%I" annex dropunused --quiet all
