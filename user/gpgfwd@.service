@@ -3,6 +3,8 @@ Description=forward gpg-agent to %i
 
 AssertHost=!%i
 
+Conflicts=disconnect.target
+
 Requires=gpg-agent.service
 After=gpg-agent.service
 
