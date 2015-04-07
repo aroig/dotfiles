@@ -1,0 +1,8 @@
+[Timer]
+OnCalendar=weekly
+AccuracySec=12h
+Persistent=true
+Unit=git-gc@%i.service
+
+[Install]
+WantedBy=timers.target
