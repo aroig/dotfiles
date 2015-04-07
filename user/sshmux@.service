@@ -13,6 +13,7 @@ After=network-online.target
 
 [Service]
 Type=forking
+Slice=daemons.slice
 
 SyslogIdentifier=sshmux
 ExecStartPre=/usr/bin/mkdir -p "%t/ssh"

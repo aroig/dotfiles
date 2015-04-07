@@ -12,6 +12,8 @@ After=sshmux@%i.service
 
 [Service]
 Type=simple
+Slice=daemons.slice
+
 SyslogIdentifier=gpgfwd
 ExecStart=/usr/bin/ssh -o ControlMaster=no -o ControlPath=none -o StreamLocalBindUnlink=yes -R /home/abdo/.gnupg/S.gpg-agent:/home/abdo/.gnupg/S.gpg-agent -R /home/abdo/.gnupg/S.gpg-agent.ssh:/home/abdo/.gnupg/S.gpg-agent.ssh %i -N
 
