@@ -1,5 +1,5 @@
 [Unit]
-Description=shutdown
+Description=umount devices
 
 DefaultDependencies=no
 RefuseManualStart=yes
