@@ -1,5 +1,5 @@
 [Unit]
-Description=weekly garbage collection at /home/%u/%I
+Description=weekly garbage collection at /home/abdo/%I
 
 [Timer]
 OnCalendar=weekly
