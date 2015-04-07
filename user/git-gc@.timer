@@ -1,3 +1,6 @@
+[Unit]
+Description=weekly garbage collection at /home/%u/%I
+
 [Timer]
 OnCalendar=weekly
 AccuracySec=12h
