@@ -2,6 +2,7 @@
 Description=gpg-agent daemon
 
 ConditionHost=!skynet
+ConditionHost=!quark
 ConditionPathExists=/home/%u/.gnupg
 
 Before=daemons.target
