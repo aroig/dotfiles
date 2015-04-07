@@ -7,7 +7,7 @@
 
 abdo_get_vcs() {
     local path pathold
-    path="$1"
+    path="$(/usr/bin/realpath "$1")"
     while [[ -n "$path" ]]; do
         [[ -e "$path/.git/annex" ]] && echo 'annex' && return
         [[ -e "$path/.git"       ]] && echo 'git'   && return
