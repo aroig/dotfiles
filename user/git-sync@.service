@@ -1,0 +1,14 @@
+[Unit]
+Description=git annex sync at /home/%u/%I
+
+ConditionPathExists=/home/%u/%I/.git/annex
+
+[Service]
+Type=oneshot
+Slice=workers.slice
+
+SyslogIdentifier=git-sync-%i
+# NOTE: this syncs against all remotes. It fails if anyone of them fails.
+# TODO: sync to a particular group. Do not fail of remote is offline.
+ExecStart=/usr/bin/git -C "/home/%u/%I" annex sync --content --quiet
+
