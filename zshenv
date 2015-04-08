@@ -53,7 +53,7 @@ export HOSTNAME=$(hostname)
 #------------------------------
 
 export AB2_HOME="/home/abdo"
-export AB2_ARCH_DIR="$AB2_HOME/usr/arch"
+export AB2_ARCH_DIR="$AB2_HOME/etc/arch"
 export AB2_PRIV_DIR="$AB2_HOME/priv"
 export AB2_DEVEL_DIR="$AB2_HOME/devel"
 export AB2_SOFT_DIR="$AB2_HOME/usr/soft"
