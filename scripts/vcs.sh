@@ -23,7 +23,7 @@ abdo_get_vcs() {
 
 
 abdo_annex_missing() {
-    find -L "$1" -type l | wc -l | numfmt --to=si
+    find "$1" -type l -xtype l | wc -l | numfmt --to=si
 }
 
 
