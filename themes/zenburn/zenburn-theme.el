@@ -148,6 +148,8 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(compilation-mode-line-exit ((t (:foreground ,zenburn-green+2 :weight bold))))
    `(compilation-mode-line-fail ((t (:foreground ,zenburn-red :weight bold))))
    `(compilation-mode-line-run ((t (:foreground ,zenburn-yellow :weight bold))))
+;;;;; completions
+   `(completions-annotations ((t (:foreground ,zenburn-fg-1))))
 ;;;;; extempore
    `(extempore-blink-face ((t (:background ,zenburn-bg-1 :foreground ,zenburn-orange+1 :weight bold))))
    `(extempore-paren-face ((t (:foreground ,zenburn-fg-1))))
@@ -262,6 +264,7 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(popup-tip-face ((t (:background ,zenburn-yellow-2 :foreground ,zenburn-bg-2))))
 ;;;;; company-mode
    `(company-tooltip ((t (:foreground ,zenburn-fg :background ,zenburn-bg+1))))
+   `(company-tooltip-annotation ((t (:foreground ,zenburn-orange :background ,zenburn-bg+1))))
    `(company-tooltip-selection ((t (:foreground ,zenburn-fg :background ,zenburn-bg-1))))
    `(company-tooltip-mouse ((t (:background ,zenburn-bg-1))))
    `(company-tooltip-common ((t (:foreground ,zenburn-green+2))))
@@ -275,6 +278,15 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(bm-fringe-face ((t (:background ,zenburn-yellow-1 :foreground ,zenburn-bg))))
    `(bm-fringe-persistent-face ((t (:background ,zenburn-green-1 :foreground ,zenburn-bg))))
    `(bm-persistent-face ((t (:background ,zenburn-green-1 :foreground ,zenburn-bg))))
+;;;;; circe
+   `(circe-highlight-nick-face ((t (:foreground ,zenburn-cyan))))
+   `(circe-my-message-face ((t (:foreground ,zenburn-fg))))
+   `(circe-fool-face ((t (:foreground ,zenburn-red+1))))
+   `(circe-topic-diff-removed-face ((t (:foreground ,zenburn-red :weight bold))))
+   `(circe-originator-face ((t (:foreground ,zenburn-fg))))
+   `(circe-server-face ((t (:foreground ,zenburn-green))))
+   `(circe-topic-diff-new-face ((t (:foreground ,zenburn-orange :weight bold))))
+   `(circe-prompt-face ((t (:foreground ,zenburn-orange :background ,zenburn-bg :weight bold))))
 ;;;;; clojure-test-mode
    `(clojure-test-failure-face ((t (:foreground ,zenburn-orange :weight bold :underline t))))
    `(clojure-test-error-face ((t (:foreground ,zenburn-red :weight bold :underline t))))
@@ -583,6 +595,9 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(helm-moccur-buffer ((t (:foreground ,zenburn-cyan :background ,zenburn-bg))))
    `(helm-mu-contacts-address-face ((t (:foreground ,zenburn-fg-1 :background ,zenburn-bg))))
    `(helm-mu-contacts-name-face ((t (:foreground ,zenburn-fg :background ,zenburn-bg))))
+;;;;; helm-swoop
+   `(helm-swoop-target-line-face ((t (:foreground ,zenburn-fg :background ,zenburn-bg+1))))
+   `(helm-swoop-target-word-face ((t (:foreground ,zenburn-yellow :background ,zenburn-bg+2 :weight bold))))
 ;;;;; hl-line-mode
    `(hl-line-face ((,class (:background ,zenburn-bg-05))
                    (t :weight bold)))
@@ -630,7 +645,6 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(ledger-font-posting-account-cleared-face ((t (:foreground ,zenburn-fg))))
    `(ledger-font-posting-account-pending-face ((t (:foreground ,zenburn-orange))))
    `(ledger-font-posting-amount-face ((t (:foreground ,zenburn-orange))))
-   `(ledger-font-posting-account-pending-face ((t (:foreground ,zenburn-orange))))
    `(ledger-occur-narrowed-face ((t (:foreground ,zenburn-fg-1 :invisible t))))
    `(ledger-occur-xact-face ((t (:background ,zenburn-bg+1))))
    `(ledger-font-comment-face ((t (:foreground ,zenburn-green))))
@@ -640,6 +654,10 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(ledger-font-report-clickable-face ((t (:foreground ,zenburn-orange :weight normal))))
 ;;;;; linum-mode
    `(linum ((t (:foreground ,zenburn-green+2 :background ,zenburn-bg))))
+;;;;; lui
+   `(lui-time-stamp-face ((t (:foreground ,zenburn-blue-1))))
+   `(lui-hilight-face ((t (:foreground ,zenburn-green+2 :background ,zenburn-bg))))
+   `(lui-button-face ((t (:inherit hover-highlight))))
 ;;;;; macrostep
    `(macrostep-gensym-1
      ((t (:foreground ,zenburn-green+2 :background ,zenburn-bg-1))))

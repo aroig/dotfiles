@@ -40,6 +40,8 @@
 ;; I instead I use my own-auto-revert
 (setq magit-auto-revert-mode nil)
 
+;; Prevent from showing a notification on startup
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 
 ;; Emacs backups
