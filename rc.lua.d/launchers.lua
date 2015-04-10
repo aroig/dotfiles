@@ -496,7 +496,7 @@ function prompt.systemd()
     end
 
     -- TODO: pretty print the table to debug
-    -- naughty.notify({text=tostring(units)})
+    -- naughty.notify({text=pickle.dumps(units)})
 
     promptl.run(myw.promptbox[mouse.screen].widget,
                 "Unit: ",

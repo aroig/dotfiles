@@ -12,6 +12,7 @@ local os = os
 local string = string
 local table = table
 local posix = posix
+local io = { popen = io.popen, open=io.open }
 
 rules = require("awful.rules")
 
@@ -195,7 +196,7 @@ end
 
 function systemd.list_units()
     local unitlist = {}
-    local f = io.popen('systemctl --user --no-pager --no-legend list-unit-files', 'r')
+    local f = io.popen('systemctl --user --no-pager --no-legend list-unit-files')
     if f then
         local raw = f:read("*all")
         -- TODO: fix this. need to parse raw.
@@ -204,7 +205,6 @@ function systemd.list_units()
         end
         f:close()
     end
-    return unitlist
 end
 
 
