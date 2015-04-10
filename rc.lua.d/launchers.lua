@@ -489,3 +489,44 @@ end
 function prompt.lua()
     luaeval.run(myw.promptbox[mouse.screen].widget)
 end
+
+
+-----------------------------------
+-- Switch                        --
+-----------------------------------
+
+switch = {}
+
+-- start targets consecutively. Each invocation detects the first active target on the list
+-- stops it and starts the next.
+function switch.systemd_switch(units)
+    if #units == 0 then
+        return
+    end
+
+    local start = units[1]
+    local stop = nil
+
+    for i, u in ipairs(units) do
+        if systemd.is_active(u) then
+            stop = u
+            if i < #units then
+                start = units[i+1]
+            end
+        end
+    end
+
+    if stop ~= nil then
+        systemd.stop(stop)
+    end
+
+    if start ~= nil then
+        systemd.start(start)
+        naughty.notify({title="Systemd Switch", text=string.format("Switching to unit '%s'", start)})
+    end
+end
+
+
+function switch.machine_mode()
+    switch.systemd_switch({'desktop.target', 'laptop.target', 'tablet.target'})
+end
