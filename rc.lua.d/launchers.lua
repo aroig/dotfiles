@@ -486,6 +486,26 @@ function prompt.dropdown()
 end
 
 
+-- prompt with a list of systemd user units to activate.
+function prompt.systemd()
+    execlist.sd = systemd.list_units()
+
+    local units = {}
+    for i, u in ipairs(execlist.sd) do
+        units[u] = u
+    end
+
+    -- TODO: pretty print the table to debug
+    -- naughty.notify({text=tostring(units)})
+
+    promptl.run(myw.promptbox[mouse.screen].widget,
+                "Unit: ",
+                function (nm) systemd.start(nm) end,
+                units,
+                awful.util.getdir("cache") .. "/history_systemd")
+end
+
+
 function prompt.lua()
     luaeval.run(myw.promptbox[mouse.screen].widget)
 end
