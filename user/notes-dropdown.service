@@ -1,5 +1,5 @@
 [Unit]
-Description=chat
+Description=notes dropdown
 
 Requisite=wm.target
 After=wm.target
