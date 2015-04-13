@@ -4,8 +4,7 @@
 
 
 SCREEN_DEVICES=("eDP1")
-# WACOM_DEVICES=("Wacom ISDv4 EC Pen stylus" "Wacom ISDv4 EC Pen eraser")
-WACOM_DEVICES=()
+WACOM_DEVICES=("Wacom ISDv4 EC Pen stylus" "Wacom ISDv4 EC Pen eraser")
 TOUCH_DEVICES=("ELAN Touchscreen")
 POINT_DEVICES=("SynPS/2 Synaptics TouchPad" "TPPS/2 IBM TrackPoint")
 
@@ -13,8 +12,8 @@ POINT_DEVICES=("SynPS/2 Synaptics TouchPad" "TPPS/2 IBM TrackPoint")
 
 # Enable/disable laptop input devices 
 yoga_laptop() {
-    action="$1"
-    case $action in
+    cmd="$1"
+    case "$cmd" in
         on)
             touch_arg=1
             ;;
@@ -34,7 +33,7 @@ yoga_laptop() {
 # Rotate Screen together with input devices
 yoga_rotate() {
     angle="$1"       
-    case $angle in
+    case "$angle" in
         0)
             xrandr_arg="normal"
             wacom_arg="none"
@@ -72,7 +71,7 @@ yoga_rotate() {
         
     # adjust wacom devices
     for device in "${WACOM_DEVICES[@]}"; do
-        xsetwacom set "$device" rotate $wacom_arc
+        xsetwacom set "$device" rotate $wacom_arg
     done
 
     # adjust touchscreen
@@ -84,27 +83,25 @@ yoga_rotate() {
 
 
 usage() {
-    echo "Usage: yoga-rotate <angle>"
+    echo "Usage: yoga <cmd> [<args>]"
 }
 
 
+cmd="$1"
+shift
+args="$@"
 
-action="$1"
-arg="$2"
-
-case $action in
+case "$cmd" in
     rotate)
-        echo "Setting orientation to '$arg' degrees"
-        yoga_rotate "$arg"
+        yoga_rotate $args
         ;;
 
     laptop)
-        echo "Toggling laptop input devices state"
-        yoga_laptop "$arg"
+        yoga_laptop $args
         ;;
 
     *)
-        echo "Unrecognized action '$action'"
+        echo "Unrecognized command '$cmd'"
         exit 1
         ;;
 esac
