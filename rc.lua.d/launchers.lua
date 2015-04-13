@@ -520,14 +520,14 @@ switch = {}
 
 -- start targets consecutively. Each invocation detects the first active target on the list
 -- stops it and starts the next.
-function switch.systemd_switch(units, reverse)
-    local reverse = reverse or false
+function switch.systemd_switch(units, dir)
+    local dir = dir or 1
     if #units == 0 then
         return
     end
 
     local ulist={}
-    if reverse then
+    if dir == -1 then
         for i,u in ipairs(units) do
             table.insert(ulist,1,u)
         end
@@ -558,10 +558,16 @@ function switch.systemd_switch(units, reverse)
 end
 
 
-function switch.machine_mode()
-    switch.systemd_switch({'desktop.target', 'laptop.target', 'tablet.target'}, false)
-end
+function switch.machine_mode(dir)
+    local hostname = hostname
+    local dir = dir or 1
+    local tgtlist = {}
 
-function switch.machine_mode_rev()
-    switch.systemd_switch({'desktop.target', 'laptop.target', 'tablet.target'}, true)
+    if hostname == 'galois' then
+        tgtlist = {'laptop.target', 'tablet.target'}
+    else
+        tgtlist = {'desktop.target'}
+    end
+
+    switch.systemd_switch(tgtlist, dir)
 end
