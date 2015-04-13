@@ -5,8 +5,8 @@ AssertHost=!%i
 
 Conflicts=disconnect.target
 
-Requires=mount-priv.service
-After=mount-priv.service
+Requires=gpg-agent.service
+After=gpg-agent.service
 
 Requires=network-online.target
 After=network-online.target
