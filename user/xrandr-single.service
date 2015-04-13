@@ -1,6 +1,8 @@
 [Unit]
 Description=xrandr single
 
+Conflicts=xrandr-dual.service xrandr-mirror.service
+
 Requisite=xorg.service
 After=xorg.service
 Before=compton.service
@@ -8,6 +10,7 @@ Before=graphical.target
 
 [Service]
 Type=oneshot
+RemainAfterExit=true
 EnvironmentFile=%h/.config/systemd/conf/xrandr/%H.conf
 SyslogIdentifier=xrandr-single
 ExecStart=/usr/bin/xrandr --output "$XRANDR_PRIMARY" --auto --primary --output "$XRANDR_SECONDARY" --off --output "$XRANDR_TERTIARY" --off
