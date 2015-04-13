@@ -520,34 +520,35 @@ switch = {}
 
 -- start targets consecutively. Each invocation detects the first active target on the list
 -- stops it and starts the next.
-function switch.systemd_switch(units, dir)
-    local dir = dir or 1
-    if #units == 0 then
+function switch.systemd_switch(units, step)
+    local step = step or 1
+    local num = #units
+
+    if num == 0 or step == 0 then
         return
     end
 
-    local ulist={}
-    if dir == -1 then
-        for i,u in ipairs(units) do
-            table.insert(ulist,1,u)
-        end
+    local ifi, ila
+    if step > 0 then
+        ifi = 1
+        ila = num
     else
-        ulist=units
+        ifi = num
+        ila = 1
     end
 
-    local start = ulist[1]
+    local start = units[1]
     local stop = nil
 
-    for i, u in ipairs(ulist) do
-        if systemd.is_active(u) then
-            stop = u
-            if i < #ulist then
-                start = ulist[i+1]
-            end
+    for i = ifi, ila, step do
+        if systemd.is_active(units[i]) then
+            stop = units[i]
+            start = units[(i % num) + 1]
+            break
         end
     end
 
-    if stop ~= nil then
+    if stop ~= nil and stop ~= start then
         systemd.stop(stop)
     end
 
@@ -558,9 +559,9 @@ function switch.systemd_switch(units, dir)
 end
 
 
-function switch.machine_mode(dir)
+function switch.machine_mode(step)
     local hostname = hostname
-    local dir = dir or 1
+    local step = step or 1
     local tgtlist = {}
 
     if hostname == 'galois' then
@@ -569,5 +570,20 @@ function switch.machine_mode(dir)
         tgtlist = {'desktop.target'}
     end
 
-    switch.systemd_switch(tgtlist, dir)
+    switch.systemd_switch(tgtlist, step)
+end
+
+
+function switch.output_mode(step)
+    local hostname = hostname
+    local step = step or 1
+    local tgtlist = {}
+
+    if hostname == 'galois' then
+        tgtlist = {'xrandr-single.service', 'xrandr-dual.service'}
+    else
+        tgtlist = {}
+    end
+
+    switch.systemd_switch(tgtlist, step)
 end
