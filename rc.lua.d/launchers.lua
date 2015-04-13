@@ -519,9 +519,18 @@ switch = {}
 
 -- start targets consecutively. Each invocation detects the first active target on the list
 -- stops it and starts the next.
-function switch.systemd_switch(units)
+function switch.systemd_switch(units, reverse)
+    local reverse = reverse or false
     if #units == 0 then
         return
+    end
+
+    if reverse then
+        local units_old=units
+        units={}
+        for i,u in ipairs(units_old) do
+            units:insert(0,u)
+        end
     end
 
     local start = units[1]
@@ -547,6 +556,7 @@ function switch.systemd_switch(units)
 end
 
 
-function switch.machine_mode()
-    switch.systemd_switch({'desktop.target', 'laptop.target', 'tablet.target'})
+function switch.machine_mode(reverse)
+    local reverse = reverse or false
+    switch.systemd_switch({'desktop.target', 'laptop.target', 'tablet.target'}, reverse=reverse)
 end

@@ -57,7 +57,8 @@ end
 
 globalkeys = awful.util.table.join(
     -- Machine state
-    awful.key({ modkey,           }, "m",      function() switch.machine_mode()       end),
+    awful.key({ modkey,           }, "m",      function() switch.machine_mode()              end),
+    awful.key({ modkey, shiftkey  }, "m",      function() switch.machine_mode(reverse=true)  end),
 
     -- Applications started from instantiated units
     awful.key({ modkey, ctrlkey   }, "Return", function () run('app:termite')         end),
