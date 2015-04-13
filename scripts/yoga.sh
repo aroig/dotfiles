@@ -11,20 +11,44 @@ POINT_DEVICES=("SynPS/2 Synaptics TouchPad" "TPPS/2 IBM TrackPoint")
 
 
 # Enable/disable laptop input devices 
-yoga_laptop() {
+yoga_tablet() {
     cmd="$1"
     case "$cmd" in
-        on)
+        all)
             touch_arg=1
+            point_arg=0
+            wacom_arg=1
+            ;;
+        
+        wacom)
+            touch_arg=1
+            point_arg=0
+            wacom_arg=1
+            ;;
+
+        touch)
+            touch_arg=1
+            point_arg=0
+            wacom_arg=0
             ;;
 
         off)
             touch_arg=0
+            point_arg=1
+            wacom_arg=0
             ;;
     esac
 
-    for device in "${POINT_DEVICES[@]}"; do
+    for device in "${TOUCH_DEVICES[@]}"; do
         xinput --set-prop "$device" "Device Enabled" $touch_arg
+    done
+
+    for device in "${POINT_DEVICES[@]}"; do
+        xinput --set-prop "$device" "Device Enabled" $point_arg
+    done
+
+    for device in "${WACOM_DEVICES[@]}"; do
+        xinput --set-prop "$device" "Device Enabled" $wacom_arg
     done
 }
 
@@ -96,8 +120,8 @@ case "$cmd" in
         yoga_rotate $args
         ;;
 
-    laptop)
-        yoga_laptop $args
+    tablet)
+        yoga_tablet $args
         ;;
 
     *)
