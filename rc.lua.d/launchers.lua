@@ -12,6 +12,7 @@
 local os = os
 local string = string
 local coroutine = coroutine
+local table = table
 
 local capi = {
     mouse = mouse,
@@ -525,22 +526,23 @@ function switch.systemd_switch(units, reverse)
         return
     end
 
+    local ulist={}
     if reverse then
-        local units_old=units
-        units={}
-        for i,u in ipairs(units_old) do
-            units:insert(0,u)
+        for i,u in ipairs(units) do
+            table.insert(ulist,1,u)
         end
+    else
+        ulist=units
     end
 
-    local start = units[1]
+    local start = ulist[1]
     local stop = nil
 
-    for i, u in ipairs(units) do
+    for i, u in ipairs(ulist) do
         if systemd.is_active(u) then
             stop = u
-            if i < #units then
-                start = units[i+1]
+            if i < #ulist then
+                start = ulist[i+1]
             end
         end
     end
@@ -556,7 +558,10 @@ function switch.systemd_switch(units, reverse)
 end
 
 
-function switch.machine_mode(reverse)
-    local reverse = reverse or false
-    switch.systemd_switch({'desktop.target', 'laptop.target', 'tablet.target'}, reverse=reverse)
+function switch.machine_mode()
+    switch.systemd_switch({'desktop.target', 'laptop.target', 'tablet.target'}, false)
+end
+
+function switch.machine_mode_rev()
+    switch.systemd_switch({'desktop.target', 'laptop.target', 'tablet.target'}, true)
 end
