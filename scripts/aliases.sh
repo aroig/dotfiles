@@ -35,6 +35,7 @@ alias ......="cd ../../../../.."
 # file manipulation
 alias trash='gvfs-trash'
 alias rsy='rsync -avz --progress --delete'
+alias rnm='/usr/bin/vendor_perl/rename'
 
 # file viewing
 alias vp='vimpager'
