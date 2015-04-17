@@ -4,7 +4,6 @@
 slice=apps.slice
 
 
-
 available_index() {
     local basename="$1"
     local -i index
@@ -69,7 +68,8 @@ case "$1" in
 esac
 
 if [ "$transient" ]; then
-    systemd-run --user --slice="$slice" --unit="$unit" --description="$desc" "$@"
+    # NOTE: we need to escape % on the command, otherwise systemd gets confused
+    systemd-run --user --slice="$slice" --unit="$unit" --description="$desc" "${@//%/%%}"
     
 else
     systemctl --user start "$unit"
