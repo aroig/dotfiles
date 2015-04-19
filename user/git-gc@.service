@@ -8,4 +8,4 @@ Type=oneshot
 Slice=workers.slice
 
 SyslogIdentifier=git-gc-%i
-ExecStart=/usr/bin/git -C "/home/%u/%I" gc
+ExecStart=/usr/bin/git -C "/home/%u/%I" gc --quiet
