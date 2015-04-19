@@ -71,6 +71,14 @@ local function geometry_cb(geom)
 end
 
 
+local function swap_to_master(c)
+    local m = awful.client.getmaster()
+    if c ~= nil and m ~= nil then
+        c:swap(m)
+    end
+end
+
+
 -----------------------------------
 -- Client bindings and buttons   --
 -----------------------------------
@@ -80,7 +88,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, shiftkey  }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, ctrlkey   }, "space",  function (c) awful.client.floating.toggle()   end),
     awful.key({ modkey,           }, "t",      function (c) awful.client.floating.toggle()   end),
-    awful.key({ modkey,           }, "Return", function (c) c:swap(awful.client.getmaster()) end),
+    awful.key({ modkey,           }, "Return", function (c) swap_to_master(c)                end),
     awful.key({ modkey,           }, "o",      function (c) awful.client.movetoscreen(c)     end),
     awful.key({ modkey, shiftkey  }, "r",      function (c) c:redraw()                       end),
     awful.key({ modkey,           }, "r",      function (c) c:raise()                        end),
