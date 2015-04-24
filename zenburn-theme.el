@@ -305,6 +305,10 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(clojure-test-success-face ((t (:foreground ,zenburn-green+1 :weight bold :underline t))))
 ;;;;; coq
    `(coq-solve-tactics-face ((t (:foreground nil :inherit font-lock-constant-face))))
+;;;;; cperl
+   `(cperl-array-face ((t (:weight bold :inherit font-lock-variable-name-face))))
+   `(cperl-hash-face ((t (:slant italic :weight bold :inherit font-lock-variable-name-face))))
+   `(cperl-nonoverridable-face ((t (:inherit font-lock-builtin-face))))
 ;;;;; ctable
    `(ctbl:face-cell-select ((t (:background ,zenburn-blue :foreground ,zenburn-bg))))
    `(ctbl:face-continue-bar ((t (:background ,zenburn-bg-05 :foreground ,zenburn-bg))))
