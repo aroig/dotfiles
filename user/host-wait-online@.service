@@ -1,0 +1,10 @@
+[Unit]
+Description=wait until host %i is online
+
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/usr/bin/sh -c "while true; do ping -q -c 1 %i > /dev/null && break; sleep 10; done" 

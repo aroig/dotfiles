@@ -11,6 +11,9 @@ After=gpg-agent.service
 Requires=network-online.target
 After=network-online.target
 
+Requires=host-wait-online@%i.service
+After=host-wait-online@%i.service
+
 [Service]
 Type=forking
 Slice=daemons.slice
