@@ -129,6 +129,16 @@
 ;; CMake
 (autoload 'cmake-mode "cmake-mode.el" "CMake mode" t)
 
+
+
+;; Mode Aliases
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; use cperl instead of perl
+(defalias 'perl-mode 'cperl-mode)
+
+
+
 ;; Loading stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
