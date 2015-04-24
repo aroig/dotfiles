@@ -1,0 +1,13 @@
+[Unit]
+Description=start ec2 instance of %i
+
+Requires=network-online.target
+After=network-online.target
+
+Requires=mount-priv.service
+After=mount-priv.target
+
+[Service]
+Type=oneshot
+
+ExecStart=/home/abdo/.config/systemd/scripts/ec2-host.sh stop %i
