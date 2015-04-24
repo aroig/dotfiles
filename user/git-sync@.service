@@ -3,6 +3,11 @@ Description=git annex sync at /home/%u/%I
 
 ConditionPathExists=/home/%u/%I/.git/annex
 
+Conflicts=git-use@%i.service
+
+Requires=git-commit@%i.service
+After=git-commit@%i.service
+
 [Service]
 Type=oneshot
 Slice=workers.slice
