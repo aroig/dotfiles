@@ -7,8 +7,8 @@ After=network-online.target
 Requires=mount-priv.service
 After=mount-priv.target
 
-# Requires=ec2-attach@%i.service
-# After=ec2-attach@%i.service
+Requires=ec2-attach@%i.service
+After=ec2-attach@%i.service
 
 Requires=host-wait-online@%i.service
 After=host-wait-online@%i.service
