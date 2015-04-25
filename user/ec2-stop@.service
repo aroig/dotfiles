@@ -9,5 +9,6 @@ After=mount-priv.target
 
 [Service]
 Type=oneshot
+SyslogIdentifier=ec2-stop
 
 ExecStart=/home/abdo/.config/systemd/scripts/ec2-host.sh stop %i

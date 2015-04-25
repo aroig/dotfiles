@@ -12,6 +12,7 @@ After=ec2-start@%i.service
 
 [Service]
 Type=oneshot
+SyslogIdentifier=ec2-attach
 RemainAfterExit=true
 
 ExecStart=/home/abdo/.config/systemd/scripts/ec2-host.sh attach %i

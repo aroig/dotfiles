@@ -10,5 +10,6 @@ After=mount-priv.target
 [Service]
 Type=oneshot
 RemainAfterExit=true
+SyslogIdentifier=ec2-start
 
 ExecStart=/home/abdo/.config/systemd/scripts/ec2-host.sh start %i
