@@ -55,6 +55,10 @@ for s = 1, screen.count() do
 
    right_layout:add(myw.hdw.cpuicon)
    right_layout:add(myw.hdw.cpuwdg)
+
+   right_layout:add(myw.spacer)
+
+   right_layout:add(myw.hdw.tempicon)
    right_layout:add(myw.hdw.tempwdg)
 
    right_layout:add(myw.spacer)
@@ -64,13 +68,16 @@ for s = 1, screen.count() do
 
    right_layout:add(myw.separator)
 
-   right_layout:add(myw.net.dwdg)
    right_layout:add(myw.net.icon)
+   right_layout:add(myw.net.dwdg)
+   right_layout:add(myw.slash)
    right_layout:add(myw.net.uwdg)
+
    right_layout:add(myw.spacer)
 
-   right_layout:add(myw.mail.inwdg)
    right_layout:add(myw.mail.icon)
+   right_layout:add(myw.mail.inwdg)
+   right_layout:add(myw.slash)
    right_layout:add(myw.mail.outwdg)
 
    right_layout:add(myw.separator)

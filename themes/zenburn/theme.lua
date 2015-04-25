@@ -67,10 +67,9 @@ theme.color_widget_gradient = {
     "#ff5656",
 }
 
-theme.color_widget          = theme.color_green
+theme.color_widget          = theme.color_white
+theme.color_widget_value    = theme.color_green
 theme.color_widget_alert    = theme.color_red
-theme.color_widget_gray     = theme.color_gray
-
 -- }}}
 
 
@@ -135,6 +134,7 @@ theme.wibox.cross      = "&#xf00d;"
 
 theme.wibox.memory     = "&#xf145;"   -- ticket: &#xf145;
 theme.wibox.cpu        = "&#xf013;"
+theme.wibox.temp       = "&#xf041;"    -- fire: "&#xf06d;"
 theme.wibox.disk       = "&#xf0a0;"
 theme.wibox.gauge      = "&#xf0e4;"
 theme.wibox.network    = "&#xf0e8;"

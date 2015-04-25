@@ -98,6 +98,9 @@ myw.spacer:set_markup(colortext("  "))
 myw.separator = wibox.widget.textbox()
 myw.separator:set_markup(colortext(" |  "))
 
+myw.slash = wibox.widget.textbox()
+myw.slash:set_markup(colortext("/ "))
+
 
 
 -----------------------------------
@@ -111,6 +114,9 @@ myw.hdw.cpuicon:set_markup(wiboxicon('cpu', beautiful.color_widget) .. " ")
 
 myw.hdw.memicon = wibox.widget.textbox()
 myw.hdw.memicon:set_markup(wiboxicon('memory', beautiful.color_widget) .. " ")
+
+myw.hdw.tempicon = wibox.widget.textbox()
+myw.hdw.tempicon:set_markup(wiboxicon('temp', beautiful.color_widget) .. " ")
 
 myw.hdw.cpu  = require("abdo.widget.cpu")
 myw.hdw.mem  = require("abdo.widget.mem")
@@ -188,9 +194,12 @@ function myw.net.update()
     end
 
     if up ~= myw.net.value.up or down ~= myw.net.value.down then
-        local uptxt = colortext(string.format('%.0f', up), beautiful.color_widget)
 
-        local downtxt = colortext(string.format('%.0f', down), beautiful.color_widget)
+        local upcolor = util.gradient(gradcols, 0, 70, up)
+        local uptxt = colortext(string.format('%.0f', up), upcolor)
+
+        local downcolor = util.gradient(gradcols, 0, 600, down)
+        local downtxt = colortext(string.format('%.0f', down), downcolor)
 
         myw.net.dwdg:set_markup(downtxt .. ' ')
         myw.net.uwdg:set_markup(uptxt .. ' ')
@@ -238,7 +247,7 @@ function myw.mail.update()
             icon = icon_full
             num = "?"
         elseif num == 0 then
-            color = beautiful.color_widget
+            color = beautiful.color_widget_value
             icon = icon_empty
         elseif num > 0 then
             color = beautiful.color_widget_alert
@@ -260,7 +269,7 @@ function myw.mail.update()
             color = beautiful.color_widget_alert
             num = "?"
         elseif num == 0 then
-            color = beautiful.color_widget
+            color = beautiful.color_widget_value
         else
             color = beautiful.color_widget_alert
         end
@@ -343,9 +352,9 @@ function myw.mpd.update()
     if args['{state}'] == 'playing' then
         icon = wiboxicon('play', beautiful.color_widget_alert)
     elseif args['{state}'] == 'paused' then
-        icon = wiboxicon('pause', beautiful.color_widget)
+        icon = wiboxicon('pause', beautiful.color_widget_value)
     else
-        icon = wiboxicon('stop', beautiful.color_widget)
+        icon = wiboxicon('stop', beautiful.color_widget_value)
     end
 
     if myw.mpd.current['{file}'] ~= args['{file}'] or
