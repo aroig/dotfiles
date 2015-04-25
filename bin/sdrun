@@ -48,26 +48,30 @@ shift $((OPTIND-1))
 
 case "$1" in
     *@.service)
+        transient='0'        
         basename="${1%\.*}"
         index=`available_index "$basename"`
         [ ! "$unit" ] && unit="$basename$index"
         [ ! "$desc" ] && desc="$basename $index"
         ;;
+    
     *.service)
+        transient='0'
         basename="${1%\.*}"
         [ ! "$unit" ] && unit="$basename"
         [ ! "$desc" ] && desc="$basename"
         ;;
+    
     *)
         transient='1'
-        basename="run-"`basename "$1"`"-"
-        index=`available_index "$basename"`
+        basename="run-$(basename "$1")@"
+        index="$(available_index "$basename")"
         [ ! "$unit" ] && unit="$basename$index"
-        [ ! "$desc" ] && desc="transient "`basename "$1"`" $index"
+        [ ! "$desc" ] && desc="transient $(basename "$1") $index"
         ;;
 esac
 
-if [ "$transient" ]; then
+if [ "$transient" = "1" ]; then
     # NOTE: we need to escape % on the command, otherwise systemd gets confused
     systemd-run --user --slice="$slice" --unit="$unit" --description="$desc" "${@//%/%%}"
     
