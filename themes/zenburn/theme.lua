@@ -134,9 +134,9 @@ theme.wibox.check      = "&#xf00c;"
 theme.wibox.cross      = "&#xf00d;"
 
 theme.wibox.memory     = "&#xf145;"   -- ticket: &#xf145;
-theme.wibox.cpu        = "&#xf013;"
+theme.wibox.cpu        = "&#xf085;"    -- cog: &#xf013;   cogs: &#xf085;
 theme.wibox.temp       = "&#xf041;"    -- fire: "&#xf06d;"
-theme.wibox.disk       = "&#xf0a0;"
+theme.wibox.disk       = "&#xf0a0;"    -- stack: &#xf1c0;
 theme.wibox.gauge      = "&#xf0e4;"
 theme.wibox.network    = "&#xf0e8;"
 theme.wibox.wifi       = "&#xf012;"
@@ -160,7 +160,7 @@ theme.wibox.unlocked   = "&#xf09c;"
 theme.wibox.upload     = "&#xf093;"
 theme.wibox.download   = "&#xf019;"
 theme.wibox.downup     = "&#x1f504;"   -- unicode symbol
-theme.wibox.mail       = "&#xf003;"    -- outline &#xf003;  filled &#xf0e0;
+theme.wibox.mail       = "&#xf0e0;"    -- outline &#xf003;  filled &#xf0e0;
 
 theme.wibox.chat       = "&#xf0e5;"    -- single  &#xf028;  multiple  &#xf086;
 theme.wibox.orgmode    = "&#xf022;"
