@@ -4,6 +4,9 @@ Description=start ec2 instance of %i
 Requires=network-online.target
 After=network-online.target
 
+Requires=ec2-start@%i.service
+After=ec2-start@%i.service
+
 Requires=mount-priv.service
 After=mount-priv.target
 

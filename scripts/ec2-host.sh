@@ -91,9 +91,12 @@ volume_mount() {
 }
 
 volume_umount() {
+    # TODO: check this, it fails on umount
     umount_scr="
         sudo systemctl stop $MOUNT
-        sudo cryptsetup close --type luks $LUKS
+        if sudo cryptsetup status $LUKS | grep -qs active > /dev/null; then
+            sudo cryptsetup close --type luks $LUKS
+        fi
     "
     if host_online "$HOST"; then
         ssh "$HOST" "$umount_scr"
