@@ -5,8 +5,9 @@ Requires=android-adb.service
 After=android-adb.service
 
 [Service]
-Type=forking
+Type=simple
+Slice=machines.slice
 
 SyslogIdentifier=android-emulator
 ExecStart=/home/abdo/virt/bin/machine.py start android-%i
-
+ExecStop=/home/abdo/virt/bin/machine.py stop android-%i
