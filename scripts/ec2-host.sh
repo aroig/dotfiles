@@ -75,7 +75,7 @@ volume_detach() {
 
 host_online() {
     local host="$1"
-    ping -q -c 1 "$host" &2>1 > /dev/null
+    ping -q -c 1 "$host" 2>&1 > /dev/null
 }
 
 volume_mount() {
