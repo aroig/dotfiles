@@ -69,6 +69,7 @@ theme.color_widget_gradient = {
 
 theme.color_widget          = theme.color_white
 theme.color_widget_value    = theme.color_green
+theme.color_widget_warn     = theme.color_yellow
 theme.color_widget_alert    = theme.color_red
 -- }}}
 

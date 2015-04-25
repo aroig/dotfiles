@@ -58,6 +58,31 @@ end
 
 myw = {}
 
+
+function wiboxcolor(min, max, value)
+    local crit = 0.9
+    local warn = 0.7
+
+    local norm = (value - min) / (max - min)
+    if norm < 0 then
+        norm = 0
+    end
+
+    if norm > 1 then
+        morm = 1
+    end
+
+    if norm < warn then
+        return beautiful.color_widget_value
+    elseif norm < crit then
+        return beautiful.color_widget_warn
+    else
+        return beautiful.color_widget_alert
+    end
+end
+
+
+
 function wiboxicon(name, color)
 
     if beautiful.wibox[name] == nil then
@@ -133,7 +158,7 @@ myw.hdw.tempval = '?'
 function myw.hdw.update()
     local args = myw.hdw.cpu(nil)
     if args and args[1] and args[1] ~= myw.hdw.cpuval then
-        local color = util.gradient(gradcols, 0, 100, args[1])
+        local color = wiboxcolor(0, 100, args[1])
         local text = colortext(string.format("%s%% ", args[1]), color)
         myw.hdw.cpuval = args[1]
         myw.hdw.cpuwdg:set_markup(text)
@@ -141,7 +166,7 @@ function myw.hdw.update()
 
     local args = myw.hdw.temp(nil, host_config['thermal'])
     if args and args.temp and args.temp ~= myw.hdw.tempval then
-        local color = util.gradient(gradcols, 35, 70, args.temp)
+        local color = wiboxcolor(35, 70, args.temp)
         local text = colortext(string.format("%dºC ", args.temp), color)
         myw.hdw.tempval = args.temp
         myw.hdw.tempwdg:set_markup(text)
@@ -149,7 +174,7 @@ function myw.hdw.update()
 
     local args = myw.hdw.mem(nil)
     if args and args[1] and args[1] ~= myw.hdw.memval then
-        local color = util.gradient(gradcols, 0, 100, args[1])
+        local color = wiboxcolor(0, 100, args[1])
         local text = colortext(string.format("%s%% ", args[1]), color)
         myw.hdw.memval = args[1]
         myw.hdw.memwdg:set_markup(text)
@@ -195,10 +220,10 @@ function myw.net.update()
 
     if up ~= myw.net.value.up or down ~= myw.net.value.down then
 
-        local upcolor = util.gradient(gradcols, 0, 70, up)
+        local upcolor = wiboxcolor(0, 70, up)
         local uptxt = colortext(string.format('%.0f', up), upcolor)
 
-        local downcolor = util.gradient(gradcols, 0, 600, down)
+        local downcolor = wiboxcolor(0, 600, down)
         local downtxt = colortext(string.format('%.0f', down), downcolor)
 
         myw.net.dwdg:set_markup(downtxt .. ' ')
@@ -408,7 +433,7 @@ function myw.vol.update()
     end
 
     if args.vol ~= myw.vol.vol_value then
-        local color = util.gradient(gradcols, 0, 100, args.vol)
+        local color = wiboxcolor(0, 100, args.vol)
         local text = colortext(string.format("%s%% ", args.vol), color)
         myw.vol.widget:set_markup(text)
         myw.vol.vol_value = args.vol
@@ -446,9 +471,9 @@ function myw.bat.update()
         local color_rate = beautiful.color_widget
 
         if args.state == 'charging' then
-            color_rate = util.gradient(gradcols_rev, 0, 40, args.rate)
+            color_rate = wiboxcolor(-40, 0, args.rate)
         else
-            color_rate = util.gradient(gradcols, 7, 30, args.rate)
+            color_rate = wiboxcolor(7, 30, args.rate)
         end
 
         local text = colortext(string.format("%4.1fW", args.rate), color_rate)
@@ -456,7 +481,7 @@ function myw.bat.update()
     end
 
     if args.percent ~= myw.bat.percent or args.state ~= myw.bat.state then
-        local color_percent = util.gradient(gradcols_rev, 0, 100, args.percent)
+        local color_percent = wiboxcolor(-100, 0, args.percent)
         local text_icon = ""
 
         text_icon = wiboxicon("power", beautiful.color_widget)
