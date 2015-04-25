@@ -26,7 +26,7 @@ available_index() {
 }
 
 usage() {
-    echo "usage: $0 [ -s <slice> | -n <name> | -u <unit> ] <cmd> | <service>"
+    echo "usage: $(basename "$0") [ -s <slice> | -n <name> | -u <unit> ] <cmd> | <service>"
     echo ""
     echo "Starts a command in a transient service, or an existing service template"
     echo "instantiated at the first available integer parameter. "
