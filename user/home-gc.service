@@ -1,0 +1,12 @@
+[Unit]
+Description=garbage collect homedir
+
+ConditionPathExists=/home/%u/.mrconfig
+
+[Service]
+Type=oneshot
+Slice=workers.slice
+SyslogIdentifier=home-gc
+
+WorkingDirectory=/home/%u
+ExecStart=/usr/bin/mr gc --quiet
