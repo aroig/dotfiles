@@ -1,5 +1,6 @@
 [Unit]
 Description=weekly garbage collection at /home/abdo/%I
+PartOf=housekeeping.target
 
 [Timer]
 OnCalendar=weekly
@@ -8,4 +9,4 @@ Persistent=true
 Unit=git-gc@%i.service
 
 [Install]
-WantedBy=timers.target
+WantedBy=housekeeping.target
