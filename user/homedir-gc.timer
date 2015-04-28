@@ -6,7 +6,7 @@ PartOf=housekeeping.target
 OnCalendar=weekly
 AccuracySec=12h
 Persistent=true
-Unit=home-gc.service
+Unit=homedir-gc.service
 
 [Install]
 WantedBy=housekeeping.target

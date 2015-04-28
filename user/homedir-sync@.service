@@ -1,12 +1,12 @@
 [Unit]
-Description=garbage collect homedir
+Description=sync homedir to remote %i
 
 ConditionPathExists=/home/%u/.mrconfig
 
 [Service]
 Type=oneshot
 Slice=workers.slice
-SyslogIdentifier=home-gc
+SyslogIdentifier=homedir-sync
 
 WorkingDirectory=/home/%u
-ExecStart=/usr/bin/mr gc --quiet
+ExecStart=/usr/bin/mr sync --content --quiet %i
