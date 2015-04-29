@@ -22,6 +22,9 @@ else
     exit 0
 fi
 
+# source zshenv. This sets the PATH
+[ -f "$HOME/.zshenv" ] && source "$HOME/.zshenv"
+
 # set path for systemd user session
 if [ "$PATH" ]; then
     systemctl --user set-environment "PATH=$PATH"
