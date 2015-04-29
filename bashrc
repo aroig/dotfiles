@@ -15,7 +15,7 @@ PS1='[\u@\h \W]\$ '
 #------------------------------
 
 # source environment variables
-[[ -f $HOME/.zshenv ]] && . $HOME/.zshenv
+[ -f "$HOME/.zshenv" ] && source "$HOME/.zshenv"
 
 # If not running interactively, do nothing
 # [[ $- != *i* ]] && return
