@@ -16,7 +16,10 @@ if [ "$ZSH_VERSION" ] && [ -e "$HOME/.zshrc" ]; then
 # source bashrc on bash
 elif [ "$BASH_VERSION" ] && [ -e "$HOME/.bashrc" ]; then
     source "$HOME/.bashrc"
-   
+
+else
+    echo "zlogin: unrecognized shell"
+    exit 0
 fi
 
 # set path for systemd user session
