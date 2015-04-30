@@ -1,0 +1,12 @@
+[DEFAULT]
+lib =
+    # Load some miscelania utilities
+    source "$HOME/.mr/lib/mr-util.sh"
+
+# include stuff
+include = cat "$HOME/.mr/etc/arch-package.conf"
+include = cat "$HOME/.mr/etc/git-annex.conf"
+include = cat "$HOME/.mr/etc/git.conf"
+include = cat "$HOME/.mr/etc/unison.conf"
+include = cat "$HOME/.mr/etc/homedir.conf"
+
