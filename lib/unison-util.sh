@@ -65,18 +65,23 @@ unison_config() {
 
 
 ##
-# unison_skip_missing_remote <repo> <remote>
-# skips execution if remote is missing
+# usage: unison_skip <path> <action> [<remote>]
+#
+# Check whether git repo has this remote
 ##
-unison_skip_missing_remote() {
-    local remote="$1"
-    if [ -z "$remote" ]; then
-        error "Need a remote"
-    fi 
+unison_skip() {
+    local path="$1"
+    local action="$2"
+    local remote="$3"
+    
+    # skip if repo is not a directory
+    [ ! -d "$MR_REPO" ] && return 0
 
-    if [ "$remote" ] && ! unison_has_remote "$MR_REPO" "$remote"; then
-        skip "Remote '$remote' not configured."
+    # skip if remote is not configured
+    if [[ "$action" =~ sync|push|pull|fetch|update ]]; then
+        [ "$remote" ] && ! unison_has_remote "$MR_REPO" "$remote" && return 0
     fi
+    return 1
 }
 
 

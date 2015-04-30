@@ -149,14 +149,23 @@ git_get_config() {
 
 
 ##
-# git_skip_missing_remote <repo> <remote>
-# skips execution if remote is missing
+# usage: git_skip <path> <action> [<remote>]
+#
+# Check whether git repo has this remote
 ##
-git_skip_missing_remote() {
-    local remote="$1"
-    if [ "$remote" ] && ! git_has_remote "$MR_REPO" "$remote"; then
-        skip "Remote '$remote' not configured."
+git_skip() {
+    local path="$1"
+    local action="$2"
+    local remote="$3"
+    
+    # skip if repo is not a directory
+    [ ! -d "$MR_REPO" ] && return 0
+
+    # skip if remote is not configured
+    if [[ "$action" =~ sync|push|pull|fetch|update ]]; then
+        [ "$remote" ] && ! git_has_remote "$MR_REPO" "$remote" && return 0
     fi
+    return 1
 }
 
 
@@ -291,6 +300,7 @@ git_annex_init() {
         fi
     )
 }
+
 
 
 # ------------------------------------------------------------------ #
