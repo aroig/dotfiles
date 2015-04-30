@@ -162,7 +162,7 @@ git_skip() {
     [ ! -d "$MR_REPO" ] && return 0
 
     # skip if remote is not configured
-    if [[ "$action" =~ sync|push|pull|fetch|update ]]; then
+    if [[ "$action" =~ sync|push|pull|fetch|update|list ]]; then
         [ "$remote" ] && ! git_has_remote "$MR_REPO" "$remote" && return 0
     fi
     return 1
