@@ -9,6 +9,9 @@ After=mount-priv.service
 Requisite=synced.target
 After=synced.target
 
+Requires=git-use@mail.service
+After=git-use@mail.service
+
 Requires=network-online.target
 After=network-online.target
 

@@ -5,9 +5,6 @@ ConditionHost=skynet
 Description=fetch mail and news
 StopWhenUnneeded=true
 
-Requires=git-use@mail.service
-After=git-use@mail.service
-
 Requires=offlineimap.service
 After=offlineimap.service
 
