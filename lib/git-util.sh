@@ -407,13 +407,12 @@ git_pull() {
         else
             # if no tracking branch, warn and fetch
             if [ "$(git_tracking_branch "$path")" ]; then
-                git pull --all  "$@"
+                git pull --all  "$@" || return 1
 
                 # update submodules                
                 if [ -f "$path/.gitmodules" ]; then
                     echo "Updating submodules"
-                    git submodule init
-                    git submodule update
+                    git submodule init && git submodule update
                 fi
                 
             else
