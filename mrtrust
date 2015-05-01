@@ -25,4 +25,4 @@
 ~/etc/arch/groups/emacs/.mrconfig
 ~/etc/arch/mobile/.mrconfig
 ~/src/.mrconfig
-
+/data/abdo/src/.mrconfig
