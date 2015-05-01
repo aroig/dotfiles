@@ -193,3 +193,25 @@ homedir_remote() {
             ;;        
     esac
 }
+
+
+##
+# usage: homedir_checkout <remote> [,<remote>...]
+#
+# Checkout on the given remotes only
+##
+homedir_checkout() {
+    local local_remote="$(homedir_remote_from_mrconfig "$MR_CONFIG")"
+    local repo="$MR_REPO"
+
+    for rmt in "$@"; do
+        if [ "$rmt" = "$local_remote" ]; then
+            mkdir -p "$repo"
+            (
+                cd "$repo"
+                mr init
+            )
+            return
+        fi
+    done
+}
