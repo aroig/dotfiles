@@ -66,7 +66,7 @@ load_lib() {
 # Filesystem
 # ------------------------------------------------------------------ #
 
-relative_symlink() {
+symlink_relative() {
     local src="$1"
     local lnk="$2"
     

@@ -45,7 +45,7 @@ homedir_annex_init() {
     if [ -e "$gitdir" ] && [ ! -L "$gitdir/hooks" ]; then
         info "symkinking '.git/hooks' -> '$githooks'"
         rm -Rf "$gitdir/hooks"
-        relative_symlink "$path/$githooks" "$gitdir/hooks"
+        symlink_relative "$path/$githooks" "$gitdir/hooks"
     fi
 }
 
@@ -110,7 +110,7 @@ homedir_relocate_directory() {
         # add symlink at home
         if [ ! -L "$src" ]; then
             info "adding a symlink '$src' -> '$tgt'"
-            relative_symlink "$tgt" "$src"
+            symlink_relative "$tgt" "$src"
         fi
     fi
 }
