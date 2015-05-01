@@ -134,6 +134,33 @@ git_tracking_branch() {
 
 
 ##
+# git_head_ref <path>
+# Get the ref of current HEAD
+##
+git_head_ref() {
+    local path="$1"
+    (
+        cd "$path"
+        git symbolic-ref HEAD
+    )
+}
+
+
+##
+# usage: git_remote_url <path> <remote>
+#
+##
+git_remote_url() {
+    local path="$1"
+    local remote="$2"
+    (
+        cd "$path"
+        git ls-remote --get-url "${remote%%/*}"
+    )    
+}
+
+
+##
 # usage: git_get_config <path> <key>
 #
 # Check whether git repo has this remote
@@ -332,3 +359,128 @@ git_commit_if_changes() {
         fi
     )
 }
+
+
+##
+# git_fetch <path> <args>
+# Fetch git repo
+##
+git_fetch() {
+    local path="$1"
+    shift
+    (
+        cd "$path"
+        if [ -d "$path/.git/svn" ]; then
+            git svn fetch "$@"
+
+        elif [ "$(git_remotes "$path")" ]; then
+            git fetch --all --prune --tags "$@"
+
+        else
+            warning "There are no remotes to fetch"           
+        fi
+    )
+}
+
+
+##
+# git_pull <path> <args>
+# Pull git repo
+##
+git_pull() {
+    local path="$1"
+    shift
+
+    (
+        cd "$path"
+    
+        # if svn on non-master branch, just fetch and warn
+        if [ -d "$path/.git/svn" ]; then
+            if [ "$(git_head_ref "$path")" = "refs/heads/master" ]; then
+                git svn rebase "$@"
+           
+            else           
+                warning "Trying to pull a svn remote on a branch different from master. Just fetching."
+                git_fetch "$path" "$@"
+            fi
+
+        else
+            # if no tracking branch, warn and fetch
+            if [ "$(git_tracking_branch "$path")" ]; then
+                git pull --all  "$@"
+            else
+                warning "Current branch is not tracking a remote. Just fetching"
+                git_fetch "$path" "$@"
+            fi
+        fi
+    )
+}
+
+
+
+##
+# git_push <path> <args>
+# Push git repo
+##
+git_push() {
+    local path="$1"
+    shift
+    (
+        cd "$path"
+        if [ "$(git_tracking_branch "$path")" ]; then
+            git push "$@"
+
+        else
+            warning "Current branch is not tracking a remote"
+        fi
+    )
+}
+
+
+
+##
+# git_clean <path> <args>
+# Clean git repo
+##
+git_clean() {
+    local path="$1"
+    shift
+    if [ "$1" = "-f" ]; then
+        shift
+        git clean -dx --force "$@"
+    else
+        git clean -dx --dry-run "$@"
+	fi
+}
+
+
+##
+# git_register <path> <args>
+# Register git repo
+##
+git_register() {
+    local path="`pwd`"
+    local repo="$1"
+    shift
+    local tracking="$(git_tracking_branch "$path")"
+    
+    if [ -z "$tracking" ]; then
+        warning "Current branch is not tracking a remote"
+        return
+    fi
+
+    local url="$(git_remote_url "$path" "$tracking")"
+
+    if [ -z "$url" ]; then
+        error "Cannot determine git url"
+    fi
+
+    # TODO: handle svn cases
+    
+    echo "Registering git url: $url in $MR_CONFIG"
+    mr -c "$MR_CONFIG" config "$path" checkout="git clone '$url' '$repo'"
+}
+
+
+
+
