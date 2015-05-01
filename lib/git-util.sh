@@ -408,6 +408,14 @@ git_pull() {
             # if no tracking branch, warn and fetch
             if [ "$(git_tracking_branch "$path")" ]; then
                 git pull --all  "$@"
+
+                # update submodules                
+                if [ -f "$path/.gitmodules" ]; then
+                    echo "Updating submodules"
+                    git submodule init
+                    git submodule update
+                fi
+                
             else
                 warning "Current branch is not tracking a remote. Just fetching"
                 git_fetch "$path" "$@"
