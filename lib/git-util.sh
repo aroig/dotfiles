@@ -479,7 +479,7 @@ git_clean() {
 # Register git repo
 ##
 git_register() {
-    local path="`pwd`"
+    local path="`pwd -P`"
     local repo="$1"
     shift
     local tracking="$(git_tracking_branch "$path")"
