@@ -455,15 +455,19 @@ timers.fast:connect_signal("timeout", myw.vol.update)
 myw.bat = {}
 myw.bat.src = require("abdo.widget.bat")
 
-myw.bat.icon = wibox.widget.textbox()
+myw.bat.pcicon = wibox.widget.textbox()
 myw.bat.pcwidget = wibox.widget.textbox()
+myw.bat.rticon = wibox.widget.textbox()
 myw.bat.rtwidget = wibox.widget.textbox()
 
-myw.bat.tooltip = awful.tooltip({ objects = {myw.bat.pcwidget, myw.bat.rtwidget, myw.bat.icon}})
+myw.bat.tooltip = awful.tooltip({ objects = {myw.bat.pcwidget, myw.bat.rtwidget, myw.bat.pcicon, myw.bat.rticon}})
 
 myw.bat.percent = -1
 myw.bat.rate = -1
 myw.bat.time = -1
+
+myw.bat.pcicon:set_markup(wiboxicon("cable", beautiful.color_widget))
+myw.bat.rticon:set_markup(wiboxicon("power", beautiful.color_widget))
 
 function myw.bat.update()
     local args = myw.bat.src(nil, "BAT0")
@@ -482,9 +486,6 @@ function myw.bat.update()
 
     if args.percent ~= myw.bat.percent or args.state ~= myw.bat.state then
         local color_percent = wiboxcolor(-100, 0, args.percent)
-        local text_icon = ""
-
-        text_icon = wiboxicon("power", beautiful.color_widget)
 
         local battery_state = {
             full        = " ",
@@ -498,7 +499,6 @@ function myw.bat.update()
         local text_percent = colortext(string.format("%s%%", args.percent), color_percent)
 
         myw.bat.pcwidget:set_markup(text_state .. text_percent)
-        myw.bat.icon:set_markup(text_icon)
 
         if args.percent > 0 and args.percent <= 5 and args.state ~= 'charging' then
             naughty.notify({title="Low Battery", text="Hey, plug the power cord!",
@@ -519,7 +519,8 @@ end
 myw.bat.rtwidget:buttons(awful.util.table.join(awful.button({ }, 1,
     function () exec("gnome-power-statistics") end)))
 myw.bat.pcwidget:buttons(myw.bat.rtwidget:buttons())
-myw.bat.icon:buttons(myw.bat.rtwidget:buttons())
+myw.bat.pcicon:buttons(myw.bat.rtwidget:buttons())
+myw.bat.rticon:buttons(myw.bat.rtwidget:buttons())
 
 timers.fast:connect_signal("timeout", myw.bat.update)
 

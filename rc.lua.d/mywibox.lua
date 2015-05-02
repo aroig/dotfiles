@@ -83,9 +83,10 @@ for s = 1, screen.count() do
    right_layout:add(myw.separator)
 
    if util.file_exists("/sys/class/power_supply/BAT0/status") then
-      right_layout:add(myw.bat.icon)
+      right_layout:add(myw.bat.pcicon)
       right_layout:add(myw.bat.pcwidget)
       right_layout:add(myw.spacer)
+      right_layout:add(myw.bat.rticon)
       right_layout:add(myw.bat.rtwidget)
       right_layout:add(myw.separator)
    end
