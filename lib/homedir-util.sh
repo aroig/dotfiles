@@ -89,6 +89,31 @@ homedir_remote_from_mrconfig() {
 
 
 ##
+# homedir_remote_run <remote> <cmd>
+#
+# Run on a remote.
+##
+homedir_remote_run() {
+    local remote="$1"
+    local cmd="$2"
+    local host="$(homedir_host "$remote")"
+
+    # TODO: at which path on the remote we run this?!?
+    local path="$HOME"
+
+    case "$host" in
+        localhost)
+            bash -c "cd '$path'; $cmd"
+            ;;
+        
+        *)
+            ssh "$host" "cd '$path'; $cmd"
+            ;;
+    esac
+}
+
+
+##
 # usage: homedir_relocate_directory <src> <tgt>
 # Attempts to move directory at <src> to <tgt> and symlink
 ##
