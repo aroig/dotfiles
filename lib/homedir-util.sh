@@ -1,17 +1,110 @@
 
+# ------------------------------------------------------------------ #
+# homedir remote querying
+# ------------------------------------------------------------------ #
+
 ##
-# usage: homedir_git_init
-# Initialize homedir directory in $MR_REPO
+# usage: homedir_host <remote>
+#
+# Get host for a homedir remote
 ##
-homedir_git_init() {
-    local path="$MR_REPO"      
-    git_init "$path"
-    git_config "$path" "gc.auto" "0"
+homedir_host() {
+    local rmt="$1"
+    local host
+    case "$rmt" in
+        localhost)    host="localhost"                     ;;
+        ada)          host="localhost"                     ;;
+        babel)        host="babel.abdoroig.net"            ;;
+        galois)       host="galois"                        ;;
+        grothendieck) host="grothendieck"                  ;;
+        quasar)       host="localhost"                     ;;
+        skynet)       host="skynet"                        ;;
+        quark)        host="quark"                         ;;
+        *)
+            error "Unrecognized remote '$rmt'"             ;;
+    esac
+    echo "$host"
 }
 
 
 ##
-# usage: homedir_chmod <path>
+# usage: homedir_remote_from_mrconfig <path>
+#
+# Get a remote name that containes <path> on the current machine
+##
+homedir_remote_from_mrconfig() {
+    local path="$(dirname "$1")"
+    local host="$(hostname)"
+
+    case "$path" in
+        /home/abdo*)           echo "$host"                   ;;
+        /media/ada/home/abdo*) echo "ada"                     ;;
+        /media/quasar/abdo*)   echo "quasar"                  ;;
+        *)
+            error "Can't find a remote associated to '$path'" ;;
+    esac
+}
+
+
+##
+# usage: homedir_remote_url <type> <host> <repodir>
+#
+# Get url for a given remote.
+##
+homedir_remote_url() {
+    local type="$1"
+    local host="$2"
+    local repodir="$3"
+
+    if [ "$host" = 'localhost' ]; then
+        printf "$repodir"
+    elif [ "$type" = 'uni' ]; then
+        printf "ssh://$host/$repodir"
+    else
+        printf "$host:$repodir"
+    fi
+}
+
+
+
+# ------------------------------------------------------------------ #
+# command execution
+# ------------------------------------------------------------------ #
+
+##
+# usage: homedir_remote_run <path> <remote> <cmd>
+#
+# Run on a command on the given directory in a remote.
+##
+homedir_remote_run() {
+    local repo="$1"
+    local remote="$2"
+    local cmd="$3"
+
+    # TODO: get host and path from the repo
+    local host="$(homedir_host "$remote")"
+    local path="$HOME"
+
+    case "$host" in
+        localhost)
+            bash -c "cd '$path'; $cmd"
+            ;;
+        
+        *)
+            ssh "$host" "cd '$path'; $cmd"
+            ;;
+    esac
+}
+
+
+
+# ------------------------------------------------------------------ #
+# homedir state changes
+# ------------------------------------------------------------------ #
+
+##
+# usage: homedir_perms <path>
+#
 # Change perms for <path>
 ##
 homedir_perms() {
@@ -26,7 +119,20 @@ homedir_perms() {
 
 
 ##
+# usage: homedir_git_init
+#
+# Initialize homedir directory in $MR_REPO
+##
+homedir_git_init() {
+    local path="$MR_REPO"      
+    git_init "$path"
+    git_config "$path" "gc.auto" "0"
+}
+
+
+##
 # usage: homedir_annex_init
+#
 # Initialize homedir directory in $MR_REPO
 ##
 homedir_annex_init() {
@@ -51,70 +157,8 @@ homedir_annex_init() {
 
 
 ##
-# usage: homedir_host <remote>
-# Get host for a homedir remote
-##
-homedir_host() {
-    local rmt="$1"
-    local host
-    case "$rmt" in
-        ada)          host="localhost"                     ;;
-        babel)        host="babel.abdoroig.net"            ;;
-        galois)       host="galois"                        ;;
-        grothendieck) host="grothendieck"                  ;;
-        quasar)       host="localhost"                     ;;
-        skynet)       host="skynet"                        ;;
-        quark)        host="quark"                         ;;
-        *)            error "Unrecognized remote '$rmt'"   ;;
-    esac
-    echo "$host"
-}
-
-
-##
-# usage: homedir_remote_from_mrconfig <path>
-# Get a remote name that containes <path> on the current machine
-##
-homedir_remote_from_mrconfig() {
-    local path="$(dirname "$1")"
-    local host="$(hostname)"
-
-    case "$path" in
-        /home/abdo)           echo "$host"                                      ;;
-        /media/ada/home/abdo) echo "ada"                                        ;;
-        /media/quasar/abdo)   echo "quasar"                                     ;;
-        *)                    error "Can't find a remote associated to '$path'" ;;
-    esac
-}
-
-
-##
-# homedir_remote_run <remote> <cmd>
-#
-# Run on a remote.
-##
-homedir_remote_run() {
-    local remote="$1"
-    local cmd="$2"
-    local host="$(homedir_host "$remote")"
-
-    # TODO: at which path on the remote we run this?!?
-    local path="$HOME"
-
-    case "$host" in
-        localhost)
-            bash -c "cd '$path'; $cmd"
-            ;;
-        
-        *)
-            ssh "$host" "cd '$path'; $cmd"
-            ;;
-    esac
-}
-
-
-##
 # usage: homedir_relocate_directory <src> <tgt>
+#
 # Attempts to move directory at <src> to <tgt> and symlink
 ##
 homedir_relocate_directory() {
@@ -143,6 +187,7 @@ homedir_relocate_directory() {
 
 ##
 # usage: homedir_remote
+#
 # Configure remote for homedir directory in $MR_REPO
 ##
 homedir_remote() {
@@ -157,26 +202,15 @@ homedir_remote() {
 
     # get remote for which we are running
     local lrmt="$(homedir_remote_from_mrconfig "$MR_CONFIG")"
-   
-    # detect detect whether the remote refers to the current repo.
-    if [ "$name" = "$lrmt" ]; then
-        ctype='self'
-    else
-        ctype="$type"
-    fi
 
     # compute the url for git remotes
-    local url
-    if [ "$host" = 'localhost' ]; then
-        url="$repodir"
-    elif [ "$type" = 'uni' ]; then
-        url="ssh://$host/$repodir"
-    else
-        url="$host:$repodir"
-    fi
+    local url="$(homedir_remote_url "$type" "$host" "$repodir")"
+
+    # detect detect whether the remote refers to the current repo.
+    if [ "$name" = "$lrmt" ]; then type='self'; fi
     
     # configure the remote        
-    case "$ctype" in
+    case "$type" in
         self)
             if git_annex_is_repo "$path"; then
                 git_config_safe "$path" "annex.uuid" "$uuid"
@@ -192,9 +226,11 @@ homedir_remote() {
             ;;
 
         uni)
-            
-            
             unison_config "$path" "remote_$name" "$url"
+            unison_config_safe "$path" "remote_$name_uuid" "$uuid"            
+            if [ ! "$host" = "localhost" ]; then
+                unison_config "$path" "remote_$name_command" "systemctl --user start sshmux@$host.service"
+            fi
             ;;
         
         git)
