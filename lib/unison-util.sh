@@ -113,7 +113,7 @@ unison_sync() {
         error "Unknown remote '$remote'"
     fi
 
-    local args=('-ignore' "Path .unison" '-ignore' "Path .async.last" '-logfile' "/dev/null")
+    local args=('-ignore' "Path .unison" '-logfile' "/dev/null")
     
     # check for mountpoint argument
     if [ "$mountpoint" ]; then
