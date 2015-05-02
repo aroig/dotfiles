@@ -85,7 +85,7 @@ pkgbuild_bump_pkgrel() {
         local pkgrel=`expr $pkgrel + 1`
         echo "Bumping pkgrel: $pkgrel"
         sed -i "s/pkgrel=.*$/pkgrel=$pkgrel/" "$pkgbuild"
-        git_commit_if_changes "$srcpath" "Bump pkgrel to '$pkgrel'"            
+        git_commit_if_changed "$srcpath" "Bump pkgrel to '$pkgrel'"            
     fi
 }
 
@@ -103,7 +103,7 @@ pkgbuild_bump_version() {
             echo "Bumping pkgver: $newver"
             sed -i "s/pkgver=.*$/pkgver=$newver/" "$pkgbuild" 
             sed -i "s/pkgrel=.*$/pkgrel=1/" "$pkgbuild"
-            git_commit_if_changes "$srcpath" "Bump pkgver to '$newver'"            
+            git_commit_if_changed "$srcpath" "Bump pkgver to '$newver'"            
         fi      
     fi
 }
@@ -126,7 +126,7 @@ aur_checkout() {
     (
         cd "$pkgname"
         git init
-        git_commit_if_changes "$PWD" 'Initial commit'
+        git_commit_if_changed "$PWD" 'Initial commit'
     )
 }
 
@@ -144,7 +144,7 @@ aur_update() {
         return 1
     fi              
     cower -df --ignorerepo "$aurname" -t ..
-    git_commit_if_changes "$PWD" "Updated from AUR"
+    git_commit_if_changed "$PWD" "Updated from AUR"
 }
 
 
@@ -399,7 +399,7 @@ repo_add_packages() {
                 fi
             fi
         done
-    git_commit_if_changes "$tgtroot" "auto-commit on $(hostname)"
+    git_commit_if_changed "$tgtroot" "auto-commit on $(hostname)"
 }
 
 ##
@@ -422,7 +422,7 @@ repo_remove_packages() {
                 repo-remove "$repodb" "$pkgname"
             fi
         done
-    git_commit_if_changes "$tgtroot" "auto-commit on $(hostname)"
+    git_commit_if_changed "$tgtroot" "auto-commit on $(hostname)"
 }
 
 
@@ -446,7 +446,7 @@ abs_update() {
         error "Missing target path"
     fi   
     rsync $rsargs "$server"::abs/{$arch,any}/$repo/ "$path/"
-    git_commit_if_changes "$path" "auto-commit on $(hostname)"    
+    git_commit_if_changed "$path" "auto-commit on $(hostname)"    
 }
 
 ##

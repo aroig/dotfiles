@@ -348,10 +348,10 @@ git_annex_init() {
 # ------------------------------------------------------------------ #
 
 ##                     
-# commit_if_changes <path> <message>
+# git_commit_if_changed <path> <message>
 # Commits changes to a repo if there are any, otherwise do nothing.
 ##
-git_commit_if_changes() {
+git_commit_if_changed() {
     local srcpath="$(readlink -f "$1")"
     local message="$2"
     (
