@@ -161,6 +161,19 @@ git_remote_url() {
 
 
 ##
+# usage: git_remote_svn_url <path>
+#
+##
+git_remote_svn_url() {
+    local path="$1"
+    (
+        cd "$path"
+        git svn info --url
+    )
+}
+
+
+##
 # usage: git_get_config <path> <key>
 #
 # Check whether git repo has this remote
@@ -470,22 +483,30 @@ git_register() {
     local repo="$1"
     shift
     local tracking="$(git_tracking_branch "$path")"
+    local url
+    local checkout_cmd
     
-    if [ -z "$tracking" ]; then
-        warning "Current branch is not tracking a remote"
-        return
+    if [ -d "$path/.git/svn" ]; then
+        url="$(git_remote_svn_url "$path")"
+        checkout_cmd="git svn clone"
+
+    else
+    
+        if [ -z "$tracking" ]; then
+            warning "Current branch is not tracking a remote"
+            return
+        fi
+
+        url="$(git_remote_url "$path" "$tracking")"
+        checkout_cmd="git clone"
     fi
-
-    local url="$(git_remote_url "$path" "$tracking")"
-
+    
     if [ -z "$url" ]; then
         error "Cannot determine git url"
     fi
-
-    # TODO: handle svn cases
     
     echo "Registering git url: $url in $MR_CONFIG"
-    mr -c "$MR_CONFIG" config "$path" checkout="git clone '$url' '$repo'"
+    mr -c "$MR_CONFIG" config "$path" checkout="$checkout_cmd '$url' '$repo'"
 }
 
 
