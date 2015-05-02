@@ -200,12 +200,9 @@ homedir_remote() {
         git)
             git_add_remote "$path" "$name" "$url"
             git_config_safe "$path" "remote.$name.annex-uuid" "$uuid"
-            ;;
-
-        ssh)
-            git_add_remote "$path" "$name" "$url"
-            git_config_safe "$path" "remote.$name.annex-uuid" "$uuid"
-            git_config "$path" "remote.$name.annex-start-command" "systemctl --user start sshmux@$host.service"
+            if [ ! "$host" = "localhost" ]; then
+                git_config "$path" "remote.$name.annex-start-command" "systemctl --user start sshmux@$host.service"
+            fi
             ;;
 
         s3)
