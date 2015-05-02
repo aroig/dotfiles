@@ -228,9 +228,9 @@ homedir_remote() {
         uni)
             unison_config "$path" "remote_$name" "$url"
             unison_config_safe "$path" "remote_$name_uuid" "$uuid"            
-            if [ ! "$host" = "localhost" ]; then
-                unison_config "$path" "remote_$name_command" "systemctl --user start sshmux@$host.service"
-            fi
+            # if [ ! "$host" = "localhost" ]; then
+            #     unison_config "$path" "remote_$name_command" "systemctl --user start sshmux@$host.service"
+            # fi
             ;;
         
         git)

@@ -1,4 +1,8 @@
 
+# ------------------------------------------------------------------ #
+# querying data
+# ------------------------------------------------------------------ #
+
 ##
 # usage: unison_is_repo <path>
 #
@@ -23,51 +27,9 @@ unison_has_remote() {
 
 
 ##
-# unison_get_config <path> <key>
-##
-unison_get_config() {
-    local path="$1"
-    local cfgpath="$path/.unison/config"    
-    local key="$2"
-
-    if [ ! -f "$cfgpath" ]; then
-        return
-    fi
-    
-    (
-        source "$cfgpath"
-        eval echo "\$$key"
-    )    
-}
-
-
-##
-# unison_config <path> <key> <value>
-##
-unison_config() {
-    local path="$1"
-    local cfgpath="$path/.unison/config"
-    local key="$2"
-    local value="$3"
-    local cur="$(unison_get_config "$path" "$key")"
-
-    # if key already exists, and is different
-    if [ "$cur" ] && [ ! "$value" = "$cur" ]; then
-        sed -i "/^$key=.*$/d" "$cfgpath"
-    fi
-    
-    if [ ! "$value" = "$cur" ]; then
-        info "setting config: $key = $value"
-        mkdir -p "$path/.unison"
-        echo "$key=\"$value\"" >> "$cfgpath"   
-    fi
-}
-
-
-##
 # usage: unison_skip <path> <action> [<remote>]
 #
-# Check whether git repo has this remote
+# Check whether this repo should be skipped 
 ##
 unison_skip() {
     local path="$1"
@@ -86,7 +48,90 @@ unison_skip() {
 
 
 ##
-# unison_sync <path> <remote> <direction>
+# usage: unison_get_config <path> <key>
+#
+# Get configuration key for repo at <path>
+##
+unison_get_config() {
+    local path="$1"
+    local cfgpath="$path/.unison/config"    
+    local key="$2"
+
+    if [ ! -f "$cfgpath" ]; then
+        return
+    fi
+    
+    (
+        source "$cfgpath"
+        eval echo "\$$key"
+    )    
+}
+
+
+
+# ------------------------------------------------------------------ #
+# configuration
+# ------------------------------------------------------------------ #
+
+##
+# usage: unison_config <path> <key> <value>
+#
+# Set configuration of repo at <path>
+##
+unison_config() {
+    local path="$1"
+    local cfgpath="$path/.unison/config"
+    local key="$2"
+    local val="$3"
+    local curval="$(unison_get_config "$path" "$key")"
+
+    # warn if changing current value
+    if [ "$curval" ] && [ ! "$val" = "$curval" ]; then
+        warning "changing config for '$key': '$curval' -> '$val'"
+        sed -i "/^$key=.*$/d" "$cfgpath"
+    fi
+    
+    if [ ! "$val" = "$curval" ]; then
+        info "setting config: $key = $val"
+        mkdir -p "$path/.unison"
+        echo "$key=\"$val\"" >> "$cfgpath"   
+    fi
+}
+
+
+##
+# usage: unison_config <path> <key> <value>
+#
+# Set configuration of repo at <path>. Refuse to change an already existing value
+##
+unison_config_safe() {
+    local path="$1"
+    local cfgpath="$path/.unison/config"
+    local key="$2"
+    local val="$3"
+    local curval="$(unison_get_config "$path" "$key")"
+
+    # error out if attempting to change current value
+    if [ "$curval" ] && [ ! "$val" = "$curval" ]; then
+        error "attempting to change config for '$key': '$curval' -> '$val'"
+
+    elif [ ! "$val" = "$curval" ]; then
+        info "setting config: $key = $val"
+        mkdir -p "$path/.unison"
+        echo "$key=\"$val\"" >> "$cfgpath"   
+    fi
+}
+
+
+
+# ------------------------------------------------------------------ #
+# state changes
+# ------------------------------------------------------------------ #
+
+##
+# usage: unison_sync [ sync | push | pull ] <path> <remote>
+#
+# Perform a sync to a remote
 ##
 unison_sync() {
     local cmd="$1"
