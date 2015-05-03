@@ -1,7 +1,7 @@
 [DEFAULT]
 lib =
-    # Load some miscelania utilities
-    source "$HOME/.mr/lib/mr-util.sh"
+    # Load mr functions
+    source "$HOME/.mr/lib/mr.sh"
 
 # include stuff
 include = cat "$HOME/.mr/etc/arch-package.conf"
