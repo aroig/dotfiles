@@ -610,6 +610,12 @@ Also bind `class' to ((class color) (min-colors 89))."
 ;;;;; hl-sexp
    `(hl-sexp-face ((,class (:background ,zenburn-bg+1))
                    (t :weight bold)))
+;;;;; hydra
+   `(hydra-face-red ((t (:foreground ,zenburn-red-1 :background ,zenburn-bg))))
+   `(hydra-face-amaranth ((t (:foreground ,zenburn-red-3 :background ,zenburn-bg))))
+   `(hydra-face-blue ((t (:foreground ,zenburn-blue :background ,zenburn-bg))))
+   `(hydra-face-pink ((t (:foreground ,zenburn-magenta :background ,zenburn-bg))))
+   `(hydra-face-teal ((t (:foreground ,zenburn-cyan :background ,zenburn-bg))))
 ;;;;; ido-mode
    `(ido-first-match ((t (:foreground ,zenburn-yellow :weight bold))))
    `(ido-only-match ((t (:foreground ,zenburn-orange :weight bold))))
@@ -872,6 +878,9 @@ Also bind `class' to ((class color) (min-colors 89))."
    `(proof-tacticals-name-face ((t (:inherit font-lock-constant-face :foreground nil :background ,zenburn-bg))))
    `(proof-tactics-name-face ((t (:inherit font-lock-constant-face :foreground nil :background ,zenburn-bg))))
    `(proof-warning-face ((t (:foreground ,zenburn-bg :background ,zenburn-yellow-1))))
+;;;;; racket-mode
+   `(racket-keyword-argument-face ((t (:inherit font-lock-constant-face))))
+   `(racket-selfeval-face ((t (:inherit font-lock-type-face))))
 ;;;;; rainbow-delimiters
    `(rainbow-delimiters-depth-1-face ((t (:foreground ,zenburn-fg))))
    `(rainbow-delimiters-depth-2-face ((t (:foreground ,zenburn-green+4))))
