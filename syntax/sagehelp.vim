@@ -52,32 +52,32 @@ syn region sageHelpInitSignature
     \ oneline
     \ contains=@SAGECODE
 
-syn region sageHelpDocstring
-    \ matchgroup=sageHelpKey
-    \ start=/^Docstring:/
-    \ end=/^File:\|^Init docstring:/me=s-1
-    \ contains=@SAGEDOC
-
-syn region sageHelpInit
-    \ matchgroup=sageHelpKey
-    \ start=/^Init docstring:/
-    \ end=/^File:/me=s-1
-    \ contains=@SAGEDOC
-
 syn region sageHelpSource
     \ matchgroup=sageHelpKey
     \ start=/^Source:/
-    \ end=/^File:\|^Init docstring:/me=s-1
+    \ end=/^File:\|^[^ ]* docstring:/me=s-1
     \ contains=@SAGE
+
+syn region sageHelpDocstring
+    \ matchgroup=sageHelpKey
+    \ start=/^Docstring:/
+    \ end=/^File:\|^[^ ]* docstring:/me=s-1
+    \ contains=@SAGEDOC
+
+syn region sageHelpInitDocstring
+    \ matchgroup=sageHelpKey
+    \ start=/^[^ ]* docstring:/
+    \ end=/^File:\|^[^ ]* docstring:/me=s-1
+    \ contains=@SAGEDOC
 
 
       
 " Highlighting
 " ----------------------------------------------
 hi def link sageHelpKey          Statement
-hi def link sageHelpType         Identifier
-hi def link sageHelpString       Identifier
-hi def link sageHelpFile         Identifier
+hi def link sageHelpType         String
+hi def link sageHelpString       String
+hi def link sageHelpFile         String
 
 
 let b:current_syntax = "sagehelp"
