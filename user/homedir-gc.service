@@ -9,4 +9,4 @@ Slice=workers.slice
 SyslogIdentifier=homedir-gc
 
 WorkingDirectory=/home/%u
-ExecStart=/usr/bin/mr gc --quiet
+ExecStart=/usr/bin/mr gc
