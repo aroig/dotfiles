@@ -5,18 +5,12 @@
 # ------------------------------------------------------------------ #
 
 error() {
-	echo -e "mr \e[01;31merror\e[0m: $@" >&2
+	echo -e "\e[01;37mmr \e[01;31merror\e[01;37m:\e[0m $@" >&2
 	exit 1
 }
 
 warning() {
-	echo -e "mr \e[01;33mwarning\e[0m: $@" >&2
-}
-
-skip() {
-	echo -e "\e[01;33mskipping\e[0m: $@" >&2
-    echo ""
-	exit 25
+	echo -e "\e[01;37mmr \e[01;33mwarning\e[01;37m:\e[0m $@" >&2
 }
 
 info() {
