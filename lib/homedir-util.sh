@@ -87,7 +87,7 @@ homedir_remote_run() {
 
     case "$host" in
         localhost)
-            bash -c "cd '$path'; $cmd"
+            sh -c "cd '$path'; $cmd"
             ;;
         
         *)
@@ -186,7 +186,7 @@ homedir_relocate_directory() {
 
 
 ##
-# usage: homedir_remote
+# usage: homedir_remote <path> <type> <name> <uuid> <repodir>
 #
 # Configure remote for homedir directory in $MR_REPO
 ##
@@ -207,37 +207,29 @@ homedir_remote() {
     local url="$(homedir_remote_url "$type" "$host" "$repodir")"
 
     # detect detect whether the remote refers to the current repo.
-    if [ "$name" = "$lrmt" ]; then type='self'; fi
+    if [ "$name" = "$lrmt" ]; then
+        homedir_local "$type" "$name" "$uuid" "$repodir"
+        return
+    fi
     
     # configure the remote        
-    case "$type" in
-        self)
-            if git_annex_is_repo "$path"; then
-                git_config_safe "$path" "annex.uuid" "$uuid"
-            fi
-                
-            # if path and repodir do not match, move directory repodir, and symlink from /home
-            if [ ! "$path" = "$repodir" ]; then
-                homedir_relocate_directory "$path" "$repodir"
-            fi
-            ;;
-        
+    case "$type" in        
         dir)
             ;;
 
         uni)
             unison_config "$path" "remote_$name" "$url"
-            unison_config_safe "$path" "remote_$name_uuid" "$uuid"            
+            # unison_config_safe "$path" "remote_${name}_uuid" "$uuid"            
             # if [ ! "$host" = "localhost" ]; then
-            #     unison_config "$path" "remote_$name_command" "systemctl --user start sshmux@$host.service"
+            #     unison_config "$path" "remote_${name}_command" "systemctl --user start sshmux@$host.service"
             # fi
             ;;
         
         git)
             git_add_remote "$path" "$name" "$url"
-            git_config_safe "$path" "remote.$name.annex-uuid" "$uuid"
+            git_config_safe "$path" "remote.${name}.annex-uuid" "$uuid"
             if [ ! "$host" = "localhost" ]; then
-                git_config "$path" "remote.$name.annex-start-command" "systemctl --user start sshmux@$host.service"
+                git_config "$path" "remote.${name}.annex-start-command" "systemctl --user start sshmux@$host.service"
             fi
             ;;
 
@@ -247,11 +239,44 @@ homedir_remote() {
             ;;
 
         *)
-            error "Unknown remote typ: '$type'"
+            error "Unknown remote type: '$type'"
             ;;        
     esac
 }
 
+
+##
+# usage: homedir_local <path> <type> <name> <uuid> <repodir>
+#
+# Configure local homedir repository
+##
+homedir_local() {
+    local path="$MR_REPO"
+    local type="$1"
+    local name="$2"
+    local uuid="$3"
+    local repodir="$4"
+   
+    case "$type" in
+        git)
+            git_config_safe "$path" "annex.uuid" "$uuid"
+            ;;
+
+        uni)
+            unison_config_safe "$path" "uuid" "$uuid"
+            ;;
+
+        *)
+            error "Unknown local remote type: '$type'"
+            ;;
+    esac
+
+    # if path and repodir do not match, move directory repodir, and symlink from /home
+    if [ ! "$path" = "$repodir" ]; then
+        homedir_relocate_directory "$path" "$repodir"
+    fi    
+}
+  
 
 ##
 # usage: homedir_checkout <remote> [,<remote>...]

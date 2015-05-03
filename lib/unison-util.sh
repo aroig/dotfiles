@@ -60,11 +60,8 @@ unison_get_config() {
     if [ ! -f "$cfgpath" ]; then
         return
     fi
-    
-    (
-        source "$cfgpath"
-        eval echo "\$$key"
-    )    
+
+    env -i sh -c "source '$cfgpath'; eval echo '\$$key'" 
 }
 
 
@@ -84,7 +81,7 @@ unison_config() {
     local key="$2"
     local val="$3"
     local curval="$(unison_get_config "$path" "$key")"
-
+    
     # warn if changing current value
     if [ "$curval" ] && [ ! "$val" = "$curval" ]; then
         warning "changing config for '$key': '$curval' -> '$val'"
@@ -110,7 +107,7 @@ unison_config_safe() {
     local key="$2"
     local val="$3"
     local curval="$(unison_get_config "$path" "$key")"
-
+    
     # error out if attempting to change current value
     if [ "$curval" ] && [ ! "$val" = "$curval" ]; then
         error "attempting to change config for '$key': '$curval' -> '$val'"

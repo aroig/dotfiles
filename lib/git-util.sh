@@ -233,7 +233,7 @@ git_config() {
         fi
 
         #  change value if needs to be changed
-        if [ "$curval" = "$val" ]; then
+        if [ ! "$curval" = "$val" ]; then
             info "setting git config: $key = $val"
             git config "$key" "$val"
         fi
@@ -253,7 +253,7 @@ git_config_safe() {
     (
         cd "$path"
         local curval="$(git config "$key" 2> /dev/null)"
-
+                
         # error out if changing a current value
         if [ "$curval" ] && [ ! "$curval" = "$val" ]; then
             error "attempting to change git config for '$key': '$curval' -> '$val'"
