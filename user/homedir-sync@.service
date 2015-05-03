@@ -3,10 +3,17 @@ Description=sync homedir to remote %i
 
 ConditionPathExists=/home/%u/.mrconfig
 
+Wants=presync.target
+After=presync.target
+
 [Service]
 Type=oneshot
 Slice=workers.slice
 SyslogIdentifier=homedir-sync
 
 WorkingDirectory=/home/%u
-ExecStart=/usr/bin/mr sync --content --quiet %i
+ExecStart=/usr/bin/mr sync %i
+ExecStart=/usr/bin/systemctl --user --no-block start synced.target
+
+[Install]
+Alias=sync@.service

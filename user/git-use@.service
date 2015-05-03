@@ -4,6 +4,8 @@ Description=use git repo at /home/%u/%I
 StopWhenUnneeded=true
 ConditionPathExists=/home/%u/%I/.git
 
+Conflicts=presync.target
+
 Requisite=synced.target
 After=synced.target
 

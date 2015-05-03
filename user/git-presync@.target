@@ -1,9 +1,0 @@
-[Unit]
-Description=git presync hook for /home/%u/%I
-
-ConditionPathExists=/home/%u/%I/.git
-
-Conflicts=git-use@%i.service
-
-Requires=git-commit@%i.service
-After=git-commit@%i.service
