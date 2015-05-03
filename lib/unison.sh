@@ -141,26 +141,32 @@ unison_skip() {
     local remote="$3"
     
     # skip if repo is not a unison replica
-    unison_is_root "$path" || return 0
+    if ! unison_is_root "$path"; then
+        warning "Directiory is not an unison replica. Skipping: $path"
+        return 0
+    fi 
 
-    # skip if remote is not configured
     if [[ "$action" =~ list ]] && [ "$remote" ]; then
+        # skip silently if remote is not configured
         unison_has_remote "$path" "$remote" || return 0        
         
     elif [[ "$action" =~ sync|push|pull|fetch|update ]] && [ "$remote" ]; then
-        # test if local repo has remote        
+        # skip silently if remote is not configured
         unison_has_remote "$path" "$remote" || return 0
 
         # test if remote repo exists
         local host="$(unison_remote_host "$path" "$remote")"
         local path="$(unison_remote_path "$path" "$remote")"
         if [ "$host" ] && [ "$path" ]; then
-            if [ "$host" = "localhost" ]; then
-                test -d "$path/.unison" || return 0
-
-            elif [ "$host" ]; then
+            # open a ssh connection
+            if [ ! "$host" = 'localhost' ]; then
                 systemctl --user start "sshmux@$host.service"
-                ssh "$host" "test -d '$path/.unison'" || return 0
+            fi
+
+            # test if remote repo is unison replica
+            if ! remote_run "$host" "/" "test -d '$path/.unison'"; then
+                warning "There is no unison replica on remote '$remote'. Skipping: $path"
+                return 0
             fi
         fi
     fi

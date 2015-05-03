@@ -62,6 +62,28 @@ load_lib() {
 }
 
 
+##
+# usage: remote_run <host> <path> <cmd>
+#
+# Run on a command on the given path on the given host.
+##
+remote_run() {
+    local host="$1"
+    local path="$2"
+    local cmd="$3"
+
+    case "$host" in
+        localhost)
+            sh -c "cd '$path'; $cmd"
+            ;;
+        
+        *)
+            ssh "$host" "cd '$path'; $cmd"
+            ;;
+    esac
+}
+
+
 
 # Filesystem
 # ------------------------------------------------------------------ #

@@ -68,37 +68,6 @@ homedir_remote_url() {
 
 
 # ------------------------------------------------------------------ #
-# command execution
-# ------------------------------------------------------------------ #
-
-##
-# usage: homedir_remote_run <path> <remote> <cmd>
-#
-# Run on a command on the given directory in a remote.
-##
-homedir_remote_run() {
-    local repo="$1"
-    local remote="$2"
-    local cmd="$3"
-
-    # TODO: get host and path from the repo
-    local host="$(homedir_host "$remote")"
-    local path="$HOME"
-
-    case "$host" in
-        localhost)
-            sh -c "cd '$path'; $cmd"
-            ;;
-        
-        *)
-            ssh "$host" "cd '$path'; $cmd"
-            ;;
-    esac
-}
-
-
-
-# ------------------------------------------------------------------ #
 # homedir state changes
 # ------------------------------------------------------------------ #
 

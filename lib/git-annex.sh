@@ -38,26 +38,32 @@ git_annex_skip() {
     local remote="$3"
     
     # skip if repo is not a git annex repo
-    git_annex_is_root "$path" || return 0
+    if ! git_annex_is_root "$path"; then
+        warning "Directiory is not a git-annex repo. Skipping: $path"        
+        return 0
+    fi
 
-    # skip if remote is not configured
     if [[ "$action" =~ list ]] && [ "$remote" ]; then
+        # skip silently if remote is not configured
         git_has_remote "$path" "$remote" || return 0        
             
     elif [[ "$action" =~ sync|push|pull|fetch|update ]] && [ "$remote" ]; then
-        # test if local repo has remote
+        # skip silently if remote is not configured
         git_has_remote "$path" "$remote" || return 0
 
         # test if remote repo exists
         local host="$(git_remote_host "$path" "$remote")"
         local path="$(git_remote_path "$path" "$remote")"        
         if [ "$host" ] && [ "$path" ]; then
-            if [ "$host" = "localhost" ]; then
-                test -d "$path/.git/annex" || return 0
-                
-            elif [ "$host" ]; then
+            # open a ssh connection
+            if [ ! "$host" = 'localhost' ]; then
                 systemctl --user start "sshmux@$host.service"
-                ssh "$host" "test -d '$path/.git/annex'" || return 0
+            fi
+
+            # test if remote repo is unison replica
+            if ! remote_run "$host" "/" "test -d '$path/.git/annex'"; then
+                warning "There is no git annex repo on remote '$remote'. Skipping: $path"
+                return 0
             fi
         fi
     fi
