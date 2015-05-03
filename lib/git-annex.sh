@@ -26,6 +26,26 @@ git_annex_is_repo() {
     test -n "$gitdir" && test -d "$gitdir/annex"
 }
 
+##
+# usage: git_annex_skip <path> <action> [<remote>]
+#
+# Check whether git repo has this remote
+##
+git_annex_skip() {
+    local path="$1"
+    local action="$2"
+    local remote="$3"
+    
+    # skip if repo is not a git annex repo
+    ! git_annex_is_root "$path" && return 0
+
+    # skip if remote is not configured
+    if [[ "$action" =~ sync|push|pull|fetch|update|list ]]; then
+        [ "$remote" ] && ! git_has_remote "$path" "$remote" && return 0
+    fi
+    return 1
+}
+
 
 
 # ------------------------------------------------------------------ #
