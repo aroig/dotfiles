@@ -8,5 +8,6 @@ Type=oneshot
 Slice=workers.slice
 SyslogIdentifier=homedir-gc
 
+IOSchedulingClass=idle
 WorkingDirectory=/home/%u
 ExecStart=/usr/bin/mr gc
