@@ -1,7 +1,7 @@
 #!/usr/bin/sh
 
 # ------------------------------------------------------------------ #
-# git repo paths
+# repo state querying
 # ------------------------------------------------------------------ #
 
 ##
@@ -56,9 +56,37 @@ git_is_repo() {
     test -n "$gitdir" && test -e "$gitdir"
 }
 
+##
+# git_head_ref <path>
+# Get the ref of current HEAD
+##
+git_head_ref() {
+    local path="$1"
+    (
+        cd "$path"
+        git symbolic-ref HEAD
+    )
+}
+
+
+##
+# usage: git_get_config <path> <key>
+#
+# Check whether git repo has this remote
+##
+git_get_config() {
+    local path="$1"
+    local key="$2"
+    (
+        cd "$path"
+        git config "$key" 2> /dev/null        
+    )
+}
+
+
 
 # ------------------------------------------------------------------ #
-# state querying
+# remote querying
 # ------------------------------------------------------------------ #
 
 ##
@@ -110,21 +138,9 @@ git_tracking_branch() {
 
 
 ##
-# git_head_ref <path>
-# Get the ref of current HEAD
-##
-git_head_ref() {
-    local path="$1"
-    (
-        cd "$path"
-        git symbolic-ref HEAD
-    )
-}
-
-
-##
 # usage: git_remote_url <path> <remote>
 #
+# Return a remote url
 ##
 git_remote_url() {
     local path="$1"
@@ -139,6 +155,7 @@ git_remote_url() {
 ##
 # usage: git_remote_svn_url <path>
 #
+# Return a svn remote url
 ##
 git_remote_svn_url() {
     local path="$1"
@@ -150,17 +167,36 @@ git_remote_svn_url() {
 
 
 ##
-# usage: git_get_config <path> <key>
+# usage: git_remote_host <path> <remote>
 #
-# Check whether git repo has this remote
+# Return the host for the given remote
 ##
-git_get_config() {
+git_remote_host() {
     local path="$1"
-    local key="$2"
-    (
-        cd "$path"
-        git config "$key" 2> /dev/null        
-    )
+    local remote="$2"
+    local url="$(git_remote_url "$path" "$remote")"
+
+    if [[ "$url" =~ ^.*: ]]; then
+        echo "${url%:*}"
+    fi
+}
+
+
+##
+# usage: git_remote_path <path> <remote>
+#
+# Return the path for the given remote
+##
+git_remote_path() {
+    local path="$1"
+    local remote="$2"
+    local url="$(git_remote_url "$path" "$remote")"
+
+    if [[ "$url" =~ ^/ ]]; then
+        echo "$url"
+    elif [[ "$url" =~ ^.*:/ ]]; then
+        echo "${url#*:}"
+    fi
 }
 
 
@@ -175,11 +211,11 @@ git_skip() {
     local remote="$3"
     
     # skip if repo is not a git repo
-    ! git_is_root "$path" && return 0
+    git_is_root "$path" || return 0
 
     # skip if remote is not configured
-    if [[ "$action" =~ sync|push|pull|fetch|update|list ]]; then
-        [ "$remote" ] && ! git_has_remote "$path" "$remote" && return 0
+    if [[ "$action" =~ sync|push|pull|fetch|update|list ]] && [ "$remote" ]; then
+        git_has_remote "$path" "$remote" || return 0
     fi
     return 1
 }

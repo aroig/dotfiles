@@ -1,10 +1,31 @@
 
 # ------------------------------------------------------------------ #
-# querying data
+# repo state querying
 # ------------------------------------------------------------------ #
 
 ##
-# usage: unison_is_repo <path>
+# usage: unison_root_path <path>
+#
+# Return root of the repository
+##
+unison_root_path() {
+    local path="$1"
+
+    local p="$path"
+    local pold=""
+    while [ ! "$p = $pold" ]; do
+        if [ -d "$p/.unison" ]; then
+            echo "$p/.unison"
+            return
+        fi
+        pold="$p"
+        p="${p%/*}"
+    done
+}
+
+
+##
+# usage: unison_is_root <path>
 #
 # Check whether <path> is the root of an unison replica
 ##
@@ -15,35 +36,14 @@ unison_is_root() {
 
 
 ##
-# usage: unison_has_remote <path> <name>
+# usage: unison_is_repo <path>
 #
-# Check whether unison has this remote
+# Check whether <path> belongs to a unison replica
 ##
-unison_has_remote() {
+unison_is_repo() {
     local path="$1"
-    local rmt="$2"
-    test -n "$(unison_get_config "$path" "remote_$rmt")"
-}
-
-
-##
-# usage: unison_skip <path> <action> [<remote>]
-#
-# Check whether this repo should be skipped 
-##
-unison_skip() {
-    local path="$1"
-    local action="$2"
-    local remote="$3"
-    
-    # skip if repo is not a unison replica
-    ! unison_is_root "$path" && return 0
-
-    # skip if remote is not configured
-    if [[ "$action" =~ sync|push|pull|fetch|update|list ]]; then
-        [ "$remote" ] && ! unison_has_remote "$path" "$remote" && return 0
-    fi
-    return 1
+    local root="$(unison_root_path "$path")"
+    test -n "$root" && unison_is_root "$root"
 }
 
 
@@ -62,6 +62,109 @@ unison_get_config() {
     fi
 
     env -i sh -c "source '$cfgpath'; eval echo '\$$key'" 
+}
+
+
+
+# ------------------------------------------------------------------ #
+# remote querying
+# ------------------------------------------------------------------ #
+
+##
+# usage: unison_has_remote <path> <name>
+#
+# Check whether unison has this remote
+##
+unison_has_remote() {
+    local path="$1"
+    local rmt="$2"
+    test -n "$(unison_get_config "$path" "remote_$rmt")"
+}
+
+
+##
+# usage: unison_remote_url <path> <remote>
+#
+# Return a remote url
+##
+unison_remote_url() {
+    local path="$1"
+    local remote="$2"
+    unison_get_config "$path" "remote_$remote"
+}
+
+
+##
+# usage: unison_remote_host <path> <remote>
+#
+# Return the host for the given remote
+##
+unison_remote_host() {
+    local path="$1"
+    local remote="$2"
+    local url="$(unison_remote_url "$path" "$remote")"
+
+    if [[ "$url" =~ ^ssh:// ]]; then
+        url="${url#ssh://}"
+        echo "${url%%/*}"
+    fi    
+}
+
+
+##
+# usage: unison_remote_path <path> <remote>
+#
+# Return the path for the given remote
+##
+unison_remote_path() {
+    local path="$1"
+    local remote="$2"
+    local url="$(unison_remote_url "$path" "$remote")"
+
+    if [[ "$url" =~ ^/ ]]; then
+        echo "$url"
+    elif [[ "$url" =~ ^ssh:// ]]; then
+        url="${url#ssh://}"
+        echo "${url#*/}"
+    fi
+}
+
+
+##
+# usage: unison_skip <path> <action> [<remote>]
+#
+# Check whether this repo should be skipped 
+##
+unison_skip() {
+    local path="$1"
+    local action="$2"
+    local remote="$3"
+    
+    # skip if repo is not a unison replica
+    unison_is_root "$path" || return 0
+
+    # skip if remote is not configured
+    if [[ "$action" =~ list ]] && [ "$remote" ]; then
+        unison_has_remote "$path" "$remote" || return 0        
+        
+    elif [[ "$action" =~ sync|push|pull|fetch|update ]] && [ "$remote" ]; then
+        # test if local repo has remote        
+        unison_has_remote "$path" "$remote" || return 0
+
+        # test if remote repo exists
+        local host="$(unison_remote_host "$path" "$remote")"
+        local path="$(unison_remote_path "$path" "$remote")"
+        if [ "$host" ] && [ "$path" ]; then
+            if [ "$host" = "localhost" ]; then
+                test -d "$path/.unison" || return 0
+
+            elif [ "$host" ]; then
+                systemctl --user start "sshmux@$host.service"
+                ssh "$host" "test -d '$path/.unison'" || return 0
+            fi
+        fi
+    fi
+    return 1
 }
 
 
