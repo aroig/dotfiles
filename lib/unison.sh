@@ -290,6 +290,11 @@ unison_sync() {
     else
         error "Unknown sync cmd '$cmd'"
     fi
+
+    # on non-tty make terse output
+    if [ ! -t 1 ]; then
+        args+=('-terse')
+    fi
     
     # local sshargs=-sshargs -o ServerAliveInterval=60 -o LogLevel=quiet -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
 
