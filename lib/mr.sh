@@ -5,12 +5,20 @@
 # ------------------------------------------------------------------ #
 
 error() {
-	echo -e "\e[01;37mmr \e[01;31merror\e[01;37m:\e[0m $@" >&2
+    if [ "$ANSI_COLORS_DISABLED" = "1" ]; then
+        echo "mr error: $@" >&2
+    else
+        echo -e "\e[01;37mmr \e[01;31merror\e[01;37m:\e[0m $@" >&2
+    fi
 	exit 1
 }
 
 warning() {
-	echo -e "\e[01;37mmr \e[01;33mwarning\e[01;37m:\e[0m $@" >&2
+    if [ "$ANSI_COLORS_DISABLED" = "1" ]; then
+        echo "mr warning: $@" >&2
+    else
+        echo -e "\e[01;37mmr \e[01;33mwarning\e[01;37m:\e[0m $@" >&2
+    fi
 }
 
 info() {
