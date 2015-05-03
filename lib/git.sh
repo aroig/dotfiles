@@ -57,30 +57,6 @@ git_is_repo() {
 }
 
 
-##
-# usage: git_annex_is_root <path>
-#
-# Check whether <path> is the root of a git annex repo
-##
-git_annex_is_root() {
-    local path="$1"
-    test -d "$path/.git/annex"
-}
-
-
-##
-# usage: git_annex_is_repo <path>
-#
-# Check whether <path> belongs to a git-annex repo
-##
-git_annex_is_repo() {
-    local path="$1"
-    local gitdir="$(git_gitdir_path "$path")"
-    test -n "$gitdir" && test -d "$gitdir/annex"
-}
-
-
-
 # ------------------------------------------------------------------ #
 # state querying
 # ------------------------------------------------------------------ #
@@ -198,12 +174,12 @@ git_skip() {
     local action="$2"
     local remote="$3"
     
-    # skip if repo is not a directory
-    [ ! -d "$MR_REPO" ] && return 0
+    # skip if repo is not a git repo
+    ! git_is_root "$path" && return 0
 
     # skip if remote is not configured
     if [[ "$action" =~ sync|push|pull|fetch|update|list ]]; then
-        [ "$remote" ] && ! git_has_remote "$MR_REPO" "$remote" && return 0
+        [ "$remote" ] && ! git_has_remote "$path" "$remote" && return 0
     fi
     return 1
 }
@@ -286,27 +262,6 @@ git_add_remote() {
 
 
 ##
-# usage: git_add_S3_remote <path> <name> <bucket> <subdir>
-#
-# Add a git annex S3 remote. Noop if the remote is named as location
-##
-git_add_S3_remote() {
-    local path="$1"
-    local name="$2"
-    local bucket="$3"
-    local subdir="$4"
-    if [ ! "$(git_get_config "$path" "remote.$name.annex-s3")" = "true" ]; then
-        if git grep --quiet " name=$name " git-annex:remote.log 2> /dev/null; then
-            info "adding git annex S3 remote '$name': $bucket/$subdir"
-            git annex enableremote "$name"
-        else
-            warning "Unknown S3 special remote '$name'. Try running 'mr init' after 'mr sync'."
-        fi
-    fi
-}
-
-
-##
 # usage: git_init <path>
 #
 # Initialize an empty git repo
@@ -317,26 +272,6 @@ git_init() {
         cd "$path"
         if ! git_is_repo; then
             git init
-        fi
-    )
-}
-
-
-##
-# usage: git_annex_init <path>
-#
-# Initialize an empty git-annex repo
-##
-git_annex_init() {
-    local path="$1"
-    (
-        cd "$path"
-        if ! git_is_repo; then
-            error "git_annex_init expects a git repo: '$path'"
-        fi
-
-        if ! git_annex_is_repo; then
-            git annex init
         fi
     )
 }
@@ -354,23 +289,21 @@ git_annex_init() {
 git_commit_if_changed() {
     local srcpath="$(readlink -f "$1")"
     local message="$2"
-    (
-        cd "$srcpath"
-        local work_tree="$(git rev-parse --show-toplevel 2>/dev/null)"
-        local git_dir="$(git rev-parse --git-dir 2>/dev/null)"
-        
-        local num="$(git status --porcelain . | wc -l)"
-        if [[ $num -ge 1 ]]; then
-            if [ -d "$git_dir/annex" ]; then
-                git annex add
+    if git_is_repo "$srcpath"; then
+        (
+            cd "$srcpath"       
+            local num="$(git status --porcelain . | wc -l)"
+
+            if [[ $num -ge 1 ]]; then
+                git add -A . || return 1
             fi
-            git add -A .
-        fi
-        local num="$(git status --porcelain . | wc -l)"
-        if [[ $num -ge 1 ]]; then
-            git commit -m "$message ($num files)"
-        fi
-    )
+
+            local num="$(git status --porcelain . | wc -l)"
+            if [[ $num -ge 1 ]]; then
+                git commit -m "$message ($num files)" || return 1
+            fi
+        )
+    fi
 }
 
 
@@ -437,7 +370,6 @@ git_pull() {
 }
 
 
-
 ##
 # git_push <path> <args>
 # Push git repo
@@ -455,7 +387,6 @@ git_push() {
         fi
     )
 }
-
 
 
 ##

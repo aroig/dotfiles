@@ -234,7 +234,7 @@ homedir_remote() {
             ;;
 
         s3)
-            git_add_S3_remote "$path" "$name" "$host" "$repodir"
+            git_annex_add_S3_remote "$path" "$name" "$host" "$repodir"
             git_config_safe "$path" "remote.$name.annex-uuid" "$uuid"
             ;;
 

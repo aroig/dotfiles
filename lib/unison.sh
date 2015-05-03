@@ -10,7 +10,7 @@
 ##
 unison_is_root() {
     local path="$1"
-    test -e "$path/.unison"
+    test -d "$path/.unison"
 }
 
 
@@ -22,7 +22,7 @@ unison_is_root() {
 unison_has_remote() {
     local path="$1"
     local rmt="$2"
-    [ "$(unison_get_config "$path" "remote_$rmt")" ]
+    test -n "$(unison_get_config "$path" "remote_$rmt")"
 }
 
 
@@ -36,12 +36,12 @@ unison_skip() {
     local action="$2"
     local remote="$3"
     
-    # skip if repo is not a directory
-    [ ! -d "$MR_REPO" ] && return 0
+    # skip if repo is not a unison replica
+    ! unison_is_root "$path" && return 0
 
     # skip if remote is not configured
     if [[ "$action" =~ sync|push|pull|fetch|update|list ]]; then
-        [ "$remote" ] && ! unison_has_remote "$MR_REPO" "$remote" && return 0
+        [ "$remote" ] && ! unison_has_remote "$path" "$remote" && return 0
     fi
     return 1
 }

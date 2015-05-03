@@ -399,7 +399,7 @@ repo_add_packages() {
                 fi
             fi
         done
-    git_commit_if_changed "$tgtroot" "auto-commit on $(hostname)"
+    git_annex_commit_if_changed "$tgtroot" "auto-commit on $(hostname)"
 }
 
 ##
@@ -422,7 +422,7 @@ repo_remove_packages() {
                 repo-remove "$repodb" "$pkgname"
             fi
         done
-    git_commit_if_changed "$tgtroot" "auto-commit on $(hostname)"
+    git_annex_commit_if_changed "$tgtroot" "auto-commit on $(hostname)"
 }
 
 
