@@ -450,15 +450,13 @@ git_register() {
     local repo="$1"
     shift
     local tracking="$(git_tracking_branch "$path")"
-    local url
-    local checkout_cmd
+    local url, checkout_cmd
     
     if [ -d "$path/.git/svn" ]; then
         url="$(git_remote_svn_url "$path")"
         checkout_cmd="git svn clone"
 
     else
-    
         if [ -z "$tracking" ]; then
             warning "Current branch is not tracking a remote"
             return
