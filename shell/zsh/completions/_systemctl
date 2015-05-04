@@ -31,6 +31,10 @@
     "disable:Disable one or more unit files"
     "reenable:Reenable one or more unit files"
     "preset:Enable/disable one or more unit files based on preset configuration"
+    "set-default:Set the default target"
+    "get-default:Query the default target"
+    "edit:Edit one or more unit files"
+    "is-system-running:Query overall status of the system"
     "help:Show documentation for specified units"
     "list-dependencies:Show unit dependency tree"
     "mask:Mask one or more units"
@@ -111,7 +115,7 @@ _systemctl_all_units()
   if ( [[ ${+_sys_all_units} -eq 0 ]] || _cache_invalid SYS_ALL_UNITS ) &&
     ! _retrieve_cache SYS_ALL_UNITS;
   then
-    _sys_all_units=( $(__systemctl list-units --all | { while read a b; do echo " $a"; done; }) )
+    _sys_all_units=( $(__systemctl list-units --all | { while read -r a b; do echo -E - " $a"; done; }) )
     _store_cache SYS_ALL_UNITS _sys_all_units
   fi
 }
@@ -124,7 +128,7 @@ _systemctl_really_all_units()
   if ( [[ ${+_sys_really_all_units} -eq 0 ]] || _cache_invalid SYS_REALLY_ALL_UNITS ) &&
     ! _retrieve_cache SYS_REALLY_ALL_UNITS;
   then
-    all_unit_files=( $(__systemctl list-unit-files | { while read a b; do echo " $a"; done; }) )
+    all_unit_files=( $(__systemctl list-unit-files | { while read -r a b; do echo -E - " $a"; done; }) )
     _systemctl_all_units
     really_all_units=($_sys_all_units $all_unit_files)
     _sys_really_all_units=(${(u)really_all_units})
@@ -149,15 +153,35 @@ _filter_units_by_property() {
   done
 }
 
-_systemctl_active_units()  {_sys_active_units=(  $(__systemctl list-units          | { while read a b; do echo " $a"; done; }) )}
-_systemctl_inactive_units(){_sys_inactive_units=($(__systemctl list-units --all    | { while read a b c d; do [[ $c == "inactive" || $c == "failed" ]] && echo " $a"; done; }) )}
-_systemctl_failed_units()  {_sys_failed_units=(  $(__systemctl list-units --failed | { while read a b; do echo " $a"; done; }) )}
-_systemctl_enabled_units() {_sys_enabled_units=( $(__systemctl list-unit-files     | { while read a b; do [[ $b == "enabled" ]] && echo " $a"; done; }) )}
-_systemctl_disabled_units(){_sys_disabled_units=($(__systemctl list-unit-files     | { while read a b; do [[ $b == "disabled" ]] && echo " $a"; done; }) )}
-_systemctl_masked_units()  {_sys_masked_units=(  $(__systemctl list-unit-files     | { while read a b; do [[ $b == "masked" ]] && echo " $a"; done; }) )}
+_systemctl_get_template_names() { __systemctl list-unit-files | { while read -r a b; do  [[ $a =~ @\. ]] && echo -E - " ${a%%@.*}@"; done; } }
+
+
+_systemctl_active_units()  {_sys_active_units=(  $(__systemctl list-units          | { while read -r a b; do echo -E - " $a"; done; }) )}
+
+_systemctl_startable_units(){
+    _sys_startable_units=(_filter_units_by_property ActiveState inactive $(
+                          _filter_units_by_property CanStart yes $(
+                          __systemctl $mode list-unit-files --state enabled,disabled,static | \
+                               { while read -r a b; do [[ $a =~ @\. ]] || echo -E - " $a"; done; }
+                          __systemctl $mode list-units --state inactive,failed | \
+                               { while read -r a b; do echo -E - " $a"; done; } )))
+}
+
+_systemctl_restartable_units(){
+    _sys_restartable_units=(_filter_units_by_property CanStart yes $(
+                          __systemctl $mode list-unit-files --state enabled,disabled,static | \
+                               { while read -r a b; do [[ $a =~ @\. ]] || echo -E - " $a"; done; }
+                          __systemctl $mode list-units | \
+                               { while read -r a b; do echo -E - " $a"; done; } ))
+}
+
+_systemctl_failed_units()  {_sys_failed_units=(  $(__systemctl list-units --failed | { while read -r a b; do echo -E - " $a"; done; }) )}
+_systemctl_enabled_units() {_sys_enabled_units=( $(__systemctl list-unit-files     | { while read -r a b; do [[ $b == "enabled" ]] && echo -E - " $a"; done; }) )}
+_systemctl_disabled_units(){_sys_disabled_units=($(__systemctl list-unit-files     | { while read -r a b; do [[ $b == "disabled" ]] && echo -E - " $a"; done; }) )}
+_systemctl_masked_units()  {_sys_masked_units=(  $(__systemctl list-unit-files     | { while read -r a b; do [[ $b == "masked" ]] && echo -E - " $a"; done; }) )}
 
 # Completion functions for ALL_UNITS
-for fun in is-active is-failed is-enabled status show cat mask preset help list-dependencies ; do
+for fun in is-active is-failed is-enabled status show cat mask preset help list-dependencies edit ; do
   (( $+functions[_systemctl_$fun] )) || _systemctl_$fun()
   {
     _systemctl_really_all_units
@@ -166,20 +190,24 @@ for fun in is-active is-failed is-enabled status show cat mask preset help list-
 done
 
 # Completion functions for ENABLED_UNITS
-for fun in disable reenable ; do
-  (( $+functions[_systemctl_$fun] )) || _systemctl_$fun()
-  {
+(( $+functions[_systemctl_disable] )) || _systemctl_disable()
+{
+    _systemctl_enabled_units
+    compadd "$@" -a - _sys_enabled_units
+}
+
+(( $+functions[_systemctl_reenable] )) || _systemctl_reenable()
+{
     _systemctl_enabled_units
     _systemctl_disabled_units
-    compadd "$@" -a - _sys_enabled_units _sys_disabled_units
-  }
-done
+    compadd "$@" -a - _sys_enabled_units _sys_disabled_units $(_systemctl_get_template_names)
+}
 
 # Completion functions for DISABLED_UNITS
 (( $+functions[_systemctl_enable] )) || _systemctl_enable()
 {
   _systemctl_disabled_units
-  compadd "$@" -a - _sys_disabled_units
+  compadd "$@" -a - _sys_disabled_units $(_systemctl_get_template_names)
 }
 
 # Completion functions for FAILED_UNITS
@@ -192,8 +220,8 @@ done
 # Completion functions for STARTABLE_UNITS
 (( $+functions[_systemctl_start] )) || _systemctl_start()
 {
-  _systemctl_inactive_units
-  compadd "$@" -a - _sys_inactive_units
+   _systemctl_startable_units
+   compadd "$@" - ${_sys_startable_units[*]} $(_systemctl_get_template_names)
 }
 
 # Completion functions for STOPPABLE_UNITS
@@ -228,11 +256,8 @@ done
 for fun in restart reload-or-restart ; do
   (( $+functions[_systemctl_$fun] )) || _systemctl_$fun()
   {
-    _systemctl_all_units
-    compadd "$@" - $( _filter_units_by_property CanStart yes \
-      ${_sys_all_units[*]} | while read line; do \
-      [[ "$line" =~ \.device$ ]] || echo " $line"; \
-      done )
+    _systemctl_restartable_units
+    compadd "$@" - ${_sys_restartable_units[*]} $(_systemctl_get_template_names)
   }
 done
 
@@ -240,21 +265,28 @@ done
 (( $+functions[_systemctl_unmask] )) || _systemctl_unmask()
 {
   _systemctl_masked_units
-  compadd "$@" -a - _sys_masked_units || _message "no masked unit found"
+  compadd "$@" -a - _sys_masked_units || _message "no masked units found"
 }
 
 # Completion functions for JOBS
 (( $+functions[_systemctl_cancel] )) || _systemctl_cancel()
 {
   compadd "$@" - $(__systemctl list-jobs \
-    | cut -d' ' -f1  2>/dev/null ) || _message "no job found"
+    | cut -d' ' -f1  2>/dev/null ) || _message "no jobs found"
 }
 
 # Completion functions for SNAPSHOTS
 (( $+functions[_systemctl_delete] )) || _systemctl_delete()
 {
   compadd "$@" - $(__systemctl list-units --type snapshot --all \
-    | cut -d' ' -f1  2>/dev/null ) || _message "no snapshot found"
+    | cut -d' ' -f1  2>/dev/null ) || _message "no snapshots found"
+}
+
+# Completion functions for TARGETS
+(( $+functions[_systemctl_set-default] )) || _systemctl_set-default()
+{
+  compadd "$@" - $(__systemctl list-unit-files --type target --all \
+    | cut -d' ' -f1  2>/dev/null ) || _message "no targets found"
 }
 
 # Completion functions for ENVS
@@ -272,7 +304,9 @@ for fun in set-environment unset-environment ; do
   }
 done
 
-(( $+functions[_systemctl_link] )) || _systemctl_link() { _files }
+(( $+functions[_systemctl_link] )) || _systemctl_link() {
+   _sd_unit_files
+}
 
 # no systemctl completion for:
 #    [STANDALONE]='daemon-reexec daemon-reload default
@@ -308,8 +342,21 @@ _unit_states() {
 
 _unit_types() {
     local -a _types
-    _types=(automount device mount path service snapshot socket swap target timer)
+    _types=(automount busname device mount path service snapshot socket swap target timer)
     _values -s , "${_types[@]}"
+}
+
+_unit_properties() {
+  if ( [[ ${+_sys_all_properties} -eq 0 ]] || _cache_invalid SYS_ALL_PROPERTIES ) &&
+    ! _retrieve_cache SYS_ALL_PROPERTIES;
+  then
+    _sys_all_properties=( $( {__systemctl show --all;
+       /usr/lib/systemd/systemd --dump-configuration-items; } | {
+       while IFS='=' read -r a b; do [ -n "$b" ] && echo "$a"; done
+    }) )
+    _store_cache SYS_ALL_PROPRTIES _sys_all_properties
+  fi
+  _values -s , "${_sys_all_properties[@]}"
 }
 
 _arguments -s \
@@ -317,7 +364,7 @@ _arguments -s \
     '--version[Show package version]' \
     {-t+,--type=}'[List only units of a particular type]:unit type:_unit_types' \
     '--state=[Display units in the specifyied state]:unit state:_unit_states' \
-    \*{-p+,--property=}'[Show only properties by specific name]:unit property' \
+    {-p+,--property=}'[Show only properties by specific name]:unit property:_unit_properties' \
     {-a,--all}'[Show all units/properties, including dead/empty ones]' \
     '--reverse[Show reverse dependencies]' \
     '--after[Show units ordered after]' \

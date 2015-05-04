@@ -5,37 +5,47 @@
 # Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
 #------------------------------------------------------------------#
 
-
 #------------------------------
 # Set environment
 #------------------------------
 
-# source aliases
-[[ -f $HOME/.aliases ]] && . $HOME/.aliases
+# source zshrc on zsh
+if [ "$ZSH_VERSION" ] && [ -e "$HOME/.zshrc" ]; then
+    source "$HOME/.zshrc"
+    
+# source bashrc on bash
+elif [ "$BASH_VERSION" ] && [ -e "$HOME/.bashrc" ]; then
+    source "$HOME/.bashrc"
 
+else
+    echo "zlogin: unrecognized shell"
+    exit 0
+fi
 
-
-#------------------------------
-# Set systemd environment
-#------------------------------
+# source zshenv. This sets the PATH
+[ -f "$HOME/.zshenv" ] && source "$HOME/.zshenv"
 
 # set path for systemd user session
-systemctl --user set-environment "PATH=$PATH"
+if [ "$PATH" ]; then
+    systemctl --user set-environment "PATH=$PATH"
+fi
 
 # set the VT number from the session
 if [ "$XDG_VTNR" ]; then
     systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
 fi
 
-
-
-# ----------------------------
-# TTY Setup 
-# ----------------------------
-
 # set tty colors on virtual console
-[[ "$TERM" = "linux" ]] && set_tty_colors
-    
+if [ "$TERM" = "linux" ]; then
+    set_tty_colors
+fi
+
+# if ssh session, set gpg-agent variables
+# TODO: what about this in gpg 2.1?
+if [ "$SSH_CONNECTION" ]; then
+    gpg_agent_mode ssh
+fi
+
 
 
 # ----------------------------
@@ -43,7 +53,7 @@ fi
 # ----------------------------
 
 # if interactive ssh outside tmux
-if [[ "$SSH_TTY" != "" && "$TMUX" == "" && "$NOTMUX" == "" ]]; then
+if [ "$SSH_TTY" ] && [ "$TMUX" = "" ] && [ "$NOTMUX" = "" ]; then
     # start tmux
     if type tmux 2>&1 >/dev/null && type tmux_session 2>&1 >/dev/null; then
         tmux_session default && exit 0
@@ -52,7 +62,3 @@ if [[ "$SSH_TTY" != "" && "$TMUX" == "" && "$NOTMUX" == "" ]]; then
     fi
 fi
 
-# if ssh session, set gpg-agent variables
-if [[ "$SSH_CONNECTION" != "" ]]; then
-    gpg_agent_mode ssh
-fi

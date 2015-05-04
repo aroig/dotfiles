@@ -1,0 +1,9 @@
+
+# use color in screen terms
+term screen-256color
+
+# xterm scrolling
+termcapinfo xterm* ti@:te@
+
+# disable visual bell
+vbell off
