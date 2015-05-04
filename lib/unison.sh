@@ -235,6 +235,22 @@ unison_config_safe() {
 # ------------------------------------------------------------------ #
 
 ##
+# usage: unison_init <path>
+#
+# Initialize an empty unison replica
+##
+unison_init() {
+    local path="$1"
+    (
+        cd "$path"
+        if ! unison_is_repo; then
+            mkdir ".unison"
+        fi
+    )
+}
+
+
+##
 # usage: unison_sync [ sync | push | pull ] <path> <remote>
 #
 # Perform a sync to a remote

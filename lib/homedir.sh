@@ -88,40 +88,49 @@ homedir_perms() {
 
 
 ##
-# usage: homedir_git_init
+# usage: homedir_init <type>
 #
 # Initialize homedir directory in $MR_REPO
 ##
-homedir_git_init() {
-    local path="$MR_REPO"      
-    git_init "$path"
-    git_config "$path" "gc.auto" "0"
-}
-
-
-##
-# usage: homedir_annex_init
-#
-# Initialize homedir directory in $MR_REPO
-##
-homedir_annex_init() {
+homedir_init() {
+    local type="$1"
     local path="$MR_REPO"
-    local gitdir="$(git_gitdir_path "$path")"
-    local githooks='.githooks'
-    
-    git_annex_init "$path"
+    case "$type" in
+        dir)
+            ;;
+        
+        uni)
+            unison_init "$path"
+            ;;
+        
+        git)            
+            git_init "$path"
+            git_config "$path" "gc.auto" "0"
+            ;;
 
-    # create a hooks dir versioned in the repo
-    if [ ! -d "$path/$githooks" ]; then
-        mkdir -p "$path/$githooks"
-    fi
+        annex)
+            local gitdir="$(git_gitdir_path "$path")"
+            local githooks='.githooks'
 
-    # symlink to '.git/hooks'
-    if [ -e "$gitdir" ] && [ ! -L "$gitdir/hooks" ]; then
-        info "symkinking '.git/hooks' -> '$githooks'"
-        rm -Rf "$gitdir/hooks"
-        symlink_relative "$path/$githooks" "$gitdir/hooks"
-    fi
+            git_annex_init "$path"
+
+            # create a hooks dir versioned in the repo
+            if [ ! -d "$path/$githooks" ]; then
+                mkdir -p "$path/$githooks"
+            fi
+
+            # symlink to '.git/hooks'
+            if [ -e "$gitdir" ] && [ ! -L "$gitdir/hooks" ]; then
+                info "symkinking '.git/hooks' -> '$githooks'"
+                rm -Rf "$gitdir/hooks"
+                symlink_relative "$path/$githooks" "$gitdir/hooks"
+            fi            
+            ;;
+
+        *)
+            error "Unknown repo type '$type'"
+            ;;
+    esac
 }
 
 
