@@ -144,15 +144,15 @@ unison_skip() {
     if ! unison_is_root "$path"; then
         warning "Directiory is not an unison replica. Skipping: $path"
         return 0
-    fi 
+    fi
 
-    if [[ "$action" =~ list ]] && [ "$remote" ]; then
-        # skip silently if local replica is not configured
-        [ "$(unison_get_config "$path" "uuid")" ] || return 0
-        
+    # skip silently if local replica is not configured
+    [ "$(unison_get_config "$path" "uuid")" ] || return 0
+
+    if [[ "$action" =~ list ]] && [ "$remote" ]; then         
         # skip silently if remote is not configured
         unison_has_remote "$path" "$remote" || return 0
-        
+       
     elif [[ "$action" =~ sync|push|pull|fetch|update ]] && [ "$remote" ]; then
         # skip silently if remote is not configured
         unison_has_remote "$path" "$remote" || return 0
