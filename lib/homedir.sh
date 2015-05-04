@@ -227,6 +227,9 @@ homedir_local() {
     local repodir="$4"
    
     case "$type" in
+        dir)
+            ;;
+        
         git)
             git_config_safe "$path" "annex.uuid" "$uuid"
             ;;
