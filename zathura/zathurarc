@@ -46,7 +46,7 @@ set statusbar-bg            "#1f1f1f"
 # GUI options
 # ----------------------------------------------------------
 
-set font                    "terminal"
+set font                    "terminal 12"
 
 set statusbar-basename      true
 set selection-clipboard     clipboard
@@ -85,7 +85,7 @@ set link-zoom               false
 # ----------------------------------------------------------
 
 set synctex                 true
-set synctex-dbus-service    true
+set synctex-editor-command "emacs-run -q '(abdo-latex-reverse-sync \"%{input}\" %{line} %{column})'"
 
 
 
