@@ -457,22 +457,19 @@ git_register() {
         url="$(git_remote_svn_url "$path")"
         checkout_cmd="git svn clone"
 
-    else
-        if [ -z "$tracking" ]; then
-            warning "Current branch is not tracking a remote"
-            return
-        fi
-
+    elif [ "$tracking" ]; then
         url="$(git_remote_url "$path" "$tracking")"
         checkout_cmd="git clone"
     fi
     
-    if [ -z "$url" ]; then
-        error "Cannot determine git url"
+    if [ "$url" ]; then
+        echo "Registering git url: $url in $MR_CONFIG"
+        mr -c "$MR_CONFIG" config "$path" checkout="$checkout_cmd '$url' '$repo'"
+
+    else
+        echo "Registering local repo: $path in $MR_CONFIG"
+        mr -c "$MR_CONFIG" config "$path" checkout=''
     fi
-    
-    echo "Registering git url: $url in $MR_CONFIG"
-    mr -c "$MR_CONFIG" config "$path" checkout="$checkout_cmd '$url' '$repo'"
 }
 
 
