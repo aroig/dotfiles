@@ -6,6 +6,7 @@ After=pulseaudio.service
 
 Requires=audio.slice
 After=audio.slice
+
 StopWhenUnneeded=true
 
 [Service]
@@ -14,17 +15,13 @@ BusName=org.jackaudio.service
 
 # realtime scheduling
 CPUSchedulingPolicy=rr
-CPUSchedulingPriority=90
+CPUSchedulingPriority=60
 
 # we use jackdbus
 ExecStart=/usr/bin/jackdbus auto
 ExecStop=/usr/bin/jack_control exit
 
 # non-dbus jack
-# ExecStart=/usr/bin/jackd -R --driver alsa --device hw:Intel -r 48000 -n 2 -p 64
-
+# ExecStart=/usr/bin/jackd -R --driver alsa --device hw:Intel -r 44100 -n 2 -p 64
 
 Slice=audio.slice
-
-[Install]
-WantedBy=audio.target

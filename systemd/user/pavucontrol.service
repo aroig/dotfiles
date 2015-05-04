@@ -1,8 +1,8 @@
 [Unit]
 Description=pulseaudio mixer
 
-Requisite=desktop.target
-After=desktop.target
+Requisite=wm.target
+After=wm.target
 
 Requires=pulseaudio.service
 After=pulseaudio.service

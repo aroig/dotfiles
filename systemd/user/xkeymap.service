@@ -1,0 +1,14 @@
+[Unit]
+Description=X xkb keymap
+Documentation=man:xkbcomp(1)
+
+After=xorg.service vncserver.service
+
+[Service]
+Type=oneshot
+
+ExecStart=/usr/bin/xkbcomp %h/.config/systemd/conf/Xkeymap ${DISPLAY}
+StandardOutput=null
+
+[Install]
+WantedBy=graphical.target

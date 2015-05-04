@@ -10,11 +10,13 @@ After=mount-priv.service
 Requisite=synced.target
 After=synced.target
 
-Requires=network-online.service
-After=network-online.service
+Requires=network-online.target
+After=network-online.target
 
 [Service]
 Type=oneshot
+Slice=workers.slice
+
 SyslogIdentifier=gcal-sync
 ExecStart=/usr/bin/make -C "${AB2_WIKI_DIR}" ical
 ExecStart=/usr/bin/gcal -S

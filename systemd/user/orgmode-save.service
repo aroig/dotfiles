@@ -10,5 +10,5 @@ SyslogIdentifier=orgmode-session
 
 # NOTE: If orgmode.service is not active, always succeed since there is nothing to be done.
 #       It would be nice to write the dependency on orgmode.service directly in systemd!
-ExecStart=/usr/bin/sh -c "! systemctl --user is-active -q orgmode.service || emacsclient -s %t/emacs/org --eval '(save-some-buffers t)'"
+ExecStart=/home/abdo/bin/emacs-run -q -s orgmode.service -k orgmode '(save-some-buffers t)'
 

@@ -1,0 +1,11 @@
+[Unit]
+Description=close active connections
+
+DefaultDependencies=no
+RefuseManualStart=yes
+
+Before=sleep.target shutdown.target
+
+[Install]
+WantedBy=sleep.target
+WantedBy=shutdown.target

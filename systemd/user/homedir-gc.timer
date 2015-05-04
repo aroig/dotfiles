@@ -1,0 +1,12 @@
+[Unit]
+Description=weekly garbage collection of homedir
+PartOf=housekeeping.target
+
+[Timer]
+OnCalendar=weekly
+AccuracySec=12h
+Persistent=true
+Unit=homedir-gc.service
+
+[Install]
+WantedBy=housekeeping.target

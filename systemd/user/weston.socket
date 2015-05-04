@@ -1,0 +1,8 @@
+[Unit]
+Description=socket for weston server at display 0
+
+[Socket]
+ListenStream=%t/wayland-0
+
+[Install]
+WantedBy=sockets.target

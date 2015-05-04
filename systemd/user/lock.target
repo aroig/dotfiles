@@ -1,6 +1,5 @@
 [Unit]
 Description=lock screen
 
-# bind to slimlock, so that when unlocking lock.target goes down
-BindsTo=slimlock.service
-After=slimlock.service
+BindsTo=i3lock.service
+After=i3lock.service

@@ -3,6 +3,6 @@
 urxvt.internalBorder: 6
 
 !! emacs
-Emacs.font: monospace-12
+Emacs.font: monospace-11
 Emacs.internalBorder: 0
 

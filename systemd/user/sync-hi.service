@@ -1,8 +1,11 @@
 [Unit]
-Description=initial sync
+Description=initial homedir sync
 
-Requires=async-default-needed.service
-After=async-default-needed.service
+Wants=journal-show.service
+After=journal-show.service
+
+Requires=homedir-sync@skynet.service
+After=homedir-sync@skynet.service
 
 OnFailure=journal-mailer.service
 
@@ -11,4 +14,4 @@ OnFailure=journal-mailer.service
 Type=oneshot
 
 SyslogIdentifier=sync-hi
-ExecStart=/usr/bin/systemctl --user start synced.target                         
+ExecStart=/usr/bin/true

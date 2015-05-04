@@ -3,6 +3,7 @@
 urxvt.internalBorder: 6
 
 !! emacs
-Emacs.font: monospace-11
-Emacs.internalBorder: 0
-
+!! NOTE: we set this here so the frame gets the right config from the beginning
+Emacs.font: monospace-13
+Emacs.internalBorder: 1
+Emacs.lineSpacing: 0

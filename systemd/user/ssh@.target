@@ -1,0 +1,9 @@
+[Unit]
+Description=ssh connection to %i
+
+Requires=sshmux@%i.service
+After=sshmux@%i.service
+
+# NOTE: do not forward gpg by default. it interferes with a running gpg-agent.
+# Requires=gpgfwd@%i.service
+# After=gpgfwd@%i.service

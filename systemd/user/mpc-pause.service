@@ -1,6 +1,8 @@
 [Unit]
 Description=run mpc pause
-ConditionPathExists=%t/mpd/pid
+ConditionPathExists=%t/mpd/mpd.pid
+
+Before=sleep.target shutdown.target
 
 [Service]
 Type=oneshot

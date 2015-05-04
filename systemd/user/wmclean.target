@@ -1,0 +1,7 @@
+[Unit]
+Description=wmquit
+
+RefuseManualStart=yes
+
+Before=poweroff.target reboot.target suspend.target
+Before=systemd-poweroff.service systemd-reboot.service systemd-suspend.service

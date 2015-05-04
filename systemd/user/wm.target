@@ -1,7 +1,10 @@
 [Unit]
 Description=window manager
-Conflicts=console.target
 
+RefuseManualStart=true
 StopWhenUnneeded=true
 
-After=awesome@0.service xmonad@0.service openbox@0.service
+Conflicts=console.target
+
+Requisite=graphical.target
+After=graphical.target

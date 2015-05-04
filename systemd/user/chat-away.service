@@ -1,11 +1,11 @@
 [Unit]
 Description=chat away state
-ConditionPathExists=/tmp/emacs%U/chat
+ConditionPathExists=%t/emacs/chat
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
 
 StandardOutput=null
-ExecStart=/usr/bin/emacsclient -s %t/emacs/chat -e '(abdo-chat-away)'
-ExecStop=/usr/bin/emacsclient -s %t/emacs/chat -e '(abdo-chat-back)'
+ExecStart=/home/abdo/bin/emacs-run -q -s chat.service -k chat '(abdo-chat-away)'
+ExecStop=/home/abdo/bin/emacs-run -q -s chat.service -k chat '(abdo-chat-back)'

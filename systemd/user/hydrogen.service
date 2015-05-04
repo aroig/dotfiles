@@ -1,0 +1,17 @@
+[Unit]
+Description=jack patch bay
+
+Requisite=wm.target
+After=wm.target
+
+Requires=jack.service
+After=jack.service
+
+[Service]
+Type=simple
+SyslogIdentifier=hydrogen
+Slice=apps.slice
+
+ExecStart=/usr/bin/hydrogen
+
+

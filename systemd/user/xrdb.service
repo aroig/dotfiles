@@ -1,0 +1,14 @@
+[Unit]
+Description=X resource setting
+Documentation=man:xrdb(1)
+
+After=xorg.service vncserver.service
+
+[Service]
+Type=oneshot
+
+ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources
+ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources.d/%H
+
+[Install]
+WantedBy=graphical.target

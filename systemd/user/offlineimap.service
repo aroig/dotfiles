@@ -9,9 +9,14 @@ After=mount-priv.service
 Requisite=synced.target
 After=synced.target
 
-Requires=network-online.service
-After=network-online.service
+Requires=git-use@mail.service
+After=git-use@mail.service
+
+Requires=network-online.target
+After=network-online.target
 
 [Service]
 Type=oneshot
+Slice=workers.slice
+
 ExecStart=/usr/bin/offlineimap

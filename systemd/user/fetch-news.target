@@ -2,9 +2,6 @@
 Description=fetch news
 StopWhenUnneeded=true
 
-Requires=mail-db.service
-After=mail-db.service
-
 Requires=rss2maildir.service
 After=rss2maildir.service
 

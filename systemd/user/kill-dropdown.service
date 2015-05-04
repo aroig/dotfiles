@@ -1,0 +1,15 @@
+[Unit]
+Description=kill dropdown slice
+# NOTE: we need this because we can't add Requires deps on transient units in apps or
+# dropdown slices. So we need to manually kill them.
+
+Before=wmclean.target
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=kill-dropdown
+ExecStart=/usr/bin/systemctl --user kill dropdown.slice
+
+[Install]
+WantedBy=wmclean.target

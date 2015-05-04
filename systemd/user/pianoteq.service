@@ -1,0 +1,24 @@
+[Unit]
+Description=pianotec synth
+
+Requires=jack.service
+After=jack.service
+
+Requires=audio.slice
+After=audio.slice
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/pianoteq --headless
+
+# Do jack connections
+ExecStartPost=/usr/bin/sleep 1
+ExecStartPost=-/usr/bin/jack_connect system:midi_capture_1 Pianoteq51:midi_in
+ExecStartPost=-/usr/bin/jack_connect Pianoteq51:out_1 system:playback_1
+ExecStartPost=-/usr/bin/jack_connect Pianoteq51:out_2 system:playback_2
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+Slice=audio.slice

@@ -1,0 +1,17 @@
+[Unit]
+Description=dconf daemon
+
+Requisite=graphical.target
+After=graphical.target
+
+[Service]
+Type=dbus
+BusName=ca.desrt.dconf
+Slice=wm.slice
+
+ExecStart=/usr/lib/dconf/dconf-service
+SuccessExitStatus=0 1
+
+[Install]
+Alias=dbus-ca.desrt.dconf.service
+WantedBy=wm.target

@@ -1,10 +1,16 @@
 [Unit]
 Description=enter suspend state
+
 DefaultDependencies=no
 
-After=lock.target
+Requires=sleep.target
+After=sleep.target
 
 [Service]
 Type=oneshot
+
 ExecStartPre=/usr/bin/sleep 1
-ExecStart=/usr/bin/sudo systemctl suspend
+ExecStart=/usr/bin/systemctl --no-block suspend
+
+# sometimes returns with status=1, don't know why
+SuccessExitStatus=0 1

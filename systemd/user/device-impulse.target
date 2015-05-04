@@ -1,5 +1,0 @@
-[Unit]
-Description=novation impulse device
-
-BindsTo=sys-subsystem-sound-devices-impulse.device
-After=sys-subsystem-sound-devices-impulse.device

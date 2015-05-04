@@ -5,7 +5,7 @@ Requisite=synced.target
 After=synced.target
 
 Requires=mpd.socket mpd.service
-After=mpd.service
+After=mpd.socket mpd.service
 
 Requires=audio.slice
 After=audio.slice
@@ -13,6 +13,5 @@ After=audio.slice
 [Service]
 Type = simple
 ExecStart = /usr/bin/mpdscribble -D
-Restart = always
 
 Slice=audio.slice

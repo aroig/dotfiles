@@ -1,10 +1,11 @@
 [Unit]
 Description=mu4e mail client
 
-Requisite=desktop.target
-After=desktop.target
+Requisite=wm.target
+After=wm.target
 
-PartOf=mail.target
+Requires=git-use@mail.service
+After=git-use@mail.service
 
 [Service]
 Type=simple

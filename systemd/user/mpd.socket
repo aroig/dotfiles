@@ -1,8 +1,13 @@
 [Unit]
 Description=Music Player Daemon socket
 
+Requisite=synced.target
+After=synced.target
+
 [Socket]
 ListenStream=%t/mpd/mpd.socket
+
+# gmpc doesn't know about unix sockets...
 ListenStream=6600
 
 [Install]

@@ -1,6 +1,6 @@
 [Unit]
 Description=daily backup cleanup
-StopWhenUnneeded=true
+PartOf=housekeeping.target
 
 [Timer]
 OnCalendar=daily
@@ -9,4 +9,4 @@ Persistent=true
 Unit=clean-backups.service
 
 [Install]
-WantedBy=synced.target
+WantedBy=housekeeping.target

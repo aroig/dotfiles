@@ -1,0 +1,15 @@
+[Unit]
+Description=show journal dropdown
+StopWhenUnneeded=true
+
+# TODO: We should depend on awesome, in fact.
+Requisite=graphical.target
+After=graphical.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+SyslogIdentifier=syslog-show
+ExecStart=/home/abdo/.config/systemd/scripts/awesome-cmd.sh 'ddshow("dd:journal", true)'
+ExecStop=/home/abdo/.config/systemd/scripts/awesome-cmd.sh 'ddhide("dd:journal")'

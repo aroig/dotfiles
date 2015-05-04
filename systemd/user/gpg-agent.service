@@ -1,12 +1,20 @@
 [Unit]
 Description=gpg-agent daemon
 
+ConditionHost=!skynet
+ConditionHost=!quark
 ConditionPathExists=/home/%u/.gnupg
+
+Before=daemons.target
 
 [Service]
 Type=forking
 SyslogIdentifier=gpg-agent
+Slice=daemons.slice
 ExecStart=/usr/bin/gpg-agent --daemon --use-standard-socket
 
 # give it some time
 ExecStartPost=/usr/bin/sleep 1
+
+[Install]
+WantedBy=daemons.target

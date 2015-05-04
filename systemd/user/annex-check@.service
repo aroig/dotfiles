@@ -1,0 +1,11 @@
+[Unit]
+Description=check git annex repo at /home/%u/%I
+
+ConditionPathExists=/home/%u/%I/.git
+
+[Service]
+Type=oneshot
+Slice=workers.slice
+
+SyslogIdentifier=annex-check-%i
+ExecStart=/usr/bin/git -C "/home/%u/%I" annex fsck --no-progress

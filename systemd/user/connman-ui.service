@@ -3,8 +3,8 @@ Description=connman UI
 
 ConditionHost=galois
 
-Requisite=wm.target
-After=wm.target
+Requisite=graphical.target
+After=graphical.target
 
 Requires=wm.slice
 After=wm.slice
@@ -15,3 +15,6 @@ Type=simple
 ExecStart=/usr/bin/connman-ui-gtk
 
 Slice=wm.slice
+
+[Install]
+WantedBy=wm.target

@@ -1,2 +1,7 @@
 [Unit]
 Description=user applications
+
+Before=slices.target
+
+[Install]
+WantedBy=wm.target

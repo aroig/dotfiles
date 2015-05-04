@@ -1,0 +1,9 @@
+[Unit]
+Description=wake on lan %i
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+SyslogIdentifier=wol
+ExecStart=/home/abdo/.config/systemd/scripts/wol.sh %i

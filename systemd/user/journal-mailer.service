@@ -1,8 +1,8 @@
 [Unit]
 Description=monitor journal
 
-Requires=network-online.service
-After=network-online.service
+Requires=network-online.target
+After=network-online.target
 
 [Service]
 Type=oneshot

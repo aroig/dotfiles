@@ -1,0 +1,6 @@
+[Unit]
+Description=vncserver configuration
+AllowIsolate=true
+
+Conflicts=console.target laptop.target tablet.target presentation.target desktop.target
+

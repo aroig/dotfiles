@@ -1,13 +1,9 @@
 
-! Cursor Theme
-! Xcursor.theme: Vanilla-DMZ
-
-
 !! Font rendering for the applications
 !! not using fontconfig (like emacs)
 !!---------------------------------
 ! NOTE: Xft seems to not understand less than hintfull
-! NOTE2: Let infinality handle this!
+! NOTE2: We now let infinality handle this!
 ! Xft.dpi: 96
 ! Xft.antialias: 1
 ! Xft.hinting: 0
@@ -79,47 +75,3 @@ Emacs.menuBar: off
 Emacs.foreground: #dcdccc
 Emacs.background: #2f2f2f
 
-
-!! xscreensaver
-!!---------------------------------
-
-! -- font settings -- !
-xscreensaver.Dialog.headingFont:xft:envy code r:medium:pixelsize=8
-xscreensaver.Dialog.bodyFont:xft:envy code r:medium:pixelsize=8
-xscreensaver.Dialog.labelFont:xft:envy code r:medium:pixelsize=8
-xscreensaver.Dialog.unameFont:xft:envy code r:medium:pixelsize=8
-xscreensaver.Dialog.buttonFont:xft:envy code r:medium:pixelsize=8
-xscreensaver.Dialog.dateFont:xft:envy code r:medium:pixelsize=8
-xscreensaver.passwd.passwdFont::xft:envy code r:medium:pixelsize=8
-
-! -- general dialog box -- !
-xscreensaver.Dialog.foreground:         #dcdccc
-xscreensaver.Dialog.background:         #2f2f2f
-
-xscreensaver.Dialog.topShadowColor:     #5f5f5f
-xscreensaver.Dialog.bottomShadowColor:  #5e5e5e
-xscreensaver.Dialog.shadowThickness:    2
-
-xscreensaver.Dialog.Button.foreground:  #dcdccc
-xscreensaver.Dialog.Button.background:  #2f2f2f
-
-xscreensaver.Dialog.borderWidth:        0
-xscreensaver.Dialog.internalBorderWidth:20
-
-! -- username/password input box and date text colour -- !
-xscreensaver.Dialog.text.foreground:    #dcdccc
-xscreensaver.Dialog.text.background:    #2f2f2f
-
-
-! -- timeout bar -- !
-xscreensaver.passwd.thermometer.foreground:  #dcdccc
-xscreensaver.passwd.thermometer.background:  #2f2f2f
-xscreensaver.passwd.thermometer.width:       8
-
-! -- datestamp format -- !
-xscreensaver.dateFormat:    %H:%M %a %b %d, %Y
-
-! -- Useless
-!xscreensaver.Dialog.logo.width:         1
-!xscreensaver.Dialog.logo.height:        1
-!xscreensaver.Dialog.borderColor:        #1E2320

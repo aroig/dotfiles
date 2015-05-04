@@ -1,0 +1,12 @@
+[Unit]
+Description=switch tablet mode to %i
+
+ConditionHost=galois
+
+Requisite=xorg.service
+After=xorg.service
+After=xrandr-dual.service xrandr-mirror.service xrandr-single.service
+
+[Service]
+Type=oneshot
+ExecStart=/home/abdo/.config/systemd/scripts/yoga.sh tablet %i

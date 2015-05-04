@@ -1,8 +1,8 @@
 [Unit]
 Description=jack control interface
 
-Requisite=desktop.target
-After=desktop.target
+Requisite=wm.target
+After=wm.target
 
 Requires=jack.service
 After=jack.service

@@ -1,7 +1,8 @@
 [Unit]
 Description=sleep for 10 secconds
-RemainAfterExit=true
 
 [Service]
 Type=simple
+RemainAfterExit=true
+
 ExecStart=/usr/bin/sleep 10

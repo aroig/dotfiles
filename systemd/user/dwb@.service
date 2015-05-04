@@ -1,17 +1,18 @@
 [Unit]
 Description=dwb %i
 
-Requisite=desktop.target 
-After=desktop.target
+Requisite=wm.target 
+After=wm.target
 
-Requires=dwb-db.service
-After=dwb-db.service
+Requires=git-use@priv-var-dwb-default.service
+After=git-use@priv-var-dwb-default.service
 
 [Service]
 Type=simple
 SyslogIdentifier=dwb
 Slice=apps.slice
 
-ExecStart=/usr/bin/dwb
+# Start new instance of dwb without dbus
+ExecStart=/usr/bin/dwb -n
 StandardOutput=null
 

@@ -1,27 +1,14 @@
 [Unit]
 Description=music player daemon
 
-Requisite=synced.target
-After=synced.target
-
 Requires=mpd.socket
 After=mpd.socket
-
-Wants=mpdscribble.service
-
-PartOf=audio.target
 
 Requires=pulseaudio.service
 After=pulseaudio.service
 
-Requires=audio.slice
-After=audio.slice
-
 [Service]
 Type=simple
-
-RuntimeDirectory=mpd
-RuntimeDirectoryMode=700
 
 Environment=PULSE_PROP=application.icon_name=emblem-sound
 ExecStart=/usr/bin/mpd --no-daemon

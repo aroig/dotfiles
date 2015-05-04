@@ -1,0 +1,28 @@
+[Unit]
+Description=openbox window manager
+
+Conflicts=awesome.service xmonad.service
+
+Requisite=graphical.target
+After=graphical.target
+
+Requires=tint2.service
+Before=tint2.service
+
+Requires=wm.target
+Before=wm.target
+
+[Service]
+Type=simple
+SyslogIdentifier=openbox
+Slice=wm.slice
+
+ExecStart=/usr/bin/openbox
+KillSignal=SIGINT
+TimeoutSec=15
+
+[Install]
+WantedBy=desktop.target
+WantedBy=laptop.target
+WantedBy=tablet.target
+WantedBy=vncserver.target

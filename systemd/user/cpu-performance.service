@@ -1,0 +1,8 @@
+[Unit]
+Description=cpu performance governor
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sudo cpupower frequency-set -g performance
+RemainAfterExit=yes
+

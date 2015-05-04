@@ -1,0 +1,19 @@
+[Unit]
+Description=attach volumes to ec2 instance of %i
+
+Requires=network-online.target
+After=network-online.target
+
+Requires=mount-priv.service
+After=mount-priv.target
+
+Requires=ec2-start@%i.service
+After=ec2-start@%i.service
+
+[Service]
+Type=oneshot
+SyslogIdentifier=ec2-attach
+RemainAfterExit=true
+
+ExecStart=/home/abdo/.config/systemd/scripts/ec2-host.sh attach %i
+ExecStop=/home/abdo/.config/systemd/scripts/ec2-host.sh detach %i

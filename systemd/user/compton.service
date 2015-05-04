@@ -1,8 +1,11 @@
 [Unit]
 Description=Compton X compositor
 
-Requisite=graphical.target
-After=graphical.target
+Requisite=xorg.service
+After=xorg.service
+
+# NOTE: compton should be started after awesome, otherwise funny things happen to the wallpaper...
+After=awesome.service openbox.service xmonad.service
 
 [Service]
 Type=simple
@@ -10,3 +13,6 @@ SyslogIdentifier=compton
 Slice=wm.slice
 
 ExecStart=/usr/bin/compton
+
+[Install]
+WantedBy=comptositor.target

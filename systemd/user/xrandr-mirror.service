@@ -1,9 +1,16 @@
 [Unit]
 Description=xrandr mirror
-After=graphical.target
-Requisite=graphical.target
+
+Conflicts=xrandr-single.service xrandr-dual.service
+
+Requisite=xorg.service
+After=xorg.service
+Before=compton.service
+Before=graphical.target
 
 [Service]
 Type=oneshot
-SyslogIdentifier=xrandr
-ExecStart=/home/abdo/.config/systemd/scripts/xrandr.sh mirror
+RemainAfterExit=true
+EnvironmentFile=%h/.config/systemd/conf/xrandr/%H.conf
+SyslogIdentifier=xrandr-mirror
+ExecStart=/usr/bin/xrandr --output "$XRANDR_PRIMARY" --auto --primary --output "$XRANDR_SECONDARY" --auto --same-as "$XRANDR_PRIMARY" --output "$XRANDR_TERTIARY" --off

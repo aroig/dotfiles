@@ -1,0 +1,13 @@
+[Unit]
+Description=wait for network to be configured
+
+Conflicts=shutdown.target suspend.target reboot.target
+Before=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/systemd/systemd-networkd-wait-online
+RemainAfterExit=yes
+
+[Install]
+WantedBy=network-online.target

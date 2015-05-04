@@ -16,3 +16,4 @@ ExecStart=/usr/lib/at-spi2-core/at-spi-bus-launcher
 
 [Install]
 Alias=dbus-org.a11y.Bus.service
+WantedBy=wm.target

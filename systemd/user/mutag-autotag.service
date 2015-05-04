@@ -6,11 +6,16 @@ ConditionPathExists=/home/%u/mail
 Requisite=synced.target
 After=synced.target
 
+Requires=git-use@mail.service
+After=git-use@mail.service
+
 After=offlineimap.service rss2maildir.service
 Conflicts=mu4e.service
 
 [Service]
 Type=oneshot
+Slice=workers.slice
+
 SyslogIdentifier=mutag-autotag
 ExecStart=/usr/bin/mutag --index --silent
 ExecStart=/usr/bin/mutag --autotag --modified --update --silent -q 'date:1m..now'

@@ -2,26 +2,26 @@
 Description=jack server
 Documentation=man:jack(1)
 
-Requisite=audio.target pulseaudio.service
-
 Requires=jackdbus.service
 After=jackdbus.service
 
 Requires=audio.slice
 After=audio.slice
 
-Wants=a2jmidid.service
-Before=a2jmidid.service
+Requires=pulseaudio.service
+After=pulseaudio.service
 
 [Service]
 Type=oneshot
 RemainAfterExit=true
 
+SyslogIdentifier=jack
+
 # we use jackdbus
 ExecStart=/usr/bin/jack_control start
-ExecStart=/usr/bin/pactl set-default-sink jack_out
+
+# set pulseaudio default sink and source
+ExecStartPost=/usr/bin/pactl set-default-sink jack_out
+ExecStartPost=/usr/bin/pactl set-default-source jack_in
 
 ExecStop=/usr/bin/jack_control stop
-
-[Install]
-WantedBy=audio.target

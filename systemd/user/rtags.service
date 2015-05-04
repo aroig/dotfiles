@@ -1,0 +1,16 @@
+[Unit]
+Description=rtags server
+
+[Service]
+Type=simple
+SyslogIdentifier=rtags
+
+# RuntimeDirectory=rtags
+# RuntimeDirectoryMode=700
+# ExecStart=/usr/bin/rdm --socket-file %t/rtags/socket
+
+# the default socket is in ~/.rdm
+ExecStart=/usr/bin/rdm
+
+
+

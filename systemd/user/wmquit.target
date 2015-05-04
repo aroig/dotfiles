@@ -1,0 +1,7 @@
+[Unit]
+Description=quit window manager
+
+Before=poweroff.target reboot.target suspend.target
+
+Requires=systemd-wmquit.service
+After=systemd-wmquit.service

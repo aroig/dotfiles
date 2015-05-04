@@ -1,0 +1,16 @@
+[Unit]
+Description=mu server
+
+Requires=mu-server.socket
+After=mu-server.socket
+
+[Service]
+Type=simple
+
+SyslogIdentifier=mu-server
+Slice=daemons.slice
+
+StandardInput=socket
+ExecStart=/usr/bin/mu server
+
+

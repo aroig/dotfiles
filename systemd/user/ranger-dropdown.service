@@ -1,0 +1,14 @@
+[Unit]
+Description=ranger dropdown
+
+Requisite=wm.target 
+After=wm.target
+
+[Service]
+Type=simple
+SyslogIdentifier=ranger
+Slice=dropdown.slice
+
+ExecStart=/usr/bin/termite -t ranger -e ranger
+
+

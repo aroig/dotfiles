@@ -1,13 +1,15 @@
 [Unit]
 Description=upgrade system and reboot
-StopWhenUnneeded=true
 
-Requires=pacman-upgrade.service
-After=pacman-upgrade.service
+Wants=journal-show.service
+After=journal-show.service
+
+Requires=pacman-update.service
+After=pacman-update.service
 
 OnFailure=journal-mailer.service
 
 [Service]
 Type=oneshot
 SyslogIdentifier=sysupgrade
-ExecStart=/usr/bin/systemctl --user start reboot.target
+ExecStart=/usr/bin/systemctl --user --no-block start reboot.target

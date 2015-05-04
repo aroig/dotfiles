@@ -1,0 +1,18 @@
+[Unit]
+Description=forward audio to %i
+
+Requisite=pulseaudio.service
+After=pulseaudio.service
+
+[Service]
+Type=oneshot
+SyslogIdentifier=audio-fwd-%i
+
+Environment=REMOTE=%i
+
+# NOTE: Currently not functional
+# https://together.jolla.com/question/20344/audio-output-over-network/
+# http://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/Modules/
+
+ExecStart=/usr/bin/pactl load-module module-tunnel-sink server=$REMOTE
+ExecStop=/usr/bin/pactl unload-module module-tunnel-sink

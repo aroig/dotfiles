@@ -1,0 +1,13 @@
+[Unit]
+Description=final homedir sync and poweroff
+
+Requires=sync-bye.service
+After=sync-bye.service
+
+
+[Service]
+Type=oneshot
+SyslogIdentifier=sync-byeh
+# TODO: notify halt
+ExecStart=/usr/bin/sleep 10
+ExecStart=/usr/bin/systemctl --user --no-block start poweroff.target

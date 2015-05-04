@@ -1,0 +1,16 @@
+[Unit]
+Description=journal monitor
+
+ConditionHost=!skynet
+ConditionHost=!quark
+
+Before=daemons.target
+
+[Service]
+Type=simple
+Slice=daemons.slice
+ExecStart=/usr/bin/jwatch trigger -f
+Restart=on-failure
+
+[Install]
+WantedBy=daemons.target

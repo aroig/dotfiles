@@ -1,0 +1,15 @@
+[Unit]
+Description=quit window manager
+
+DefaultDependencies=no
+
+Requires=wmclean.target
+After=wmclean.target
+
+Before=systemd-poweroff.service systemd-reboot.service systemd-suspend.service
+
+[Service]
+Type=oneshot
+
+SyslogIdentifier=wmquit
+ExecStart=/usr/bin/systemctl --user --no-block start console.target

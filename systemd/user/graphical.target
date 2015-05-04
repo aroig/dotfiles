@@ -1,14 +1,11 @@
 [Unit]
-Description=xorg server on display 0
+Description=graphical server
+
+RefuseManualStart=true
 StopWhenUnneeded=true
 
 Requires=user.target
 After=user.target
 
-BindsTo=xorg@0.socket
-After=xorg@0.socket
 
-BindsTo=xorg@0.service
-After=xorg@0.service
 
-Conflicts=console.target

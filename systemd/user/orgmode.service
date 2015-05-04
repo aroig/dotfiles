@@ -1,11 +1,11 @@
 [Unit]
 Description=org-mode
 
-Requisite=desktop.target
-After=desktop.target
+Requisite=wm.target
+After=wm.target
 
-Requires=orgmode-db.service
-After=orgmode-db.service
+Requires=git-use@work-wiki.service
+After=git-use@work-wiki.service
 
 [Service]
 Type=simple

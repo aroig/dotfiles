@@ -1,0 +1,86 @@
+#!/bin/bash
+
+# Defaults
+slice=apps.slice
+
+
+available_index() {
+    local basename="$1"
+    local -i index
+    local unit
+
+    # TODO: We avoid failed units too, since systemd-run does not start a transient unit if
+    # exists and is already failed. We should fix systemd and get rid of the failed test.
+    for index in $(seq 0 1000); do
+        unit="$basename$index.service" 
+        if systemctl --user is-active "$unit" > /dev/null ||
+           systemctl --user is-failed "$unit" > /dev/null; then
+            continue;
+        fi
+        echo "$index"
+        return 0
+    done
+    
+    echo "Can't find a transient unit name available"
+    exit 1
+}
+
+usage() {
+    echo "usage: $(basename "$0") [ -s <slice> | -n <name> | -u <unit> ] <cmd> | <service>"
+    echo ""
+    echo "Starts a command in a transient service, or an existing service template"
+    echo "instantiated at the first available integer parameter. "
+}
+
+if [ $# == 0 ]; then
+    usage
+    exit 0
+fi
+
+while getopts :n:u:s: opt; do
+    case "$opt" in
+        s) slice="$OPTARG.slice" ;;
+        n) desc="$OPTARG" ;;
+        u) unit="$OPTARG" ;;
+    esac
+done
+shift $((OPTIND-1))
+
+case "$1" in
+    *@.service)
+        transient='0'        
+        basename="${1%\.*}"
+        index=`available_index "$basename"`
+        [ ! "$unit" ] && unit="$basename$index"
+        [ ! "$desc" ] && desc="$basename $index"
+        ;;
+    
+    *.service)
+        transient='0'
+        basename="${1%\.*}"
+        [ ! "$unit" ] && unit="$basename"
+        [ ! "$desc" ] && desc="$basename"
+        ;;
+    
+    *)
+        transient='1'
+        basename="run-$(basename "$1")@"
+        index="$(available_index "$basename")"
+        [ ! "$unit" ] && unit="$basename$index"
+        [ ! "$desc" ] && desc="transient $(basename "$1") $index"
+        ;;
+esac
+
+if [ "$transient" = "1" ]; then
+    # NOTE: we need to escape % on the command, otherwise systemd gets confused
+    systemd-run --user --slice="$slice" --unit="$unit" --description="$desc" "${@//%/%%}"
+    
+else
+    systemctl --user start "$unit"
+fi
+
+
+
+
+
+

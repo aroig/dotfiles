@@ -1,16 +1,16 @@
 [Unit]
 Description=chat
 
-Requisite=desktop.target
-After=desktop.target
+Requisite=wm.target
+After=wm.target
 
-Requires=orgmode-db.service
-After=orgmode-db.service
+Requires=git-use@work-wiki.service
+After=git-use@work-wiki.service
 
 [Service]
 Type=simple
 SyslogIdentifier=notes
-Slice=dropdown.slice
+Slice=apps.slice
 
 ExecStart=/usr/bin/emacs -notes --title "emacs-notes"
 KillSignal=SIGINT

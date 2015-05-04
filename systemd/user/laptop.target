@@ -1,0 +1,8 @@
+[Unit]
+Description=laptop configuration
+AllowIsolate=true
+
+Conflicts=console.target desktop.target tablet.target vncserver.target
+
+Requires=compositor.target
+After=compositor.target

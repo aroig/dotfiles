@@ -1,0 +1,23 @@
+[Unit]
+Description=ardour
+
+Requisite=wm.target
+After=wm.target
+
+Requires=jack.service
+After=jack.service
+
+After=fluidsynth.service linuxsampler.service
+
+[Service]
+Type=simple
+SyslogIdentifier=ardour
+Slice=apps.slice
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+ExecStart=/usr/bin/ardour3
+
+

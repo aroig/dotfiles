@@ -9,8 +9,13 @@ After=audio.slice
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/fluidsynth -si -a jack -m jack -r 48000 -o synth.cpu-cores=2
+ExecStart=/usr/bin/fluidsynth -f %h/.fluidsynth/fluidsynth -si -a jack -m jack -r 44100 -o synth.cpu-cores=2
 
+# Do jack connections
+ExecStartPost=/usr/bin/sleep 1
+ExecStartPost=-/usr/bin/jack_connect system:midi_capture_1 fluidsynth:midi
+ExecStartPost=-/usr/bin/jack_connect fluidsynth:l_00 system:playback_1
+ExecStartPost=-/usr/bin/jack_connect fluidsynth:r_00 system:playback_2
 
 # realtime scheduling
 CPUSchedulingPolicy=rr
@@ -18,5 +23,3 @@ CPUSchedulingPriority=60
 
 Slice=audio.slice
 
-[Install]
-WantedBy=multi-user.target

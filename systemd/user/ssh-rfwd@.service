@@ -1,0 +1,19 @@
+[Unit]
+Description=reverse port forward %i
+
+Conflicts=disconnect.target
+
+Requires=gpg-agent.service
+After=gpg-agent.service
+
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=forking
+Slice=daemons.slice
+
+SyslogIdentifier=ssh-fwd
+ExecStart=/home/abdo/.config/systemd/scripts/ssh-fwd.sh reverse %i
+
+

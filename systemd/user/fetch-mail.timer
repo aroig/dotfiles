@@ -1,3 +1,6 @@
+[Unit]
+Description=periodic mail fetching
+
 [Timer]
 OnActiveSec=5
 OnUnitInactiveSec=2h

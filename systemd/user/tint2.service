@@ -1,0 +1,9 @@
+[Unit]
+Description=tint2 panel
+
+Requisite=graphical.target
+After=graphical.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/tint2

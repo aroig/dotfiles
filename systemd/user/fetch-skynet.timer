@@ -1,0 +1,12 @@
+[Unit]
+Description=periodic mail and news fetching on skynet
+ConditionHost=skynet
+
+[Timer]
+
+OnActiveSec=5
+OnUnitInactiveSec=6h
+Unit=fetch-skynet.target
+
+[Install]
+WantedBy=timers.target

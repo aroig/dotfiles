@@ -13,3 +13,4 @@ ExecStart=/usr/lib/gvfs/gvfs-udisks2-volume-monitor
 
 [Install]
 Alias=dbus-org.gtk.Private.UDisks2VolumeMonitor.service
+WantedBy=wm.target

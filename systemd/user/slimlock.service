@@ -1,9 +1,8 @@
-
 [Unit]
 Description=slimlock screen locker
-After=graphical.target
 
 Requisite=graphical.target
+After=graphical.target
 
 # so that when slimlock ends lock.target goes down
 PartOf=lock.target

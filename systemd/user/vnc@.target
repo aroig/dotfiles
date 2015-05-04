@@ -1,6 +1,0 @@
-[Unit]
-Description=%i window manager via VNC server
-
-BindsTo=vncserver@2.service
-BindsTo=%i@2.service
-

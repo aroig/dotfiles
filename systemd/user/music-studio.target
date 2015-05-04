@@ -1,9 +1,9 @@
 [Unit]
 Description=music midi studio
 
-Wants=jack.service impulse.service
-After=jack.service impulse.service
+Requires=jack.service
+After=jack.service
 
-Wants=qjackctl-studio.service qtractor.service yoshimi.service fluidsynth.service
-After=qjackctl-studio.service qtractor.service yoshimi.service fluidsynth.service
+Wants=catia.service ardour.service fluidsynth.service pianoteq.service
+After=catia.service ardour.service fluidsynth.service pianoteq.service
 

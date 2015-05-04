@@ -1,0 +1,11 @@
+[Unit]
+Description=commit git repo at /home/%u/%I
+
+ConditionPathExists=/home/%u/%I/.git
+
+[Service]
+Type=oneshot
+Slice=workers.slice
+
+SyslogIdentifier=commit-%i
+ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "/home/%u/%I"

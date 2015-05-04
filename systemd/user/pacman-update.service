@@ -1,9 +1,11 @@
 [Unit]
 Description=update packages
-Requires=network-online.service
-After=network-online.service
+Requires=network-online.target
+After=network-online.target
 
 [Service]
 Type=oneshot
+Slice=workers.slice
+
 SyslogIdentifier=pacman
 ExecStart=/usr/bin/sudo pacman -Syu --noconfirm

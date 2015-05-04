@@ -1,0 +1,12 @@
+[Unit]
+Description=screen
+
+[Service]
+Type=forking
+
+Slice=daemons.slice
+ExecStart=/usr/bin/screen -dm -S default
+ExecStop=/usr/bin/screen -S default -X quit
+
+[Install]
+WantedBy=daemons.target

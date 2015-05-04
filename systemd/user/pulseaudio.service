@@ -2,6 +2,9 @@
 Description=PulseAudio Sound System
 Documentation=man:pulseaudio(1)
 
+Requires=pulseaudio.socket
+After=pulseaudio.socket
+
 Before=audio.target
 PartOf=audio.target
 
@@ -11,22 +14,18 @@ After=audio.slice
 [Service]
 Type=dbus
 
-RuntimeDirectory=pulse
-RuntimeDirectoryMode=700
-
 BusName=org.pulseaudio.Server
 BusName=org.PulseAudio1
 
 # realtime scheduling
 CPUSchedulingPolicy=rr
-CPUSchedulingPriority=50
+CPUSchedulingPriority=60
 
 ExecStart=/usr/bin/pulseaudio
 SuccessExitStatus=0 1
-Restart=always
-RestartSec=1
 
 Slice=audio.slice
 
 [Install]
+Also=pulseaudio.socket
 WantedBy=audio.target
