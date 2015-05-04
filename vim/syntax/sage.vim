@@ -1,28 +1,30 @@
 " Vim syntax file
 " Language:	Sage
 " Maintainer:	Abdó Roig-Maranges <abdo.roig@gmail.com
-" Last Change:	2012 Dec 08
+" Last Change:	2015 May 03
 
-" Python syntax as a base
-:runtime! syntax/python.vim
+" sage code syntax as a base
+:runtime! syntax/sagecode.vim
 :unlet b:current_syntax
 
-" Include syntax rules for sage docstring
-syn include @DOCSTRING syntax/sagedocstr.vim
+" Include syntax rules for sage
+syn include @SAGEDOC       syntax/sagedoc.vim
 
 
-" reST docstrings
+
+" Docstrings
 " ----------------------------------------------
 
 syn region sageDocstring
-      \ start=+^\s*[uU]\=[rR]\z('''\|"""\)+
-      \ end="\z1" keepend
-      \ contains=@DOCSTRING
-      
+    \ matchgroup=sagedocContent
+    \ start=+^\s*[uU]\=[rR]\=\z('''\|"""\)+
+    \ end="\z1" keepend
+    \ contains=@SAGEDOC
+
+
 
 " Highlighting
 " ----------------------------------------------
-hi def link sageDocHeadKey          Statement
 
 
 let b:current_syntax = "sage"
