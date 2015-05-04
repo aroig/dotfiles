@@ -37,6 +37,10 @@
 (defconst daemon-mode (member "--daemon" command-line-args)
   "True when running daemon mode.")
 
+;; Detect root
+(defconst root-mode (string-equal (user-login-name) "root")
+  "True when running as root.")
+
 ;; Let emacs know the machine's hostname
 (setq system-name (substring (shell-command-to-string "hostname -s") 0 -1))
 (setq full-system-name (substring (shell-command-to-string "hostname -f") 0 -1))
@@ -69,9 +73,14 @@
 
 
 
-;; Startup and window tweaking
+;; Startup and frame tweaking
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Never run as root
+(when root-mode
+  (error "Emacs should never be started as root!"))
+
+;; Don't setup frame in batch mode
 (unless batch-mode
   (setq inhibit-startup-screen t)                 ;; Disable startup screen
   (setq initial-scratch-message "")               ;; Clean scratch buffer
@@ -87,6 +96,13 @@
   ;; Apply color theme
   (load-theme 'zenburn t)
   (require 'abdo-zenburn))
+
+
+;; Core emacs tweaking
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Set garbage collection threshold to 20 Mb, for better performance on modern machines
+(setq gc-cons-threshold 20000000)
 
 
 
@@ -113,6 +129,16 @@
 ;; CMake
 (autoload 'cmake-mode "cmake-mode.el" "CMake mode" t)
 
+
+
+;; Mode Aliases
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; use cperl instead of perl
+(defalias 'perl-mode 'cperl-mode)
+
+
+
 ;; Loading stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -121,23 +147,33 @@
 (require 'netrc)                         ;; read passwords from .netrc
 (require 'ansi-color)                    ;; tools to handle ansi escape sequences
 (require 'cl)                            ;; Common lisp support
+(require 'dbus)                          ;; dbus interface
 
-;; Basic interactive stuff
-(unless batch-mode
+;; Undo-tree
+(when (and (locate-library "undo-tree") (not batch-mode))
   (require 'undo-tree)                   ;; Undo tree
-  (require 'abdo-modeline)               ;; modeline tweaks
-  (require 'ido)                         ;; Ido prompt
-  (require 'uniquify)                    ;; Make buffer names unique
-  (require 'ibuffer)                     ;; Nice buffer list
-  (require 'ibuffer-vc)                  ;; Nice buffer list of files under vc
-  (require 'recentf)                     ;; Recent files
-  (require 'sr-speedbar)                 ;; speedbar as a window
 )
 
 ;; evil
 (when (and (locate-library "evil") (not batch-mode))
   (require 'evil)                        ;; vi-like keys
   (require 'abdo-vi)                     ;; Settings for vi mode
+)
+
+;; tweak the modeline. needs evil
+(when (and (locate-library "abdo-modeline") (not batch-mode))
+  (require 'abdo-modeline)               ;; modeline tweaks
+)
+
+;; Basic interactive stuff
+(unless batch-mode
+  (require 'flx-ido)                     ;; better matching algorithm for ido
+  (require 'ido)                         ;; Ido prompt
+  (require 'uniquify)                    ;; Make buffer names unique
+  (require 'ibuffer)                     ;; Nice buffer list
+  (require 'ibuffer-vc)                  ;; Nice buffer list of files under vc
+  (require 'recentf)                     ;; Recent files
+  (require 'sr-speedbar)                 ;; speedbar as a window
 )
 
 ;; autocompletion
@@ -194,13 +230,13 @@
 )
 
 ;; coq
-(when (locate-library "coq")
-  (require 'coq)
-  (require 'abdo-coq)
-)
-(when (locate-library "proof-site")
-  (require 'proof-site)
-)
+; (when (locate-library "coq")
+;   (require 'coq)
+;   (require 'abdo-coq)
+; )
+; (when (locate-library "proof-site")
+;   (require 'proof-site)
+; )
 
 ;; tex
 (when (locate-library "tex-site")
@@ -281,6 +317,7 @@
 
 ;; PKGBUILD's
 (add-to-list 'auto-mode-alist '("PKGBUILD$" . pkgbuild-mode))
+(add-to-list 'auto-mode-alist '("\\.install$" . sh-mode))
 
 ;; Markdown
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
@@ -326,21 +363,23 @@
 ;; Command line switches
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'command-switch-alist '("diff" . abdo-command-line-diff))
-(add-to-list 'command-switch-alist '("merge" . abdo-command-line-merge))
-(add-to-list 'command-switch-alist '("org" . abdo-launch-org))
-(add-to-list 'command-switch-alist '("notes" . abdo-launch-notes))
-(add-to-list 'command-switch-alist '("mail" . abdo-launch-mail))
-(add-to-list 'command-switch-alist '("chat" . abdo-launch-chat))
-(add-to-list 'command-switch-alist '("sage" . abdo-launch-sage))
+;; instances with server
+(add-to-list 'command-switch-alist '("org"    . abdo-launch-org))
+(add-to-list 'command-switch-alist '("notes"  . abdo-launch-notes))
+(add-to-list 'command-switch-alist '("mail"   . abdo-launch-mail))
+(add-to-list 'command-switch-alist '("chat"   . abdo-launch-chat))
+
+;; standalone instances
+(add-to-list 'command-switch-alist '("sage"   . abdo-launch-sage))
 (add-to-list 'command-switch-alist '("sclang" . abdo-launch-sclang))
 (add-to-list 'command-switch-alist '("extempore" . abdo-launch-extempore))
+
 
 (defun abdo-launch-org (arg)
   (add-hook 'emacs-startup-hook 'abdo-org-main-buffer)
 
-  ;; start emacs server with socket 'org'
-  (setq server-name "org")
+  ;; start emacs server with socket 'orgmode'
+  (setq server-name "orgmode")
   (server-start))
 
 (defun abdo-launch-notes (arg)
@@ -379,7 +418,7 @@
 (defun abdo-launch-mail (arg)
 
   ;; start emacs server with socket 'mail'
-  (setq server-name "mail")
+  (setq server-name "mu4e")
   (server-start)
 
   ;; launch mu4e

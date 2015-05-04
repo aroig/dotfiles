@@ -109,7 +109,7 @@
 
 (defun abdo~buffer-done-or-kill ()
   (let ((proc (frame-parameter (selected-frame) 'client)))
-    (if (and proc (process-get proc 'buffers))
+    (if (and (processp proc) (process-get proc 'buffers))
         (server-edit)
     (save-buffers-kill-terminal))))
 
@@ -161,12 +161,12 @@
   (let ((proc (frame-parameter (selected-frame) 'client))
 	(commit nil))
     (cond ;; Nowait frames have no client buffer list.
-          ((eq proc 'nowait)
-	   (when (cdr (frame-list))
-	     (save-some-buffers arg)
-	     (setq commit (abdo-commit-some-buffers arg t))))
+     ((eq proc 'nowait)
+      (when (cdr (frame-list))
+        (save-some-buffers arg)
+        (setq commit (abdo-commit-some-buffers arg t))))
 
-	  ((processp proc)
+     ((processp proc)
 	   (let ((buffers (process-get proc 'buffers)))
 	     ;; If client is bufferless, emulate a normal Emacs exit
 	     ;; and offer to save all buffers.  Otherwise, offer to
@@ -187,14 +187,14 @@
     ;; If commited, don't kill emacs!
     (unless commit
       (cond ;; Nowait frames have no client buffer list.
-          ((eq proc 'nowait)
-	   (if (cdr (frame-list)) (delete-frame) (save-buffers-kill-emacs arg)))
+       ((eq proc 'nowait)
+        (if (cdr (frame-list)) (delete-frame) (save-buffers-kill-emacs arg)))
 
 	  ((processp proc)
 	   (server-delete-client proc))
 
-          ((eq proc nil)
-           ;; Don't want emacs to ask again if saving, so make them all unmodified.
+      ((eq proc nil)
+       ;; Don't want emacs to ask again if saving, so make them all unmodified.
 	   (dolist (buf (buffer-list)) (with-current-buffer buf (set-buffer-modified-p nil)))
 	   (save-buffers-kill-emacs arg))
 

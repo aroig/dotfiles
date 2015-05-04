@@ -13,7 +13,7 @@
 (show-paren-mode t)                           ;; Matching parenthesis
 
 (put 'narrow-to-region 'disabled nil)         ;; Enable narrowing
-(setq-default fill-column 80)                 ;; Default Fill column.
+(setq-default fill-column 90)                 ;; Default Fill column.
 (blink-cursor-mode t)                         ;; like it blinking
 
 
@@ -40,6 +40,8 @@
 ;; I instead I use my own-auto-revert
 (setq magit-auto-revert-mode nil)
 
+;; Prevent from showing a notification on startup
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 
 ;; Emacs backups
@@ -82,21 +84,36 @@
   (interactive)
   ;; Default rootdir
   (unless rootdir (setq rootdir default-directory))
-  (magit-status rootdir))
+  (magit-status rootdir)
+  nil)
 
 ;; TODO: check if hg or git, and call the right function
 (defun abdo-vcs-branches (&optional rootdir)
   (interactive)
   ;; Default rootdir
   (unless rootdir (setq rootdir default-directory))
-  (magit-branch-manager))
+  ;; Make sure rootdir is default-directory
+  (unless (string-equal rootdir default-directory) (magit-status rootdir))
+  (magit-branch-manager)
+  nil)
 
 ;; TODO: check if hg or git, and call the right function
 (defun abdo-vcs-log (&optional rootdir)
   (interactive)
   ;; Default rootdir
   (unless rootdir (setq rootdir default-directory))
-  (magit-log))
+  ;; Make sure rootdir is default-directory
+  (unless (string-equal rootdir default-directory) (magit-status rootdir))
+  (magit-log)
+  nil)
+
+(defun abdo-vcs-main (rootdir)
+  (abdo-vcs-status rootdir)
+  (delete-other-windows (selected-window))
+  (split-window)
+  (abdo-vcs-log))
+
+
 
 (defun abdo-vcs-root (file)
   "Returns the root of the repo file belongs, or nil if file is not versioned."

@@ -6,6 +6,7 @@
 ;; -----------------------------------------------
 
 (defun abdo-mu4e-things ()
+  (require 'mu4e-contrib)
 
   ;; Paths
   (setq mu4e-mu-home "~/.mu")
@@ -92,6 +93,14 @@
           ("tag:fun AND flag:unread"                              "Fun"                 ?f)
           ))
 
+  ;; Commonly used tags for completion
+  (setq mu4e-action-tags-completion-list
+        '( "upc" "maths" "postdoc" "fme" "ma1" "etseib" "research" "seminar"
+           "arch" "devel" "msys2" "github" "bitbucket"
+           "newsletter" "list" "bug"
+           "friends" "family" "bit"
+           ))
+
   ;; Times and dates
   (setq mu4e-headers-date-format "%d %b %Y")
   (setq mu4e-headers-time-format "%H:%M")
@@ -137,7 +146,10 @@
   ;; Fancy chars
   ; (setq mu4e-use-fancy-chars t)
 
-  ;; convert html messages to markdown syntax
+  ;; use shr wrapper from mu4e-contrib
+  (setq mu4e-html2text-command 'mu4e-shr2text)
+
+  ; (setq mu4e-html2text-command 'html2text)                                              ; builtin html2text
   ; (setq mu4e-html2text-command "html2text")                                             ; python-html2text
   ; (setq mu4e-html2text-command "html2text -utf8 -width 80")                             ; html2text with utf8
   ; (setq mu4e-html2text-command "lynx -dump -stdin -width=100 -display_charset=utf-8")   ; lynx
@@ -147,10 +159,10 @@
   ; elinks
   ; NOTE: I do a sed to remove explicit 'background-color'.
   ; elinks can do that with lua hooks, but not in -dump mode
-  (setq mu4e-html2text-command (concat "sed '/<.*>/ s/background-color:[^;]*;//gI' | "
-                                "elinks" " -no-connect" " -dump" " -force-html"
-                                (format " -dump-width %d" fill-column)
-                                " -dump-color-mode 1"))
+  ; (setq mu4e-html2text-command (concat "sed '/<.*>/ s/background-color:[^;]*;//gI' | "
+  ;                              "elinks" " -no-connect" " -dump" " -force-html"
+  ;                              (format " -dump-width %d" fill-column)
+  ;                              " -dump-color-mode 1"))
 )
 
 
@@ -161,8 +173,70 @@
 )
 
 
+
 ;; Custom actions
 ;; -----------------------------------------------
+
+
+(defvar mu4e-action-tags-completion-list '()
+  "List of tags to show for autocompletion")
+
+
+(defun mu4e-action-retag-message (msg &optional retag-arg)
+  "Change tags of a message. Accepts a comma-separated list of
+   additions and removals.
+
+   Example: +tag,+long tag,-oldtag
+
+   would add 'tag' and 'long tag', and remove 'oldtag'."
+  (let* (
+      (path (mu4e-message-field msg :path))
+	  (maildir (mu4e-message-field msg :maildir))
+	  (oldtags (mu4e-message-field msg :tags))
+      (tags-completion (append
+                        mu4e-action-tags-completion-list
+                        (mapcar (lambda (tag) (format "+%s" tag)) mu4e-action-tags-completion-list)
+                        (mapcar (lambda (tag) (format "-%s" tag)) oldtags)))
+      (retag (if retag-arg
+                 (split-string retag-arg ",")
+               (completing-read-multiple "Tags: " tags-completion)))
+	  (header  mu4e-action-tags-header)
+	  (sep     (cond ((string= header "Keywords") " ")
+		     ((string= header "X-Label") " ")
+		     ((string= header "X-Keywords") ", ")
+		     (t ", ")))
+	  (taglist (if oldtags (copy-sequence oldtags) '()))
+	  tagstr)
+    (dolist (tag retag taglist)
+      (cond
+	((string-match "^\\+\\(.+\\)" tag)
+	  (setq taglist (push (match-string 1 tag) taglist)))
+	((string-match "^\\-\\(.+\\)" tag)
+	  (setq taglist (delete (match-string 1 tag) taglist)))
+	(t
+	  (setq taglist (push tag taglist)))))
+
+    (setq taglist (sort (delete-dups taglist) 'string<))
+    (setq tagstr (mapconcat 'identity taglist sep))
+
+    (setq tagstr (replace-regexp-in-string "[\\&]" "\\\\\\&" tagstr))
+    (setq tagstr (replace-regexp-in-string "[/]"   "\\&" tagstr))
+
+    (if (not (mu4e~contains-line-matching (concat header ":.*") path))
+      ;; Add tags header just before the content
+      (mu4e~replace-first-line-matching
+	"^$" (concat header ": " tagstr "\n") path)
+
+      ;; replaces keywords, restricted to the header
+      (mu4e~replace-first-line-matching
+	(concat header ":.*")
+	(concat header ": " tagstr)
+       path))
+
+    (mu4e-message (concat "tagging: " (mapconcat 'identity taglist ", ")))
+    (mu4e-refresh-message path maildir)))
+
+
 
 (defun abdo-mu4e-retag-message (msg)
   (let ((retag (read-string "Tags: "))
@@ -246,34 +320,3 @@
   (setq ad-return-value (ansi-color-apply ad-return-value)))
 
 (ad-activate 'mu4e-view-message-text)
-
-
-
-(defun mu4e~view-make-urls-clickable ()
-  "Turn things that look like URLs into clickable things.
-   Also number them so they can be opened using `mu4e-view-go-to-url'.
-   Monkey patched from mu4e-view.el so it only propertizes
-   References section."
-  (let ((num 0))
-    (save-excursion
-      (setq mu4e~view-link-map ;; buffer local
-	(make-hash-table :size 32 :weakness nil))
-      (re-search-forward "^References$" nil t)
-      ; (goto-char (point-min))
-      (while (re-search-forward mu4e-view-url-regexp nil t)
-	(let* ((url (match-string 0))
-	       (ov (make-overlay (match-beginning 0) (match-end 0))))
-	  (puthash (incf num) url mu4e~view-link-map)
-	  (add-text-properties
-	   (match-beginning 0)
-	   (match-end 0)
-	    `(face mu4e-link-face
-	       mouse-face highlight
-	       mu4e-url ,url
-	       keymap ,mu4e-view-clickable-urls-keymap
-	       help-echo
-	       "[mouse-1] or [M-RET] to open the link"))
-	  (overlay-put ov 'after-string
-		       (propertize (format "[%d]" num)
-				   'face 'mu4e-url-number-face))
-	  )))))

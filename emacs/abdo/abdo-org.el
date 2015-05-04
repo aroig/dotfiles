@@ -156,7 +156,11 @@
 
   ;; Tags column (negative means flush-right)
   (setq org-agenda-tags-column (- fill-column))
+
+  ;; compact view when following files on agenda mode
+  (add-hook 'org-agenda-after-show-hook 'abdo-org-compact-follow)
 )
+
 
 (defun abdo-org-mode-things()
   "Things to do on the org mode"
@@ -217,14 +221,10 @@
   (setq org-log-into-drawer "LOGBOOK")
 
   (setq org-todo-keywords
-    '((sequence "TODO(!)" "|" "DONE(!)")            ; Todos in the external world
-      (sequence "WORK(!)" "|")
-      (sequence "NOTE(!)" "|")
-      (sequence "FIXME(!)" "|" "FIXED(!)")          ; Issues with the wiki
-      (sequence "BUG(!)" "|" "SOLVED(!)")           ; Bugs in software
-      (sequence "IDEA(!)" "|")
-      (sequence "PROJ(!)" "|")
-      (sequence "|" "WAIT(!)")                      ; Delay but not forget
+        '((sequence "TODO(!)" "|" "DONE(!)")            ; Todos in the external world
+          (sequence "FIXME(!)" "|" "FIXED(!)")          ; Issues with the wiki
+          (sequence "BUG(!)" "|" "SOLVED(!)")           ; Bugs in software
+          (type "WORK" "NOTE" "IDEA" "PROJ" "|")
   ))
 
   ;; Enforce dependencies
@@ -284,6 +284,17 @@
     (?5 org-priority-level-5)))
 )
 
+(defun abdo-org-compact-follow ()
+  "Make the view compact, then show the necessary minimum."
+  (org-overview)
+  (let ((org-show-siblings t)
+        (org-show-hierarchy-above t))
+    (org-reveal))
+  (save-excursion
+    (org-back-to-heading t)
+    (show-children)))
+
+
 
 
 ;; Latex Setup
@@ -296,6 +307,9 @@
 
 
 (defun abdo-org-latex-common-setup()
+
+  ;; lighlight latex code in org buffers
+  (setq org-highlight-latex-and-related '(latex))
 
   ;; Enable native syntax highlighting for babel
   (require 'ob-latex)

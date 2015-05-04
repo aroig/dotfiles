@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# don't run as root
+if [ `id -u -n` = 'root' ]; then
+    echo "Never run emacs as root!"
+    exit 1
+fi
+
+# TODO: run on the emacs server. make sure that buffers get cleaned when marking them as done
+if [ "$#" == "4" ]; then
+    exec /usr/bin/emacs --eval "(ediff-merge-files-with-ancestor \"$1\" \"$2\" \"$4\" nil \"$3\")"
+
+elif [ "$#" == "3" ]; then 
+    exec /usr/bin/emacs --eval "(ediff-merge-files \"$1\" \"$2\" nil \"$3\")"
+
+else
+    echo "usage: $0 <file A> <file B> <merge file> [<ancestor>]"
+    exit 1
+fi
+

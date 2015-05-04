@@ -11,13 +11,12 @@
 ;  (load "auctex.el")
 ;  (load "preview-latex.el")
 
-  (require 'dbus)
   (require 'calibre)
 
   ;; This one is on my emacs-lisp dir.
   (load "cdlatex.el")
   (setq-default indent-tabs-mode nil)            ;; No tabs on indent
-  (set-fill-column 82)                           ;; In LaTeX I want it this way
+  (set-fill-column 90)                           ;; In LaTeX I want it this way
 
   (outline-minor-mode)                           ;; Outline mode
   (turn-on-reftex)                               ;; RefTex
@@ -34,46 +33,39 @@
 
   (setq reftex-toc-shown nil)                    ;; Disable toc in reftex
 
-  ;; Don't need this the way I sync with zathura
-
-;  (setq TeX-source-correlate-method 'synctex)    ;; Synctex
-;  (setq TeX-source-correlate-mode t)
-;  (setq TeX-source-correlate-start-server t)     ;; Not any more :)
-
   ;; Don't ask for the compilation command
   (setq compilation-read-command nil)
 
   ;; Set PDF mode
   (TeX-PDF-mode t)
 
-  ;; Setup D-bus interface with evince
-  ;; (abdo-latex-dbus-evince-setup)
-  ;; (abdo-latex-dbus-zathura-setup)
-
-  ;; evince with dbus in viewers
-  (add-to-list 'TeX-view-program-list '("evince-dbus" abdo-latex-evince-dbus-view))
-  (add-to-list 'TeX-view-program-selection '(output-pdf "evince-dbus"))
-
   ;; Set outline mode headings order
   (setq outline-promotion-headings '("\\chapter" "\\section" "\\subsection"
      "\\subsubsection" "\\paragraph" "\\subparagraph"))
 
-  ;;(setq TeX-view-program-list (quote
-  ;;   (("okular" "okular --unique '%o#src:%n %b'"))))
+  ;; NOTE: Don't need this the way I sync with zathura
+  ; (setq TeX-source-correlate-method 'synctex)    ;; Synctex
+  ; (setq TeX-source-correlate-mode t)
+  ; (setq TeX-source-correlate-start-server t)     ;; Not any more :)
 
-  ;;(setq TeX-view-program-list (quote
-  ;;   (("evince" "evince-dbus %o %n %b"))))
+  ;; Setup D-bus interface with evince
+  ; (when (featurep 'dbus)
+  ;  (abdo-latex-dbus-evince-setup)
+  ;  (abdo-latex-dbus-zathura-setup))
+
+  ;; Evince with dbus in viewers
+  ; (add-to-list 'TeX-view-program-list '("evince-dbus" abdo-latex-evince-dbus-view))
+  ; (add-to-list 'TeX-view-program-selection '(output-pdf "evince-dbus"))
 
   ;; Enable fixme mode
-;  (add-to-list 'fixme-modes 'latex-mode)
-;  (setq fixme-mode t)
+  ; (add-to-list 'fixme-modes 'latex-mode)
+  ; (setq fixme-mode t)
 
   ;; Adjustments
   (abdo-latex-personal-tweaks)                   ;; My latex adjustments
 
   ;; Delete trailing whitespaces before save
   (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
-
 
   ;; ac-math sources for auto-complete
   (setq ac-sources
@@ -82,6 +74,7 @@
                   ac-source-latex-commands)
                 ac-sources))
 )
+
 
 
 ;; Tweaks
@@ -281,7 +274,7 @@
 
 
 (defun abdo-latex-dbus-setup ()
-  (abdo-latex-dbus-zathura-setup))
+  (when (featurep 'dbus) (abdo-latex-dbus-zathura-setup)))
 
 
 
@@ -290,21 +283,13 @@
 
 ;; view pdf in zathura
 (defun abdo-latex-zathura-view (pdf)
-  (let
-    ((editor (concat (getenv "EMACSCLIENT") " -e '(abdo-latex-reverse-sync \"%{input}\" %{line} %{column})'")))
-    (call-process "zathura" nil 0 nil
-                  "--synctex-editor-command"
-                  editor
-                  pdf)
-    ))
+  (call-process "zathura" nil 0 nil pdf))
 
 
 ;; zathura forward sync
 (defun abdo-latex-zathura-forward-sync (pdf tex line col)
   (call-process "zathura" nil 0 nil
-                (format "--synctex-forward=%s:%s:%s" line col tex)
-                pdf)
-  )
+                (format "--synctex-forward=%s:%s:%s" line col tex) pdf))
 
 
 ;; zathura reverse sync

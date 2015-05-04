@@ -54,6 +54,7 @@
   (if (string-match "^finished" msg)
     (progn
       (bury-buffer "*compilation*")
+      ;; NOTE: winner-undo does not handle well multiple frames.
       (winner-undo)
       (message "Successful :)"))
     (message "Failed :("))
@@ -69,7 +70,8 @@
   (add-to-list 'compilation-finish-functions 'abdo-compilation-finished)
 
   ;; display ansi colors in compilation buffers
-  (add-hook 'compilation-filter-hook 'colorize-buffer)
+  ; NOTE: disabled because it does strange things
+  ; (add-hook 'compilation-filter-hook 'colorize-buffer)
 
   ;; Scroll compilation until first error
   (setq compilation-scroll-output 'first-error)
@@ -195,6 +197,18 @@
 
 
 
+;; pkgbuild mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun abdo-pkgbuild-mode-things()
+  (setq pkgbuild-initialize nil)
+  (setq pkgbuild-update-sums-on-save nil)
+  )
+
+(add-hook 'pkgbuild-mode-hook 'abdo-pkgbuild-mode-things)
+
+
+
 ;; Haskell mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -218,6 +232,9 @@
 
   ;; Set C style (indentation, etc)
   (c-set-style "stroustrup")
+
+  ;; Load clang format
+  (when (locate-library "clang-format") (require 'clang-format))
 
   ;; Delete trailing whitespaces before save
   (trailing-whitespace-mode)

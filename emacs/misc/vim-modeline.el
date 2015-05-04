@@ -262,6 +262,9 @@ Otherwise this function returns nil."
              (derived-mode-p 'python-mode)
              (make-local-variable 'python-indent)
              (setq python-indent offset))
+            (;; For perl
+             (derived-mode-p 'cperl-mode)
+             (setq cperl-indent-level offset))
             (;; For lua
              (derived-mode-p 'lua-mode)
              (make-local-variable 'lua-indent-level)

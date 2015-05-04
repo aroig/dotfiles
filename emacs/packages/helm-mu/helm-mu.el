@@ -156,23 +156,23 @@ the --my-address parameter in mu index."
 
 
 (defvar helm-source-mu
-  '((name . "Search email with mu")
-    (candidates-process . helm-mu-init)
-    (candidate-transformer . (helm-mu-candidate-parser
-                              helm-mu-candidates-formatter))
-    (delayed)
-    (no-matchplugin)
-    (nohighlight)
-    (requires-pattern . 3)
-    (persistent-action . helm-mu-persistent-action)
-    (action . (("Display message in mu4e" . helm-mu-display-email)))))
+  (helm-build-async-source "Search email with mu"
+    :candidates-process #'helm-mu-init
+    :candidate-transformer
+    '(helm-mu-candidate-parser helm-mu-candidates-formatter)
+    :delayed t
+    :matchplugin nil
+    :nohighlight t
+    :requires-pattern 3
+    :persistent-action #'helm-mu-persistent-action
+    :action '(("Display message in mu4e" . helm-mu-display-email))))
 
 (defvar helm-source-mu-contacts
-  '((name . "Search contacts with mu")
-    (candidates . helm-mu-contacts-init)
-    (filtered-candidate-transformer . helm-mu-contacts-transformer)
-    (nohighlight)
-    (action . (("Compose email addressed to this contact" . helm-mu-compose-mail)))))
+  (helm-build-in-buffer-source "Search contacts with mu"
+    :data #'helm-mu-contacts-init
+    :filtered-candidate-transformer #'helm-mu-contacts-transformer
+    :fuzzy-match nil
+    :action '(("Compose email addressed to this contact" . helm-mu-compose-mail))))
 
 
 (defun helm-mu-init ()
@@ -268,26 +268,41 @@ the --my-address parameter in mu index."
           ((memq 'passed flags)  'mu4e-forwarded-face)
           (t                     'mu4e-header-face))))))
 
+;; The function `window-width' does not necessarily report the correct
+;; number of characters that fit on a line.  This is a
+;; work-around.  See also this bug report:
+;; http://debbugs.gnu.org/cgi/bugreport.cgi?bug=19395
+(defun helm-mu-window-width ()
+  (if (and (not (featurep 'xemacs))
+           (display-graphic-p)
+           overflow-newline-into-fringe
+           (/= (frame-parameter nil 'left-fringe) 0)
+           (/= (frame-parameter nil 'right-fringe) 0))
+      (window-body-width)
+    (1- (window-body-width))))
+
 (defun helm-mu-candidates-formatter (candidates)
   "Formats the candidates to look like the entries in mu4e headers view."
   (if (equal candidates '("mu: no matches for search expression"))
       (list (propertize (car candidates) 'face 'mu4e-system-face))
     (cl-loop for i in candidates
-          for width = (save-excursion (with-helm-window (window-width)))
+          for width = (save-excursion (with-helm-window (helm-mu-window-width)))
           for line = (helm-mu-candidate-formatter i)
           collect (cons (truncate-string-to-width line width) i))))
 
 (defun helm-mu-contacts-transformer (candidates source)
   "Formats the contacts to display in two columns, name and
 address.  The name column has a predefined width."
-  (cl-loop for i in candidates
+  (cl-loop for i in (helm-remove-if-match
+                     "\\`\\(reply.*reply\\.github\\.com\\)\\|\\(noreply\\)"
+                     candidates)
         for contact = (split-string i "\t")
         for name = (replace-regexp-in-string
                      (car helm-mu-contacts-name-replace)
                      (cadr helm-mu-contacts-name-replace)
                      (cadr contact))
         for address = (car contact)
-        for width = (save-excursion (with-helm-window (window-width)))
+        for width = (save-excursion (with-helm-window (helm-mu-window-width)))
         collect
         (cons (concat
                 (propertize

@@ -1,3 +1,6 @@
+[![Melpa Status](http://melpa.org/packages/ibuffer-vc-badge.svg)](http://melpa.org/#/ibuffer-vc)
+[![Melpa Stable Status](http://stable.melpa.org/packages/ibuffer-vc-badge.svg)](http://stable.melpa.org/#/ibuffer-vc)
+
 # ibuffer-vc: Group buffers in ibuffer list by VC project #
 
 Emacs' `ibuffer-mode` is a wonderful replacement for the built-in
@@ -23,7 +26,7 @@ That's where `ibuffer-vc` comes in: it lets you:
 See `ibuffer-vc.el`, or (preferred) install from [Marmalade][Marmalade] or [Melpa][Melpa].
 
 
-[Melpa]: http://melpa.milkbox.net "Melpa"
+[Melpa]: http://melpa.org "Melpa"
 [Marmalade]: http://marmalade-repo.org "Marmalade"
 
 

@@ -18,27 +18,6 @@
     (ediff-revision (buffer-file-name))))
 
 
-;; Performs a diff from command line parameters
-(defun abdo-command-line-diff (switch)
-  (let ((file1 (pop command-line-args-left))
-	(file2 (pop command-line-args-left))
-	(file3 (pop command-line-args-left)))
-    (if file3
-	(ediff-files3 file1 file2 file3)
-      (ediff-files file1 file2))))
-
-
-;; Performs a merge
-(defun abdo-command-line-merge (switch)
-  (let ((file1 (pop command-line-args-left))    ; file A
-	(file2 (pop command-line-args-left))    ; file B
-	(file3 (pop command-line-args-left))    ; merge file
-	(file4 (pop command-line-args-left)))   ; ancestor
-    (if file4
-	(ediff-merge-files-with-ancestor file1 file2 file4 nil file3)
-      (ediff-merge-files file1 file2 nil file3))))
-
-
 
 ;; TODO keywords searching
 (defvar fixme-keyword-re-string "FIXME\\|TODO\\|BUG"
@@ -149,6 +128,30 @@
 ;; Winner mode
 (winner-mode 1)
 
+;; Let's keep a stack of window configurations
+(defvar winstack-stack '()
+  "A Stack holding window configurations.
+Use `winstack-push' and
+`winstack-pop' to modify it.")
+
+(defun winstack-push()
+  "Push the current window configuration onto `winstack-stack'."
+  (interactive)
+  (if (and (window-configuration-p (first winstack-stack))
+           (compare-window-configurations (first winstack-stack) (current-window-configuration)))
+      (message "Current config already pushed")
+    (progn (push (current-window-configuration) winstack-stack)
+           (message (concat "pushed " (number-to-string
+                                       (length (window-list (selected-frame)))) " frame config")))))
+
+(defun winstack-pop()
+  "Pop the last window configuration off `winstack-stack' and apply it."
+  (interactive)
+  (if (first winstack-stack)
+      (progn (set-window-configuration (pop winstack-stack))
+             (message "popped"))
+    (message "End of window stack")))
+
 
 ;; Buffer Stuff: ido, ibuffer, uniquify
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -207,12 +210,20 @@
 ; (setq ido-save-directory-list-file (convert-standard-filename "~/.ido.last"))
 (setq ido-save-directory-list-file nil)
 
+;; enable ido with flx-mode
 (ido-mode t)
 (ido-everywhere t)
+(flx-ido-mode t)
+
+;; disable ido faces to see flx highlights.
+;; (setq ido-use-faces nil)
+
+;; tuning
+(setq ido-enable-flex-matching t)
 (setq ido-max-prospects 8)
 (setq ido-rotate t)
-(setq ido-enable-flex-matching t)
 (setq ido-enable-regexp t)
+
 ;; (setq ido-use-filename-at-point t)
 (setq ido-auto-merge-work-directories-length -1)
 (setq ido-default-buffer-method 'selected-window)
@@ -224,26 +235,26 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; http://www.emacswiki.org/emacs/EdiffMode
 
+;; Clean up buffers after diff is done
+(add-hook 'ediff-cleanup-hook (lambda () (ediff-janitor nil nil)))
+
 ;; Single frame
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
+;; Always split horizontally
+(setq ediff-split-window-function 'split-window-horizontally)
+
 ;; Split either vertically or horizontally. Depending on frame size
-(setq ediff-split-window-function (if (> (frame-width) 150)
-                                          'split-window-horizontally
-                                        'split-window-vertically))
+; (setq ediff-split-window-function (if (> (frame-width) 150)
+;                                           'split-window-horizontally
+;                                        'split-window-vertically))
 
 ;; Hooks to save and restore window configuration
-(add-hook 'ediff-load-hook
-	  (lambda ()
-	    (add-hook 'ediff-before-setup-hook
-		      (lambda ()
-			(setq ediff-saved-window-configuration (current-window-configuration))))
+(add-hook 'ediff-before-setup-hook 'winstack-push)
+(add-hook 'ediff-quit-hook 'winstack-pop 'append)
+(add-hook 'ediff-suspend-hook 'winstack-pop 'append)
 
-	    (let ((restore-window-configuration
-		   (lambda ()
-		     (set-window-configuration ediff-saved-window-configuration))))
-	      (add-hook 'ediff-quit-hook restore-window-configuration 'append)
-	      (add-hook 'ediff-suspend-hook restore-window-configuration 'append))))
+
 
 
 

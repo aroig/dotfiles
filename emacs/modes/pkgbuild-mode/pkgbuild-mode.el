@@ -1,7 +1,6 @@
 ;;; pkgbuild-mode.el --- Interface to the ArchLinux package manager
 
-;; $Id: pkgbuild-mode.el,v 1.23 2007/10/20 16:02:14 juergen Exp $
-;; Copyright (C) 2005-2013 Juergen Hoetzel
+;; Copyright (C) 2005-2015 Juergen Hoetzel
 
 ;;; License
 
@@ -36,6 +35,9 @@
 ;;                                auto-mode-alist))
 
 ;;; Changelog:
+
+;; 0.13
+;; Fix PKGBUILD template: Use $srcdir (Thanks amagura)
 
 ;; 0.12
 ;; pkgbuild-tar: Use "makepkg --source" instead of using a custom tar command
@@ -128,8 +130,7 @@
   :group 'languages)
 
 (defcustom pkgbuild-template
-"# $Id: pkgbuild-mode.el,v 1.23 2007/10/20 16:02:14 juergen Exp $
-# Maintainer: %s <%s>
+"# Maintainer: %s <%s>
 pkgname=%s
 pkgver=VERSION
 pkgrel=1
@@ -156,26 +157,26 @@ noextract=()
 md5sums=()
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd \"$srcdir/$pkgname-$pkgver\"
 
   patch -p1 -i \"$srcdir/$pkgname-$pkgver.patch\"
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd \"$srcdir/$pkgname-$pkgver\"
 
   ./configure --prefix=/usr
   make
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd \"$srcdir/$pkgname-$pkgver\"
 
   make -k check
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd \"$srcdir/$pkgname-$pkgver\"
 
   make DESTDIR=\"$pkgdir/\" install
 }
@@ -260,8 +261,6 @@ Otherwise, it saves all modified buffers without asking."
   :group 'pkgbuild)
 
 (defvar pkgbuild-makepkg-history nil)
-
-(defvar pkgbuild-hashtype "md5")
 
 (defvar pkgbuild-in-hook-recursion nil) ;avoid recursion
 

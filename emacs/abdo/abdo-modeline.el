@@ -207,7 +207,8 @@
     (powerline-render
      (append
       (abdo-powerline-major-mode)
-      (when (> (window-total-width powerline-selected-window) 90)
+      (when (and (window-valid-p powerline-selected-window)
+                 (> (window-total-width powerline-selected-window) 90))
         (abdo-powerline-minor-modes))
       (list
        (propertize " " 'face face1)
