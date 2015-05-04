@@ -71,6 +71,14 @@ local function geometry_cb(geom)
 end
 
 
+local function swap_to_master(c)
+    local m = awful.client.getmaster()
+    if c ~= nil and m ~= nil then
+        c:swap(m)
+    end
+end
+
+
 -----------------------------------
 -- Client bindings and buttons   --
 -----------------------------------
@@ -80,7 +88,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, shiftkey  }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, ctrlkey   }, "space",  function (c) awful.client.floating.toggle()   end),
     awful.key({ modkey,           }, "t",      function (c) awful.client.floating.toggle()   end),
-    awful.key({ modkey,           }, "Return", function (c) c:swap(awful.client.getmaster()) end),
+    awful.key({ modkey,           }, "Return", function (c) swap_to_master(c)                end),
     awful.key({ modkey,           }, "o",      function (c) awful.client.movetoscreen(c)     end),
     awful.key({ modkey, shiftkey  }, "r",      function (c) c:redraw()                       end),
     awful.key({ modkey,           }, "r",      function (c) c:raise()                        end),
@@ -112,22 +120,14 @@ rules = require("awful.rules")
 -- systemd signals to capture cgroups and apply rules
 capi.client.connect_signal("manage",
                            function(c, startup)
+                               -- capi.client.focus = c
                                systemd.manage_client(c)
-
-                               -- show client
-                               c.hidden = false
-                               c:raise()
-                               capi.client.focus = c
-
-                               -- handle it as a dropdown
                                dropdown.manage_client(c)
                            end)
 
 capi.client.connect_signal("unmanage",
                            function(c)
                                systemd.unmanage_client(c)
-
-                               -- handle it as a dropdown
                                dropdown.unmanage_client(c)
                            end)
 
@@ -135,8 +135,6 @@ capi.client.connect_signal("unmanage",
 capi.client.connect_signal("focus",
                            function(c)
                                systemd.focus_client(c)
-
-                               -- handle it as a dropdown
                                dropdown.focus_client(c)
                            end)
 
@@ -149,17 +147,22 @@ capi.client.connect_signal("focus",
 -- awful rules
 rules.rules = {
     -- All clients will match this rule.
-    { rule = { },
+    { rule = { }, except_any = { class = {"Tint2", "Plank"} },
       properties = { border_width = 1,
-                     -- border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
-                     -- initially hide clients, so they do not flicker when changing geometry
-                     hidden = true,
+                     focus = awful.client.focus.filter,
+                     raise=true,
                      keys = clientkeys,
                      buttons = clientbuttons,
                      maximized_vertical   = false,
                      maximized_horizontal = false,
                      size_hints_honor = false } },
+
+    -- Panels or docks
+    { rule_any = { class = { "Tint2", "Plank"} },
+      properties = { floating = true,
+                     focus = false } },
+
 
     -- Floats
     { rule_any = { class = {"Qpaeq", "Qjackctl", "Unison-gtk2", "pinentry", "Skype", "Pavucontrol", "Pidgin",
@@ -169,6 +172,10 @@ rules.rules = {
     -- Float dialogs
     { rule_any = { name = {"Print"} },
       properties = { floating = true } },
+
+    -- Float youtube, etc.
+    { rule_any = { instance = { "plugin-container", "exe" } },
+      properties = { floating = true, focus = true } },
 
     -- Centered floats
     { rule_any = { class = {"mpv", "MPlayer", "feh"} },
@@ -197,6 +204,12 @@ systemd.rules = {
                      ontop = true,
                      above = true,
                      skip_taskbar = true } },
+
+    -- float virtual machines
+    { rule       = { },
+      process    = { cgroup = 'machines%.slice/.*$', main = false },
+      properties = { floating = true },
+      callback   = function(c) awful.placement.centered(c) end },
 
     -- default dropdown geometry
     { rule       = { },

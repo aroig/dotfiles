@@ -56,8 +56,12 @@ end
 
 
 globalkeys = awful.util.table.join(
-    -- actions
+    -- Machine state
+    awful.key({ modkey,           }, "m",      function() switch.machine_mode(1)     end),
+    awful.key({ modkey, shiftkey  }, "m",      function() switch.machine_mode(-1)    end),
 
+    awful.key({ modkey,           }, "v",      function() switch.output_mode(1)      end),
+    awful.key({ modkey, shiftkey  }, "v",      function() switch.output_mode(-1)     end),
 
     -- Applications started from instantiated units
     awful.key({ modkey, ctrlkey   }, "Return", function () run('app:termite')         end),
@@ -89,30 +93,37 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "F4",     box.naughtylog.toggle_naughtylog),
 
     -- Top dropdown clients
-    awful.key({ modkey,           }, "F12",    function() ddshow_last()              end),
-    awful.key({                   }, "F12",    function() ddhide_last()              end),
-    awful.key({ shiftkey,         }, "F12",    function() ddhide_all()               end),
+    awful.key({ modkey   }, "F12",             function() ddshow_last()              end),
+    awful.key({          }, "F12",             function() ddhide_last()              end),
+    awful.key({ shiftkey }, "F12",             function() ddhide_all()               end),
+    awful.key({ modkey   }, "XF86MyComputer",  function() ddshow_last()              end),
+    awful.key({          }, "XF86MyComputer",  function() ddhide_last()              end),
+    awful.key({ shiftkey }, "XF86MyComputer",  function() ddshow_all()               end),
 
-    awful.key({ modkey,           }, "F8",     function() ddshow("dd:docs",    true) end),
-    awful.key({                   }, "F8",     function() ddhide("dd:docs")          end),
+    awful.key({ modkey   }, "F9",              function() ddshow("dd:journal", true) end),
+    awful.key({          }, "F9",              function() ddhide("dd:journal")       end),
+    awful.key({ modkey   }, "XF86Tools",       function() ddshow("dd:journal", true) end),
+    awful.key({          }, "XF86Tools",       function() ddhide("dd:journal")       end),
 
-    awful.key({ modkey,           }, "F9",     function() ddshow("dd:syslog",  true) end),
-    awful.key({                   }, "F9",     function() ddhide("dd:syslog")        end),
+    awful.key({ modkey   }, "F10",             function() ddshow("dd:notes",   true) end),
+    awful.key({          }, "F10",             function() ddhide("dd:notes")         end),
+    awful.key({ modkey   }, "XF86Search",      function() ddshow("dd:notes",   true) end),
+    awful.key({          }, "XF86Search",      function() ddhide("dd:notes")         end),
 
-    awful.key({ modkey,           }, "F10",    function() ddshow("dd:notes",   true) end),
-    awful.key({                   }, "F10",    function() ddhide("dd:notes")         end),
-
-    awful.key({ modkey,           }, "F11",    function() ddshow("dd:octave",  true) end),
-    awful.key({                   }, "F11",    function() ddhide("dd:octave");       end),
+    awful.key({ modkey   }, "F11",             function() ddshow("dd:docs",    true) end),
+    awful.key({          }, "F11",             function() ddhide("dd:docs");         end),
+    awful.key({ modkey   }, "XF86LaunchA",     function() ddshow("dd:docs",    true) end),
+    awful.key({          }, "XF86LaunchA",     function() ddhide("dd:docs");         end),
 
     -- Prompts
-    awful.key({ modkey,           }, "F5",     prompt.wikipedia),
-    awful.key({ modkey,           }, "F6",     prompt.mathscinet),
+    awful.key({ modkey   }, "w",               prompt.wikipedia),
+    awful.key({ modkey   }, "e",               prompt.mathscinet),
 
-    awful.key({ modkey,           }, "c",      prompt.docs),
-    awful.key({ modkey,           }, "s",      prompt.lua),
-    awful.key({ modkey,           }, "x",      prompt.command),
-    awful.key({ modkey,           }, "d",      prompt.dropdown),
+    awful.key({ modkey   }, "z",               prompt.docs),
+    awful.key({ modkey   }, "a",               prompt.lua),
+    awful.key({ modkey   }, "s",               prompt.systemd),
+    awful.key({ modkey   }, "x",               prompt.command),
+    awful.key({ modkey   }, "d",               prompt.dropdown),
 
     -- Client cycling by direction
     awful.key({ modkey,           }, "Up",     function () awful.client.focus.global_bydirection("up") end),
@@ -220,12 +231,24 @@ globalkeys = awful.util.table.join(
     -- Desktop stuff
     awful.key({ modkey, ctrlkey },   "Print",     function () shexec(apps.print)                       end),
 
+    -- Brightness
+    awful.key({}, "XF86MonBrightnessUp",          function () shexec("xbacklight -inc 5%")             end),
+    awful.key({}, "XF86MonBrightnessDown",        function () shexec("xbacklight -dec 5%")             end),
+
     -- Music
     awful.key({ modkey, ctrlkey   }, "Home",      function () shexec("mpc -q toggle")                  end),
     awful.key({ modkey, ctrlkey   }, "Page_Up",   function () shexec("mpc -q prev")                    end),
     awful.key({ modkey, ctrlkey   }, "Page_Down", function () shexec("mpc -q next")                    end),
 
+    awful.key({}, "XF86AudioRaiseVolume",         function () shexec("pvol +2db")                      end),
+    awful.key({}, "XF86AudioLowerVolume",         function () shexec("pvol -2db")                      end),
+
+    -- TODO: mute stuff
+    awful.key({}, "XF86AudioMute",                function () shexec("pvol mute-sink")                 end),
+    awful.key({}, "XF86AudioMicMute",             function () shexec("pvol mute-source")               end),
+
     awful.key({ modkey, ctrlkey   }, "Insert",    function () shexec("pvol +2db")                      end),
+    awful.key({ modkey, ctrlkey   }, "End",       function () shexec("pvol +2db")                      end), -- for galois
     awful.key({ modkey, ctrlkey   }, "Delete",    function () shexec("pvol -2db")                      end)
 )
 

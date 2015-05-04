@@ -16,15 +16,25 @@ local function worker(format, warg)
     -- Get temperature from thermal zone
     local data = helpers.pathtotable("/sys/class/hwmon/" .. warg[1])
     local name = warg[2] or "temp1"
-
-    if data then
-        local value = {temp = data[name .. "_input"] and tonumber(data[name .. "_input"]) / 1000,
-                       crit = data[name .. "_crit"] and tonumber(data[name .. "_crit"]) / 1000,
-                       label = data[name .. "_label"] or "<unknown>"}
-        return value
+    if type(name) == "string" then
+        name = { name }
     end
 
-    return {temp = 0, crit = 0, label = "<unknown>"}
+    if data then
+        local all_values = {temp = 0, sensors = {} }
+        for _,n in ipairs(name) do
+            local value = {temp = data[n .. "_input"] and tonumber(data[n .. "_input"]) / 1000,
+                           crit = data[n .. "_crit"] and tonumber(data[n .. "_crit"]) / 1000,
+                           label = data[n .. "_label"] or "<unknown>"}
+            table.insert(all_values.sensors, value)
+            if all_values.temp < value.temp then
+                all_values.temp = value.temp
+            end
+        end
+        return all_values
+    end
+
+    return { temp = 0, sensors = {temp = 0, crit = 0, label = "<unknown>"} }
 end
 
 return setmetatable(thermal, { __call = function(_, ...) return worker(...) end })

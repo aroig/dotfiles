@@ -19,8 +19,12 @@ return {
    gmpc                      = "gmpc.service",
    goldendict                = "goldendict.service",
 
-   deluge                    = "deluge-gtk",
-   amule                     = "amulegui",
+   deluge                    = "deluge.service",
+   amule                     = "amule.service",
+
+   extempore                 = "extempore.service",
+   sclang                    = "sclang.service",
+
    pidgin                    = "pidgin",
    skype                     = "skype",
    guvcview                  = "guvcview",
@@ -30,22 +34,21 @@ return {
    patchage                  = "patchage.service",
    qsynth                    = "qsynth",
 
-   ["gnome-control-center"]  = "gnome-control-center",
-   ["gnome-disks"]           = "gnome-disks",
+   gnomedisks                = "gnome-disks",
    unison                    = "unison-gtk2",
    virtualbox                = "virtualbox",
 
    matlab                    = "matlab",
-   sage                      = apps.termcmd("sage", "sage"),
-   octave                    = apps.termcmd("octave", "octave"),
+   sage                      = "tm:sage",
+   octave                    = "tm:octave",
    maple                     = "xmaple",
    stellarium                = "stellarium",
    boinc                     = "boincm",
 
-   ipython                   = apps.termcmd("ipython", "ipython"),
-   ipython2                  = apps.termcmd("ipython2", "ipython2"),
-   lua                       = apps.termcmd("lua", "lua"),
-   ghci                      = apps.termcmd("ghci", "ghci"),
+   ipython                   = "tm:ipython",
+   ipython2                  = "tm:ipython2",
+   lua                       = "tm:lua",
+   ghci                      = "tm:ghci",
 
    libreoffice               = "libreoffice",
    gcstar                    = "gcstar",
@@ -76,7 +79,7 @@ return {
    qtcreator                 = "qtcreator",
 
    -- system state
-   quit                      = "wm-quit.service",
+   quit                      = "wmquit.target",
    lock                      = "lock.target",
    suspend                   = "suspend.target",
    poweroff                  = "poweroff.target",
@@ -87,5 +90,6 @@ return {
    hi                        = "sync-hi.service",
    bye                       = "sync-bye.service",
    byez                      = "sync-byez.service",
+   byez                      = "sync-byeh.service",
    fakesync                  = "sync-fake.service",
 }

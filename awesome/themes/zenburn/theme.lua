@@ -5,6 +5,8 @@
 -------------------------------
 
 local util = require("awful.util")
+local string = string
+
 
 -- {{{ Main
 theme = {}
@@ -13,16 +15,18 @@ theme.confdir = util.getdir("config") .. "/themes/zenburn"
 
 
 -- {{{ Fonts
-theme.font         = "Lucida Sans 10"
-theme.font_naughty = "Overlock 12"
 
---- theme.font_symbol  = "Symbola 9"
-theme.font_symbol  = "FontAwesome, Symbola 9"
+-- NOTE: the size of desktop and terminal fonts is adjusted via
+-- fontconfig on a per-host basis.
 
-theme.font_mono    = "Ubuntu Mono 11"
-theme.font_box     = theme.font_mono
+-- basic awesome fonts
+theme.font         = "desktop 11"
+theme.font_mono    = "terminal 11"
+theme.font_symbol  = "desktop-symbols 11"
+
+theme.font_naughty = "desktop 14"
+theme.font_box     = "terminal 12"
 -- }}}
-
 
 -- {{{ Named Colors
 theme.color_fg     = "#dcdccc"
@@ -63,14 +67,14 @@ theme.color_widget_gradient = {
     "#ff5656",
 }
 
-theme.color_widget          = theme.color_green
+theme.color_widget          = theme.color_white
+theme.color_widget_value    = theme.color_green
+theme.color_widget_warn     = theme.color_yellow
 theme.color_widget_alert    = theme.color_red
-theme.color_widget_gray     = theme.color_gray
-
 -- }}}
 
 
--- {{{ Colors
+-- {{{ Colors for the application bar
 theme.fg_normal = theme.color_fg
 theme.bg_normal = theme.color_bg
 
@@ -93,6 +97,7 @@ theme.border_marked = theme.color_sat_red
 
 theme.border_naughty  = theme.color_sat_green
 -- }}}
+
 
 -- {{{ Titlebars
 theme.titlebar_bg_focus  = theme.color_black
@@ -125,15 +130,23 @@ theme.mouse_finder_color = theme.color_red
 -- {{{ Wibox font icons from Font Awesome
 theme.wibox = {}
 
-theme.wibox.memory     = "&#xf145;"   -- hdd: &#xf0a0;  ticket: &#xf145;
-theme.wibox.cpu        = "&#xf013;"
+theme.wibox.check      = "&#xf00c;"
+theme.wibox.cross      = "&#xf00d;"
+
+theme.wibox.memory     = "&#xf145;"   -- ticket: &#xf145;
+theme.wibox.cpu        = "&#xf085;"    -- cog: &#xf013;   cogs: &#xf085;
+theme.wibox.temp       = "&#xf041;"    -- fire: "&#xf06d;"
+theme.wibox.disk       = "&#xf0a0;"    -- stack: &#xf1c0;
+theme.wibox.gauge      = "&#xf0e4;"
+theme.wibox.network    = "&#xf0e8;"
+theme.wibox.wifi       = "&#xf012;"
 theme.wibox.sync       = "&#xf021;"
+
 theme.wibox.poweroff   = "&#xf011;"
 
-theme.wibox.music      = "&#xf001;"   -- unicode: &#x266b;   -- fontawesome: &#xf001;
-
+theme.wibox.music      = "&#xf001;"
 theme.wibox.headphones = "&#xf025;"
-theme.wibox.speaker    = "&#xf028;"
+theme.wibox.speaker    = "&#xf028;"   -- also "&#xf026;" "&#xf027;" "&#xf028;"
 theme.wibox.mute       = "&#xf026;"
 
 theme.wibox.play       = "&#x23f5;"   -- unassigned unicode: &#x23f5;   fontawesome: &#xf04b;
@@ -144,16 +157,22 @@ theme.wibox.warning    = "&#xf06a;"
 theme.wibox.locked     = "&#xf023;"
 theme.wibox.unlocked   = "&#xf09c;"
 
+theme.wibox.upload     = "&#xf093;"
+theme.wibox.download   = "&#xf019;"
 theme.wibox.downup     = "&#x1f504;"   -- unicode symbol
-theme.wibox.mail       = "&#xf003;"    -- outline &#xf003;  filled &#xf0e0;
+theme.wibox.mail       = "&#xf0e0;"    -- outline &#xf003;  filled &#xf0e0;
 
 theme.wibox.chat       = "&#xf0e5;"    -- single  &#xf028;  multiple  &#xf086;
 theme.wibox.orgmode    = "&#xf022;"
 
 theme.wibox.desktop    = "&#xf108;"
 theme.wibox.laptop     = "&#xf109;"
+theme.wibox.tablet     = "&#xf10a;"
+theme.wibox.mobile     = "&#xf10b;"
+theme.wibox.keyboard   = "&#xf11c;"
 
-theme.wibox.cable      = "&#x1f50c;"  -- unicode symbol
+theme.wibox.power      = "&#xf0e7;"
+theme.wibox.cable      = "&#xf1e6;"   -- unicode: "&#x1f50c;"
 theme.wibox.battery    = "&#x1f50b;"  -- unicode symbol
 
 theme.wibox.clock      = "&#xf017;"
@@ -163,21 +182,30 @@ theme.wibox.calendar   = "&#xf133;"
 
 
 -- system icons path. I should autodetect it or something
-local icon_theme            = "numix/Numix"
+local icon_theme            = "Numix"
 local icon_path             = os.getenv("HOME") .. "/.icons/" .. icon_theme .. "/64x64/"
 
 -- {{{ Naughty icons
-theme.naughty_mail_icon     = icon_path .. "emblems/emblem-mail.svg"
-theme.naughty_chat_icon     = icon_path .. "emblems/emblem-people.svg"
-theme.naughty_alert_icon    = icon_path .. "emblems/emblem-important.svg"
-theme.naughty_event_icon    = icon_path .. "emblems/emblem-urgent.svg"
-theme.naughty_app_icon      = icon_path .. "emblems/emblem-system.svg"
+theme.naughty = {}
+theme.naughty.info_icon     = icon_path .. "status/dialog-information.svg"
+theme.naughty.alert_icon    = icon_path .. "status/dialog-warning.svg"
+theme.naughty.unknown_icon  = icon_path .. "status/dialog-question.svg"
+theme.naughty.crash_icon    = icon_path .. "status/dialog-error.svg"
 
-theme.naughty_battery_icon  = icon_path .. "devices/battery.svg"
+theme.naughty.mail_icon     = icon_path .. "categories/applications-mail.svg"
+theme.naughty.chat_icon     = icon_path .. "categories/applications-chat.svg"
+theme.naughty.app_icon      = icon_path .. "categories/system_section.svg"
+theme.naughty.system_icon   = icon_path .. "categories/system_section.svg"
+theme.naughty.event_icon    = icon_path .. "actions/appointment.svg"
 
-theme.naughty_mail_sound    = theme.confdir .. "/sounds/soothing/Gentle Roll.wav"
-theme.naughty_chat_sound    = theme.confdir .. "/sounds/soothing/Looking Up.wav"
-theme.naughty_alert_sound   = theme.confdir .. "/sounds/soothing/Connected.wav"
+theme.naughty.battery_icon  = icon_path .. "devices/battery.svg"
+theme.naughty.disk_icon     = icon_path .. "devices/drive-harddisk.svg"
+
+
+
+theme.naughty.mail_sound    = theme.confdir .. "/sounds/soothing/Gentle Roll.wav"
+theme.naughty.chat_sound    = theme.confdir .. "/sounds/soothing/Looking Up.wav"
+theme.naughty.alert_sound   = theme.confdir .. "/sounds/soothing/Connected.wav"
 -- }}}
 
 -- {{{ Taglist icons

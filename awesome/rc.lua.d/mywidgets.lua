@@ -9,10 +9,11 @@
 -----------------------------------
 
 -- require("awful")
-local capi  = { timer = timer }
 
-local wibox = require("wibox")
+local gears = gears
+local wibox = wibox
 local beautiful = beautiful
+local keyboard = keyboard
 
 local os = os
 
@@ -23,9 +24,9 @@ local host_config = host_config
 -----------------------------------
 
 local timers = {}
-timers.slow    = timer({ timeout = 60 })
-timers.normal  = timer({ timeout = 10 })
-timers.fast    = timer({ timeout = 2 })
+timers.slow    = gears.timer({ timeout = 60 })
+timers.normal  = gears.timer({ timeout = 10 })
+timers.fast    = gears.timer({ timeout = 2 })
 
 function start_widgets()
     for _,t in pairs(timers) do
@@ -56,6 +57,31 @@ for i, col in ipairs(beautiful.color_widget_gradient) do
 end
 
 myw = {}
+
+
+function wiboxcolor(min, max, value)
+    local crit = 0.9
+    local warn = 0.7
+
+    local norm = (value - min) / (max - min)
+    if norm < 0 then
+        norm = 0
+    end
+
+    if norm > 1 then
+        morm = 1
+    end
+
+    if norm < warn then
+        return beautiful.color_widget_value
+    elseif norm < crit then
+        return beautiful.color_widget_warn
+    else
+        return beautiful.color_widget_alert
+    end
+end
+
+
 
 function wiboxicon(name, color)
 
@@ -97,6 +123,9 @@ myw.spacer:set_markup(colortext("  "))
 myw.separator = wibox.widget.textbox()
 myw.separator:set_markup(colortext(" |  "))
 
+myw.slash = wibox.widget.textbox()
+myw.slash:set_markup(colortext("/ "))
+
 
 
 -----------------------------------
@@ -110,6 +139,9 @@ myw.hdw.cpuicon:set_markup(wiboxicon('cpu', beautiful.color_widget) .. " ")
 
 myw.hdw.memicon = wibox.widget.textbox()
 myw.hdw.memicon:set_markup(wiboxicon('memory', beautiful.color_widget) .. " ")
+
+myw.hdw.tempicon = wibox.widget.textbox()
+myw.hdw.tempicon:set_markup(wiboxicon('temp', beautiful.color_widget) .. " ")
 
 myw.hdw.cpu  = require("abdo.widget.cpu")
 myw.hdw.mem  = require("abdo.widget.mem")
@@ -126,7 +158,7 @@ myw.hdw.tempval = '?'
 function myw.hdw.update()
     local args = myw.hdw.cpu(nil)
     if args and args[1] and args[1] ~= myw.hdw.cpuval then
-        local color = util.gradient(gradcols, 0, 100, args[1])
+        local color = wiboxcolor(0, 100, args[1])
         local text = colortext(string.format("%s%% ", args[1]), color)
         myw.hdw.cpuval = args[1]
         myw.hdw.cpuwdg:set_markup(text)
@@ -134,7 +166,7 @@ function myw.hdw.update()
 
     local args = myw.hdw.temp(nil, host_config['thermal'])
     if args and args.temp and args.temp ~= myw.hdw.tempval then
-        local color = util.gradient(gradcols, 35, 70, args.temp)
+        local color = wiboxcolor(35, 70, args.temp)
         local text = colortext(string.format("%dºC ", args.temp), color)
         myw.hdw.tempval = args.temp
         myw.hdw.tempwdg:set_markup(text)
@@ -142,7 +174,7 @@ function myw.hdw.update()
 
     local args = myw.hdw.mem(nil)
     if args and args[1] and args[1] ~= myw.hdw.memval then
-        local color = util.gradient(gradcols, 0, 100, args[1])
+        local color = wiboxcolor(0, 100, args[1])
         local text = colortext(string.format("%s%% ", args[1]), color)
         myw.hdw.memval = args[1]
         myw.hdw.memwdg:set_markup(text)
@@ -164,7 +196,7 @@ myw.net.dwdg = wibox.widget.textbox()
 myw.net.uwdg = wibox.widget.textbox()
 
 myw.net.icon = wibox.widget.textbox()
-myw.net.icon:set_markup(wiboxicon('downup', beautiful.color_widget) .. " ")
+myw.net.icon:set_markup(wiboxicon('network', beautiful.color_widget) .. " ")
 
 myw.net.value = { up=-1, down=-1 }
 
@@ -187,9 +219,12 @@ function myw.net.update()
     end
 
     if up ~= myw.net.value.up or down ~= myw.net.value.down then
-        local uptxt = colortext(string.format('%.0f', up), beautiful.color_widget)
 
-        local downtxt = colortext(string.format('%.0f', down), beautiful.color_widget)
+        local upcolor = wiboxcolor(0, 70, up)
+        local uptxt = colortext(string.format('%.0f', up), upcolor)
+
+        local downcolor = wiboxcolor(0, 600, down)
+        local downtxt = colortext(string.format('%.0f', down), downcolor)
 
         myw.net.dwdg:set_markup(downtxt .. ' ')
         myw.net.uwdg:set_markup(uptxt .. ' ')
@@ -237,7 +272,7 @@ function myw.mail.update()
             icon = icon_full
             num = "?"
         elseif num == 0 then
-            color = beautiful.color_widget
+            color = beautiful.color_widget_value
             icon = icon_empty
         elseif num > 0 then
             color = beautiful.color_widget_alert
@@ -259,7 +294,7 @@ function myw.mail.update()
             color = beautiful.color_widget_alert
             num = "?"
         elseif num == 0 then
-            color = beautiful.color_widget
+            color = beautiful.color_widget_value
         else
             color = beautiful.color_widget_alert
         end
@@ -342,9 +377,9 @@ function myw.mpd.update()
     if args['{state}'] == 'playing' then
         icon = wiboxicon('play', beautiful.color_widget_alert)
     elseif args['{state}'] == 'paused' then
-        icon = wiboxicon('pause', beautiful.color_widget)
+        icon = wiboxicon('pause', beautiful.color_widget_value)
     else
-        icon = wiboxicon('stop', beautiful.color_widget)
+        icon = wiboxicon('stop', beautiful.color_widget_value)
     end
 
     if myw.mpd.current['{file}'] ~= args['{file}'] or
@@ -398,7 +433,7 @@ function myw.vol.update()
     end
 
     if args.vol ~= myw.vol.vol_value then
-        local color = util.gradient(gradcols, 0, 100, args.vol)
+        local color = wiboxcolor(0, 100, args.vol)
         local text = colortext(string.format("%s%% ", args.vol), color)
         myw.vol.widget:set_markup(text)
         myw.vol.vol_value = args.vol
@@ -420,15 +455,19 @@ timers.fast:connect_signal("timeout", myw.vol.update)
 myw.bat = {}
 myw.bat.src = require("abdo.widget.bat")
 
-myw.bat.icon = wibox.widget.textbox()
+myw.bat.pcicon = wibox.widget.textbox()
 myw.bat.pcwidget = wibox.widget.textbox()
+myw.bat.rticon = wibox.widget.textbox()
 myw.bat.rtwidget = wibox.widget.textbox()
 
-myw.bat.tooltip = awful.tooltip({ objects = {myw.bat.pcwidget, myw.bat.rtwidget, myw.bat.icon}})
+myw.bat.tooltip = awful.tooltip({ objects = {myw.bat.pcwidget, myw.bat.rtwidget, myw.bat.pcicon, myw.bat.rticon}})
 
 myw.bat.percent = -1
 myw.bat.rate = -1
 myw.bat.time = -1
+
+myw.bat.pcicon:set_markup(wiboxicon("cable", beautiful.color_widget))
+myw.bat.rticon:set_markup(wiboxicon("power", beautiful.color_widget))
 
 function myw.bat.update()
     local args = myw.bat.src(nil, "BAT0")
@@ -436,9 +475,9 @@ function myw.bat.update()
         local color_rate = beautiful.color_widget
 
         if args.state == 'charging' then
-            color_rate = util.gradient(gradcols_rev, 0, 40, args.rate)
+            color_rate = wiboxcolor(-40, 0, args.rate)
         else
-            color_rate = util.gradient(gradcols, 7, 30, args.rate)
+            color_rate = wiboxcolor(7, 30, args.rate)
         end
 
         local text = colortext(string.format("%4.1fW", args.rate), color_rate)
@@ -446,19 +485,12 @@ function myw.bat.update()
     end
 
     if args.percent ~= myw.bat.percent or args.state ~= myw.bat.state then
-        local color_percent = util.gradient(gradcols_rev, 0, 100, args.percent)
-        local text_icon = ""
-
-        if args.state == 'charging' or args.state == 'charged' then
-            text_icon = wiboxicon("cable", beautiful.color_widget)
-        else
-            text_icon = wiboxicon("battery", beautiful.color_widget)
-        end
+        local color_percent = wiboxcolor(-100, 0, args.percent)
 
         local battery_state = {
-            full        = "⚡",
+            full        = " ",
             unknown     = "?",
-            charged     = "⚡",
+            charged     = " ",
             charging    = "+",
             discharging = "-"
         }
@@ -467,7 +499,6 @@ function myw.bat.update()
         local text_percent = colortext(string.format("%s%%", args.percent), color_percent)
 
         myw.bat.pcwidget:set_markup(text_state .. text_percent)
-        myw.bat.icon:set_markup(text_icon)
 
         if args.percent > 0 and args.percent <= 5 and args.state ~= 'charging' then
             naughty.notify({title="Low Battery", text="Hey, plug the power cord!",
@@ -479,6 +510,7 @@ function myw.bat.update()
         myw.bat.tooltip.textbox:set_markup("<b>Time remaining:</b> " .. args.time)
     end
 
+    myw.bat.state = args.state
     myw.bat.rate = args.rate
     myw.bat.percent = args.percent
     myw.bat.time = args.time
@@ -487,7 +519,8 @@ end
 myw.bat.rtwidget:buttons(awful.util.table.join(awful.button({ }, 1,
     function () exec("gnome-power-statistics") end)))
 myw.bat.pcwidget:buttons(myw.bat.rtwidget:buttons())
-myw.bat.icon:buttons(myw.bat.rtwidget:buttons())
+myw.bat.pcicon:buttons(myw.bat.rtwidget:buttons())
+myw.bat.rticon:buttons(myw.bat.rtwidget:buttons())
 
 timers.fast:connect_signal("timeout", myw.bat.update)
 
@@ -500,27 +533,32 @@ timers.fast:connect_signal("timeout", myw.bat.update)
 myw.sys = {}
 myw.sys.sync = require("abdo.widget.filex")
 myw.sys.priv = require("abdo.widget.filex")
+myw.sys.data = require("abdo.widget.filex")
+
 myw.sys.syncwdg = wibox.widget.textbox()
 myw.sys.privwdg = wibox.widget.textbox()
+myw.sys.datawdg = wibox.widget.textbox()
 
 function myw.sys.update()
     local priv_state = myw.sys.priv(nil, {os.getenv("AB2_PRIV_DIR") .. "/README"})
     local sync_state = myw.sys.sync(nil, {os.getenv("XDG_RUNTIME_DIR") .. "/synced"})
+    local data_state = myw.sys.data(nil, {"/data/abdo"})
 
     local icon
-    if priv_state then
-        icon = wiboxicon("unlocked", beautiful.color_widget)
-    else
-        icon = wiboxicon("locked", beautiful.color_widget_alert)
+    if priv_state then icon = wiboxicon("unlocked", beautiful.color_widget)
+    else               icon = wiboxicon("locked", beautiful.color_widget_alert)
     end
     myw.sys.privwdg:set_markup(icon .. ' ')
 
-    if sync_state then
-        icon = wiboxicon('sync', beautiful.color_widget)
-    else
-        icon = wiboxicon('sync', beautiful.color_widget_alert)
+    if sync_state then icon = wiboxicon('sync', beautiful.color_widget)
+    else               icon = wiboxicon('sync', beautiful.color_widget_alert)
     end
     myw.sys.syncwdg:set_markup(icon .. ' ')
+
+    if data_state then icon = wiboxicon('disk', beautiful.color_widget)
+    else               icon = wiboxicon('disk', beautiful.color_widget_alert)
+    end
+    myw.sys.datawdg:set_markup(icon .. ' ')
 end
 
 timers.normal:connect_signal("timeout", myw.sys.update)
@@ -535,8 +573,20 @@ myw.clock = {}
 myw.clock.icon = wibox.widget.textbox()
 myw.clock.icon:set_markup(wiboxicon("clock", beautiful.color_widget) .. ' ')
 
-myw.clock.clockwdg = awful.widget.textclock(string.format('<span color="%s">%%a %%d %%b %%H:%%M </span>',
-                                                          beautiful.color_widget))
+myw.clock.clockwdg = awful.widget.textclock(colortext("%a %d %b %H:%M ", beautiful.color_widget_value))
+
+
+
+-----------------------------------
+-- Keyboard                      --
+-----------------------------------
+
+myw.keyb = {}
+myw.keyb.icon = wibox.widget.textbox()
+myw.keyb.icon:set_markup(wiboxicon("keyboard", beautiful.color_widget) .. ' ')
+
+myw.keyb.icon:buttons(awful.util.table.join(
+                          awful.button({ }, 1, function () osk() end)))
 
 
 -----------------------------------
@@ -628,10 +678,10 @@ myw.layoutbox = {}
 for s = 1, screen.count() do
    myw.layoutbox[s] = awful.widget.layoutbox(s)
    myw.layoutbox[s]:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-                           awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
+                           awful.button({ }, 1, function () awful.layout.inc(1, nil, layouts) end),
+                           awful.button({ }, 3, function () awful.layout.inc(-1, nil, layouts) end),
+                           awful.button({ }, 4, function () awful.layout.inc(1, nil, layouts) end),
+                           awful.button({ }, 5, function () awful.layout.inc(-1, nil, layouts) end)))
  end
 
 

@@ -22,8 +22,8 @@ naughty.config.defaults = {
    font             = beautiful.font_naughty or "sans 8",
 -- icon             = nil,
    icon_size        = 64,
-   fg               = beautiful.fg_focus,
-   bg               = beautiful.bg_focus,
+   fg               = beautiful.color_fg,
+   bg               = beautiful.color_bg,
    border_color     = beautiful.border_naughty,
    opacity          = 0.9,
    border_width     = 1,
@@ -36,32 +36,40 @@ naughty.config.icon_dirs = { os.getenv("HOME") .. "/.icons/" }
 
 
 local sound = {
-    mail            = beautiful.naughty_mail_sound,
-    weechat         = beautiful.naughty_chat_sound,
-    gtalk           = beautiful.naughty_chat_sound,
-    rcirc           = beautiful.naughty_chat_sound,
-    twitter         = beautiful.naughty_chat_sound,
-    ["notify-send"] = beautiful.naughty_alert_sound,
+    mail            = beautiful.naughty.mail_sound,
+    weechat         = beautiful.naughty.chat_sound,
+    gtalk           = beautiful.naughty.chat_sound,
+    rcirc           = beautiful.naughty.chat_sound,
+    twitter         = beautiful.naughty.chat_sound,
+    ["notify-send"] = beautiful.naughty.alert_sound,
 }
 
 
 local icon = {
-    mail            = beautiful.naughty_mail_icon,
-    weechat         = beautiful.naughty_chat_icon,
-    gtalk           = beautiful.naughty_chat_icon,
-    rcirc           = beautiful.naughty_chat_icon,
-    twitter         = beautiful.naughty_chat_icon,
-    ["notify-send"] = beautiful.naughty_alert_icon,
-    run             = beautiful.naughty_app_icon,
-    battery         = beautiful.naughty_battery_icon,
+    mail            = beautiful.naughty.mail_icon,
+    weechat         = beautiful.naughty.chat_icon,
+    gtalk           = beautiful.naughty.chat_icon,
+    rcirc           = beautiful.naughty.chat_icon,
+    twitter         = beautiful.naughty.chat_icon,
+    ["notify-send"] = beautiful.naughty.alert_icon,
+    run             = beautiful.naughty.app_icon,
+    battery         = beautiful.naughty.battery_icon,
+    btrfs           = beautiful.naughty.disk_icon,
+    coredump        = beautiful.naughty.crash_icon,
 }
 
 -- Set presets for different urgency levels
 naughty.config.presets.low.timeout = 5
+naughty.config.presets.low.fg = beautiful.color_fg
+naughty.config.presets.low.bg = beautiful.color_bg
+
+naughty.config.presets.normal.timeout = 5
+naughty.config.presets.normal.fg = beautiful.color_yellow
+naughty.config.presets.normal.bg = beautiful.color_black
 
 naughty.config.presets.critical.timeout = 0
-naughty.config.presets.critical.fg = "#FFFFFF"
-naughty.config.presets.critical.bg = "#B74747"
+naughty.config.presets.critical.fg = beautiful.color_red
+naughty.config.presets.critical.bg = beautiful.color_black
 
 
 -- Naughty callback

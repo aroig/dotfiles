@@ -22,8 +22,18 @@ end
 
 -- start a systemd unit
 function apps.sdcmd (unit)
-    return string.format("systemctl --user start %s", unit)
+    return string.format("systemctl --user start %s", util.shell_escape(unit))
 end
+
+-- start a systemd unit and show syslog during startup
+function apps.sdcmd_with_syslog (unit)
+    local cmd = apps.sdcmd(unit)
+    local show_syslog = "echo 'ddshow(\"dd:syslog\", true)' | awesome-client"
+    local hide_syslog = "echo 'ddhide(\"dd:syslog\", true)' | awesome-client"
+    return string.format("%s; %s; %s", show_syslog, cmd, hide_syslog)
+end
+
+
 
 
 -- Apps from the environment
