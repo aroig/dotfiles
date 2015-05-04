@@ -98,7 +98,7 @@ symlink_relative() {
         rm -Rf "$lnk"
         
     elif [ -e "$lnk" ]; then
-        error "Can't remove '$tgt' to place a symlink"
+        error "Can't remove '$lnk' to place a symlink"
     fi
 
     local parent="$(dirname "$lnk")"
