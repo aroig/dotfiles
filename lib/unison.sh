@@ -202,7 +202,6 @@ unison_config() {
     
     if [ ! "$val" = "$curval" ]; then
         info "setting config: $key = $val"
-        mkdir -p "$path/.unison"
         echo "$key=\"$val\"" >> "$cfgpath"   
     fi
 }
@@ -226,7 +225,6 @@ unison_config_safe() {
 
     elif [ ! "$val" = "$curval" ]; then
         info "setting config: $key = $val"
-        mkdir -p "$path/.unison"
         echo "$key=\"$val\"" >> "$cfgpath"   
     fi
 }
@@ -247,7 +245,7 @@ unison_init() {
     (
         cd "$path"
         if ! unison_is_repo; then
-            mkdir ".unison"
+            mkdir -p "$path/.unison"
         fi
     )
 }
