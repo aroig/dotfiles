@@ -4,44 +4,57 @@
 # ------------------------------------------------------------------ #
 
 ##
+# usage: homedir_is_root <path>
+#
+# Check whether path is at the root of a home directory tree
+##
+homedir_is_root() {
+    local path="$1"
+    local mrconfig="$(dirname "$path")/.mrconfig"
+    test -f "$mrconfig" || return 1
+    
+    local lrmt="$(homedir_remote_from_path "$path")"
+    test -n "$lrmt" || return 1
+
+    return 0
+}
+
+
+##
 # usage: homedir_host <remote>
 #
 # Get host for a homedir remote
 ##
 homedir_host() {
     local rmt="$1"
-    local host
+    
     case "$rmt" in
-        localhost)    host="localhost"                     ;;
-        ada)          host="localhost"                     ;;
-        babel)        host="babel.abdoroig.net"            ;;
-        galois)       host="galois"                        ;;
-        grothendieck) host="grothendieck"                  ;;
-        quasar)       host="localhost"                     ;;
-        skynet)       host="skynet"                        ;;
-        quark)        host="quark"                         ;;
-        *)
-            error "Unrecognized remote '$rmt'"             ;;
+        localhost)    echo "localhost"                     ;;
+        ada)          echo "localhost"                     ;;
+        babel)        echo "babel.abdoroig.net"            ;;
+        galois)       echo "galois"                        ;;
+        grothendieck) echo "grothendieck"                  ;;
+        quasar)       echo "localhost"                     ;;
+        skynet)       echo "skynet"                        ;;
+        quark)        echo "quark"                         ;;
     esac
-    echo "$host"
 }
 
 
 ##
-# usage: homedir_remote_from_mrconfig <path>
+# usage: homedir_remote_from_path <path>
 #
-# Get a remote name that containes <path> on the current machine
+# Get a remote name for which <path> is a directory.
 ##
-homedir_remote_from_mrconfig() {
+homedir_remote_from_path() {
     local path="$(dirname "$1")"
     local host="$(hostname)"
 
     case "$path" in
-        /home/abdo*)           echo "$host"                   ;;
-        /media/ada/home/abdo*) echo "ada"                     ;;
-        /media/quasar/abdo*)   echo "quasar"                  ;;
-        *)
-            error "Can't find a remote associated to '$path'" ;;
+        /home/abdo)           echo "$host"                   ;;
+        /data/abdo)           echo "$host"                   ;;
+        /media/ada/home/abdo) echo "ada"                     ;;
+        /media/quasar/abdo)   echo "quasar"                  ;;
     esac
 }
 
@@ -177,9 +190,15 @@ homedir_remote() {
 
     # get the host for the remote
     local host="$(homedir_host "$name")"
-
+    if [ -z "$host" ]; then
+        error "Can't determine host"
+    fi
+    
     # get remote for which we are running
-    local lrmt="$(homedir_remote_from_mrconfig "$MR_CONFIG")"
+    local lrmt="$(homedir_remote_from_path "$path")"
+    if [ -z "$lrmt" ]; then
+        error "Can't determine remote corresponding to current path"
+    fi
 
     # compute the url for git remotes
     local url="$(homedir_remote_url "$type" "$host" "$repodir")"
@@ -265,11 +284,15 @@ homedir_local() {
 # Checkout on the given remotes only
 ##
 homedir_checkout() {
-    local local_remote="$(homedir_remote_from_mrconfig "$MR_CONFIG")"
+    local path="$(pwd)"
     local repo="$MR_REPO"
+    local lrmt="$(homedir_remote_from_path "$path/$repo")"
+    if [ -z "$lrmt" ]; then
+        error "Can't determine remote corresponding to current path"
+    fi
 
     for rmt in "$@"; do
-        if [ "$rmt" = "$local_remote" ]; then
+        if [ "$rmt" = "$lrmt" ]; then
             mkdir -p "$repo"
             (
                 cd "$repo"

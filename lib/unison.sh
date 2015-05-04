@@ -27,18 +27,18 @@ unison_root_path() {
 ##
 # usage: unison_is_root <path>
 #
-# Check whether <path> is the root of an unison replica
+# Check whether <path> is the root of an initialized unison replica
 ##
 unison_is_root() {
     local path="$1"
-    test -d "$path/.unison"
+    test -d "$path/.unison" && test -n "$(unison_get_config "$path" "uuid")"
 }
 
 
 ##
 # usage: unison_is_repo <path>
 #
-# Check whether <path> belongs to a unison replica
+# Check whether <path> belongs to an initialized unison replica
 ##
 unison_is_repo() {
     local path="$1"
@@ -140,21 +140,12 @@ unison_skip() {
     local action="$2"
     local remote="$3"
     
-    # skip if repo is not a unison replica
-    if ! unison_is_root "$path"; then
-        warning "Directiory is not an unison replica. Skipping: $path"
-        return 0
-    fi
-
-    # skip silently if local replica is not configured
-    [ "$(unison_get_config "$path" "uuid")" ] || return 0
-
     if [[ "$action" =~ list ]] && [ "$remote" ]; then         
-        # skip silently if remote is not configured
+        # skip silently if remote is not configured locally
         unison_has_remote "$path" "$remote" || return 0
        
     elif [[ "$action" =~ sync|push|pull|fetch|update ]] && [ "$remote" ]; then
-        # skip silently if remote is not configured
+        # skip silently if remote is not configured locally
         unison_has_remote "$path" "$remote" || return 0
 
         # test if remote repo exists
@@ -166,7 +157,7 @@ unison_skip() {
                 systemctl --user start "sshmux@$host.service"
             fi
 
-            # test if remote repo is unison replica
+            # test if remote repo is an unison replica
             if ! remote_run "$host" "/" "test -d '$path/.unison'"; then
                 warning "There is no unison replica on remote '$remote'. Skipping: $path"
                 return 0

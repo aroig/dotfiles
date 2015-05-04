@@ -53,7 +53,8 @@ git_is_root() {
 git_is_repo() {
     local path="$1"
     local gitdir="$(git_gitdir_path "$path")"
-    test -n "$gitdir" && test -e "$gitdir"
+    local gitroot="$(git_root_path "$path")"
+    test -n "$gitdir" && test -n "$gitroot" && git_is_root "$gitroot"
 }
 
 ##

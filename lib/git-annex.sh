@@ -7,23 +7,24 @@
 ##
 # usage: git_annex_is_root <path>
 #
-# Check whether <path> is the root of a git annex repo
+# Check whether <path> is the root of an initialized git annex repo
 ##
 git_annex_is_root() {
     local path="$1"
-    test -d "$path/.git/annex"
+    test -d "$path/.git/annex" && test -n "$(git_get_config "$path" "annex.uuid")"
 }
 
 
 ##
 # usage: git_annex_is_repo <path>
 #
-# Check whether <path> belongs to a git-annex repo
+# Check whether <path> belongs to an initialized git-annex repo
 ##
 git_annex_is_repo() {
     local path="$1"
     local gitdir="$(git_gitdir_path "$path")"
-    test -n "$gitdir" && test -d "$gitdir/annex"
+    local gitroot="$(git_root_path "$path")"
+    test -n "$gitdir" && test -n "$gitroot" && git_annex_is_root "$gitroot"
 }
 
 
@@ -37,18 +38,12 @@ git_annex_skip() {
     local action="$2"
     local remote="$3"
     
-    # skip if repo is not a git annex repo
-    if ! git_annex_is_root "$path"; then
-        warning "Directiory is not a git-annex repo. Skipping: $path"        
-        return 0
-    fi
-
     if [[ "$action" =~ list ]] && [ "$remote" ]; then
-        # skip silently if remote is not configured
+        # skip silently if remote is not configured locally
         git_has_remote "$path" "$remote" || return 0        
             
     elif [[ "$action" =~ sync|push|pull|fetch|update ]] && [ "$remote" ]; then
-        # skip silently if remote is not configured
+        # skip silently if remote is not configured locally
         git_has_remote "$path" "$remote" || return 0
 
         # test if remote repo exists
