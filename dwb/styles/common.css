@@ -14,6 +14,63 @@
 
 
 /* -------------------------------------------- */
+/* Form style                                   */
+/* -------------------------------------------- */
+
+/* get rid of GTK appearence */
+input,
+textarea,
+select {
+  -webkit-appearance: none !important;
+  -webkit-border-radius: 0.3em !important;
+}
+
+input[type=button],
+input[type=submit],
+input[type=reset] {
+  padding: 0em 0.2em 0em 0.2em !important;
+  -webkit-appearance: none !important;
+  -webkit-border-radius: 0.3em !important;
+}
+
+input[type=checkbox],
+input[type=radio] {
+  height: 1em !important;
+  line-height: 1em !important;
+
+  vertical-align: top !important;
+}
+
+input[type=checkbox] {
+  -webkit-appearance: checkbox !important;
+}
+
+input[type=radio] {
+  -webkit-appearance: radio !important;
+}
+
+
+
+/* -------------------------------------------- */
+/* Form Colors                                  */
+/* -------------------------------------------- */
+
+textarea,
+input, 
+select {
+    border: 1px solid #000000;
+    -webkit-box-shadow: 1px 1px 1px #ffffff;
+}
+
+input[type=button],
+input[type=submit],
+input[type=reset] {
+    color: #000000;
+}
+
+
+
+/* -------------------------------------------- */
 /* Per host settings                            */
 /* -------------------------------------------- */
 /* NOTE: This is not yet implemented in webkit  */

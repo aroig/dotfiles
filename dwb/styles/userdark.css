@@ -11,17 +11,6 @@
 /* Colors                                       */
 /* -------------------------------------------- */
 
-/* input form colors */
-textarea,
-input, 
-select {
-   color: #000000 !important; 
-   background-color: #ffffff !important;
-   
-   border: 1px solid #000000;
-   -webkit-box-shadow: 1px 1px 1px #ffffff;
-
-}
 
 /* selection color. It will get inverted by the darkening shader */
 ::selection {
@@ -29,49 +18,6 @@ select {
   color: #ffffff;
 }
 
-
-/* -------------------------------------------- */
-/* Forms                                        */
-/* -------------------------------------------- */
-
-/* get rid of GTK appearence */
-input,
-textarea,
-select {
-  padding: 0em 0em 0em 0em !important;
-  -webkit-appearance: none !important;
-  -webkit-border-radius: 0.3em !important;
-}
-
-input,
-select {
-  height: 1.3em !important;
-  line-height: 1.3em !important;
-  min-height: 20px !important;
-}
-
-input[type=button],
-input[type=submit],
-input[type=reset] {
-  padding: 0em 0.2em 0em 0.2em !important;
-}
-
-input[type=checkbox],
-input[type=radio] {
-  height: 1em !important;
-  line-height: 1em !important;
-
-  vertical-align: top !important;
-  -webkit-filter: hue-rotate(180deg) contrast(160%) brightness(120%) invert() !important;
-}
-
-input[type=checkbox] {
-  -webkit-appearance: checkbox !important;
-}
-
-input[type=radio] {
-  -webkit-appearance: radio !important;
-}
 
 
 /* -------------------------------------------- */
@@ -90,6 +36,11 @@ html embed,
 html object,
 html video {
   -webkit-filter: invert() hue-rotate(180deg);
+}
+
+input[type=checkbox],
+input[type=radio] {
+  -webkit-filter: hue-rotate(180deg) contrast(160%) brightness(120%) invert() !important;
 }
 
 

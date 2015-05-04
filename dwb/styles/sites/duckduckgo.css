@@ -1,0 +1,9 @@
+
+/* -------------------------------------------- */
+/* Duck Duck Go                                 */
+/* -------------------------------------------- */
+
+/* fix search textbox padding in main page and search results */
+form#search_form_homepage {
+  padding: 0px 100px 0px 0px !important;
+}
