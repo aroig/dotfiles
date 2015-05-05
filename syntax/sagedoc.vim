@@ -14,23 +14,26 @@ syn include @SAGECODE      syntax/sagecode.vim
 
 syn region sagedocContent
     \ start=/^/
-    \ end=/$/
-    \ oneline
+    \ end=/^\s*$\|^[^ ]/me=s-1
+    \ contains=sagedocCodeblock,sagedocTitle,sagedocLiteral,sagedocInput
 
 syntax region sagedocTitle
     \ start=/^\s\+[A-Z]\+[A-Z ]*:\s*/
     \ end=/$/
     \ oneline
+    \ contained
 
 syntax region sagedocLiteral
-    \ start=/``/
-    \ end=/``/
+    \ start=/[`"']\+/
+    \ end=/[`"']\+/
     \ oneline
+    \ contained
 
 syntax region sagedocCodeblock
     \ start=/^\s*sage:/
     \ end=/^\s*$\|^[^ ]/me=s-1
     \ contains=sagedocInput
+    \ contained
 
 syntax region sagedocInput
     \ matchgroup=sagedocPrompt
