@@ -36,6 +36,7 @@ syntax region sagedocInput
     \ matchgroup=sagedocPrompt
     \ start=/^\s*sage:/
     \ end=/$/
+    \ keepend
     \ oneline
     \ contains=@SAGECODE
     \ contained
