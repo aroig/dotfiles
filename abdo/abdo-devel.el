@@ -54,11 +54,11 @@
   (if (string-match "^finished" msg)
     (progn
       (bury-buffer "*compilation*")
+      (delete-window (get-buffer-window (get-buffer "*compilation*")))
       ;; NOTE: winner-undo does not handle well multiple frames.
-      (winner-undo)
+      ; (winner-undo)
       (message "Successful :)"))
-    (message "Failed :("))
-)
+    (message "Failed :(")))
 
 (defun colorize-buffer ()
   (toggle-read-only)
@@ -75,7 +75,17 @@
 
   ;; Scroll compilation until first error
   (setq compilation-scroll-output 'first-error)
-)
+
+  ;; Make compilation buffer special. This way, we can make sure it always splits
+  ;; the window, and safely kill it on success. This way we do not risk destroying
+  ;; window placement.
+  (setq special-display-buffer-names '("*compilation*"))
+
+  (setq special-display-function
+        (lambda (buffer &optional args)
+          (split-window)
+          (switch-to-buffer buffer)
+          (get-buffer-window buffer 0))))
 
 
 (defun find-file-upwards (filename &optional startdir)

@@ -210,7 +210,7 @@
 ;; Make a diff tex.
 (defun abdo-latex-make-diff(revision)
   (interactive "sRevision: ")
-  (shell-command (format "papers diff %s" revision))
+  (shell-command (format "texa diff %s" revision))
   (find-file-other-window (format "%s.diff.tex"
     (TeX-master-file))
   )
