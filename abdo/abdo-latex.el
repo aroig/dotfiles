@@ -98,9 +98,6 @@
   ;; default environment
   (setq LaTeX-default-environment "equation")
 
-  ;; do not scale font on sections
-  (setq font-latex-fontify-sectioning 1)
-
   ;; do not fontify subscript and superscripts
   ; (setq font-latex-fontify-script nil)
 

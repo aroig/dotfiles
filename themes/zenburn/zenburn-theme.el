@@ -238,7 +238,12 @@ Also bind `class' to ((class color) (min-colors 89))."
 ;;;;; auctex
    `(font-latex-bold-face ((t (:inherit bold))))
    `(font-latex-warning-face ((t (:foreground ,zenburn-sat-red))))
-   `(font-latex-sectioning-5-face ((t (:foreground ,zenburn-sat-orange-1 :weight bold :inherit fixed-pitch))))
+   `(font-latex-sectioning-0-face ((t (:foreground ,zenburn-sat-orange-1 :weight bold :inherit fixed-pitch :scale nil))))
+   `(font-latex-sectioning-1-face ((t (:foreground ,zenburn-sat-orange-1 :weight bold :inherit fixed-pitch :scale nil))))
+   `(font-latex-sectioning-2-face ((t (:foreground ,zenburn-sat-orange-1 :weight bold :inherit fixed-pitch :scale nil))))
+   `(font-latex-sectioning-3-face ((t (:foreground ,zenburn-sat-orange-1 :weight bold :inherit fixed-pitch :scale nil))))
+   `(font-latex-sectioning-4-face ((t (:foreground ,zenburn-sat-orange-1 :weight bold :inherit fixed-pitch :scale nil))))
+   `(font-latex-sectioning-5-face ((t (:foreground ,zenburn-sat-orange-1 :weight bold :inherit fixed-pitch :scale nil))))
    `(font-latex-sedate-face ((t (:foreground ,zenburn-yellow))))
    `(font-latex-math-face ((t (:foreground ,zenburn-orange))))
    `(font-latex-string-face ((t (:foreground ,zenburn-red+1))))
