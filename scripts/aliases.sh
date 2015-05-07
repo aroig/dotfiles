@@ -160,7 +160,11 @@ fwban() { sudo iptables -A sshguard -s "$1" -j DROP; }
 # network
 gateway() { host `ip route list 0/0 | awk '{print $3}'` | awk '{print $5}'; }
 
-
+pacsync() {
+    local host="$1"
+    rsync -avz --rsync-path='sudo rsync' "/var/cache/pacman/pkg/" "$host:/var/cache/pacman/pkg/"
+    rsync -avz --rsync-path='sudo rsync' "/var/lib/pacman/sync/" "$host:/var/lib/pacman/sync/"
+}
 
 #------------------------------
 # Auxiliar functions
