@@ -10,4 +10,4 @@ SyslogIdentifier=homedir-gc
 
 IOSchedulingClass=idle
 WorkingDirectory=/home/%u
-ExecStart=/usr/bin/mr gc
+ExecStart=/usr/bin/mr --stats -t gc
