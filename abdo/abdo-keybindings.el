@@ -212,8 +212,8 @@
 	    (local-set-key (kbd "C-c v") 'abdo-latex-view)             ;; View
         (local-set-key (kbd "C-c f") 'abdo-latex-forward-sync)     ;; Forward search
 
-        (local-set-key (kbd "C-c j") 'reftex-goto-label)           ;; Jump to a given label
-
+        (local-set-key (kbd "C-c j") 'abdo-latex-goto-label)       ;; Jump to a given label
+        (local-set-key (kbd "C-c l") 'abdo-latex-insert-ref)       ;; Insert a \ref
         ))
 
 
