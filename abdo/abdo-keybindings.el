@@ -16,6 +16,9 @@
 ; (global-set-key (kbd "<tab>") (lambda () (interactive) (message "<tab>")))
 
 
+;; grep
+(global-set-key (kbd "C-c g") 'rgrep)
+
 ;; Helm
 (global-set-key (kbd "H-y f") 'helm-mini)
 (global-set-key (kbd "H-y t") 'abdo-helm-todos)
@@ -220,7 +223,7 @@
 ;; C/C++
 (defun abdo-c-mode-keybindings()
             (local-set-key (kbd "C-c c") 'abdo-devel-compile)         ;; Compile
-            (local-set-key (kbd "C-c g") 'gdb)                        ;; gdb
+            (local-set-key (kbd "C-c d") 'gdb)                        ;; gdb
 
             (local-set-key (kbd "C-c n") 'next-error)                 ;; next error
             (local-set-key (kbd "C-c p") 'previous-error))            ;; previous error
