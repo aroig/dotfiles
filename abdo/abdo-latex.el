@@ -175,6 +175,49 @@
 ;  (flyspell-babel-setup)
 
 
+;; Navigating
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun abdo-latex-completing-read (prompt collection default)
+  (let* ((fullprompt (if default
+                         (format "%s (default %s): " prompt default)
+                       (format "%s: " prompt))))
+         (completing-read fullprompt collection t nil nil default)))
+
+
+(defun abdo-latex-find-label (label file &optional other-window)
+  (let*
+      ((buffer (find-file-noselect file))
+       (regexp (format reftex-find-label-regexp-format (regexp-quote label))))
+
+    (if other-window
+        (switch-to-buffer-other-window buffer)
+      (switch-to-buffer buffer))
+
+    (push-mark)
+    (goto-char (point-min))
+    (re-search-forward regexp nil t)
+    (reftex-unhighlight 0)))
+
+
+(defun abdo-latex-goto-label (&optional other-window)
+  "Prompt for a label (with completion) and jump to the location of this label.
+   Optional prefix argument OTHER-WINDOW goes to the label in another window."
+  (interactive "P")
+  (reftex-access-scan-info t)
+  (let* ((wcfg (current-window-configuration))
+         (docstruct (symbol-value reftex-docstruct-symbol))
+         ;; If point is inside a \ref{} or \pageref{}, use that as default value.
+         (default (when (looking-back "\\\\\\(?:page\\)?ref{[-a-zA-Z0-9_*.:]*")
+                    (reftex-this-word "-a-zA-Z0-9_*.:")))
+         (label (abdo-latex-completing-read "Label" docstruct default))
+         (selection (assoc label docstruct))
+         (label  (nth 0 selection))
+         (file   (nth 3 selection)))
+
+    (abdo-latex-find-label label file other-window)))
+
+
 
 ;; Tools
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

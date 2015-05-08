@@ -8,10 +8,12 @@
 
 ;; http://stackoverflow.com/questions/1792326/how-do-i-bind-a-command-to-c-i-without-changing-tab
 ;; http://www.gnu.org/savannah-checkouts/gnu/emacs/manual/html_node/elisp/Function-Keys.html
-;(add-hook 'term-setup-hook
-;          (lambda ()
-;            (message "removing C-i to TAB remap")
-;            (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))))
+
+;; NOTE: this doesn't seem to work (2015-05-08)
+; (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
+
+;; NOTE: I can bind to <tab> and do not touch C-i though!
+; (global-set-key (kbd "<tab>") (lambda () (interactive) (message "<tab>")))
 
 
 ;; Helm
@@ -162,6 +164,7 @@
 ;; text mode
 (add-hook 'text-mode-hook
       (lambda ()
+
         (abdo-flyspell-things)
         (local-set-key (kbd "s-c d") 'abdo-change-dictionary)))
 
@@ -208,6 +211,9 @@
 	    (local-set-key (kbd "C-c r") 'abdo-latex-toggle-toc)       ;; Toggles the reftex toc
 	    (local-set-key (kbd "C-c v") 'abdo-latex-view)             ;; View
         (local-set-key (kbd "C-c f") 'abdo-latex-forward-sync)     ;; Forward search
+
+        (local-set-key (kbd "C-c j") 'reftex-goto-label)           ;; Jump to a given label
+
         ))
 
 
