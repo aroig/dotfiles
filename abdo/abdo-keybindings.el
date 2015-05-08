@@ -147,10 +147,22 @@
 (defun outline-mode-keybindings ()
   (local-set-key (kbd "<C-tab>") 'outline-cycle) ; Cycle outline
 
-  (local-set-key (kbd "H-<up>") 'outline-move-subtree-up)
-  (local-set-key (kbd "H-<down>") 'outline-move-subtree-down)
-  (local-set-key (kbd "H-<left>") 'outline-promote)
-  (local-set-key (kbd "H-<right>") 'outline-demote))
+  (local-set-key (kbd "H-l <up>") 'outline-move-subtree-up)
+  (local-set-key (kbd "H-l <down>") 'outline-move-subtree-down)
+  (local-set-key (kbd "H-l <left>") 'outline-promote)
+  (local-set-key (kbd "H-l <right>") 'outline-demote)
+
+  (local-set-key (kbd "H-l K") 'outline-move-subtree-up)
+  (local-set-key (kbd "H-l J") 'outline-move-subtree-down)
+  (local-set-key (kbd "H-l H") 'outline-promote)
+  (local-set-key (kbd "H-l L") 'outline-demote)
+
+  (local-set-key (kbd "H-l n") 'outline-next-visible-heading)
+  (local-set-key (kbd "H-l p") 'outline-previous-visible-heading)
+  (local-set-key (kbd "H-l f") 'outline-forward-same-level)
+  (local-set-key (kbd "H-l b") 'outline-backward-same-level)
+  (local-set-key (kbd "H-l u") 'outline-up-heading)
+  )
 
 (add-hook 'outline-mode-hook 'outline-mode-keybindings)
 (add-hook 'outline-minor-mode-hook 'outline-mode-keybindings)
