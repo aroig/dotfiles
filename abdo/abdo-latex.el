@@ -206,7 +206,7 @@
   "Prompt for a label (with completion) and jump to the location of this label.
    Optional prefix argument OTHER-WINDOW goes to the label in another window."
   (interactive "P")
-  (reftex-access-scan-info)
+  (reftex-access-scan-info t)
   (let* ((docstruct (symbol-value reftex-docstruct-symbol))
          (candidates (delq nil (mapcar (lambda (x) (when (stringp (car x)) (car x))) docstruct)))
          ;; If point is inside a \ref{} or \pageref{}, use that as default value.
@@ -222,7 +222,7 @@
 (defun abdo-latex-insert-ref (label)
   "Prompt for a label (with completion) and insert a referene to it."
   (interactive "P")
-  (reftex-access-scan-info)
+  (reftex-access-scan-info t)
   (let* ((docstruct (symbol-value reftex-docstruct-symbol))
          (candidates (delq nil (mapcar (lambda (x) (when (stringp (car x)) (car x))) docstruct)))
          (label (abdo-latex-completing-read "Label" candidates nil)))
