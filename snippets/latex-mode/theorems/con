@@ -1,0 +1,7 @@
+# name: \begin{con}\label{con:?} ... \end{con}
+# contributor: Abdo Roig-Maranges <abdo.roig@gmail.com>
+# key: con
+# --
+\\begin{con}\\label{con:${1:bla}}
+  $0
+\\end{con}
