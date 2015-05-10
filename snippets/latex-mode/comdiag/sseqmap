@@ -1,0 +1,15 @@
+# -*- coding: utf-8 -*-
+# name: map of spectral sequences
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: sseqmap
+# --
+\\begin{comdiag}\\label{eq:${1:bla}}
+  \\obj(m){
+    ${2:E_1^{p,q}=H^p(X_q)} \\& ${3:H^{p+q}(X)} \\\\
+    ${4:E_1^{p,q}=H^p(X_q)} \\& ${5:H^{p+q}(X)} \\\\
+  };
+  \\mor(m){
+    (1-1) ==> (1-2) --> (2-2);
+    (1-1) --> (2-1) ==> (2-2);
+  };
+\\end{comdiag}
