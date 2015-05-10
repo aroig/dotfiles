@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+# name: cubical diagram
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: cube
+# --
+\\begin{comdiag}\\label{eq:${1:bla}}
+  \\obj(m)[column sep={1.2em},row sep={1.7em}]{
+    ${2:Q}_{111} \\&        \\& ${2:Q}_{011} \\&        \\\\
+           \\& ${2:Q}_{101} \\&        \\& ${2:Q}_{001} \\\\
+    ${2:Q}_{110} \\&        \\& ${2:Q}_{010} \\&        \\\\
+           \\& ${2:Q}_{100} \\&        \\& ${2:Q}_{000} \\\\
+  };
+
+  \\mor(m){
+    % back face
+    (1-1) --> (1-3) --> (3-3);
+    (1-1) --> (3-1) --> (3-3);
+    % back to front
+    (1-1) --> (2-2);
+    (1-3) --> (2-4);
+    (3-1) --> (4-2);
+    (3-3) --> (4-4);
+    % blank lines
+    (2-2) -->[white,line width=6] (2-4);
+    (2-2) -->[white,line width=6] (4-2);
+    % front face
+    (2-2) --> (2-4) --> (4-4);
+    (2-2) --> (4-2) --> (4-4);
+  };
+\\end{comdiag}
