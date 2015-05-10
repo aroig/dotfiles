@@ -1,9 +1,0 @@
-# -*- coding: utf-8 -*-
-# name: \begin{align} ... \end{align}
-# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: align
-# --
-\\begin{align}
-  ${2:A} &= ${3:B} \\\\
-    &= ${4:C}
-\\end{align}

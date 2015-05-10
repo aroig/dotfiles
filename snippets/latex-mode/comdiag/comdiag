@@ -1,9 +1,0 @@
-# -*- coding: utf-8 -*-
-# name: commutative diagram
-# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: comdiag
-# --
-\\begin{comdiag}\\label{eq:${1:bla}}
-  \\obj(m){$2 \\\\};
-  \\mor(m){$3};
-\\end{comdiag}
