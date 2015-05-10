@@ -205,6 +205,7 @@ function systemd.list_units()
         end
         f:close()
     end
+    return unitlist
 end
 
 
