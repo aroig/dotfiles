@@ -1,5 +1,5 @@
 [Unit]
-Description=connman UI
+Description=wpa_supplicant gui
 
 ConditionHost=galois
 
@@ -8,9 +8,9 @@ After=graphical.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/connman-ui-gtk
-
 Slice=wm.slice
+
+ExecStart=/usr/bin/wpa_gui -t
 
 [Install]
 WantedBy=wm.target
