@@ -312,7 +312,7 @@ git_init() {
     local path="$1"
     (
         cd "$path"
-        if ! git_is_repo; then
+        if ! git_is_repo "$path"; then
             git init
         fi
     )

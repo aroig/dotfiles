@@ -100,11 +100,11 @@ git_annex_init() {
     local path="$1"
     (
         cd "$path"
-        if ! git_is_repo; then
+        if ! git_is_repo "$path"; then
             error "git_annex_init expects a git repo: '$path'"
         fi
 
-        if ! git_annex_is_repo; then
+        if ! git_annex_is_repo "$path"; then
             git annex init
         fi
     )
