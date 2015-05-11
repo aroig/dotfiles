@@ -166,7 +166,7 @@ rules.rules = {
 
     -- Floats
     { rule_any = { class = {"Qpaeq", "Qjackctl", "Unison-gtk2", "pinentry", "Skype", "Pavucontrol", "Pidgin",
-                            "Vmpk" } },
+                            "Vmpk", "Wpa_gui"} },
       properties = { floating = true } },
 
     -- Float dialogs
