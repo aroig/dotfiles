@@ -148,7 +148,7 @@ homedir_init() {
 
 
 ##
-# usage: homedir_ecryptfs
+# usage: homedir_ecryptfs_init
 #
 # Initialize encrypted private directory in $MR_REPO
 #
@@ -156,7 +156,7 @@ homedir_init() {
 #     keyctl list @u
 #     keyctl clear @u
 ##
-homedir_ecryptfs() {
+homedir_ecryptfs_init() {
     local keylength="64"
     local path="$MR_REPO"
     local privdir="$(basename "$MR_REPO")"
