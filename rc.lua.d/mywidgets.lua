@@ -220,10 +220,10 @@ function myw.net.update()
 
     if up ~= myw.net.value.up or down ~= myw.net.value.down then
 
-        local upcolor = wiboxcolor(0, 70, up)
+        local upcolor = wiboxcolor(0, 100, up)
         local uptxt = colortext(string.format('%.0f', up), upcolor)
 
-        local downcolor = wiboxcolor(0, 600, down)
+        local downcolor = wiboxcolor(0, 1700, down)
         local downtxt = colortext(string.format('%.0f', down), downcolor)
 
         myw.net.dwdg:set_markup(downtxt .. ' ')
