@@ -167,7 +167,7 @@ function myw.hdw.update()
     local args = myw.hdw.temp(nil, host_config['thermal'])
     if args and args.temp and args.temp ~= myw.hdw.tempval then
         local color = wiboxcolor(35, 70, args.temp)
-        local text = colortext(string.format("%dºC ", args.temp), color)
+        local text = colortext(string.format("%sºC ", args.temp), color)
         myw.hdw.tempval = args.temp
         myw.hdw.tempwdg:set_markup(text)
     end
