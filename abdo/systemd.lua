@@ -11,7 +11,7 @@
 local os = os
 local string = string
 local table = table
-local posix = posix
+local lfs = lfs
 local io = { popen = io.popen, open=io.open }
 
 rules = require("awful.rules")
@@ -40,7 +40,7 @@ end
 
 
 local function path_exists(path)
-    return posix.stat(path) ~= nil
+    return lfs.attributes(path) ~= nil
 end
 
 

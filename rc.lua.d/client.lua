@@ -4,8 +4,6 @@
 -- Author: Abdó Roig<abdo.roig@gmail.com>                    --
 ---------------------------------------------------------------
 
-posix = require("posix")
-
 local systemd = systemd
 
 local capi = {
