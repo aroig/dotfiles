@@ -279,7 +279,7 @@ function myw.mail.update()
             icon = icon_full
         end
 
-        local text = colortext(tostring(num), color)
+        local text = colortext(string.format("%d", num), color)
 
         myw.mail.icon:set_markup(icon .. ' ')
         myw.mail.inwdg:set_markup(text .. ' ')
@@ -299,7 +299,7 @@ function myw.mail.update()
             color = beautiful.color_widget_alert
         end
 
-        local text = colortext(tostring(num), color)
+        local text = colortext(string.format("%d", num), color)
 
         myw.mail.outwdg:set_markup(text .. ' ')
         myw.mail.num_queue = num

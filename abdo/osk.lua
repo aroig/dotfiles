@@ -53,7 +53,7 @@ local function create_button_row(...)
         w.border_width = 1
         w.text_align   = "center"
         w.border_color = "#1E2320"
-        w.text = util.escape(tostring(i))
+        w.text = util.escape(string.format("%d", i))
         w:buttons(util.table.join(
             button({ }, 1, nil, function ()
                 capi.fake_input("key_press",   kbd.codes[i])
