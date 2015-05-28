@@ -1,10 +1,8 @@
-REMOTES=modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
-        modes/rainbow-mode modes/yaml-mode modes/qml-mode \
+REMOTES=modes/multi-mode modes/rainbow-mode modes/yaml-mode \
         packages/ibuffer-vc packages/powerline packages/helm-mu \
         themes/zenburn packages/flx packages/perspective packages/clang-format
 
-COMPILE=modes/markdown-mode modes/multi-mode modes/pkgbuild-mode \
-        modes/rainbow-mode modes/yaml-mode modes/qml-mode \
+COMPILE=modes/multi-mode modes/rainbow-mode modes/yaml-mode \
         packages/ibuffer-vc packages/powerline packages/flx \
         packages/perspective packages/clang-format    \
         abdo misc hacks
