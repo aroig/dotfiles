@@ -1,9 +1,9 @@
-REMOTES=modes/multi-mode modes/rainbow-mode modes/yaml-mode \
-        packages/ibuffer-vc packages/powerline packages/helm-mu \
+REMOTES=modes/multi-mode modes/rainbow-mode \
+        packages/ibuffer-vc packages/helm-mu \
         themes/zenburn packages/flx packages/perspective packages/clang-format
 
-COMPILE=modes/multi-mode modes/rainbow-mode modes/yaml-mode \
-        packages/ibuffer-vc packages/powerline packages/flx \
+COMPILE=modes/multi-mode modes/rainbow-mode \
+        packages/ibuffer-vc packages/flx \
         packages/perspective packages/clang-format    \
         abdo misc hacks
 
