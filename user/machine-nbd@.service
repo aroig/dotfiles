@@ -6,7 +6,8 @@ Conflicts=machine-%i.service
 [Service]
 Type=oneshot
 RemainAfterExit=true
+Slice=machine.slice
 
 ExecStartPre=/usr/bin/sudo modprobe nbd max_part=8
-ExecStart=/usr/bin/sudo qemu-nbd -P 1 -c /dev/nbd0 ${AB2_VIRT_DIR}/qemu/%i.qcow2
+ExecStart=/usr/bin/sudo qemu-nbd -c /dev/nbd0 ${AB2_VIRT_DIR}/qemu/%i.qcow2
 ExecStop=/usr/bin/sudo qemu-nbd -d /dev/nbd0

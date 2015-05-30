@@ -9,7 +9,8 @@ After=machine-nvd@%i.service
 [Service]
 Type=oneshot
 RemainAfterExit=true
+Slice=machine.slice
 
 ExecStartPre=/usr/bin/sudo mkdir -p /media/%i
-ExecStart=/usr/bin/sudo mount /dev/nbd0 /media/%i
+ExecStart=/usr/bin/sudo mount /dev/nbd0p1 /media/%i
 ExecStop=/usr/bin/sudo umount /media/%i
