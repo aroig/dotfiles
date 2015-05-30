@@ -1,5 +1,5 @@
 [Unit]
-Description=android arm virtual machine
+Description=android x86 virtual machine
 
 Requires=android-adb.service
 After=android-adb.service
@@ -8,7 +8,7 @@ Requisite=wm.target
 After=wm.target
 
 [Service]
-Type=forking
+Type=simple
 
 Slice=machines.slice
 Environment=MACHINE=android-x86
@@ -16,7 +16,7 @@ Environment=MACHINE=android-x86
 ExecStartPre=/usr/bin/mkdir -p "%t/qemu/${MACHINE}"
 
 ExecStart=/opt/android-sdk/tools/emulator -avd tablet-x86-16 -port 5556               \
-    -qemu -daemonize -name "${MACHINE}"                                               \
+    -qemu -name "${MACHINE}"                                                          \
     -enable-kvm -m 1024                                                               \
     -monitor unix:%t/qemu/${MACHINE}/control,server,nowait
 
