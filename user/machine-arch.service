@@ -1,22 +1,23 @@
 [Unit]
 Description=arch virtual machine
 
+Requisite=wm.target 
+After=wm.target
+
 [Service]
 Type=forking
-
-SyslogIdentifier=machine-arch
 
 Slice=machines.slice
 Environment=MACHINE=arch
 
 ExecStartPre=/usr/bin/mkdir -p "%t/qemu/${MACHINE}"
 
-ExecStart=/usr/bin/qemu-system-x86_64 --daemonize -name "${MACHINE}"                  \
+ExecStart=/usr/bin/qemu-system-x86_64 -daemonize -name "${MACHINE}"                   \
     -machine type=pc,accel=kvm -cpu host -smp 2 -m 2048 -boot menu=on                 \
     -usbdevice tablet -display sdl -vga vmware                                        \
     -netdev bridge,id=tapvirt,br=brvirt -device virtio-net,netdev=tapvirt             \
     -drive media=cdrom,file=${AB2_VIRT_DIR}/media/archlinux-2015.02.01-dual.iso       \
-    -drive media=disk,if=virtio,file=${AB2_VIRT_DIR}/qemu/arch-x86_64.qcow2           \
+    -drive media=disk,if=virtio,file=${AB2_VIRT_DIR}/qemu/${MACHINE}.qcow2            \
     -monitor unix:%t/qemu/${MACHINE}/control,server,nowait
 
 ExecStartPost=/usr/bin/echo "Main PID: ${MAINPID}"

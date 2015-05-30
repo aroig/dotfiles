@@ -1,5 +1,8 @@
 [Unit]
-Description=ubuntu virtual machine
+Description=android arm virtual machine
+
+Requires=android-adb.service
+After=android-adb.service
 
 Requisite=wm.target 
 After=wm.target
@@ -8,17 +11,18 @@ After=wm.target
 Type=forking
 
 Slice=machines.slice
-Environment=MACHINE=ubuntu
+Environment=MACHINE=android-x86
 
 ExecStartPre=/usr/bin/mkdir -p "%t/qemu/${MACHINE}"
 
-ExecStart=/usr/bin/qemu-system-x86_64 -daemonize -name "${MACHINE}"                   \
-    -machine type=pc,accel=kvm -cpu host -smp 2 -m 2048 -boot menu=on                 \
-    -usbdevice tablet -display sdl -vga vmware                                        \
-    -netdev bridge,id=tapvirt,br=brvirt -device virtio-net,netdev=tapvirt             \
-    -drive media=cdrom,file=${AB2_VIRT_DIR}/media/ubuntu-14.10-desktop-amd64.iso      \
-    -drive media=disk,if=virtio,file=${AB2_VIRT_DIR}/qemu/${MACHINE}.qcow2            \
+ExecStart=/opt/android-sdk/tools/emulator -avd tablet-x86-16 -port 5556               \
+    -qemu -daemonize -name "${MACHINE}"                                               \
+    -enable-kvm -m 1024                                                               \
     -monitor unix:%t/qemu/${MACHINE}/control,server,nowait
+
+# TODO: set the network the way I want it
+# TODO: add services for android on arm
+#    -netdev bridge,id=tapvirt,br=brvirt -device virtio-net,netdev=tapvirt             \
 
 ExecStartPost=/usr/bin/echo "Main PID: ${MAINPID}"
 
