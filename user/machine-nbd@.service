@@ -2,6 +2,7 @@
 Description=setup nbd device for disk image ~/virt/qemu/%i.qcow2
 
 Conflicts=machine-%i.service
+PartOf=machine-mount@%i.service
 
 [Service]
 Type=oneshot
