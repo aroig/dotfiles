@@ -1,17 +1,15 @@
 [Unit]
-Description=mount disk of %i vm
+Description=mount disk image ~/virt/qemu/%i.qcow2 vm
 
 Conflicts=machine-%i.service
+
+Requires=machine-nbd@%i.service
+After=machine-nvd@%i.service
 
 [Service]
 Type=oneshot
 RemainAfterExit=true
 
-SyslogIdentifier=machine-mount-%i
-
-ExecStart=/usr/bin/sudo qemu-nbd -c /dev/nbd0 ${AB2_VIRT_DIR}/qemu/%i.qcow2
-ExecStart=/usr/bin/mkdir -p /media/%i
-ExecStart=/usr/bin/mount /dev/nbd0p1 /media/%i
-
-ExecStop=/usr/bin/umount /media/%i
-ExecStop=/usr/bin/sudo qemu-nbd -d /dev/nbd0
+ExecStartPre=/usr/bin/sudo mkdir -p /media/%i
+ExecStart=/usr/bin/sudo mount /dev/nbd0 /media/%i
+ExecStop=/usr/bin/sudo umount /media/%i

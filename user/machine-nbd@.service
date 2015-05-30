@@ -1,0 +1,13 @@
+[Unit]
+Description=setup nbd device for disk image ~/virt/qemu/%i.qcow2
+
+Conflicts=machine-%i.service
+PartOf=machine-mount@%i.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+ExecStartPre=/usr/bin/sudo modprobe nbd max_part=8
+ExecStart=/usr/bin/sudo qemu-nbd -P 1 -c /dev/nbd0 ${AB2_VIRT_DIR}/qemu/%i.qcow2
+ExecStop=/usr/bin/sudo qemu-nbd -d /dev/nbd0
