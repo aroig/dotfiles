@@ -304,6 +304,21 @@ package_install() {
 }
 
 ##
+# package_chroot_install <root> <path>
+# Install a package.
+##
+package_chroot_install() {
+    local newroot="$1"
+    local srcpath="$(readlink -f "$2")"    
+    pkgbuild_packages "$srcpath" |
+        while read pkg; do
+            if [ -f "$srcpath/$pkg" ]; then
+                sudo pacman -r "$newroot" --noconfirm -U "file://$srcpath/$pkg"               
+            fi             
+        done
+}
+
+##
 # package_install_deps <path>
 # Install package deps.
 ##
