@@ -60,9 +60,11 @@ alias gls="abdo_git_ls"
 
 # arch package management
 alias pac='sudo pacman'
+alias pas='sudo pacstrap -i'
 alias pat='pactree -c'
 alias paf='comm -13 <(pactree host-$(hostname)-cfg  -u | sort) <(pacman -Qsq | sort)'
 alias cow='cower'
+alias ach='sudo arch-chroot'
 
 amr() { ( cd "$AB2_ARCH_DIR/$1"; shift; mr "$@"; ) }
 
