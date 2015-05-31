@@ -28,5 +28,6 @@ ExecStartPost=/usr/bin/echo "Main PID: ${MAINPID}"
 #     'org.freedesktop.machine1.Manager' 'RegisterMachine'    \
 #     sayssus "${MACHINE}" '0' 'machine' 'vm' "$MAINPID" ''
 
-ExecStop=/usr/bin/sh -c 'echo "system_powerdown" | socat - "UNIX-CONNECT:%t/qemu/${MACHINE}/control"'
+ExecStop=/usr/bin/sh -c "echo system_powerdown | socat - UNIX-CONNECT:%t/qemu/${MACHINE}/control"
+
 

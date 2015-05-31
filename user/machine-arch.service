@@ -5,20 +5,21 @@ Requisite=wm.target
 After=wm.target
 
 [Service]
-Type=forking
+Type=simple
 
 Slice=machines.slice
 Environment=MACHINE=arch
 
 ExecStartPre=/usr/bin/mkdir -p "%t/qemu/${MACHINE}"
 
-ExecStart=/usr/bin/qemu-system-x86_64 -daemonize -name "${MACHINE}"                   \
+ExecStart=/usr/bin/termite -t "${MACHINE}" --geometry=1280x720                        \
+    -e "qemu-system-x86_64 -name ${MACHINE}                                           \
     -machine type=pc,accel=kvm -cpu host -smp 2 -m 2048 -boot menu=on                 \
-    -usbdevice tablet -display sdl -vga vmware                                        \
+    -usbdevice tablet -nographic -device virtio-serial                                \
     -netdev bridge,id=tapvirt,br=brvirt -device virtio-net,netdev=tapvirt             \
     -drive media=cdrom,file=${AB2_VIRT_DIR}/media/archlinux-2015.02.01-dual.iso       \
     -drive media=disk,if=virtio,file=${AB2_VIRT_DIR}/qemu/${MACHINE}.qcow2            \
-    -monitor unix:%t/qemu/${MACHINE}/control,server,nowait
+    -monitor unix:%t/qemu/${MACHINE}/control,server,nowait"
 
 ExecStartPost=/usr/bin/echo "Main PID: ${MAINPID}"
 
@@ -28,5 +29,5 @@ ExecStartPost=/usr/bin/echo "Main PID: ${MAINPID}"
 #     'org.freedesktop.machine1.Manager' 'RegisterMachine'    \
 #     sayssus "${MACHINE}" '0' 'machine' 'vm' "$MAINPID" ''
 
-ExecStop=/usr/bin/sh -c 'echo "system_powerdown" | socat - "UNIX-CONNECT:%t/qemu/${MACHINE}/control"'
+ExecStop=/usr/bin/sh -c "echo system_powerdown | socat - UNIX-CONNECT:%t/qemu/${MACHINE}/control"
 
