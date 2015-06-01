@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+# TODO: properly quote "$@" to pass as single argument
+cmd="$@"
+$TERMCMD -e "sh -c 'stty intr undef; $cmd'"
