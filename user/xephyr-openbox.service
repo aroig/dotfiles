@@ -1,7 +1,8 @@
 [Unit]
 Description=openbox window manager in xephyr
 
-Conflicts=xephyr-awesome.service xephyr-xmonad.service
+Conflicts=xephyr-xmonad.service
+After=xephyr-xmonad.service
 
 Requires=xephyr.service
 After=xephyr.service

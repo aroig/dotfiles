@@ -2,6 +2,7 @@
 Description=mount disk image ~/virt/qemu/%i.qcow2 vm
 
 Conflicts=machine-%i.service
+After=machine-%i.service
 
 Requires=machine-mount@%i.service
 After=machine-mount@%i.service
