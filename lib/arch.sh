@@ -215,7 +215,7 @@ package_build() {
         done
     (
         cd "$srcpath"
-        makepkg -f --log --sign "$@"
+        makepkg -f --log --nocheck --sign "$@"
     )
 }
 
@@ -243,7 +243,7 @@ package_repackage() {
         cd "$srcpath"
         # update pkgver and build
         makepkg --nobuild --noprepare
-        makepkg -f --repackage --sign
+        makepkg -f --repackage --nocheck --sign
     )
 }
 
@@ -361,7 +361,7 @@ package_install_deps() {
     local srcpath="$(readlink -f "$1")"
     (
         cd "$srcpath"
-        makepkg -s --nobuild --noextract --skipinteg
+        makepkg --syncdeps --nobuild --noextract --skipinteg
     )
 }
 
