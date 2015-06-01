@@ -91,7 +91,8 @@ pkgbuild_bump_pkgrel() {
 
 ##
 # pkgbuild_bump_version <path> <ver>
-# Update the version in a PKGBUILD and reset pkgrel if version increases.
+# Update the version in a PKGBUILD and reset pkgrel if version changes.
+# return true if version changed, or false if it stays the same.
 ##
 pkgbuild_bump_version() {
     local srcpath="$(readlink -f "$1")"
@@ -104,8 +105,10 @@ pkgbuild_bump_version() {
             sed -i "s/pkgver=.*$/pkgver=$newver/" "$pkgbuild" 
             sed -i "s/pkgrel=.*$/pkgrel=1/" "$pkgbuild"
             git_commit_if_changed "$srcpath" "Bump pkgver to '$newver'"            
-        fi      
+        fi
+        [ ! "$pkgver" = "$newver" ] && return 0
     fi
+    return 1
 }
 
 
@@ -212,7 +215,7 @@ package_build() {
         done
     (
         cd "$srcpath"
-        makepkg -L -f --sign --nocheck "$@"
+        makepkg -f --log --sign "$@"
     )
 }
 
@@ -220,7 +223,7 @@ package_build() {
 # package_check <path>
 # Run tests on a package at the given directory.
 ##
-package_build() {
+package_check() {
     local srcpath="$(readlink -f "$1")"
     shift
    
@@ -238,7 +241,9 @@ package_repackage() {
     local srcpath="$(readlink -f "$1")"
     (
         cd "$srcpath"
-        makepkg -f --repackage --nocheck --sign
+        # update pkgver and build
+        makepkg --nobuild --noprepare
+        makepkg -f --repackage --sign
     )
 }
 
@@ -250,7 +255,7 @@ package_download() {
     local srcpath="$(readlink -f "$1")"
     (
         cd "$srcpath"
-        makepkg --nobuild --nocheck
+        makepkg --nobuild
     )            
 }
 

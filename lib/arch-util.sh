@@ -55,15 +55,18 @@ prepare_build() {
 ##
 # pkgbuild_update_version <path>
 # Updates the PKGBUILD from the one on the build dir (for updated version)
-# It does so only for packages whose version gets updated dynamically
+# It does so only for packages whose version gets updated dynamically.
+# Returns true if version changes or false if it stays the same.
 ##
 pkgbuild_update_version() {
     local srcpath="$(readlink -f "$1")"
     local buildpath="$(builddir_path "$srcpath")"
     local reponame="$(package_repo "$1")"           
     if pkgbuild_has_dynamic_version "$srcpath" && [ -f "$buildpath/PKGBUILD" ]; then
+        local oldver="$(pkgbuild_parse "$srcpath/PKGBUILD" pkgver)"
         local newver="$(pkgbuild_parse "$buildpath/PKGBUILD" pkgver)"
-        pkgbuild_bump_version "$srcpath" "$newver"
-    fi 
+        pkgbuild_bump_version "$srcpath" "$newver" && return 0
+    fi
+    return 1
 }
 
