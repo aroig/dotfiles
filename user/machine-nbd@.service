@@ -5,11 +5,13 @@ Conflicts=machine-%i.service
 PartOf=machine-mount@%i.service
 
 [Service]
-Type=oneshot
+Type=forking
 RemainAfterExit=true
 Slice=machine.slice
 
+# TODO: there is a lingering process when stopping
 ExecStartPre=/usr/bin/sudo modprobe nbd max_part=8
 ExecStart=/usr/bin/sudo qemu-nbd -c /dev/nbd0 ${AB2_VIRT_DIR}/qemu/%i.qcow2
-ExecStart=/usr/bin/sleep 1
+ExecStartPost=/usr/bin/sleep 1
+
 ExecStop=/usr/bin/sudo qemu-nbd -d /dev/nbd0
