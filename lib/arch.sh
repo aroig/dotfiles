@@ -197,7 +197,7 @@ package_cleanold() {
 }
 
 ##
-# package_build <path>
+# package_build <path> <makepkg args>
 # Build a package at the given directory.
 ##
 package_build() {
@@ -213,6 +213,20 @@ package_build() {
     (
         cd "$srcpath"
         makepkg -L -f --sign "$@"
+    )
+}
+
+##
+# package_check <path>
+# Run tests on a package at the given directory.
+##
+package_build() {
+    local srcpath="$(readlink -f "$1")"
+    shift
+   
+    (
+        cd "$srcpath"
+        makepkg --check
     )
 }
 
