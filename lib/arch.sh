@@ -212,7 +212,7 @@ package_build() {
         done
     (
         cd "$srcpath"
-        makepkg -L -f --sign "$@"
+        makepkg -L -f --sign --nocheck "$@"
     )
 }
 
@@ -238,7 +238,7 @@ package_repackage() {
     local srcpath="$(readlink -f "$1")"
     (
         cd "$srcpath"
-        makepkg -f --repackage --sign
+        makepkg -f --repackage --nocheck --sign
     )
 }
 
@@ -250,7 +250,7 @@ package_download() {
     local srcpath="$(readlink -f "$1")"
     (
         cd "$srcpath"
-        makepkg --nobuild
+        makepkg --nobuild --nocheck
     )            
 }
 
