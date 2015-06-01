@@ -289,34 +289,50 @@ package_print_changelog() {
         done
 }
 
+
+##
+# package_file_uris <path>
+#
+# Get a list of file uri's for the packages produced by a PKGBUILD
+##
+package_file_uris() {
+    local srcpath="$(readlink -f "$1")"
+
+    # collect package files
+    pkgbuild_packages "$srcpath" |
+        while read pkg; do
+            if [ -f "$srcpath/$pkg" ]; then
+                printf "%s\n" "file://$srcpath/$pkg"
+            fi             
+        done  
+}
+
 ##
 # package_install <path>
 # Install a package.
 ##
 package_install() {
-    local srcpath="$(readlink -f "$1")"
-    pkgbuild_packages "$srcpath" |
-        while read pkg; do
-            if [ -f "$srcpath/$pkg" ]; then
-                sudo pacman --noconfirm -U "file://$srcpath/$pkg"               
-            fi             
-        done
+    local srcpath="$1"
+    local pkglist="$(package_file_uris "$1")"
+
+    sudo pacman -U $pkglist
 }
+
 
 ##
 # package_chroot_install <root> <path>
-# Install a package.
+#
+# Install a package to a chroot environment.
+# NOTE: this is not safe with spaces!
 ##
 package_chroot_install() {
     local newroot="$1"
-    local srcpath="$(readlink -f "$2")"    
-    pkgbuild_packages "$srcpath" |
-        while read pkg; do
-            if [ -f "$srcpath/$pkg" ]; then
-                sudo pacman -r "$newroot" --noconfirm -U "file://$srcpath/$pkg"               
-            fi             
-        done
+    local srcpath="$2"
+    local pkglist="$(package_file_uris "$srcpath")"
+
+    sudo pacman -r "$newroot" -U $pkglist
 }
+
 
 ##
 # package_install_deps <path>
