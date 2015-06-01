@@ -27,6 +27,11 @@ case $TERM in
     screen*|linux*)             # tty or screen / tmux.
         unset DISPLAY
         ;;  
+
+    vt220)                      # serial console.
+        unset DISPLAY
+        ;;  
+
     *)                          # unknown terminal, stop right here.
         return
         ;;   
