@@ -28,7 +28,7 @@ case $TERM in
         unset DISPLAY
         ;;  
 
-    vt220)                      # serial console.
+    vt*)                        # serial console.
         unset DISPLAY
         ;;  
 
