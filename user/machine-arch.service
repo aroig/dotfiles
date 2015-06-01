@@ -8,8 +8,13 @@ After=wm.target
 Type=simple
 
 Slice=machines.slice
-Environment=MACHINE=arch
 
+Environment=MACHINE=arch IMAGE=/home/abdo/virt/qemu/arch.qcow2
+
+# NOTE: we use directory locks to make sure no two services attempt to
+# access the same image. It is crude but atomic and effective!
+
+ExecStartPre=/usr/bin/mkdir -m 777 ${IMAGE}.lck
 ExecStartPre=/usr/bin/mkdir -p "%t/qemu/${MACHINE}"
 
 ExecStart=/home/abdo/.config/systemd/bin/tmrun                                        \
@@ -18,7 +23,7 @@ ExecStart=/home/abdo/.config/systemd/bin/tmrun                                  
     -usbdevice tablet -nographic -device virtio-serial                                \
     -netdev bridge,id=tapvirt,br=brvirt -device virtio-net,netdev=tapvirt             \
     -drive media=cdrom,file=${AB2_VIRT_DIR}/media/archlinux-2015.02.01-dual.iso       \
-    -drive media=disk,if=virtio,file=${AB2_VIRT_DIR}/qemu/${MACHINE}.qcow2            \
+    -drive media=disk,if=virtio,file=${IMAGE}                                         \
     -monitor unix:%t/qemu/${MACHINE}/control,server,nowait
 
 ExecStartPost=/usr/bin/echo "Main PID: ${MAINPID}"
@@ -29,5 +34,5 @@ ExecStartPost=/usr/bin/echo "Main PID: ${MAINPID}"
 #     'org.freedesktop.machine1.Manager' 'RegisterMachine'    \
 #     sayssus "${MACHINE}" '0' 'machine' 'vm' "$MAINPID" ''
 
-ExecStop=/usr/bin/sh -c "echo system_powerdown | socat - UNIX-CONNECT:%t/qemu/${MACHINE}/control"
-
+ExecStop=/usr/bin/sh -c "echo system_powerdown | socat - UNIX-CONNECT:%t/qemu/${MACHINE}/control || true"
+ExecStopPost=/usr/bin/rmdir ${IMAGE}.lck
