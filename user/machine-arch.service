@@ -26,7 +26,7 @@ ExecStart=/home/abdo/.config/systemd/bin/tmrun                                  
     -drive media=disk,if=virtio,file=${IMAGE}                                         \
     -monitor unix:%t/qemu/${MACHINE}/control,server,nowait
 
-ExecStartPost=/usr/bin/echo "Main PID: ${MAINPID}"
+ExecStartPost=/usr/bin/echo "qemu PID: ${MAINPID}"
 
 # TODO: machined needs privileges. I think systemd 220 relaxes this!
 # ExecStartPost=/usr/binbusctl call                           \

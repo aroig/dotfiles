@@ -8,16 +8,26 @@ After=wm.target
 Type=forking
 
 Slice=machines.slice
-Environment=MACHINE=ubuntu
 
+Environment=MACHINE=ubuntu IMAGE=/home/abdo/virt/qemu/ubuntu.qcow2
+
+ExecStartPre=/usr/bin/mkdir -m 777 ${IMAGE}.lck
 ExecStartPre=/usr/bin/mkdir -p "%t/qemu/${MACHINE}"
+
+# NOTES:
+#
+# 1. We use vmware driver for now. qxl displayed artifacts on Ubuntu 14.10. Eventually
+#    want to move to qxl though
+#
+# 2. --usbdevice tablet uses absolute coordinates, and automatically grabs input when
+#    focused and mouse enter window.
 
 ExecStart=/usr/bin/qemu-system-x86_64 -daemonize -name "${MACHINE}"                   \
     -machine type=pc,accel=kvm -cpu host -smp 2 -m 2048 -boot menu=on                 \
     -usbdevice tablet -display sdl -vga vmware                                        \
     -netdev bridge,id=tapvirt,br=brvirt -device virtio-net,netdev=tapvirt             \
     -drive media=cdrom,file=${AB2_VIRT_DIR}/media/ubuntu-14.10-desktop-amd64.iso      \
-    -drive media=disk,if=virtio,file=${AB2_VIRT_DIR}/qemu/${MACHINE}.qcow2            \
+    -drive media=disk,if=virtio,file=${IMAGE}                                         \
     -monitor unix:%t/qemu/${MACHINE}/control,server,nowait
 
 ExecStartPost=/usr/bin/echo "Main PID: ${MAINPID}"
@@ -28,5 +38,5 @@ ExecStartPost=/usr/bin/echo "Main PID: ${MAINPID}"
 #     'org.freedesktop.machine1.Manager' 'RegisterMachine'    \
 #     sayssus "${MACHINE}" '0' 'machine' 'vm' "$MAINPID" ''
 
-ExecStop=/usr/bin/sh -c "echo system_powerdown | socat - UNIX-CONNECT:%t/qemu/${MACHINE}/control"
-
+ExecStop=/usr/bin/sh -c "echo system_powerdown | socat - UNIX-CONNECT:%t/qemu/${MACHINE}/control || true"
+ExecStopPost=/usr/bin/rmdir ${IMAGE}.lck

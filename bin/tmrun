@@ -2,4 +2,4 @@
 
 # TODO: properly quote "$@" to pass as single argument
 cmd="$@"
-$TERMCMD -e "sh -c 'stty intr undef; $cmd'"
+exec $TERMCMD -e "sh -c 'stty intr undef; $cmd'"

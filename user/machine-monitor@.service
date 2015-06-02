@@ -1,0 +1,11 @@
+[Unit]
+Description=monitor console for %i vm
+
+Requisite=machine-%i.service
+After=machine-%i.service
+
+[Service]
+Type=simple
+Slice=machines.slice
+
+ExecStart=/home/abdo/.config/systemd/bin/tmrun socat - UNIX-CONNECT:%t/qemu/%i/control
