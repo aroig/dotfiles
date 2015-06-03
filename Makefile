@@ -5,7 +5,7 @@
 # using the git merge -s subtree.                                         #
 # ----------------------------------------------------------------------- #
 
-REMOTES=awesome emacs ranger shell systemd vim dwb zathura
+REMOTES=awesome emacs ranger shell systemd vim dwb zathura mr
 
 SHELL := $(SHELL) -e
 
