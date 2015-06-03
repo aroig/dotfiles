@@ -18,8 +18,8 @@ ExecStartPre=/usr/bin/mkdir -m 777 ${IMAGE}.lck
 ExecStartPre=/usr/bin/mkdir -p "%t/qemu/${MACHINE}"
 
 ExecStart=/home/abdo/.config/systemd/bin/tmrun                                        \
-    qemu-system-x86_64 -name ${MACHINE}                                               \
-    -machine type=pc,accel=kvm -cpu host -smp 2 -m 2048 -boot menu=on                 \
+    qemu-system-x86_64 -name ${MACHINE} -boot menu=on                                 \
+    -machine type=pc,accel=kvm -cpu host -smp 2 -m 2048 -balloon virtio               \
     -usbdevice tablet -nographic -device virtio-serial                                \
     -netdev bridge,id=tapvirt,br=brvirt -device virtio-net,netdev=tapvirt             \
     -drive media=cdrom,file=${AB2_VIRT_DIR}/media/archlinux-2015.02.01-dual.iso       \

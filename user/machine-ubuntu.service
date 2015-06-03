@@ -22,8 +22,8 @@ ExecStartPre=/usr/bin/mkdir -p "%t/qemu/${MACHINE}"
 # 2. --usbdevice tablet uses absolute coordinates, and automatically grabs input when
 #    focused and mouse enter window.
 
-ExecStart=/usr/bin/qemu-system-x86_64 -daemonize -name "${MACHINE}"                   \
-    -machine type=pc,accel=kvm -cpu host -smp 2 -m 2048 -boot menu=on                 \
+ExecStart=/usr/bin/qemu-system-x86_64 -daemonize -name "${MACHINE}" -boot menu=on     \
+    -machine type=pc,accel=kvm -cpu host -smp 2 -m 2048 -balloon virtio               \
     -usbdevice tablet -display sdl -vga vmware                                        \
     -netdev bridge,id=tapvirt,br=brvirt -device virtio-net,netdev=tapvirt             \
     -drive media=cdrom,file=${AB2_VIRT_DIR}/media/ubuntu-14.10-desktop-amd64.iso      \
