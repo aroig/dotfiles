@@ -182,15 +182,15 @@ abdo_prompt_vcs() {
             ;;
         
         hg)
-            echo -en "[${_cb}${fg[red]}${_ce}hg${_cb}${fx[reset]}${_ce}]"
+            echo -en " [${_cb}${fg[red]}${_ce}hg${_cb}${fx[reset]}${_ce}]"
             ;;
 
         bzr)
-            echo -en "[${_cb}${fg[yellow]}${_ce}bzr${_cb}${fx[reset]}${_ce}]"
+            echo -en " [${_cb}${fg[yellow]}${_ce}bzr${_cb}${fx[reset]}${_ce}]"
             ;;
 
         darcs)
-            echo -en "[${_cb}${fg[green]}${_ce}darcs${_cb}${fx[reset]}${_ce}]"
+            echo -en " [${_cb}${fg[green]}${_ce}darcs${_cb}${fx[reset]}${_ce}]"
             ;;
     esac
 }
