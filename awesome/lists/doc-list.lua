@@ -1,6 +1,6 @@
 require("apps")
 
-local qref_dir = "/home/abdo/work/qref"
+local qref_dir = os.getenv("AB2_MATHS_DIR") .. "/qref"
 
 return {
    -- local html docs

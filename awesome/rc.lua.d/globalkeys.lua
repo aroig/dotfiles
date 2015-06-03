@@ -258,7 +258,7 @@ local key
 
 -- Client move by tag number
 for i = 1, keynumber do
-    key = tostring(i % 10)
+    key = string.format("%d", (i % 10))
     globalkeys = awful.util.table.join(
         globalkeys,
 

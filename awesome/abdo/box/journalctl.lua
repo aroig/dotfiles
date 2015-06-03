@@ -16,8 +16,8 @@ function journalctl(args)
    local text = "\n"
 
    if not args then args = "" end
-   local fd = io.popen('journalctl -a -n' .. tostring(10*num_entries) .. string.format(' %s ', args) ..
-                 ' | grep -v "slim\\|sudo" | tail -n ' .. tostring(num_entries))
+   local fd = io.popen('journalctl -a' .. string.format('-n %d %s ', 10*num_entries, args) ..
+                           string.format(' | grep -v "slim\\|sudo" | tail -n %d', num_entries))
 
    local lines = {}
    for l in fd:lines() do

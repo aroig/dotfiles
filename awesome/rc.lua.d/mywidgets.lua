@@ -167,7 +167,7 @@ function myw.hdw.update()
     local args = myw.hdw.temp(nil, host_config['thermal'])
     if args and args.temp and args.temp ~= myw.hdw.tempval then
         local color = wiboxcolor(35, 70, args.temp)
-        local text = colortext(string.format("%dºC ", args.temp), color)
+        local text = colortext(string.format("%sºC ", args.temp), color)
         myw.hdw.tempval = args.temp
         myw.hdw.tempwdg:set_markup(text)
     end
@@ -220,10 +220,10 @@ function myw.net.update()
 
     if up ~= myw.net.value.up or down ~= myw.net.value.down then
 
-        local upcolor = wiboxcolor(0, 70, up)
+        local upcolor = wiboxcolor(0, 100, up)
         local uptxt = colortext(string.format('%.0f', up), upcolor)
 
-        local downcolor = wiboxcolor(0, 600, down)
+        local downcolor = wiboxcolor(0, 1700, down)
         local downtxt = colortext(string.format('%.0f', down), downcolor)
 
         myw.net.dwdg:set_markup(downtxt .. ' ')
@@ -279,7 +279,7 @@ function myw.mail.update()
             icon = icon_full
         end
 
-        local text = colortext(tostring(num), color)
+        local text = colortext(string.format("%d", num), color)
 
         myw.mail.icon:set_markup(icon .. ' ')
         myw.mail.inwdg:set_markup(text .. ' ')
@@ -299,7 +299,7 @@ function myw.mail.update()
             color = beautiful.color_widget_alert
         end
 
-        local text = colortext(tostring(num), color)
+        local text = colortext(string.format("%d", num), color)
 
         myw.mail.outwdg:set_markup(text .. ' ')
         myw.mail.num_queue = num

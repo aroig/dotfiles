@@ -111,7 +111,7 @@ local function nice_eval(s)
       end
    end
    if err then
-      prompt_output(awful.util.escape("Error: "..tostring(err)));
+      prompt_output(awful.util.escape(string.format("Error: %d", err)));
    end
 end
 

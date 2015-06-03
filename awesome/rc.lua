@@ -9,7 +9,7 @@
 -----------------------------------
 -- Standard lua stuff
 string       = require("string")
-posix        = require("posix")
+lfs          = require("lfs")
 gears        = require("gears")
 
 -- Standard awesome library

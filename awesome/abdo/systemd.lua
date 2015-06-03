@@ -11,7 +11,7 @@
 local os = os
 local string = string
 local table = table
-local posix = posix
+local lfs = lfs
 local io = { popen = io.popen, open=io.open }
 
 rules = require("awful.rules")
@@ -40,15 +40,16 @@ end
 
 
 local function path_exists(path)
-    return posix.stat(path) ~= nil
+    return lfs.attributes(path) ~= nil
 end
 
 
-local function pid_cgroup (pid)
+local function pid_cgroup(pid)
     local cgroup = nil
-    local f = io.open(string.format("/proc/%s/cgroup", tostring(pid)), 'rb')
+    local f = io.open(string.format("/proc/%d/cgroup", pid), 'rb')
     if f then
-        cgroup = string.match(f:read("*all"), "systemd:(.-)%s*$")
+        local raw = f:read("*all")
+        cgroup = string.match(raw, "systemd:(.-)%s*$")
         f:close()
     end
     return cgroup
@@ -205,6 +206,7 @@ function systemd.list_units()
         end
         f:close()
     end
+    return unitlist
 end
 
 
@@ -222,12 +224,21 @@ end
 
 -- get cgroup from pid or unit name
 function systemd.get_cgroup (s)
-    s = tostring(s)
+    if type(s) == "number" then
+        s = string.format("%d", s)
+
+    elseif type(s) == "string" then
+        s = s
+
+    else
+        return
+    end
+
     local cgroup = nil
 
     -- we got a pid
     if string.match(s, '^[0-9]*$') then
-        local f = io.open(string.format("/proc/%s/cgroup", tostring(s)), 'rb')
+        local f = io.open(string.format("/proc/%s/cgroup"), 'rb')
         if f then
             cgroup = string.match(f:read("*all"), "systemd:(.*)$")
             f:close()
@@ -331,7 +342,8 @@ function systemd.manage_client(c)
     local mainpid = cgroup_mainpid(cgroup)
 
     -- util.debug("client", { transient_for = c.transient_for, modal = c.modal,
-    --                        window = c.window, leader_window = c.leader_window })
+    --                       window = c.window, leader_window = c.leader_window,
+    --                       pid = c.pid, mainpid = mainpid, cgroup = cgroup })
 
     if cgroup then
         systemd.client[c.window] = { cgroup = cgroup, mainpid = mainpid}
