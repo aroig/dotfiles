@@ -346,11 +346,11 @@ homedir_local() {
 # Checkout on the given remotes only
 ##
 homedir_checkout() {
-    local path="$(pwd)"
+    # NOTE: during checkout $MR_REPO is absolute path
     local repo="$MR_REPO"
-    local lrmt="$(homedir_remote_from_path "$path/$repo")"
+    local lrmt="$(homedir_remote_from_path "$repo")"
     if [ -z "$lrmt" ]; then
-        error "Can't determine remote corresponding to current path"
+        error "Can't determine remote corresponding to current path: '$repo'"
     fi
 
     for rmt in "$@"; do
