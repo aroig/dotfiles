@@ -1,8 +1,6 @@
 [Unit]
 Description=ssh master connection for %i
 
-AssertHost=!%i
-
 Conflicts=disconnect.target
 
 Requires=gpg-agent.service
