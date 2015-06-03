@@ -1,6 +1,10 @@
 TODO
 ====
 
+* Add an `After` for all `Conflicts`, so they start and stop one after the other.
+
+* get rid of sudo's in user services
+
 * can vncserver be made socket activated, like xorg?
 
 * make sure the sync + shutdown still works fine

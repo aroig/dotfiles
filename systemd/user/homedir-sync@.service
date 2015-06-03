@@ -12,7 +12,7 @@ Slice=workers.slice
 SyslogIdentifier=homedir-sync
 
 WorkingDirectory=/home/%u
-ExecStart=/usr/bin/mr sync %i
+ExecStart=/usr/bin/mr --stats -t sync %i
 ExecStart=/usr/bin/systemctl --user --no-block start synced.target
 
 [Install]

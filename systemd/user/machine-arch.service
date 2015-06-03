@@ -1,0 +1,39 @@
+[Unit]
+Description=arch virtual machine
+
+Requisite=wm.target 
+After=wm.target
+
+[Service]
+Type=simple
+
+Slice=machines.slice
+
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines
+Environment=MACHINE=arch
+
+# NOTE: we use directory locks to make sure no two services attempt to
+# access the same image. It is crude but atomic and effective!
+
+ExecStartPre=/usr/bin/mkdir -m 777 "${IMAGES}/${MACHINE}.qcow2.lock"
+ExecStartPre=/usr/bin/mkdir -p "%t/qemu/${MACHINE}"
+
+ExecStart=/home/abdo/.config/systemd/bin/tmrun                                        \
+    qemu-system-x86_64 -name ${MACHINE} -boot menu=on                                 \
+    -machine type=pc,accel=kvm -cpu host -smp 2 -m 2048 -balloon virtio               \
+    -usbdevice tablet -nographic -device virtio-serial                                \
+    -netdev bridge,id=tapvirt,br=brvirt -device virtio-net,netdev=tapvirt             \
+    -drive media=cdrom,file=${MEDIA}/archlinux-2015.02.01-dual.iso                    \
+    -drive media=disk,if=virtio,file=${IMAGES}/${MACHINE}.qcow2                       \
+    -monitor unix:%t/qemu/${MACHINE}/control,server,nowait
+
+ExecStartPost=/usr/bin/echo "qemu PID: ${MAINPID}"
+
+# TODO: machined needs privileges. I think systemd 220 relaxes this!
+# ExecStartPost=/usr/bin/busctl call                          \
+#     'org.freedesktop.machine1' '/org/freedesktop/machine1'  \    
+#     'org.freedesktop.machine1.Manager' 'RegisterMachine'    \
+#     sayssus "${MACHINE}" '0' 'machine' 'vm' "$MAINPID" ''
+
+ExecStop=/usr/bin/sh -c "echo system_powerdown | socat - UNIX-CONNECT:%t/qemu/${MACHINE}/control || true"
+ExecStopPost=/usr/bin/rmdir "${IMAGES}/${MACHINE}.qcow2.lock"

@@ -1,0 +1,46 @@
+[Unit]
+Description=ubuntu virtual machine
+
+Requisite=wm.target 
+After=wm.target
+
+[Service]
+Type=forking
+
+Slice=machines.slice
+
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines
+Environment=MACHINE=ubuntu
+
+# NOTE: we use directory locks to make sure no two services attempt to
+# access the same image. It is crude but atomic and effective!
+
+ExecStartPre=/usr/bin/mkdir -m 777 "${IMAGES}/${MACHINE}.qcow2.lock"
+ExecStartPre=/usr/bin/mkdir -p "%t/qemu/${MACHINE}"
+
+# NOTES:
+#
+# 1. We use vmware driver for now. qxl displayed artifacts on Ubuntu 14.10. Eventually
+#    want to move to qxl though
+#
+# 2. --usbdevice tablet uses absolute coordinates, and automatically grabs input when
+#    focused and mouse enter window.
+
+ExecStart=/usr/bin/qemu-system-x86_64 -daemonize -name ${MACHINE} -boot menu=on       \
+    -machine type=pc,accel=kvm -cpu host -smp 2 -m 2048 -balloon virtio               \
+    -usbdevice tablet -display sdl -vga vmware                                        \
+    -netdev bridge,id=tapvirt,br=brvirt -device virtio-net,netdev=tapvirt             \
+    -drive media=cdrom,file=${MEDIA}/ubuntu-14.10-desktop-amd64.iso                   \
+    -drive media=disk,if=virtio,file=${IMAGES}/${MACHINE}.qcow2                       \
+    -monitor unix:%t/qemu/${MACHINE}/control,server,nowait
+
+ExecStartPost=/usr/bin/echo "Main PID: ${MAINPID}"
+
+# TODO: machined needs privileges. I think systemd 220 relaxes this!
+# ExecStartPost=/usr/bin/busctl call                          \
+#     'org.freedesktop.machine1' '/org/freedesktop/machine1'  \    
+#     'org.freedesktop.machine1.Manager' 'RegisterMachine'    \
+#     sayssus "${MACHINE}" '0' 'machine' 'vm' "$MAINPID" ''
+
+ExecStop=/usr/bin/sh -c "echo system_powerdown | socat - UNIX-CONNECT:%t/qemu/${MACHINE}/control || true"
+ExecStopPost=/usr/bin/rmdir "${IMAGES}/${MACHINE}.qcow2.lock"

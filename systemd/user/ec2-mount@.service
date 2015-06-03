@@ -10,8 +10,8 @@ After=mount-priv.target
 Requires=ec2-attach@%i.service
 After=ec2-attach@%i.service
 
-Requires=host-wait-online@%i.service
-After=host-wait-online@%i.service
+Requires=ssh-wait-online@%i.service
+After=ssh-wait-online@%i.service
 
 [Service]
 Type=oneshot

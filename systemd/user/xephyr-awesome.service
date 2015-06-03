@@ -2,6 +2,7 @@
 Description=awesome window manager in xephyr
 
 Conflicts=xephyr-openbox.service xephyr-xmonad.service
+After=xephyr-openbox.service xephyr-xmonad.service
 
 Requires=xephyr.service
 After=xephyr.service
