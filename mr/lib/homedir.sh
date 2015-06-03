@@ -148,6 +148,68 @@ homedir_init() {
 
 
 ##
+# usage: homedir_ecryptfs_init
+#
+# Initialize encrypted private directory in $MR_REPO
+#
+# NOTE: useful stuff
+#     keyctl list @u
+#     keyctl clear @u
+##
+homedir_ecryptfs_init() {
+    local keylength="64"
+    local path="$MR_REPO"
+    local privdir="$(basename "$MR_REPO")"
+    local backend="$(dirname "$MR_REPO")/.$privdir"
+
+    local ecryptfs_base="$(dirname "$MR_REPO")/.ecryptfs"
+    local ecryptfs_pass="$ecryptfs_base/$privdir-passphrase"
+    local ecryptfs_sig="$ecryptfs_base/$privdir.sig"    
+    local ecryptfs_conf="$ecryptfs_base/$privdir.conf"
+
+
+    # skip ecryptfs setup if $path is not at homedir
+    if [ ! "$path" = "$HOME/$privdir" ]; then
+        warning 'Not in $HOME. Skipping ecryptfs setup.'
+        return
+    fi
+    
+    # create ecryptfs directory
+    if [ ! -e "$ecryptfs_base" ]; then
+        mkdir -p -m 700 "$ecryptfs_base"
+    fi
+    
+    # generate random passphrase and encrypt it with my key
+    if [ ! -f "$ecryptfs_pass" ]; then
+        echo "ecryptfs: generating a random passphrase"
+        cat /dev/urandom | tr -dc '0-9a-f' | head -c "$keylength" | xargs printf "%s\n" | \
+            gpg --batch -e > "$ecryptfs_pass"
+        if [ ! "$?" == "0" ]; then
+            error "gpg could not encrypt the passphrase"         
+        fi
+    fi 
+
+    # store passphrase signature
+    if [ ! -f "$ecryptfs_sig" ]; then
+        echo "ecryptfs: saving passphrase signature"
+        gpg --batch -d "$ecryptfs_pass" |                    \
+            ecryptfs-add-passphrase --fnek | grep "\[.*\]" | \
+            sed "s/^.*\[\(.*\)\].*$/\1/" > "$ecryptfs_sig"       
+    fi
+
+    # prepare ecryptfs config
+    if [ ! -f "$ecryptfs_conf" ]; then
+        echo "ecryptfs: preparing ecryptfs config"
+        echo "$backend $path ecryptfs" > "$ecryptfs_conf"
+    fi
+
+    if ! mountpoint -q "$path"; then
+        error "Please, mount '$privdir' now and retry."
+    fi     
+}
+
+
+##
 # usage: homedir_relocate_directory <src> <tgt>
 #
 # Attempts to move directory at <src> to <tgt> and symlink
@@ -284,11 +346,11 @@ homedir_local() {
 # Checkout on the given remotes only
 ##
 homedir_checkout() {
-    local path="$(pwd)"
+    # NOTE: during checkout $MR_REPO is absolute path
     local repo="$MR_REPO"
-    local lrmt="$(homedir_remote_from_path "$path/$repo")"
+    local lrmt="$(homedir_remote_from_path "$repo")"
     if [ -z "$lrmt" ]; then
-        error "Can't determine remote corresponding to current path"
+        error "Can't determine remote corresponding to current path: '$repo'"
     fi
 
     for rmt in "$@"; do

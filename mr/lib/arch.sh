@@ -91,7 +91,8 @@ pkgbuild_bump_pkgrel() {
 
 ##
 # pkgbuild_bump_version <path> <ver>
-# Update the version in a PKGBUILD and reset pkgrel if version increases.
+# Update the version in a PKGBUILD and reset pkgrel if version changes.
+# return true if version changed, or false if it stays the same.
 ##
 pkgbuild_bump_version() {
     local srcpath="$(readlink -f "$1")"
@@ -104,8 +105,10 @@ pkgbuild_bump_version() {
             sed -i "s/pkgver=.*$/pkgver=$newver/" "$pkgbuild" 
             sed -i "s/pkgrel=.*$/pkgrel=1/" "$pkgbuild"
             git_commit_if_changed "$srcpath" "Bump pkgver to '$newver'"            
-        fi      
+        fi
+        [ ! "$pkgver" = "$newver" ] && return 0
     fi
+    return 1
 }
 
 
@@ -197,7 +200,7 @@ package_cleanold() {
 }
 
 ##
-# package_build <path>
+# package_build <path> <makepkg args>
 # Build a package at the given directory.
 ##
 package_build() {
@@ -212,7 +215,21 @@ package_build() {
         done
     (
         cd "$srcpath"
-        makepkg -L -f --sign "$@"
+        makepkg -f --log --nocheck --sign "$@"
+    )
+}
+
+##
+# package_check <path>
+# Run tests on a package at the given directory.
+##
+package_check() {
+    local srcpath="$(readlink -f "$1")"
+    shift
+   
+    (
+        cd "$srcpath"
+        makepkg --check
     )
 }
 
@@ -224,7 +241,9 @@ package_repackage() {
     local srcpath="$(readlink -f "$1")"
     (
         cd "$srcpath"
-        makepkg -f --repackage --sign
+        # update pkgver and build
+        makepkg --nobuild --noprepare
+        makepkg -f --repackage --nocheck --sign
     )
 }
 
@@ -289,19 +308,50 @@ package_print_changelog() {
         done
 }
 
+
+##
+# package_file_uris <path>
+#
+# Get a list of file uri's for the packages produced by a PKGBUILD
+##
+package_file_uris() {
+    local srcpath="$(readlink -f "$1")"
+
+    # collect package files
+    pkgbuild_packages "$srcpath" |
+        while read pkg; do
+            if [ -f "$srcpath/$pkg" ]; then
+                printf "%s\n" "file://$srcpath/$pkg"
+            fi             
+        done  
+}
+
 ##
 # package_install <path>
 # Install a package.
 ##
 package_install() {
-    local srcpath="$(readlink -f "$1")"
-    pkgbuild_packages "$srcpath" |
-        while read pkg; do
-            if [ -f "$srcpath/$pkg" ]; then
-                sudo pacman --noconfirm -U "file://$srcpath/$pkg"               
-            fi             
-        done
+    local srcpath="$1"
+    local pkglist="$(package_file_uris "$1")"
+
+    sudo pacman -U $pkglist
 }
+
+
+##
+# package_chroot_install <root> <path>
+#
+# Install a package to a chroot environment.
+# NOTE: this is not safe with spaces!
+##
+package_chroot_install() {
+    local newroot="$1"
+    local srcpath="$2"
+    local pkglist="$(package_file_uris "$srcpath")"
+
+    sudo pacman -r "$newroot" -U $pkglist
+}
+
 
 ##
 # package_install_deps <path>
@@ -311,7 +361,7 @@ package_install_deps() {
     local srcpath="$(readlink -f "$1")"
     (
         cd "$srcpath"
-        makepkg -s --nobuild --noextract --skipinteg
+        makepkg --syncdeps --nobuild --noextract --skipinteg
     )
 }
 

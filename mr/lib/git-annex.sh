@@ -21,10 +21,9 @@ git_annex_is_root() {
 # Check whether <path> belongs to an initialized git-annex repo
 ##
 git_annex_is_repo() {
-    local path="$1"
-    local gitdir="$(git_gitdir_path "$path")"
+    local path="$1"    
     local gitroot="$(git_root_path "$path")"
-    test -n "$gitdir" && test -n "$gitroot" && git_annex_is_root "$gitroot"
+    test -n "$gitroot" && git_annex_is_root "$gitroot"
 }
 
 
@@ -101,11 +100,11 @@ git_annex_init() {
     local path="$1"
     (
         cd "$path"
-        if ! git_is_repo; then
+        if ! git_is_repo "$path"; then
             error "git_annex_init expects a git repo: '$path'"
         fi
 
-        if ! git_annex_is_repo; then
+        if ! git_annex_is_repo "$path"; then
             git annex init
         fi
     )

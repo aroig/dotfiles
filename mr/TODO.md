@@ -16,3 +16,5 @@ TODO
 
 * move arch, devel etc to a mr-based sync scheme
 
+* fix `mr checkout` and `mr init` sequence. Right now `mr checkout` fails, and `mr init`
+  skips because can't determine the directory type.

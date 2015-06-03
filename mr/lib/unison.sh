@@ -13,9 +13,9 @@ unison_root_path() {
 
     local p="$path"
     local pold=""
-    while [ ! "$p = $pold" ]; do
+    while [ ! "$p" = "$pold" ]; do
         if [ -d "$p/.unison" ]; then
-            echo "$p/.unison"
+            realpath "$p" 2> /dev/null
             return
         fi
         pold="$p"

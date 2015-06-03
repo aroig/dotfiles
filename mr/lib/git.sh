@@ -11,11 +11,17 @@
 ##
 git_root_path() {
     local path="$1"
-    (
-        cd "$path"
-        local gitroot="$(git rev-parse --show-toplevel 2> /dev/null)"
-        realpath "$gitroot" 2> /dev/null
-    )
+
+    local p="$path"
+    local pold=""
+    while [ ! "$p" = "$pold" ]; do
+        if [ -e "$p/.git" ]; then
+            realpath "$p" 2> /dev/null
+            return
+        fi
+        pold="$p"
+        p="${p%/*}"
+    done
 }
 
 
@@ -52,9 +58,8 @@ git_is_root() {
 ##
 git_is_repo() {
     local path="$1"
-    local gitdir="$(git_gitdir_path "$path")"
     local gitroot="$(git_root_path "$path")"
-    test -n "$gitdir" && test -n "$gitroot" && git_is_root "$gitroot"
+    test -n "$gitroot" && git_is_root "$gitroot"
 }
 
 ##
@@ -307,7 +312,7 @@ git_init() {
     local path="$1"
     (
         cd "$path"
-        if ! git_is_repo; then
+        if ! git_is_repo "$path"; then
             git init
         fi
     )
