@@ -8,11 +8,16 @@
 
 ;; http://stackoverflow.com/questions/1792326/how-do-i-bind-a-command-to-c-i-without-changing-tab
 ;; http://www.gnu.org/savannah-checkouts/gnu/emacs/manual/html_node/elisp/Function-Keys.html
-;(add-hook 'term-setup-hook
-;          (lambda ()
-;            (message "removing C-i to TAB remap")
-;            (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))))
 
+;; NOTE: this doesn't seem to work (2015-05-08)
+; (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
+
+;; NOTE: I can bind to <tab> and do not touch C-i though!
+; (global-set-key (kbd "<tab>") (lambda () (interactive) (message "<tab>")))
+
+
+;; grep
+(global-set-key (kbd "C-c g") 'rgrep)
 
 ;; Helm
 (global-set-key (kbd "H-y f") 'helm-mini)
@@ -142,10 +147,22 @@
 (defun outline-mode-keybindings ()
   (local-set-key (kbd "<C-tab>") 'outline-cycle) ; Cycle outline
 
-  (local-set-key (kbd "H-<up>") 'outline-move-subtree-up)
-  (local-set-key (kbd "H-<down>") 'outline-move-subtree-down)
-  (local-set-key (kbd "H-<left>") 'outline-promote)
-  (local-set-key (kbd "H-<right>") 'outline-demote))
+  (local-set-key (kbd "H-l <up>") 'outline-move-subtree-up)
+  (local-set-key (kbd "H-l <down>") 'outline-move-subtree-down)
+  (local-set-key (kbd "H-l <left>") 'outline-promote)
+  (local-set-key (kbd "H-l <right>") 'outline-demote)
+
+  (local-set-key (kbd "H-l K") 'outline-move-subtree-up)
+  (local-set-key (kbd "H-l J") 'outline-move-subtree-down)
+  (local-set-key (kbd "H-l H") 'outline-promote)
+  (local-set-key (kbd "H-l L") 'outline-demote)
+
+  (local-set-key (kbd "H-l n") 'outline-next-visible-heading)
+  (local-set-key (kbd "H-l p") 'outline-previous-visible-heading)
+  (local-set-key (kbd "H-l f") 'outline-forward-same-level)
+  (local-set-key (kbd "H-l b") 'outline-backward-same-level)
+  (local-set-key (kbd "H-l u") 'outline-up-heading)
+  )
 
 (add-hook 'outline-mode-hook 'outline-mode-keybindings)
 (add-hook 'outline-minor-mode-hook 'outline-mode-keybindings)
@@ -162,6 +179,7 @@
 ;; text mode
 (add-hook 'text-mode-hook
       (lambda ()
+
         (abdo-flyspell-things)
         (local-set-key (kbd "s-c d") 'abdo-change-dictionary)))
 
@@ -208,13 +226,16 @@
 	    (local-set-key (kbd "C-c r") 'abdo-latex-toggle-toc)       ;; Toggles the reftex toc
 	    (local-set-key (kbd "C-c v") 'abdo-latex-view)             ;; View
         (local-set-key (kbd "C-c f") 'abdo-latex-forward-sync)     ;; Forward search
+
+        (local-set-key (kbd "C-c j") 'abdo-latex-goto-label)       ;; Jump to a given label
+        (local-set-key (kbd "C-c l") 'abdo-latex-insert-ref)       ;; Insert a \ref
         ))
 
 
 ;; C/C++
 (defun abdo-c-mode-keybindings()
             (local-set-key (kbd "C-c c") 'abdo-devel-compile)         ;; Compile
-            (local-set-key (kbd "C-c g") 'gdb)                        ;; gdb
+            (local-set-key (kbd "C-c d") 'gdb)                        ;; gdb
 
             (local-set-key (kbd "C-c n") 'next-error)                 ;; next error
             (local-set-key (kbd "C-c p") 'previous-error))            ;; previous error

@@ -1,8 +1,0 @@
-# -*- coding: utf-8 -*-
-# name: \begin{comdiag} ... \end{comdiag}
-# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: cd
-# --
-\\begin{comdiag}
-  $0
-\\end{comdiag}

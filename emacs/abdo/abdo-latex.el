@@ -98,9 +98,6 @@
   ;; default environment
   (setq LaTeX-default-environment "equation")
 
-  ;; do not scale font on sections
-  (setq font-latex-fontify-sectioning 1)
-
   ;; do not fontify subscript and superscripts
   ; (setq font-latex-fontify-script nil)
 
@@ -178,6 +175,60 @@
 ;  (flyspell-babel-setup)
 
 
+;; Navigating
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(defun abdo-latex-completing-read (prompt collection default)
+  (let* ((fullprompt (if default
+                         (format "%s (default %s): " prompt default)
+                       (format "%s: " prompt))))
+         (ido-completing-read fullprompt collection nil t nil nil default)))
+
+
+(defun abdo-latex-find-label (label &optional file other-window)
+  (let*
+      ((buffer (if file (find-file-noselect file) (current-buffer)))
+       (regexp (format reftex-find-label-regexp-format (regexp-quote label))))
+
+    (when buffer
+      (if other-window
+          (switch-to-buffer-other-window buffer)
+        (switch-to-buffer buffer))
+
+      (push-mark)
+      (goto-char (point-min))
+      (re-search-forward regexp nil t)
+      (reftex-unhighlight 0))))
+
+
+(defun abdo-latex-goto-label (label &optional other-window)
+  "Prompt for a label (with completion) and jump to the location of this label.
+   Optional prefix argument OTHER-WINDOW goes to the label in another window."
+  (interactive "P")
+  (reftex-access-scan-info t)
+  (let* ((docstruct (symbol-value reftex-docstruct-symbol))
+         (candidates (delq nil (mapcar (lambda (x) (when (stringp (car x)) (car x))) docstruct)))
+         ;; If point is inside a \ref{} or \pageref{}, use that as default value.
+         (default (when (looking-back "\\\\\\(?:page\\)?ref{[-a-zA-Z0-9_*.:]*")
+                    (reftex-this-word "-a-zA-Z0-9_*.:")))
+         (label (abdo-latex-completing-read "Label" candidates default))
+         (selection (assoc label docstruct))
+         (file   (nth 3 selection)))
+
+    (abdo-latex-find-label label file other-window)))
+
+
+(defun abdo-latex-insert-ref (label)
+  "Prompt for a label (with completion) and insert a referene to it."
+  (interactive "P")
+  (reftex-access-scan-info t)
+  (let* ((docstruct (symbol-value reftex-docstruct-symbol))
+         (candidates (delq nil (mapcar (lambda (x) (when (stringp (car x)) (car x))) docstruct)))
+         (label (abdo-latex-completing-read "Label" candidates nil)))
+    (insert (format "\\ref{%s}" label))))
+
+
 
 ;; Tools
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -210,7 +261,7 @@
 ;; Make a diff tex.
 (defun abdo-latex-make-diff(revision)
   (interactive "sRevision: ")
-  (shell-command (format "papers diff %s" revision))
+  (shell-command (format "texa diff %s" revision))
   (find-file-other-window (format "%s.diff.tex"
     (TeX-master-file))
   )

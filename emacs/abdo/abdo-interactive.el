@@ -226,8 +226,10 @@ Use `winstack-push' and
 
 ;; (setq ido-use-filename-at-point t)
 (setq ido-auto-merge-work-directories-length -1)
-(setq ido-default-buffer-method 'selected-window)
 
+;; always open buffer in selected-window
+(setq ido-default-file-method 'selected-window)
+(setq ido-default-buffer-method 'selected-window)
 
 
 

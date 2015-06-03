@@ -156,6 +156,7 @@
 
 ;; evil
 (when (and (locate-library "evil") (not batch-mode))
+
   (require 'evil)                        ;; vi-like keys
   (require 'abdo-vi)                     ;; Settings for vi mode
 )

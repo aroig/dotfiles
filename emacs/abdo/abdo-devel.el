@@ -47,23 +47,35 @@
 ;; Compile buffer
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; When compilation ends print a message and close
-;; the compilation window if sucessful !
+;; When compilation ends print a message and close the compilation window if sucessful.
+;;
+;; NOTE: we store the window configuration previous to compile, and restore it after a
+;; successful compilation.
+;;
+;; TODO: need a way to invalidate the stored configuration. Right now it is only
+;; invalidated when a compilation succeeds.
+
+(defvar abdo-compile-window-state nil)
 
 (defun abdo-compilation-finished (buffer msg)
   (if (string-match "^finished" msg)
     (progn
       (bury-buffer "*compilation*")
+      (when abdo-compile-window-state
+        (set-window-configuration abdo-compile-window-state))
+      (setq abdo-compile-window-state nil)
+
+      ; (delete-window (get-buffer-window (get-buffer "*compilation*")))
       ;; NOTE: winner-undo does not handle well multiple frames.
-      (winner-undo)
+      ; (winner-undo)
       (message "Successful :)"))
-    (message "Failed :("))
-)
+    (message "Failed :(")))
 
 (defun colorize-buffer ()
   (toggle-read-only)
   (ansi-color-apply-on-region (point-min) (point-max))
   (toggle-read-only))
+
 
 (defun abdo-compile-buffer-things()
   ;; When compilation  finishes
@@ -75,7 +87,12 @@
 
   ;; Scroll compilation until first error
   (setq compilation-scroll-output 'first-error)
-)
+
+  ;; Save window state before compile
+  (advice-add 'compile :before
+              '(lambda (&rest args)
+                 (unless abdo-compile-window-state
+                   (setq abdo-compile-window-state (current-window-configuration))))))
 
 
 (defun find-file-upwards (filename &optional startdir)
