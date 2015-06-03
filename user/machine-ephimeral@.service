@@ -1,0 +1,19 @@
+[Unit]
+Description=create an ephimeral disk snapshot for %i vm
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+
+Slice=machines.slice
+
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines
+Environment=MACHINE=%i
+
+ExecStartPre=/usr/bin/mkdir -m 777 "${IMAGES}/${MACHINE}.qcow2.lock"
+ExecStart=/usr/bin/qemu-img create -f qcow2                    \
+    -o backing_file=${IMAGES}/${MACHINE}.qcow2                 \
+    ${TEMP}/${MACHINE}-snapshot.qcow2
+
+ExecStop=/usr/bin/rm ${TEMP}/${MACHINE}-snapshot.qcow2
+ExecStopPost=/usr/bin/rmdir "${IMAGES}/${MACHINE}.qcow2.lock"
