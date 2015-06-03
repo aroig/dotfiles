@@ -11,7 +11,7 @@ RemainAfterExit=true
 Slice=machines.slice
 
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines
-Environment=MACHINE=data
+Environment=MACHINE=virtdata
 
 ExecStartPre=/usr/bin/mkdir -m 777 "${IMAGES}/${MACHINE}.qcow2.lock"
 ExecStart=/usr/bin/sh -c "echo 'drive_add 0 if=none,file=${IMAGES}/${MACHINE}.qcow2' | socat - UNIX-CONNECT:%t/qemu/%i/control"
