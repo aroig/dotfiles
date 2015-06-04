@@ -533,16 +533,13 @@ timers.fast:connect_signal("timeout", myw.bat.update)
 myw.sys = {}
 myw.sys.sync = require("abdo.widget.filex")
 myw.sys.priv = require("abdo.widget.filex")
-myw.sys.data = require("abdo.widget.filex")
 
 myw.sys.syncwdg = wibox.widget.textbox()
 myw.sys.privwdg = wibox.widget.textbox()
-myw.sys.datawdg = wibox.widget.textbox()
 
 function myw.sys.update()
     local priv_state = myw.sys.priv(nil, {os.getenv("AB2_PRIV_DIR") .. "/README"})
     local sync_state = myw.sys.sync(nil, {os.getenv("XDG_RUNTIME_DIR") .. "/synced"})
-    local data_state = myw.sys.data(nil, {"/data/abdo"})
 
     local icon
     if priv_state then icon = wiboxicon("unlocked", beautiful.color_widget)
@@ -554,11 +551,6 @@ function myw.sys.update()
     else               icon = wiboxicon('sync', beautiful.color_widget_alert)
     end
     myw.sys.syncwdg:set_markup(icon .. ' ')
-
-    if data_state then icon = wiboxicon('disk', beautiful.color_widget)
-    else               icon = wiboxicon('disk', beautiful.color_widget_alert)
-    end
-    myw.sys.datawdg:set_markup(icon .. ' ')
 end
 
 timers.normal:connect_signal("timeout", myw.sys.update)
