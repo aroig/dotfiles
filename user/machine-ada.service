@@ -1,0 +1,21 @@
+[Unit]
+Description=ada container
+
+Requisite=wm.target 
+After=wm.target
+
+[Service]
+Slice=machines.slice
+
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines
+Environment=MACHINE=ada
+
+ExecStart=/home/abdo/.config/systemd/bin/tmrun                                        \
+    sudo systemd-nspawn --boot --network-bridge=brvirt --directory=/media/ada
+
+KillMode=mixed
+Type=notify
+RestartForceExitStatus=133
+SuccessExitStatus=133
+Delegate=yes
+
