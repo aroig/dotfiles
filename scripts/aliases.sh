@@ -95,7 +95,6 @@ alias mctl="sudo machinectl"
 alias lctl="sudo loginctl"
 alias sctl="sudo systemctl --system"
 alias uctl="systemctl --user"
-alias nspn="sudo systemd-nspawn"
 alias lock='systemctl --user lock.target'
 
 # monitoring
@@ -139,6 +138,19 @@ umnt() {
           user)  systemctl --user stop "$unit"                ;;        
         system)  sudo systemctl --system stop "$unit"         ;;
     esac
+}
+
+spwn() {
+    local machine="$1"
+    local root="/media/$machine"
+
+    if [ -f "$root/usr/bin/init" ]; then
+        sudo systemd-nspawn --boot --network-bridge=brvirt --directory=$root
+
+    else
+        sudo systemd-nspawn --directory=$root
+        
+    fi
 }
 
 # print active target list
