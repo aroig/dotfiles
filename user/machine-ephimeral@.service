@@ -7,13 +7,13 @@ RemainAfterExit=true
 
 Slice=machines.slice
 
-EnvironmentFile=/home/abdo/.config/systemd/conf/machines/machines.conf
-Environment=MACHINE=%i
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
 
-ExecStartPre=/usr/bin/mkdir -m 777 "${IMAGES}/${MACHINE}.qcow2.lock"
-ExecStart=/usr/bin/qemu-img create -f qcow2                    \
-    -o backing_file=${IMAGES}/${MACHINE}.qcow2                 \
+ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU}/${MACHINE}.qcow2.lock"
+ExecStart=/usr/bin/qemu-img create -f qcow2                          \
+    -o backing_file=${QEMU}/${MACHINE}.qcow2                         \
     ${TEMP}/${MACHINE}-snapshot.qcow2
 
-ExecStop=/usr/bin/rm ${TEMP}/${MACHINE}-snapshot.qcow2
-ExecStopPost=/usr/bin/rmdir "${IMAGES}/${MACHINE}.qcow2.lock"
+ExecStop=/usr/bin/rm "${TEMP}/${MACHINE}-snapshot.qcow2"
+ExecStopPost=/usr/bin/rmdir "${QEMU}/${MACHINE}.qcow2.lock"

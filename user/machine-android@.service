@@ -1,0 +1,50 @@
+[Unit]
+Description=android vm for %i
+
+Requires=android-adb.service
+After=android-adb.service
+
+[Service]
+Type=simple
+
+Slice=machines.slice
+
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
+
+# NOTE: we use directory locks to make sure no two services attempt to
+# access the same image. It is crude but atomic and effective!
+
+ExecStartPre=/usr/bin/mkdir -m 777 "${ANDROID}/${DISK}.lock"
+ExecStartPre=/usr/bin/mkdir -p "%t/android/${MACHINE}"
+
+ExecStart=/opt/android-sdk/tools/emulator                                             \
+    -avd ${DISK}                                                                      \
+    -port 5560                                                                        \
+    -qemu -name ${MACHINE}                                                            \
+    -enable-kvm -m 1024                                                               \
+    -monitor unix:%t/android/${MACHINE}/control,server,nowait                         \
+    $QEMU_VIDEO $QEMU_ARGS
+
+# TODO: machined needs privileges. I think systemd 220 relaxes this!
+# TODO: Use RegisterMachineWithNetwork sayssusaio  pass array of ifindices
+
+# NOTE: This doesn't work from a user service. It assigns it to user@1000.service
+# And kills everything when terminating the machine.
+
+# ExecStartPost=/usr/bin/sudo busctl call                                               \
+#     org.freedesktop.machine1 /org/freedesktop/machine1                                \
+#     org.freedesktop.machine1.Manager RegisterMachine                                  \
+#     sayssus ${MACHINE} 0 machine vm ${MAINPID} ''
+
+ExecStop=/usr/bin/sh -c "echo system_powerdown |                                        \
+    socat - UNIX-CONNECT:%t/android/${MACHINE}/control > /dev/null;                     \
+    true"
+
+# ExecStartPost=/usr/bin/sudo busctl call                                               \
+#     org.freedesktop.machine1 /org/freedesktop/machine1                                \
+#     org.freedesktop.machine1.Manager TerminateMachine                                 \
+#     s ${MACHINE}
+
+ExecStopPost=/usr/bin/rmdir "${ANDROID}/${DISK}.lock"
+

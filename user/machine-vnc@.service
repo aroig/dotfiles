@@ -1,6 +1,5 @@
 [Unit]
-Description=monitor console for %i vm
-ConditionPathExists=%t/qemu/%i/control
+Description=vnc client for %i vm
 
 [Service]
 Type=simple
@@ -9,4 +8,4 @@ Slice=machines.slice
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
 
-ExecStart=/home/abdo/.config/systemd/bin/tmrun socat - UNIX-CONNECT:%t/qemu/${MACHINE}/control
+ExecStart=/usr/bin/vncviewer localhost::$VNCPORT
