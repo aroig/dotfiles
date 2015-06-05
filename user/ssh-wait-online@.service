@@ -8,6 +8,6 @@ After=network-online.target
 Type=oneshot
 RemainAfterExit=true
 SyslogIdentifier=ssh-wait
-Slice=daemon.slice
+Slice=daemons.slice
 
 ExecStart=/usr/bin/sh -c "while true; do ssh -v %i true 2>&1 | grep -q 'Connection established' && break; sleep 10; done"
