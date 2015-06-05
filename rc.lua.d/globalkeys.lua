@@ -240,16 +240,16 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "Page_Up",   function () shexec("mpc -q prev")                    end),
     awful.key({ modkey, ctrlkey   }, "Page_Down", function () shexec("mpc -q next")                    end),
 
-    awful.key({}, "XF86AudioRaiseVolume",         function () shexec("pvol +2db")                      end),
-    awful.key({}, "XF86AudioLowerVolume",         function () shexec("pvol -2db")                      end),
+    awful.key({}, "XF86AudioRaiseVolume",         function () shexec("avol up")                        end),
+    awful.key({}, "XF86AudioLowerVolume",         function () shexec("avol down")                      end),
 
     -- TODO: mute stuff
     awful.key({}, "XF86AudioMute",                function () shexec("pvol mute-sink")                 end),
     awful.key({}, "XF86AudioMicMute",             function () shexec("pvol mute-source")               end),
 
-    awful.key({ modkey, ctrlkey   }, "Insert",    function () shexec("pvol +2db")                      end),
-    awful.key({ modkey, ctrlkey   }, "End",       function () shexec("pvol +2db")                      end), -- for galois
-    awful.key({ modkey, ctrlkey   }, "Delete",    function () shexec("pvol -2db")                      end)
+    awful.key({ modkey, ctrlkey   }, "Insert",    function () shexec("avol up")                        end),
+    awful.key({ modkey, ctrlkey   }, "End",       function () shexec("avol up")                        end), -- for galois
+    awful.key({ modkey, ctrlkey   }, "Delete",    function () shexec("avol down")                      end)
 )
 
 
