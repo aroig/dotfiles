@@ -1,0 +1,47 @@
+[Unit]
+Description=qemu vm for %i
+
+[Service]
+Type=simple
+
+Slice=machines.slice
+
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines/machines.conf
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines/qemu/%i.conf
+
+# NOTE: we use directory locks to make sure no two services attempt to
+# access the same image. It is crude but atomic and effective!
+
+ExecStartPre=/usr/bin/mkdir -m 777 "${IMAGES}/${MACHINE}.qcow2.lock"
+ExecStartPre=/usr/bin/mkdir -p "%t/qemu/${MACHINE}"
+
+ExecStart=/usr/bin/qemu-system-${ARCH} -name ${MACHINE} -boot menu=on                 \
+    -machine type=pc,accel=kvm -cpu host -smp 2 -m 2048 -balloon virtio               \
+    -usbdevice tablet -nographic -device virtio-serial                                \
+    -netdev bridge,id=tapvirt,br=brvirt -device virtio-net,netdev=tapvirt             \
+    -drive media=cdrom,file=${MEDIA}/archlinux-2015.02.01-dual.iso                    \
+    -drive media=disk,if=virtio,file=${IMAGES}/${MACHINE}.qcow2                       \
+    -monitor unix:%t/qemu/${MACHINE}/control,server,nowait                            \
+    -serial unix:%t/qemu/${MACHINE}/console,server,nowait
+
+# TODO: machined needs privileges. I think systemd 220 relaxes this!
+
+# TODO: I think MAINPID is wrong, contains the pid of the systemd user instance!
+ExecStartPost=/usr/bin/sudo busctl call                                               \
+    org.freedesktop.machine1 /org/freedesktop/machine1                                \
+    org.freedesktop.machine1.Manager RegisterMachine                                  \
+    sayssus ${MACHINE} 0 machine vm ${MAINPID} ''
+
+ExecStop=/usr/bin/sh -c "echo system_powerdown |                                      \
+    socat - UNIX-CONNECT:%t/qemu/${MACHINE}/control > /dev/null;                      \
+    true"
+
+# ExecStartPost=/usr/bin/sudo busctl call                                               \
+#     org.freedesktop.machine1 /org/freedesktop/machine1                                \
+#     org.freedesktop.machine1.Manager TerminateMachine                                 \
+#     s ${MACHINE}
+
+ExecStopPost=/usr/bin/rmdir "${IMAGES}/${MACHINE}.qcow2.lock"
+
+# TODO: deregister with machined
+# Use RegisterMachineWithNetwork sayssusaio  pass array of ifindices

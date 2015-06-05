@@ -12,7 +12,7 @@ Type=simple
 
 Slice=machines.slice
 
-EnvironmentFile=/home/abdo/.config/systemd/conf/machines
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines/machines.conf
 Environment=MACHINE=android-x86 PORT=5556
 
 # NOTE: we use directory locks to make sure no two services attempt to

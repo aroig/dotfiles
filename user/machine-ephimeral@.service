@@ -7,7 +7,7 @@ RemainAfterExit=true
 
 Slice=machines.slice
 
-EnvironmentFile=/home/abdo/.config/systemd/conf/machines
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines/machines.conf
 Environment=MACHINE=%i
 
 ExecStartPre=/usr/bin/mkdir -m 777 "${IMAGES}/${MACHINE}.qcow2.lock"

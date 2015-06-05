@@ -9,7 +9,7 @@ Type=forking
 
 Slice=machines.slice
 
-EnvironmentFile=/home/abdo/.config/systemd/conf/machines
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines/machines.conf
 Environment=MACHINE=ubuntu
 
 # NOTE: we use directory locks to make sure no two services attempt to

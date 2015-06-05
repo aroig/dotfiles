@@ -9,7 +9,7 @@ Type=forking
 
 Slice=machines.slice
 
-EnvironmentFile=/home/abdo/.config/systemd/conf/machines
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines/machines.conf
 Environment=MACHINE=windows7
 
 # NOTE: we use directory locks to make sure no two services attempt to
