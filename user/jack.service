@@ -1,27 +1,17 @@
 [Unit]
-Description=jack server
-Documentation=man:jack(1)
-
-Requires=jackdbus.service
-After=jackdbus.service
+Description=jack2 server
+Documentation=man:jackd(1)
 
 Requires=audio.slice
 After=audio.slice
 
-Requires=pulseaudio.service
-After=pulseaudio.service
+Conflicts=pulseaudio.service pulseaudio.socket
+After=pulseaudio.service pulseaudio.socket
 
 [Service]
-Type=oneshot
-RemainAfterExit=true
+Type=simple
+Slice=audio.slice
 
-SyslogIdentifier=jack
-
-# we use jackdbus
-ExecStart=/usr/bin/jack_control start
-
-# set pulseaudio default sink and source
-ExecStartPost=/usr/bin/pactl set-default-sink jack_out
-ExecStartPost=/usr/bin/pactl set-default-source jack_in
-
-ExecStop=/usr/bin/jack_control stop
+# NOTE: t
+ExecStart=/usr/bin/jackd --realtime -d alsa                                   \
+    --device hw:analog --rate 44100 --nperiods 2 --period 128 --midi raw

@@ -1,6 +1,9 @@
 [Unit]
 Description=Music Player Daemon socket
 
+Requisite=pulseaudio.service
+After=pulseaudio.service
+
 Requisite=synced.target
 After=synced.target
 

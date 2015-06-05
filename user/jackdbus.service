@@ -21,7 +21,4 @@ CPUSchedulingPriority=60
 ExecStart=/usr/bin/jackdbus auto
 ExecStop=/usr/bin/jack_control exit
 
-# non-dbus jack
-# ExecStart=/usr/bin/jackd -R --driver alsa --device hw:Intel -r 44100 -n 2 -p 64
-
 Slice=audio.slice

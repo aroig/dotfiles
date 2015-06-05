@@ -4,7 +4,7 @@ Description=pulseaudio mixer
 Requisite=wm.target
 After=wm.target
 
-Requires=pulseaudio.service
+Requisite=pulseaudio.service
 After=pulseaudio.service
 
 [Service]
