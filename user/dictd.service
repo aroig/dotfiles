@@ -1,9 +1,11 @@
 [Unit]
-Description=dictd Dictionary Server Daemon
+Description=dictd dictionary server daemon
+ConditionPathExists=%h/etc/dictd/dictd.conf
 
 [Service]
 Type=forking
 Slice=daemons.slice
+
 SuccessExitStatus=143
 ExecStart=/usr/sbin/dictd -c %h/etc/dictd/dictd.conf --pid-file %t/dictd.pid
 
