@@ -1,0 +1,11 @@
+[Unit]
+Description=control console for %i vm
+
+[Service]
+Type=simple
+Slice=apps.slice
+
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
+
+ExecStart=/home/abdo/.config/systemd/bin/tmrun telnet localhost ${CTLPORT}

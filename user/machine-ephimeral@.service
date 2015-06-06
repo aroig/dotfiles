@@ -1,19 +1,52 @@
 [Unit]
-Description=create an ephimeral disk snapshot for %i vm
+Description=ephimeral qemu vm for %i
+
+Requires=machine-snapshot@%i.service
+After=machine-snapshot@%i.service
 
 [Service]
-Type=oneshot
-RemainAfterExit=true
+Type=simple
 
 Slice=machines.slice
 
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
 
-ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU}/${MACHINE}.qcow2.lock"
-ExecStart=/usr/bin/qemu-img create -f qcow2                          \
-    -o backing_file=${QEMU}/${MACHINE}.qcow2                         \
-    ${TEMP}/${MACHINE}-snapshot.qcow2
+# NOTE: we use directory locks to make sure no two services attempt to
+# access the same image. It is crude but atomic and effective!
 
-ExecStop=/usr/bin/rm "${TEMP}/${MACHINE}-snapshot.qcow2"
-ExecStopPost=/usr/bin/rmdir "${QEMU}/${MACHINE}.qcow2.lock"
+ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU}/${DISK}.lock"
+
+ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} -boot menu=on \
+    -machine type=pc,accel=kvm -cpu host -smp 2 -m 2048 -balloon virtio \
+    -netdev bridge,id=tapvirt,br=brvirt \
+    -device virtio-net,netdev=tapvirt \
+    -drive media=cdrom,file=${MEDIA}/${CDROM} \
+    -drive media=disk,if=virtio,file=${TEMP}/${DISK} \
+    -device virtio-serial \
+    -monitor telnet:localhost:${CTLPORT},server,nowait \
+    -serial telnet:localhost:${PORT},server,nowait \
+     $QEMU_VIDEO $QEMU_ARGS
+
+# TODO: machined needs privileges. I think systemd 220 relaxes this!
+# TODO: Use RegisterMachineWithNetwork sayssusaio  pass array of ifindices
+
+# NOTE: This doesn't work from a user service. It assigns it to user@1000.service
+# And kills everything when terminating the machine.
+
+# ExecStartPost=/usr/bin/sudo busctl call \
+#     org.freedesktop.machine1 /org/freedesktop/machine1 \
+#     org.freedesktop.machine1.Manager RegisterMachine \
+#     sayssus ${MACHINE} 0 machine vm ${MAINPID} ''
+
+ExecStop=/usr/bin/sh -c "echo system_powerdown | \
+    socat - tcp:localhost:${CTLPORT} > /dev/null; \
+    true"
+
+# ExecStartPost=/usr/bin/sudo busctl call \
+#     org.freedesktop.machine1 /org/freedesktop/machine1 \
+#     org.freedesktop.machine1.Manager TerminateMachine \
+#     s ${MACHINE}
+
+ExecStopPost=/usr/bin/rmdir "${QEMU}/${DISK}.lock"
+
