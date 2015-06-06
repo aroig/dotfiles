@@ -140,19 +140,6 @@ umnt() {
     esac
 }
 
-spwn() {
-    local machine="$1"
-    local root="/media/$machine"
-
-    if [ -f "$root/usr/bin/init" ]; then
-        sudo systemd-nspawn --boot --network-bridge=brvirt --directory=$root
-
-    else
-        sudo systemd-nspawn --directory=$root
-        
-    fi
-}
-
 # print active target list
 tlst() {
     systemctl --user --no-legend --state=active --t target list-units "$@" | \
