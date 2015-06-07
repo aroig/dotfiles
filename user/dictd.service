@@ -1,6 +1,9 @@
 [Unit]
 Description=dictd dictionary server daemon
+
 ConditionPathExists=%h/etc/dictd/dictd.conf
+ConditionHost=!quark
+ConditionHost=!skynet
 
 [Service]
 Type=forking
