@@ -13,7 +13,7 @@ Type=simple
 
 Slice=audio.slice
 
-EnvironmentFile=/home/abdo/.config/systemd/conf/audio.conf
+Environment=DEVICE=analog
 
 ExecStart=/usr/bin/jackd --realtime -d alsa --device ${DEVICE} \
     --rate 44100 --nperiods 2 --period 128 --midi raw
