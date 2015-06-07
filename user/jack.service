@@ -10,8 +10,10 @@ After=pulseaudio.service pulseaudio.socket
 
 [Service]
 Type=simple
+
 Slice=audio.slice
 
-# NOTE: t
-ExecStart=/usr/bin/jackd --realtime -d alsa                                   \
-    --device hw:analog --rate 44100 --nperiods 2 --period 128 --midi raw
+EnvironmentFile=/home/abdo/.config/systemd/conf/audio.conf
+
+ExecStart=/usr/bin/jackd --realtime -d alsa --device ${DEVICE} \
+    --rate 44100 --nperiods 2 --period 128 --midi raw
