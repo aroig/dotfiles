@@ -9,7 +9,7 @@ Slice=machines.slice
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
 
-Environment=QEMU_AUDIO_DRV=pa QEMU_PA_SINK=qemu-%i QEMU_PA_SOURCE=qemu-%i
+Environment=QEMU_AUDIO_DRV=pa
 
 # NOTE: we use directory locks to make sure no two services attempt to
 # access the same image. It is crude but atomic and effective!
