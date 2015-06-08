@@ -15,7 +15,8 @@ EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
 ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU}/${DISK}.lock"
 
 ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} -boot menu=on \
-    -machine type=pc,accel=kvm -cpu host -smp 2 -m 2048 -balloon virtio \
+    -machine type=pc,accel=kvm -cpu qemu64 -smp 2 \
+    -m 2048 -balloon virtio \
     -netdev bridge,id=tapvirt,br=brvirt \
     -device virtio-net,netdev=tapvirt \
     -drive media=cdrom,file=${MEDIA}/${CDROM} \
