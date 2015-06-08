@@ -9,14 +9,26 @@ Slice=machines.slice
 
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
+EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/virtdata.conf
+Environment=DRIVEID=virtdata DEVICEID=myvirtio1
 
 ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU}/${DISK}.lock"
 
-# TODO: Test this!
-ExecStart=/usr/bin/sh -c "echo 'drive_add 0 if=none,file=${QEMU}/${DISK}' | \
+# NOTE: https://wiki.ubuntu.com/QemuDiskHotplug
+
+# TODO: right now this kills the VM. Something is wrong!
+ExecStart=/usr/bin/sh -c "echo 'drive_add 0 if=none,file=${QEMU}/${DISK},id=${DRIVEID}' | \
     socat - tcp:localhost:${CTLPORT}"
 
-# TODO: remove drive
-ExecStop=true
+ExecStart=/usr/bin/sh -c "echo 'device_add virtio-blk-pci,drive=${DRIVEID},id=${DEVICEID}' | \
+    socat - tcp:localhost:${CTLPORT}"
 
-ExecStopPost=/usr/bin/rmdir "${QEMU}/${DISK}"
+
+ExecStop=/usr/bin/sh -c "echo 'device_del ${DEVICEID}' | \
+    socat - tcp:localhost:${CTLPORT}"
+
+# ExecStop=/usr/bin/sh -c "echo 'drive_del ${DRIVEID}' | \
+#     socat - tcp:localhost:${CTLPORT}"
+
+
+ExecStopPost=/usr/bin/rmdir "${QEMU}/${DISK}.lock"
