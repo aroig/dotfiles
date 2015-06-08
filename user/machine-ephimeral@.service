@@ -12,14 +12,17 @@ Slice=machines.slice
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
 
+Environment=QEMU_AUDIO_DRV=pa QEMU_PA_SINK=qemu-%i QEMU_PA_SOURCE=qemu-%i
+
 # NOTE: we use directory locks to make sure no two services attempt to
 # access the same image. It is crude but atomic and effective!
 
 ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU}/${DISK}.lock"
 
 ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} -boot menu=on \
-    -machine type=pc,accel=kvm -cpu qemu64 -smp 2 \
+    -machine type=pc,accel=kvm -cpu host -smp 2 \
     -m 2048 -balloon virtio \
+    -soundhw hda \    
     -netdev bridge,id=tapvirt,br=brvirt \
     -device virtio-net,netdev=tapvirt \
     -drive media=cdrom,file=${MEDIA}/${CDROM} \
