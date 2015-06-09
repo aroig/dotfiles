@@ -30,7 +30,7 @@ mchns() {
 
     case "$machine" in
         tablet*|mobile*) systemctl --user start machine-android@$machine.service ;;
-        *)               systemctl --user start machine-qemu@$machine.service ;;
+        *)               systemctl --user start machine-ephimeral@$machine.service ;;
     esac
 
     source "$config"
@@ -41,7 +41,7 @@ mchns() {
 }
 
 
-mchnv() {
+mchn() {
     local machine="$1"
     local config="$HOME/.config/systemd/conf/machines.d/$machine.conf"
 
@@ -52,10 +52,8 @@ mchnv() {
 
     case "$machine" in
         tablet*|mobile*) systemctl --user start machine-android@$machine.service ;;
-        *)               systemctl --user start machine-qemu@$machine.service ;;
+        *)               systemctl --user start machine-ephimeral@$machine.service ;;
     esac
-
-    # TODO: launch vncviewer when I move it all to vnc. Android remains...
 }
 
 mchnk() {
@@ -63,6 +61,6 @@ mchnk() {
     
     case "$machine" in
         tablet*|mobile*) systemctl --user stop machine-android@$machine.service ;;
-        *)               systemctl --user stop machine-qemu@$machine.service ;;
+        *)               systemctl --user stop machine-ephimeral@$machine.service ;;
     esac
 }
