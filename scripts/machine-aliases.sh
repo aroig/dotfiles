@@ -30,7 +30,7 @@ mchn() {
 
     case "$machine" in
         tablet*|mobile*) systemctl --user start machine-android@$machine.service ;;
-        *)               systemctl --user start machine-ephimeral@$machine.service ;;
+        *)               systemctl --user start machine-qemu@$machine.service ;;
     esac
 
     # TODO: ideally I should use socket units to fix this race!
@@ -50,7 +50,7 @@ mchns() {
     mchn "$machine"
 
     source "$config"
-    telnet localhost "$PORT"  
+    telnet localhost "$PORT_SERIAL"  
 }
 
 mchnc() {
@@ -60,7 +60,7 @@ mchnc() {
     mchn "$machine"
     
     source "$config"
-    telnet localhost "$CTLPORT"
+    telnet localhost "$PORT_CONTROL"
 }
 
 mchnk() {
@@ -68,6 +68,6 @@ mchnk() {
     
     case "$machine" in
         tablet*|mobile*) systemctl --user stop machine-android@$machine.service ;;
-        *)               systemctl --user stop machine-ephimeral@$machine.service ;;
+        *)               systemctl --user stop machine-qemu@$machine.service ;;
     esac
 }
