@@ -26,12 +26,12 @@ ExecStart=/usr/bin/sh -c "\
     echo '\
         drive_add 0 if=none,file=${QEMU}/${DATA_SNAPSHOT},id=${DRIVEID}\n \
         device_add virtio-blk-pci,drive=${DRIVEID},id=${DEVICEID} \
-    ' | socat - tcp:localhost:${PORT_CONTROL}"
+    ' | socat - unix:%t/qemu/%i/control > /dev/null"
 
 ExecStop=/usr/bin/sh -c "\
     echo '\
         device_del ${DEVICEID}\n \
         drive_del ${DRIVEID} \
-    ' | socat - tcp:localhost:${PORT_CONTROL}"
+    ' | socat - unix:%t/qemu/%i/control > /dev/null"
 
 ExecStopPost=/usr/bin/rmdir "${QEMU}/${DATA_SNAPSHOT}.lock"

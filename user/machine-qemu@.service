@@ -15,8 +15,12 @@ EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
 # use pulseaudio on host
 Environment=QEMU_AUDIO_DRV=pa
 
+ExecStartPre=/usr/bin/mkdir -p "%t/qemu/%i"
+
 # we use directory locks. It is crude but atomic and effective!
 ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU}/${DISK_SNAPSHOT}.lock"
+
+# NOTE: I couldn't make the monitor interface work with a tcp socket.
 
 ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} -boot menu=on \
     -machine type=pc,accel=kvm -cpu host -smp 2 \
@@ -27,7 +31,7 @@ ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} -boot menu=on \
     -drive media=cdrom,file=${QEMU}/${DISK_CDROM} \
     -drive media=disk,if=virtio,file=${QEMU}/${DISK_SNAPSHOT} \
     -device virtio-serial \
-    -monitor tcp:localhost:${PORT_CONTROL},server,nowait \
+    -monitor unix:%t/qemu/%i/control,server,nowait \
     -serial telnet:localhost:${PORT_SERIAL},server,nowait \
      $QEMU_VIDEO $QEMU_ARGS
 
