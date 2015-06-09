@@ -60,7 +60,7 @@ mchnc() {
     mchn "$machine"
     
     source "$config"
-    telnet localhost "$PORT_CONTROL"
+    socat - unix:$XDG_RUNTIME_DIR/qemu/$machine/control
 }
 
 mchnk() {
