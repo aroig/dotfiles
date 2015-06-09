@@ -13,7 +13,15 @@ Type=simple
 
 Slice=audio.slice
 
-Environment=DEVICE=analog
+Environment=DEVICE=analog SERVERNAME=jack2-server
 
-ExecStart=/usr/bin/jackd --realtime -d alsa --device ${DEVICE} \
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+ExecStart=/usr/bin/jackd --name ${SERVERNAME} --realtime \
+    -d alsa --device ${DEVICE} \
     --rate 44100 --nperiods 2 --period 128 --midi raw
+
+# Wait until jack is up and running
+ExecStartPost=/usr/bin/sh -c "jack_wait -w -s ${SERVERNAME} 2>&1 > /dev/null"
