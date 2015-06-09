@@ -9,12 +9,14 @@ Slice=machines.slice
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
 
+Environment=ROOT=/home/abdo/virt/qemu/%i.qcow2
+
 Environment=QEMU_AUDIO_DRV=pa
 
 # NOTE: we use directory locks to make sure no two services attempt to
 # access the same image. It is crude but atomic and effective!
 
-ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU}/${DISK}.lock"
+ExecStartPre=/usr/bin/mkdir -m 777 "${ROOT}.lock"
 
 ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} -boot menu=on \
     -machine type=pc,accel=kvm -cpu host -smp 2 \
@@ -23,11 +25,14 @@ ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} -boot menu=on \
     -netdev bridge,id=tapvirt,br=brvirt \
     -device virtio-net,netdev=tapvirt \
     -drive media=cdrom,file=${MEDIA}/${CDROM} \
-    -drive media=disk,if=virtio,file=${QEMU}/${DISK} \
+    -drive media=disk,if=virtio,file=${ROOT} \
     -device virtio-serial \
     -monitor telnet:localhost:${CTLPORT},server,nowait \
     -serial telnet:localhost:${PORT},server,nowait \
      $QEMU_VIDEO $QEMU_ARGS
+
+# NOTE: No ExecStop. Sending SIGTERM to qemu performs a quit, which means clean for qemu,
+# not clean for guest. We can't wait until the guest is ready though, so it is ok.
 
 # TODO: machined needs privileges. I think systemd 220 relaxes this!
 # TODO: Use RegisterMachineWithNetwork sayssusaio  pass array of ifindices
@@ -40,14 +45,10 @@ ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} -boot menu=on \
 #     org.freedesktop.machine1.Manager RegisterMachine \
 #     sayssus ${MACHINE} 0 machine vm ${MAINPID} ''
 
-ExecStop=/usr/bin/sh -c "echo system_powerdown | \
-    socat - tcp:localhost:${CTLPORT} > /dev/null; \
-    true"
-
-# ExecStartPost=/usr/bin/sudo busctl call \
+# ExecStopPost=/usr/bin/sudo busctl call \
 #     org.freedesktop.machine1 /org/freedesktop/machine1 \
 #     org.freedesktop.machine1.Manager TerminateMachine \
 #     s ${MACHINE}
 
-ExecStopPost=/usr/bin/rmdir "${QEMU}/${DISK}.lock"
+ExecStopPost=/usr/bin/rmdir "${ROOT}.lock"
 
