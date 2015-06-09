@@ -9,6 +9,7 @@ Slice=machines.slice
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
 
-ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU}/${DISK_BASE}.lock" "${QEMU}/${DISK_SNAPSHOT}.lock"
+ExecStart=/usr/bin/mkdir -m 777 "${QEMU}/${DISK_BASE}.lock" "${QEMU}/${DISK_SNAPSHOT}.lock"
 ExecStart=/usr/bin/qemu-img commit -b ${QEMU}/${DISK_BASE} ${QEMU}/${DISK_SNAPSHOT}
-ExecStopPost=/usr/bin/rmdir "${QEMU}/${DISK_SNAPSHOT}.lock" "${QEMU}/${DISK_BASE}.lock"
+ExecStart=/usr/bin/rm ${QEMU}/${DISK_SNAPSHOT}
+ExecStart=/usr/bin/rmdir "${QEMU}/${DISK_SNAPSHOT}.lock" "${QEMU}/${DISK_BASE}.lock"
