@@ -1,5 +1,5 @@
 [Unit]
-Description=create temporary disk snapshot for vm %i
+Description=use disk snapshot for vm %i
 
 StopWhenUnneeded=true
 
@@ -12,13 +12,6 @@ Slice=machines.slice
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
 
-Environment=ROOT=/home/abdo/virt/qemu/%i.qcow2
-Environment=SNAPSHOT=/home/abdo/virt/tmp/%i.qcow2
-
-
-ExecStartPre=/usr/bin/mkdir -m 777 "${ROOT}.lock"
-ExecStart=/usr/bin/qemu-img create -f qcow2 \
-    -o backing_file=${ROOT} ${SNAPSHOT}
-
-ExecStop=/usr/bin/rm "${SNAPSHOT}"
-ExecStopPost=/usr/bin/rmdir "${ROOT}.lock"
+ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU}/${DISK_BASE}.lock"
+ExecStart=/usr/bin/qemu-img create -f qcow2 -o backing_file=${QEMU}/${DISK_BASE} ${QEMU}/${DISK_SNAPSHOT}
+ExecStopPost=/usr/bin/rmdir "${QEMU}/${DISK_BASE}.lock"

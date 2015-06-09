@@ -1,6 +1,9 @@
 [Unit]
 Description=attach data disk to %i vm
 
+Requires=machine-snapshot@virtdata.service
+After=machine-snapshot@virtdata.service
+
 [Service]
 Type=oneshot
 RemainAfterExit=true
@@ -10,26 +13,25 @@ Slice=machines.slice
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
 
-Environment=ROOT=/home/abdo/virt/qemu/virtdata.qcow2
+Environment=DATA_SNAPSHOT=snapshot/virtdata.qcow2
+
 Environment=DRIVEID=virtdata DEVICEID=myvirtio1
 
-ExecStartPre=/usr/bin/mkdir -m 777 "${ROOT}.lock"
+ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU}/${DATA_SNAPSHOT}.lock"
 
 # NOTE: https://wiki.ubuntu.com/QemuDiskHotplug
 
 # TODO: right now this kills the VM. Something is wrong!
-ExecStart=/usr/bin/sh -c "echo 'drive_add 0 if=none,file=${ROOT},id=${DRIVEID}' | \
-    socat - tcp:localhost:${CTLPORT}"
+ExecStart=/usr/bin/sh -c "\
+    echo '\
+        drive_add 0 if=none,file=${QEMU}/${DATA_SNAPSHOT},id=${DRIVEID}\n \
+        device_add virtio-blk-pci,drive=${DRIVEID},id=${DEVICEID} \
+    ' | socat - tcp:localhost:${PORT_CONTROL}"
 
-ExecStart=/usr/bin/sh -c "echo 'device_add virtio-blk-pci,drive=${DRIVEID},id=${DEVICEID}' | \
-    socat - tcp:localhost:${CTLPORT}"
+ExecStop=/usr/bin/sh -c "\
+    echo '\
+        device_del ${DEVICEID}\n \
+        drive_del ${DRIVEID} \
+    ' | socat - tcp:localhost:${PORT_CONTROL}"
 
-
-ExecStop=/usr/bin/sh -c "echo 'device_del ${DEVICEID}' | \
-    socat - tcp:localhost:${CTLPORT}"
-
-# ExecStop=/usr/bin/sh -c "echo 'drive_del ${DRIVEID}' | \
-#     socat - tcp:localhost:${CTLPORT}"
-
-
-ExecStopPost=/usr/bin/rmdir "${ROOT}.lock"
+ExecStopPost=/usr/bin/rmdir "${QEMU}/${DATA_SNAPSHOT}.lock"

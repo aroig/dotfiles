@@ -1,6 +1,9 @@
 [Unit]
 Description=qemu vm for %i
 
+Requires=machine-snapshot@%i.service
+After=machine-snapshot@%i.service
+
 [Service]
 Type=simple
 
@@ -9,14 +12,11 @@ Slice=machines.slice
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
 EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
 
-Environment=ROOT=/home/abdo/virt/qemu/%i.qcow2
-
+# use pulseaudio on host
 Environment=QEMU_AUDIO_DRV=pa
 
-# NOTE: we use directory locks to make sure no two services attempt to
-# access the same image. It is crude but atomic and effective!
-
-ExecStartPre=/usr/bin/mkdir -m 777 "${ROOT}.lock"
+# we use directory locks. It is crude but atomic and effective!
+ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU}/${DISK_SNAPSHOT}.lock"
 
 ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} -boot menu=on \
     -machine type=pc,accel=kvm -cpu host -smp 2 \
@@ -24,11 +24,11 @@ ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} -boot menu=on \
     -soundhw hda \
     -netdev bridge,id=tapvirt,br=brvirt \
     -device virtio-net,netdev=tapvirt \
-    -drive media=cdrom,file=${MEDIA}/${CDROM} \
-    -drive media=disk,if=virtio,file=${ROOT} \
+    -drive media=cdrom,file=${QEMU}/${DISK_CDROM} \
+    -drive media=disk,if=virtio,file=${QEMU}/${DISK_SNAPSHOT} \
     -device virtio-serial \
-    -monitor telnet:localhost:${CTLPORT},server,nowait \
-    -serial telnet:localhost:${PORT},server,nowait \
+    -monitor tcp:localhost:${PORT_CONTROL},server,nowait \
+    -serial telnet:localhost:${PORT_SERIAL},server,nowait \
      $QEMU_VIDEO $QEMU_ARGS
 
 # NOTE: No ExecStop. Sending SIGTERM to qemu performs a quit, which means clean for qemu,
@@ -36,9 +36,7 @@ ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} -boot menu=on \
 
 # TODO: machined needs privileges. I think systemd 220 relaxes this!
 # TODO: Use RegisterMachineWithNetwork sayssusaio  pass array of ifindices
-
-# NOTE: This doesn't work from a user service. It assigns it to user@1000.service
-# And kills everything when terminating the machine.
+# TODO: machined assigns quemu's user service to user@1000.service. When terminating everything dies.
 
 # ExecStartPost=/usr/bin/sudo busctl call \
 #     org.freedesktop.machine1 /org/freedesktop/machine1 \
@@ -50,5 +48,5 @@ ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} -boot menu=on \
 #     org.freedesktop.machine1.Manager TerminateMachine \
 #     s ${MACHINE}
 
-ExecStopPost=/usr/bin/rmdir "${ROOT}.lock"
+ExecStopPost=/usr/bin/rmdir "${QEMU}/${DISK_SNAPSHOT}.lock"
 
