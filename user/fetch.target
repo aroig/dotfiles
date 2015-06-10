@@ -11,5 +11,5 @@ After=journal-show.service
 Requires=gcont-sync.service offlineimap.service rss2maildir.service
 After=gcont-sync.service offlineimap.service rss2maildir.service
 
-Requires=mutag-autotag.service mutag-index.service
-After=mutag-autotag.service mutag-index.service
+Requires=mutag-autotag.service
+After=mutag-autotag.service
