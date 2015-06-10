@@ -242,7 +242,7 @@ timers.fast:connect_signal("timeout", myw.net.update)
 -----------------------------------
 
 myw.mail = {}
-myw.mail.src = require("abdo.widget.mutag")
+myw.mail.src = require("abdo.widget.fileval")
 
 myw.mail.icon = wibox.widget.textbox()
 
@@ -255,9 +255,12 @@ myw.mail.num_inbox = -1
 myw.mail.num_queue = -1
 
 function myw.mail.update()
-    local args = myw.mail.src(nil)
-    local mail = args[1]
-    local num = #mail
+    local mail = {}
+
+    local count_file = os.getenv("AB2_MAIL_DIR") .. "/stats/newcount"
+    local mail_file = os.getenv("AB2_MAIL_DIR") .. "/stats/newmail"
+    local num = tonumber(myw.mail.src(nil, {count_file, "0"}))
+
     if num ~= myw.mail.num_inbox then
         local color = beautiful.color_widget
 
@@ -271,12 +274,22 @@ function myw.mail.update()
             color = beautiful.color_widget_alert
             icon = icon_full
             num = "?"
+
         elseif num == 0 then
             color = beautiful.color_widget_value
             icon = icon_empty
+
         elseif num > 0 then
             color = beautiful.color_widget_alert
             icon = icon_full
+
+            -- read new mail list
+            f = io.open(mail_file, 'r')
+            if f ~= nil then
+                for line in f:lines() do
+                    table.insert(mail, line)
+                end
+            end
         end
 
         local text = colortext(string.format("%d", num), color)
@@ -286,17 +299,22 @@ function myw.mail.update()
         myw.mail.num_inbox = num
     end
 
-    local queue = args[2]
-    local num = #queue
-    local color = beautiful.color_widget
+    local count_file = os.getenv("AB2_MAIL_DIR") .. "/stats/queuecount"
+    local num = tonumber(myw.mail.src(nil, {count_file, "0"}))
+
     if num ~= myw.mail.num_queue then
+        local color = beautiful.color_widget
+
         if num == nil then
             color = beautiful.color_widget_alert
             num = "?"
+
         elseif num == 0 then
             color = beautiful.color_widget_value
+
         else
             color = beautiful.color_widget_alert
+
         end
 
         local text = colortext(string.format("%d", num), color)
