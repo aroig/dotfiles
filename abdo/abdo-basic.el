@@ -43,6 +43,9 @@
 ;; Prevent from showing a notification on startup
 (setq magit-last-seen-setup-instructions "1.4.0")
 
+;; Fix markdown indent
+(setq markdown-indent-on-enter nil)
+
 
 ;; Emacs backups
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
