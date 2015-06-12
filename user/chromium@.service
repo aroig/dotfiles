@@ -8,7 +8,7 @@ After=wm.target
 Type=simple
 Slice=apps.slice
 
-ExecStart=/usr/bin/chromium --force-device-scale-factor=1
+ExecStart=/usr/bin/chromium --profile-directory=Default
 StandardOutput=null
 
 
