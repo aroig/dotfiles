@@ -21,7 +21,7 @@ spwn() {
 
 mchn() {
     local machine="$1"
-    local config="$HOME/.config/systemd/conf/machines.d/$machine.conf"
+    local config="$AB2_VIRT_DIR/etc/machines.d/$machine.conf"
 
     if [ ! -f "$config" ]; then
         echo "Can't find config file for machine $machine."
@@ -45,7 +45,7 @@ mchnv() {
 
 mchns() {
     local machine="$1"
-    local config="$HOME/.config/systemd/conf/machines.d/$machine.conf"
+    local config="$AB2_VIRT_DIR/etc/machines.d/$machine.conf"
 
     mchn "$machine"
 
@@ -55,7 +55,7 @@ mchns() {
 
 mchnc() {
     local machine="$1"
-    local config="$HOME/.config/systemd/conf/machines.d/$machine.conf"
+    local config="$AB2_VIRT_DIR/etc/machines.d/$machine.conf"
 
     mchn "$machine"
     
