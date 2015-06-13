@@ -5,7 +5,7 @@ Description=vnc client for %i vm
 Type=simple
 Slice=machines.slice
 
-EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
-EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
+EnvironmentFile=/home/abdo/virt/etc/machines.conf
+EnvironmentFile=/home/abdo/virt/etc/machines.d/%i.conf
 
 ExecStart=/usr/bin/vncviewer localhost::$PORT_VNC

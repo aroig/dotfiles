@@ -6,8 +6,8 @@ Type=oneshot
 
 Slice=machines.slice
 
-EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
-EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
+EnvironmentFile=/home/abdo/virt/etc/machines.conf
+EnvironmentFile=/home/abdo/virt/etc/machines.d/%i.conf
 
 ExecStart=/usr/bin/mkdir -m 777 "${QEMU}/${DISK_BASE}.lock" "${QEMU}/${DISK_SNAPSHOT}.lock"
 ExecStart=/usr/bin/qemu-img commit -b ${QEMU}/${DISK_BASE} ${QEMU}/${DISK_SNAPSHOT}

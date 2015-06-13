@@ -13,34 +13,41 @@ Type=simple
 
 Slice=machines.slice
 
-EnvironmentFile=/home/abdo/.config/systemd/conf/machines.conf
-EnvironmentFile=/home/abdo/.config/systemd/conf/machines.d/%i.conf
+EnvironmentFile=/home/abdo/virt/etc/machines.conf
+EnvironmentFile=/home/abdo/virt/etc/machines.d/%i.conf
 
 # use pulseaudio on host
 Environment=QEMU_AUDIO_DRV=pa
 
 Environment=DISK_DATA_SNAPSHOT=snapshot/virtdata.qcow2
 
-ExecStartPre=/usr/bin/mkdir -p "%t/qemu/%i"
+ExecStartPre=/usr/bin/mkdir -p "%t/qemu/${MACHINE}"
 
 # we use directory locks. It is crude but atomic and effective!
 ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU}/${DISK_SNAPSHOT}.lock" "${QEMU}/${DISK_DATA_SNAPSHOT}.lock"
 
 # NOTE: I couldn't make the monitor interface work with a tcp socket.
 
-ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} -boot menu=on \
-    -machine type=pc,accel=kvm -cpu host -smp 2 \
-    -m 2048 -balloon virtio \
-    -soundhw hda \
-    -netdev bridge,id=tapvirt,br=brvirt \
-    -device virtio-net,netdev=tapvirt \
-    -drive media=cdrom,file=${QEMU}/${DISK_CDROM} \
-    -drive media=disk,if=virtio,file=${QEMU}/${DISK_SNAPSHOT} \
-    -drive media=disk,if=virtio,file=${QEMU}/${DISK_DATA_SNAPSHOT} \
-    -device virtio-serial \
-    -monitor unix:%t/qemu/%i/control,server,nowait \
+ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} \
+    -boot menu=on \
+    -machine type=q35,accel=kvm \
+    -cpu host -smp 2 \
+    -m 2048 \
+    -monitor unix:%t/qemu/${MACHINE}/control,server,nowait \
     -serial telnet:localhost:${PORT_SERIAL},server,nowait \
-     $QEMU_VIDEO $QEMU_ARGS
+    -netdev bridge,id=net_tap,br=brvirt \
+    -drive id=disk_cdrom,if=none,file=${QEMU}/${DISK_CDROM} \
+    -drive id=disk_root,if=none,file=${QEMU}/${DISK_SNAPSHOT} \
+    -drive id=disk_data,if=none,file=${QEMU}/${DISK_DATA_SNAPSHOT} \
+    -device virtio-balloon \
+    -device intel-hda \
+    -device ide-cd,drive=disk_cdrom \
+    -device virtio-blk,drive=disk_root \
+    -device virtio-blk,drive=disk_data \
+    -device virtio-net,netdev=net_tap \
+    -device virtio-serial \
+    $QEMU_VIDEO \
+    $QEMU_ARGS
 
 # NOTE: No ExecStop. Sending SIGTERM to qemu performs a quit, which means clean for qemu,
 # not clean for guest. We can't wait until the guest is ready though, so it is ok.
