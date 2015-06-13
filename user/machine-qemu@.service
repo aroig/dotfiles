@@ -36,17 +36,17 @@ ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} \
     -monitor unix:%t/qemu/${MACHINE}/control,server,nowait \
     -serial telnet:localhost:${PORT_SERIAL},server,nowait \
     -netdev bridge,id=net_tap,br=brvirt \
-    -drive id=disk_cdrom,if=none,file=${QEMU}/${DISK_CDROM} \
-    -drive id=disk_root,if=none,file=${QEMU}/${DISK_SNAPSHOT} \
-    -drive id=disk_data,if=none,file=${QEMU}/${DISK_DATA_SNAPSHOT} \
-    -device virtio-balloon \
-    -device intel-hda \
-    -device ide-cd,drive=disk_cdrom \
-    -device virtio-blk,drive=disk_root \
-    -device virtio-blk,drive=disk_data \
-    -device virtio-net,netdev=net_tap \
+    -drive media=cdrom,id=disk_cdrom,if=none,file=${QEMU}/${DISK_CDROM} \
+    -drive media=disk,id=disk_root,if=none,file=${QEMU}/${DISK_SNAPSHOT} \
+    -drive media=disk,id=disk_data,if=none,file=${QEMU}/${DISK_DATA_SNAPSHOT} \
+    -soundhw hda \
+    -device ${DEVICE_VIDEO} \
     -device virtio-serial \
-    $QEMU_VIDEO \
+    -device virtio-balloon \
+    -device ${DEVICE_NET},netdev=net_tap \
+    -device ide-cd,drive=disk_cdrom \
+    -device ${DEVICE_BLOCK},drive=disk_root \
+    -device ${DEVICE_BLOCK},drive=disk_data \    
     $QEMU_ARGS
 
 # NOTE: No ExecStop. Sending SIGTERM to qemu performs a quit, which means clean for qemu,
