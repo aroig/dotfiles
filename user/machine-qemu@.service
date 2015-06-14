@@ -46,7 +46,7 @@ ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} \
     -device ${DEVICE_NET},netdev=net_tap \
     -device ide-cd,drive=disk_cdrom \
     -device ${DEVICE_BLOCK},drive=disk_root \
-    -device ${DEVICE_BLOCK},drive=disk_data \    
+    -device ${DEVICE_BLOCK},drive=disk_data \
     $QEMU_ARGS
 
 # NOTE: No ExecStop. Sending SIGTERM to qemu performs a quit, which means clean for qemu,
