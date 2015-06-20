@@ -53,6 +53,7 @@ _color = {
 
 _services = OrderedDict([
     ('systemd.*'      , 'green'),
+    ('user@.*'        , 'green'),
     ('connman.*'      , 'blue'),
     ('wpa_supplicant' , 'blue'),
     ('xorg'           , 'magenta'),
@@ -126,8 +127,11 @@ class StreamWriter(Thread):
 
     def print_entry(self, entry):
         pid       = entry.get('_PID', None)
-        unit      = entry.get('_SYSTEMD_USER_UNIT', None) or entry.get('USER_UNIT', None)
-        name      = entry.get('SYSLOG_IDENTIFIER', None)
+        unit      = entry.get('_SYSTEMD_USER_UNIT', None) or entry.get('_SYSTEMD_UNIT', None)
+        if unit:
+            name  = re.sub('\.[^.]*$', '', unit)
+        else:
+            name  = entry.get('SYSLOG_IDENTIFIER', None)
         message   = entry.get('MESSAGE', None)
         hostname  = entry.get('_HOSTNAME', None)
 
