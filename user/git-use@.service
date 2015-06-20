@@ -5,6 +5,7 @@ StopWhenUnneeded=true
 ConditionPathExists=/home/%u/%I/.git
 
 Conflicts=presync.target
+After=presync.target
 
 Requisite=synced.target
 After=synced.target
