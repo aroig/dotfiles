@@ -12,9 +12,7 @@ Slice=workers.slice
 SyslogIdentifier=homedir-sync
 
 WorkingDirectory=/home/%u
-ExecStart=/usr/bin/systemctl --user start presync.target
-ExecStart=/usr/bin/mr --stats -t sync %i
-ExecStart=/usr/bin/systemctl --user start synced.target
+ExecStart=/home/abdo/etc/mr/bin/homedir sync %i
 
 [Install]
 Alias=sync@.service
