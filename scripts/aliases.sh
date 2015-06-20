@@ -9,6 +9,9 @@
 # Utility aliases
 #------------------------------
 
+# homedir
+alias hh='homedir'
+
 # ls
 alias ls='ls --human-readable --color=auto -F'
 alias ll='ls++ --potsf'
