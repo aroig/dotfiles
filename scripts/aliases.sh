@@ -82,6 +82,18 @@ alias mailq='msmtp-queue'
 alias uzbl="uzbl-tabbed"
 
 
+#------------------------------
+# Machine aliases
+#------------------------------
+
+alias vmt='vmctl tty'
+alias vmv='vmctl vnc'
+alias vmh='vmctl ssh'
+alias vms='vmctl start'
+alias vmk='vmctl stop'
+alias vmm='vmctl mount'
+alias vmu='vmctl umount'
+
 
 #------------------------------
 # Systemd aliases
@@ -169,6 +181,7 @@ pacsync() {
     rsync -avz --rsync-path='sudo rsync' "/var/cache/pacman/pkg/" "$host:/var/cache/pacman/pkg/"
     rsync -avz --rsync-path='sudo rsync' "/var/lib/pacman/sync/" "$host:/var/lib/pacman/sync/"
 }
+
 
 #------------------------------
 # Auxiliar functions
