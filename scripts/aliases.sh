@@ -86,10 +86,10 @@ alias uzbl="uzbl-tabbed"
 # Machine aliases
 #------------------------------
 
-alias vmt='vmctl tty'
-alias vmv='vmctl vnc'
-alias vmh='vmctl ssh'
 alias vms='vmctl start'
+alias vmt='vmctl start-tty'
+alias vmv='vmctl start-vnc'
+alias vmh='vmctl start-ssh'
 alias vmk='vmctl stop'
 alias vmm='vmctl mount'
 alias vmu='vmctl umount'
