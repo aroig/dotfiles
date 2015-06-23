@@ -4,16 +4,12 @@ Description=use git repo at /home/%u/%I
 StopWhenUnneeded=true
 ConditionPathExists=/home/%u/%I/.git
 
-Conflicts=presync.target
-After=presync.target
-
 Requisite=synced.target
 After=synced.target
 
 [Service]
 Type=oneshot
 RemainAfterExit=true
-SyslogIdentifier=use-%i
 
 ExecStart=/usr/bin/true
 ExecStop=/usr/bin/systemctl --user start git-commit@%i.service
