@@ -115,7 +115,7 @@ alias lock='systemctl --user lock.target'
 # monitoring
 alias cgls="sdls cgroups"
 alias unls="sdls units"
-alias cgtop="systemd-cgtop"
+alias cgtop="systemd-cgtop --depth=10"
 
 # power management
 alias reboot="systemctl reboot"
