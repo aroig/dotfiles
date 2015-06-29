@@ -2,6 +2,7 @@
 Description=garbage collect homedir
 
 ConditionPathExists=/home/%u/.mrconfig
+ConditionACPower=yes
 
 [Service]
 Type=oneshot
