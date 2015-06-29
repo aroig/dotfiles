@@ -18,6 +18,7 @@ BusName=org.pulseaudio.Server
 BusName=org.PulseAudio1
 
 # realtime scheduling
+# NOTE: It seems we can't have CPU accounting and realtime scheduling
 CPUSchedulingPolicy=rr
 CPUSchedulingPriority=60
 
