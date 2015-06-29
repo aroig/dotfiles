@@ -4,12 +4,14 @@
 !!---------------------------------
 ! NOTE: Xft seems to not understand less than hintfull
 ! NOTE2: We now let infinality handle this!
-! Xft.dpi: 96
 ! Xft.antialias: 1
 ! Xft.hinting: 0
 ! Xft.autohint: 0
 ! Xft.hintstyle: hintfull
 ! Xft.rgba: none
+
+! awesome seems to want to use this.
+Xft.dpi: 96
 
 
 !! urxvt
