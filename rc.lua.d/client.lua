@@ -82,7 +82,12 @@ end
 -----------------------------------
 
 clientkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
+    awful.key({ modkey,           }, "f",
+        function (c)
+            c.fullscreen = not c.fullscreen
+            c:raise()
+    end),
+
     awful.key({ modkey, shiftkey  }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, ctrlkey   }, "space",  function (c) awful.client.floating.toggle()   end),
     awful.key({ modkey,           }, "t",      function (c) awful.client.floating.toggle()   end),
@@ -94,8 +99,8 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "n",      function (c) c.minimized = true               end),
     awful.key({ modkey,           }, "m",
               function (c)
-                  c.maximized_horizontal = not c.maximized_horizontal
-                  c.maximized_vertical   = not c.maximized_vertical
+                  c.maximized = not c.maximized
+                  c:raise()
               end
     )
 )
