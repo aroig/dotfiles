@@ -1,6 +1,8 @@
 [Unit]
 Description=clean backup files
 
+Requisite=housekeeping.target
+
 [Service]
 Type=oneshot
 Slice=workers.slice

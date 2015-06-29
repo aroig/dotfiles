@@ -1,3 +1,5 @@
 [Unit]
 Description=houskeeping timers
-PartOf=synced.target
+
+ConditionACPower=yes
+Requisite=synced.target

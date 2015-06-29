@@ -1,6 +1,9 @@
 [Unit]
 Description=weekly garbage collection of homedir
-PartOf=housekeeping.target
+
+Requisite=housekeeping.target
+
+ConditionPathExists=/home/abdo/.mrconfig
 
 [Timer]
 OnCalendar=weekly

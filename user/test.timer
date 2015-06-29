@@ -1,0 +1,7 @@
+[Unit]
+Description=test timer
+
+[Timer]
+OnUnitInactiveSec=30
+Persistent=true
+Unit=test.service
