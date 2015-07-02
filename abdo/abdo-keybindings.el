@@ -93,9 +93,10 @@
 (global-set-key (kbd "H-h s") 'calibre-find)
 
 ;; Version Control
-(global-set-key (kbd "H-v s") 'abdo-vcs-status)
-(global-set-key (kbd "H-v b") 'abdo-vcs-branches)
-(global-set-key (kbd "H-v l") 'abdo-vcs-log)
+(global-set-key (kbd "H-v s") 'magit-status)
+(global-set-key (kbd "H-v r") 'magit-show-refs-current)
+(global-set-key (kbd "H-v l") 'magit-log-current)
+(global-set-key (kbd "H-v L") 'magit-reflog-current)
 
 ;; Winner mode
 (global-set-key (kbd "H-s-<prior>") 'winner-undo)
@@ -201,12 +202,6 @@
 	    ;; Don't want to be asked for commit when rebasing!
             (make-local-variable 'abdo-commit-on-kill)
             (setq abdo-commit-on-kill nil)))
-
-
-;; Magit
-(add-hook 'magit-mode-hook
-          (lambda ()
-            (local-set-key (kbd "H-v r") 'magit-interactive-resolve-item)))
 
 
 ;; Latex
