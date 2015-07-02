@@ -1,0 +1,23 @@
+[Unit]
+Description=saxlab synth
+
+Requires=jack.service
+After=jack.service
+
+Requires=audio.slice
+After=audio.slice
+
+[Service]
+Type=simple
+
+# NOTE: This page faults for now. Seems like a dssi-vst problem. It is awfully fragile
+# anyways...
+
+Environment=VST_PATH=/home/abdo/usr/saxlab
+ExecStart=/usr/bin/jack-dssi-host dssi-vst.so:SaxLab2.dll
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+Slice=audio.slice
