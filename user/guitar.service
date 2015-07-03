@@ -1,0 +1,26 @@
+[Unit]
+Description=dvs guitar synth
+
+Requires=jack.service
+After=jack.service
+
+Requires=audio.slice
+After=audio.slice
+
+[Service]
+Type=forking
+
+Environment=VST_PATH=/home/abdo/usr/vst
+ExecStart=/usr/bin/sh -c " \
+    jack-dssi-host -c DVSGuitar dssi-vst.so:DVSGuitar.dll & \
+    j2amidi_bridge 'DVSGuitarBridge' &"
+
+ExecStartPost=/usr/bin/sleep 5
+ExecStartPost=-/usr/bin/aconnect DVSGuitarBridge:0 DVSGuitar:0
+ExecStartPost=-/usr/bin/jack_connect system:midi_capture_1 DVSGuitarBridge:playback
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+Slice=audio.slice
