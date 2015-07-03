@@ -1,0 +1,26 @@
+[Unit]
+Description=dvs saxophone synth
+
+Requires=jack.service
+After=jack.service
+
+Requires=audio.slice
+After=audio.slice
+
+[Service]
+Type=forking
+
+Environment=VST_PATH=/home/abdo/usr/vst
+ExecStart=/usr/bin/sh -c " \
+    jack-dssi-host -c DVSSaxophone dssi-vst.so:DVSSaxophone.dll & \
+    j2amidi_bridge 'DVSSaxophoneBridge' &"
+
+ExecStartPost=/usr/bin/sleep 5
+ExecStartPost=-/usr/bin/aconnect DVSSaxophoneBridge:0 DVSSaxophone:0
+ExecStartPost=-/usr/bin/jack_connect system:midi_capture_1 DVSSaxophoneBridge:playback
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+Slice=audio.slice
