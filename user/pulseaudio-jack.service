@@ -1,9 +1,15 @@
 [Unit]
-Description=pulseaudio sound system
+Description=pulseaudio on jack sound system
 Documentation=man:pulseaudio(1)
 
-Requires=pulseaudio.socket
-After=pulseaudio.socket
+Conflicts=pulseaudio.service
+After=pulseaudio.service
+
+Requires=pulseaudio-jack.socket
+After=pulseaudio-jack.socket
+
+Requires=jack.service
+After=jack.service
 
 Before=audio.target
 PartOf=audio.target
@@ -22,7 +28,7 @@ BusName=org.PulseAudio1
 CPUSchedulingPolicy=rr
 CPUSchedulingPriority=60
 
-ExecStart=/usr/bin/pulseaudio
+ExecStart=/usr/bin/pulseaudio -n -F %h/etc/audio/pulse/jack.pa
 SuccessExitStatus=0 1
 
 Slice=audio.slice
