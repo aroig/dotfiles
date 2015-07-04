@@ -1,0 +1,28 @@
+[Unit]
+Description=jack2 pulseaudio source and sink
+
+Requires=audio.slice
+After=audio.slice
+
+Requires=pulseaudio.service
+After=pulseaudio.service
+
+Requires=jack.service
+After=jack.service
+
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+
+# load pulseaudio jack sink and source
+ExecStart=/usr/bin/pactl load-module module-jack-sink channels=2
+ExecStart=/usr/bin/pactl load-module module-jack-source channels=2
+
+# make jack sink and source default
+ExecStart=/usr/bin/pacmd set-default-sink jack_out
+ExecStart=/usr/bin/pacmd set-default-source jack_in
+
+# unload pulseaudio jack sink and source
+ExecStop=/usr/bin/pactl unload-module module-jack-source
+ExecStop=/usr/bin/pactl unload-module module-jack-sink

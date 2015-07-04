@@ -5,8 +5,14 @@ Documentation=man:jackd(1)
 Requires=audio.slice
 After=audio.slice
 
-Conflicts=pulseaudio.service pulseaudio.socket
-After=pulseaudio.service pulseaudio.socket
+Requires=pulseaudio.service
+After=pulseaudio.service
+
+# setup jack source and sink for pulseaudio
+Wants=jack-pulse.service
+
+# Conflicts=pulseaudio.service pulseaudio.socket
+# After=pulseaudio.service pulseaudio.socket
 
 [Service]
 Type=simple
@@ -19,9 +25,16 @@ Environment=DEVICE=analog
 CPUSchedulingPolicy=rr
 CPUSchedulingPriority=60
 
+# suspend pulseaudio
+ExecStartPre=/usr/bin/pacmd suspend true
+
+# start jack
 ExecStart=/usr/bin/jackd --realtime \
     -d alsa --device ${DEVICE} \
     --rate 44100 --nperiods 2 --period 128 --midi raw
 
-# Wait until jack is up and running
+# wait until jack is up and running
 ExecStartPost=/usr/bin/sh -c "jack_wait -w 2>&1 > /dev/null"
+
+# resume pulseaudio
+ExecStopPost=/usr/bin/pacmd suspend false
