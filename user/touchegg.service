@@ -11,4 +11,4 @@ Type=simple
 Slice=wm.slice
 
 ExecStart=/usr/bin/touchegg
-
+StandardOutput=null
