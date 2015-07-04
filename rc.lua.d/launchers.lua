@@ -559,6 +559,17 @@ function switch.systemd_switch(units, step)
 end
 
 
+function switch.orientation_mode(step)
+    local hostname = hostname
+    local step = step or 1
+    local tgtlist = {}
+
+    tgtlist = {'landscape.target', 'portrait.target'}
+
+    switch.systemd_switch(tgtlist, step)
+end
+
+
 function switch.machine_mode(step)
     local hostname = hostname
     local step = step or 1

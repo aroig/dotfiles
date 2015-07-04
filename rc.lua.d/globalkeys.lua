@@ -63,6 +63,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "v",      function() switch.output_mode(1)      end),
     awful.key({ modkey, shiftkey  }, "v",      function() switch.output_mode(-1)     end),
 
+    awful.key({ modkey,           }, "b",      function() switch.orientation_mode(1)      end),
+    awful.key({ modkey, shiftkey  }, "b",      function() switch.orientation_mode(-1)     end),
+
     -- Applications started from instantiated units
     awful.key({ modkey, ctrlkey   }, "Return", function () run('app:termite')         end),
     awful.key({ modkey, ctrlkey   }, "f",      function () run('app:thunar')          end),
