@@ -1,10 +1,11 @@
 [Unit]
 Description=qemu vm for %i
 
+# prepare snapshot of root dirsk
 Requires=machine-snapshot@%i.service
 After=machine-snapshot@%i.service
 
-# we mount this data volume
+# prepare snapshot of data disk
 Requires=machine-snapshot@virtdata.service
 After=machine-snapshot@virtdata.service
 
@@ -19,35 +20,39 @@ EnvironmentFile=/home/abdo/virt/etc/machines.d/%i.conf
 # use pulseaudio on host
 Environment=QEMU_AUDIO_DRV=pa
 
-Environment=DISK_DATA_SNAPSHOT=snapshot/virtdata.qcow2
-
 ExecStartPre=/usr/bin/mkdir -p "%t/qemu/${MACHINE}"
 
 # we use directory locks. It is crude but atomic and effective!
-ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU}/${DISK_SNAPSHOT}.lock" "${QEMU}/${DISK_DATA_SNAPSHOT}.lock"
+ExecStartPre=/usr/bin/mkdir -m 777 "${QEMU_SNAPSHOT}/${DISK_ROOT}.lock" "${QEMU_SNAPSHOT}/${DISK_DATA}.lock"
+
+# NOTE: We need this for macosx 10.10.
+# Got it from Gabriel Somlo http://www.contrib.andrew.cmu.edu/~somlo/OSXKVM
+ExecStartPre=/usr/bin/sudo sh -c 'echo 1 > /sys/module/kvm/parameters/ignore_msrs'
 
 # NOTE: I couldn't make the monitor interface work with a tcp socket.
-
 ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} \
     -boot menu=on \
     -machine type=q35,accel=kvm \
-    -cpu host -smp 2 \
+    -cpu ${DEVICE_CPU} \
+    -smp 2 \
     -m 2048 \
+    -usb \
     -monitor unix:%t/qemu/${MACHINE}/control,server,nowait \
     -serial telnet:localhost:${PORT_SERIAL},server,nowait \
     -netdev bridge,id=net_tap,br=brvirt \
-    -drive media=cdrom,id=disk_cdrom,if=none,file=${QEMU}/${DISK_CDROM} \
-    -drive media=disk,id=disk_root,if=none,file=${QEMU}/${DISK_SNAPSHOT} \
-    -drive media=disk,id=disk_data,if=none,file=${QEMU}/${DISK_DATA_SNAPSHOT} \
     -soundhw hda \
     -device ${DEVICE_VIDEO} \
+    -device usb-kbd \
     -device virtio-serial \
     -device virtio-balloon \
     -device ${DEVICE_NET},netdev=net_tap \
-    -device ide-cd,drive=disk_cdrom \
-    -device ${DEVICE_BLOCK},drive=disk_root \
-    -device ${DEVICE_BLOCK},drive=disk_data \
+    -hda ${QEMU_SNAPSHOT}/${DISK_ROOT} \
+    -hdb ${QEMU_SNAPSHOT}/${DISK_DATA} \
     $QEMU_ARGS
+
+# TODO: try to attach those at runtime
+# -drive media=cdrom,id=disk_cdrom,if=none,file=${QEMU_MEDIA}/${DISK_MEDIA} \
+# -device ide-cd,drive=disk_cdrom \
 
 # NOTE: No ExecStop. Sending SIGTERM to qemu performs a quit, which means clean for qemu,
 # not clean for guest. We can't wait until the guest is ready though, so it is ok.
@@ -66,5 +71,5 @@ ExecStart=/usr/bin/qemu-system-x86_64 -name ${MACHINE} \
 #     org.freedesktop.machine1.Manager TerminateMachine \
 #     s ${MACHINE}
 
-ExecStopPost=/usr/bin/rmdir "${QEMU}/${DISK_SNAPSHOT}.lock" "${QEMU}/${DISK_DATA_SNAPSHOT}.lock"
+ExecStopPost=/usr/bin/rmdir "${QEMU_SNAPSHOT}/${DISK_ROOT}.lock" "${QEMU_SNAPSHOT}/${DISK_DATA}.lock"
 
