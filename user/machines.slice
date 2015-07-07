@@ -1,4 +1,0 @@
-[Unit]
-Description=virtual machines
-
-Before=slices.target
