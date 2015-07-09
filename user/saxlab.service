@@ -13,8 +13,15 @@ Type=simple
 # NOTE: This page faults for now. Seems like a dssi-vst problem. It is awfully fragile
 # anyways...
 
+# INSTALL: WINEARCH=win64 WINEPREFIX=~/.wine64 wine64 "SaxLab Installer 220.exe"
+
+# NOTE: we install the 64 bit version, this way we get rid of a lot of multilib dependencies.
+
 Environment=VST_PATH=/home/abdo/usr/saxlab
-ExecStart=/usr/bin/jack-dssi-host dssi-vst.so:SaxLab2.dll
+Environment=WINEARCH=win64 WINEPREFIX=~/.wine64
+
+# ExecStart=/usr/bin/jack-dssi-host dssi-vst.so:SaxLab2.dll
+ExecStart=/usr/bin/fsthost64 "SaxLab2 64.dll"
 
 # realtime scheduling
 CPUSchedulingPolicy=rr
