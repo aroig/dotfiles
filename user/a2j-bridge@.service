@@ -12,7 +12,6 @@ After=audio.slice
 
 [Service]
 Type=simple
-SyslogIdentifier=a2jbridge
 Slice=audio.slice
 
 # realtime scheduling
