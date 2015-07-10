@@ -1,0 +1,18 @@
+[Unit]
+Description=alsa to jack midi bridge %i
+
+Requires=jack.service
+After=jack.service
+
+Requires=audio.slice
+After=audio.slice
+
+[Service]
+Type=simple
+Slice=audio.slice
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+ExecStart=/usr/bin/a2jmidi_bridge %i

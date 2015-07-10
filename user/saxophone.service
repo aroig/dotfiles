@@ -7,13 +7,14 @@ After=jack.service
 Requires=audio.slice
 After=audio.slice
 
+Requires=j2amidi-bridge@DVSSaxophoneBridge.service
+After=j2amidi-bridge@DVSSaxophoneBridge.service
+
 [Service]
-Type=forking
+Type=simple
 
 Environment=VST_PATH=/home/abdo/usr/vst
-ExecStart=/usr/bin/sh -c " \
-    jack-dssi-host -c DVSSaxophone dssi-vst.so:DVSSaxophone.dll & \
-    j2amidi_bridge 'DVSSaxophoneBridge' &"
+ExecStart=/usr/bin/jack-dssi-host -c DVSSaxophone dssi-vst.so:DVSSaxophone.dll
 
 ExecStartPost=/usr/bin/sleep 5
 ExecStartPost=-/usr/bin/aconnect DVSSaxophoneBridge:0 DVSSaxophone:0
