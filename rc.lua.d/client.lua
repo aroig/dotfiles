@@ -210,7 +210,7 @@ systemd.rules = {
 
     -- float virtual machines
     { rule       = { },
-      process    = { cgroup = 'machines%.slice/.*$', main = false },
+      process    = { cgroup = 'machine%.slice/.*$', main = false },
       properties = { floating = true },
       callback   = function(c) awful.placement.centered(c) end },
 
