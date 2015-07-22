@@ -212,7 +212,10 @@ systemd.rules = {
     { rule       = { },
       process    = { cgroup = 'machine%.slice/.*$', main = false },
       properties = { floating = true },
-      callback   = function(c) c:geometry({ x = 0, y = 0 }) end },
+      callback   = function(c)
+          local x = capi.screen[awful.screen.focused()].geometry.x
+          local y = capi.screen[awful.screen.focused()].geometry.y
+          c:geometry({ x = x, y = y }) end },
 
     -- default dropdown geometry
     { rule       = { },
