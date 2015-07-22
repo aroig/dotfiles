@@ -17,7 +17,6 @@ local io = { popen = io.popen, open=io.open }
 rules = require("awful.rules")
 
 local capi = {
-    mouse = mouse,
     client = client,
     screen = screen
 }

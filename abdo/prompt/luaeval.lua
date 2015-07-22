@@ -7,6 +7,7 @@
 
 local prompt = require("abdo.prompt.prompt")
 local beautiful = require("beautiful")
+local ascreen = require("awful.screen")
 
 local theme = beautiful.get()
 local luaeval = {}
@@ -72,7 +73,7 @@ end
 
 
 local function prompt_output(s)
-   naughty.notify({title = "Output", text=s , screen=mouse.screen })
+   naughty.notify({title = "Output", text=s , screen=awful.screen.focused() })
 end
 
 

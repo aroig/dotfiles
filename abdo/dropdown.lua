@@ -24,7 +24,7 @@
 --   height - Height in absolute pixels, or height percentage
 --            when <= 1 (0.25 (25% of the screen) by default)
 --   sticky - Visible on all tags, false by default
---   screen - Screen (optional), mouse.screen by default
+--   screen - Screen (optional), awful.screen.focused() by default
 -------------------------------------------------------------------
 
 -- Grab environment
@@ -32,8 +32,9 @@ local pairs = pairs
 local os = os
 local setmetatable = setmetatable
 
+local ascreen = require("awful.screen")
+
 local capi = {
-    mouse = mouse,
     client = client,
     screen = screen
 }
@@ -142,7 +143,7 @@ local function capture_client(dd, cmd, pid, c)
     dd.run.time     = os.time()
     dd.run.client   = c
     dd.run.visible  = false
-    dd.run.screen   = dd.screen or capi.mouse.screen
+    dd.run.screen   = dd.screen or ascreen.focused()
 
     if not dd.run.pid then
         dd.run.pid = pid
@@ -210,7 +211,7 @@ function dropdown.show(dd, cmd, screen)
 
     -- raise an existing client.
     if dd.run.client then
-        dd.run.screen = screen or dd.screen or capi.mouse.screen
+        dd.run.screen = screen or dd.screen or ascreen.focused()
         raise_client(dd.run)
     end
 end

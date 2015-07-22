@@ -11,6 +11,7 @@ local capi =
     screen = screen,
 }
 
+local awful = awful
 local ipairs = ipairs
 local apps = apps
 local box = box
@@ -39,7 +40,7 @@ function drag_bydirection(dir, c)
     elseif dir == 'left' then
         if c then
             awful.screen.focus_bydirection("left")
-            local s = mouse.screen
+            local s = awful.screen.focused()
             awful.client.movetoscreen(c, s)
             awful.client.focus.byidx(0, c)
         end
@@ -47,7 +48,7 @@ function drag_bydirection(dir, c)
     elseif dir == 'right' then
         if c then
             awful.screen.focus_bydirection("right")
-            local s = mouse.screen
+            local s = awful.screen.focused()
             awful.client.movetoscreen(c, s)
             awful.client.focus.byidx(0, c)
         end
@@ -164,11 +165,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "k",      function () awful.tag.viewnext() end),
     awful.key({ modkey, ctrlkey   }, "j",      function () awful.tag.viewprev() end),
 
-    awful.key({ modkey, metakey   }, "Up",     function () awful.tag.viewnext(awful.util.cycle(screen.count(), mouse.screen + 1)) end),
-    awful.key({ modkey, metakey   }, "Down",   function () awful.tag.viewprev(awful.util.cycle(screen.count(), mouse.screen + 1)) end),
+    awful.key({ modkey, metakey   }, "Up",     function () awful.tag.viewnext(awful.util.cycle(screen.count(), awful.screen.focused() + 1)) end),
+    awful.key({ modkey, metakey   }, "Down",   function () awful.tag.viewprev(awful.util.cycle(screen.count(), awful.screen.focused() + 1)) end),
 
-    awful.key({ modkey, metakey   }, "k",      function () awful.tag.viewnext(awful.util.cycle(screen.count(), mouse.screen + 1)) end),
-    awful.key({ modkey, metakey   }, "j",      function () awful.tag.viewprev(awful.util.cycle(screen.count(), mouse.screen + 1)) end),
+    awful.key({ modkey, metakey   }, "k",      function () awful.tag.viewnext(awful.util.cycle(screen.count(), awful.screen.focused() + 1)) end),
+    awful.key({ modkey, metakey   }, "j",      function () awful.tag.viewprev(awful.util.cycle(screen.count(), awful.screen.focused() + 1)) end),
 
     awful.key({ modkey, metakey, ctrlkey  }, "Up",    function () for s = 1, screen.count() do awful.tag.viewnext(s) end end),
     awful.key({ modkey, metakey, ctrlkey  }, "Down",  function () for s = 1, screen.count() do awful.tag.viewprev(s) end end),
@@ -267,7 +268,7 @@ for i = 1, keynumber do
 
         awful.key({ modkey }, key,
                   function ()
-                      local screen = mouse.screen
+                      local screen = awful.screen.focused()
                       if tags[screen][i] then
                           awful.tag.viewonly(tags[screen][i])
                       end
@@ -276,7 +277,7 @@ for i = 1, keynumber do
 
         awful.key({ modkey, ctrlkey   }, key,
                   function ()
-                      local screen = mouse.screen
+                      local screen = awful.screen.focused()
                       if tags[screen][i] then
                           awful.tag.viewtoggle(tags[screen][i])
                       end
