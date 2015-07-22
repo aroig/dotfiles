@@ -212,7 +212,7 @@ systemd.rules = {
     { rule       = { },
       process    = { cgroup = 'machine%.slice/.*$', main = false },
       properties = { floating = true },
-      callback   = function(c) awful.placement.centered(c) end },
+      callback   = function(c) c:geometry({ x = 0, y = 0 }) end },
 
     -- default dropdown geometry
     { rule       = { },
