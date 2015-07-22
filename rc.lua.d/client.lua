@@ -86,7 +86,7 @@ clientkeys = awful.util.table.join(
         function (c)
             c.fullscreen = not c.fullscreen
             c:raise()
-    end),
+        end),
 
     awful.key({ modkey, shiftkey  }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, ctrlkey   }, "space",  function (c) awful.client.floating.toggle()   end),
