@@ -55,6 +55,9 @@ alias mr='mr --stats --color -t'
 alias make="TERM=xterm make"
 alias mk='PATH="/usr/lib/ccache/bin:$PATH" MAKEFLAGS="-j 4" TERM=xterm make'
 
+# project setup
+alias ckct='cookiecutter'
+
 # git aliases
 alias ggr='git --no-pager grep'
 alias gan="git annex"
