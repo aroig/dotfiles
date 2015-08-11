@@ -1,6 +1,10 @@
 TODO
 ====
 
+* Isolate web browser services.
+
+* Only mount `~/priv` on certain services.
+
 * get rid of `SyslogIdentifier` on all services.
 
 * Add an `After` for all `Conflicts`, so they start and stop one after the other.
