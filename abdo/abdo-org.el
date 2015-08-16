@@ -447,6 +447,35 @@
   (compile (format "cd %s; make update" org-directory)))
 
 
+(defun org-repair-property-drawers ()
+  "Fix properties drawers in current buffer.
+ Ignore non Org buffers."
+  (when (eq major-mode 'org-mode)
+    (org-with-wide-buffer
+     (goto-char (point-min))
+     (let ((case-fold-search t)
+           (inline-re (and (featurep 'org-inlinetask)
+                           (concat (org-inlinetask-outline-regexp)
+                                   "END[ \t]*$"))))
+       (org-map-entries
+        (lambda ()
+          (unless (and inline-re (org-looking-at-p inline-re))
+            (save-excursion
+              (let ((end (save-excursion (outline-next-heading) (point))))
+                (forward-line)
+                (when (org-looking-at-p org-planning-line-re) (forward-line))
+                (when (and (< (point) end)
+                           (not (org-looking-at-p org-property-drawer-re))
+                           (save-excursion
+                             (and (re-search-forward org-property-drawer-re end t)
+                                  (eq (org-element-type
+                                       (save-match-data (org-element-at-point)))
+                                      'drawer))))
+                  (insert (delete-and-extract-region
+                           (match-beginning 0)
+                           (min (1+ (match-end 0)) end)))
+                  (unless (bolp) (insert "\n"))))))))))))
+
 
 ;; Custom Agenda views
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
