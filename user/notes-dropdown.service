@@ -4,8 +4,8 @@ Description=notes dropdown
 Requisite=wm.target
 After=wm.target
 
-Requires=git-use@work-wiki.service
-After=git-use@work-wiki.service
+Requires=git-use@wiki.service
+After=git-use@wiki.service
 
 [Service]
 Type=simple
