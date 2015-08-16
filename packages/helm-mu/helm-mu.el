@@ -30,6 +30,10 @@
 ;; search operators similar to Google mail, e.g:
 ;;
 ;;     from:Peter to:Anne flag:attach search term
+;;
+;; See the Github page for details and install instructions:
+;;
+;;  https://github.com/emacs-helm/helm-mu
 
 ;;; Install:
 
@@ -107,6 +111,14 @@ used: maildir:/INBOX"
   :group 'helm-mu
   :type  'string)
 
+(defcustom helm-mu-skip-duplicates mu4e-headers-skip-duplicates
+  "With this option set to non-nil, show only one of duplicate
+messages. This is useful when you have multiple copies of the same
+message, which is a common occurence for example when using Gmail
+and offlineimap."
+  :group 'helm-mu
+  :type 'boolean)
+
 (defcustom helm-mu-contacts-name-colwidth 22
   "The width of the column showing names when searching contacts."
   :group 'helm-mu
@@ -131,8 +143,20 @@ the --my-address parameter in mu index."
   :group 'helm-mu
   :type  'integer)
 
-(easy-menu-add-item nil '("Tools" "Helm" "Tools") ["Mu" helm-mu t])
-(easy-menu-add-item nil '("Tools" "Helm" "Tools") ["Mu contacts" helm-mu-contacts t])
+(defcustom helm-mu-gnu-sed-program "sed"
+  "Program name of GNU sed.  For Mac OS X user, you might need to
+set it to \"gsed\" if your GNU sed is installed via MacPorts or
+Homebrew without some specific installation options."
+  :group 'helm-mu
+  :type 'string)
+
+(if (not (featurep 'helm-config))
+    (warn "Helm does not seem to be properly configured.  Please see
+    Helm's documentation for details on how to do this:
+    https://github.com/emacs-helm/helm#install-from-emacs-packaging-system")
+  (easy-menu-add-item nil '("Tools" "Helm" "Tools") ["Mu" helm-mu
+    t])
+  (easy-menu-add-item nil '("Tools" "Helm" "Tools") ["Mu contacts" helm-mu-contacts t]))
 
 
 (defface helm-mu-contacts-name-face
@@ -179,11 +203,11 @@ the --my-address parameter in mu index."
   "Initialize async mu process for `helm-source-mu'."
   (let ((process-connection-type nil)
         (maxnum (helm-candidate-number-limit helm-source-mu))
-        (mucmd "mu find -f $'i\td\tf\tt\ts' --sortfield=d --maxnum=%d --reverse --format=sexp ")
-        (sedcmd "sed -e ':a;N;$!ba;s/\\n\\(\\t\\|\\()\\)\\)/ \\2/g'"))
+        (mucmd "mu find -f $'i\td\tf\tt\ts' --sortfield=d --maxnum=%d --reverse --format=sexp %s ")
+        (sedcmd (concat helm-mu-gnu-sed-program " -e ':a;N;$!ba;s/\\n\\(\\t\\|\\()\\)\\)/ \\2/g'")))
     (prog1
       (start-process-shell-command "helm-mu" helm-buffer
-        (concat (format mucmd maxnum)
+        (concat (format mucmd maxnum (if helm-mu-skip-duplicates "--skip-dups" ""))
                 (mapconcat 'shell-quote-argument
                            (split-string helm-pattern " ")
                            " ")
@@ -324,6 +348,9 @@ address.  The name column has a predefined width."
 
 (defun helm-mu-display-email (candidate)
   "Open an email using mu4e."
+  (let ((view-buffer (get-buffer "*mu4e-view*")))
+    (when view-buffer
+      (kill-buffer view-buffer)))
   (mu4e-view-message-with-msgid (plist-get candidate :message-id)))
 
 (defun helm-mu-compose-mail (candidate)
