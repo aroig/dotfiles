@@ -53,7 +53,7 @@ alias egit='emacs-git'
 # development
 alias mr='mr --stats --color -t'
 alias make="TERM=xterm make"
-alias mk='PATH="/usr/lib/ccache/bin:$PATH" MAKEFLAGS="-j 4" TERM=xterm make'
+alias mk='PATH="/usr/lib/ccache/bin:$PATH" MAKEFLAGS="-j 4" TERM=xterm make -r'
 
 # project setup
 alias ckct='cookiecutter'
