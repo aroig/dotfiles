@@ -86,10 +86,11 @@ abdo_prompt_userhost() {
     acol=$(abdo_prompt_shell_color)
 
     case "$user" in
-	    root)    ucol="${fg[red]}"   ;;
-        abdo)    ucol="${fg[green]}" ;;
-        bibrain) ucol="${fg[cyan]}" ;;
-        *)       ucol="${fg[white]}" ;;
+	    root)    ucol="${fg[red]}"     ;;
+        abdo)    ucol="${fg[green]}"   ;;
+        bibrain) ucol="${fg[cyan]}"    ;;
+        roberta) ucol="${fg[magenta]}" ;;
+        *)       ucol="${fg[white]}"   ;;
     esac
 
     case "$host" in
@@ -257,6 +258,3 @@ abdo_prompt_messagehello() {
     fi
     
 }
-
-
-
