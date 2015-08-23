@@ -1,6 +1,12 @@
 TODO
 ====
 
+* Different hosts need different user units. For example, disable tmp cleanups on
+  skynet. Either use `ConditionHost` more often, or use presets.
+
+* I removed explicit dependencies on `mount-priv.service` because failed on skynet. Think
+  how to replace them.
+
 * Isolate web browser services.
 
 * Only mount `~/priv` on certain services.
