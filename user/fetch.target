@@ -8,6 +8,9 @@ After=journal-show.service
 # Requires=gcal-sync.service 
 # After=gcal-sync.service
 
+Requires=git-use@mail.service
+After=git-use@mail.service
+
 Requires=gcont-sync.service offlineimap.service rss2maildir.service
 After=gcont-sync.service offlineimap.service rss2maildir.service
 
