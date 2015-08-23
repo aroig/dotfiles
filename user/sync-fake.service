@@ -1,9 +1,6 @@
 [Unit]
 Description=fake initial sync
 
-Requires=mount-priv.service
-After=mount-priv.service
-
 [Service]
 Type=oneshot
 SyslogIdentifier=sync-fake

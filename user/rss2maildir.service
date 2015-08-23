@@ -1,7 +1,7 @@
 [Unit]
 Description=rss2maildir
 
-ConditionPathExists=/home/%u/mail
+AssertPathExists=/home/%u/mail
 
 Requisite=synced.target
 After=synced.target

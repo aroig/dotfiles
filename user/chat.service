@@ -1,8 +1,7 @@
 [Unit]
 Description=chat
 
-Requires=mount-priv.service
-After=mount-priv.service
+AssertPathExists=/home/%u/priv
 
 Requisite=wm.target
 After=wm.target
