@@ -1,0 +1,26 @@
+[Unit]
+Description=xwayland server at display :0
+
+Conflicts=vncserver.service weston.service weston.socket xorg.service xorg.socket
+
+Requires=xwayland.socket
+After=xwayland.socket
+
+Before=graphical.target
+PartOf=compositor.target
+
+[Service]
+# Type=notify
+Type=simple
+
+SyslogIdentifier=xwayland
+Slice=wm.slice
+
+SuccessExitStatus=0 1
+
+# NOTE: we could set the keyboard rate delay and rate frequency with: xset r rate 500 40
+ExecStart=/usr/bin/Xwayland ${DISPLAY} -nolisten tcp -noreset -verbose 0 -ardelay 500 -arinterval 25 "vt${XDG_VTNR}"
+
+[Install]
+RequiredBy=compositor.target
+
