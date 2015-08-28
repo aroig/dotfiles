@@ -1,5 +1,7 @@
 [Unit]
-Description=clean tmp files
+Description=clean build files
+
+AssertPathExists=%h/build/Makefile
 
 Requisite=housekeeping.target
 
@@ -8,4 +10,4 @@ Type=oneshot
 Slice=workers.slice
 
 # NOTE: Do not use environment variables here. If they are empty, it can mess things up royally.
-ExecStart=/usr/bin/find "%h/tmp/" -ctime +90 -mindepth 1 -exec rm -Rf {} +
+ExecStart=/usr/bin/make --silent -C "%h/build" expire
