@@ -1,6 +1,10 @@
 TODO
 ====
 
+* Setup sway, xwayland, etc.
+
+* Make a preset for user services in roberta's user.
+
 * Different hosts need different user units. For example, disable tmp cleanups on
   skynet. Either use `ConditionHost` more often, or use presets.
 
