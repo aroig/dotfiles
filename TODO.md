@@ -27,6 +27,8 @@ TODO
 
 * Cleanup the xorg services
 
+* remove as much as sudo's from services as I can.
+
 * remove as much as systemctl's from services as I can.
 
 * make synced.target into a RefuseManualStart thing. Note, the fake-sync would fail I guess
