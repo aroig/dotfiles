@@ -36,12 +36,20 @@ abdo_git_dirinfo() {
     local dir="$1"
     (
         cd $dir;
-        
-        if [ "$(abdo_get_vcs "$dir")" = 'git' ]; then
+        local vcs=$(abdo_get_vcs "$dir")
+        if [ "$vcs" ]; then
             # The -P tells print to format it as a prompt
             print -P " $(abdo_prompt_vcs "%s")" | tr -d '\n'
-            printf "  "
-            git --no-pager log -n 1 --pretty="format:%C(green)%ad%C(reset) %C(red)%an%C(reset). %C(yellow)%s%C(reset)" --date=short
+
+            # too slow
+            # if [ "$vcs" = "annex" ]; then
+            #    print -P " $(abdo_prompt_annex)" | tr -d '\n'
+            # fi
+
+            if [[ "$vcs" =~ "git|annex" ]]; then
+                printf "  "
+                git --no-pager log -n 1 --pretty="format:%C(green)%ad%C(reset) %C(red)%an%C(reset). %C(yellow)%s%C(reset)" --date=short
+            fi
         fi
     ) 
 }
@@ -61,7 +69,7 @@ abdo_git_ls() {
             find "$arg" -mindepth 1 -maxdepth 1 -type d -not -path '*/\.*' | \
             while read dir; do
                 dirname=${dir#$arg/}
-                printf "\e[1;34m%10s\e[0m" "$dirname"
+                printf "\e[1;34m%15s\e[0m" "$dirname"
                 abdo_git_dirinfo "$dir"
                 echo ""
             done
