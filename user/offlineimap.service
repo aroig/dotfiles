@@ -4,6 +4,8 @@ Description=offlineimap
 AssertPathExists=/home/%u/mail
 AssertPathExists=/home/%u/.netrc
 
+After=mount-priv.service
+
 Requisite=synced.target
 After=synced.target
 

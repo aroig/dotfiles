@@ -4,6 +4,9 @@ Description=fetch mail and news
 Wants=journal-show.service
 Before=journal-show.service
 
+Requires=mount-priv.service
+After=mount-priv.service
+
 # Requires=gcal-sync.service 
 # After=gcal-sync.service
 

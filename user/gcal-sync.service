@@ -4,6 +4,8 @@ Description=sync google calendar
 AssertPathExists=/home/%u/wiki
 AssertPathExists=/home/%u/priv
 
+After=mount-priv.service
+
 # gcal accesses and changes ~/wiki
 Requisite=synced.target
 After=synced.target
