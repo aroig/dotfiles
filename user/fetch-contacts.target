@@ -1,6 +1,9 @@
 [Unit]
 Description=fetch contacts
-StopWhenUnneeded=true
+
+# stopping of git-use@mail propagates to this target
+PartOf=git-use@mail.service
+Before=git-use@mail.service
 
 Requires=gcont-sync.service
-After=gcont-sync.service
+Before=gcont-sync.service
