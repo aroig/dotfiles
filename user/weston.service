@@ -13,7 +13,6 @@ PartOf=compositor.target
 # Type=notify
 Type=simple
 
-SyslogIdentifier=weston
 Slice=wm.slice
 
 # NOTE: does not start when run from systemd because we are outside a session.

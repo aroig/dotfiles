@@ -14,7 +14,6 @@ After=linuxsampler.service
 [Service]
 Type=oneshot
 
-SyslogIdentifier=linuxsampler-%i
 ExecStart=/usr/bin/bash -c "cat ${AB2_CONF_DIR}/audio/linuxsampler/%i.lscp | nc localhost 8888 || true"
 
 Slice=audio.slice

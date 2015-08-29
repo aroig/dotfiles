@@ -9,7 +9,6 @@ After=scsynth.service
 
 [Service]
 Type=simple
-SyslogIdentifier=sclang
 Slice=apps.slice
 
 ExecStart=/usr/bin/emacs -sclang --title "emacs-sclang"

@@ -9,7 +9,6 @@ After=jack.service
 
 [Service]
 Type=simple
-SyslogIdentifier=yoshimi
 Slice=apps.slice
 
 # realtime scheduling

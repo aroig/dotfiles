@@ -6,7 +6,6 @@ After=pulseaudio.service
 
 [Service]
 Type=oneshot
-SyslogIdentifier=audio-r2d2
 
 Environment=REMOTE=r2d2.wifi.local
 

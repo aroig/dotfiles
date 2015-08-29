@@ -9,7 +9,6 @@ After=jack.service
 
 [Service]
 Type=simple
-SyslogIdentifier=patchage
 Slice=apps.slice
 
 ExecStart=/usr/bin/patchage

@@ -13,7 +13,6 @@ PartOf=compositor.target
 # Type=notify
 Type=simple
 
-SyslogIdentifier=xwayland
 Slice=wm.slice
 
 SuccessExitStatus=0 1

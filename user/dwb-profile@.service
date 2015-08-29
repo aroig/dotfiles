@@ -10,7 +10,6 @@ After=git-use@priv-var-dwb-default.service
 [Service]
 Type=dbus
 BusName=org.bitbucket.dwb.%i
-SyslogIdentifier=dwb-%i
 Slice=apps.slice
 
 ExecStart=/usr/bin/dwb -p %i

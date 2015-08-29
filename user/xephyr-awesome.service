@@ -9,7 +9,6 @@ After=xephyr.service
 
 [Service]
 Type=simple
-SyslogIdentifier=xephyr-awesome
 Slice=wm.slice
 
 Environment=DISPLAY=:1

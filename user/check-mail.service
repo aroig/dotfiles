@@ -5,5 +5,4 @@ After=network-online.target
 
 [Service]
 Type=simple
-SyslogIdentifier=check-mail
 ExecStart=/home/abdo/.config/systemd/scripts/check-mail.py -w 5 -d -n

@@ -10,7 +10,6 @@ After=gpg-agent.service
 Type=oneshot
 RemainAfterExit=true
 
-SyslogIdentifier=priv
 ExecStart=/usr/bin/bash -c "gpg --batch -d ${HOME}/.ecryptfs/priv-passphrase 2> /dev/null | ecryptfs-add-passphrase --fnek"
 ExecStart=/usr/bin/mount.ecryptfs_private priv
 

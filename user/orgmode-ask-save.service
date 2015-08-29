@@ -9,7 +9,6 @@ Before=wmclean.target
 
 [Service]
 Type=oneshot
-SyslogIdentifier=orgmode-ask
 
 ExecStart=/home/abdo/bin/emacs-run -q -s orgmode.service -k orgmode '(abdo-save-buffers-new-frame)'
 

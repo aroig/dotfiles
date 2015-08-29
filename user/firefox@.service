@@ -6,7 +6,6 @@ After=wm.target
 
 [Service]
 Type=simple
-SyslogIdentifier=firefox
 Slice=apps.slice
 
 ExecStart=/usr/bin/firefox

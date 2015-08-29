@@ -9,7 +9,6 @@ After=awesome.service openbox.service xmonad.service
 
 [Service]
 Type=simple
-SyslogIdentifier=compton
 Slice=wm.slice
 
 ExecStart=/usr/bin/compton

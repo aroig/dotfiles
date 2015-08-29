@@ -9,7 +9,6 @@ After=audio.slice
 
 [Service]
 Type=simple
-SyslogIdentifier=zita-a2j
 Slice=audio.slice
 
 # realtime scheduling

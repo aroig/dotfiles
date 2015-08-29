@@ -12,7 +12,6 @@ After=linuxsampler.service
 
 [Service]
 Type=simple
-SyslogIdentifier=qsampler
 Slice=apps.slice
 
 ExecStart=/usr/bin/qsampler

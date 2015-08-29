@@ -13,7 +13,6 @@ PartOf=compositor.target
 # Type=notify
 Type=simple
 
-SyslogIdentifier=xorg
 Slice=wm.slice
 
 # NOTE: something like this would be needed if I manage to run xorg unprivileged

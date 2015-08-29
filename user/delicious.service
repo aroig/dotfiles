@@ -5,5 +5,4 @@ After=network-online.target
 
 [Service]
 Type=oneshot
-SyslogIdentifier=delicious
 ExecStart=/home/abdo/.config/systemd/scripts/fetch-delicious.sh 

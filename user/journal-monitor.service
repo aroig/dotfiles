@@ -3,5 +3,4 @@ Description=Journal monitor
 
 [Service]
 Type=simple
-SyslogIdentifier=journal-monitor
 ExecStart=/home/abdo/.config/systemd/scripts/journal-monitor.py

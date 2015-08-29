@@ -3,7 +3,6 @@ Description=rtags server
 
 [Service]
 Type=simple
-SyslogIdentifier=rtags
 
 # RuntimeDirectory=rtags
 # RuntimeDirectoryMode=700

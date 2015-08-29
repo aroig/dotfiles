@@ -7,7 +7,6 @@ After=network-online.target
 [Service]
 Type=oneshot
 RemainAfterExit=true
-SyslogIdentifier=host-wait
 Slice=daemons.slice
 
 ExecStart=/usr/bin/sh -c "while true; do ping -q -c 1 %i 2>&1 > /dev/null && break; sleep 10; done" 

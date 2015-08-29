@@ -7,7 +7,6 @@ After=mu-server.socket
 [Service]
 Type=simple
 
-SyslogIdentifier=mu-server
 Slice=daemons.slice
 
 StandardInput=socket

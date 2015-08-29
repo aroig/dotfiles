@@ -9,7 +9,6 @@ After=git-use@wiki.service
 
 [Service]
 Type=simple
-SyslogIdentifier=notes
 Slice=dropdown.slice
 
 ExecStart=/usr/bin/emacs -notes --title "emacs-notes"

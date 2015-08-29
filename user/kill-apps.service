@@ -8,7 +8,6 @@ Before=wmclean.target
 [Service]
 Type=oneshot
 
-SyslogIdentifier=kill-apps
 ExecStart=/usr/bin/systemctl --user kill apps.slice
 
 [Install]

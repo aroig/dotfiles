@@ -6,7 +6,6 @@ After=wm.target
 
 [Service]
 Type=simple
-SyslogIdentifier=emacsclient
 Slice=apps.slice
 
 ExecStart=/home/abdo/bin/emacs-client

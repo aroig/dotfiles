@@ -9,7 +9,6 @@ After=pulseaudio.service
 
 [Service]
 Type=simple
-SyslogIdentifier=pavucontrol
 Slice=apps.slice
 
 ExecStart=/usr/bin/pavucontrol

@@ -9,7 +9,6 @@ After=audio.target
 
 [Service]
 Type=simple
-SyslogIdentifier=stream-%i
 Slice=audio.slice
 
 ExecStart=/home/abdo/.config/systemd/scripts/stream.sh %i

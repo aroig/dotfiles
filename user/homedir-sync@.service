@@ -9,7 +9,6 @@ After=mount-priv.service
 [Service]
 Type=oneshot
 Slice=workers.slice
-SyslogIdentifier=homedir-sync
 
 WorkingDirectory=/home/%u
 ExecStart=/home/abdo/etc/mr/bin/homedir sync %i

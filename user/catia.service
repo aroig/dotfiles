@@ -9,7 +9,6 @@ After=jack.service
 
 [Service]
 Type=simple
-SyslogIdentifier=catia
 Slice=apps.slice
 
 ExecStart=/usr/bin/catia

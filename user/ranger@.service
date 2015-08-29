@@ -6,7 +6,6 @@ After=wm.target
 
 [Service]
 Type=simple
-SyslogIdentifier=ranger
 Slice=apps.slice
 KillMode=process
 

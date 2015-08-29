@@ -6,7 +6,6 @@ After=wm.target
 
 [Service]
 Type=simple
-SyslogIdentifier=goldendict
 Slice=apps.slice
 
 ExecStart=/usr/bin/goldendict

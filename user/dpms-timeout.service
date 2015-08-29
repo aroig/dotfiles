@@ -6,5 +6,4 @@ After=graphical.target
 
 [Service]
 Type=oneshot
-SyslogIdentifier=dpms
 ExecStart=/usr/bin/xset dpms 300 600 900

@@ -16,7 +16,6 @@ After=ssh-wait-online@%i.service
 Type=forking
 Slice=daemons.slice
 
-SyslogIdentifier=sshmux
 ExecStartPre=/usr/bin/mkdir -p "%t/ssh"
 ExecStart=/usr/bin/ssh -M -N -f -o "ControlPersist=1h" %i
 

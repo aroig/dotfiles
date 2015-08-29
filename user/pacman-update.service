@@ -7,5 +7,4 @@ After=network-online.target
 Type=oneshot
 Slice=workers.slice
 
-SyslogIdentifier=pacman
 ExecStart=/usr/bin/sudo pacman -Syu --noconfirm

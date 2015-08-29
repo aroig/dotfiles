@@ -14,7 +14,6 @@ Type=simple
 Environment=EXT_LLVM_DIR=/usr/lib/extempore/llvm
 WorkingDirectory=/usr/lib/extempore
 
-SyslogIdentifier=extempore
 
 # NOTE: Extempore uses portaudio, which is an abstraction layer. Extempore can
 # work with jack, provided the sample rate matches, otherwise it will refuse to

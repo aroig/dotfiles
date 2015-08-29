@@ -9,7 +9,6 @@ After=git-use@mail.service
 
 [Service]
 Type=simple
-SyslogIdentifier=mu4e
 Slice=dropdown.slice
 
 ExecStart=/usr/bin/emacs -mail --title "emacs-mail"

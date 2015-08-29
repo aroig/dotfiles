@@ -9,7 +9,6 @@ After=git-use@priv-var-dwb-default.service
 
 [Service]
 Type=simple
-SyslogIdentifier=dwb
 Slice=apps.slice
 
 # Start new instance of dwb without dbus

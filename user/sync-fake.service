@@ -3,5 +3,4 @@ Description=fake initial sync
 
 [Service]
 Type=oneshot
-SyslogIdentifier=sync-fake
 ExecStart=/usr/bin/systemctl --user --no-block start synced.target

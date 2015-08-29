@@ -11,7 +11,6 @@ After=git-use@lib.service
 [Service]
 Type=simple
 
-SyslogIdentifier=calibre
 Slice=dropdown.slice
 Environment=XDG_CURRENT_DESKTOP=gnome
 
