@@ -4,6 +4,8 @@ Description=sync homedir to remote %i
 AssertPathExists=/home/%u/.mrconfig
 AssertPathExists=/home/%u/priv
 
+After=mount-priv.service
+
 [Service]
 Type=oneshot
 Slice=workers.slice
