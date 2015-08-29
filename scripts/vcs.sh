@@ -33,7 +33,7 @@ abdo_annex_conflicts() {
 
 
 abdo_git_dirinfo() {
-    local dir="$1"
+    local dir="$(realpath $1)"
     (
         cd $dir;
         local vcs=$(abdo_get_vcs "$dir")
