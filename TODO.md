@@ -45,4 +45,8 @@ TODO
 
 ## Systemd issues
 
-* systemd-inhibit, systemctl poweroff, etc. can't be run unprivileged outside a session
+* systemd-inhibit, systemctl poweroff, etc. can't run unprivileged outside a session
+
+* journal has a race in which short-lived processes do not get all metadata attached, like
+  cgroup. This needs fixing in kernel, but seems it will not
+  happen. http://comments.gmane.org/gmane.linux.kernel/1551621
