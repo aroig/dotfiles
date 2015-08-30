@@ -25,10 +25,12 @@ fi
 # source zshenv. This sets the PATH
 [ -f "$HOME/.zshenv" ] && source "$HOME/.zshenv"
 
-# set GPG tty
+# set GPG tty. this needs to be set before starting gpg-agent.
 export GPG_TTY=`tty`
-systemctl --user set-environment "GPG_TTY=$GPG_TTY"
-
+if [ "$GPG_TTY" ]; then
+    systemctl --user set-environment "GPG_TTY=$GPG_TTY"
+fi
+    
 # set path for systemd user session
 if [ "$PATH" ]; then
     systemctl --user set-environment "PATH=$PATH"
@@ -45,4 +47,6 @@ if [ "$TERM" = "linux" ]; then
 fi
 
 # start user target
-systemctl --user start user.target
+if systemctl --user is-active -q user.target; then
+    systemctl --user start user.target
+fi
