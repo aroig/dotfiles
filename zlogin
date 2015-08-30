@@ -40,9 +40,3 @@ if [ "$TERM" = "linux" ]; then
     set_tty_colors
 fi
 
-# if ssh session, set gpg-agent variables
-# TODO: what about this in gpg 2.1?
-if [ "$SSH_CONNECTION" ]; then
-    gpg_agent_mode ssh
-fi
-

@@ -83,16 +83,14 @@ export AB2_TMP_DIR="$AB2_HOME/tmp"
 export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
 export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent::1"
 
-# NOTE: I'll use this once I get socket activation working
-# export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.ssh"
-# export GPG_AGENT_INFO="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent::1"
-
 # mpd socket
 export MPD_HOST="$XDG_RUNTIME_DIR/mpd/mpd.socket"
 
 # screen socket
 export SCREENDIR="$XDG_RUNTIME_DIR/screen"
 
+# GPG tty
+export GPG_TTY=`tty`
 
 
 #------------------------------
