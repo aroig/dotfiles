@@ -89,8 +89,6 @@ export MPD_HOST="$XDG_RUNTIME_DIR/mpd/mpd.socket"
 # screen socket
 export SCREENDIR="$XDG_RUNTIME_DIR/screen"
 
-# GPG tty
-export GPG_TTY=`tty`
 
 
 #------------------------------

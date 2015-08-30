@@ -25,6 +25,10 @@ fi
 # source zshenv. This sets the PATH
 [ -f "$HOME/.zshenv" ] && source "$HOME/.zshenv"
 
+# set GPG tty
+export GPG_TTY=`tty`
+systemctl --user set-environment "GPG_TTY=$GPG_TTY"
+
 # set path for systemd user session
 if [ "$PATH" ]; then
     systemctl --user set-environment "PATH=$PATH"
@@ -40,3 +44,5 @@ if [ "$TERM" = "linux" ]; then
     set_tty_colors
 fi
 
+# start user and console targets
+systemctl --user start user.target console.target
