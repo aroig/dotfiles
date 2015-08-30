@@ -4,7 +4,7 @@ Description=d-bus user message bus
 Requires=dbus.socket
 After=dbus.socket
 
-Before=daemons.target
+Before=daemons.target default.target
 
 [Service]
 Type=simple
