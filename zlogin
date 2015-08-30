@@ -44,5 +44,5 @@ if [ "$TERM" = "linux" ]; then
     set_tty_colors
 fi
 
-# start user and console targets
-systemctl --user start user.target console.target
+# start user target
+systemctl --user start user.target
