@@ -56,6 +56,7 @@ export AB2_HOME="/home/abdo"
 export AB2_ARCH_DIR="$AB2_HOME/arch"
 export AB2_PRIV_DIR="$AB2_HOME/priv"
 export AB2_DEVEL_DIR="$AB2_HOME/devel"
+export AB2_SRC_DIR="$AB2_HOME/src"
 export AB2_SOFT_DIR="$AB2_HOME/usr/soft"
 export AB2_CONF_DIR="$AB2_HOME/etc"
 export AB2_MAIL_DIR="$AB2_HOME/mail"
@@ -72,7 +73,7 @@ export AB2_VIRT_DIR="$AB2_HOME/virt"
 export AB2_BUILD_DIR="$AB2_HOME/build"
 export AB2_REPOS_DIR="$AB2_HOME/repos"
 export AB2_TMP_DIR="$AB2_HOME/tmp"
-
+export AB2_BAK_DIR="$AB2_HOME/bak"
 
 
 #------------------------------
