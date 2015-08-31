@@ -238,7 +238,7 @@
 (defun abdo-latex-compile()
   (interactive)
   (if (file-exists-p (concat default-directory "Makefile"))
-      (compile "make -B pdf")
+      (compile "make pdf")
 ;      (if (file-exists-p (concat default-directory "out"))
 ;          (compile (format "make -B -k %sout/%s.pdf" default-directory (TeX-master-file)))
 ;        (compile (format "make -B -k %s/%s.pdf" default-directory (TeX-master-file))))
