@@ -237,18 +237,17 @@
 ;; Compile the current buffer
 (defun abdo-latex-compile()
   (interactive)
-  (if (file-exists-p (concat default-directory "Makefile"))
-      (compile "make pdf")
-;      (if (file-exists-p (concat default-directory "out"))
-;          (compile (format "make -B -k %sout/%s.pdf" default-directory (TeX-master-file)))
-;        (compile (format "make -B -k %s/%s.pdf" default-directory (TeX-master-file))))
-    (compile (format "pdflatex -file-line-error -interaction=nonstopmode -synctex=1 %s.tex" (TeX-master-file))))
+  (let
+      ((makefile (file-truename (concat (file-name-directory (TeX-master-file)) "Makefile"))))
+
+    (when (file-exists-p makefile)
+      (compile (format "make -C '%s' pdf" (file-name-directory makefile))))
 
     ;; Set the regexp for matching errors in the compilation buffer to gnu only.
     ;; Otherwise there was an odd matcher that picked pieces of latex it should
     ;; not.
     (with-current-buffer "*compilation*"
-      (set (make-local-variable 'compilation-error-regexp-alist) '(gnu))))
+      (set (make-local-variable 'compilation-error-regexp-alist) '(gnu)))))
 
 
 ;; Show compilation buffer
