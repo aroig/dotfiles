@@ -66,6 +66,10 @@
 #     git           always compare HEAD to @{upstream}
 #     svn           always compare HEAD to your SVN upstream
 #
+# You can change the separator between the branch name and the above
+# state symbols by setting GIT_PS1_STATESEPARATOR. The default separator
+# is SP.
+#
 # By default, __git_ps1 will compare HEAD to your SVN upstream if it can
 # find one, or @{upstream} otherwise.  Once you have set
 # GIT_PS1_SHOWUPSTREAM, you can override it on a per-repository basis by
@@ -239,7 +243,7 @@ __git_ps1_colorize_gitstring ()
 		local c_green='%F{green}'
 		local c_yellow='%F{yellow}'
 		local c_lblue='%F{blue}'
-        local c_cyan='%F{cyan}'
+		local c_cyan='%F{cyan}'
 		local c_magenta='%F{magenta}'
 		local c_clear='%f'
 	else
@@ -250,7 +254,7 @@ __git_ps1_colorize_gitstring ()
 		local c_yellow='\[\e[33m\]'
 		local c_lblue='\[\e[34m\]'
 		local c_magenta='\[\e[35m\]'
-        local c_cyan='\[\e[36m\]'
+		local c_cyan='\[\e[36m\]'
 		local c_clear='\[\e[0m\]'
 	fi
 	local bad_color=$c_red
@@ -506,46 +510,36 @@ __git_ps1 ()
 			b="GIT_DIR!"
 		fi
 	elif [ "true" = "$inside_worktree" ]; then
-        # CHANGED
-		if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ]; then
-            if [ "$(git config --bool bash.showDirtyState)" != "false" ]; then            
-                if ! git diff --no-ext-diff --quiet --exit-code; then w="*"
-                fi
-
-			    if [ -n "$short_sha" ]; then
-				    if ! git diff-index --cached --diff-filter="UXB" --quiet HEAD --; then i="X"
-                    elif ! git diff-index --cached --diff-filter="ACDMRT" --quiet HEAD --; then i="+"
-                    fi
-			    else
-				    i="#"
-			    fi
-		    else
-                w="?"
-            fi
-        fi
-
+		if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ] &&
+		   [ "$(git config --bool bash.showDirtyState)" != "false" ]
+		then
+			git diff --no-ext-diff --quiet --exit-code || w="*"
+			if [ -n "$short_sha" ]; then
+   				# CHANGED
+				git diff-index --cached --diff-filter="UXB" --quiet HEAD -- || i="X"
+				git diff-index --cached --diff-filter="ACDMRT" --quiet HEAD -- || i="+"
+			else
+				i="#"
+			fi
+		fi
 		if [ -n "${GIT_PS1_SHOWSTASHSTATE-}" ] &&
 		   git rev-parse --verify --quiet refs/stash >/dev/null
 		then
 			s="$"
 		fi
 
-        # CHANGED
-		if [ -n "${GIT_PS1_SHOWUNTRACKEDFILES-}" ]; then
-            if [ "$(git config --bool bash.showUntrackedFiles)" != "false" ]; then
-		        if git ls-files --others --exclude-standard --error-unmatch -- '*' >/dev/null 2>/dev/null; then   
-			        # u="%${ZSH_VERSION+%}"
-                    u='!'
-                fi
-            else
-                u='?'
-            fi
+		if [ -n "${GIT_PS1_SHOWUNTRACKEDFILES-}" ] &&
+		   [ "$(git config --bool bash.showUntrackedFiles)" != "false" ] &&
+		   git ls-files --others --exclude-standard --directory --no-empty-directory --error-unmatch -- ':/*' >/dev/null 2>/dev/null
+		then
+			# CHANGED
+			u='!'
 		fi
         
-        # CHANGED: explicitly mark directory as clean
-        if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ] && [[ ! -n "$w" ]] && [[ ! -n "$u" ]] && [[ ! -n "$i" ]]; then 
+		# CHANGED: explicitly mark directory as clean
+		if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ] && [[ ! -n "$w" ]] && [[ ! -n "$u" ]] && [[ ! -n "$i" ]]; then 
 			w="√"
-        fi
+		fi
 
 		if [ -n "${GIT_PS1_SHOWUPSTREAM-}" ]; then
 			__git_ps1_show_upstream
@@ -554,7 +548,7 @@ __git_ps1 ()
 
 	local z="${GIT_PS1_STATESEPARATOR-" "}"
 
-    # CHANGED: do allow colors even in non-PROMPT_COMMAND mode
+	# CHANGED: do allow colors even in non-PROMPT_COMMAND mode
 	if [ -n "${GIT_PS1_SHOWCOLORHINTS-}" ]; then
 		__git_ps1_colorize_gitstring
 	fi
@@ -566,7 +560,7 @@ __git_ps1 ()
 	fi
 
 	local f="$w$i$s$u"
-    # CHANGED: use different format
+	# CHANGED: use different format
 	local gitstring="$p$c$b${f:+$z$f}$r"
 
 	if [ $pcmode = yes ]; then
