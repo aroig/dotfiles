@@ -4,12 +4,16 @@ Description=i3lock screen locker
 Requisite=graphical.target
 After=graphical.target
 
-# so that when i3lock ends lock.target goes down
+Requires=prelock.target
+After=prelock.target
+
+# so that when lock.target stops, i3lock goes down
 PartOf=lock.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/i3lock --dpms -I 10 --nofork --color=000000
+ExecStart=/usr/bin/i3lock --nofork --color=000000
+
 
 [Install]
 WantedBy=lock.target

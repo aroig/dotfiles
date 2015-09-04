@@ -1,8 +1,7 @@
 [Unit]
-Description=sleep
+Description=preparing to lock screen
 
 After=chat-away.service dpms-off.service mpc-pause.service stream-stop.service disconnect.target
-After=i3lock.service
 
 DefaultDependencies=no
 RefuseManualStart=yes
