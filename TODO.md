@@ -1,6 +1,7 @@
 TODO
 ====
 
+* Run `wakeup.target` when waking up from sleep. Don't see an obvious way to do it.
 * Setup sway, xwayland, etc.
 
 * Make a preset for user services in roberta's user.
