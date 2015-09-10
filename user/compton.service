@@ -15,4 +15,4 @@ ExecStart=/usr/bin/compton
 StandardOutput=null
 
 [Install]
-WantedBy=comptositor.target
+WantedBy=compositor.target
