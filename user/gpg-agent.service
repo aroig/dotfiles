@@ -1,19 +1,12 @@
 [Unit]
-Description=gpg-agent daemon
+Description=GPG Agent
 
-ConditionHost=!skynet
-ConditionHost=!quark
-ConditionPathExists=/home/%u/.gnupg
-
-Before=daemons.target
+ConditionPathIsDirectory=/home/%u/.gnupg
 
 [Service]
 Type=forking
-Slice=daemons.slice
-ExecStart=/usr/bin/gpg-agent --daemon
-
-# give it some time
-ExecStartPost=/usr/bin/sleep 1
+ExecStart=/usr/bin/gpg-agent --daemon --homedir=%h/.gnupg 
+Restart=on-failure
 
 [Install]
-WantedBy=daemons.target
+WantedBy=default.target
