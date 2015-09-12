@@ -97,6 +97,8 @@ alias vmk='vmctl stop'
 alias vmm='vmctl mount'
 alias vmu='vmctl umount'
 
+alias nspawn='systemd-nspawn -b -n -D'
+
 
 #------------------------------
 # Systemd aliases
