@@ -10,6 +10,7 @@ return {
    ranger                    = "ranger@.service",
    emacsclient               = "emacsclient@.service",
    musicplayer               = "musicplayer.service",
+   gmpc                      = "gmpc.service",
 
    org                       = "orgmode.service",
    calibre                   = "calibre.service",
