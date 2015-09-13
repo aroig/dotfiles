@@ -9,9 +9,6 @@
 # Utility aliases
 #------------------------------
 
-# homedir
-alias hh='homedir'
-
 # ls
 alias ls='ls --human-readable --color=auto -F'
 alias ll='ls++ --potsf'
@@ -174,18 +171,50 @@ sdan_svg() {
     fi
 }
 
+
+#------------------------------
+# Other System management stuff
+#------------------------------
+
+# homedir synchronization
+hh() {
+    local cmd="$1"; shift
+
+    syncdir="~/arch/sync"
+    case "$cmd" in
+        sync|push|pull)
+                local rmt="$1"; shift
+                make -C "$syncdir" "$cmd-$rmt" "$@"
+                ;;
+        
+        init|status|check)
+            make -C "$syncdir" "$cmd" "$@"
+            ;;
+    esac
+}
+
 # firewall
-fws() { sudo iptables -L firewall; echo ""; sudo iptables -n -L sshguard; }
-fwban() { sudo iptables -A sshguard -s "$1" -j DROP; }
+fws() {
+    sudo iptables -L firewall
+    echo ""
+    sudo iptables -n -L sshguard
+}
+
+fwban() {
+    sudo iptables -A sshguard -s "$1" -j DROP
+}
 
 # network
-gateway() { host `ip route list 0/0 | awk '{print $3}'` | awk '{print $5}'; }
+gateway() {
+    host `ip route list 0/0 | awk '{print $3}'` | awk '{print $5}'
+}
 
 pacsync() {
     local host="$1"
     rsync -avz --rsync-path='sudo rsync' "/var/cache/pacman/pkg/" "$host:/var/cache/pacman/pkg/"
     rsync -avz --rsync-path='sudo rsync' "/var/lib/pacman/sync/" "$host:/var/lib/pacman/sync/"
 }
+
 
 
 #------------------------------
