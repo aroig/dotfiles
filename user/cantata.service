@@ -1,5 +1,5 @@
 [Unit]
-Description=gmpc mpd client
+Description=cantata mpd client
 
 Requisite=wm.target
 After=wm.target
@@ -10,7 +10,7 @@ Requires=mpd.service
 Type=simple
 Slice=dropdown.slice
 
-ExecStart=/usr/bin/gmpc --debug-level=0
+ExecStart=/usr/bin/cantata
 
 [Install]
 Alias=musicplayer.service
