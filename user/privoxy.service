@@ -1,0 +1,13 @@
+[Unit]
+Description=privoxy filtering proxy
+
+Requires=systemd-networkd-wait-online.service
+After=systemd-networkd-wait-online.service
+
+[Service]
+Type=forking
+Slice=daemons.slice
+
+ExecStart=/usr/bin/privoxy %h/etc/privoxy
+SuccessExitStatus=15
+
