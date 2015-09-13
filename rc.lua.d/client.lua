@@ -261,6 +261,11 @@ systemd.rules = {
 
     { rule       = { },
       except     = { modal = true },
+      process    = { cgroup = 'dropdown%.slice/cantata%.service$', main = true },
+      callback   = geometry_cb({vert="center", horiz="right",  width=0.7, height=1.0}) },
+
+    { rule       = { },
+      except     = { modal = true },
       process    = { cgroup = 'dropdown%.slice/.*docs.*%.service$', main = true },
       callback   = geometry_cb({vert="center", horiz="right",  width=0.6, height=1.0}) },
 }
