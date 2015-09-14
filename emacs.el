@@ -168,7 +168,8 @@
 
 ;; Basic interactive stuff
 (unless batch-mode
-  (require 'flx-ido)                     ;; better matching algorithm for ido
+  ;; DISABLED. It was annoying
+  ;; (require 'flx-ido)                     ;; better matching algorithm for ido
   (require 'ido)                         ;; Ido prompt
   (require 'uniquify)                    ;; Make buffer names unique
   (require 'ibuffer)                     ;; Nice buffer list

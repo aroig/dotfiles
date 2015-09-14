@@ -210,10 +210,12 @@ Use `winstack-push' and
 ; (setq ido-save-directory-list-file (convert-standard-filename "~/.ido.last"))
 (setq ido-save-directory-list-file nil)
 
-;; enable ido with flx-mode
+;; enable ido mode
 (ido-mode t)
 (ido-everywhere t)
-(flx-ido-mode t)
+
+;; fuzzy matching for ido flx-mode
+; (flx-ido-mode t)
 
 ;; disable ido faces to see flx highlights.
 ;; (setq ido-use-faces nil)
