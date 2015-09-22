@@ -244,6 +244,9 @@ alias digitaleditions='wine "$HOME/.wine/drive_c/Program Files (x86)/Adobe/Adobe
 # sudo
 #------------------------------
 
+# use policykit to do sudo
+alias pke="pkexec"
+
 # If the argument has an alias, expand it, if it has a function, 
 # run it on a root shell and if no arguments given, go to a root shell.
 sudo () {   
