@@ -5,7 +5,7 @@ REMOTES=modes/multi-mode modes/rainbow-mode \
 COMPILE=modes/multi-mode modes/rainbow-mode \
         packages/ibuffer-vc packages/flx \
         packages/perspective packages/clang-format    \
-        abdo misc hacks
+        misc hacks
 
 REMOTES_MERGE=$(patsubst %,%-merge,$(REMOTES))
 

@@ -1,5 +1,7 @@
 (provide 'abdo-org)
 
+(require 'org)
+
 ;; Org Mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; http://orgmode.org/
@@ -450,6 +452,7 @@
 (defun org-repair-property-drawers ()
   "Fix properties drawers in current buffer.
  Ignore non Org buffers."
+  (interactive)
   (when (eq major-mode 'org-mode)
     (org-with-wide-buffer
      (goto-char (point-min))
