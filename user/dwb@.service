@@ -7,6 +7,9 @@ After=wm.target
 Requires=git-use@priv-var-dwb-default.service
 After=git-use@priv-var-dwb-default.service
 
+Requires=privoxy.service
+After=privoxy.service
+
 [Service]
 Type=simple
 Slice=apps.slice
