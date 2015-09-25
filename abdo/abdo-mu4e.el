@@ -118,10 +118,13 @@
 
   ;; fields in list view
   (setq mu4e-headers-fields
-        '( (:human-date    .  15)
-           (:flags         .   5)
-           (:from          .  30)
-           (:subject       .  nil)))
+        '( (:human-date     .  15)
+           (:flags          .   5)
+           (:from           .  30)
+           (:subject        .  nil)))
+
+  (setq mu4e-headers-sort-field :date)
+  (setq mu4e-headers-sort-direction 'descending)
 
   ;; Fields on message view
   (setq mu4e-view-fields
