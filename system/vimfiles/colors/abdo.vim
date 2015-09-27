@@ -17,7 +17,7 @@ hi Cursor            ctermfg=White                             cterm=bold
 hi Debug             ctermfg=Gray                              cterm=none
 hi Directory         ctermfg=Blue                              cterm=none
 hi Error             ctermfg=Red          ctermbg=Black        cterm=bold
-hi ErrorMsg          ctermfg=Red                               cterm=bold
+hi ErrorMsg          ctermfg=Red          ctermbg=Black        cterm=bold
 hi Exception         ctermfg=Yellow                            cterm=bold
 hi FoldColumn        ctermfg=Green                             cterm=bold
 hi Folded            ctermfg=Green                             cterm=bold
