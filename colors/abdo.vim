@@ -93,17 +93,17 @@ hi texDefParm      ctermfg=Gray         cterm=none
 
 " diff
 " ----------------------------------------------------------
-hi DiffAdd         ctermfg=DarkGreen    cterm=none
-hi DiffChange      ctermfg=DarkYellow   cterm=none
-hi DiffDelete      ctermfg=DarkRed      cterm=none
-hi DiffText        ctermfg=Gray         cterm=none
+hi DiffAdd         ctermfg=DarkGreen    ctermbg=Black cterm=none
+hi DiffChange      ctermfg=DarkYellow   ctermbg=Black cterm=none
+hi DiffDelete      ctermfg=DarkRed      ctermbg=Black cterm=none
+hi DiffText        ctermfg=Black        ctermbg=DarkYellow cterm=none
 
-hi DiffAdded       ctermfg=DarkGreen    cterm=none
-hi DiffChanged     ctermfg=DarkYellow   cterm=none
-hi DiffRemoved     ctermfg=DarkRed      cterm=none 
+hi DiffAdded       ctermfg=DarkGreen    ctermbg=Black cterm=none
+hi DiffChanged     ctermfg=DarkYellow   ctermbg=Black cterm=none
+hi DiffRemoved     ctermfg=DarkRed      ctermbg=Black cterm=none 
 
-hi DiffFile        ctermfg=Red          cterm=none
-hi DiffLine        ctermfg=DarkCyan     cterm=none
+hi DiffFile        cterm=none
+hi DiffLine        cterm=none
 
 
 " git
