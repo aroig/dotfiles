@@ -10,47 +10,52 @@ endif
 let g:colors_name = "abdo"
 
 
-" general
+" Vim syntax
 " ----------------------------------------------------------
+hi Bold                                 cterm=bold
+hi Debug           ctermfg=Gray         cterm=none
+hi Directory       ctermfg=Blue         cterm=none
+hi ErrorMsg        ctermfg=Red          cterm=bold
+hi Exception       ctermfg=Yellow       cterm=bold
 hi Error           ctermfg=Red          cterm=bold
 hi Normal          ctermfg=none         cterm=none
-hi Todo            ctermfg=Red          cterm=bold          ctermbg=Black
-hi Underlined      ctermfg=none         cterm=underline
+hi Underlined                           cterm=underline
 hi Ignore          ctermfg=Black 
+hi Title           ctermfg=Cyan         cterm=bold
+hi Cursor          ctermfg=White        cterm=bold
+hi StatusLine      ctermfg=Gray         cterm=reverse
 
 
-" programming
+" Standard syntax
 " ----------------------------------------------------------
-hi Constant        ctermfg=Gray         cterm=none
 hi Boolean         ctermfg=Yellow       cterm=bold
 hi Character       ctermfg=Red          cterm=none
-hi Float           ctermfg=Gray         cterm=none
-hi Number          ctermfg=Gray         cterm=none
-hi String          ctermfg=Red          cterm=none
-
 hi Comment         ctermfg=Green        cterm=none
-hi Identifier      ctermfg=Cyan         cterm=none
-hi Function        ctermfg=Cyan         cterm=none
-
-hi Statement       ctermfg=Yellow       cterm=bold
 hi Conditional     ctermfg=Yellow       cterm=bold
-hi Repeat          ctermfg=Yellow       cterm=bold
-hi Label           ctermfg=Green        cterm=none
-hi Operator        ctermfg=Gray         cterm=none
+hi Constant        ctermfg=Gray         cterm=none
+hi Define          ctermfg=Yellow       cterm=bold
+hi Delimiter       ctermfg=Gray         cterm=none
+hi Float           ctermfg=Gray         cterm=none
+hi Function        ctermfg=Cyan         cterm=none
+hi Identifier      ctermfg=Cyan         cterm=none
+hi Include         ctermfg=Cyan         cterm=none
 hi Keyword         ctermfg=Cyan         cterm=none
-hi Exception       ctermfg=Yellow       cterm=bold
-
+hi Label           ctermfg=Green        cterm=none
+hi Number          ctermfg=Gray         cterm=none
+hi Operator        ctermfg=Gray         cterm=none
 hi PreProc         ctermfg=Blue         cterm=none
-
-hi Type            ctermfg=Cyan         cterm=none
+hi Repeat          ctermfg=Yellow       cterm=bold
+hi Special         ctermfg=Red          cterm=none
+hi SpecialChar     ctermfg=Red          cterm=none
+hi Statement       ctermfg=Yellow       cterm=bold
 hi StorageClass    ctermfg=Yellow       cterm=bold
+hi String          ctermfg=Red          cterm=none
 hi Structure       ctermfg=Yellow       cterm=bold
+hi Tag             ctermfg=Gray         cterm=none
+hi Todo            ctermfg=Red          cterm=bold          ctermbg=Black
+hi Type            ctermfg=Cyan         cterm=none
 hi Typedef         ctermfg=Yellow       cterm=bold
 
-hi Special         ctermfg=Red          cterm=none
-hi Delimiter       ctermfg=Gray         cterm=none
-hi Tag             ctermfg=Gray         cterm=none
-hi Debug           ctermfg=Gray         cterm=none
 
 
 " sage
@@ -60,7 +65,6 @@ hi sagePrompt      ctermfg=DarkYellow   cterm=none
 
 " text
 " ----------------------------------------------------------
-hi Title           ctermfg=Cyan         cterm=bold
 
 hi SpellBad        ctermfg=Red          cterm=bold
 hi SpellCap        ctermfg=Red          cterm=bold
@@ -89,20 +93,43 @@ hi texDefParm      ctermfg=Gray         cterm=none
 
 " diff
 " ----------------------------------------------------------
-hi diffAdded       ctermfg=DarkGreen    cterm=none
-hi diffChanged     ctermfg=DarkYellow   cterm=none
-hi diffRemoved     ctermfg=DarkRed      cterm=none 
-hi diffFile        ctermfg=Red          cterm=none
-hi diffLine        ctermfg=DarkCyan     cterm=none
+hi DiffAdd         ctermfg=DarkGreen    cterm=none
+hi DiffChange      ctermfg=DarkYellow   cterm=none
+hi DiffDelete      ctermfg=DarkRed      cterm=none
+hi DiffText        ctermfg=Gray         cterm=none
+
+hi DiffAdded       ctermfg=DarkGreen    cterm=none
+hi DiffChanged     ctermfg=DarkYellow   cterm=none
+hi DiffRemoved     ctermfg=DarkRed      cterm=none 
+
+hi DiffFile        ctermfg=Red          cterm=none
+hi DiffLine        ctermfg=DarkCyan     cterm=none
 
 
-" Vim
-" ----------------------------------------------------------
+" git
+" ---------------------------------------------------------
+hi gitCommitOverflow ctermfg=Red        cterm=none
+hi gitCommitSummary  ctermfg=Cyan       cterm=none
 
-hi Cursor          ctermfg=White        cterm=bold
-hi StatusLine      ctermfg=Gray         cterm=reverse
+hi GitGutterAdd          ctermfg=DarkGreen    cterm=none
+hi GitGutterChange       ctermfg=DarkYellow   cterm=none
+hi GitGutterDelete       ctermfg=DarkRed      cterm=none
+hi GitGutterChangeDelete ctermfg=DarkRed      cterm=none
 
-"hi StatusLineNC    guifg=#2e3330 guibg=#88b090
+
+" modeline
+" ---------------------------------------------------------
+hi AirlineNormal   ctermfg=Green    ctermbg=Black   cterm=bold
+hi AirlineInsert   ctermfg=Yellow   ctermbg=Black   cterm=none
+hi AirlineReplace  ctermfg=Red      ctermbg=Black   cterm=none
+hi AirlineVisual   ctermfg=Blue     ctermbg=Black   cterm=none
+
+hi AirlineBranch   ctermfg=DarkGray ctermbg=White   cterm=none
+hi AirlineBuffer   ctermfg=Black    ctermbg=White   cterm=none
+
+hi AirlineInactive ctermfg=Black       ctermbg=Gray    cterm=none
+hi AirlineWarning  ctermfg=DarkYellow  ctermbg=White   cterm=none
+hi AirlineModified ctermfg=Black       ctermbg=Red     cterm=none
 
 
 
