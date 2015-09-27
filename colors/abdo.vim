@@ -130,6 +130,7 @@ hi AirlineBuffer   ctermfg=Black    ctermbg=White   cterm=none
 hi AirlineInactive ctermfg=Black       ctermbg=Gray    cterm=none
 hi AirlineWarning  ctermfg=DarkYellow  ctermbg=White   cterm=none
 hi AirlineModified ctermfg=Black       ctermbg=Red     cterm=none
+hi AirlineReadonly ctermfg=Black       ctermbg=DarkRed cterm=none
 
 
 

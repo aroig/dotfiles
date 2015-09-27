@@ -74,6 +74,7 @@ let g:airline#themes#abdo#palette.insert_paste = { 'airline_a': s:PA }
 " will be red instead of the section's foreground color. You can also have
 " multiple parts with accents within a section.
 
-let g:airline#themes#abdo#palette.accents = { }
+let s:RO = airline#themes#get_highlight2(['AirlineReadonly', 'bg'], ['AirlineReadonly', 'fg'])
+let g:airline#themes#abdo#palette.accents = { 'red': s:RO }
 " let g:airline#themes#abdo#palette.accents = { 'red': s:AC1 }
 
