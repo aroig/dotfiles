@@ -68,6 +68,7 @@ let g:tex_flavor = "latex"
 map J 30j                         " movement by blocks of 30 lines
 map K 30k
 
+map <F10> :echo synIDattr(synID(line("."),col("."),1),"name")
 
 " User Interface
 " --------------------
@@ -82,12 +83,46 @@ set laststatus=2                  " always display status line
 
 " Status Line
 " --------------------
-set statusline=\ %{toupper(mode())}\ \|                    "mode
-set statusline+=\ %y\ %{&fo}\ \|                           "filetype and formatoptions
-set statusline+=\ %t\ %m%r                                 "tail of the filename with flags 
-set statusline+=%{fugitive#statusline()}                   "git status
-set statusline+=%=                                         "left/right separator
-set statusline+=%l:%-2c\ %P\ \|                            "line:column percent
-set statusline+=\ %{strlen(&fenc)?&fenc:'none'}\ %{&ff}    "file encoding, file format
-set statusline+=\                 
+function! StatuslineMode(m)
+    let curm = toupper(mode())
+    if a:m == curm
+        return ':' . curm . ' '
+    else
+        return ''
+    endif
+endfunction
+
+function! StatuslineFiletype()
+    if &filetype != ''
+        return &filetype . ' '
+    endif
+endfunction
+
+function! StatuslineFormatoptions()
+    if &formatoptions != ''
+        return &formatoptions . ' '
+    endif
+endfunction
+
+set statusline=
+
+set statusline+=%#StatusLineInsert#%{StatuslineMode('I')}
+set statusline+=%#StatusLineNormal#%{StatuslineMode('N')}
+set statusline+=%#StatusLineNormal#%{StatuslineMode('R')}
+set statusline+=%#StatusLineNormal#%{StatuslineMode('V')}
+set statusline+=%*
+
+"tail of the filename with flags 
+set statusline+=\ %{StatuslineFiletype()}%{StatuslineFormatoptions()}\|
+set statusline+=\ %t\ %M%R
+
+"left/right separator
+set statusline+=%=
+
+"git status
+set statusline+=%{fugitive#head()}\ 
+
+set statusline+=\|\ %l:%-2c\ %P\                             "line:column percent
+set statusline+=\|\ %{strlen(&fenc)?&fenc:'none'}\ %{&ff}\   "file encoding, file format
+
 
