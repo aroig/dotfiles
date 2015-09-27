@@ -18,25 +18,12 @@ set showmatch                     " match parenthesis
 
 " Status line
 " --------------------
-if $TERM != "linux"
-    let g:airline_powerline_fonts = 1
-endif
-"let g:airline_theme = "murmur"
-let g:airline_theme = "abdo"
-
-let g:airline#extensions#default#layout = [
-    \ [ 'a', 'b', 'c' ],
-    \ [ 'x', 'y', 'z' ]
-    \ ]
-
 
 set showcmd                       " show partial command
 set laststatus=2                  " always display status line
 
 "set ruler                         " show cursor position
 
-"set statusline=%<\ %{mode()}\ >\ %f\ >\ %y%=
-"set statusline+=<\ %l:%-2c\ %P\ <\ %m%r%{strlen(&fenc)?&fenc:&enc}\ %{&ff}\ 
 
 " Usability
 " --------------------

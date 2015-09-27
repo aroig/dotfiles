@@ -29,29 +29,29 @@ let g:airline#themes#abdo#palette = {}
 " [ guifg, guibg, ctermfg, ctermbg, opts ]. See "help attr-list" for valid
 " values for the "opt" value.
 
-let s:BR = airline#themes#get_highlight2(['AirlineBranch', 'bg'], ['AirlineBranch', 'fg'])
-let s:BF = airline#themes#get_highlight2(['AirlineBuffer', 'bg'], ['AirlineBuffer', 'fg'])
+let s:BR = airline#themes#get_highlight2(['AirlineBranch', 'fg'], ['AirlineBranch', 'bg'])
+let s:BF = airline#themes#get_highlight2(['AirlineBuffer', 'fg'], ['AirlineBuffer', 'bg'])
 
-let s:N1 = airline#themes#get_highlight2(['AirlineNormal', 'bg'], ['AirlineNormal', 'fg'])
+let s:N1 = airline#themes#get_highlight2(['AirlineNormal', 'fg'], ['AirlineNormal', 'bg'])
 let g:airline#themes#abdo#palette.normal = airline#themes#generate_color_map(s:N1, s:BR, s:BF)
 
-let s:I1 = airline#themes#get_highlight2(['AirlineInsert', 'bg'], ['AirlineInsert', 'fg'])
+let s:I1 = airline#themes#get_highlight2(['AirlineInsert', 'fg'], ['AirlineInsert', 'bg'])
 let g:airline#themes#abdo#palette.insert = airline#themes#generate_color_map(s:I1, s:BR, s:BF)
 
-let s:V1 = airline#themes#get_highlight2(['AirlineVisual', 'bg'], ['AirlineVisual', 'fg'])
+let s:V1 = airline#themes#get_highlight2(['AirlineVisual', 'fg'], ['AirlineVisual', 'bg'])
 let g:airline#themes#abdo#palette.visual = airline#themes#generate_color_map(s:V1, s:BR, s:BF)
 
-let s:R1 = airline#themes#get_highlight2(['AirlineReplace', 'bg'], ['AirlineReplace', 'fg'])
+let s:R1 = airline#themes#get_highlight2(['AirlineReplace', 'fg'], ['AirlineReplace', 'bg'])
 let g:airline#themes#abdo#palette.replace = airline#themes#generate_color_map(s:R1, s:BR, s:BF)
 
-let s:IA1 = airline#themes#get_highlight2(['AirlineInactive', 'bg'], ['AirlineInactive', 'fg'])
+let s:IA1 = airline#themes#get_highlight2(['AirlineInactive', 'fg'], ['AirlineInactive', 'bg'])
 let g:airline#themes#abdo#palette.inactive = airline#themes#generate_color_map(s:IA1, s:BR, s:BF)
 
 " Here we define overrides for when the buffer is modified.  This will be
 " applied after g:airline#themes#abdo#palette.normal, hence why only certain keys are
 " declared.
-let s:MO = airline#themes#get_highlight2(['AirlineModified', 'bg'], ['AirlineBuffer', 'fg'])
-let s:WA = airline#themes#get_highlight2(['AirlineWarning', 'bg'], ['AirlineWarning', 'fg'])
+let s:MO = airline#themes#get_highlight2(['AirlineModified', 'fg'], ['AirlineBuffer', 'bg'])
+let s:WA = airline#themes#get_highlight2(['AirlineWarning', 'fg'], ['AirlineWarning', 'bg'])
 
 let g:airline#themes#abdo#palette.normal.airline_warning = s:WA
 let g:airline#themes#abdo#palette.insert.airline_warning = s:WA
@@ -63,7 +63,7 @@ let g:airline#themes#abdo#palette.insert_modified = { 'airline_c': s:MO, 'airlin
 let g:airline#themes#abdo#palette.visual_modified = { 'airline_c': s:MO, 'airline_warning': s:WA }
 let g:airline#themes#abdo#palette.inactive_modified = { 'airline_c': s:MO, 'airline_warning': s:WA }
 
-let s:PA = airline#themes#get_highlight2(['AirlineModified', 'bg'], ['AirlineBuffer', 'fg'])
+let s:PA = airline#themes#get_highlight2(['AirlineModified', 'fg'], ['AirlineBuffer', 'bg'])
 let g:airline#themes#abdo#palette.insert_paste = { 'airline_a': s:PA }
 
 " Accents are used to give parts within a section a slightly different look or
@@ -74,7 +74,7 @@ let g:airline#themes#abdo#palette.insert_paste = { 'airline_a': s:PA }
 " will be red instead of the section's foreground color. You can also have
 " multiple parts with accents within a section.
 
-let s:RO = airline#themes#get_highlight2(['AirlineReadonly', 'bg'], ['AirlineReadonly', 'fg'])
+let s:RO = airline#themes#get_highlight2(['AirlineReadonly', 'fg'], ['AirlineReadonly', 'bg'])
 let g:airline#themes#abdo#palette.accents = { 'red': s:RO }
 " let g:airline#themes#abdo#palette.accents = { 'red': s:AC1 }
 

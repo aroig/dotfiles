@@ -59,16 +59,13 @@ set clipboard=unnamedplus
 set mouse=a
 set ttymouse=xterm2
 
-
-
 " statusline
 set statusline=\ %{toupper(mode())}\ \|                    "mode
-set statusline+=\ %t\ \|                                   "tail of the filename
-set statusline+=\ %{&fo}                                   "formatoptions
-set statusline+=\ %y                                       "filetype
+set statusline+=\ %y\ %{&fo}\ \|                           "filetype and formatoptions
+set statusline+=\ %t\ %m%r                                 "tail of the filename with flags 
+set statusline+=%{fugitive#statusline()}                   "git status
 set statusline+=%=                                         "left/right separator
 set statusline+=%l:%-2c\ %P\ \|                            "line:column percent
-set statusline+=\ %m%r                                     "modified, read only flags
 set statusline+=\ %{strlen(&fenc)?&fenc:'none'}\ %{&ff}    "file encoding, file format
 set statusline+=\                 
 
