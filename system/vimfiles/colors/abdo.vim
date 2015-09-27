@@ -22,12 +22,12 @@ hi Exception         ctermfg=Yellow                            cterm=bold
 hi FoldColumn        ctermfg=Green                             cterm=bold
 hi Folded            ctermfg=Green                             cterm=bold
 hi Ignore            ctermfg=Black                             cterm=none
-hi IncSearch         ctermfg=Black        ctermbg=Yellow       cterm=none
+hi IncSearch         ctermfg=Yellow                            cterm=none
 hi ModeMsg           ctermfg=Yellow                            cterm=none
 hi MoreMsg           ctermfg=Yellow                            cterm=none
 hi Normal            ctermfg=none                              cterm=none
 hi Question          ctermfg=Yellow                            cterm=none
-hi Search            ctermfg=Yellow                            cterm=none
+hi Search            ctermfg=Black        ctermbg=Yellow       cterm=none
 hi Title             ctermfg=Cyan                              cterm=bold
 hi Underlined                                                  cterm=underline
 hi Visual            ctermbg=Gray                              cterm=none
