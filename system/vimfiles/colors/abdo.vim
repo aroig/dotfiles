@@ -30,6 +30,7 @@ hi Question          ctermfg=Yellow                            cterm=none
 hi Search            ctermfg=Black        ctermbg=Yellow       cterm=none
 hi Title             ctermfg=Cyan                              cterm=bold
 hi Underlined                                                  cterm=underline
+hi VertSplit         ctermbg=Black                             cterm=none
 hi Visual            ctermbg=Gray                              cterm=none
 
 
@@ -98,7 +99,7 @@ hi texDefParm        ctermfg=Gray                              cterm=none
 hi DiffAdd           ctermfg=DarkGreen    ctermbg=Black        cterm=none
 hi DiffChange        ctermfg=DarkYellow   ctermbg=Black        cterm=none
 hi DiffDelete        ctermfg=DarkRed      ctermbg=Black        cterm=none
-hi DiffText          ctermfg=Black        ctermbg=DarkYellow   cterm=none
+hi DiffText          ctermfg=DarkYellow   ctermbg=Black        cterm=none
 hi DiffAdded         ctermfg=DarkGreen    ctermbg=Black        cterm=none
 hi DiffChanged       ctermfg=DarkYellow   ctermbg=Black        cterm=none
 hi DiffRemoved       ctermfg=DarkRed      ctermbg=Black        cterm=none 
