@@ -229,8 +229,8 @@ hi StatusLineInsert  ctermfg=Black        ctermbg=Yellow       cterm=none
 hi StatusLineReplace ctermfg=Black        ctermbg=Red          cterm=none
 hi StatusLineVisual  ctermfg=Black        ctermbg=Blue         cterm=none
 
-hi StatusLineGit     ctermfg=DarkCyan                          cterm=none
-hi StatusLineBuffer  ctermfg=White        ctermbg=Black        cterm=none
+hi StatusLineGit     ctermfg=DarkBlue     ctermbg=Gray         cterm=none
+hi StatusLineMod     ctermfg=DarkRed      ctermbg=Gray         cterm=none
 
 
 " Other Stuff
