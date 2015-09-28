@@ -3,17 +3,21 @@
 " License:      GNU GPL <http://www.gnu.org/licenses/gpl.html>
 
 set background=dark
-highlight clear
+hi! clear
+
 if exists("syntax_on")
   syntax reset
 endif
+
 let g:colors_name = "abdo"
 
 
 " General vim
 " ----------------------------------------------------------
-hi Bold                                                        cterm=bold
+hi ColorColumn                            ctermbg=Black        cterm=none
 hi Cursor            ctermfg=White                             cterm=bold
+hi CursorLine                             ctermbg=Black        cterm=none
+hi CursorLineNr      ctermfg=Yellow       ctermbg=Black        cterm=none
 hi Debug             ctermfg=Gray                              cterm=none
 hi Directory         ctermfg=Blue                              cterm=none
 hi Error             ctermfg=Red          ctermbg=Black        cterm=bold
@@ -23,15 +27,37 @@ hi FoldColumn        ctermfg=Green                             cterm=bold
 hi Folded            ctermfg=Green                             cterm=bold
 hi Ignore            ctermfg=Black                             cterm=none
 hi IncSearch         ctermfg=Yellow                            cterm=none
-hi ModeMsg           ctermfg=Yellow                            cterm=none
+hi LineNr            ctermfg=DarkGray     ctermbg=none         cterm=none
+hi MatchParen        ctermfg=White        ctermbg=none         cterm=underline
 hi MoreMsg           ctermfg=Yellow                            cterm=none
+hi NonText           ctermfg=Gray                              cterm=none
 hi Normal            ctermfg=none                              cterm=none
-hi Question          ctermfg=Yellow                            cterm=none
+hi Pmenu             ctermfg=White        ctermbg=Black        cterm=none
+hi PmenuThumb        ctermfg=Gray         ctermbg=Black        cterm=none
+hi PmenuSBar         ctermfg=Gray         ctermbg=Black        cterm=none
+hi PmenuSel          ctermfg=Black        ctermbg=Blue         cterm=none
 hi Search            ctermfg=Black        ctermbg=Yellow       cterm=none
+hi TabLine           ctermfg=Gray         ctermbg=Black        cterm=none
+hi TabLineSel        ctermfg=Gray         ctermbg=Black        cterm=none
 hi Title             ctermfg=Cyan                              cterm=bold
 hi Underlined                                                  cterm=underline
-hi VertSplit         ctermbg=Black                             cterm=none
-hi Visual            ctermbg=Gray                              cterm=none
+hi VertSplit                              ctermbg=Black        cterm=none
+hi Visual                                 ctermbg=DarkGray     cterm=none
+
+hi! link CursorColumn  CursorLine
+hi! link SignColumn    LineNr
+hi! link WildMenu      Visual
+hi! link FoldColumn    SignColumn
+hi! link WarningMsg    ErrorMsg
+hi! link Question      MoreMsg
+hi! link ModeMsg       MoreMsg
+hi! link TabLineFill   StatusLineNC
+hi! link SpecialKey    NonText
+
+hi SpellBad          ctermfg=Red                               cterm=bold
+hi SpellCap          ctermfg=Red                               cterm=bold
+hi SpellLocal        ctermfg=Red                               cterm=bold
+hi SpellRare         ctermfg=Red                               cterm=bold
 
 
 " Standard syntax
@@ -65,23 +91,79 @@ hi Type              ctermfg=Cyan                              cterm=none
 hi Typedef           ctermfg=Yellow                            cterm=bold
 
 
-
-" Sagemath
-" ----------------------------------------------------------
-hi sagePrompt        ctermfg=DarkYellow                        cterm=none
-
-
-" text
+" Web stuff
 " ----------------------------------------------------------
 
-hi SpellBad          ctermfg=Red                               cterm=bold
-hi SpellCap          ctermfg=Red                               cterm=bold
-hi SpellLocal        ctermfg=Red                               cterm=bold
-hi SpellRare         ctermfg=Red                               cterm=bold
+" html
+hi htmlTagName              ctermfg=DarkGreen                  cterm=none
+hi htmlTag                  ctermfg=DarkGreen                  cterm=none
+hi htmlArg                  ctermfg=Green                      cterm=none
+hi htmlBold                                                    cterm=bold
+hi htmlItalic                                                  cterm=underline
+hi htmlUnderline                                               cterm=underline
+hi htmlBoldItalic                                              cterm=bold,underline
+hi htmlBoldUnderline                                           cterm=bold,underline
+hi htmlUnderlineItalic                                         cterm=underline
+hi htmlBoldUnderlineItalic                                     cterm=bold,underline
+hi htmlLink                 ctermfg=Yellow                     cterm=underline
+hi! link htmlH1       Title
+hi! link htmlEndTag   htmlTag
 
+" xml
+hi xmlTagName               ctermfg=DarkBlue
+hi xmlTag                   ctermfg=Blue
+hi! link xmlString  xmlTagName
+hi! link xmlAttrib  xmlTag
+hi! link xmlEndTag  xmlTag
+hi! link xmlEqual   xmlTag
+
+" javascript
+hi! link javaScript        Normal
+hi! link javaScriptBraces  Delimiter
+
+"help
+hi! link helpExample         String
+hi! link helpHeadline        Title
+hi! link helpSectionDelim    Comment
+hi! link helpHyperTextEntry  Statement
+hi! link helpHyperTextJump   Underlined
+hi! link helpURL             Underlined
+
+
+" Programming Languages
+" ----------------------------------------------------------
+
+" ruby
+hi! link rubyDefine                 Statement
+hi! link rubyLocalVariableOrMethod  Identifier
+hi! link rubyConstant               Constant
+hi! link rubyInstanceVariable       Number
+hi! link rubyStringDelimiter        rubyString
+
+"vim
+hi! link vimSetSep    Delimiter
+hi! link vimContinue  Delimiter
+hi! link vimHiAttrib  Constant
+
+
+" Text Documents
+" ----------------------------------------------------------
+
+" markdown
+hi! link markdownHeadingRule        NonText
+hi! link markdownHeadingDelimiter   markdownHeadingRule
+hi! link markdownLinkDelimiter      Delimiter
+hi! link markdownURLDelimiter       Delimiter
+hi! link markdownCodeDelimiter      NonText
+hi! link markdownLinkTextDelimiter  markdownLinkDelimiter
+hi! link markdownUrl                markdownLinkText
+hi! link markdownAutomaticLink      markdownLinkText
+hi! link markdownCodeBlock          String
+hi! link markdownCode               String
+hi markdownBold                     cterm=bold
+hi markdownItalic                   cterm=underline
 
 " tex
-" ----------------------------------------------------------
 hi texBoldStyle      ctermfg=Green                             cterm=bold
 hi texSection        ctermfg=Yellow                            cterm=bold
 hi texBeginEndName   ctermfg=Cyan                              cterm=none
@@ -94,28 +176,44 @@ hi texDef            ctermfg=Yellow                            cterm=bold
 hi texDefParm        ctermfg=Gray                              cterm=none
 
 
-" diff
+" Tools
 " ----------------------------------------------------------
+
+" sagemath
+hi sagePrompt        ctermfg=DarkYellow                        cterm=none
+
+" git
+hi gitCommitBranch        ctermfg=Blue
+hi gitCommitOverflow      ctermfg=Red                               cterm=none
+hi gitCommitSelectedType  ctermfg=Green
+hi gitCommitSelectedFile  ctermfg=DarkGreen
+hi gitCommitSummary       ctermfg=Cyan                              cterm=none
+hi gitCommitUnmergedType  ctermfg=Red
+hi gitCommitUnmergedFile  ctermfg=DarkRed
+hi! link gitCommitFile           Directory
+hi! link gitCommitUntrackedFile  gitCommitUnmergedFile
+hi! link gitCommitDiscardedType  gitCommitUnmergedType
+hi! link gitCommitDiscardedFile  gitCommitUnmergedFile
+
+hi GitGutterAdd      ctermfg=DarkGreen                         cterm=none
+hi GitGutterChange   ctermfg=DarkYellow                        cterm=none
+hi GitGutterDelete   ctermfg=DarkRed                           cterm=none
+hi GitGutterChangeDelete ctermfg=DarkRed                       cterm=none
+
+" diff
 hi DiffAdd           ctermfg=DarkGreen    ctermbg=Black        cterm=none
 hi DiffChange        ctermfg=DarkYellow   ctermbg=Black        cterm=none
 hi DiffDelete        ctermfg=DarkRed      ctermbg=Black        cterm=none
-hi DiffText          ctermfg=DarkYellow   ctermbg=Black        cterm=none
+hi DiffText          ctermfg=DarkRed      ctermbg=Yellow       cterm=none
 hi DiffAdded         ctermfg=DarkGreen    ctermbg=Black        cterm=none
 hi DiffChanged       ctermfg=DarkYellow   ctermbg=Black        cterm=none
 hi DiffRemoved       ctermfg=DarkRed      ctermbg=Black        cterm=none 
 hi DiffFile                                                    cterm=none
 hi DiffLine                                                    cterm=none
 
-
-" git
-" ---------------------------------------------------------
-hi gitCommitOverflow ctermfg=Red                               cterm=none
-hi gitCommitSummary  ctermfg=Cyan                              cterm=none
-
-hi GitGutterAdd      ctermfg=DarkGreen                         cterm=none
-hi GitGutterChange   ctermfg=DarkYellow                        cterm=none
-hi GitGutterDelete   ctermfg=DarkRed                           cterm=none
-hi GitGutterChangeDelete ctermfg=DarkRed                       cterm=none
+" NERDTree
+hi! link NERDTreeHelp      Comment
+hi! link NERDTreeExecFile  String
 
 
 " Statusline
@@ -134,22 +232,14 @@ hi StatusLineVisual  ctermfg=Black        ctermbg=Blue         cterm=none
 hi StatusLineGit     ctermfg=DarkCyan                          cterm=none
 hi StatusLineBuffer  ctermfg=White        ctermbg=Black        cterm=none
 
-hi AirlineInactive   ctermfg=Gray         ctermbg=Black        cterm=none
-hi AirlineWarning    ctermfg=DarkYellow   ctermbg=Black        cterm=none
-hi AirlineModified   ctermfg=Red          ctermbg=Black        cterm=none
-hi AirlineReadonly   ctermfg=DarkRed      ctermbg=Black        cterm=none
-
 
 " Other Stuff
 " ----------------------------------------------------------
 
-"hi SpecialChar     guifg=#dca3a3 gui=bold
 "hi SpecialComment  guifg=#82a282 gui=bold
-"hi SpecialKey      guifg=#9ece9e
-"hi VertSplit       guifg=#2e3330 guibg=#688060
 "hi VisualNOS       guifg=#333333 guibg=#f18c96 gui=bold,underline
-"hi WarningMsg      cterm=yellow
-"hi WildMenu        guibg=#2c302d guifg=#cbecd0 gui=underline
+
+
 
 
 
