@@ -48,7 +48,7 @@ local function pid_cgroup(pid)
     local f = io.open(string.format("/proc/%d/cgroup", pid), 'rb')
     if f then
         local raw = f:read("*all")
-        cgroup = string.match(raw, "systemd:(.-)%s*$")
+        cgroup = string.match(raw, ":([^:]-)%s*$")
         f:close()
     end
     return cgroup
@@ -66,7 +66,7 @@ end
 
 local function cgroup_mainpid(cgroup)
     if cgroup then
-        local f = io.open(string.format("/sys/fs/cgroup/systemd%s/cgroup.procs", cgroup), 'rb')
+        local f = io.open(string.format("/sys/fs/cgroup%s/cgroup.procs", cgroup), 'rb')
         if f then
             local mainpid = f:read("*l")
             f:close()
