@@ -2,8 +2,6 @@
 " Bindings
 " --------------------
 
-let mapleader=","
-
 " movement
 map J 30j                         " movement by blocks of 30 lines
 map K 30k
@@ -17,8 +15,16 @@ if &diff
     nmap d^ :diffget BASE<CR>
 endif
 
-" clear search highlights with esc
-nnoremap <Leader>c :noh<CR>
+" clear highlights on esc
+nnoremap <esc> <esc> :noh<CR><esc>
+
+
+" Local Bindings
+" --------------------
+
+let mapleader=","
+
+" nnoremap <Leader>c :noh<CR>
 
 
 " Commands
