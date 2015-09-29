@@ -11,15 +11,6 @@ set laststatus=2                  " always display status line
 "set ruler                         " show cursor position
 
 
-" Display
-" --------------------
-augroup ActiveWindowCursorLine
-  autocmd!
-  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
-augroup END
-
-
 " Status Line
 " --------------------
 function! StatuslineMode(m)

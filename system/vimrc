@@ -28,3 +28,13 @@ source /etc/vimrc.d/general.vim
 source /etc/vimrc.d/keymaps.vim
 source /etc/vimrc.d/ui.vim
 
+
+" Display
+" --------------------
+
+" enable cursor line on active window
+augroup ActiveWindowCursorLine
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
+augroup END
