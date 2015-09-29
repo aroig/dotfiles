@@ -15,7 +15,10 @@
 #------------------------------
 # General Keybindings
 #------------------------------
-bindkey -e              # Emacs
+
+bindkey -v              # vim bindings
+# bindkey -e    
+
 typeset -g -A key
 
 #bindkey '\e[3~' delete-char
