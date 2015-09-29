@@ -78,6 +78,9 @@ if &diff
     nmap d^ :diffget BASE<CR>
 endif
 
+" clear search highlights with esc
+nnoremap <esc> :noh<return><esc>
+
 " vim internals
 command SyntaxGroup echo synIDattr(synID(line("."),col("."),1),"name")
 
