@@ -16,8 +16,8 @@ let g:colors_name = "abdo"
 " ----------------------------------------------------------
 hi ColorColumn                            ctermbg=Black        cterm=none
 hi Cursor            ctermfg=White                             cterm=bold
-hi CursorLine        ctermfg=White        ctermbg=DarkGray     cterm=none
-hi CursorColumn      ctermfg=White        ctermbg=DarkGray     cterm=none
+hi CursorLine                             ctermbg=DarkGray     cterm=none
+hi CursorColumn                           ctermbg=DarkGray     cterm=none
 hi CursorLineNr      ctermfg=Yellow       ctermbg=Black        cterm=none
 hi Debug             ctermfg=Gray                              cterm=none
 hi Directory         ctermfg=Blue                              cterm=none
@@ -31,7 +31,7 @@ hi IncSearch         ctermfg=Yellow                            cterm=none
 hi LineNr            ctermfg=DarkGray     ctermbg=none         cterm=none
 hi MatchParen        ctermfg=White        ctermbg=none         cterm=underline
 hi MoreMsg           ctermfg=Yellow                            cterm=none
-hi NonText           ctermfg=DarkGray                          cterm=none
+hi NonText           ctermfg=Gray                              cterm=none
 hi Normal            ctermfg=none                              cterm=none
 hi Pmenu             ctermfg=White        ctermbg=Black        cterm=none
 hi PmenuThumb        ctermfg=Gray         ctermbg=Black        cterm=none
@@ -221,8 +221,8 @@ hi! link NERDTreeExecFile  String
 
 " vim
 hi StatusLine        ctermfg=Black        ctermbg=Gray         cterm=none
-hi StatusLineNC      ctermfg=Black        ctermbg=DarkGray     cterm=none
-hi TabLineFill       ctermfg=Black        ctermbg=DarkGray     cterm=none
+hi StatusLineNC      ctermfg=White        ctermbg=DarkGray     cterm=none
+hi TabLineFill       ctermfg=White        ctermbg=DarkGray     cterm=none
 
 " custom
 hi StatusLineNormal  ctermfg=Black        ctermbg=Green        cterm=none
