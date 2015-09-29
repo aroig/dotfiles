@@ -1,6 +1,9 @@
 
 " Bindings
 " --------------------
+
+let mapleader=","
+
 " movement
 map J 30j                         " movement by blocks of 30 lines
 map K 30k
@@ -15,7 +18,11 @@ if &diff
 endif
 
 " clear search highlights with esc
-nnoremap <esc> :noh<return><esc>
+nnoremap <Leader>c :noh<CR>
+
+
+" Commands
+" --------------------
 
 " vim internals
 command SyntaxGroup echo synIDattr(synID(line("."),col("."),1),"name")

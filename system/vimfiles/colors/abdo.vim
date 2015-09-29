@@ -221,8 +221,8 @@ hi! link NERDTreeExecFile  String
 
 " vim
 hi StatusLine        ctermfg=Black        ctermbg=Gray         cterm=none
-hi StatusLineNC      ctermfg=White        ctermbg=DarkGray     cterm=none
-hi TabLineFill       ctermfg=White        ctermbg=DarkGray     cterm=none
+hi StatusLineNC      ctermfg=Gray         ctermbg=DarkGray     cterm=none
+hi TabLineFill       ctermfg=Gray         ctermbg=DarkGray     cterm=none
 
 " custom
 hi StatusLineNormal  ctermfg=Black        ctermbg=Green        cterm=none
