@@ -204,7 +204,7 @@ hi GitGutterChangeDelete ctermfg=DarkRed                       cterm=none
 hi DiffAdd           ctermfg=DarkGreen    ctermbg=Black        cterm=none
 hi DiffChange        ctermfg=DarkYellow   ctermbg=Black        cterm=none
 hi DiffDelete        ctermfg=DarkRed      ctermbg=Black        cterm=none
-hi DiffText          ctermfg=Yellow       ctermbg=Black        cterm=bold
+hi DiffText          ctermfg=Black        ctermbg=Yellow       cterm=none
 hi DiffAdded         ctermfg=DarkGreen    ctermbg=Black        cterm=none
 hi DiffChanged       ctermfg=DarkYellow   ctermbg=Black        cterm=none
 hi DiffRemoved       ctermfg=DarkRed      ctermbg=Black        cterm=none 
