@@ -86,11 +86,21 @@ command SyntaxGroup echo synIDattr(synID(line("."),col("."),1),"name")
 " --------------------
 colors abdo                       " default color scheme
 set background=dark               " dark background
+set t_Co=16                       " restrict to 16 colors
 
 set showcmd                       " show partial command
 set laststatus=2                  " always display status line
 
 "set ruler                         " show cursor position
+
+
+" Display
+" --------------------
+augroup ActiveWindowCursorLine
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
+augroup END
 
 
 " Status Line
@@ -131,13 +141,13 @@ set statusline+=%*
 "tail of the filename with flags 
 set statusline+=\ %{StatuslineFiletype()}%{StatuslineFormatoptions()}\|
 set statusline+=\ %t\ 
-set statusline+=%M%R%*
+set statusline+=%1*%M%R%*
 
 "left/right separator
 set statusline+=%=
 
 "git status
-set statusline+=%{fugitive#head()}\ 
+set statusline+=%2*%{fugitive#head()}%*\ 
 
 set statusline+=\|\ %l:%-2c\ %P\                             "line:column percent
 set statusline+=\|\ %{strlen(&fenc)?&fenc:'none'}\ %{&ff}\   "file encoding, file format

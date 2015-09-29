@@ -16,7 +16,8 @@ let g:colors_name = "abdo"
 " ----------------------------------------------------------
 hi ColorColumn                            ctermbg=Black        cterm=none
 hi Cursor            ctermfg=White                             cterm=bold
-hi CursorLine                             ctermbg=Black        cterm=none
+hi CursorLine        ctermfg=White        ctermbg=DarkGray     cterm=none
+hi CursorColumn      ctermfg=White        ctermbg=DarkGray     cterm=none
 hi CursorLineNr      ctermfg=Yellow       ctermbg=Black        cterm=none
 hi Debug             ctermfg=Gray                              cterm=none
 hi Directory         ctermfg=Blue                              cterm=none
@@ -30,7 +31,7 @@ hi IncSearch         ctermfg=Yellow                            cterm=none
 hi LineNr            ctermfg=DarkGray     ctermbg=none         cterm=none
 hi MatchParen        ctermfg=White        ctermbg=none         cterm=underline
 hi MoreMsg           ctermfg=Yellow                            cterm=none
-hi NonText           ctermfg=Gray                              cterm=none
+hi NonText           ctermfg=DarkGray                          cterm=none
 hi Normal            ctermfg=none                              cterm=none
 hi Pmenu             ctermfg=White        ctermbg=Black        cterm=none
 hi PmenuThumb        ctermfg=Gray         ctermbg=Black        cterm=none
@@ -42,16 +43,15 @@ hi TabLineSel        ctermfg=Gray         ctermbg=Black        cterm=none
 hi Title             ctermfg=Cyan                              cterm=bold
 hi Underlined                                                  cterm=underline
 hi VertSplit                              ctermbg=Black        cterm=none
-hi Visual                                 ctermbg=DarkGray     cterm=none
+hi Visual            ctermfg=Black        ctermbg=Blue         cterm=none
 
-hi! link CursorColumn  CursorLine
+
 hi! link SignColumn    LineNr
 hi! link WildMenu      Visual
 hi! link FoldColumn    SignColumn
 hi! link WarningMsg    ErrorMsg
 hi! link Question      MoreMsg
 hi! link ModeMsg       MoreMsg
-hi! link TabLineFill   StatusLineNC
 hi! link SpecialKey    NonText
 
 hi SpellBad          ctermfg=Red                               cterm=bold
@@ -204,7 +204,7 @@ hi GitGutterChangeDelete ctermfg=DarkRed                       cterm=none
 hi DiffAdd           ctermfg=DarkGreen    ctermbg=Black        cterm=none
 hi DiffChange        ctermfg=DarkYellow   ctermbg=Black        cterm=none
 hi DiffDelete        ctermfg=DarkRed      ctermbg=Black        cterm=none
-hi DiffText          ctermfg=DarkRed      ctermbg=Yellow       cterm=none
+hi DiffText          ctermfg=Black        ctermbg=Yellow       cterm=none
 hi DiffAdded         ctermfg=DarkGreen    ctermbg=Black        cterm=none
 hi DiffChanged       ctermfg=DarkYellow   ctermbg=Black        cterm=none
 hi DiffRemoved       ctermfg=DarkRed      ctermbg=Black        cterm=none 
@@ -222,6 +222,7 @@ hi! link NERDTreeExecFile  String
 " vim
 hi StatusLine        ctermfg=Black        ctermbg=Gray         cterm=none
 hi StatusLineNC      ctermfg=Black        ctermbg=DarkGray     cterm=none
+hi TabLineFill       ctermfg=Black        ctermbg=DarkGray     cterm=none
 
 " custom
 hi StatusLineNormal  ctermfg=Black        ctermbg=Green        cterm=none
@@ -229,8 +230,9 @@ hi StatusLineInsert  ctermfg=Black        ctermbg=Yellow       cterm=none
 hi StatusLineReplace ctermfg=Black        ctermbg=Red          cterm=none
 hi StatusLineVisual  ctermfg=Black        ctermbg=Blue         cterm=none
 
-hi StatusLineGit     ctermfg=DarkBlue     ctermbg=Gray         cterm=none
-hi StatusLineMod     ctermfg=DarkRed      ctermbg=Gray         cterm=none
+" statusline user
+hi User1             ctermfg=Black        ctermbg=Gray         cterm=bold   " modified flag
+hi User2             ctermfg=Black        ctermbg=Gray         cterm=bold   " git branch
 
 
 " Other Stuff
