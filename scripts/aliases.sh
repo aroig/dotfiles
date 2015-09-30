@@ -80,7 +80,7 @@ alias wee='weechat-curses'
 alias fehp='feh -Tpreview'
 alias mailq='msmtp-queue'
 alias uzbl="uzbl-tabbed"
-
+alias octave="octave-cli"
 
 #------------------------------
 # Machine aliases
