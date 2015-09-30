@@ -86,7 +86,7 @@ hi StorageClass      ctermfg=Yellow                            cterm=bold
 hi String            ctermfg=Red                               cterm=none
 hi Structure         ctermfg=Yellow                            cterm=bold
 hi Tag               ctermfg=Gray                              cterm=none
-hi Todo              ctermfg=Yellow                            cterm=bold
+hi Todo              ctermfg=Yellow       ctermbg=Black        cterm=bold
 hi Type              ctermfg=Cyan                              cterm=none
 hi Typedef           ctermfg=Yellow                            cterm=bold
 
