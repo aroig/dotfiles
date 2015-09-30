@@ -1,5 +1,5 @@
 [Unit]
-Description=play sampled piano
+Description=play synth piano
 
 Requires=jack.service
 After=jack.service
