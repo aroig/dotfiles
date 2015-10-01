@@ -23,19 +23,22 @@ function! StatuslineMode(m)
 endfunction
 
 function! StatuslineFiletype()
+    let ret = ''
     if &filetype != ''
-        return &filetype . ' '
-    else
-        return ''
-    endif
-endfunction
+        let ret = &filetype
 
-function! StatuslineFormatoptions()
-    if &formatoptions != ''
-        return &formatoptions . ' '
-    else
-        return ''
+        if &formatoptions != ''
+           let ret = ret . ': '
+        else
+           let ret = ret . ' '
+        endif
     endif
+
+    if &formatoptions != ''
+        let ret = ret . &formatoptions . ' '
+    endif
+
+    return ret
 endfunction
 
 set statusline=
@@ -46,16 +49,30 @@ set statusline+=%#StatusLineReplace#%{StatuslineMode('R')}
 set statusline+=%#StatusLineVisual#%{StatuslineMode('V')}
 set statusline+=%*
 
-"tail of the filename with flags 
-set statusline+=\ %{StatuslineFiletype()}%{StatuslineFormatoptions()}\|
-set statusline+=\ %t\ 
-set statusline+=%1*%M%R%*
+"tail of the filename with flags
+if ! &diff
+    set statusline+=\ %{StatuslineFiletype()}\|
+endif
+
+if exists("g:vimpager")
+    set statusline+=\ %n:\ vimpager
+else
+    set statusline+=\ %n:\ %f
+    set statusline+=\ %1*%M%R%*
+endif
 
 "left/right separator
 set statusline+=%=
 
 "git status
-set statusline+=%2*%{fugitive#head()}%*\ 
+if ! &diff
+    set statusline+=%2*%{fugitive#head()}%*\ 
+endif
 
-set statusline+=\|\ %l:%-2c\ %P\                             "line:column percent
-set statusline+=\|\ %{strlen(&fenc)?&fenc:'none'}\ %{&ff}\   "file encoding, file format
+"line:column percent
+set statusline+=\|\ %l:%-2c\ %P\                             
+
+"file encoding, file format
+if ! &diff
+    set statusline+=\|\ %{strlen(&fenc)?&fenc:'none'}\ %{&ff}\ 
+endif
