@@ -3,7 +3,11 @@
 " --------------------
 colors abdo                       " default color scheme
 set background=dark               " dark background
-set t_Co=16                       " restrict to 16 colors
+
+" restrict to 16 colors on gui terminals
+if ! &term == "linux"
+    set t_Co=16
+endif
 
 set showcmd                       " show partial command
 set laststatus=2                  " always display status line
