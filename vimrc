@@ -20,18 +20,8 @@ autocmd BufRead,BufNewFile ~/priv/* set nobackup
 autocmd BufRead,BufNewFile ~/priv/* set noswapfile
 
 
-
-" Source vimrc.d stuff
-" --------------------
-source ~/.vim/vimrc.d/mappings        " personal mappings
-
-
 " UI stuff
 " --------------------
-
-" Use system clipboard. needs x-clipboard compiled in.
-" set clipboard=unnamedplus
-
 
 " Enable mouse to scroll, select, etc
 set mouse=a
