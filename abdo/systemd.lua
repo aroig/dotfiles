@@ -45,13 +45,18 @@ end
 
 local function pid_cgroup(pid)
     local cgroup = nil
-    local f = io.open(string.format("/proc/%d/cgroup", pid), 'rb')
-    if f then
-        local raw = f:read("*all")
-        cgroup = string.match(raw, ":([^:]-)%s*$")
-        f:close()
+
+    -- This is racy. Let's attempt several times with a timeout.
+    for i=1,10 do
+        local f = io.open(string.format("/proc/%d/cgroup", pid), 'rb')
+        if f then
+            local raw = f:read("*all")
+            cgroup = string.match(raw, ":([^:]-)%s*$")
+            f:close()
+            return cgroup
+        end
+        os.execute("sleep 0.1")
     end
-    return cgroup
 end
 
 local function unit_cgroup (unit)
@@ -223,33 +228,15 @@ end
 
 -- get cgroup from pid or unit name
 function systemd.get_cgroup (s)
-    if type(s) == "number" then
-        s = string.format("%d", s)
-
-    elseif type(s) == "string" then
-        s = s
-
-    else
-        return
-    end
-
     local cgroup = nil
 
     -- we got a pid
     if string.match(s, '^[0-9]*$') then
-        local f = io.open(string.format("/proc/%s/cgroup"), 'rb')
-        if f then
-            cgroup = string.match(f:read("*all"), "systemd:(.*)$")
-            f:close()
-        end
+        cgroup = pid_cgroup(tonumber(s))
 
     -- we got a unit name
     else
-        local f = io.popen(string.format("systemctl --user show -p ControlGroup %s", s), 'r')
-        if f then
-            cgroup = string.match(f:read("*all"), "^ControlGroup=(.*)$")
-            f:close()
-        end
+        cgroup = unit_cgroup(s)
     end
     return cgroup
 end
