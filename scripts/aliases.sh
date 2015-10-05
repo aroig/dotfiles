@@ -49,8 +49,8 @@ alias egit='emacs-git'
 
 # development
 alias mr='mr --stats --color -t'
-alias make="TERM=xterm make -r --no-print-directory"
-alias mk='PATH="/usr/lib/ccache/bin:$PATH" MAKEFLAGS="-j 4 -O target" TERM=xterm make --no-print-directory -r'
+alias make="TERM=xterm make -r --no-print-directory --warn-undefined-variables"
+alias mk='PATH="/usr/lib/ccache/bin:$PATH" MAKEFLAGS="-j 4 -O target" TERM=xterm make -r --no-print-directory --warn-undefined-variables'
 
 # project setup
 alias ckc='cookiecutter'
