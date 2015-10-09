@@ -2,7 +2,7 @@ EMACS  := emacs
 EFLAGS := -Q --batch -f batch-byte-compile
 
 ELCS=ispell-multi.elc outline-magic.elc rst.elc sensitive-mode.elc \
-     sr-speedbar.elc vim-modeline.elc winring.elc sudo.elc qml-mode.elc           \
+     sr-speedbar.elc winring.elc sudo.elc qml-mode.elc           \
 
 DOWNLOAD_URLS=sr-speedbar.el::http://www.emacswiki.org/emacs/download/sr-speedbar.el \
               rst.el::http://docutils.sourceforge.net/tools/editors/emacs/rst.el \
