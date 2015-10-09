@@ -49,7 +49,7 @@ alias egit='emacs-git'
 
 # development
 alias mr='mr --stats --color -t'
-alias make="TERM=xterm make -r --no-print-directory --warn-undefined-variables"
+alias make="TERM=xterm make -r --no-print-directory"
 alias mk='PATH="/usr/lib/ccache/bin:$PATH" MAKEFLAGS="-j 4 -O target" TERM=xterm make -r --no-print-directory --warn-undefined-variables'
 
 # project setup
@@ -184,11 +184,11 @@ hh() {
     case "$cmd" in
         sync|push|pull)
                 local rmt="$1"; shift
-                make -C "$syncdir" "$cmd-$rmt" "$@"
+                make --no-print-directory --warn-undefined-variables -C "$syncdir" "$cmd-$rmt" "$@"
                 ;;
         
         init|status|check)
-            make -C "$syncdir" "$cmd" "$@"
+            make --no-print-directory --warn-undefined-variables -C "$syncdir" "$cmd" "$@"
             ;;
     esac
 }
