@@ -251,7 +251,8 @@
   (c-set-style "stroustrup")
 
   ;; Load clang format
-  (when (locate-library "clang-format") (require 'clang-format))
+  (when (file-exists-p "/usr/share/clang/clang-format.el")
+    (load-file "/usr/share/clang/clang-format.el"))
 
   ;; Delete trailing whitespaces before save
   (trailing-whitespace-mode)
