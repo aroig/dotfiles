@@ -229,11 +229,14 @@
 
 ;; C/C++
 (defun abdo-c-mode-keybindings()
-            (local-set-key (kbd "C-c c") 'abdo-devel-compile)         ;; Compile
-            (local-set-key (kbd "C-c d") 'gdb)                        ;; gdb
+  (local-set-key (kbd "C-c c") 'abdo-devel-compile)         ;; Compile
+  (local-set-key (kbd "C-c d") 'gdb)                        ;; gdb
 
-            (local-set-key (kbd "C-c n") 'next-error)                 ;; next error
-            (local-set-key (kbd "C-c p") 'previous-error))            ;; previous error
+  (local-set-key (kbd "C-c n") 'next-error)                 ;; next error
+  (local-set-key (kbd "C-c p") 'previous-error)             ;; previous error
+
+  (local-set-key (kbd "M-q") 'clang-format-region)
+)
 
 (add-hook 'c++-mode-hook 'abdo-c-mode-keybindings)
 (add-hook 'c-mode-hook 'abdo-c-mode-keybindings)
