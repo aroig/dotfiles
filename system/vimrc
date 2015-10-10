@@ -29,6 +29,17 @@ source /etc/vimrc.d/keymaps.vim
 source /etc/vimrc.d/ui.vim
 
 
+" UI
+" --------------------
+
+" enable cursor line on active window
+augroup ActiveWindowCursorLine
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
+augroup END
+
+
 " Diff mode
 " --------------------
 
@@ -42,13 +53,3 @@ if &diff
     nmap d^ :diffget BASE<cr>
 endif
 
-
-" Display
-" --------------------
-
-" enable cursor line on active window
-augroup ActiveWindowCursorLine
-  autocmd!
-  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
-augroup END

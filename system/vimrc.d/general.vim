@@ -19,9 +19,6 @@ set showmatch                     " match parenthesis
 set ignorecase                    " case insensitive searches
 set smartcase
 
-" quickly time out on keycodes, but never time out on mappings
-set notimeout ttimeout ttimeoutlen=200
-
 set backspace=indent,eol,start    " enhance backspace
 set nostartofline                 " prevent some movements to go to start of line
 

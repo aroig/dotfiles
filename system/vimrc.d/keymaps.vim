@@ -1,16 +1,25 @@
 
-" Bindings
+" key timeouts
+" set timeoutlen=500 ttimeoutlen=10
+set notimeout ttimeout ttimeoutlen=10
+
+let mapleader=","
+
+
+" Global Bindings
 " --------------------
 
 " movement by 30 lines
-map J 30j
-map K 30k
+noremap J 30j
+noremap K 30k
+
+" rebind esc
+" inoremap jj <Esc>
+inoremap <C-s> <Esc>
 
 
 " Local Bindings
 " --------------------
-
-let mapleader=","
 
 nnoremap <Leader>c :noh<cr>
 
