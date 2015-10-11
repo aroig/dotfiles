@@ -6,7 +6,7 @@ ConditionPathExists=/home/%u/.ecryptfs/priv.conf
 Wants=gpg-agent.service
 After=gpg-agent.service
 
-Conflicts=lock.target sleep.target
+Conflicts=lock.target sleep.target poweroff.target
 
 [Service]
 Type=oneshot
