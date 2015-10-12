@@ -24,18 +24,23 @@ set autoread
 autocmd CursorHold * checktime
 
 " buffers are not modifiable
-set nomodifiable
+autocmd BufRead,BufWinEnter * setlocal readonly nomodifiable
 
 
 " Vimpager options
 " --------------------
 
 let g:vimpager_disable_ansiesc = 1
-let g:vimpager_scrolloff = 5
+" let g:vimpager_scrolloff = 5
 let g:vimpager_passthrough = 0
-" let g:vimpager_less_mode = 0
+let g:vimpager_less_mode = 0
 
 " set noloadplugins
+
+
+" Key bindings
+" --------------------
+noremap q :q!<cr>
 
 
 " Filetype
