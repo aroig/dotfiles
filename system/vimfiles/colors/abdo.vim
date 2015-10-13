@@ -16,7 +16,7 @@ let g:colors_name = "abdo"
 " ----------------------------------------------------------
 hi ColorColumn                            ctermbg=Black        cterm=none
 hi Cursor            ctermfg=White                             cterm=bold
-hi CursorLine                             ctermbg=DarkGray     cterm=none
+hi CursorLine        ctermfg=White        ctermbg=DarkGray     cterm=none
 hi CursorColumn                           ctermbg=DarkGray     cterm=none
 hi CursorLineNr      ctermfg=Yellow       ctermbg=Black        cterm=none
 hi Debug             ctermfg=Gray                              cterm=none
