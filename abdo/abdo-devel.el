@@ -254,6 +254,10 @@
   (when (file-exists-p "/usr/share/clang/clang-format.el")
     (load-file "/usr/share/clang/clang-format.el"))
 
+  ;; disable electric-indent. I'll use clang-format
+  (electric-indent-local-mode -1)
+  (c-toggle-electric-state -1)
+
   ;; Delete trailing whitespaces before save
   (trailing-whitespace-mode)
 
