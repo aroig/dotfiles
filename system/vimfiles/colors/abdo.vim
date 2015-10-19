@@ -43,7 +43,7 @@ hi TabLineSel        ctermfg=Gray         ctermbg=Black        cterm=none
 hi Title             ctermfg=Cyan                              cterm=bold
 hi Underlined                                                  cterm=underline
 hi VertSplit                              ctermbg=Black        cterm=none
-hi Visual                                 ctermbg=DarkGray     cterm=none
+hi Visual            ctermfg=White        ctermbg=DarkGray     cterm=none
 
 
 hi! link SignColumn    LineNr
