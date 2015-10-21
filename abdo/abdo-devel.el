@@ -247,8 +247,12 @@
   (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
   (abdo-change-dictionary "english")      ;; I always program in english
 
-  ;; Set C style (indentation, etc)
-  (c-set-style "stroustrup")
+  ;; use rtags needs a daemon running!
+  (require 'rtags)
+
+  ;; we use clang-format for indentation
+  (setq c-syntactic-indentation nil)
+  ; (c-set-style "stroustrup")
 
   ;; Load clang format
   (when (file-exists-p "/usr/share/clang/clang-format.el")
