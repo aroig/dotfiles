@@ -6,6 +6,7 @@ After=rtags.socket
 
 [Service]
 Type=simple
+Slice=daemons.slice
 
 # the default socket is in ~/.rdm
 # --no-filesystem-watcher  disable inotify completely
