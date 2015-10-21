@@ -250,6 +250,9 @@
   ;; use rtags needs a daemon running!
   (require 'rtags)
 
+  ;; enable rtags bindings with C-cr prefix. I can't use H-r due to rtags limitations.
+  (rtags-enable-standard-keybindings)
+
   ;; we use clang-format for indentation
   (setq c-syntactic-indentation nil)
   ; (c-set-style "stroustrup")
