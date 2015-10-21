@@ -1,15 +1,15 @@
 [Unit]
 Description=rtags server
 
+Requires=rtags.socket
+After=rtags.socket
+
 [Service]
 Type=simple
 
-# RuntimeDirectory=rtags
-# RuntimeDirectoryMode=700
-# ExecStart=/usr/bin/rdm --socket-file %t/rtags/socket
-
 # the default socket is in ~/.rdm
-ExecStart=/usr/bin/rdm
+ExecStart=/usr/bin/rdm -v --inactivity-timeout 300
+
 
 
 
