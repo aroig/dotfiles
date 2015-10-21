@@ -52,6 +52,18 @@ alias mr='mr --stats --color -t'
 alias make="TERM=xterm make -r --no-print-directory"
 alias mk='PATH="/usr/lib/ccache/bin:$PATH" MAKEFLAGS="-j 4 -O target" TERM=xterm make -r --no-print-directory --warn-undefined-variables'
 
+# add project directory to rtags
+rcadd() {
+    local root="`realpath "$1"`"
+    local compiledb="`find ${root}/build -name 'compile_commands.json' | head -1`"
+    if [ "$compiledb" ]; then
+        rc "--project-root=$root" -J "$compiledb"
+    else
+        echo "Could not find compilation database compile_commands.json"
+        return 1
+    fi
+}
+
 # project setup
 alias ckc='cookiecutter'
 
