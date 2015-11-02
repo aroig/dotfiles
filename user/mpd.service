@@ -4,8 +4,11 @@ Description=music player daemon
 Requires=mpd.socket
 After=mpd.socket
 
-Requisite=pulseaudio.service
+Requires=pulseaudio.service
 After=pulseaudio.service
+
+Requisite=synced.target
+After=synced.target
 
 [Service]
 Type=simple

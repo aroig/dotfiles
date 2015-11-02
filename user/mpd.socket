@@ -1,11 +1,9 @@
 [Unit]
 Description=Music Player Daemon socket
 
-Requisite=pulseaudio.service
-After=pulseaudio.service
-
+# NOTE: Do not add After dependencies here to avoid a dependency cycle on shutdown:
+# synced.target > basic.target > sockets.target > mpd.socket > synced.target
 Requisite=synced.target
-After=synced.target
 
 [Socket]
 ListenStream=%t/mpd/mpd.socket
@@ -14,4 +12,4 @@ ListenStream=%t/mpd/mpd.socket
 ListenStream=6600
 
 [Install]
-WantedBy=sockets.target
+WantedBy=synced.target

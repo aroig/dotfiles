@@ -8,9 +8,6 @@ After=pulseaudio.socket
 Before=audio.target
 PartOf=audio.target
 
-Requires=audio.slice
-After=audio.slice
-
 [Service]
 Type=dbus
 
