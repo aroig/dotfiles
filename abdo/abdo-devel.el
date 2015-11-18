@@ -60,14 +60,11 @@
 (defun abdo-compilation-finished (buffer msg)
   (if (string-match "^finished" msg)
     (progn
-      (bury-buffer "*compilation*")
+      (bury-buffer buffer)
       (when abdo-compile-window-state
         (set-window-configuration abdo-compile-window-state))
       (setq abdo-compile-window-state nil)
 
-      ; (delete-window (get-buffer-window (get-buffer "*compilation*")))
-      ;; NOTE: winner-undo does not handle well multiple frames.
-      ; (winner-undo)
       (message "Successful :)"))
     (message "Failed :(")))
 

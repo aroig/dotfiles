@@ -292,10 +292,12 @@
 (setq latex-compilation-error-regexp-alist '(latex-error latex-warning))
 
 (require 'compile)
-(define-compilation-mode latex-compilation-mode "LatexCompilation"
+(define-compilation-mode latex-compilation-mode "Latex Compilation"
   "Compilation mode for latex"
   (set (make-local-variable 'compilation-error-regexp-alist)
-       latex-compilation-error-regexp-alist))
+       latex-compilation-error-regexp-alist)
+
+  (add-to-list 'compilation-finish-functions 'abdo-compilation-finished))
 
 ;; Compile the current buffer
 (defun abdo-latex-compile()
