@@ -1,0 +1,9 @@
+# -*- coding: utf-8 -*-
+# name: \begin{tikzcd} ... \end{tikzcd}
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: cdsquare
+# --
+\\begin{tikzcd}
+  ${1:A} \\ar[d, "p"] \\ar[r, "j"] & ${2:B} \\ar[d, "q"] \\
+  ${3:C} \\ar[r, "i"] & ${4:D}
+\\end{tikzcd}
