@@ -72,8 +72,7 @@
         (append '(ac-source-math-unicode
                   ac-source-math-latex
                   ac-source-latex-commands)
-                ac-sources))
-)
+                ac-sources)))
 
 
 
@@ -179,6 +178,45 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+;; Parse LaTeX output to determine the source file
+;; Source: https://github.com/RomainPicot/emacs.d
+(defun ff/compilation-error-latex-file ()
+  "Analyse the LaTeX output to find the source file in which an error was reported."
+  (condition-case nil
+      (save-excursion
+        (save-match-data
+          (let ((found  nil)
+                (bound  (point))
+                beg
+                filename)
+            (while (not found)
+              ;; Search backward for an opening paren
+              (search-backward "(" nil)
+
+              ;; Try to find a matching closing paren
+              (condition-case nil
+                  (save-excursion
+                    (goto-char (scan-sexps (point) 1))
+
+                    (when (or (> (point) bound)         ;; Closing paren after the error message
+                              (not (looking-back ")"))) ;; Non-matching closing delimiter
+                      (setq found t)))
+
+                ;; Unbalanced expression
+                ((error)
+                 (setq found t))))
+
+            ;; Extract filename
+            (setq beg (1+ (point)))
+            (re-search-forward "[[:space:]]" nil)
+            (setq filename (buffer-substring beg (- (point) 1)))
+            (list filename))))
+
+    ;; Unexpected error
+    ((error)
+     nil)))
+
+
 (defun abdo-latex-completing-read (prompt collection default)
   (let* ((fullprompt (if default
                          (format "%s (default %s): " prompt default)
@@ -233,21 +271,41 @@
 ;; Tools
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Matches for the compilation buffer
+(add-to-list 'compilation-error-regexp-alist-alist
+             '(latex-warning
+               "^LaTeX Warning: .* on input line \\([[:digit:]]+\\)\\.$" ;; Regular expression
+               ff/compilation-error-latex-file                           ;; Filename
+               1                                                         ;; Line number
+               nil                                                       ;; Column number
+               1))
+
+(add-to-list 'compilation-error-regexp-alist-alist
+             '(latex-error
+               "^l\\.\\([[:digit:]]+\\)[[:space:]]" ;; Regular expression
+               ff/compilation-error-latex-file      ;; Filename
+               1                                    ;; Line number
+               nil                                  ;; Column number
+               2                                    ;; Type (error)
+               1))                                  ;; Highlight
+
+(setq latex-compilation-error-regexp-alist '(latex-error latex-warning))
+
+(require 'compile)
+(define-compilation-mode latex-compilation-mode "LatexCompilation"
+  "Compilation mode for latex"
+  (set (make-local-variable 'compilation-error-regexp-alist)
+       latex-compilation-error-regexp-alist))
 
 ;; Compile the current buffer
 (defun abdo-latex-compile()
   (interactive)
+
   (let
       ((makefile (file-truename (concat (file-name-directory (TeX-master-file)) "Makefile"))))
 
     (when (file-exists-p makefile)
-      (compile (format "make -C '%s' pdf" (file-name-directory makefile))))
-
-    ;; Set the regexp for matching errors in the compilation buffer to gnu only.
-    ;; Otherwise there was an odd matcher that picked pieces of latex it should
-    ;; not.
-    (with-current-buffer "*compilation*"
-      (set (make-local-variable 'compilation-error-regexp-alist) '(gnu)))))
+      (compile (format "make -C '%s' pdf" (file-name-directory makefile)) 'latex-compilation-mode))))
 
 
 ;; Show compilation buffer

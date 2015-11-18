@@ -148,6 +148,7 @@
 (require 'ansi-color)                    ;; tools to handle ansi escape sequences
 (require 'cl)                            ;; Common lisp support
 (require 'dbus)                          ;; dbus interface
+(require 'compile)                       ;; compilation buffer
 
 ;; Undo-tree
 (when (and (locate-library "undo-tree") (not batch-mode))
