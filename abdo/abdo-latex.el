@@ -29,7 +29,7 @@
 
   (setq TeX-auto-local ".auto/")                 ;; Hide the TeX auto local dir.
   (setq TeX-parse-self t)                        ;; Enable parse on load.
-  (setq TeX-auto-save t)                         ;; Autosave style info.
+  (setq TeX-auto-save nil)                       ;; Do not generate auto directories.
 
   (setq reftex-toc-shown nil)                    ;; Disable toc in reftex
 
