@@ -1,7 +1,7 @@
 [Unit]
 Description=xwayland server at display :0
 
-Conflicts=vncserver.service weston.service weston.socket xorg.service xorg.socket
+Conflicts=vncserver.service weston.service weston.socket xorg.service
 
 Requires=xwayland.socket
 After=xwayland.socket

@@ -1,7 +1,7 @@
 [Unit]
 Description=weston compositor
 
-Conflicts=vncserver.service xorg.service xorg.socket
+Conflicts=vncserver.service xorg.service
 
 Requires=weston.socket
 After=weston.socket
