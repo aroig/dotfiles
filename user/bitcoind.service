@@ -1,0 +1,12 @@
+[Unit]
+Description=bitcoin daemon service
+After=network.target
+ 
+[Service]
+Type=simple
+Slice=daemons.slice
+
+ExecStart=/usr/bin/bitcoind
+ 
+[Install]
+WantedBy=multi-user.target
