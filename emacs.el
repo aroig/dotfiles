@@ -360,6 +360,8 @@
 ;; sclang
 (add-to-list 'auto-mode-alist '("\\.scd$" . sclang-mode))
 
+;; sage
+(add-to-list 'auto-mode-alist '("\\.sage$" . python-mode))
 
 
 ;; Command line switches
