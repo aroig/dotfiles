@@ -1,7 +1,10 @@
 [Unit]
 Description=bitcoin daemon service
 After=network.target
- 
+
+Requires=mount-priv.service
+After=mount-priv.service
+
 [Service]
 Type=simple
 Slice=daemons.slice
