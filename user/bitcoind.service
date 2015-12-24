@@ -5,6 +5,9 @@ After=network.target
 Requires=mount-priv.service
 After=mount-priv.service
 
+Requires=synced.target
+After=synced.target
+
 [Service]
 Type=simple
 Slice=daemons.slice
