@@ -168,7 +168,7 @@ rules.rules = {
 
 
     -- Floats
-    { rule_any = { class = {"Qpaeq", "Qjackctl", "Unison-gtk2", "pinentry", "Skype", "Pavucontrol", "Pidgin",
+    { rule_any = { class = {"Qpaeq", "Qjackctl", "Unison-gtk2", "Pinentry", "Skype", "Pavucontrol", "Pidgin",
                             "Vmpk", "Wpa_gui"} },
       properties = { floating = true } },
 
