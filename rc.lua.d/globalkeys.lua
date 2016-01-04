@@ -72,8 +72,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "f",      function () run('app:thunar')          end),
     awful.key({ modkey, ctrlkey   }, "r",      function () run('app:ranger')          end),
 
-    awful.key({ modkey, ctrlkey   }, "b",      function () run('app:dwb')             end),
-    awful.key({ modkey, metakey   }, "b",      function () run('app:chromium')        end),
+    awful.key({ modkey, ctrlkey   }, "b",      function () run('app:chromium')        end),
+    awful.key({ modkey, metakey   }, "b",      function () run('app:firefox')         end),
     awful.key({ modkey, ctrlkey   }, "e",      function () run('app:emacsclient')     end),
 
     -- Dropdown clients
