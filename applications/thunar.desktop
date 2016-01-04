@@ -2,7 +2,7 @@
 Name=Thunar File Manager
 Comment=Browse the filesystem with the file manager
 GenericName=File Manager
-Exec=rifle -p thunar %F
+Exec=sdrun thunar %F
 Icon=Thunar
 Terminal=false
 StartupNotify=true
