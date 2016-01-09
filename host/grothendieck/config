@@ -123,3 +123,23 @@ set $menu dmenu_run
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+#
+# Status Bar:
+#
+bar {
+    status_command i3status
+    position top
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
+### Output configuration
+#
+# Default wallpaper
+output * bg ~/.config/sway/wallpaper/milkyway-dual.jpg fill
+#
+# Example output configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0

@@ -18,7 +18,7 @@ CONFIG_FILES := $(foreach h,$(HOSTS),$(call config-file,$(h)))
 
 $(CONFIG_FILES): host/%/config: $$(call config-sources,$$*)
 	mkdir -p $(dir $@)
-	cat $< > $@
+	cat $^ > $@
 
 .PHONY: config
 
