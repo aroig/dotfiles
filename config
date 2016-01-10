@@ -32,6 +32,9 @@ browser = xdg-open
 # (default if unset: all graphic non-punctuation/space characters)
 #word_chars = -A-Za-z0-9,./?%&#:_=+@~
 
+# disable client-side decorations. This applies to a patched termite only.
+decorated = false
+
 [colors]
 foreground = #dcdccc
 foreground_bold = #ffffff
