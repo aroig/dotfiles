@@ -29,9 +29,11 @@ CPUSchedulingPriority=60
 ExecStartPre=/usr/bin/pacmd suspend true
 
 # start jack
+
+# NOTE: do not use --midi raw. According to Paul has very bad timing
 ExecStart=/usr/bin/jackd --realtime \
     -d alsa --device ${DEVICE} \
-    --rate 44100 --nperiods 2 --period 128 --midi raw
+    --rate 44100 --nperiods 2 --period 128
 
 # wait until jack is up and running
 ExecStartPost=/usr/bin/sh -c "jack_wait -w 2>&1 > /dev/null"

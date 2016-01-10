@@ -1,0 +1,22 @@
+[Unit]
+Description=alsa to jack midi bridge for impulse keyboard
+
+Requires=jack.service
+After=jack.service
+
+Requires=audio.slice
+After=audio.slice
+
+[Service]
+Type=simple
+Slice=audio.slice
+
+# realtime scheduling
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=60
+
+ExecStart=/usr/bin/a2jmidi_bridge "Impulse Bridge"
+
+# Do jack connections
+ExecStartPost=/usr/bin/sleep 1
+ExecStartPost=-/usr/bin/aconnect "Impulse:Impulse MIDI 1" "Impulse Bridge:playback"
