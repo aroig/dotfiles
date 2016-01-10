@@ -2,8 +2,6 @@
 Description=jack2 server
 Documentation=man:jackd(1)
 
-Requires=audio.slice
-After=audio.slice
 
 Requires=pulseaudio.service
 After=pulseaudio.service

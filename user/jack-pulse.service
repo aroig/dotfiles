@@ -1,8 +1,6 @@
 [Unit]
 Description=jack2 pulseaudio source and sink
 
-Requires=audio.slice
-After=audio.slice
 
 Requires=pulseaudio.service
 After=pulseaudio.service

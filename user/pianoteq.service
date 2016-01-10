@@ -7,8 +7,6 @@ After=jack.service
 Wants=a2j-impulse.service
 After=a2j-impulse.service
 
-Requires=audio.slice
-After=audio.slice
 
 [Service]
 Type=simple

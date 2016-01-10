@@ -7,8 +7,6 @@ After=sys-subsystem-usb-devices-impulse.device
 Requires=jack.service
 After=jack.service
 
-Requires=audio.slice
-After=audio.slice
 
 [Service]
 Type=simple

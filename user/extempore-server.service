@@ -4,8 +4,6 @@ Description=extempore server
 Requires=jack.service
 After=jack.service
 
-Requires=audio.slice
-After=audio.slice
 
 [Service]
 Type=simple

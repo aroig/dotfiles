@@ -4,8 +4,6 @@ Description=linuxsampler config %i
 Requires=jack.service
 After=jack.service
 
-Requires=audio.slice
-After=audio.slice
 
 Requires=linuxsampler.service
 After=linuxsampler.service

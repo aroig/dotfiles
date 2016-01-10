@@ -4,8 +4,6 @@ Description=dvs saxophone synth
 Requires=jack.service
 After=jack.service
 
-Requires=audio.slice
-After=audio.slice
 
 Requires=j2amidi-bridge@DVSSaxophoneBridge.service
 After=j2amidi-bridge@DVSSaxophoneBridge.service

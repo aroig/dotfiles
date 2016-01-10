@@ -4,8 +4,6 @@ Description=jack to alsa bridge %i
 Requires=jack.service
 After=jack.service
 
-Requires=audio.slice
-After=audio.slice
 
 [Service]
 Type=simple
