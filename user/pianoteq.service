@@ -4,18 +4,24 @@ Description=pianotec synth
 Requires=jack.service
 After=jack.service
 
+Wants=a2j-impulse.service
+After=a2j-impulse.service
+
 Requires=audio.slice
 After=audio.slice
 
 [Service]
 Type=simple
+
+Environment=VERSION=54
+
 ExecStart=/usr/bin/pianoteq --headless
 
 # Do jack connections
 ExecStartPost=/usr/bin/sleep 1
-ExecStartPost=-/usr/bin/jack_connect system:midi_capture_1 Pianoteq51:midi_in
-ExecStartPost=-/usr/bin/jack_connect Pianoteq51:out_1 system:playback_1
-ExecStartPost=-/usr/bin/jack_connect Pianoteq51:out_2 system:playback_2
+ExecStartPost=-/usr/bin/jack_connect "Impulse Bridge:capture" "Pianoteq${VERSION}:midi_in"
+ExecStartPost=-/usr/bin/jack_connect "Pianoteq${VERSION}:out_1" "system:playback_1"
+ExecStartPost=-/usr/bin/jack_connect "Pianoteq${VERSION}:out_2" "system:playback_2"
 
 # realtime scheduling
 CPUSchedulingPolicy=rr

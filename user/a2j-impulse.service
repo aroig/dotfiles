@@ -1,6 +1,9 @@
 [Unit]
 Description=alsa to jack midi bridge for impulse keyboard
 
+BindsTo=sys-subsystem-usb-devices-impulse.device
+After=sys-subsystem-usb-devices-impulse.device
+
 Requires=jack.service
 After=jack.service
 
