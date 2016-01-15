@@ -48,7 +48,7 @@ abdo_git_dirinfo() {
 
             if [[ "$vcs" =~ "git|annex" ]]; then
                 printf "  "
-                git --no-pager log -n 1 --pretty="format:%C(green)%ad%C(reset) %C(red)%an%C(reset). %C(yellow)%s%C(reset)" --date=short
+                git --no-pager log -n 1 --pretty="format:%C(blue)%ad%C(reset) %C(green)%an%C(reset). %s" --date="format:%Y-%m-%d %H:%M"
             fi
         fi
     ) 
