@@ -10,6 +10,7 @@ After=synced.target
 [Service]
 Type=oneshot
 RemainAfterExit=true
+Slice=workers.slice
 
 ExecStart=/usr/bin/true
 ExecStop=/usr/bin/systemctl --user start git-commit@%i.service
