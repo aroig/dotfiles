@@ -41,10 +41,6 @@
 (defconst root-mode (string-equal (user-login-name) "root")
   "True when running as root.")
 
-;; Let emacs know the machine's hostname
-(setq system-name (substring (shell-command-to-string "hostname -s") 0 -1))
-(setq full-system-name (substring (shell-command-to-string "hostname -f") 0 -1))
-
 ;; My name and email
 (setq abdo-user-full-name    "Abdó Roig-Maranges")
 (setq abdo-user-mail-address "abdo.roig@gmail.com")
