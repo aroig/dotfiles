@@ -69,7 +69,7 @@ end
 
 -- Execute an external program inside a shell
 function shexec (cmd)
-    awful.util.spawn_with_shell(cmd)
+    awful.spawn.with_shell(cmd)
 end
 
 

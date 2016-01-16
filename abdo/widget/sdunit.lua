@@ -11,7 +11,7 @@ local string = string
 
 sdunit = {}
 
-local uid = awful.util.pread("id -u"):gsub("\n", "")
+local uid = awful.spawn.pread("id -u"):gsub("\n", "")
 local cgpath = '/sys/fs/cgroup/systemd'
 
 local function worker(format, args)

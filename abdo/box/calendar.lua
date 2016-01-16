@@ -8,8 +8,7 @@ local tonumber = tonumber
 local string = string
 local table = table
 local beautiful = beautiful
-local util = awful.util
-
+local awful = awful
 local char_width = 7.3
 local offset = 0
 
@@ -32,7 +31,7 @@ local function generate_calendar(offset)
       cur_month = ((cur_month-1) % 12) + 1
       cur_year = cur_year - 1
    end
-   local cal = util.pread("LANG=C; cal -m " .. cur_month .. " " .. cur_year)
+   local cal = awful.spawn.pread("LANG=C; cal -m " .. cur_month .. " " .. cur_year)
    cal = string.gsub(cal, "%s*$", "")
 
 --   cal = string.gsub(cal, "^%s*(.-)%s*$", "%1")

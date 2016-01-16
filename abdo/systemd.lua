@@ -106,7 +106,7 @@ end
 
 -- Execute an external program and connect the output to systemd journal
 function systemd.exec (cmd, name)
-    local pid = awful.util.spawn_with_shell(cmd .. string.format(' 2>&1 | systemd-cat -t %s', name))
+    local pid = awful.spawn.with_shell(cmd .. string.format(' 2>&1 | systemd-cat -t %s', name))
     return pid
 end
 
@@ -140,9 +140,9 @@ function systemd.run (cmd, name, props)
         end
 
         -- do not catch stdout. The process does NOT end immediately
-        local pid = awful.util.spawn_with_shell(string.format('%s sh -c %s &> /dev/null',
-                                                              sdcmd,
-                                                              shell_escape(cmd)))
+        local pid = awful.spawn.with_shell(string.format('%s sh -c %s &> /dev/null',
+                                                         sdcmd,
+                                                         shell_escape(cmd)))
     else
         sdcmd = sdcmd .. cmd
         -- launch systemd service and capture the service name
@@ -178,7 +178,7 @@ function systemd.start (unit)
         shcmd = string.format('systemctl --user start %s',
                               shell_escape(startunit))
 
-        awful.util.spawn_with_shell(shcmd)
+        awful.spawn.with_shell(shcmd)
     end
     return startunit
 end
@@ -193,7 +193,7 @@ function systemd.stop (unit)
         shcmd = string.format('systemctl --user stop %s',
                               shell_escape(stopunit))
 
-        awful.util.spawn_with_shell(shcmd)
+        awful.spawn.with_shell(shcmd)
     end
     return stopunit
 end

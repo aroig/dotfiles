@@ -198,7 +198,7 @@ function dropdown.show(dd, cmd, screen)
     local cmd = cmd or dd.cmd
     if cmd and dd.run.cmd ~= cmd then
         naughty.notify({title = string.format("Spawning %s", dd.name), text=cmd, appname="run", timeout=3})
-        local pid  = awful.util.spawn_with_shell(cmd)
+        local pid  = awful.spawn.with_shell(cmd)
 
         if not dd.run.client then
             -- sets to capture by pid. when the client gets managed, we get it.
