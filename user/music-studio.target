@@ -1,9 +1,0 @@
-[Unit]
-Description=music midi studio
-
-Requires=jack.service
-After=jack.service
-
-Wants=catia.service ardour.service fluidsynth.service pianoteq.service
-After=catia.service ardour.service fluidsynth.service pianoteq.service
-
