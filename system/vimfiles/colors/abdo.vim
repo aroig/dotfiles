@@ -25,7 +25,7 @@ hi Error             ctermfg=Red          ctermbg=Black        cterm=bold
 hi ErrorMsg          ctermfg=Red          ctermbg=Black        cterm=bold
 hi Exception         ctermfg=Yellow                            cterm=bold
 hi FoldColumn        ctermfg=Green                             cterm=bold
-hi Folded            ctermfg=Green                             cterm=bold
+hi Folded            ctermfg=Black        ctermbg=Yellow       cterm=bold
 hi Ignore            ctermfg=Black                             cterm=none
 hi IncSearch         ctermfg=Yellow                            cterm=none
 hi LineNr            ctermfg=DarkGray     ctermbg=none         cterm=none
