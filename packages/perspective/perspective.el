@@ -189,6 +189,7 @@ Run with the activated perspective active.")
 (define-key perspective-map (kbd "<right>") 'persp-next)
 (define-key perspective-map (kbd "p") 'persp-prev)
 (define-key perspective-map (kbd "<left>") 'persp-prev)
+(define-key perspective-map persp-mode-prefix-key 'persp-switch-last)
 
 (defun persp-mode-set-prefix-key (newkey)
   "Set the prefix key to activate persp-mode"
@@ -201,7 +202,7 @@ Run with the activated perspective active.")
 (make-variable-frame-local
  (defvar perspectives-hash nil
    "A hash containing all perspectives. The keys are the
-perspetives' names. The values are persp structs,
+perspectives' names. The values are persp structs,
 with the fields NAME, WINDOW-CONFIGURATION, BUFFERS,
 BUFFER-HISTORY, KILLED, POINT-MARKER, and LOCAL-VARIABLES.
 
@@ -448,6 +449,13 @@ This is used for cycling between perspectives."
             (cadr names)
           (persp-get-quick char)))
        (t (persp-get-quick-helper char prev (cdr names)))))))
+
+(defun persp-switch-last ()
+  "Switch to the perspective accessed before the current one."
+  (interactive)
+  (unless persp-last
+    (error "There is no last perspective"))
+  (persp-switch (persp-name persp-last)))
 
 (defun persp-switch (name)
   "Switch to the perspective given by NAME.
@@ -735,6 +743,17 @@ See also `persp-add-buffer'."
           (with-selected-frame frame
             (persp-add-buffer buf)))))))
 
+(defadvice set-window-buffer (after persp-add-buffer-adv)
+  "Add BUFFER to the perspective for window's frame.
+
+See also `persp-add-buffer'."
+  (persp-protect
+    (let ((buf (ad-get-arg 1))
+          (frame (window-frame (ad-get-arg 0))))
+      (when (and buf frame)
+        (with-selected-frame frame
+          (persp-add-buffer buf))))))
+
 (defadvice switch-to-prev-buffer (around persp-ensure-buffer-in-persp)
   "Ensure that the selected buffer is in WINDOW's perspective."
   (let* ((window (window-normalize-window window t))
@@ -790,6 +809,7 @@ named collections of buffers and window configurations."
       (persp-protect
         (ad-activate 'switch-to-buffer)
         (ad-activate 'display-buffer)
+        (ad-activate 'set-window-buffer)
         (ad-activate 'switch-to-prev-buffer)
         (ad-activate 'recursive-edit)
         (ad-activate 'exit-recursive-edit)
