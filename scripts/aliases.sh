@@ -199,7 +199,7 @@ hh() {
                 make --no-print-directory --warn-undefined-variables -C "$syncdir" "$cmd-$rmt" "$@"
                 ;;
         
-        init|status|check|optimize)
+        init|status|info-dirs|info-remotes|check|optimize)
             make --no-print-directory --warn-undefined-variables -C "$syncdir" "$cmd" "$@"
             ;;
     esac
