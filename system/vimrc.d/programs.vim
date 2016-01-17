@@ -1,0 +1,2 @@
+
+set grepprg=grep\ -nH\ $*

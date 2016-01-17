@@ -26,6 +26,8 @@ runtime! archlinux.vim
 
 source /etc/vimrc.d/general.vim
 source /etc/vimrc.d/keymaps.vim
+source /etc/vimrc.d/latex.vim
+source /etc/vimrc.d/programs.vim
 source /etc/vimrc.d/ui.vim
 
 
