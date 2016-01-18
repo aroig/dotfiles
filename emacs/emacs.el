@@ -41,10 +41,6 @@
 (defconst root-mode (string-equal (user-login-name) "root")
   "True when running as root.")
 
-;; Let emacs know the machine's hostname
-(setq system-name (substring (shell-command-to-string "hostname -s") 0 -1))
-(setq full-system-name (substring (shell-command-to-string "hostname -f") 0 -1))
-
 ;; My name and email
 (setq abdo-user-full-name    "Abdó Roig-Maranges")
 (setq abdo-user-mail-address "abdo.roig@gmail.com")
@@ -148,6 +144,7 @@
 (require 'ansi-color)                    ;; tools to handle ansi escape sequences
 (require 'cl)                            ;; Common lisp support
 (require 'dbus)                          ;; dbus interface
+(require 'compile)                       ;; compilation buffer
 
 ;; Undo-tree
 (when (and (locate-library "undo-tree") (not batch-mode))
@@ -168,7 +165,8 @@
 
 ;; Basic interactive stuff
 (unless batch-mode
-  (require 'flx-ido)                     ;; better matching algorithm for ido
+  ;; DISABLED. It was annoying
+  ;; (require 'flx-ido)                     ;; better matching algorithm for ido
   (require 'ido)                         ;; Ido prompt
   (require 'uniquify)                    ;; Make buffer names unique
   (require 'ibuffer)                     ;; Nice buffer list
@@ -190,7 +188,6 @@
 
 ;; git
 (when (and (locate-library "magit") (not batch-mode))
-  ;; NOTE 2014-06-24: magit causes "strinp nil" error when starting new emacs via emacsclient. WTF?!
   (require 'magit))
 
 (when (and (locate-library "git-commit-mode") (not batch-mode))
@@ -359,6 +356,8 @@
 ;; sclang
 (add-to-list 'auto-mode-alist '("\\.scd$" . sclang-mode))
 
+;; sage
+(add-to-list 'auto-mode-alist '("\\.sage$" . python-mode))
 
 
 ;; Command line switches

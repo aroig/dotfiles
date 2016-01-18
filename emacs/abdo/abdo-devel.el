@@ -60,14 +60,11 @@
 (defun abdo-compilation-finished (buffer msg)
   (if (string-match "^finished" msg)
     (progn
-      (bury-buffer "*compilation*")
+      (bury-buffer buffer)
       (when abdo-compile-window-state
         (set-window-configuration abdo-compile-window-state))
       (setq abdo-compile-window-state nil)
 
-      ; (delete-window (get-buffer-window (get-buffer "*compilation*")))
-      ;; NOTE: winner-undo does not handle well multiple frames.
-      ; (winner-undo)
       (message "Successful :)"))
     (message "Failed :(")))
 
@@ -247,11 +244,23 @@
   (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
   (abdo-change-dictionary "english")      ;; I always program in english
 
-  ;; Set C style (indentation, etc)
-  (c-set-style "stroustrup")
+  ;; use rtags needs a daemon running!
+  (require 'rtags)
+
+  ;; enable rtags bindings with C-cr prefix. I can't use H-r due to rtags limitations.
+  (rtags-enable-standard-keybindings)
+
+  ;; we use clang-format for indentation
+  (setq c-syntactic-indentation nil)
+  ; (c-set-style "stroustrup")
 
   ;; Load clang format
-  (when (locate-library "clang-format") (require 'clang-format))
+  (when (file-exists-p "/usr/share/clang/clang-format.el")
+    (load-file "/usr/share/clang/clang-format.el"))
+
+  ;; disable electric-indent. I'll use clang-format
+  (electric-indent-local-mode -1)
+  (c-toggle-electric-state -1)
 
   ;; Delete trailing whitespaces before save
   (trailing-whitespace-mode)

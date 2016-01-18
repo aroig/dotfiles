@@ -43,6 +43,9 @@
 ;; Prevent from showing a notification on startup
 (setq magit-last-seen-setup-instructions "1.4.0")
 
+;; Fix markdown indent
+(setq markdown-indent-on-enter nil)
+
 
 ;; Emacs backups
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -78,41 +81,6 @@
 
 ;; Follow symlinks
 (setq vc-follow-symlinks t)
-
-;; TODO: check if hg or git, and call the right function
-(defun abdo-vcs-status (&optional rootdir)
-  (interactive)
-  ;; Default rootdir
-  (unless rootdir (setq rootdir default-directory))
-  (magit-status rootdir)
-  nil)
-
-;; TODO: check if hg or git, and call the right function
-(defun abdo-vcs-branches (&optional rootdir)
-  (interactive)
-  ;; Default rootdir
-  (unless rootdir (setq rootdir default-directory))
-  ;; Make sure rootdir is default-directory
-  (unless (string-equal rootdir default-directory) (magit-status rootdir))
-  (magit-branch-manager)
-  nil)
-
-;; TODO: check if hg or git, and call the right function
-(defun abdo-vcs-log (&optional rootdir)
-  (interactive)
-  ;; Default rootdir
-  (unless rootdir (setq rootdir default-directory))
-  ;; Make sure rootdir is default-directory
-  (unless (string-equal rootdir default-directory) (magit-status rootdir))
-  (magit-log)
-  nil)
-
-(defun abdo-vcs-main (rootdir)
-  (abdo-vcs-status rootdir)
-  (delete-other-windows (selected-window))
-  (split-window)
-  (abdo-vcs-log))
-
 
 
 (defun abdo-vcs-root (file)

@@ -1,11 +1,11 @@
 REMOTES=modes/multi-mode modes/rainbow-mode \
         packages/ibuffer-vc packages/helm-mu \
-        themes/zenburn packages/flx packages/perspective packages/clang-format
+        themes/zenburn packages/flx packages/perspective
 
 COMPILE=modes/multi-mode modes/rainbow-mode \
         packages/ibuffer-vc packages/flx \
-        packages/perspective packages/clang-format    \
-        abdo misc hacks
+        packages/perspective \
+        misc hacks
 
 REMOTES_MERGE=$(patsubst %,%-merge,$(REMOTES))
 

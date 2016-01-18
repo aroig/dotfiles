@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+# name: \begin{tikzcd} ... \end{tikzcd}
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: cd
+# --
+\\begin{tikzcd}[sep=scriptsize]
+  ${1:A_{111}} \\ar[dr] \\ar[rr] \\ar[dd] & & ${2:A_{011}} \\ar[dd] \\ar[dr] \\\\
+  & ${3:A_{110}} \\ar[rr, crossing over] & & ${4:A_{010}} \\ar[dd] \\\\
+  ${5:A_{101}} \\ar[dr] \\ar[rr] & & ${6:A_{001}} \\ar[dr] \\\\
+  & ${7:A_{100}} \\ar[from=uu, crossing over] \\ar[rr] & & ${8:A_{000}}\\\\
+\\end{tikzcd}

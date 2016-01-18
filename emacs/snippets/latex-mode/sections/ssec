@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# name: \subsection{...}
+# name: \subsection{...}\label{ssec:?}
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
 # key: ssec
 # --
-\\subsection{$1}
+\\subsection{$1}\\label{ssec:${2:blah}}

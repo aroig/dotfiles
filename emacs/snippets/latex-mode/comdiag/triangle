@@ -1,8 +1,0 @@
-# -*- coding: utf-8 -*-
-# name: exact triangle
-# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: triangle
-# --
-\\begin{comdiag}\\label{eq:${1:bla}}
-  \\chain{${2:A_1} --> ${3:A_2} --> ${4:A_3} --> ${2:A_1}[1]};
-\\end{comdiag}
