@@ -15,10 +15,13 @@
 #------------------------------
 # General Keybindings
 #------------------------------
-bindkey -e              # Emacs
+
+# bindkey -v              # vim bindings
+bindkey -e              # emacs bindings    
+
 typeset -g -A key
 
-#bindkey '\e[3~' delete-char
+bindkey '\e[3~' delete-char
 
 bindkey '\e[1~' beginning-of-line
 bindkey '\e[4~' end-of-line

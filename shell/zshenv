@@ -36,16 +36,12 @@ export EMACS="$HOME/bin/emacs-client"                   # emacs
 export EDITOR="/usr/bin/vim"                            # default editor
 export ALTERNATE_EDITOR="/usr/bin/emacs"                # emacsclient uses this if can't find server
 
-export BROWSER="/usr/bin/dwb"                           # default browser
+export BROWSER="/usr/bin/chromium"                      # default browser
 export FILEMANAGER="/usr/bin/thunar"                    # the file manager
 export DIFFPROG="$HOME/bin/emacs-diff"                  # tool to display diffs
 export PAGER="/usr/bin/vimpager"                        # wrapper for vim
 export TERMCMD="/usr/bin/termite"                       # terminal
 export SHELL="/bin/zsh"
-
-# so we can use $HOSTNAME everywhere
-export HOSTNAME=$(hostname)
-
 
 
 #------------------------------
@@ -72,7 +68,7 @@ export AB2_VIRT_DIR="$AB2_HOME/virt"
 export AB2_BUILD_DIR="$AB2_HOME/build"
 export AB2_REPOS_DIR="$AB2_HOME/repos"
 export AB2_TMP_DIR="$AB2_HOME/tmp"
-
+export AB2_BAK_DIR="$AB2_HOME/bak"
 
 
 #------------------------------
@@ -82,10 +78,6 @@ export AB2_TMP_DIR="$AB2_HOME/tmp"
 # gpg-agent sockets. Those sockets are proxied for socket activation!
 export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
 export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent::1"
-
-# NOTE: I'll use this once I get socket activation working
-# export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent.ssh"
-# export GPG_AGENT_INFO="$XDG_RUNTIME_DIR/gpg-agent/S.gpg-agent::1"
 
 # mpd socket
 export MPD_HOST="$XDG_RUNTIME_DIR/mpd/mpd.socket"

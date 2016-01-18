@@ -49,8 +49,23 @@ alias egit='emacs-git'
 
 # development
 alias mr='mr --stats --color -t'
-alias make="TERM=xterm make"
-alias mk='PATH="/usr/lib/ccache/bin:$PATH" MAKEFLAGS="-j 4" TERM=xterm make'
+alias make="TERM=xterm make -r --no-print-directory"
+alias mk='PATH="/usr/lib/ccache/bin:$PATH" MAKEFLAGS="-j 4 -O target" TERM=xterm make -r --no-print-directory --warn-undefined-variables'
+
+# add project directory to rtags
+rcadd() {
+    local root="`realpath "$1"`"
+    local compiledb="`find ${root}/build -name 'compile_commands.json' | head -1`"
+    if [ "$compiledb" ]; then
+        rc "--project-root=$root" -J "$compiledb"
+    else
+        echo "Could not find compilation database compile_commands.json"
+        return 1
+    fi
+}
+
+# project setup
+alias ckc='cookiecutter'
 
 # git aliases
 alias ggr='git --no-pager grep'
@@ -77,7 +92,21 @@ alias wee='weechat-curses'
 alias fehp='feh -Tpreview'
 alias mailq='msmtp-queue'
 alias uzbl="uzbl-tabbed"
+alias octave="octave-cli"
 
+#------------------------------
+# Machine aliases
+#------------------------------
+
+alias vms='vmctl start'
+alias vmt='vmctl start-tty'
+alias vmv='vmctl start-vnc'
+alias vmh='vmctl start-ssh'
+alias vmk='vmctl stop'
+alias vmm='vmctl mount'
+alias vmu='vmctl umount'
+
+alias nspawn='systemd-nspawn -b -n -D'
 
 
 #------------------------------
@@ -95,13 +124,12 @@ alias mctl="sudo machinectl"
 alias lctl="sudo loginctl"
 alias sctl="sudo systemctl --system"
 alias uctl="systemctl --user"
-alias nspn="sudo systemd-nspawn"
 alias lock='systemctl --user lock.target'
 
 # monitoring
 alias cgls="sdls cgroups"
 alias unls="sdls units"
-alias cgtop="systemd-cgtop"
+alias cgtop="systemd-cgtop --depth=10"
 
 # power management
 alias reboot="systemctl reboot"
@@ -155,18 +183,55 @@ sdan_svg() {
     fi
 }
 
+
+#------------------------------
+# Other System management stuff
+#------------------------------
+
+# homedir synchronization
+hh() {
+    local cmd="$1"; shift
+
+    syncdir="~/arch/sync"
+    case "$cmd" in
+        sync|push|pull)
+                local rmt="$1"; shift
+                make --no-print-directory --warn-undefined-variables -C "$syncdir" "$cmd-$rmt" "$@"
+                ;;
+        
+        init|status|info-dirs|info-remotes|check|optimize)
+            make --no-print-directory --warn-undefined-variables -C "$syncdir" "$cmd" "$@"
+            ;;
+    esac
+}
+
 # firewall
-fws() { sudo iptables -L firewall; echo ""; sudo iptables -n -L sshguard; }
-fwban() { sudo iptables -A sshguard -s "$1" -j DROP; }
+fws() {
+    sudo iptables -L firewall
+    echo ""
+    sudo iptables -n -L sshguard
+}
+
+fwban() {
+    sudo iptables -A sshguard -s "$1" -j DROP
+}
+
+fwunban() {
+    sudo iptables -D sshguard -s "$1" -j DROP
+}
 
 # network
-gateway() { host `ip route list 0/0 | awk '{print $3}'` | awk '{print $5}'; }
+gateway() {
+    host `ip route list 0/0 | awk '{print $3}'` | awk '{print $5}'
+}
 
 pacsync() {
     local host="$1"
     rsync -avz --rsync-path='sudo rsync' "/var/cache/pacman/pkg/" "$host:/var/cache/pacman/pkg/"
     rsync -avz --rsync-path='sudo rsync' "/var/lib/pacman/sync/" "$host:/var/lib/pacman/sync/"
 }
+
+
 
 #------------------------------
 # Auxiliar functions
@@ -194,6 +259,9 @@ alias digitaleditions='wine "$HOME/.wine/drive_c/Program Files (x86)/Adobe/Adobe
 #------------------------------
 # sudo
 #------------------------------
+
+# use policykit to do sudo
+alias pke="pkexec"
 
 # If the argument has an alias, expand it, if it has a function, 
 # run it on a root shell and if no arguments given, go to a root shell.
