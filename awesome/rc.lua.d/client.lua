@@ -82,7 +82,12 @@ end
 -----------------------------------
 
 clientkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
+    awful.key({ modkey,           }, "f",
+        function (c)
+            c.fullscreen = not c.fullscreen
+            c:raise()
+        end),
+
     awful.key({ modkey, shiftkey  }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, ctrlkey   }, "space",  function (c) awful.client.floating.toggle()   end),
     awful.key({ modkey,           }, "t",      function (c) awful.client.floating.toggle()   end),
@@ -94,8 +99,8 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "n",      function (c) c.minimized = true               end),
     awful.key({ modkey,           }, "m",
               function (c)
-                  c.maximized_horizontal = not c.maximized_horizontal
-                  c.maximized_vertical   = not c.maximized_vertical
+                  c.maximized = not c.maximized
+                  c:raise()
               end
     )
 )
@@ -163,7 +168,7 @@ rules.rules = {
 
 
     -- Floats
-    { rule_any = { class = {"Qpaeq", "Qjackctl", "Unison-gtk2", "pinentry", "Skype", "Pavucontrol", "Pidgin",
+    { rule_any = { class = {"Qpaeq", "qjackctl", "Unison-gtk2", "Pinentry", "Skype", "Pavucontrol", "Pidgin",
                             "Vmpk", "Wpa_gui"} },
       properties = { floating = true } },
 
@@ -205,9 +210,12 @@ systemd.rules = {
 
     -- float virtual machines
     { rule       = { },
-      process    = { cgroup = 'machines%.slice/.*$', main = false },
+      process    = { cgroup = 'machine%.slice/.*$', main = false },
       properties = { floating = true },
-      callback   = function(c) awful.placement.centered(c) end },
+      callback   = function(c)
+          local x = capi.screen[awful.screen.focused()].geometry.x
+          local y = capi.screen[awful.screen.focused()].geometry.y
+          c:geometry({ x = x, y = y }) end },
 
     -- default dropdown geometry
     { rule       = { },
@@ -249,6 +257,11 @@ systemd.rules = {
     { rule       = { },
       except     = { modal = true },
       process    = { cgroup = 'dropdown%.slice/gmpc%.service$', main = true },
+      callback   = geometry_cb({vert="center", horiz="right",  width=0.7, height=1.0}) },
+
+    { rule       = { },
+      except     = { modal = true },
+      process    = { cgroup = 'dropdown%.slice/cantata%.service$', main = true },
       callback   = geometry_cb({vert="center", horiz="right",  width=0.7, height=1.0}) },
 
     { rule       = { },

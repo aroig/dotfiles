@@ -28,6 +28,6 @@ local hosts = {
     }
 }
 
-local hostname  = awful.util.pread("hostname"):gsub("\n", "")
+local hostname  = awful.spawn.pread("hostname"):gsub("\n", "")
 
 host_config = hosts[hostname] or host['default']

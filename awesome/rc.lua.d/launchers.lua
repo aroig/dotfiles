@@ -13,6 +13,7 @@ local os = os
 local string = string
 local coroutine = coroutine
 local table = table
+local awful = awful
 
 local capi = {
     mouse = mouse,
@@ -68,7 +69,7 @@ end
 
 -- Execute an external program inside a shell
 function shexec (cmd)
-    awful.util.spawn_with_shell(cmd)
+    awful.spawn.with_shell(cmd)
 end
 
 
@@ -147,7 +148,7 @@ function run(name, opts)
     if ask then
         local lst = { yes = true, no = false }
 
-        promptl.run(myw.promptbox[mouse.screen].widget,
+        promptl.run(myw.promptbox[awful.screen.focused()].widget,
                     string.format("Run %s? ", unit_name),
                     function (c) if c then exec_func() end end,
                     lst, nil)
@@ -185,7 +186,7 @@ end
 function show_client(c)
     if c then
         -- move to the right tag
-        awful.client.movetotag(awful.tag.selected(mouse.screen), c)
+        awful.client.movetotag(awful.tag.selected(awful.screen.focused()), c)
 
         -- raise client
         c.hidden = false
@@ -206,7 +207,7 @@ function is_visible_client(c)
     if c.hidden then return false end
 
     local ctags = c:tags()
-    local tag = awful.tag.selected(mouse.screen)
+    local tag = awful.tag.selected(awful.screen.focused())
 
     for i, t in pairs(ctags) do
         if t == tag then
@@ -404,7 +405,7 @@ prompt = {}
 
 
 function prompt.wikipedia()
-    idoprompt.run(myw.promptbox[mouse.screen].widget,
+    idoprompt.run(myw.promptbox[awful.screen.focused()].widget,
                   "Wikipedia: ",
                   function (cmd)
                       local url = string.format("http://en.wikipedia.org/wiki/Special:Search?go=Go&search=\"%s\"", cmd)
@@ -416,7 +417,7 @@ end
 
 
 function prompt.mathscinet()
-    idoprompt.run(myw.promptbox[mouse.screen].widget,
+    idoprompt.run(myw.promptbox[awful.screen.focused()].widget,
                   "Mathscinet: ",
                   function (cmd)
                       local url = string.format("http://www.ams.org/mathscinet/search/publications.html?review_format=html&pg4=ALLF&s4=\"%s\"", cmd)
@@ -435,7 +436,7 @@ function prompt.docs()
         return
     end
 
-    promptl.run(myw.promptbox[mouse.screen].widget,
+    promptl.run(myw.promptbox[awful.screen.focused()].widget,
                 "Doc: ",
                 ddshow_doc,
                 execlist.doc,
@@ -457,7 +458,7 @@ function prompt.command()
         proglist[name] = string.format("app:%s", name)
     end
 
-    promptl.run(myw.promptbox[mouse.screen].widget,
+    promptl.run(myw.promptbox[awful.screen.focused()].widget,
                 "Run: ",
                 function (nm) run(nm) end,
                 proglist,
@@ -479,7 +480,7 @@ function prompt.dropdown()
         proglist[name] = string.format("dd:%s", name)
     end
 
-    promptl.run(myw.promptbox[mouse.screen].widget,
+    promptl.run(myw.promptbox[awful.screen.focused()].widget,
                 "Dropdown: ",
                 function (nm) ddshow(nm, true) end,
                 proglist,
@@ -499,7 +500,7 @@ function prompt.systemd()
     -- TODO: pretty print the table to debug
     -- naughty.notify({text=pickle.dumps(units)})
 
-    promptl.run(myw.promptbox[mouse.screen].widget,
+    promptl.run(myw.promptbox[awful.screen.focused()].widget,
                 "Unit: ",
                 function (nm) systemd.start(nm) end,
                 units,
@@ -508,7 +509,7 @@ end
 
 
 function prompt.lua()
-    luaeval.run(myw.promptbox[mouse.screen].widget)
+    luaeval.run(myw.promptbox[awful.screen.focused()].widget)
 end
 
 
@@ -556,6 +557,17 @@ function switch.systemd_switch(units, step)
         systemd.start(start)
         naughty.notify({title="Systemd Switch", text=string.format("Switching to unit '%s'", start)})
     end
+end
+
+
+function switch.orientation_mode(step)
+    local hostname = hostname
+    local step = step or 1
+    local tgtlist = {}
+
+    tgtlist = {'landscape.target', 'portrait.target'}
+
+    switch.systemd_switch(tgtlist, step)
 end
 
 

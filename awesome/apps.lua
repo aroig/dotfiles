@@ -39,7 +39,7 @@ end
 -- Apps from the environment
 apps.terminal            = os.getenv("TERMCMD")     or "xterm"
 apps.editor              = os.getenv("EMACS")       or "emacs"
-apps.browser             = os.getenv("BROWSER")     or "dwb"
+apps.browser             = os.getenv("BROWSER")     or "chromium"
 apps.filemanager         = os.getenv("FILEMANAGER") or "thunar"
 apps.shell               = os.getenv("SHELL")       or "bash"
 

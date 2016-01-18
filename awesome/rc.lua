@@ -56,7 +56,7 @@ do
 
         naughty.notify({ preset = naughty.config.presets.critical,
                          title = "Oops, an error happened!",
-                         text = err })
+                         text = tostring(err) })
         in_error = false
     end)
 end
@@ -70,8 +70,8 @@ end
 local cfgdir = awful.util.getdir("config")
 
 -- Global
-hostname  = awful.util.pread("hostname"):gsub("\n", "")
-username  = awful.util.pread("id -nu"):gsub("\n", "")
+hostname  = awful.spawn.pread("hostname"):gsub("\n", "")
+username  = awful.spawn.pread("id -nu"):gsub("\n", "")
 homedir   = os.getenv("HOME")
 
 -- Modkeys

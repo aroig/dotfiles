@@ -14,6 +14,7 @@ return {
    lua                   = "file:///usr/share/doc/lua/contents.html",
 
    gcc                   = "file:///usr/share/doc/gcc/index.html",
+   cppreference          = "file:///usr/share/doc/cppreference/en/index.html",
    ["libstdc++"]         = "file:///usr/share/doc/libstdc++/index.html",
 
    qtcore                = "file:///usr/share/doc/qt/qtcore/qtcore-index.html",
@@ -43,7 +44,7 @@ return {
 
    xapian                = "file:///usr/share/doc/xapian-core/index.html",
 
-   boost                 = "file:///usr/share/doc/boost/index.html",
+   boost                 = "file:///usr/share/doc/boost/libs/libraries.htm",
    ogre                  = "file:///usr/share/doc/OGRE/api/html/index.html",
    openscenegraph        = "file:///usr/share/doc/openscenegraph/openscenegraph/index.html",
    openthreads           = "file:///usr/share/doc/openscenegraph/openthreads/index.html",

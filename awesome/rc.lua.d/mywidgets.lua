@@ -242,7 +242,7 @@ timers.fast:connect_signal("timeout", myw.net.update)
 -----------------------------------
 
 myw.mail = {}
-myw.mail.src = require("abdo.widget.mutag")
+myw.mail.src = require("abdo.widget.fileval")
 
 myw.mail.icon = wibox.widget.textbox()
 
@@ -255,9 +255,12 @@ myw.mail.num_inbox = -1
 myw.mail.num_queue = -1
 
 function myw.mail.update()
-    local args = myw.mail.src(nil)
-    local mail = args[1]
-    local num = #mail
+    local mail = {}
+
+    local count_file = os.getenv("AB2_MAIL_DIR") .. "/stats/newcount"
+    local mail_file = os.getenv("AB2_MAIL_DIR") .. "/stats/newmail"
+    local num = tonumber(myw.mail.src(nil, {count_file, "0"}))
+
     if num ~= myw.mail.num_inbox then
         local color = beautiful.color_widget
 
@@ -271,12 +274,22 @@ function myw.mail.update()
             color = beautiful.color_widget_alert
             icon = icon_full
             num = "?"
+
         elseif num == 0 then
             color = beautiful.color_widget_value
             icon = icon_empty
+
         elseif num > 0 then
             color = beautiful.color_widget_alert
             icon = icon_full
+
+            -- read new mail list
+            f = io.open(mail_file, 'r')
+            if f ~= nil then
+                for line in f:lines() do
+                    table.insert(mail, line)
+                end
+            end
         end
 
         local text = colortext(string.format("%d", num), color)
@@ -286,17 +299,22 @@ function myw.mail.update()
         myw.mail.num_inbox = num
     end
 
-    local queue = args[2]
-    local num = #queue
-    local color = beautiful.color_widget
+    local count_file = os.getenv("AB2_MAIL_DIR") .. "/stats/queuecount"
+    local num = tonumber(myw.mail.src(nil, {count_file, "0"}))
+
     if num ~= myw.mail.num_queue then
+        local color = beautiful.color_widget
+
         if num == nil then
             color = beautiful.color_widget_alert
             num = "?"
+
         elseif num == 0 then
             color = beautiful.color_widget_value
+
         else
             color = beautiful.color_widget_alert
+
         end
 
         local text = colortext(string.format("%d", num), color)
@@ -533,16 +551,13 @@ timers.fast:connect_signal("timeout", myw.bat.update)
 myw.sys = {}
 myw.sys.sync = require("abdo.widget.filex")
 myw.sys.priv = require("abdo.widget.filex")
-myw.sys.data = require("abdo.widget.filex")
 
 myw.sys.syncwdg = wibox.widget.textbox()
 myw.sys.privwdg = wibox.widget.textbox()
-myw.sys.datawdg = wibox.widget.textbox()
 
 function myw.sys.update()
     local priv_state = myw.sys.priv(nil, {os.getenv("AB2_PRIV_DIR") .. "/README"})
     local sync_state = myw.sys.sync(nil, {os.getenv("XDG_RUNTIME_DIR") .. "/synced"})
-    local data_state = myw.sys.data(nil, {"/data/abdo"})
 
     local icon
     if priv_state then icon = wiboxicon("unlocked", beautiful.color_widget)
@@ -554,11 +569,6 @@ function myw.sys.update()
     else               icon = wiboxicon('sync', beautiful.color_widget_alert)
     end
     myw.sys.syncwdg:set_markup(icon .. ' ')
-
-    if data_state then icon = wiboxicon('disk', beautiful.color_widget)
-    else               icon = wiboxicon('disk', beautiful.color_widget_alert)
-    end
-    myw.sys.datawdg:set_markup(icon .. ' ')
 end
 
 timers.normal:connect_signal("timeout", myw.sys.update)
@@ -631,7 +641,7 @@ myw.tasklist.buttons = awful.util.table.join(
                 c.minimized = true
             else
                 if not c:isvisible() then
-                    awful.tag.viewonly(c:tags()[1])
+                    awful.tag.viewonly(c.first_tag)
                 end
                 -- This will also un-minimize
                 -- the client, if needed
@@ -652,13 +662,11 @@ myw.tasklist.buttons = awful.util.table.join(
     awful.button({ }, 4,
         function ()
             awful.client.focus.byidx(1)
-            if client.focus then client.focus:raise() end
         end),
 
     awful.button({ }, 5,
         function ()
             awful.client.focus.byidx(-1)
-            if client.focus then client.focus:raise() end
         end)
 )
 

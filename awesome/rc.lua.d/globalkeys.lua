@@ -11,6 +11,7 @@ local capi =
     screen = screen,
 }
 
+local awful = awful
 local ipairs = ipairs
 local apps = apps
 local box = box
@@ -39,7 +40,7 @@ function drag_bydirection(dir, c)
     elseif dir == 'left' then
         if c then
             awful.screen.focus_bydirection("left")
-            local s = mouse.screen
+            local s = awful.screen.focused()
             awful.client.movetoscreen(c, s)
             awful.client.focus.byidx(0, c)
         end
@@ -47,7 +48,7 @@ function drag_bydirection(dir, c)
     elseif dir == 'right' then
         if c then
             awful.screen.focus_bydirection("right")
-            local s = mouse.screen
+            local s = awful.screen.focused()
             awful.client.movetoscreen(c, s)
             awful.client.focus.byidx(0, c)
         end
@@ -63,27 +64,29 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "v",      function() switch.output_mode(1)      end),
     awful.key({ modkey, shiftkey  }, "v",      function() switch.output_mode(-1)     end),
 
+    awful.key({ modkey,           }, "b",      function() switch.orientation_mode(1)      end),
+    awful.key({ modkey, shiftkey  }, "b",      function() switch.orientation_mode(-1)     end),
+
     -- Applications started from instantiated units
     awful.key({ modkey, ctrlkey   }, "Return", function () run('app:termite')         end),
     awful.key({ modkey, ctrlkey   }, "f",      function () run('app:thunar')          end),
     awful.key({ modkey, ctrlkey   }, "r",      function () run('app:ranger')          end),
 
-    awful.key({ modkey, ctrlkey   }, "b",      function () run('app:dwb')             end),
-    awful.key({ modkey, metakey   }, "b",      function () run('app:chromium')        end),
+    awful.key({ modkey, ctrlkey   }, "b",      function () run('app:chromium')        end),
+    awful.key({ modkey, metakey   }, "b",      function () run('app:firefox')         end),
     awful.key({ modkey, ctrlkey   }, "e",      function () run('app:emacsclient')     end),
 
     -- Dropdown clients
-    awful.key({ modkey, metakey   }, "Return", function () ddtoggle('dd:termite',     true) end),
-    awful.key({ modkey, metakey   }, "f",      function () ddtoggle('dd:thunar',      true) end),
-    awful.key({ modkey, metakey   }, "r",      function () ddtoggle('dd:ranger',      true) end),
+    awful.key({ modkey, metakey   }, "Return", function () ddtoggle('dd:termite',      true) end),
+    awful.key({ modkey, metakey   }, "f",      function () ddtoggle('dd:thunar',       true) end),
+    awful.key({ modkey, metakey   }, "r",      function () ddtoggle('dd:ranger',       true) end),
 
-    awful.key({ modkey, ctrlkey   }, "d",      function () ddtoggle("app:goldendict", true) end),
-    awful.key({ modkey, ctrlkey   }, "i",      function () ddtoggle("app:calibre",    true) end),
-    awful.key({ modkey, ctrlkey   }, "m",      function () ddtoggle("app:gmpc",       true) end),
-    awful.key({ modkey, ctrlkey   }, "w",      function () ddtoggle('app:xournal',    true) end),
-    awful.key({ modkey, ctrlkey   }, "o",      function () ddtoggle('app:org',        true) end),
-    awful.key({ modkey, ctrlkey   }, "u",      function () ddtoggle('app:mu4e',       true) end),
-    awful.key({ modkey, ctrlkey   }, "t",      function () ddtoggle('app:chat',       true) end),
+    awful.key({ modkey, ctrlkey   }, "i",      function () ddtoggle("app:calibre",     true) end),
+    awful.key({ modkey, ctrlkey   }, "m",      function () ddtoggle("app:cantata",     true) end),
+    awful.key({ modkey, ctrlkey   }, "w",      function () ddtoggle('app:xournal',     true) end),
+    awful.key({ modkey, ctrlkey   }, "o",      function () ddtoggle('app:org',         true) end),
+    awful.key({ modkey, ctrlkey   }, "u",      function () ddtoggle('app:mu4e',        true) end),
+    awful.key({ modkey, ctrlkey   }, "t",      function () ddtoggle('app:chat',        true) end),
 
     -- Desktop boxes
     awful.key({ modkey,           }, "F1",     box.calendar.toggle_calendar),
@@ -161,11 +164,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "k",      function () awful.tag.viewnext() end),
     awful.key({ modkey, ctrlkey   }, "j",      function () awful.tag.viewprev() end),
 
-    awful.key({ modkey, metakey   }, "Up",     function () awful.tag.viewnext(awful.util.cycle(screen.count(), mouse.screen + 1)) end),
-    awful.key({ modkey, metakey   }, "Down",   function () awful.tag.viewprev(awful.util.cycle(screen.count(), mouse.screen + 1)) end),
+    awful.key({ modkey, metakey   }, "Up",     function () awful.tag.viewnext(awful.util.cycle(screen.count(), awful.screen.focused() + 1)) end),
+    awful.key({ modkey, metakey   }, "Down",   function () awful.tag.viewprev(awful.util.cycle(screen.count(), awful.screen.focused() + 1)) end),
 
-    awful.key({ modkey, metakey   }, "k",      function () awful.tag.viewnext(awful.util.cycle(screen.count(), mouse.screen + 1)) end),
-    awful.key({ modkey, metakey   }, "j",      function () awful.tag.viewprev(awful.util.cycle(screen.count(), mouse.screen + 1)) end),
+    awful.key({ modkey, metakey   }, "k",      function () awful.tag.viewnext(awful.util.cycle(screen.count(), awful.screen.focused() + 1)) end),
+    awful.key({ modkey, metakey   }, "j",      function () awful.tag.viewprev(awful.util.cycle(screen.count(), awful.screen.focused() + 1)) end),
 
     awful.key({ modkey, metakey, ctrlkey  }, "Up",    function () for s = 1, screen.count() do awful.tag.viewnext(s) end end),
     awful.key({ modkey, metakey, ctrlkey  }, "Down",  function () for s = 1, screen.count() do awful.tag.viewprev(s) end end),
@@ -240,16 +243,16 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "Page_Up",   function () shexec("mpc -q prev")                    end),
     awful.key({ modkey, ctrlkey   }, "Page_Down", function () shexec("mpc -q next")                    end),
 
-    awful.key({}, "XF86AudioRaiseVolume",         function () shexec("pvol +2db")                      end),
-    awful.key({}, "XF86AudioLowerVolume",         function () shexec("pvol -2db")                      end),
+    awful.key({}, "XF86AudioRaiseVolume",         function () shexec("avol up")                        end),
+    awful.key({}, "XF86AudioLowerVolume",         function () shexec("avol down")                      end),
 
     -- TODO: mute stuff
     awful.key({}, "XF86AudioMute",                function () shexec("pvol mute-sink")                 end),
     awful.key({}, "XF86AudioMicMute",             function () shexec("pvol mute-source")               end),
 
-    awful.key({ modkey, ctrlkey   }, "Insert",    function () shexec("pvol +2db")                      end),
-    awful.key({ modkey, ctrlkey   }, "End",       function () shexec("pvol +2db")                      end), -- for galois
-    awful.key({ modkey, ctrlkey   }, "Delete",    function () shexec("pvol -2db")                      end)
+    awful.key({ modkey, ctrlkey   }, "Insert",    function () shexec("avol up")                        end),
+    awful.key({ modkey, ctrlkey   }, "End",       function () shexec("avol up")                        end), -- for galois
+    awful.key({ modkey, ctrlkey   }, "Delete",    function () shexec("avol down")                      end)
 )
 
 
@@ -264,7 +267,7 @@ for i = 1, keynumber do
 
         awful.key({ modkey }, key,
                   function ()
-                      local screen = mouse.screen
+                      local screen = awful.screen.focused()
                       if tags[screen][i] then
                           awful.tag.viewonly(tags[screen][i])
                       end
@@ -273,7 +276,7 @@ for i = 1, keynumber do
 
         awful.key({ modkey, ctrlkey   }, key,
                   function ()
-                      local screen = mouse.screen
+                      local screen = awful.screen.focused()
                       if tags[screen][i] then
                           awful.tag.viewtoggle(tags[screen][i])
                       end

@@ -22,7 +22,6 @@ local capi = {
     client = client,
     keygrabber = keygrabber,
     mousegrabber = mousegrabber,
-    mouse = mouse,
     screen = screen
 }
 
@@ -119,10 +118,10 @@ end
 -- Implement Exposé (ala Mac OS X).
 --
 -- @param rule A table with key and value to match. [{class=""}]
--- @param s The screen to consider clients of. [mouse.screen].
+-- @param s The screen to consider clients of. [awful.screen.focused()].
 function revelation.expose(rule, s)
     local rule = rule or {class=""}
-    local scr = s or capi.mouse.screen
+    local scr = s or awful.screen.focused()
 
     local t = awful.tag.new({revelation.config.tag_name},
                             scr,

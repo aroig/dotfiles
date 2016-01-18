@@ -9,6 +9,8 @@ return {
    termite                   = "termite@.service",
    ranger                    = "ranger@.service",
    emacsclient               = "emacsclient@.service",
+   musicplayer               = "musicplayer.service",
+   gmpc                      = "gmpc.service",
 
    org                       = "orgmode.service",
    calibre                   = "calibre.service",
@@ -16,7 +18,6 @@ return {
    chat                      = "chat.service",
    notes                     = "notes.service",
    xournal                   = "xournal.service",
-   gmpc                      = "gmpc.service",
    goldendict                = "goldendict.service",
 
    deluge                    = "deluge.service",

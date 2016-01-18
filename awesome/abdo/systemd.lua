@@ -17,7 +17,6 @@ local io = { popen = io.popen, open=io.open }
 rules = require("awful.rules")
 
 local capi = {
-    mouse = mouse,
     client = client,
     screen = screen
 }
@@ -46,13 +45,18 @@ end
 
 local function pid_cgroup(pid)
     local cgroup = nil
-    local f = io.open(string.format("/proc/%d/cgroup", pid), 'rb')
-    if f then
-        local raw = f:read("*all")
-        cgroup = string.match(raw, "systemd:(.-)%s*$")
-        f:close()
+
+    -- This is racy. Let's attempt several times with a timeout.
+    for i=1,10 do
+        local f = io.open(string.format("/proc/%d/cgroup", pid), 'rb')
+        if f then
+            local raw = f:read("*all")
+            cgroup = string.match(raw, ":([^:]-)%s*$")
+            f:close()
+            return cgroup
+        end
+        os.execute("sleep 0.1")
     end
-    return cgroup
 end
 
 local function unit_cgroup (unit)
@@ -67,7 +71,7 @@ end
 
 local function cgroup_mainpid(cgroup)
     if cgroup then
-        local f = io.open(string.format("/sys/fs/cgroup/systemd%s/cgroup.procs", cgroup), 'rb')
+        local f = io.open(string.format("/sys/fs/cgroup%s/cgroup.procs", cgroup), 'rb')
         if f then
             local mainpid = f:read("*l")
             f:close()
@@ -102,7 +106,7 @@ end
 
 -- Execute an external program and connect the output to systemd journal
 function systemd.exec (cmd, name)
-    local pid = awful.util.spawn_with_shell(cmd .. string.format(' 2>&1 | systemd-cat -t %s', name))
+    local pid = awful.spawn.with_shell(cmd .. string.format(' 2>&1 | systemd-cat -t %s', name))
     return pid
 end
 
@@ -136,9 +140,9 @@ function systemd.run (cmd, name, props)
         end
 
         -- do not catch stdout. The process does NOT end immediately
-        local pid = awful.util.spawn_with_shell(string.format('%s sh -c %s &> /dev/null',
-                                                              sdcmd,
-                                                              shell_escape(cmd)))
+        local pid = awful.spawn.with_shell(string.format('%s sh -c %s &> /dev/null',
+                                                         sdcmd,
+                                                         shell_escape(cmd)))
     else
         sdcmd = sdcmd .. cmd
         -- launch systemd service and capture the service name
@@ -174,7 +178,7 @@ function systemd.start (unit)
         shcmd = string.format('systemctl --user start %s',
                               shell_escape(startunit))
 
-        awful.util.spawn_with_shell(shcmd)
+        awful.spawn.with_shell(shcmd)
     end
     return startunit
 end
@@ -189,7 +193,7 @@ function systemd.stop (unit)
         shcmd = string.format('systemctl --user stop %s',
                               shell_escape(stopunit))
 
-        awful.util.spawn_with_shell(shcmd)
+        awful.spawn.with_shell(shcmd)
     end
     return stopunit
 end
@@ -224,33 +228,15 @@ end
 
 -- get cgroup from pid or unit name
 function systemd.get_cgroup (s)
-    if type(s) == "number" then
-        s = string.format("%d", s)
-
-    elseif type(s) == "string" then
-        s = s
-
-    else
-        return
-    end
-
     local cgroup = nil
 
     -- we got a pid
     if string.match(s, '^[0-9]*$') then
-        local f = io.open(string.format("/proc/%s/cgroup"), 'rb')
-        if f then
-            cgroup = string.match(f:read("*all"), "systemd:(.*)$")
-            f:close()
-        end
+        cgroup = pid_cgroup(tonumber(s))
 
     -- we got a unit name
     else
-        local f = io.popen(string.format("systemctl --user show -p ControlGroup %s", s), 'r')
-        if f then
-            cgroup = string.match(f:read("*all"), "^ControlGroup=(.*)$")
-            f:close()
-        end
+        cgroup = unit_cgroup(s)
     end
     return cgroup
 end
