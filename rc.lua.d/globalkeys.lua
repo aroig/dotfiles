@@ -77,17 +77,16 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "e",      function () run('app:emacsclient')     end),
 
     -- Dropdown clients
-    awful.key({ modkey, metakey   }, "Return", function () ddtoggle('dd:termite',     true) end),
-    awful.key({ modkey, metakey   }, "f",      function () ddtoggle('dd:thunar',      true) end),
-    awful.key({ modkey, metakey   }, "r",      function () ddtoggle('dd:ranger',      true) end),
+    awful.key({ modkey, metakey   }, "Return", function () ddtoggle('dd:termite',      true) end),
+    awful.key({ modkey, metakey   }, "f",      function () ddtoggle('dd:thunar',       true) end),
+    awful.key({ modkey, metakey   }, "r",      function () ddtoggle('dd:ranger',       true) end),
 
-    awful.key({ modkey, ctrlkey   }, "d",      function () ddtoggle("app:goldendict", true) end),
-    awful.key({ modkey, ctrlkey   }, "i",      function () ddtoggle("app:calibre",    true) end),
-    awful.key({ modkey, ctrlkey   }, "m",      function () ddtoggle("app:gmpc",       true) end),
-    awful.key({ modkey, ctrlkey   }, "w",      function () ddtoggle('app:xournal',    true) end),
-    awful.key({ modkey, ctrlkey   }, "o",      function () ddtoggle('app:org',        true) end),
-    awful.key({ modkey, ctrlkey   }, "u",      function () ddtoggle('app:mu4e',       true) end),
-    awful.key({ modkey, ctrlkey   }, "t",      function () ddtoggle('app:chat',       true) end),
+    awful.key({ modkey, ctrlkey   }, "i",      function () ddtoggle("app:calibre",     true) end),
+    awful.key({ modkey, ctrlkey   }, "m",      function () ddtoggle("app:cantata",     true) end),
+    awful.key({ modkey, ctrlkey   }, "w",      function () ddtoggle('app:xournal',     true) end),
+    awful.key({ modkey, ctrlkey   }, "o",      function () ddtoggle('app:org',         true) end),
+    awful.key({ modkey, ctrlkey   }, "u",      function () ddtoggle('app:mu4e',        true) end),
+    awful.key({ modkey, ctrlkey   }, "t",      function () ddtoggle('app:chat',        true) end),
 
     -- Desktop boxes
     awful.key({ modkey,           }, "F1",     box.calendar.toggle_calendar),
