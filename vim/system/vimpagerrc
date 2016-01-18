@@ -1,0 +1,85 @@
+"---------------------------------------------------------------------"
+" File:   /etc/vimpagerrc                                             "
+" Author: Abdó Roig-Maranges <abdo.roig@gmail.com                     "
+" Desc:   Global vimpager configuration                               "
+"---------------------------------------------------------------------"
+
+
+" Configuration
+" --------------------
+
+source /etc/vimrc.d/general.vim
+source /etc/vimrc.d/keymaps.vim
+source /etc/vimrc.d/ui.vim
+
+
+" General options
+" --------------------
+set viminfo=""                    " disables viminfo
+
+" track file changes
+set autoread
+
+" need to trigger checktime. vim has no timers, so use CursorHold events
+autocmd CursorHold * checktime
+
+" buffers are not modifiable
+autocmd BufRead,BufWinEnter * setlocal readonly nomodifiable
+
+
+" Vimpager options
+" --------------------
+
+let g:vimpager_disable_ansiesc = 1
+" let g:vimpager_scrolloff = 5
+let g:vimpager_passthrough = 0
+let g:vimpager_less_mode = 0
+
+" set noloadplugins
+
+
+" Key bindings
+" --------------------
+noremap q :q!<cr>
+
+
+" Filetype
+" --------------------
+function! GetVimAncestors()
+    let ancestors=[]
+    let pid=getpid()        
+    while pid > 1
+        let pname = system("ps -o comm= -p " . pid)
+        let pname = substitute(pname, '^[ \n]*\(.\{-}\)[ \n]*$', '\1', '')
+
+"        echo pid
+"        echo pname
+
+        let pid = system("ps -o ppid= -p " . pid)
+        let pid = substitute(pid, '^[ \n]*\(.\{-}\)[ \n]*$', '\1', '')        
+        
+        call insert(ancestors, pname)
+    endwhile
+    return ancestors
+endfunction
+
+let ancestors = GetVimAncestors()
+"echo ancestors
+
+if match(ancestors, "sage") != -1
+    autocmd VimEnter * set ft=sagehelp
+
+elseif match(ancestors, "ipython") != -1
+    autocmd VimEnter * set ft=ipythonhelp
+    
+elseif match(ancestors, "git") != -1
+    autocmd VimEnter * set ft=git
+
+elseif match(ancestors, "hg") != -1
+    autocmd VimEnter * set ft=hg
+
+elseif match(ancestors, "journalctl") != -1
+    autocmd VimEnter * set ft=messages
+
+endif
+

@@ -4,15 +4,7 @@
 " Desc:   vimpager configuration                                      "
 "---------------------------------------------------------------------"
 
-
-" General options
+" Source global
 " --------------------
-set nocompatible                  " vim defaults. forget about vi compatibility!
-"set viminfo=""                    " disables viminfo
-
-
-
-" Source vimrc.d stuff
-" --------------------
-source ~/.vim/vimrc.d/ui              " UI stuff
+source /etc/vimpagerrc
 
