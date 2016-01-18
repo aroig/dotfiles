@@ -1,12 +1,12 @@
 [Unit]
 Description=garbage collect homedir
 
-ConditionPathExists=/home/%u/.mrconfig
+ConditionACPower=yes
+ConditionPathExists=/home/abdo/.mrconfig
 
 [Service]
 Type=oneshot
 Slice=workers.slice
-SyslogIdentifier=homedir-gc
 
 IOSchedulingClass=idle
 WorkingDirectory=/home/%u

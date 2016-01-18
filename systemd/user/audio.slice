@@ -3,5 +3,8 @@ Description=audio servers
 
 Before=slices.target
 
+[Slice]
+# TODO: add realtime scheduling when available via cgroups
+
 [Install]
 WantedBy=audio.target

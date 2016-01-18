@@ -1,6 +1,8 @@
 [Unit]
 Description=Set the environment
 
+Before=default.target
+
 [Service]
 Type=oneshot
 

@@ -1,8 +1,0 @@
-[Unit]
-Description=play sampled piano
-
-Requires=jack.service
-After=jack.service
-
-Wants=pianoteq.service
-After=pianoteq.service

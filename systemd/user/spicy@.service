@@ -7,7 +7,6 @@ After=machine@%i.service
 [Service]
 Type=simple
 
-SyslogIdentifier=spicy
 ExecStart=/usr/bin/spicy -h localhost 5930
 
 

@@ -14,5 +14,4 @@ OnFailure=journal-mailer.service
 
 [Service]
 Type=oneshot
-SyslogIdentifier=sync-bye
 ExecStart=/usr/bin/true

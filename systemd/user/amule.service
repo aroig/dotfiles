@@ -11,7 +11,6 @@ After=amuled.service
 [Service]
 Type=simple
 
-SyslogIdentifier=amule
 Slice=apps.slice
 
 ExecStart=/usr/bin/amulegui

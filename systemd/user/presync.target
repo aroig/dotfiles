@@ -1,7 +1,4 @@
 [Unit]
 Description=homedir presync hook
 
-StopWhenUnneeded=true
-
-# Shut down all services requiring a synced system.
 Conflicts=synced.target

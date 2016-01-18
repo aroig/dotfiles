@@ -6,7 +6,6 @@ After=pulseaudio.service
 
 [Service]
 Type=oneshot
-SyslogIdentifier=audio-fwd-%i
 Slice=audio.slice
 
 Environment=REMOTE=%i

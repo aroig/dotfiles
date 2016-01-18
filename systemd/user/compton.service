@@ -9,10 +9,10 @@ After=awesome.service openbox.service xmonad.service
 
 [Service]
 Type=simple
-SyslogIdentifier=compton
 Slice=wm.slice
 
 ExecStart=/usr/bin/compton
+StandardOutput=null
 
 [Install]
-WantedBy=comptositor.target
+WantedBy=compositor.target

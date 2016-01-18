@@ -10,7 +10,6 @@ After=graphical.target
 Type=forking
 Slice=daemons.slice
 
-SyslogIdentifier=emacs
 
 ExecStart=/usr/bin/emacs --daemon
 SuccessExitStatus=0 15

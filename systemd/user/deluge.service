@@ -11,7 +11,6 @@ After=deluged.service
 [Service]
 Type=simple
 
-SyslogIdentifier=deluge
 Slice=apps.slice
 
 ExecStart=/usr/bin/deluge

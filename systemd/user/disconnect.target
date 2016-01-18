@@ -1,8 +1,5 @@
 [Unit]
-Description=close active connections
-
-DefaultDependencies=no
-RefuseManualStart=yes
+Description=close active network services
 
 Before=sleep.target shutdown.target
 

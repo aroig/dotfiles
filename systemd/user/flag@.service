@@ -6,7 +6,6 @@ StopWhenUnneeded=true
 Type=oneshot
 RemainAfterExit=true
 
-SyslogIdentifier=flag
 ExecStart=/usr/bin/touch "%t/%i"
 ExecStop=/usr/bin/rm "%t/%i"
 

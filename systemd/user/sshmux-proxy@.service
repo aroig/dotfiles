@@ -15,7 +15,6 @@ After=sshmux-proxy@%i.socket
 [Service]
 Type=simple
 
-SyslogIdentifier=sshmux-proxy
 ExecStart=/usr/lib/systemd/systemd-socket-proxyd %t/ssh/%i.socket
 
 

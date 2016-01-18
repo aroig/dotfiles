@@ -64,6 +64,7 @@ case "$1" in
     
     *)
         transient='1'
+        workingdir=`pwd`
         basename="run-$(basename "$1")@"
         index="$(available_index "$basename")"
         [ ! "$unit" ] && unit="$basename$index"
@@ -73,7 +74,7 @@ esac
 
 if [ "$transient" = "1" ]; then
     # NOTE: we need to escape % on the command, otherwise systemd gets confused
-    systemd-run --user --slice="$slice" --unit="$unit" --description="$desc" "${@//%/%%}"
+    systemd-run --user --slice="$slice" --unit="$unit" -p "WorkingDirectory=$workingdir" --description="$desc" "${@//%/%%}"
     
 else
     systemctl --user start "$unit"

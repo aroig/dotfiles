@@ -1,9 +1,15 @@
 [Unit]
 Description=fetch mail
-StopWhenUnneeded=true
+
+Requires=mount-priv.service
+After=mount-priv.service
+
+# stopping of git-use@mail propagates to this target
+PartOf=git-use@mail.service
+Before=git-use@mail.service
 
 Requires=offlineimap.service
-After=offlineimap.service
+Before=offlineimap.service
 
 Requires=mutag-autotag.service mutag-index.service
-After=mutag-autotag.service mutag-index.service
+Before=mutag-autotag.service mutag-index.service

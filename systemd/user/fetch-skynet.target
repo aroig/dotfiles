@@ -3,11 +3,10 @@
 ConditionHost=skynet
 
 Description=fetch mail and news
-StopWhenUnneeded=true
 
-Requires=offlineimap.service
-After=offlineimap.service
+# stopping of git-use@mail propagates to this target
+PartOf=git-use@mail.service
+Before=git-use@mail.service
 
-Requires=rss2maildir.service
-After=rss2maildir.service
-
+Requires=offlineimap.service rss2maildir.service
+Before=offlineimap.service rss2maildir.service

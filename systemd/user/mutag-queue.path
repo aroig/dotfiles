@@ -1,8 +1,0 @@
-[Unit]
-Description=watch mail queue
-
-ConditionPathExists=/home/abdo/mail
-
-[Path]
-PathChanged=/home/abdo/mail/queue
-Unit=mutag-newmail.service

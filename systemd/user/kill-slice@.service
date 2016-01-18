@@ -1,0 +1,12 @@
+[Unit]
+Description=kill %i slice
+
+# NOTE: we need to manually kill services in slices, because transient units can't have
+# Requires dependencies that would do that for us.
+
+Before=wmclean.target
+
+[Service]
+Type=oneshot
+
+ExecStart=/usr/bin/systemctl --user kill %i.slice

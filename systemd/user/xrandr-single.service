@@ -12,5 +12,4 @@ Before=graphical.target
 Type=oneshot
 RemainAfterExit=true
 EnvironmentFile=%h/.config/systemd/conf/xrandr/%H.conf
-SyslogIdentifier=xrandr-single
 ExecStart=/usr/bin/xrandr --output "$XRANDR_PRIMARY" --auto --primary --output "$XRANDR_SECONDARY" --off --output "$XRANDR_TERTIARY" --off

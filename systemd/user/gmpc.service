@@ -1,5 +1,5 @@
 [Unit]
-Description=mpd client
+Description=gmpc mpd client
 
 Requisite=wm.target
 After=wm.target
@@ -8,7 +8,9 @@ Requires=mpd.service
 
 [Service]
 Type=simple
-SyslogIdentifier=gmpc
 Slice=dropdown.slice
 
 ExecStart=/usr/bin/gmpc --debug-level=0
+
+[Install]
+Alias=musicplayer.service

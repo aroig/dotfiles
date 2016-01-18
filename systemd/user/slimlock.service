@@ -4,7 +4,10 @@ Description=slimlock screen locker
 Requisite=graphical.target
 After=graphical.target
 
-# so that when slimlock ends lock.target goes down
+Requires=prelock.target
+After=prelock.target
+
+# so that when lock.target stops, slimlock goes down
 PartOf=lock.target
 
 [Service]

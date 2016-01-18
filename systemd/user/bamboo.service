@@ -15,7 +15,6 @@ After=sys-subsystem-input-devices-bamboo.device
 
 [Service]
 Type=oneshot
-SyslogIdentifier=bamboo
 ExecStart=/home/abdo/.config/systemd/scripts/bamboo.sh
 
 [Install]

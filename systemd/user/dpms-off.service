@@ -6,5 +6,4 @@ After=graphical.target
 
 [Service]
 Type=oneshot
-SyslogIdentifier=dpms-off
 ExecStart=/usr/bin/xset dpms force off

@@ -1,0 +1,5 @@
+[Unit]
+Description=portrait orientation
+Conflicts=landscape.target
+
+Requires=yoga-rotate@90.service

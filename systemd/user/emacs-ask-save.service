@@ -9,7 +9,6 @@ Before=wmclean.target
 
 [Service]
 Type=oneshot
-SyslogIdentifier=emacs-ask
 
 ExecStart=/home/abdo/bin/emacs-run -q -s emacs.service -k server '(abdo-save-buffers-new-frame)'
 

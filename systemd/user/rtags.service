@@ -1,16 +1,20 @@
 [Unit]
 Description=rtags server
 
+Requires=rtags.socket
+After=rtags.socket
+
 [Service]
 Type=simple
-SyslogIdentifier=rtags
-
-# RuntimeDirectory=rtags
-# RuntimeDirectoryMode=700
-# ExecStart=/usr/bin/rdm --socket-file %t/rtags/socket
+Slice=daemons.slice
 
 # the default socket is in ~/.rdm
-ExecStart=/usr/bin/rdm
+# --no-filesystem-watcher  disable inotify completely
+# --no-filemanager-watch   only watch directories with source files
+# --watch-sources-only     only watch source files
+ExecStart=/usr/bin/rdm --inactivity-timeout 300 --no-startup-project --no-filemanager-watch --watch-sources-only
+
+
 
 
 

@@ -1,6 +1,23 @@
 TODO
 ====
 
+* Run `wakeup.target` when waking up from sleep. Don't see an obvious way to do it.
+* Setup sway, xwayland, etc.
+
+* Make a preset for user services in roberta's user.
+
+* Different hosts need different user units. For example, disable tmp cleanups on
+  skynet. Either use `ConditionHost` more often, or use presets.
+
+* I removed explicit dependencies on `mount-priv.service` because failed on skynet. Think
+  how to replace them.
+
+* Isolate web browser services.
+
+* Only mount `~/priv` on certain services.
+
+* get rid of `SyslogIdentifier` on all services.
+
 * Add an `After` for all `Conflicts`, so they start and stop one after the other.
 
 * get rid of sudo's in user services
@@ -10,6 +27,8 @@ TODO
 * make sure the sync + shutdown still works fine
 
 * Cleanup the xorg services
+
+* remove as much as sudo's from services as I can.
 
 * remove as much as systemctl's from services as I can.
 
@@ -29,4 +48,8 @@ TODO
 
 ## Systemd issues
 
-* systemd-inhibit, systemctl poweroff, etc. can't be run unprivileged outside a session
+* systemd-inhibit, systemctl poweroff, etc. can't run unprivileged outside a session
+
+* journal has a race in which short-lived processes do not get all metadata attached, like
+  cgroup. This needs fixing in kernel, but seems it will not
+  happen. http://comments.gmane.org/gmane.linux.kernel/1551621

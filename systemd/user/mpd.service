@@ -7,6 +7,9 @@ After=mpd.socket
 Requires=pulseaudio.service
 After=pulseaudio.service
 
+Requisite=synced.target
+After=synced.target
+
 [Service]
 Type=simple
 

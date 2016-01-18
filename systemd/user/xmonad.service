@@ -14,7 +14,6 @@ Before=wm.target
 
 [Service]
 Type=simple
-SyslogIdentifier=xmonad
 Slice=wm.slice
 
 ExecStart=/usr/bin/xmonad

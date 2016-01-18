@@ -1,9 +1,9 @@
 [Unit]
 Description=sync google calendar
 
-ConditionPathExists=/home/%u/wiki
+AssertPathExists=/home/%u/wiki
+AssertPathExists=/home/%u/priv
 
-Requires=mount-priv.service
 After=mount-priv.service
 
 # gcal accesses and changes ~/wiki
@@ -17,6 +17,5 @@ After=network-online.target
 Type=oneshot
 Slice=workers.slice
 
-SyslogIdentifier=gcal-sync
 ExecStart=/usr/bin/make -C "${AB2_WIKI_DIR}" ical
 ExecStart=/usr/bin/gcal -S

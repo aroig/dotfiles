@@ -1,9 +1,0 @@
-[Unit]
-Description=watch mail database changes
-
-ConditionPathExists=/home/abdo/mail
-ConditionPathExists=/home/abdo/.mu/xapian
-
-[Path]
-PathChanged=/home/abdo/.mu/xapian
-Unit=mutag-newmail.service

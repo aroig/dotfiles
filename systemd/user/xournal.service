@@ -6,7 +6,6 @@ After=wm.target
 
 [Service]
 Type=simple
-SyslogIdentifier=xournal
 Slice=dropdown.slice
 
 ExecStart=/usr/bin/xournal "${AB2_MATHS_DIR}/notes/scratchpad.xoj"

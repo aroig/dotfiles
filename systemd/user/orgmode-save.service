@@ -6,7 +6,6 @@ After=orgmode.service
 
 [Service]
 Type=oneshot
-SyslogIdentifier=orgmode-session
 
 # NOTE: If orgmode.service is not active, always succeed since there is nothing to be done.
 #       It would be nice to write the dependency on orgmode.service directly in systemd!

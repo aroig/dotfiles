@@ -1,7 +1,9 @@
 [Unit]
 Description=sync google contacts
 
-Requires=mount-priv.service
+AssertPathExists=/home/%u/mail
+AssertPathExists=/home/%u/priv
+
 After=mount-priv.service
 
 # gcont store contacts in ~/mail

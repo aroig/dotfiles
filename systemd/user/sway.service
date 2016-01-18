@@ -1,0 +1,24 @@
+[Unit]
+Description=sway window manager
+
+Conflicts=openbox.service xmonad.service tint2.service awesome.service
+
+Requisite=graphical.target
+After=graphical.target
+
+Requires=wm.target
+Before=wm.target
+
+[Service]
+Type=simple
+Slice=wm.slice
+
+ExecStart=/usr/bin/sway
+KillSignal=SIGINT
+TimeoutSec=15
+
+[Install]
+WantedBy=desktop.target
+WantedBy=laptop.target
+WantedBy=tablet.target
+WantedBy=vncserver.target

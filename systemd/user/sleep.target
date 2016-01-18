@@ -1,9 +1,9 @@
 [Unit]
 Description=sleep
 
+After=chat-away.service dpms-off.service mpc-pause.service stream-stop.service disconnect.target
+After=i3lock.service
+
 DefaultDependencies=no
 RefuseManualStart=yes
 StopWhenUnneeded=yes
-
-Requires=lock.target
-After=lock.target

@@ -7,8 +7,6 @@ After=synced.target
 Requires=mpd.socket mpd.service
 After=mpd.socket mpd.service
 
-Requires=audio.slice
-After=audio.slice
 
 [Service]
 Type = simple

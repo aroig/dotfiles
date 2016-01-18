@@ -6,10 +6,9 @@ After=wm.target
 
 [Service]
 Type=simple
-SyslogIdentifier=chromium
 Slice=apps.slice
 
-ExecStart=/usr/bin/chromium
+ExecStart=/usr/bin/chromium --profile-directory=Default
 StandardOutput=null
 
 

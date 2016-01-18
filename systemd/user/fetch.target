@@ -1,15 +1,21 @@
 [Unit]
 Description=fetch mail and news
-StopWhenUnneeded=true
 
 Wants=journal-show.service
-After=journal-show.service
+Before=journal-show.service
+
+Requires=mount-priv.service
+After=mount-priv.service
 
 # Requires=gcal-sync.service 
 # After=gcal-sync.service
 
-Requires=gcont-sync.service offlineimap.service rss2maildir.service
-After=gcont-sync.service offlineimap.service rss2maildir.service
+# stopping of git-use@mail propagates to this target
+PartOf=git-use@mail.service
+Before=git-use@mail.service
 
-Requires=mutag-autotag.service mutag-index.service
-After=mutag-autotag.service mutag-index.service
+Requires=gcont-sync.service offlineimap.service rss2maildir.service
+Before=gcont-sync.service offlineimap.service rss2maildir.service
+
+Requires=mutag-autotag.service
+Before=mutag-autotag.service

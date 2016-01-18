@@ -1,9 +1,9 @@
 [Unit]
 Description=offlineimap
 
-ConditionPathExists=/home/%u/mail
+AssertPathExists=/home/%u/mail
+AssertPathExists=/home/%u/.netrc
 
-Requires=mount-priv.service
 After=mount-priv.service
 
 Requisite=synced.target

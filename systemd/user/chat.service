@@ -1,8 +1,7 @@
 [Unit]
 Description=chat
 
-Requires=mount-priv.service
-After=mount-priv.service
+AssertPathExists=/home/%u/priv
 
 Requisite=wm.target
 After=wm.target
@@ -12,7 +11,6 @@ After=git-use@var-chat-emacs.service
 
 [Service]
 Type=simple
-SyslogIdentifier=chat
 Slice=dropdown.slice
 
 ExecStart=/usr/bin/emacs -chat --title "emacs-chat"

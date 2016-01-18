@@ -1,0 +1,8 @@
+[Unit]
+Description=rtags server socket
+
+[Socket]
+ListenStream=%h/.rdm
+
+[Install]
+WantedBy=sockets.target

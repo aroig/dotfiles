@@ -5,6 +5,9 @@ Requires=network-online.target
 After=network-online.target
 
 [Service]
+Type=simple
+Slice=daemons.slice
+
 ExecStartPre=/usr/bin/sudo /usr/bin/iptables -A firewall -p tcp --dport 49300:49309 -j ACCEPT
 ExecStartPre=/usr/bin/sudo /usr/bin/iptables -A firewall -p udp --dport 49300:49309 -j ACCEPT
 
