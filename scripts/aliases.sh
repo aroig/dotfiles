@@ -191,18 +191,13 @@ sdan_svg() {
 # homedir synchronization
 hh() {
     local cmd="$1"; shift
+    local syncdir="~/arch/sync"
 
-    syncdir="~/arch/sync"
-    case "$cmd" in
-        sync|push|pull)
-                local rmt="$1"; shift
-                make --no-print-directory --warn-undefined-variables -C "$syncdir" "$cmd-$rmt" "$@"
-                ;;
-        
-        init|status|info-dirs|info-remotes|check|optimize)
-            make --no-print-directory --warn-undefined-variables -C "$syncdir" "$cmd" "$@"
-            ;;
-    esac
+    if [ "$@" ]; then
+        make --no-print-directory --warn-undefined-variables -C "$syncdir" "$cmd" "REMOTES=$@"
+    else
+        make --no-print-directory --warn-undefined-variables -C "$syncdir" "$cmd" 
+    fi   
 }
 
 # firewall
