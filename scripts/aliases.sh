@@ -191,16 +191,18 @@ sdan_svg() {
 # homedir synchronization
 hh() {
     local syncdir="~/arch/sync"
+    local cmd=("$1")
+    shift
 
-    local cmd=("$1"); shift
+    while getopts ":r:d:" opt; do
+        case $opt in
+            r) cmd+="REMOTES=$OPTARG" ;;
+            d) cmd+="DIRS=$OPTARG" ;;
+            *) echo "Unknown argument." >&2;;
+        esac
+    done
+    shift $((OPTIND-1))
 
-    if [ "$1" ]; then
-        cmd+="REMOTES=$1"; shift
-    fi
-
-    if [ "$1" ]; then
-        cmd+="DIRS=$1"; shift
-    fi
     make --no-print-directory --warn-undefined-variables -C "$syncdir" "${cmd[@]}" "$@"
 }
 
