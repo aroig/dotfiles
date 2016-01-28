@@ -9,7 +9,7 @@ return {
    termite                   = "termite@.service",
    ranger                    = "ranger@.service",
    emacsclient               = "emacsclient@.service",
-   musicplayer               = "musicplayer.service",
+   cantata                   = "cantata.service",
    gmpc                      = "gmpc.service",
 
    org                       = "orgmode.service",
