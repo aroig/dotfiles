@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+
+# source profiles from /etc/profile.d if not already sourced
+if [ ! "$PROFILE_SOURCED" = 1 ] && test -d /etc/profile.d/; then
+    for profile in /etc/profile.d/*.sh; do
+        test -r "$profile" && source "$profile"
+    done
+    unset profile
+fi
