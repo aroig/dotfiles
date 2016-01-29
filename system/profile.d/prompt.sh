@@ -259,3 +259,49 @@ abdo_prompt_messagehello() {
     fi
     
 }
+
+abdo_save_return_value() {
+    ANS=$?;
+}
+
+
+# In case of dumb terminal, like tramp login
+if [ "$TERM" = "dumb" ]; then
+    unsetopt zle prompt_cr prompt_subst
+    PS1='$ '
+    return
+fi
+
+
+if [ "$ZSH_VERSION" ]; then
+    # arch prompt, just in case
+    PROMPT='[%n@%m %1~] $ '
+
+    if [ ! "$TERM" = "dumb" ]; then
+        autoload -U add-zsh-hook
+        
+        # catch the return value before setting any prompt.
+        add-zsh-hook precmd abdo_save_return_value        
+
+        # set prompt
+        setopt prompt_subst
+        PROMPT='$(abdo_prompt_main)'
+        PROMPT2='$(abdo_prompt_cont)'
+    fi
+fi
+
+
+if [ "$BASH_VERSION" ]; then
+    # arch prompt, just in case
+    PS1='[\u@\h \W]\$ '
+
+    if [ ! "$TERM" = "dumb" ]; then
+        # prompt hook
+        PROMPT_COMMAND=abdo_save_return_value
+    
+        # set prompt
+        PS1="\$(abdo_prompt_main)"
+        PS2="\$(abdo_prompt_cont)"
+    fi
+fi
+

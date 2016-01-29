@@ -18,3 +18,10 @@ set-window-title () {
 }
 
 
+if [ "$ZSH_VERSION" ]; then
+    autoload -U add-zsh-hook
+
+    # set window title
+    add-zsh-hook precmd set-window-title
+fi
+

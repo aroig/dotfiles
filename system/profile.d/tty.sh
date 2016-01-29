@@ -49,3 +49,7 @@ set_tty_colors() {
     echo -e -n "\e]P0000000"
 }
 
+
+# Disable ^S ^Q to stop start the output
+stty stop undef
+stty start undef
