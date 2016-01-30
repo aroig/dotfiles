@@ -2,8 +2,8 @@
 
 # source zshenv when not in zsh.
 if [ ! "$ZSH_VERSION" ]; then
-    if [ -f "/etc/zshenv" ]; then
-        source "/etc/zshenv"
+    if [ -f "/etc/zsh/zshenv" ]; then
+        source "/etc/zsh/zshenv"
     fi
 
     if [ -f "$HOME/.zshenv" ]; then
