@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+
+# source profiles from /etc/zsh/zshrc.d if not already sourced
+if test -d /etc/zsh/zshrc.d/; then
+    for scr in /etc/zsh/zshrc.d/*.sh; do
+        test -r "$scr" && source "$scr"
+    done
+    unset scr
+fi

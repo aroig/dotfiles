@@ -23,7 +23,6 @@ else
 fi
 
 
-
 # ----------------------------
 # Git Prompt config
 # ----------------------------
@@ -260,6 +259,7 @@ abdo_prompt_messagehello() {
     
 }
 
+
 abdo_save_return_value() {
     ANS=$?;
 }
@@ -281,7 +281,7 @@ if [ "$ZSH_VERSION" ]; then
         autoload -U add-zsh-hook
         
         # catch the return value before setting any prompt.
-        add-zsh-hook precmd abdo_save_return_value        
+        add-zsh-hook precmd abdo_save_return_value
 
         # set prompt
         setopt prompt_subst
