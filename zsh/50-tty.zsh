@@ -1,1 +1,0 @@
-../scripts/tty.sh
