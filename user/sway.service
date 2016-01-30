@@ -13,7 +13,7 @@ Before=wm.target
 Type=simple
 Slice=wm.slice
 
-ExecStart=/usr/bin/sway
+ExecStart=/usr/bin/sway -c "%h/.config/sway/host/%H"
 KillSignal=SIGINT
 TimeoutSec=15
 
