@@ -10,6 +10,6 @@ After=mpd.socket mpd.service
 
 [Service]
 Type = simple
-ExecStart = /usr/bin/mpdscribble -D
+ExecStart = /usr/bin/mpdscribble -D --conf %h/.config/mpdscribble/mpdscribble.conf
 
 Slice=audio.slice
