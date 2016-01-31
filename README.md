@@ -29,7 +29,6 @@ User Units
   - `docked.target`: laptop is docked
 
 * Software state
-  - `user.target`: basic user session
   - `slices.target`: all slices are in place
   - `audio.target`: audio services
   - `daemons.target`: user daemons

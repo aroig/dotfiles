@@ -1,9 +1,6 @@
 [Unit]
 Description=compositor
 
-Requires=user.target
-After=user.target
-
 Requires=graphical.target
 
 [Install]
