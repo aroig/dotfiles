@@ -4,10 +4,8 @@
 [[ $- != *i* ]] && return
 
 # backup prompt
-PS1='[\u@\h \W]\$ '
-PS2='> '
-PS3='> '
-PS4='+ '
+PROMPT='[%n@%m %1~] $ '
+PROMPT2='> '
 
 # source profiles from /etc/shellrc.d
 if test -d /etc/shellrc.d/; then

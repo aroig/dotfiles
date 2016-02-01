@@ -274,9 +274,6 @@ fi
 
 
 if [ "$ZSH_VERSION" ]; then
-    # arch prompt, just in case
-    PROMPT='[%n@%m %1~] $ '
-
     if [ ! "$TERM" = "dumb" ]; then
         autoload -U add-zsh-hook
         
@@ -292,16 +289,9 @@ fi
 
 
 if [ "$BASH_VERSION" ]; then
-    # arch prompt, just in case
-    PS1='[\u@\h \W]\$ '
-
     if [ ! "$TERM" = "dumb" ]; then
-        # prompt hook
-        PROMPT_COMMAND=abdo_save_return_value
-    
-        # set prompt
-        PS1="\$(abdo_prompt_main)"
-        PS2="\$(abdo_prompt_cont)"
+        # prompt hook. need to do it this way in order to call functions
+        PROMPT_COMMAND='abdo_save_return_value; PS1="$(abdo_prompt_main)"; PS2="\$(abdo_prompt_cont)"'        
     fi
 fi
 
