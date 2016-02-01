@@ -42,3 +42,10 @@ if [ "$ZSH_VERSION" ]; then
     # zstyle ':completion::*:expand:*' tag-order all-expansions
     
 fi
+
+
+if [ "$BASH_VERSION" ]; then
+    if [ -r /usr/share/bash-completion/bash_completion   ]; then
+        source /usr/share/bash-completion/bash_completion
+    fi
+fi
