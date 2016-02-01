@@ -1,11 +1,11 @@
 # arch package management
 alias pac='sudo pacman'
-alias pas='sudo pacstrap -i'
-alias pat='pactree -c'
-alias paf='comm -13 <(pactree host-$(hostname)-cfg  -u | sort) <(pacman -Qsq | sort)'
-alias cow='cower'
-alias ach='sudo arch-chroot'
+alias pact='sudo pacman --config /etc/testing-pacman.conf'
+alias pacs='sudo pacstrap -i'
+alias pacr='pactree -c'
+alias pacf='comm -13 <(pactree host-$(hostname)-cfg  -u | sort) <(pacman -Qsq | sort)'
 
+alias achr='sudo arch-chroot'
 
 pacsync() {
     local host="$1"
