@@ -61,12 +61,12 @@ alias jctl="jctl"
 alias ectl="jctl --priority=0..3"
 
 # systemd tools
-alias nctl="networkctl --no-pager"
+alias nctl="networkctl"
 alias mctl="sudo machinectl"
 alias lctl="sudo loginctl"
 alias sctl="sudo systemctl --system"
 alias uctl="systemctl --user"
-alias lock='systemctl --user lock.target'
+alias lock='systemctl --user start lock.target'
 
 # monitoring
 alias cgtop="systemd-cgtop --depth=10"

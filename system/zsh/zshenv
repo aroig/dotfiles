@@ -43,6 +43,10 @@ export PAGER="/usr/bin/vimpager"                        # wrapper for vim
 export TERMCMD="/usr/bin/termite"                       # terminal
 export SHELL="/bin/zsh"
 
+# disable pager by default on systemd
+export SYSTEMD_PAGER=""
+
+
 
 #------------------------------
 # Sockets
