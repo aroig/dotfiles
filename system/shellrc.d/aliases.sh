@@ -47,10 +47,14 @@ alias grep='grep --color=auto'
 alias ediff='emacs-diff'
 alias egit='emacs-git'
 
-# development
+# mr
 alias mr='mr --stats --color -t'
-alias make="TERM=xterm make -r --no-print-directory"
-alias mk='PATH="/usr/lib/ccache/bin:$PATH" MAKEFLAGS="-j 4 -O target" TERM=xterm make -r --no-print-directory --warn-undefined-variables'
+
+# make
+alias make='TERM=xterm make -r --no-print-directory'
+alias mk='TERM=xterm make -r --no-print-directory --warn-undefined-variables'
+alias mkp='MAKEFLAGS="-j 4 -O target" TERM=xterm make -r --no-print-directory'
+alias mkc='PATH="/usr/lib/ccache/bin:$PATH" MAKEFLAGS="-j 4 -O target" TERM=xterm make -r --no-print-directory'
 
 # add project directory to rtags
 rcadd() {
