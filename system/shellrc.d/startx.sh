@@ -16,10 +16,12 @@ stx() {
         *)       systemctl --user start desktop.target ;;
     esac
 
+    # TODO: implement this via the bus.
     # wait until X server finishes and reset the tty
-    wait $(pgrep Xorg)
-    sleep 1
-
+    while [ `pgrep Xorg` ]; do
+        sleep 1
+    done
+    
     # reset tty and reset colors
     reset
     set_tty_colors
