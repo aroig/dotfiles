@@ -29,11 +29,14 @@ autocmd BufRead,BufWinEnter * setlocal readonly nomodifiable
 
 " Vimpager options
 " --------------------
+let g:vimpager = {}
+let g:less     = {}
 
-let g:vimpager.ansiesc = 0
-" let g:vimpager_scrolloff = 5
+" let g:vimpager.ansiesc = 0
 let g:vimpager.passthrough = 0
+
 let g:less.enabled = 0
+" let g:less.scrolloff = 5
 
 " set noloadplugins
 
