@@ -7,7 +7,7 @@ ConditionPathExists=/home/abdo/.mrconfig
 
 [Timer]
 OnCalendar=weekly
-AccuracySec=12h
+RandomizedDelaySec=12h
 Persistent=true
 Unit=homedir-gc.service
 
