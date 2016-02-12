@@ -32,7 +32,7 @@ autocmd BufRead,BufWinEnter * setlocal readonly nomodifiable
 let g:vimpager = {}
 let g:less     = {}
 
-" let g:vimpager.ansiesc = 0
+let g:vimpager.ansiesc = 0
 let g:vimpager.passthrough = 0
 
 let g:less.enabled = 0
