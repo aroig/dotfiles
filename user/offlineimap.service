@@ -16,7 +16,7 @@ Requires=network-online.target
 After=network-online.target
 
 [Service]
-Type=simple
+Type=oneshot
 Slice=workers.slice
 
 ExecStart=/usr/bin/offlineimap
