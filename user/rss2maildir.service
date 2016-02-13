@@ -13,7 +13,7 @@ Requires=network-online.target
 After=network-online.target
 
 [Service]
-Type=oneshot
+Type=simple
 Slice=workers.slice
 
 ExecStart=/usr/bin/rss2maildir -v 
