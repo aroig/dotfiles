@@ -1,5 +1,5 @@
 [Unit]
-Description=mpd scribbler
+Description=mpd scrobbbler
 
 Requisite=synced.target
 After=synced.target
