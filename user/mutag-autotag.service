@@ -9,6 +9,8 @@ After=synced.target
 Requires=git-use@mail.service
 After=git-use@mail.service
 
+After=mutag-index.service
+
 After=offlineimap.service rss2maildir.service
 Conflicts=mu4e.service
 
@@ -16,6 +18,5 @@ Conflicts=mu4e.service
 Type=oneshot
 Slice=workers.slice
 
-ExecStart=/usr/bin/mutag --index --silent
 ExecStart=/usr/bin/mutag --autotag --modified --update --silent -q 'date:1m..now'
 
