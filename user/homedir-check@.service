@@ -8,5 +8,8 @@ AssertPathExists=/home/%u/arch/sync/Makefile
 Type=oneshot
 Slice=workers.slice
 
+Nice=19
+IOSchedulingClass=idle
+
 WorkingDirectory=/home/%u/arch/sync
 ExecStart=/usr/bin/make DIRS=%I check
