@@ -1,5 +1,5 @@
 [Unit]
-Description=optimize directory /home/%u/%I
+Description=garbage collect directory /home/%u/%I
 
 AssertPathExists=/home/%u/%I
 AssertPathExists=/home/%u/arch/sync/Makefile
@@ -9,4 +9,5 @@ Type=oneshot
 Slice=workers.slice
 
 WorkingDirectory=/home/%u/arch/sync
-ExecStart=/usr/bin/make DIRS=%I optimize
+ExecStart=/usr/bin/make DIRS=%I gc
+ExecStart=/usr/bin/make DIRS=%I check

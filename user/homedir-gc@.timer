@@ -1,0 +1,13 @@
+[Unit]
+Description=weekly garbage collection of /home/%u/%I
+
+Requisite=housekeeping.target
+
+[Timer]
+OnCalendar=weekly
+RandomizedDelaySec=1w
+Persistent=true
+Unit=homedir-gc@%i.service
+
+[Install]
+WantedBy=housekeeping.target
