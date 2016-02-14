@@ -2,6 +2,5 @@
 Description=Bit Torrent Protocol Daemon
 
 [Service]
-EnvironmentFile=%h/.config/systemd/conf/btpd.conf
-ExecStart=/usr/bin/btpd --no-daemon "${BTPD_ARGS}"
-
+Type=simple
+ExecStart=/usr/bin/btpd --no-daemon --bw-in 300 --bw-out 30 -p 6881
