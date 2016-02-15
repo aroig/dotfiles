@@ -44,7 +44,7 @@ export TERMCMD="/usr/bin/termite"                       # terminal
 export SHELL="/bin/zsh"
 
 # disable pager by default on systemd
-export SYSTEMD_PAGER=""
+export SYSTEMD_PAGER="cat"
 
 
 
