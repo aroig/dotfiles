@@ -42,9 +42,9 @@
   "True when running as root.")
 
 ;; My name and email
-(setq abdo-user-full-name    "Abdó Roig-Maranges")
-(setq abdo-user-mail-address "abdo.roig@gmail.com")
-(setq abdo-name-and-mail (format "%s <%s>" abdo-user-full-name abdo-user-mail-address))
+(setq user-full-name    "Abdó Roig-Maranges")
+(setq user-mail-address "abdo.roig@gmail.com")
+(setq abdo-name-and-mail (format "%s <%s>" user-full-name user-mail-address))
 
 
 
