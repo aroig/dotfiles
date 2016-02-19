@@ -6,7 +6,6 @@ AssertPathExists=/home/%u/priv
 
 After=mount-priv.service
 
-# gcont store contacts in ~/mail
 Requisite=synced.target
 After=synced.target
 
@@ -20,4 +19,5 @@ After=network-online.target
 Type=oneshot
 Slice=workers.slice
 
-ExecStart=/usr/bin/gcont -d
+ExecStart=/usr/bin/sh -c "/usr/bin/goobook dump_contacts > %h/mail/contacts/contacts.xml"
+ExecStart=/usr/bin/sh -c "/usr/bin/goobook dump_groups > %h/mail/contacts/groups.xml"
