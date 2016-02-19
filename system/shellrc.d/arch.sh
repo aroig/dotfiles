@@ -1,6 +1,6 @@
 # arch package management
-alias pac='sudo systemd-inhibit --who=pacman --why="system upgrade" pacman'
-alias pact='sudo systemd-inhibit --who=pacman --why="system upgrade" pacman --config /etc/testing-pacman.conf'
+alias pac='sudo pacman'
+alias pact='sudo pacman --config /etc/testing-pacman.conf'
 alias pacs='sudo pacstrap -i'
 alias pacr='pactree -c'
 alias pacf='comm -13 <(pactree host-$(hostname)-cfg  -u | sort) <(pacman -Qsq | sort)'
