@@ -1,8 +1,8 @@
 [Unit]
 Description=gvfs metadata
 
-Requires=gvfsd.service
-After=gvfsd.service
+Requires=gvfs-daemon.service
+After=gvfs-daemon.service
 
 [Service]
 Type=dbus
