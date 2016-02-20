@@ -24,23 +24,4 @@ runtime! archlinux.vim
 " Configuration
 " --------------------
 
-source /etc/vimrc.d/general.vim
-source /etc/vimrc.d/keymaps.vim
-source /etc/vimrc.d/latex.vim
-source /etc/vimrc.d/programs.vim
-source /etc/vimrc.d/ui.vim
-
-
-" Diff mode
-" --------------------
-
-" diff mode
-if &diff
-    syntax off
-    nmap N [c
-    nmap n ]c
-    nmap d< :diffget LOCAL<cr>
-    nmap d> :diffget REMOTE<cr>
-    nmap d^ :diffget BASE<cr>
-endif
-
+:set runtimepath+=/etc/vim
