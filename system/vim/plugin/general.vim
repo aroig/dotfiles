@@ -22,3 +22,5 @@ set smartcase
 set backspace=indent,eol,start    " enhance backspace
 set nostartofline                 " prevent some movements to go to start of line
 
+" Suffixes that get lower priority when doing tab completion for filenames.
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.png,.jpg

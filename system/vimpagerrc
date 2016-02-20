@@ -4,13 +4,8 @@
 " Desc:   Global vimpager configuration                               "
 "---------------------------------------------------------------------"
 
-
-" Configuration
-" --------------------
-
-source /etc/vimrc.d/general.vim
-source /etc/vimrc.d/keymaps.vim
-source /etc/vimrc.d/ui.vim
+" add /etc/vim to the runtime path
+:set runtimepath+=/etc/vim
 
 
 " General options

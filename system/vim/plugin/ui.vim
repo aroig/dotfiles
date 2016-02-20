@@ -12,7 +12,7 @@ endif
 set showcmd                       " show partial command
 set laststatus=2                  " always display status line
 
-"set ruler                         " show cursor position
+set ruler                         " show cursor position
 
 " enable cursor line on active window
 augroup ActiveWindowCursorLine
