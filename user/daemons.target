@@ -1,5 +1,0 @@
-[Unit]
-Description=user daemons
-
-[Install]
-WantedBy=default.target
