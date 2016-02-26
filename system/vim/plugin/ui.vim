@@ -77,7 +77,7 @@ set statusline+=%=
 
 "git status
 if ! &diff
-    set statusline+=%2*%{fugitive#head()}%*\ 
+    set statusline+=%2*%{exists('g:loaded_fugitive')?fugitive#head():''}%*\ 
 endif
 
 "line:column percent
