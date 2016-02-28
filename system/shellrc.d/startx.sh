@@ -16,10 +16,10 @@ stx() {
         *)       systemctl --user start desktop.target ;;
     esac
 
-    # TODO: implement this via the bus.
-    # wait until X server finishes and reset the tty
+    # wait until X server finishes
     while [ `pgrep Xorg` ]; do
         sleep 1
+        inotifywait -q -e close /tmp/X11-unix/X0
     done
     
     # reset tty and reset colors
@@ -30,4 +30,3 @@ stx() {
 klx() { 
     systemctl --user start console.target;
 }
-
