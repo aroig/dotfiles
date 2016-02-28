@@ -201,22 +201,9 @@ myw.net.icon:set_markup(wiboxicon('network', beautiful.color_widget) .. " ")
 myw.net.value = { up=-1, down=-1 }
 
 function myw.net.update()
-    local args = myw.net.src(nil)
-    local up = 0.0
-    local down = 0.0
-
-    -- loop over all interfaces except loopback
-    for k, v in pairs(args) do
-        if not string.match(k, "{lo .*}") then
-            if string.match(k, "{.* up_kb}") then
-                up = up + v
-            end
-
-            if string.match(k, "{.* down_kb}") then
-                down = down + v
-            end
-        end
-    end
+    local args = myw.net.src(nil, 'bd-net')
+    local up = args['{up_kb}'] or 0.0
+    local down = args['{down_kb}'] or 0.0
 
     if up ~= myw.net.value.up or down ~= myw.net.value.down then
 
