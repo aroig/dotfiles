@@ -30,7 +30,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; unicode symbols fallback font
-(set-default-font "Ubuntu Mono")
+; (set-default-font "Ubuntu Mono")
 (set-fontset-font "fontset-default" '(#x1d400 . #x1d7ff) "Symbola")
 (set-fontset-font "fontset-default" '(#x1f300 . #x1f5ff) "Symbola")
 (set-fontset-font "fontset-default" '(#x2300 . #x23ff) "Symbola")
