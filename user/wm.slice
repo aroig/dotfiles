@@ -1,7 +1,5 @@
 [Unit]
 Description=window manager
 
-Before=slices.target
-
 [Install]
-WantedBy=slices.target
+WantedBy=wm.target

@@ -1,5 +1,0 @@
-[Unit]
-Description=user slices
-
-[Install]
-WantedBy=default.target
