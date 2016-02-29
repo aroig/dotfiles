@@ -1,34 +1,31 @@
 
-# Mod1: Alt
-# Mod4: Logo key
+# 
+# Modiifier key: Mod1: Alt, Mod4: Logo key
 set $mod Mod4
 # 
-# Your preferred terminal emulator
+# Preferred applications
 set $term termite
-#
-# Your preferred application launcher
-set $menu dmenu_run
 
 ### Key bindings
 #
-# Basics:
+# Applications:
 #
     # start a terminal
     bindsym $mod+Control+Return exec $term
 
-    # kill focused window
-    bindsym $mod+Shift+q kill
-
     # start your launcher
-    bindsym $mod+d exec $menu
+    bindsym $mod+x exec dmenu_run -p "Launch:"
 
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
-    floating_modifier $mod normal
+    # start file manager
+    bindsym $mod+Control+f exec thunar
 
+    # start browser
+    bindsym $mod+Control+b exec chromium
+    bindsym $mod+Mod1+b exec firefox
+
+#
+# Basics:
+#
     # reload the configuration file
     bindsym $mod+Shift+a reload
 
@@ -37,6 +34,17 @@ set $menu dmenu_run
 
     # exit sway (logs you out of your wayland session)
     bindsym $mod+Shift+q exit
+
+#
+# Window manipulation:
+#
+    # kill focused window
+    bindsym $mod+Shift+c kill
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    floating_modifier $mod normal
+
 #
 # Moving around:
 #
@@ -45,22 +53,54 @@ set $menu dmenu_run
     bindsym $mod+j focus down
     bindsym $mod+k focus up
     bindsym $mod+l focus right
+
     # or use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
-    # _move_ the focused window with the same, but add Shift
+    # Move the focused window
     bindsym $mod+Shift+h move left
     bindsym $mod+Shift+j move down
     bindsym $mod+Shift+k move up
     bindsym $mod+Shift+l move right
+    
     # ditto, with arrow keys
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
+
+    # move focus to the parent container
+    bindsym $mod+p focus parent
+
+#
+# Moving across outputs:
+#
+
+    # move focus across outputs
+    bindsym $mod+Control+h focus output left
+    bindsym $mod+Control+j focus output down
+    bindsym $mod+Control+k focus output up
+    bindsym $mod+Control+l focus output right
+
+    bindsym $mod+Control+Left focus output left
+    bindsym $mod+Control+Down focus output down
+    bindsym $mod+Control+Up focus output up
+    bindsym $mod+Control+Right focus output right
+
+    # move window across outputs
+    bindsym $mod+Control+Shift+h move container to output left
+    bindsym $mod+Control+Shift+j move container to output down
+    bindsym $mod+Control+Shift+k move container to output up
+    bindsym $mod+Control+Shift+l move container to output right
+
+    bindsym $mod+Control+Shift+Left move container to output left
+    bindsym $mod+Control+Shift+Down move container to output down
+    bindsym $mod+Control+Shift+Up move container to output up
+    bindsym $mod+Control+Shift+Right move container to output right
+
 #
 # Workspaces:
 #
@@ -75,6 +115,7 @@ set $menu dmenu_run
     bindsym $mod+8 workspace 8
     bindsym $mod+9 workspace 9
     bindsym $mod+0 workspace 10
+    
     # move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace 1
     bindsym $mod+Shift+2 move container to workspace 2
@@ -86,6 +127,11 @@ set $menu dmenu_run
     bindsym $mod+Shift+8 move container to workspace 8
     bindsym $mod+Shift+9 move container to workspace 9
     bindsym $mod+Shift+0 move container to workspace 10
+
+    # move to next prev workspace
+    bindsym $mod+Control+o workspace prev_on_output
+    bindsym $mod+Control+i workspace next_on_output
+
 #
 # Layout stuff:
 #
@@ -104,13 +150,11 @@ set $menu dmenu_run
     bindsym $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+    bindsym $mod+t floating toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
-
-    # move focus to the parent container
-    bindsym $mod+a focus parent
+    bindsym $mod+Shift+t focus mode_toggle
+   
 #
 # Scratchpad:
 #
@@ -118,11 +162,14 @@ set $menu dmenu_run
     # You can send windows there and get them back later.
 
     # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
+    bindsym $mod+Shift+s move scratchpad
 
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
+    bindsym $mod+s scratchpad show
+
+# focus follow mouse
+focus_follows_mous yes
 #
 # Status Bar:
 #
