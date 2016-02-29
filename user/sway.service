@@ -3,12 +3,6 @@ Description=sway window manager
 
 Conflicts=openbox.service xmonad.service tint2.service awesome.service
 
-Requisite=graphical.target
-After=graphical.target
-
-Requires=wm.target
-Before=wm.target
-
 [Service]
 Type=simple
 Slice=wm.slice
