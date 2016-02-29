@@ -11,6 +11,8 @@ TODO
 
 * Understand scratchpad. Can I make it work as I curretly do with dropdowns?
 
+* need a way to set size and position of new floating windows
+
 * Add criteria to match against cgroup.
 
 * Need window borders
