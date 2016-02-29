@@ -10,7 +10,7 @@
 #------------------------------
 
 # ls
-alias ls='ls --human-readable --color=auto -F'
+alias ls='ls --human-readable --color=auto --quoting-style=literal -F'
 alias ll='ls++ --potsf'
 alias lt='tree -C'
 
