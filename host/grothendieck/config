@@ -114,7 +114,6 @@ set $term termite
     bindsym $mod+7 workspace 7
     bindsym $mod+8 workspace 8
     bindsym $mod+9 workspace 9
-    bindsym $mod+0 workspace 10
     
     # move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace 1
@@ -126,11 +125,14 @@ set $term termite
     bindsym $mod+Shift+7 move container to workspace 7
     bindsym $mod+Shift+8 move container to workspace 8
     bindsym $mod+Shift+9 move container to workspace 9
-    bindsym $mod+Shift+0 move container to workspace 10
 
-    # move to next prev workspace
-    bindsym $mod+Control+o workspace prev_on_output
-    bindsym $mod+Control+i workspace next_on_output
+    # move focus to next prev workspace
+    bindsym $mod+o workspace prev_on_output
+    bindsym $mod+i workspace next_on_output
+
+    # move window to next prev workspace
+    bindsym $mod+Shift+o move container to workspace prev_on_output
+    bindsym $mod+Shift+i move container to workspace next_on_output
 
 #
 # Layout stuff:
@@ -154,6 +156,12 @@ set $term termite
 
     # Swap focus between the tiling area and the floating area
     bindsym $mod+Shift+t focus mode_toggle
+
+    # resizing
+    bindsym $mod+Mod1+h resize shrink width 50px
+    bindsym $mod+Mod1+j resize shrink height 50px
+    bindsym $mod+Mod1+k resize grow width 50px
+    bindsym $mod+Mod1+l resize grow height 50px
    
 #
 # Scratchpad:
