@@ -2,13 +2,22 @@
 Description=vnc server at display :0
 
 Conflicts=xorg.service weston.service weston.socket
+Conflicts=console.target
 
 Requires=xserver.target
 Before=xserver.target
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/vncserver ${DISPLAY} -nolisten tcp -localhost -nevershared -geometry 800x600 -depth 24
+
+# push DISPLAY environment variable to systemd
+ExecStartPre=/usr/bin/systemctl --user set-environment DISPLAY=:0
+
+ExecStart=/usr/bin/vncserver :0 -nolisten tcp -localhost -nevershared -geometry 800x600 -depth 24
+
+# unsent DISPLAY variable
+ExecStopPost=/usr/bin/systemctl --user unset-environment DISPLAY
+
 
 [Install]
 WantedBy=vncserver.target
