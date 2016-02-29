@@ -1,9 +1,0 @@
-[Unit]
-Description=graphical environment
-
-After=xserver.target
-
-RefuseManualStart=true
-StopWhenUnneeded=true
-
-Conflicts=console.target
