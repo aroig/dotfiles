@@ -19,7 +19,7 @@ stx() {
     # wait until X server finishes
     while [ `pgrep Xorg` ]; do
         sleep 1
-        inotifywait -q -e close /tmp/X11-unix/X0
+        inotifywait -q -e close /tmp/.X11-unix/X0
     done
     
     # reset tty and reset colors
