@@ -13,4 +13,4 @@ ExecStart=/usr/bin/connman-ui-gtk
 Slice=wm.slice
 
 [Install]
-WantedBy=wm.target
+WantedBy=graphical.target

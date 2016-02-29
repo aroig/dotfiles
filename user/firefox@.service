@@ -1,8 +1,8 @@
 [Unit]
 Description=firefox %i
 
-Requisite=wm.target 
-After=wm.target
+Requisite=graphical.target 
+After=graphical.target
 
 [Service]
 Type=simple

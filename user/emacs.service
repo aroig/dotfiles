@@ -18,4 +18,4 @@ SuccessExitStatus=0 15
 KillSignal=SIGINT
 
 [Install]
-WantedBy=wm.target
+WantedBy=graphical.target

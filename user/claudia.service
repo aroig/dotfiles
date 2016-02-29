@@ -1,8 +1,8 @@
 [Unit]
 Description=jack patch bay and ladish client
 
-Requisite=wm.target
-After=wm.target
+Requisite=graphical.target
+After=graphical.target
 
 Requires=jack.service
 After=jack.service

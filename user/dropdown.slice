@@ -1,5 +1,2 @@
 [Unit]
 Description=dropdown applications
-
-[Install]
-WantedBy=wm.target

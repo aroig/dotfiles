@@ -1,5 +1,2 @@
 [Unit]
 Description=window manager
-
-[Install]
-WantedBy=wm.target

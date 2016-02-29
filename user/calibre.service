@@ -2,8 +2,8 @@
 Description=calibre
 After=graphical.target
 
-Requisite=wm.target 
-After=wm.target
+Requisite=graphical.target 
+After=graphical.target
 
 Requires=git-use@lib.service
 After=git-use@lib.service

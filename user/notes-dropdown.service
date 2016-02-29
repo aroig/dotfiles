@@ -1,8 +1,8 @@
 [Unit]
 Description=notes dropdown
 
-Requisite=wm.target
-After=wm.target
+Requisite=graphical.target
+After=graphical.target
 
 Requires=git-use@wiki.service
 After=git-use@wiki.service

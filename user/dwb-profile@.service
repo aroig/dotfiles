@@ -1,8 +1,8 @@
 [Unit]
 Description=dwb profile %i
 
-Requisite=wm.target 
-After=wm.target
+Requisite=graphical.target 
+After=graphical.target
 
 Requires=git-use@priv-var-dwb-default.service
 After=git-use@priv-var-dwb-default.service

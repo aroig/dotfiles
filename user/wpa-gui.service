@@ -13,4 +13,4 @@ Slice=wm.slice
 ExecStart=/usr/bin/wpa_gui -t
 
 [Install]
-WantedBy=wm.target
+WantedBy=graphical.target

@@ -3,8 +3,8 @@ Description=chat
 
 AssertPathExists=/home/%u/priv
 
-Requisite=wm.target
-After=wm.target
+Requisite=graphical.target
+After=graphical.target
 
 Requires=git-use@var-chat-emacs.service
 After=git-use@var-chat-emacs.service

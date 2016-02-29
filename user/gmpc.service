@@ -1,8 +1,8 @@
 [Unit]
 Description=gmpc mpd client
 
-Requisite=wm.target
-After=wm.target
+Requisite=graphical.target
+After=graphical.target
 
 Requires=mpd.service
 

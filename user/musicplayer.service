@@ -1,1 +1,16 @@
-cantata.service
+[Unit]
+Description=cantata mpd client
+
+Requisite=graphical.target
+After=graphical.target
+
+Requires=mpd.service
+
+[Service]
+Type=simple
+Slice=dropdown.slice
+
+ExecStart=/usr/bin/cantata
+
+[Install]
+Alias=musicplayer.service
