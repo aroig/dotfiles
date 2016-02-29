@@ -3,8 +3,8 @@ Description=vnc server at display :0
 
 Conflicts=xorg.service weston.service weston.socket
 
-Requires=graphical.target
-Before=graphical.target
+Requires=xserver.target
+Before=xserver.target
 
 [Service]
 Type=forking
