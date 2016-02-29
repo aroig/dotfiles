@@ -1,6 +1,7 @@
 TODO
 ====
 
+* find a way to handle configurations on different hosts
 
 * start and stop systemd services
 
