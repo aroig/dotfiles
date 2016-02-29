@@ -19,4 +19,6 @@ Slice=wm.slice
 SuccessExitStatus=0 1
 
 # NOTE: we could set the keyboard rate delay and rate frequency with: xset r rate 500 40
-ExecStart=/usr/bin/Xwayland ${DISPLAY} -nolisten tcp -noreset -verbose 0 -ardelay 500 -arinterval 25 "vt${XDG_VTNR}"
+# ExecStart=/usr/bin/Xwayland ${DISPLAY} -nolisten tcp -noreset -verbose 0 -ardelay 500 -arinterval 25 "vt${XDG_VTNR}"
+
+ExecStart=/usr/bin/Xwayland :0 -rootless -terminate -listen 31 -listen 32 -wm 36
