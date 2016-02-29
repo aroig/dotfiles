@@ -1,3 +1,4 @@
+exec systemctl --user start sway-proxy.service
 
 # 
 # Modiifier key: Mod1: Alt, Mod4: Logo key
@@ -11,17 +12,17 @@ set $term termite
 # Applications:
 #
     # start a terminal
-    bindsym $mod+Control+Return exec $term
+    bindsym $mod+Control+Return exec sdrun termite@.service
 
     # start your launcher
     bindsym $mod+x exec dmenu_run -p "Launch:"
 
     # start file manager
-    bindsym $mod+Control+f exec thunar
+    bindsym $mod+Control+f exec sdrun thunar@.service
 
     # start browser
-    bindsym $mod+Control+b exec chromium
-    bindsym $mod+Mod1+b exec firefox
+    bindsym $mod+Control+b exec sdrun chromium@.service
+    bindsym $mod+Mod1+b exec sdrun firefox@.service
 
 #
 # Basics:
@@ -183,7 +184,10 @@ focus_follows_mouse yes
 mouse_warping output
 
 # gaps around views
-gaps 2#
+gaps 2
+for_window [class="termite-dropdown"] floating enable; nove scratchpad
+
+#
 # Status Bar:
 #
 bar {
