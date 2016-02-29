@@ -1,6 +1,8 @@
 TODO
 ====
 
+* Add a proxy service for sway, that gets started and stopped from sway exec's.
+
 * use systemd-inhibit for emacs ask-save and other crytical stuff.
 
 * Run `wakeup.target` when waking up from sleep. Don't see an obvious way to do it.

@@ -3,6 +3,3 @@ Description=desktop configuration
 AllowIsolate=true
 
 Conflicts=console.target laptop.target tablet.target vncserver.target
-
-Requires=compositor.target
-After=compositor.target

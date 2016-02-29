@@ -1,10 +1,7 @@
 [Unit]
-Description=window manager
+Description=xwindow server
 
 RefuseManualStart=true
 StopWhenUnneeded=true
 
 Conflicts=console.target
-
-Requisite=graphical.target
-After=graphical.target

@@ -1,6 +1,7 @@
 [Unit]
-Description=graphical server
+Description=graphical environment
 
 RefuseManualStart=true
 StopWhenUnneeded=true
 
+Conflicts=console.target

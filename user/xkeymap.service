@@ -2,7 +2,8 @@
 Description=X xkb keymap
 Documentation=man:xkbcomp(1)
 
-After=xorg.service vncserver.service
+Requisite=xserver.target
+After=xserver.target
 
 [Service]
 Type=oneshot
