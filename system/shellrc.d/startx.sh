@@ -3,10 +3,6 @@
 #------------------------------
 
 stx() {
-    
-    # set the vt number from current vt
-    systemctl --user set-environment "XDG_VTNR=$XDG_VTNR"
-
     # start the desktop according to the device
     local chassis=$(hostnamectl status | awk '/Chassis/{print $2}')
     case "$chassis" in
