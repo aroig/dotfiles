@@ -1,0 +1,15 @@
+[Unit]
+Description=bamf daemon
+
+Requisite=graphical.target
+After=graphical.target
+
+[Service]
+Type=dbus
+BusName=org.ayatana.bamf
+Slice=wm.slice
+
+ExecStart=/usr/lib/bamf/bamfdaemon
+
+[Install]
+Alias=dbus-org.ayatana.bamf.service
