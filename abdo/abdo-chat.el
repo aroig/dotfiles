@@ -397,22 +397,40 @@
   (setq rcirc-default-user-name "abtwo")
   (setq rcirc-default-full-name "")
 
-  ;; Server alist
-  (setq rcirc-server-alist
-      '(("chat.freenode.net" :port 6697 :encryption tls
-         :nick "abtwo" :full-name "Abdó Roig"
-  ;;     :channels ("#emacs" "#python" )
-         )))
-
   ;; Set automatic authentication
   (setq rcirc-authinfo '())
 
   ;; (add-to-list 'rcirc-authinfo '("localhost" bitlbee "abdo" "*****"))
 
-  (let ((freenode (netrc-machine (netrc-parse "~/.netrc") "chat.freenode.net")))
-    (add-to-list 'rcirc-authinfo `("chat.freenode.net" nickserv
-                                   ,(netrc-get freenode "login")
-                                   ,(netrc-get freenode "password"))))
+  (let ((freenode (netrc-machine (netrc-parse "~/.netrc") "chat.freenode.net"))
+        (gitter   (netrc-machine (netrc-parse "~/.netrc") "irc.gitter.im")))
+
+    ;; Server alist
+    (setq rcirc-server-alist
+          `(("chat.freenode.net"
+             :port 6697
+             :encryption tls
+             :nick "abtwo"
+             :full-name "Abdó Roig"
+             ;;     :channels ("#emacs" "#python" )
+             )
+            ("irc.gitter.im"
+             :port 6697
+             :encryption tls
+             :user ,(netrc-get gitter "login")
+             :password ,(netrc-get gitter "password")
+             :full-name "Abdó Roig"
+             )
+            ))
+
+    (setq rcirc-authinfo
+          `(("chat.freenode.net"
+             nickserv
+             ,(netrc-get freenode "login")
+             ,(netrc-get freenode "password")
+             )
+            ))
+    )
 
   (setq rcirc-log-filename-function 'abdo-rcirc-generate-log-filename)
 
