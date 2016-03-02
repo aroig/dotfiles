@@ -7,6 +7,7 @@
 
 ;; rcirc
 (defvar abdo-rcirc-alert-keyword-regexp "\\b\\(abtwo\\|ab2\\|Abdó\\|Abdo\\|abdo\\|abdó\\)\\b")
+(defvar abdo-rcirc-alert-channel-regexp "\\(nicolas33/gsoc-imapfw\\)")
 (defvar abdo-rcirc-alert-ignore-user-regexp "NickServ")
 (defvar abdo-rcirc-log-ignore-regexp "abtwo\\|NickServ\\|.*\\.freenode\\.net")
 
@@ -397,8 +398,6 @@
   (setq rcirc-default-user-name "abtwo")
   (setq rcirc-default-full-name "")
 
-  ;; Set automatic authentication
-  (setq rcirc-authinfo '())
 
   ;; (add-to-list 'rcirc-authinfo '("localhost" bitlbee "abdo" "*****"))
 
@@ -420,6 +419,7 @@
              :user ,(netrc-get gitter "login")
              :password ,(netrc-get gitter "password")
              :full-name "Abdó Roig"
+             :channels ("#nicolas33/gsoc-imapfw")
              )
             ))
 
@@ -485,7 +485,8 @@
 
        ((and (not (string= response "PRIVMSG"))
              (not (string= sender (rcirc-nick proc)))
-             (string-match abdo-rcirc-alert-keyword-regexp text))
+             (or (string-match abdo-rcirc-alert-keyword-regexp textclean)
+                 (when (rcirc-channel-p target) (string-match abdo-rcirc-alert-channel-regexp target))))
 
         ; TODO: may want to use rcirc-short-buffer-name to get shorter buffer names!
         (abdo-chat-notify "rcirc" sender sender textclean buf))))))
