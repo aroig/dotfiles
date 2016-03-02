@@ -4,14 +4,6 @@ Description=onscreen keyboard daemon
 Requisite=graphical.target
 After=graphical.target
 
-Requires=dconf.service
-After=dconf.service
-
-Requisite=at-spi-bus.service
-After=at-spi-bus.service
-
-PartOf=caribou.service
-
 [Service]
 Type=dbus
 BusName=org.gnome.Caribou.Keyboard

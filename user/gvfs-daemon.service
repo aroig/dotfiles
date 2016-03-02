@@ -14,4 +14,3 @@ ExecStart=/usr/lib/gvfs/gvfsd
 
 [Install]
 Alias=dbus-org.gtk.vfs.Daemon.service
-WantedBy=graphical.target

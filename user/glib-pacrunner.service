@@ -10,4 +10,3 @@ ExecStart=/usr/lib/glib-networking/glib-pacrunner
 
 [Install]
 Alias=dbus-org.gtk.GLib.PACRunner.service
-WantedBy=graphical.target
