@@ -15,6 +15,7 @@ syntax on                         " Enable syntax highlighting
 set hlsearch                      " Highlight searches
 set wildmenu                      " Better autocompletion
 set showmatch                     " match parenthesis
+set nowrapscan                    " do not loop to the top on searches
 
 set ignorecase                    " case insensitive searches
 set smartcase
