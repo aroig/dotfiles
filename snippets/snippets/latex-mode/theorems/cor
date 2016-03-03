@@ -1,0 +1,7 @@
+# name: \begin{cor}\label{cor:?} ... \end{cor}
+# contributor: Abdo Roig-Maranges <abdo.roig@gmail.com>
+# key: cor
+# --
+\\begin{cor}\\label{cor:${1:bla}}
+  $0
+\\end{cor}

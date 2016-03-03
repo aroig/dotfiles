@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: \DeclareMathOperator{...}{...}
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: mathop
+# --
+\\DeclareMathOperator{\\${1:name}}{$2}

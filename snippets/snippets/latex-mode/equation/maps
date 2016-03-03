@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: ? \mapsto ?
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: maps
+# --
+${1:x} \mapsto ${2:f(x)}

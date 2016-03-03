@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: ?\colon ? \to ?
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: fun
+# --
+${1:f}\colon ${2:X} \to ${3:Y}
