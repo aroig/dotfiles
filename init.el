@@ -60,7 +60,7 @@ values."
      spell-checking
      ;; syntax-checking
      ;; version-control
-     ab2-visuals
+     ab2-visual
      ab2-mu4e
 ;     ab2-chat
      )
