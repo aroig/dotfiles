@@ -1,9 +1,9 @@
-s; -*- mode: emacs-lisp -*-
+; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
 ;; Let's get rid of the fqdn. emacs 25 will do so eventually anyway...
-(setq-system-name (car (split-string system-name "\\.")))
+(setq system-name (car (split-string system-name "\\.")))
 
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
@@ -61,8 +61,8 @@ values."
      ;; syntax-checking
      ;; version-control
      ab2-visuals
-     ab2-office
-     ab2-chat
+     ab2-mu4e
+;     ab2-chat
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -70,7 +70,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(netrc cl dbus)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(org-bullets mu4e-maildir-extension)
+   dotspacemacs-excluded-packages '(org-bullets mu4e-maildirs-extension)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -138,9 +138,9 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("monospace"
-                               :size (cond ((eq system-name "galois") 17)
-                                           (t 16))
+   dotspacemacs-default-font `("monospace"
+                               :size ,(cond ((string= system-name "galois") 17)
+                                           (t 15))
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
