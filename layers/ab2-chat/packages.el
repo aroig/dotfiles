@@ -196,5 +196,8 @@
    (push (lambda (b) (with-current-buffer b
                        (or (eq major-mode 'rcirc-mode)
                            (eq major-mode 'twittering-mode))))
-           persp-filter-save-buffers-functions))
+         persp-filter-save-buffers-functions))
+
+  ;; setup a command line switch for mu4e perspective
+  (add-to-list 'command-switch-alist '("chat" . (lambda (args) (spacemacs/custom-perspective-@chat))))
   )

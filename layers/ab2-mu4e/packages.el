@@ -158,6 +158,7 @@
   ;;   (setq ad-return-value (ansi-color-apply ad-return-value)))
   ;;
   ;; (ad-activate 'mu4e-view-message-text)
+
 )
 
 
@@ -179,5 +180,8 @@
    (push (lambda (b) (with-current-buffer b
                        (or (eq major-mode 'mu4e-view-mode)
                            (eq major-mode 'mu4e-headers-mode))))
-           persp-filter-save-buffers-functions))
+         persp-filter-save-buffers-functions))
+
+  ;; setup a command line switch for mu4e perspective
+  (add-to-list 'command-switch-alist '("mail" . (lambda (args) (spacemacs/custom-perspective-@mu4e))))
   )
