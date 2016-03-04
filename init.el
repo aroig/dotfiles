@@ -5,6 +5,9 @@
 ;; Let's get rid of the fqdn. emacs 25 will do so eventually anyway...
 (setq system-name (car (split-string system-name "\\.")))
 
+;; Put server sockets under XDG_RUNTIME_DIR
+(setq server-socket-dir (format "%s/emacs/" (getenv "XDG_RUNTIME_DIR")))
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
