@@ -22,13 +22,15 @@ rf()  {
 }
 
 # terminal editor
-vi()  { $EDITOR "$@"; }
+vi()  {
+    $EDITOR "$@";
+}
 
 # emacs
 ee()  {
-    if [ "$1" ]; then rifle -p emacs "$1"
-    else              rifle -p emacs "$PWD"
-    fi    
+    if [ "$1" ]; then emacsclient -c -s "$XDG_RUNTIME_DIR/emacs/server" "$@"
+    else              emacsclient -c -s "$XDG_RUNTIME_DIR/emacs/server" "$PWD"
+    fi
 }
 
 mg() {
