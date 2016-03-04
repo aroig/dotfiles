@@ -23,7 +23,6 @@
         mu4e-compose-signature-auto-include nil
         mail-user-agent 'mu4e-user-agent
         message-kill-buffer-on-exit t
-        mu4e~main-buffer-name "*mu4e-main*"
         ;; mu4e-use-fancy-chars t
         )
 
@@ -95,7 +94,6 @@
   )
 
 (defun ab2-mu4e/post-init-mu4e ()
-
   ;; accounts
   (setq mu4e-user-mail-address-list
         '("abdo.roig@gmail.com" "abdo.roig@upc.edu")
