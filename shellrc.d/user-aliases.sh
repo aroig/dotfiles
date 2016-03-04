@@ -24,6 +24,9 @@ alias unls="sdls units"
 alias cmctl="connmanctl"
 alias udctl="udisksctl"
 
+# trash alias and disable rm
+alias trash='gvfs-trash'
+alias rm='printf >&2 "\e[31mError\e[0m: rm disabled for interactive use.\nUse trash instead.\n"; false'
 
 
 #------------------------------
