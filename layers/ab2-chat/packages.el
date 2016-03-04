@@ -70,12 +70,16 @@
           ;; "user_name/list_name")
           )
         twittering-timer-interval 300
-        twittering-oauth-access-token-alist
+        )
+
+  ;; authorization token
+  (setq twittering-oauth-access-token-alist
         (read
          (with-temp-buffer
-           (insert-file-contents (format "%s/etc/twittering-mode/oauth-token" (getenv "AB2_PRIV_DIR"))
-                                 (buffer-string))))
+           (insert-file-contents (format "%s/etc/twittering-mode/oauth-token" (getenv "AB2_PRIV_DIR")))
+                                 (buffer-string)))
         )
+
 
   ;; TODO: write a notification function
   ;; (add-hook 'twittering-new-tweets-hook 'abdo-twittering-mode-notify)
