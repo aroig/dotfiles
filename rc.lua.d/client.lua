@@ -194,8 +194,8 @@ rules.rules = {
                      skip_taskbar = true },
       callback = function(c)
                      local name = string.gsub(c['instance'], "-gui", "")
-                     dropdown.manage_client(c['instance'], c)
-                     set_geometry(c, {vert="center", horiz="left", width=0.7, height=1.0} )
+                     dropdown.manage_client(name, c)
+                     set_geometry(c, {vert="center", horiz="center", width=1.0, height=1.0} )
                  end },
 
     -- top dropdowns
@@ -223,7 +223,7 @@ rules.rules = {
       callback = function(c)
                      local name = c['instance']
                      dropdown.manage_client(name, c)
-                     set_geometry(c, {vert="center", horiz="left", width=1.0, height=1.0} )
+                     set_geometry(c, {vert="center", horiz="right", width=0.7, height=1.0} )
                  end },
 
 
