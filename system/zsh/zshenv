@@ -15,52 +15,23 @@
 #------------------------------------------------------------------#
 
 
-function add_to_pathlist_left () {
-   local cl="$1"
-   local item="$2"
-   local cl_content
-
-   eval "cl_content=\$$cl"
-   case ":$cl_content:" in
-       *":$item:"*)                    ;;       # already there
-       *) eval "$cl=$item:$cl_content" ;;
-   esac
-}
-
-
 #------------------------------
 # Some software
 #------------------------------
 
-export EMACS="$HOME/bin/emacs-client"                   # emacs
-export EDITOR="/usr/bin/vim"                            # default editor
-export ALTERNATE_EDITOR="/usr/bin/emacs"                # emacsclient uses this if can't find server
+export EMACS="/usr/bin/emacs"
+export EDITOR="/usr/bin/vim"
+export ALTERNATE_EDITOR="/usr/bin/emacs"
 
-export BROWSER="/usr/bin/chromium"                      # default browser
-export FILEMANAGER="/usr/bin/thunar"                    # the file manager
-export DIFFPROG="$HOME/bin/emacs-diff"                  # tool to display diffs
-export PAGER="/usr/bin/vimpager"                        # wrapper for vim
-export TERMCMD="/usr/bin/termite"                       # terminal
+export BROWSER="/usr/bin/chromium"
+export FILEMANAGER="/usr/bin/thunar"
+export DIFFPROG="/usr/vim/vimdiff"
+export PAGER="/usr/bin/vimpager"
+export TERMCMD="/usr/bin/termite"
 export SHELL="/bin/zsh"
 
 # disable pager by default on systemd
 export SYSTEMD_PAGER="cat"
-
-
-
-#------------------------------
-# Sockets
-#------------------------------
-
-# gpg-agent sockets. Those sockets are proxied for socket activation!
-export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
-export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent::1"
-
-# mpd socket
-export MPD_HOST="$XDG_RUNTIME_DIR/mpd/mpd.socket"
-
-# screen socket
-export SCREENDIR="$XDG_RUNTIME_DIR/screen"
 
 
 
@@ -126,12 +97,4 @@ export SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt"
 # Python
 export PYTHONDOCS="/usr/share/docs/python/html/"
 
-# My local terminfo
-export TERMINFO="$HOME/.terminfo:/usr/share/terminfo"
 
-# cdpath
-# export CDPATH=""
-
-# The path
-add_to_pathlist_left PATH "$HOME/bin"
-export PATH="$PATH"

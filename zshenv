@@ -9,6 +9,19 @@
 #------------------------------------------------------------------#
 
 
+function add_to_pathlist_left () {
+    local cl="$1"
+    local item="$2"
+    local cl_content
+
+    eval "cl_content=\$$cl"
+    case ":$cl_content:" in
+        *":$item:"*)                    ;;       # already there
+        *) eval "$cl=$item:$cl_content" ;;
+    esac
+}
+
+
 #------------------------------
 # Personal paths
 #------------------------------
@@ -34,6 +47,47 @@ export AB2_BUILD_DIR="$AB2_HOME/build"
 export AB2_REPOS_DIR="$AB2_HOME/repos"
 export AB2_TMP_DIR="$AB2_HOME/tmp"
 export AB2_BAK_DIR="$AB2_HOME/bak"
+
+
+
+#------------------------------
+# Sockets
+#------------------------------
+
+export EMACS_SOCK="$XDG_RUNTIME_DIR/emacs/server"
+
+# gpg-agent sockets. Those sockets are proxied for socket activation!
+export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent::1"
+
+# mpd socket
+export MPD_HOST="$XDG_RUNTIME_DIR/mpd/mpd.socket"
+
+# screen socket
+export SCREENDIR="$XDG_RUNTIME_DIR/screen"
+
+
+
+#------------------------------
+# Tools
+#------------------------------
+
+export EMACS="/usr/bin/emacsclient -s $XDG_RUNTIME_DIR -c"
+
+
+#------------------------------
+# Paths
+#------------------------------
+
+# My local terminfo
+export TERMINFO="$HOME/.terminfo:/usr/share/terminfo"
+
+# cdpath
+# export CDPATH=""
+
+# The path
+add_to_pathlist_left PATH "$HOME/bin"
+export PATH="$PATH"
 
 
 #------------------------------
