@@ -66,8 +66,9 @@ values."
      ;; syntax-checking
      ;; version-control
      ab2-base
-     ab2-visual
+     ab2-devel
      ab2-mu4e
+     ab2-visual
      ab2-chat
      )
    ;; List of additional packages that will be installed without being
