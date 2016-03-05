@@ -8,7 +8,9 @@ Description=xorg server
 # After=xorg.socket
 
 Conflicts=vncserver.service weston.service weston.socket
+
 Conflicts=console.target
+After=console.target
 
 Requires=xserver.target
 Before=xserver.target

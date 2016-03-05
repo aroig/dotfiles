@@ -2,7 +2,9 @@
 Description=weston compositor
 
 Conflicts=vncserver.service xorg.service
+
 Conflicts=console.target
+After=console.target
 
 Requires=weston.socket
 After=weston.socket
