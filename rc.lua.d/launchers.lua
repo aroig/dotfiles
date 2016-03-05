@@ -188,13 +188,15 @@ function show_client(c)
         -- move to the right tag
         awful.client.movetotag(awful.tag.selected(awful.screen.focused()), c)
 
-        -- raise client
+        -- unhide
         c.hidden = false
-        c:raise()
-        capi.client.focus = c
 
         -- reapply rules
         awful.rules.apply(c)
+
+        -- raise
+        c:raise()
+        capi.client.focus = c
 
         -- remember last client
         dropdown.last_client = c

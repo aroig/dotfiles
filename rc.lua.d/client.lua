@@ -199,7 +199,7 @@ rules.rules = {
                  end },
 
     -- top dropdowns
-   { rule_any = { class = {"termite-dropdown", "journal-dropdown"} },
+   { rule_any = { class = {"termite-dropdown", "journal-dropdown", "ranger-dropdown", "thunar-dropdown"} },
       properties = { floating = true,
                      size_hints_honor = false,
                      ontop = true,
