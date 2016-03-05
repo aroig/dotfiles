@@ -276,6 +276,7 @@ values."
   (spacemacs|do-after-display-system-init
    (set-fontset-font "fontset-default" '(#x1d400 . #x1d7ff) "Symbola")   ; Mathematical alphanumeric symbols
    (set-fontset-font "fontset-default" '(#x1f300 . #x1f5ff) "Symbola")   ; Miscelaneous symbols and pictograms
+   (set-fontset-font "fontset-default" '(#x2200 . #x22ff)   "Symbola")   ; Mathematical Operators
    (set-fontset-font "fontset-default" '(#x2300 . #x23ff)   "Symbola")   ; Miscelaneous technical symbols
    (set-fontset-font "fontset-default" '(#x2460 . #x24ff)   "Symbola")   ; Enclosed alphanumerics
    )
@@ -317,7 +318,7 @@ in `dotspacemacs/user-config'."
   (spacemacs|diminish server-buffer-clients "ⓥ" "v")
   (spacemacs|diminish binary-overwrite-mode "Ⓞb" "O")
   (spacemacs|diminish overwrite-mode "Ⓞ" "O")
-
+  (spacemacs|diminish isearch-mode "/" "/")
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Zenburn tweaks
@@ -439,6 +440,8 @@ layers configuration. You are free to put any user code."
   (zenburn-with-color-variables
     (custom-theme-set-faces
      'zenburn
+     ;; evil
+     `(evil-search-highlight-persist-highlight-face ((t (:inherit region))))
      ;; helm
      `(helm-header-line-left-margin ((t (:foreground ,zenburn-bg :background ,zenburn-yellow-1))))
      `(helm-resume-need-update ((t (:foreground ,zenburn-bg :background ,zenburn-red-1))))
@@ -459,6 +462,7 @@ layers configuration. You are free to put any user code."
      `(spacemacs-normal-face ((t (:foreground ,zenburn-bg :background ,zenburn-yellow-1))))
      `(spacemacs-replace-face ((t (:foreground ,zenburn-bg :background ,zenburn-orange+1))))
      `(spacemacs-visual-face ((t (:foreground ,zenburn-bg :background ,zenburn-fg))))
+     `(spacemacs-evilified-face ((t (:foreground ,zenburn-bg :background ,zenburn-green+1))))
      ))
   )
 
