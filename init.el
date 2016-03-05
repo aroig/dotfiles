@@ -273,10 +273,12 @@ values."
    dotspacemacs-whitespace-cleanup nil
    )
   ;; Use good unicode symbols fallback fonts. There are buggy fonts with wrong rendering.
-  (set-fontset-font "fontset-default" '(#x1d400 . #x1d7ff) "Symbola")   ; Mathematical alphanumeric symbols
-  (set-fontset-font "fontset-default" '(#x1f300 . #x1f5ff) "Symbola")   ; Miscelaneous symbols and pictograms
-  (set-fontset-font "fontset-default" '(#x2300 . #x23ff)   "Symbola")   ; Miscelaneous technical symbols
-  (set-fontset-font "fontset-default" '(#x2460 . #x24ff)   "Symbola")   ; Enclosed alphanumerics
+  (spacemacs|do-after-display-system-init
+   (set-fontset-font "fontset-default" '(#x1d400 . #x1d7ff) "Symbola")   ; Mathematical alphanumeric symbols
+   (set-fontset-font "fontset-default" '(#x1f300 . #x1f5ff) "Symbola")   ; Miscelaneous symbols and pictograms
+   (set-fontset-font "fontset-default" '(#x2300 . #x23ff)   "Symbola")   ; Miscelaneous technical symbols
+   (set-fontset-font "fontset-default" '(#x2460 . #x24ff)   "Symbola")   ; Enclosed alphanumerics
+   )
   )
 
 (defun dotspacemacs/user-init ()
