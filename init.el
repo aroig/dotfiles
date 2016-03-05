@@ -5,9 +5,6 @@
 ;; Let's get rid of the fqdn. emacs 25 will do so eventually anyway...
 (setq system-name (car (split-string system-name "\\.")))
 
-;; Put server sockets under XDG_RUNTIME_DIR
-(setq server-socket-dir (format "%s/emacs/" (getenv "XDG_RUNTIME_DIR")))
-
 ;; prevent running as root
 (when (string-equal (user-login-name) "root") (error "Emacs should not run as root!"))
 
