@@ -299,12 +299,18 @@ in `dotspacemacs/user-config'."
    system-time-locale "C"
    calendar-week-start-day 1
 
+   ;; desktop interaction
+   x-select-enable-clipboard t
+   save-interprogram-paste-before-kill t
+   mouse-drag-copy-region nil
+
    ;; autosave and backups
    auto-save-default t
    make-backup-files t
    vc-make-backup-files t
    backup-by-copying t
    version-control t
+   delete-old-versions 1  ;; neither delete nor ask about them
    auto-save-file-name-transforms `((".*" ,(concat spacemacs-cache-directory "bak/") t))
    backup-directory-alist `((".*" . ,(concat spacemacs-cache-directory "bak/")))
    bookmark-save t
@@ -327,8 +333,8 @@ layers configuration. You are free to put any user code."
   ;; emacs daemon
   (setq server-raise-frame nil)                 ;; don't raise frames when switching buffers
 
-  ;; enable disabled commands
-  (enable-command 'narrow-to-region)
+  ;; enable some disabled commands
+  (put 'narrow-to-region 'disabled nil)
 
   ;; all questions y-or-n
   (defalias 'yes-or-no-p 'y-or-n-p)
