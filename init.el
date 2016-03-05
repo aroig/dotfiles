@@ -35,7 +35,8 @@ values."
      emacs-lisp
      git
      github
-     markdown
+     (markdown :variables
+               markdown-indent-on-enter nil)
      finance
      org
      mu4e
@@ -64,6 +65,7 @@ values."
      spell-checking
      ;; syntax-checking
      ;; version-control
+     ab2-base
      ab2-visual
      ab2-mu4e
      ab2-chat
@@ -285,37 +287,35 @@ It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
 
-  (setq
+  (setq-default
    ;; personal
    user-full-name    "Abdó Roig-Maranges"
    user-mail-address "abdo.roig@gmail.com"
 
    ;; paths
-   bookmark-default-file (format "%s/emacs/bookmarks" (getenv "AB2_VAR_DIR"))
-   semanticdb-default-save-directory (format "%s/emacs/semanticdb/" (getenv "AB2_VAR_DIR"))
+   spacemacs-cache-directory (format "%s/emacs/" (getenv "AB2_VAR_DIR"))
 
    ;; time and date
    system-time-locale "C"
    calendar-week-start-day 1
 
    ;; autosave and backups
-   auto-save-default nil
-   backup-inhibited t
-   )
+   auto-save-default t
+   make-backup-files t
+   vc-make-backup-files t
+   backup-by-copying t
+   version-control t
+   auto-save-file-name-transforms `((".*" ,(concat spacemacs-cache-directory "bak/") t))
+   backup-directory-alist `((".*" . ,(concat spacemacs-cache-directory "bak/")))
+   bookmark-save t
 
-  ;; systemd
-  (add-to-list 'auto-mode-alist '("\\.\\(service\\|target\\|scope\\|slice\\|timer\\)$" . conf-mode))
-  (add-to-list 'auto-mode-alist '("\\.\\(link\\|network\\|netdev\\)$" . conf-mode))
-  (add-to-list 'auto-mode-alist '("\\.\\(mount\\|automount\\|socket\\|device\\)$" . conf-mode))
+   ;; editor settings
+   fill-column 90
+   )
 
   ;; TODO
   (setq abdo-personal-dicts-path (format "%s/usr/dict/aspell/" (getenv "HOME")))
 
-  ;; diminish some more modes
-  (spacemacs|diminish server-buffer-clients "ⓥ" "v")
-  (spacemacs|diminish binary-overwrite-mode "Ⓞb" "O")
-  (spacemacs|diminish overwrite-mode "Ⓞ" "O")
-  (spacemacs|diminish isearch-mode "/" "/")
   )
 
 
@@ -324,25 +324,14 @@ in `dotspacemacs/user-config'."
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
 
-  ;; desktop integration
-  (setq x-select-enable-clipboard t)            ;; Enable clipboard
-  (setq save-interprogram-paste-before-kill t)  ;; Saves the kill buffer
-  (setq mouse-drag-copy-region nil)             ;; Disable copy by mouse-drag
-
-  (put 'narrow-to-region 'disabled nil)         ;; Enable narrowing
-  (setq-default fill-column 90)                 ;; Default Fill column.
-
-  (setq bookmark-save-flag 1)                   ;; save bookmarks immediately
-  (add-hook 'text-mode-hook 'turn-on-auto-fill) ;; Enable auto-fill
-  (setq-default major-mode 'text-mode)          ;; Default major mode
+  ;; emacs daemon
   (setq server-raise-frame nil)                 ;; don't raise frames when switching buffers
 
-  (defalias 'yes-or-no-p 'y-or-n-p)             ;; All questions y-or-n
+  ;; enable disabled commands
+  (enable-command 'narrow-to-region)
 
-
-  ;; Since I use git outside of emacs, do not rely on magit-auto-revert-mode.
-  (setq magit-auto-revert-mode nil)
-
+  ;; all questions y-or-n
+  (defalias 'yes-or-no-p 'y-or-n-p)
   )
 
 ;; hack to patch zenburn theme with my modifications
