@@ -72,7 +72,7 @@ export SCREENDIR="$XDG_RUNTIME_DIR/screen"
 # Tools
 #------------------------------
 
-export EMACS="/usr/bin/emacsclient -s $XDG_RUNTIME_DIR -c"
+export EMACS="/usr/bin/emacsclient -s $XDG_RUNTIME_DIR/emacs/server -c"
 
 
 #------------------------------
