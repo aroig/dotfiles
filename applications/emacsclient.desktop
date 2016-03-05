@@ -2,7 +2,7 @@
 Name=Emacs Client
 GenericName=Text Editor
 Comment=Edit text
-Exec=emacs-client %F
+Exec=ranger -p emacs %F
 Icon=emacs
 Type=Application
 Terminal=false
