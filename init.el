@@ -8,6 +8,9 @@
 ;; Put server sockets under XDG_RUNTIME_DIR
 (setq server-socket-dir (format "%s/emacs/" (getenv "XDG_RUNTIME_DIR")))
 
+;; prevent running as root
+(when (string-equal (user-login-name) "root") (error "Emacs should not run as root!"))
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -147,7 +150,7 @@ values."
                                            (t 15))
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.3)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -235,7 +238,7 @@ values."
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
    dotspacemacs-inactive-transparency 90
    ;; If non nil unicode symbols are displayed in the mode line. (default t)
-   dotspacemacs-mode-line-unicode-symbols nil
+   dotspacemacs-mode-line-unicode-symbols t
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen. (default t)
@@ -282,13 +285,6 @@ It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
 
-  ;; prevent running as root
-  (when (string-equal (user-login-name) "root") (error "Emacs should not run as root!"))
-
-  ;; socket
-  ;; TODO
-  ; (setq server-socket-dir (format "%s/emacs/" (getenv "XDG_RUNTIME_DIR")))
-
   (setq
    ;; personal
    user-full-name    "Abdó Roig-Maranges"
@@ -318,9 +314,6 @@ in `dotspacemacs/user-config'."
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Zenburn tweaks
-
-  ;; hook up our zenburn tweaks after theme loading and before spacemacs own additions
-  (advice-add 'spacemacs/post-theme-init :before  #'ab2/zenburn-tweak)
 
   ;; tweak zenburn colors
   (defvar zenburn-colors-alist
@@ -413,33 +406,54 @@ layers configuration. You are free to put any user code."
   (setq magit-auto-revert-mode nil)
   )
 
+;; hook up our zenburn tweaks after theme loading and before spacemacs own additions
+(advice-add 'spacemacs/post-theme-init :before  #'ab2/zenburn-pre-tweak)
 
-(defun ab2/zenburn-tweak (theme)
+(defun ab2/zenburn-pre-tweak (theme)
   ;; zenburn theme
   (zenburn-with-color-variables
     (custom-theme-set-faces
      'zenburn
      ;; get rid of bringes and boxes
      `(fringe ((t (:foreground ,zenburn-fg :background ,zenburn-bg))))
-     `(mode-line ((,class (:foreground ,zenburn-green+1 :background ,zenburn-bg-05 :box nil))
+     `(mode-line ((,class (:foreground ,zenburn-green+1 :background ,zenburn-bg-05 :box (:color ,zenburn-fg-1)))
                   (t :inverse-video t)))
-     `(mode-line-inactive ((,class (:foreground ,zenburn-green+1 :background ,zenburn-bg-05 :box nil))
+     `(mode-line-inactive ((,class (:foreground ,zenburn-green+1 :background ,zenburn-bg-05 :box (:color ,zenburn-fg-1)))
                            (t :inverse-video t)))
+     `(mode-line-highlight ((t (:box (:color ,zenburn-fg)))))
+     ))
+  )
+
+;; hook up our zenburn tweaks after theme loading and before spacemacs own additions
+(advice-add 'spacemacs/post-theme-init :after  #'ab2/zenburn-post-tweak)
+
+(defun ab2/zenburn-post-tweak (theme)
+  ;; zenburn theme
+  (zenburn-with-color-variables
+    (custom-theme-set-faces
+     'zenburn
+     ;; helm
+     `(helm-header-line-left-margin ((t (:foreground ,zenburn-bg :background ,zenburn-yellow-1))))
+     `(helm-resume-need-update ((t (:foreground ,zenburn-bg :background ,zenburn-red-1))))
+     `(helm-source-header ((t (:weight bold :box nil :foreground ,zenburn-yellow-1 :background ,zenburn-bg-2))))
      ;; spaceline
+     `(spaceline-highlight-face ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-orange+1))))
      `(spaceline-evil-emacs ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-blue-1))))
      `(spaceline-evil-insert ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-green+1))))
      `(spaceline-evil-motion ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-red+1))))
      `(spaceline-evil-normal ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-yellow-1))))
      `(spaceline-evil-replace ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-orange+1))))
      `(spaceline-evil-visual ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-fg))))
-     `(spaceline-highlight-face ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-orange+1))))
      ;; spacemacs
-     `(spacemacs-insert-face ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-green+1))))
-
-
+     `(spacemacs-highlight-face ((t (:foreground ,zenburn-bg :background ,zenburn-orange+1))))
+     `(spacemacs-emacs-face ((t (:foreground ,zenburn-bg :background ,zenburn-blue-1))))
+     `(spacemacs-insert-face ((t (:foreground ,zenburn-bg :background ,zenburn-green+1))))
+     `(spacemacs-motion-face ((t (:foreground ,zenburn-bg :background ,zenburn-red+1))))
+     `(spacemacs-normal-face ((t (:foreground ,zenburn-bg :background ,zenburn-yellow-1))))
+     `(spacemacs-replace-face ((t (:foreground ,zenburn-bg :background ,zenburn-orange+1))))
+     `(spacemacs-visual-face ((t (:foreground ,zenburn-bg :background ,zenburn-fg))))
      ))
   )
-
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
