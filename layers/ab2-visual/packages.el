@@ -8,3 +8,4 @@
    spaceline-buffer-size-p nil
    spaceline-line-column t
    ))
+
