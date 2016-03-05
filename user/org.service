@@ -1,5 +1,5 @@
 [Unit]
-Description=chat
+Description=org-mode
 
 Requisite=graphical.target
 After=graphical.target
@@ -11,6 +11,7 @@ After=git-use@wiki.service
 Type=simple
 Slice=apps.slice
 
-ExecStart=/usr/bin/emacs -notes --title "emacs-notes"
+ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((name . "org"))' --eval "(spacemacs/custom-perspective-@org)"
 KillSignal=SIGINT
+
 

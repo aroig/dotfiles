@@ -6,7 +6,7 @@ After=graphical.target
 
 [Service]
 Type=simple
-Slice=dropdown.slice
+Slice=apps.slice
 
 ExecStart=/usr/bin/termite -t ranger -e ranger
 

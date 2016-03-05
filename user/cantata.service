@@ -8,7 +8,7 @@ Requires=mpd.service
 
 [Service]
 Type=simple
-Slice=dropdown.slice
+Slice=apps.slice
 
 ExecStart=/usr/bin/cantata
 

@@ -6,7 +6,7 @@ After=graphical.target
 
 [Service]
 Type=simple
-Slice=dropdown.slice
+Slice=apps.slice
 KillMode=process
 
 # NOTE: we want login shell, so /etc/profile.d/* is executed.

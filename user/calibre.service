@@ -11,7 +11,7 @@ After=git-use@lib.service
 [Service]
 Type=simple
 
-Slice=dropdown.slice
+Slice=apps.slice
 Environment=XDG_CURRENT_DESKTOP=gnome
 
 ExecStart=/usr/bin/calibre --with-library "${AB2_CALIBRE_DIR}"

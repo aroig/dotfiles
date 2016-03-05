@@ -12,8 +12,8 @@ After=git-use@mail.service
 
 [Service]
 Type=simple
-Slice=dropdown.slice
+Slice=apps.slice
 
-ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((name . "emacs:mu4e"))' --eval "(spacemacs/custom-perspective-@mu4e)"
+ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((name . "mu4e"))' --eval "(spacemacs/custom-perspective-@mu4e)"
 KillSignal=SIGINT
 

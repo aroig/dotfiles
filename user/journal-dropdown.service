@@ -6,6 +6,6 @@ After=graphical.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/termite -e "%h/etc/systemd/bin/jctl -f -n50"
+Slice=apps.slice
 
-Slice=dropdown.slice
+ExecStart=/usr/bin/termite --class=journal-dropdown -e "%h/etc/systemd/bin/jctl -f -n50"

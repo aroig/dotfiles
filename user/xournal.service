@@ -6,6 +6,6 @@ After=graphical.target
 
 [Service]
 Type=simple
-Slice=dropdown.slice
+Slice=apps.slice
 
 ExecStart=/usr/bin/xournal "${AB2_MATHS_DIR}/notes/scratchpad.xoj"

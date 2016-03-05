@@ -9,7 +9,7 @@ After=git-use@wiki.service
 
 [Service]
 Type=simple
-Slice=dropdown.slice
+Slice=apps.slice
 
 ExecStart=/usr/bin/emacs -notes --title "emacs-notes"
 KillSignal=SIGINT
