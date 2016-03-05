@@ -10,5 +10,5 @@ After=graphical.target
 Type=oneshot
 RemainAfterExit=true
 
-ExecStart=/home/abdo/.config/systemd/scripts/awesome-cmd.sh 'ddshow("dd:journal", true)'
-ExecStop=/home/abdo/.config/systemd/scripts/awesome-cmd.sh 'ddhide("dd:journal")'
+ExecStart=/home/abdo/.config/systemd/scripts/awesome-cmd.sh 'ddshow("app:journal-dropdown", true)'
+ExecStop=/home/abdo/.config/systemd/scripts/awesome-cmd.sh 'ddhide("app:journal-dropdown")'
