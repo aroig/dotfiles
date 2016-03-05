@@ -317,13 +317,15 @@ in `dotspacemacs/user-config'."
 
    ;; editor settings
    fill-column 90
+
+   ;; follow symlinks for version control
+   vc-follow-symlinks t
    )
 
   ;; TODO
   (setq abdo-personal-dicts-path (format "%s/usr/dict/aspell/" (getenv "HOME")))
 
   )
-
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.

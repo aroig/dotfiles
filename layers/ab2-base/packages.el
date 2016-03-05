@@ -1,5 +1,6 @@
 (setq ab2-base-packages
       '(
+        hippie-ex
         (sensitive-mode :location local)
         ))
 
@@ -17,3 +18,9 @@
   (add-to-list 'auto-mode-alist `(,(ab2/escape-regexp (getenv "AB2_PRIV_DIR")) . sensitive-mode))
   (add-to-list 'auto-mode-alist `(,(ab2/escape-regexp (file-truename "~/.ssh")) . sensitive-mode))
   )
+
+(defun ab2-base/post-init-hippie-exp ()
+  ;; I prefer a diferent binding for yasnippet completion
+  (global-set-key (kbd "M-+") 'hippie-expand)
+  )
+

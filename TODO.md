@@ -1,27 +1,30 @@
 TODO
 ====
 
+## devel
+
+* create a devel layer
+
+
 ## latex
 
 * create a latex layer from ab2-office
+
 
 ## org-mode
 
 * create an org-mode layer from ab2-office
 
+* make sure all mobile and calendar stuff still works
+
 
 ## General
 
-* make it work in daemon mode. colors and style of the powerline is broken I seem to have
-  fixed it in my old config. Look for the solution in there
+* backups do not seem to work
 
-* learn workflow in server mode.
+* fix workflow in server mode
 
-* configure my own snippets.
-
-* tweak zenburn colors.
-
-* make sure all packages I need are available, and configure them.
+* tweak zenburn colors with the commits I've got in the zenburn-theme repo.
 
 * get rid of all my custom scripts to run emacs, etc.
 
