@@ -9,6 +9,6 @@ Type=simple
 Slice=apps.slice
 KillMode=process
 
-ExecStart=/usr/bin/termite -t ranger -e ranger
+ExecStart=/usr/bin/termite --class=ranger -e ranger
 
 

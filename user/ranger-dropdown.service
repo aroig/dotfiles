@@ -8,6 +8,6 @@ After=graphical.target
 Type=simple
 Slice=apps.slice
 
-ExecStart=/usr/bin/termite -t ranger -e ranger
+ExecStart=/usr/bin/termite --class=ranger-dropdown -e ranger
 
 
