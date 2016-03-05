@@ -8,6 +8,5 @@ After=graphical.target
 Type=simple
 Slice=apps.slice
 
-ExecStart=/home/abdo/bin/emacs-client
-
+ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c
 
