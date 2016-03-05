@@ -16,7 +16,6 @@ local ipairs = ipairs
 local apps = apps
 local box = box
 
-
 local drag = {}
 
 function drag_bydirection(dir, c)
@@ -76,14 +75,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, metakey   }, "b",      function () run('app:firefox')         end),
     awful.key({ modkey, ctrlkey   }, "e",      function () run('app:emacsclient')     end),
 
-    -- Dropdown clients
-    awful.key({ modkey, metakey   }, "Return", function () ddtoggle('dd:termite',      true) end),
-    awful.key({ modkey, metakey   }, "f",      function () ddtoggle('dd:thunar',       true) end),
-    awful.key({ modkey, metakey   }, "r",      function () ddtoggle('dd:ranger',       true) end),
+    awful.key({ modkey, ctrlkey   }, "w",      function () run('app:xournal')         end),
 
+    -- Dropdown clients
     awful.key({ modkey, ctrlkey   }, "i",      function () ddtoggle("app:calibre",     true) end),
     awful.key({ modkey, ctrlkey   }, "m",      function () ddtoggle("app:cantata",     true) end),
-    awful.key({ modkey, ctrlkey   }, "w",      function () ddtoggle('app:xournal',     true) end),
     awful.key({ modkey, ctrlkey   }, "o",      function () ddtoggle('app:org',         true) end),
     awful.key({ modkey, ctrlkey   }, "u",      function () ddtoggle('app:mu4e',        true) end),
     awful.key({ modkey, ctrlkey   }, "t",      function () ddtoggle('app:chat',        true) end),
@@ -103,10 +99,16 @@ globalkeys = awful.util.table.join(
     awful.key({          }, "XF86MyComputer",  function() ddhide_last()              end),
     awful.key({ shiftkey }, "XF86MyComputer",  function() ddshow_all()               end),
 
-    awful.key({ modkey   }, "F9",              function() ddshow("dd:journal", true) end),
-    awful.key({          }, "F9",              function() ddhide("dd:journal")       end),
-    awful.key({ modkey   }, "XF86Tools",       function() ddshow("dd:journal", true) end),
-    awful.key({          }, "XF86Tools",       function() ddhide("dd:journal")       end),
+
+    awful.key({ modkey, metakey   }, "Return", function () ddtoggle('app:termite-dropdown', true) end),
+    awful.key({ modkey, metakey   }, "f",      function () ddtoggle('app:thunar-dropdown',  true) end),
+    awful.key({ modkey, metakey   }, "r",      function () ddtoggle('app:ranger-dropdown',  true) end),
+
+
+    awful.key({ modkey   }, "F9",              function() ddshow("app:journal-dropdown",    true) end),
+    awful.key({          }, "F9",              function() ddhide("app:journal-dropdown")          end),
+    awful.key({ modkey   }, "XF86Tools",       function() ddshow("app:journal-dropdown",    true) end),
+    awful.key({          }, "XF86Tools",       function() ddhide("app:journal-dropdown")          end),
 
     awful.key({ modkey   }, "F10",             function() ddshow("dd:notes",   true) end),
     awful.key({          }, "F10",             function() ddhide("dd:notes")         end),

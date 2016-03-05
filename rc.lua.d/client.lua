@@ -120,24 +120,14 @@ clientbuttons = awful.util.table.join(
 -- adds manage signal for setting rules
 rules = require("awful.rules")
 
--- systemd signals to capture cgroups and apply rules
-capi.client.connect_signal("manage",
-                           function(c, startup)
-                               -- capi.client.focus = c
-                               systemd.manage_client(c)
-                               dropdown.manage_client(c)
-                           end)
-
 capi.client.connect_signal("unmanage",
                            function(c)
-                               systemd.unmanage_client(c)
                                dropdown.unmanage_client(c)
                            end)
 
 
 capi.client.connect_signal("focus",
                            function(c)
-                               systemd.focus_client(c)
                                dropdown.focus_client(c)
                            end)
 
@@ -189,6 +179,55 @@ rules.rules = {
     { rule = { class = "Xournal" },         properties = { screen = 1 } },
     { rule = { class = "Skype" },           properties = { screen = 1 % nscreen + 1} },
 
+    -- dropdowns
+    --
+    -- NOTE: we match by instance (which I can set on emacs), then use this instance as
+    -- name for the dropdown. This name is used when calling ddtoggle("app:name"), and
+    -- must coincide with the name configured in the apps list.
+
+    -- full-screen dropdowns
+    { rule_any = { instance = {"mu4e", "org", "chat", "calibre-gui"} },
+      properties = { floating = true,
+                     size_hints_honor = false,
+                     ontop = true,
+                     above = true,
+                     skip_taskbar = true },
+      callback = function(c)
+                     local name = string.gsub(c['instance'], "-gui", "")
+                     dropdown.manage_client(c['instance'], c)
+                     set_geometry(c, {vert="center", horiz="left", width=0.7, height=1.0} )
+                 end },
+
+    -- top dropdowns
+   { rule_any = { class = {"termite-dropdown", "journal-dropdown"} },
+      properties = { floating = true,
+                     size_hints_honor = false,
+                     ontop = true,
+                     above = true,
+                     skip_taskbar = true },
+      callback = function(c)
+                     local name = c['class']
+                     dropdown.manage_client(name, c)
+                     set_geometry(c, {vert="top", horiz="center", width=1.0, height=0.4} )
+                 end },
+
+
+
+    -- half-screen dropdowns
+   { rule_any = { instance = {"cantata", "gmpc"} },
+      properties = { floating = true,
+                     size_hints_honor = false,
+                     ontop = true,
+                     above = true,
+                     skip_taskbar = true },
+      callback = function(c)
+                     local name = c['instance']
+                     dropdown.manage_client(name, c)
+                     set_geometry(c, {vert="center", horiz="left", width=1.0, height=1.0} )
+                 end },
+
+
+
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
@@ -217,52 +256,7 @@ systemd.rules = {
           local y = capi.screen[awful.screen.focused()].geometry.y
           c:geometry({ x = x, y = y }) end },
 
-    -- default dropdown geometry
-    { rule       = { },
-      except     = { modal = true },
-      process    = { cgroup = 'dropdown%.slice/.*$', main = true },
-      callback   = geometry_cb({vert="top",    horiz="center", width=1.0, height=0.4}) },
-
     -- set the geometry for side dropdowns
-    { rule       = { },
-      except     = { modal = true },
-      process    = { cgroup = 'dropdown%.slice/xournal%.service$', main = true },
-      callback   = geometry_cb({vert="center", horiz="left",   width=0.5, height=1.0}) },
-
-    { rule       = { },
-      except     = { modal = true },
-      process    = { cgroup = 'dropdown%.slice/orgmode%.service$', main = true },
-      callback   = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
-
-    { rule       = { },
-      except     = { modal = true },
-      process    = { cgroup = 'dropdown%.slice/calibre%.service$', main = true },
-      callback   = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
-
-    { rule       = { },
-      except     = { modal = true },
-      process    = { cgroup = 'dropdown%.slice/mu4e%.service$', main = true },
-      callback   = geometry_cb({vert="center", horiz="left",   width=1.0, height=1.0}) },
-
-    { rule       = { },
-      except     = { modal = true },
-      process    = { cgroup = 'dropdown%.slice/chat%.service$', main = true },
-      callback   = geometry_cb({vert="center", horiz="left",   width=0.6, height=1.0}) },
-
-    { rule       = { },
-      except     = { modal = true },
-      process    = { cgroup = 'dropdown%.slice/goldendict%.service$', main = true },
-      callback   = geometry_cb({vert="center", horiz="right",  width=0.6, height=1.0}) },
-
-    { rule       = { },
-      except     = { modal = true },
-      process    = { cgroup = 'dropdown%.slice/gmpc%.service$', main = true },
-      callback   = geometry_cb({vert="center", horiz="right",  width=0.7, height=1.0}) },
-
-    { rule       = { },
-      except     = { modal = true },
-      process    = { cgroup = 'dropdown%.slice/cantata%.service$', main = true },
-      callback   = geometry_cb({vert="center", horiz="right",  width=0.7, height=1.0}) },
 
     { rule       = { },
       except     = { modal = true },

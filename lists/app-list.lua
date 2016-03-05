@@ -1,6 +1,12 @@
 apps = require("apps")
 
 return {
+  -- top dropdown
+   ["termite-dropdown"]      = "termite-dropdown.service",
+   ["thunar-dropdown"]       = "thunar-dropdown.service",
+   ["ranger-dropdown"]       = "ranger-dropdown.service",
+   ["journal-dropdown"]      = "journal-dropdown.service",
+
    -- systemd units
    dwb                       = "dwb@.service",
    chromium                  = "chromium@.service",
@@ -12,7 +18,7 @@ return {
    cantata                   = "cantata.service",
    gmpc                      = "gmpc.service",
 
-   org                       = "orgmode.service",
+   org                       = "org.service",
    calibre                   = "calibre.service",
    mu4e                      = "mu4e.service",
    chat                      = "chat.service",
