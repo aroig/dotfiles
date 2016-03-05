@@ -42,20 +42,30 @@ values."
      mu4e
      rcirc
      jabber
-     c-c++
+     (c-c++ :variables
+            c-c++-default-mode-for-headers 'c++-mode
+            c-c++-enable-clang-support t)
      asciidoc
+     emacs-lisp
+     extra-langs
      go
      haskell
      html
      java
      javascript
-     latex
+     (latex :variables
+            latex-build-command "make"
+            latex-enable-auto-fill t
+            latex-enable-folding t)
      lua
      markdown
+     octave
      python
+     restclient
      ruby
      shell-scripts
      sql
+     theming
      vimscript
      yaml
      fasd
