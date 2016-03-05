@@ -314,8 +314,8 @@ in `dotspacemacs/user-config'."
   (setq abdo-personal-dicts-path (format "%s/usr/dict/aspell/" (getenv "HOME")))
 
   ;; diminish some more modes
-  (spacemacs|diminish server-mode "ⓥ" "v")
-  (spacemacs|diminish binary-overwrite-mode "Ⓞ" "O")
+  (spacemacs|diminish server-buffer-clients "ⓥ" "v")
+  (spacemacs|diminish binary-overwrite-mode "Ⓞb" "O")
   (spacemacs|diminish overwrite-mode "Ⓞ" "O")
 
 
