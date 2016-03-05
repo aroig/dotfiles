@@ -9,4 +9,4 @@ Before=wmclean.target
 [Service]
 Type=oneshot
 
-ExecStart=/usr/bin/systemctl --user kill %i.slice
+ExecStart=/usr/bin/systemctl --user stop %i.slice

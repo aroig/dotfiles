@@ -6,12 +6,13 @@ Description=emacs daemon
 Requisite=graphical.target
 After=graphical.target
 
+
 [Service]
 Type=forking
-Slice=daemons.slice
+Slice=apps.slice
 
 
-ExecStart=/usr/bin/emacs --daemon
+ExecStart=/usr/bin/emacs --daemon --eval '(setq server-socket-dir "%t/emacs")'
 SuccessExitStatus=0 15
 
 # Kill with a SIGINT. This calls kill-emacs. No buffer saving is done.

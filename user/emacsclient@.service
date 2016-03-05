@@ -4,6 +4,9 @@ Description=emacs client %i
 Requisite=graphical.target 
 After=graphical.target
 
+Requires=emacs.service
+After=emacs.service
+
 [Service]
 Type=simple
 Slice=apps.slice

@@ -3,7 +3,11 @@ Description=a testing service
 
 [Service]
 Type=oneshot
+Slice=apps.slice
 ExecStart=/usr/bin/echo "Hello World"
+ExecStop=/usr/bin/sleep 5
+
+RemainAfterExit=true
 
 [Install]
 WantedBy=desktop.target
