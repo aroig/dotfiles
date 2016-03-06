@@ -6,6 +6,8 @@
  markdown-indent-on-enter nil
  ;; modeline
  display-time-format "%H:%M"
+ ;; neotree
+ neo-theme 'nerd
  )
 
 (blink-cursor-mode t)

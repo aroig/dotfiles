@@ -8,7 +8,13 @@
 (add-to-list 'auto-mode-alist '("\\.\\(mount\\|automount\\|socket\\|device\\)$" . conf-mode))
 
 
-;; TODO: do I want it?
+;; Basic prog-mode
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (setq-default indent-tabs-mode nil        ;; No tabs on indent
+                          tab-width 4)
+            ))
+
 ;; enable auto-fill on programming modes
-;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
+;; (add-hook 'prog-mode-hook 'turn-on-auto-fill)
 

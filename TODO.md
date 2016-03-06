@@ -33,6 +33,8 @@ TODO
 
 ## General
 
+* configure personal dictionaries
+
 * handle inter-layer dependencies: latex depends on some stuff in devel.
 
 * use theming mode and get rid of the zenburn hack
