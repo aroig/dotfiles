@@ -72,6 +72,7 @@ values."
      spell-checking
      ;; syntax-checking
      ;; version-control
+     unimpaired
      ab2-base
      ab2-devel
      ab2-latex
@@ -83,7 +84,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(editorconfig rainbow-mode netrc cl dbus)
+   dotspacemacs-additional-packages '(editorconfig rainbow-mode netrc cl dbus diff-hl)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(org-bullets mu4e-maildirs-extension rainbow-delimiters)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
