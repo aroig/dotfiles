@@ -86,13 +86,13 @@
   (zenburn-with-color-variables
     (custom-theme-set-faces
      'zenburn
-     ;; evil
+ ;;;; evil
      `(evil-search-highlight-persist-highlight-face ((t (:inherit region))))
-     ;; helm
+;;;;; helm
      `(helm-header-line-left-margin ((t (:foreground ,zenburn-bg :background ,zenburn-yellow-1))))
      `(helm-resume-need-update ((t (:foreground ,zenburn-bg :background ,zenburn-red-1))))
      `(helm-source-header ((t (:weight bold :box nil :foreground ,zenburn-yellow-1 :background ,zenburn-bg-2))))
-     ;; spaceline
+;;;;; spaceline
      `(spaceline-highlight-face ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-orange+1))))
      `(spaceline-evil-emacs ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-blue-1))))
      `(spaceline-evil-insert ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-green+1))))
@@ -100,7 +100,7 @@
      `(spaceline-evil-normal ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-yellow-1))))
      `(spaceline-evil-replace ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-orange+1))))
      `(spaceline-evil-visual ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-fg))))
-     ;; spacemacs
+;;;;; spacemacs
      `(spacemacs-highlight-face ((t (:foreground ,zenburn-bg :background ,zenburn-orange+1))))
      `(spacemacs-emacs-face ((t (:foreground ,zenburn-bg :background ,zenburn-blue-1))))
      `(spacemacs-insert-face ((t (:foreground ,zenburn-bg :background ,zenburn-green+1))))
@@ -109,6 +109,12 @@
      `(spacemacs-replace-face ((t (:foreground ,zenburn-bg :background ,zenburn-orange+1))))
      `(spacemacs-visual-face ((t (:foreground ,zenburn-bg :background ,zenburn-fg))))
      `(spacemacs-evilified-face ((t (:foreground ,zenburn-bg :background ,zenburn-green+1))))
+;;;;; org
+     `(org-priority-level-1 ((t (:foreground ,zenburn-sat-red))))
+     `(org-priority-level-2 ((t (:foreground ,zenburn-sat-orange-1))))
+     `(org-priority-level-3 ((t (:foreground ,zenburn-yellow-2))))
+     `(org-priority-level-4 ((t (:foreground ,zenburn-green+1))))
+     `(org-priority-level-5 ((t (:foreground ,zenburn-blue))))
      ))
   )
 

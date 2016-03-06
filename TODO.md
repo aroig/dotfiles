@@ -20,6 +20,10 @@ TODO
 
 ## General
 
+* handle inter-layer dependencies: latex depends on some stuff in devel.
+
+* use theming mode and get rid of the zenburn hack
+
 * setup outline-minor-mode-prefix globally and evilify that minor mode
 
 * backups do not seem to work
