@@ -13,9 +13,22 @@ TODO
 
 ## org-mode
 
-* create an org-mode layer from ab2-office
-
 * make sure all mobile and calendar stuff still works
+
+
+## mu4e
+
+* close the mu server when closing the mu4e perspective
+
+
+## chat
+
+* close all chat connections when closing the chat perspective
+
+
+## frames and perspectives
+
+* bind frames to perspectives somehow, and close the perspective when closing the frame.
 
 
 ## General
