@@ -264,7 +264,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Open an org-link from a URI (with position).
-(defun abdo-org-open-link (fullpath)
+(defun ab2/org-open-link (fullpath)
   "Opens an URI to a file maybe with position information"
   (interactive "MPath: ")
   (let ((line nil) (path fullpath) (search nil))
@@ -286,71 +286,40 @@
 )
 
 
-
-;; Need link types for org, proj, paper.
-(defun abdo-org-hyperlinks-setup ()
-  ;; Link abbreviations
-  (setq org-link-abbrev-alist
-    `(("google"    . "http://www.google.com/search?q=")
-      ("gmap"      . "http://maps.google.com/maps?q=%s")
-      ("wikipedia" . "http://en.wikipedia.org/wiki/%s")
-      ("arxiv"     . "http://arxiv.org/abs/%s")
-    )
-  )
-
-  ;; Links to files in my org-tree of the form [[org:math/journal]]
-  (org-add-link-type "org" 'abdo-org-org-open)
-;;  (add-hook 'org-store-link-functions 'abdo-org-org-store-link)
-
-  (org-add-link-type "tex" 'abdo-org-tex-open)
-  (org-add-link-type "atag" 'abdo-org-atag-open)
-  (org-add-link-type "cali" 'abdo-org-calibre-open)
-)
-
-
-(defun abdo-org-org-open (path)
+(defun ab2/org-org-open (path)
   "Opens org files relative to org base directory"
   (when (string-match "^\\(.*?\\)\\(::.*\\)?$" (concat path "\n"))
     (let ((link (match-string 1 path))
           (pos (match-string 2 path)))
-          (abdo-org-open-link (concat org-directory link ".org" pos))
-    )
-  )
-)
+          (ab2/org-open-link (concat org-directory link ".org" pos))
+    )))
 
 
 ;; TODO: Here I should take into account the current headline and make an appropriate link
 ;;       This is tricky !
-
-(defun abdo-org-org-store-link ()
-  (when (string-match (concat (abdo-escape-regexp org-directory) "\\(.*\\)\\.org") (buffer-file-name))
+(defun ab2/org-org-store-link ()
+  (when (string-match (concat (ab2/escape-regexp org-directory) "\\(.*\\)\\.org") (buffer-file-name))
     (let ((link (match-string 1))
           (description (format "Page %s in org tree" link)))
       (org-store-link-props
         :type "org"
         :link link
         :description description
-      )
-    )
-  )
-)
+      ))))
 
-(defun abdo-org-tex-open (path)
+
+(defun ab2/org-tex-open (path)
   "Opens tex files with a label as position"
   (when (string-match "^\\(.*?\\)\\(::\\(.*\\)\\)?$" (concat path "\n"))
     (let ((link (match-string 1 path))
           (pos (match-string 3 path)))
       (if pos
-        (abdo-org-open-link (concat link ".tex::\label{" pos "}"))
-        (abdo-org-open-link (concat link ".tex"))
-      )
-    )
-  )
-)
+        (ab2/org-open-link (concat link ".tex::\label{" pos "}"))
+        (ab2/org-open-link (concat link ".tex"))
+      ))))
 
 
-
-(defun abdo-org-calibre-open (path)
+(defun ab2/org-calibre-open (path)
   (when (string-match "^\\(.*?\\)\\(::\\(.*\\)\\)?$" (concat path "\n"))
     (let ((query (match-string 1 path))
           (pos (match-string 3 path)))
@@ -358,13 +327,10 @@
 ;        (shell-command "evince &")
         (call-process "cali" nil 0 nil "view" query "-p" pos)
         (call-process "cali" nil 0 nil "view" query)
-      )
-    )
-  )
-)
+      ))))
 
 
-(defun abdo-org-atag-open (query)
+(defun ab2/org-atag-open (query)
   "Opens an agenda buffer with a given tags view"
   (org-tags-view nil query)
 )

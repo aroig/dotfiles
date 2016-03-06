@@ -72,7 +72,6 @@ values."
      spell-checking
      ;; syntax-checking
      ;; version-control
-     unimpaired
      ab2-base
      ab2-devel
      ab2-latex

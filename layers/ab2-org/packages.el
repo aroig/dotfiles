@@ -393,13 +393,12 @@
         )
 
   ;; Links to files in my org-tree of the form [[org:math/journal]]
-  ;;  (add-hook 'org-store-link-functions 'abdo-org-org-store-link)
+  (add-hook 'org-store-link-functions 'ab2/org-org-store-link)
 
-  ;; TODO: fix this
-  ;; (org-add-link-type "org" 'abdo-org-org-open)
-  ;; (org-add-link-type "tex" 'abdo-org-tex-open)
-  ;; (org-add-link-type "atag" 'abdo-org-atag-open)
-  ;; (org-add-link-type "cali" 'abdo-org-calibre-open)
+  (org-add-link-type "org"  'ab2/org-org-open)
+  (org-add-link-type "tex"  'ab2/org-tex-open)
+  (org-add-link-type "atag" 'ab2/org-atag-open)
+  ;; (org-add-link-type "cali" 'ab2/org-calibre-open)
 
 
   ;; hooks

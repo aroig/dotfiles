@@ -33,6 +33,8 @@ TODO
 
 ## General
 
+* add layer for coq + proofgeneral
+
 * configure personal dictionaries
 
 * handle inter-layer dependencies: latex depends on some stuff in devel.
