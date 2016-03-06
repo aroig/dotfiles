@@ -1,4 +1,4 @@
-(setq ab2-office-packages
+(setq ab2-org-packages
  '(
    org
    compile
@@ -6,7 +6,7 @@
   ))
 
 
-(defun ab2-office/pre-init-org ()
+(defun ab2-org/pre-init-org ()
   ;; directories
   (let ((wiki-dir (getenv "AB2_WIKI_DIR")))
     (setq
@@ -18,7 +18,7 @@
      org-mobile-directory                (format "%s/mobile/" wiki-dir)
      org-latex-preview-ltxpng-directory  (format "%s/ltxpng/" wiki-dir)
      org-id-locations-file               (format "%s/etc/id-locations" wiki-dir)
-     ab2/org-templates-directory         ("%s/templates/" wiki-dir)
+     ab2/org-templates-directory         (format "%s/templates/" wiki-dir)
      ))
 
   ;; Org settings
@@ -335,11 +335,7 @@
 
   ;; latex preview
   (setq org-latex-create-formula-image-program 'imagemagick)
-;;  (setq org-latex-create-formula-image-program 'dvipng)
-  (plist-put org-format-latex-options :scale 1.0)
-  (plist-put org-format-latex-options :foreground 'auto)
-  (plist-put org-format-latex-options :background 'auto)
-
+  ;;  (setq org-latex-create-formula-image-program 'dvipng)
 
   ;; Setup my export projects
   (setq org-publish-project-alist
@@ -413,7 +409,12 @@
                     fill-column 100
                     org-tags-column (- fill-column)
                     org-confirm-elisp-link-function 'y-or-n-p
-                    )))
+                    )
+             ;; tweal latex previews
+              (plist-put org-format-latex-options :scale 1.0)
+              (plist-put org-format-latex-options :foreground 'auto)
+              (plist-put org-format-latex-options :background 'auto)
+              ))
 
   (add-hook 'org-agenda-mode-hook
             (lambda ()
@@ -428,4 +429,19 @@
   ;; For some reason, I can't set this on the emacs theme
   (custom-set-faces `(org-hide ((t (:foreground "#1f1f1f")))))
   )
+
+
+(defun ab2-org/post-init-persp-mode ()
+  (spacemacs|define-custom-layout
+      "@wiki"
+    :binding "w"
+    :body
+    (progn
+      (find-file abdo-org-main-file)
+      ))
+
+  ;; setup a command line switch for mu4e perspective
+  (add-to-list 'command-switch-alist '("wiki" . (lambda (args) (spacemacs/custom-perspective-@wiki))))
+  )
+
 

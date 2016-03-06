@@ -76,6 +76,7 @@ values."
      ab2-base
      ab2-devel
      ab2-latex
+     ab2-org
      ab2-mu4e
      ab2-visual
      ab2-chat
