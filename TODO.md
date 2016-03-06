@@ -8,7 +8,7 @@ TODO
 
 ## latex
 
-* create a latex layer from ab2-office
+* make sure the compile buffer works fine + outline-minor-mode properly integrated
 
 
 ## org-mode
