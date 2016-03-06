@@ -20,6 +20,8 @@ TODO
 
 ## General
 
+* setup outline-minor-mode-prefix globally and evilify that minor mode
+
 * backups do not seem to work
 
 * fix workflow in server mode

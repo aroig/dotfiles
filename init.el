@@ -53,10 +53,7 @@ values."
      html
      java
      javascript
-     (latex :variables
-            latex-build-command "make"
-            latex-enable-auto-fill t
-            latex-enable-folding t)
+     latex
      lua
      markdown
      octave
@@ -77,6 +74,7 @@ values."
      ;; version-control
      ab2-base
      ab2-devel
+     ab2-latex
      ab2-mu4e
      ab2-visual
      ab2-chat
@@ -289,6 +287,7 @@ values."
    (set-fontset-font "fontset-default" '(#x2200 . #x22ff)   "Symbola")   ; Mathematical Operators
    (set-fontset-font "fontset-default" '(#x2300 . #x23ff)   "Symbola")   ; Miscelaneous technical symbols
    (set-fontset-font "fontset-default" '(#x2460 . #x24ff)   "Symbola")   ; Enclosed alphanumerics
+   (set-fontset-font "fontset-default" '(#x2600 . #x26ff)   "Symbola")   ; Miscelaneous symbols
    )
   )
 

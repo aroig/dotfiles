@@ -3,6 +3,7 @@
         magit
         persp-mode
         pkgbuild-mode
+        compilation
         ))
 
 
@@ -17,4 +18,10 @@
 
   (setq pkgbuild-initialize nil
         pkgbuild-update-sums-on-save nil)
+  )
+
+(defun ab2-devel/post-init-compilation ()
+  (setq compilation-read-command nil
+        compilation-auto-jump-to-first-error t)
+
   )

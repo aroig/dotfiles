@@ -1,4 +1,6 @@
 
+;; compile buffer
+(defvar ab2/compile-window-state nil)
 
 ;; systemd mode assignments
 (add-to-list 'auto-mode-alist '("\\.\\(service\\|target\\|slice\\|timer\\|path\\|preset\\)$" . conf-mode))
