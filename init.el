@@ -316,17 +316,6 @@ in `dotspacemacs/user-config'."
    save-interprogram-paste-before-kill t
    mouse-drag-copy-region nil
 
-   ;; autosave and backups
-   auto-save-default t
-   make-backup-files t
-   vc-make-backup-files t
-   backup-by-copying t
-   version-control t
-   delete-old-versions 1  ;; neither delete nor ask about them
-   auto-save-file-name-transforms `((".*" ,(concat spacemacs-cache-directory "bak/") t))
-   backup-directory-alist `((".*" . ,(concat spacemacs-cache-directory "bak/")))
-   bookmark-save t
-
    ;; editor settings
    fill-column 90
 
@@ -343,6 +332,16 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+
+  (setq  auto-save-default t
+         make-backup-files t
+         vc-make-backup-files t
+         backup-by-copying t
+         version-control t
+         delete-old-versions 1  ;; neither delete nor ask about them
+         auto-save-file-name-transforms `((".*" ,(concat spacemacs-cache-directory "bak/") t))
+         backup-directory-alist `((".*" . ,(concat spacemacs-cache-directory "bak/")))
+         bookmark-save t)
 
   ;; emacs daemon
   (setq server-raise-frame nil)                 ;; don't raise frames when switching buffers
