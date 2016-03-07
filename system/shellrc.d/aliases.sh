@@ -37,6 +37,7 @@ alias rsy='rsync -avz --progress --delete'
 alias rnm='/usr/bin/vendor_perl/rename'
 
 # file viewing
+alias vi='vim'
 alias vp='vimpager'
 alias vc='vimcat'
 alias diff='diff -u -d'
