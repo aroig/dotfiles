@@ -395,12 +395,6 @@
   ;; Links to files in my org-tree of the form [[org:math/journal]]
   (add-hook 'org-store-link-functions 'ab2/org-org-store-link)
 
-  (org-add-link-type "org"  'ab2/org-org-open)
-  (org-add-link-type "tex"  'ab2/org-tex-open)
-  (org-add-link-type "atag" 'ab2/org-atag-open)
-  ;; (org-add-link-type "cali" 'ab2/org-calibre-open)
-
-
   ;; hooks
   (add-hook 'org-mode-hook
             (lambda ()
@@ -413,6 +407,12 @@
               (plist-put org-format-latex-options :scale 1.0)
               (plist-put org-format-latex-options :foreground 'auto)
               (plist-put org-format-latex-options :background 'auto)
+
+              ;; add link types
+              (org-add-link-type "org"  'ab2/org-org-open)
+              (org-add-link-type "tex"  'ab2/org-tex-open)
+              (org-add-link-type "atag" 'ab2/org-atag-open)
+              ;; (org-add-link-type "cali" 'ab2/org-calibre-open)
               ))
 
   (add-hook 'org-agenda-mode-hook
