@@ -193,10 +193,13 @@ rules.rules = {
                      above = true,
                      skip_taskbar = true },
       callback = function(c)
-                     local name = string.gsub(c['instance'], "-gui", "")
-                     dropdown.manage_client(name, c)
-                     set_geometry(c, {vert="center", horiz="center", width=1.0, height=1.0} )
-                 end },
+          if not c.modal then
+              local name = string.gsub(c['instance'], "-gui", "")
+              dropdown.manage_client(name, c)
+              set_geometry(c, {vert="center", horiz="center", width=1.0, height=1.0} )
+          end
+      end
+    },
 
     -- top dropdowns
    { rule_any = { class = {"termite-dropdown", "journal-dropdown", "ranger-dropdown", "thunar-dropdown"} },
@@ -206,12 +209,13 @@ rules.rules = {
                      above = true,
                      skip_taskbar = true },
       callback = function(c)
-                     local name = c['class']
-                     dropdown.manage_client(name, c)
-                     set_geometry(c, {vert="top", horiz="center", width=1.0, height=0.4} )
-                 end },
-
-
+          if not c.modal then
+              local name = c['class']
+              dropdown.manage_client(name, c)
+              set_geometry(c, {vert="top", horiz="center", width=1.0, height=0.4} )
+          end
+      end
+   },
 
     -- half-screen dropdowns
    { rule_any = { instance = {"cantata", "gmpc"} },
@@ -221,12 +225,13 @@ rules.rules = {
                      above = true,
                      skip_taskbar = true },
       callback = function(c)
-                     local name = c['instance']
-                     dropdown.manage_client(name, c)
-                     set_geometry(c, {vert="center", horiz="right", width=0.7, height=1.0} )
-                 end },
-
-
+          if not c.modal then
+              local name = c['instance']
+              dropdown.manage_client(name, c)
+              set_geometry(c, {vert="center", horiz="right", width=0.7, height=1.0} )
+          end
+      end
+   },
 
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
