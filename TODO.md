@@ -20,6 +20,8 @@ TODO
 
 * close the mu server when closing the mu4e perspective
 
+* fix account autodetection. Right now it does not work
+
 
 ## chat
 
