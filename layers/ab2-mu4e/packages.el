@@ -128,7 +128,12 @@
         sendmail-program "msmtp")
 
   ;; Hooks
-  (add-hook 'message-send-hook 'ab2/mu4e-feed-msmtp)
+  (when mu4e-account-alist
+    ;; (remove-hook 'mu4e-compose-pre-hook 'mu4e/set-account)
+    ;; (add-hook 'mu4e-compose-pre-hook 'ab2/mu4e-set-account)
+    ;;(add-hook 'message-sent-hook 'mu4e/mail-account-reset)
+    (add-hook 'message-send-hook 'ab2/mu4e-feed-msmtp))
+
   (add-hook 'mu4e-compose-mode-hook (lambda () (setq fill-column 80)))
 
   ;; use shr wrapper from mu4e-contrib

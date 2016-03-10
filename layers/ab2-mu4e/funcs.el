@@ -7,7 +7,7 @@
   "List of tags to show for autocompletion")
 
 
-(defun mu4e-action-retag-message (msg &optional retag-arg)
+(defun ab2/action-retag-message (msg &optional retag-arg)
   "Change tags of a message. Accepts a comma-separated list of
    additions and removals.
 
@@ -63,30 +63,10 @@
 
 
 
-(defun abdo-mu4e-retag-message (msg)
-  (let ((retag (read-string "Tags: "))
-        (path (mu4e-message-field msg :path))
-        (maildir (mu4e-message-field msg :maildir)))
-    (when retag
-      (let ((retaglist (split-string-and-unquote retag)))
-        (apply 'call-process "mutag" nil 0 nil "-p" abdo-mu4e-mutag-profile "-t" path "-T" "--" retaglist)
-        (message (concat "tagging: " (mapconcat 'identity retaglist ", ")))
-        (mu4e~proc-add path maildir)
-        ))))
-
-(defun abdo-mu4e-autotag-message (msg)
-  (let ((path (mu4e-message-field msg :path))
-        (maildir (mu4e-message-field msg :maildir)))
-    (apply 'call-process "mutag" nil 0 nil "-p" abdo-mu4e-mutag-profile "-t" path "-A")
-    (mu4e~proc-index path mu4e-user-mail-address-list)
-    (mu4e~proc-add path maildir)))
-
-
-
 ;; Functions
 ;; -----------------------------------------------
 
-(defun abdo-mu4e-set-account ()
+(defun ab2/mu4e-set-account ()
   "Set the account for composing a message. If composing new,
    let's the user chose, and otherwise us the to field"
   (let* ((account
@@ -99,16 +79,16 @@
 
             (ido-completing-read
              "Compose with account: "
-             (mapcar #'(lambda (var) (car var)) abdo-mu4e-account-alist)
-             nil t nil nil (caar abdo-mu4e-account-alist))))
-         (account-vars (cdr (assoc account abdo-mu4e-account-alist))))
+             (mapcar #'(lambda (var) (car var)) mu4e-account-alist)
+             nil t nil nil (caar mu4e-account-alist))))
+         (account-vars (cdr (assoc account mu4e-account-alist))))
     (if account-vars
         (mapc #'(lambda (var)
                   (set (car var) (cadr var)))
               account-vars))))
 
 
-(defun abdo-mu4e-feed-msmtp ()
+(defun ab2/mu4e-feed-msmtp ()
  "Choose account label to feed msmtp -a option based on From header in Message buffer;
   This function must be added to message-send-mail-hook for on-the-fly change of From address
   before sending message since message-send-mail-hook is processed right before sending message."
@@ -130,5 +110,4 @@
 
                 (t
                  (error (format "Can't recognise address in from field: %s" from))))))))
-
 
