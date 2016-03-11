@@ -54,6 +54,35 @@
   ; (add-hook 'rcirc-print-hooks 'abdo-rcirc-notify)
 )
 
+(defun ab2-chat/post-init-rcirc ()
+
+  ;; Override upstream spacemacs function so it handles channels of the form blah/foo
+      (defun rcirc-write-log (process sender response target text)
+        (when rcirc-log-directory
+          (when (not (file-directory-p rcirc-log-directory))
+            (make-directory rcirc-log-directory))
+          (with-temp-buffer
+            ;; Sometimes TARGET is a buffer :-(
+            (when (bufferp target)
+              (setq target (with-current-buffer buffer rcirc-target)))
+            ;; Sometimes buffer is not anything at all!
+            (unless (or (null target) (string= target ""))
+              ;; Print the line into the temp buffer.
+              (insert (format-time-string "%Y-%m-%d %H:%M "))
+              (insert (format "%-16s " (rcirc-user-nick sender)))
+              (unless (string= response "PRIVMSG")
+                (insert "/" (downcase response) " "))
+              (insert text "\n")
+              ;; Append the line to the appropriate logfile.
+              (let ((coding-system-for-write 'no-conversion))
+                (write-region (point-min) (point-max)
+                              (concat rcirc-log-directory  (downcase target))
+                              t 'quietly))))))
+
+
+  )
+
+
 (defun ab2-chat/init-twittering-mode ()
   (use-package twittering-mode)
   )
