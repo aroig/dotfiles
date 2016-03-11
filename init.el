@@ -54,6 +54,7 @@ values."
      go
      haskell
      html
+     ipython-notebook
      java
      javascript
      latex
