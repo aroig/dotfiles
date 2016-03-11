@@ -72,13 +72,15 @@
         twittering-timer-interval 300
         )
 
-  ;; authorization token
-  (setq twittering-oauth-access-token-alist
-        (read
-         (with-temp-buffer
-           (insert-file-contents (format "%s/etc/twittering-mode/oauth-token" (getenv "AB2_PRIV_DIR")))
-                                 (buffer-string)))
-        )
+  (add-hook 'twittering-mode-hook
+            (lambda ()
+              ;; authorization token
+              (setq twittering-oauth-access-token-alist
+                    (read
+                     (with-temp-buffer
+                       (insert-file-contents
+                        (format "%s/etc/twittering-mode/oauth-token" (getenv "AB2_PRIV_DIR")))
+                       (buffer-string))))))
 
 
   ;; TODO: write a notification function
