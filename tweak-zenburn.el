@@ -62,6 +62,8 @@
     ("zenburn-dark-green"        . "#2D5842")
     ("zenburn-dark-red"          . "#681313")
     ("zenburn-dark-blue"         . "#2F4276")
+    ("zenburn-dark-purple"       . "#373747")
+
     ))
 
 
@@ -87,7 +89,11 @@
     (custom-theme-set-faces
      'zenburn
 ;;;;; region
-     `(region ((t (:background ,zenburn-dark-blue))))
+     `(region ((t (:background ,zenburn-dark-purple))))
+;;;;; anzu
+     `(anzu-match-1 ((t (:foreground ,zenburn-bg :background ,zenburn-gree+3))))
+     `(anzu-match-2 ((t (:foreground ,zenburn-bg :background ,zenburn-yellow-1))))
+     `(anzu-match-3 ((t (:foreground ,zenburn-bg :background ,zenburn-cyan))))
 ;;;;; eval-sexp
      `(eval-sexp-fu-flash ((t (:background ,zenburn-blue-5))))
      `(eval-sexp-fu-flash-error ((t (:foreground ,zenburn-red))))
@@ -122,6 +128,5 @@
      `(org-priority-level-3 ((t (:foreground ,zenburn-yellow-2))))
      `(org-priority-level-4 ((t (:foreground ,zenburn-green+1))))
      `(org-priority-level-5 ((t (:foreground ,zenburn-blue))))
-     ))
-  )
+     )))
 
