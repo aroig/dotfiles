@@ -24,7 +24,7 @@
         mail-user-agent 'mu4e-user-agent
         message-kill-buffer-on-exit t
         mu4e-sent-message-behaviour 'sent
-        ;; mu4e-use-fancy-chars t
+        mu4e-use-fancy-chars nil
         )
 
   ;; headers view

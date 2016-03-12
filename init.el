@@ -41,8 +41,10 @@ values."
      (markdown :variables
                markdown-indent-on-enter nil)
      finance
-     org
-     mu4e
+     (org :variables
+          org-enable-github-support t)
+     (mu4e :variables
+           mu4e-enable-mode-line t)
      (rcirc :variables
             rcirc-spacemacs-layout-name "@rcirc"
             rcirc-spacemacs-layout-binding "i")
