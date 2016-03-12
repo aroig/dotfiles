@@ -79,6 +79,7 @@ values."
      spell-checking
      ;; syntax-checking
      ;; version-control
+     windows-scripts
      ab2-base
      ab2-devel
      ab2-latex
