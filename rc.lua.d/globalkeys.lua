@@ -172,11 +172,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, metakey   }, "k",      function () awful.tag.viewnext(awful.util.cycle(screen.count(), awful.screen.focused() + 1)) end),
     awful.key({ modkey, metakey   }, "j",      function () awful.tag.viewprev(awful.util.cycle(screen.count(), awful.screen.focused() + 1)) end),
 
-    awful.key({ modkey, metakey, ctrlkey  }, "Up",    function () for s = 1, screen.count() do awful.tag.viewnext(s) end end),
-    awful.key({ modkey, metakey, ctrlkey  }, "Down",  function () for s = 1, screen.count() do awful.tag.viewprev(s) end end),
+    awful.key({ modkey, metakey, ctrlkey  }, "Up",    function () for s in screen do awful.tag.viewnext(s) end end),
+    awful.key({ modkey, metakey, ctrlkey  }, "Down",  function () for s in screen do awful.tag.viewprev(s) end end),
 
-    awful.key({ modkey, metakey, ctrlkey  }, "k",     function () for s = 1, screen.count() do awful.tag.viewnext(s) end end),
-    awful.key({ modkey, metakey, ctrlkey  }, "j",     function () for s = 1, screen.count() do awful.tag.viewprev(s) end end),
+    awful.key({ modkey, metakey, ctrlkey  }, "k",     function () for s in screen do awful.tag.viewnext(s) end end),
+    awful.key({ modkey, metakey, ctrlkey  }, "j",     function () for s in screen do awful.tag.viewprev(s) end end),
 
     -- Client dragging
     awful.key({ modkey, ctrlkey, shiftkey }, "Up",    function () drag_bydirection("up") end),
