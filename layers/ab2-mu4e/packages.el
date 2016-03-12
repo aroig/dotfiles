@@ -23,6 +23,7 @@
         mu4e-compose-signature-auto-include nil
         mail-user-agent 'mu4e-user-agent
         message-kill-buffer-on-exit t
+        mu4e-sent-message-behaviour 'sent
         ;; mu4e-use-fancy-chars t
         )
 
@@ -94,29 +95,64 @@
   )
 
 (defun ab2-mu4e/post-init-mu4e ()
-  ;; accounts
-  (setq mu4e-user-mail-address-list
-        '("abdo.roig@gmail.com" "abdo.roig@upc.edu")
 
-        mu4e-account-alist
-        '(("gmail"
-           (mu4e-sent-messages-behavior sent)
-           (user-mail-address "abdo.roig@gmail.com")
-           (user-full-name "Abdó Roig-Maranges"))
+  (with-eval-after-load "mu4e"
+    (setq mu4e-context-policy 'pick-first
+          mu4e-compose-context-policy 'ask
 
-          ("upc"
-           (mu4e-sent-messages-behavior sent)
-           (user-mail-address "abdo.roig@upc.edu")
-           (user-full-name "Abdó Roig-Maranges"))))
+          mu4e-contexts
+          `( ,(make-mu4e-context
+               :name "gmail"
+               :match-func (lambda (msg)
+                             (let ((email "abdo.roig@gmail.com"))
+                               (when msg
+                                 (or
+                                  (mu4e-message-contact-field-matches msg :to email)
+                                  (mu4e-message-contact-field-matches msg :cc email)
+                                  (mu4e-message-contact-field-matches msg :from email)
+                                  ))))
+               :vars '( (user-mail-address . "abdo.roig@gmail.com")
+                        (user-full-name . "Abdó Roig-Maranges")
+                        (message-sendmail-extra-arguments . ("-a" "gmail"))
+                        ;;(mu4e-compose-signature . "")
+                        ))
 
-  (mu4e/mail-account-reset)
+             ,(make-mu4e-context
+               :name "upc"
+               :match-func (lambda (msg)
+                             (let ((email "abdo.roig@upc.edu"))
+                               (when msg
+                                 (or
+                                  (mu4e-message-contact-field-matches msg :to email)
+                                  (mu4e-message-contact-field-matches msg :cc email)
+                                  (mu4e-message-contact-field-matches msg :from email)
+                                  ))))
+               :vars '( (user-mail-address . "abdo.roig@upc.edu")
+                        (user-full-name . "Abdó Roig-Maranges")
+                        (message-sendmail-extra-arguments . ("-a" "upc"))
+                        ;;(mu4e-compose-signature . "")
+                        ))
+             )
+
+          ;; This sets `mu4e-user-mail-address-list' to the concatenation of all
+          ;; `user-mail-address' values for all contexts. If you have other mail
+          ;; addresses as well, you'll need to add those manually.
+          mu4e-user-mail-address-list
+          (delq nil
+                (mapcar (lambda (context)
+                          (when (mu4e-context-vars context)
+                            (cdr (assq 'user-mail-address (mu4e-context-vars context)))))
+                        mu4e-contexts))))
+
 
   ;; Custom actions
   (setq mu4e-action-tags-header "X-Keywords")
+
   (add-hook 'mu4e-headers-mode-hook
             (lambda ()
               (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
               ))
+
   (add-hook 'mu4e-view-mode-hook
             (lambda ()
               (add-to-list 'mu4e-view-actions '("tRetag message" . mu4e-action-retag-message) t)
@@ -128,12 +164,6 @@
         sendmail-program "msmtp")
 
   ;; Hooks
-  (when mu4e-account-alist
-    ;; (remove-hook 'mu4e-compose-pre-hook 'mu4e/set-account)
-    ;; (add-hook 'mu4e-compose-pre-hook 'ab2/mu4e-set-account)
-    ;;(add-hook 'message-sent-hook 'mu4e/mail-account-reset)
-    (add-hook 'message-send-hook 'ab2/mu4e-feed-msmtp))
-
   (add-hook 'mu4e-compose-mode-hook (lambda () (setq fill-column 80)))
 
   ;; use shr wrapper from mu4e-contrib
