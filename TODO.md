@@ -32,8 +32,14 @@ TODO
 
 * bind frames to perspectives somehow, and close the perspective when closing the frame.
 
+* when starting frame in a particular layout, make sure we kill the layout on delete-frame.
+
+* make sure we quit mu4e on perspective-kill.
+
 
 ## General
+
+* setup package updates as a batch job
 
 * add layer for coq + proofgeneral
 
@@ -45,11 +51,10 @@ TODO
 
 * setup outline-minor-mode-prefix globally and evilify that minor mode
 
-* backups do not seem to work
-
 * fix workflow in server mode
 
 * tweak zenburn colors with the commits I've got in the zenburn-theme repo.
 
 * get rid of all my custom scripts to run emacs, etc.
+
 
