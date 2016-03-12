@@ -179,6 +179,15 @@ rules.rules = {
     { rule = { class = "Xournal" },         properties = { screen = 1 } },
     { rule = { class = "Skype" },           properties = { screen = 1 % nscreen + 1} },
 
+    -- qemu
+    { rule_any = { class = { "qemu-system-x86_64" } },
+      properties = { floating = true },
+      callback   = function(c)
+          local x = capi.screen[awful.screen.focused()].geometry.x
+          local y = capi.screen[awful.screen.focused()].geometry.y
+          c:geometry({ x = x, y = y }) end
+    },
+
     -- dropdowns
     --
     -- NOTE: we match by instance (which I can set on emacs), then use this instance as
