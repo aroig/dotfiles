@@ -68,6 +68,7 @@ values."
      ruby
      shell-scripts
      sql
+     systemd
      theming
      vimscript
      yaml
