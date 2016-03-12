@@ -43,7 +43,9 @@ values."
      finance
      org
      mu4e
-     rcirc
+     (rcirc :variables
+            rcirc-spacemacs-layout-name "@rcirc"
+            rcirc-spacemacs-layout-binding "i")
      jabber
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
