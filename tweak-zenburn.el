@@ -86,12 +86,19 @@
   (zenburn-with-color-variables
     (custom-theme-set-faces
      'zenburn
- ;;;; evil
+;;;;; region
+     `(region ((t (:background ,zenburn-dark-blue))))
+;;;;; eval-sexp
+     `(eval-sexp-fu-flash ((t (:background ,zenburn-blue-5))))
+     `(eval-sexp-fu-flash-error ((t (:foreground ,zenburn-red))))
+;;;;; evil
      `(evil-search-highlight-persist-highlight-face ((t (:inherit region))))
 ;;;;; helm
      `(helm-header-line-left-margin ((t (:foreground ,zenburn-bg :background ,zenburn-yellow-1))))
      `(helm-resume-need-update ((t (:foreground ,zenburn-bg :background ,zenburn-red-1))))
      `(helm-source-header ((t (:weight bold :box nil :foreground ,zenburn-yellow-1 :background ,zenburn-bg-2))))
+;;;;; hl
+     `(hl-line ((t (:background ,zenburn-bg+1))))
 ;;;;; spaceline
      `(spaceline-highlight-face ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-orange+1))))
      `(spaceline-evil-emacs ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-blue-1))))
