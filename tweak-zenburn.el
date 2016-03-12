@@ -91,7 +91,7 @@
 ;;;;; region
      `(region ((t (:background ,zenburn-dark-purple))))
 ;;;;; anzu
-     `(anzu-match-1 ((t (:foreground ,zenburn-bg :background ,zenburn-gree+3))))
+     `(anzu-match-1 ((t (:foreground ,zenburn-bg :background ,zenburn-green+3))))
      `(anzu-match-2 ((t (:foreground ,zenburn-bg :background ,zenburn-yellow-1))))
      `(anzu-match-3 ((t (:foreground ,zenburn-bg :background ,zenburn-cyan))))
 ;;;;; eval-sexp
