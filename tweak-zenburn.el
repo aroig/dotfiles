@@ -62,10 +62,7 @@
     ("zenburn-dark-green"        . "#2D5842")
     ("zenburn-dark-red"          . "#681313")
     ("zenburn-dark-blue"         . "#2F4276")
-    ("zenburn-dark-purple"       . "#373747")
-
     ))
-
 
 (defun ab2/zenburn-pre-tweak (theme)
   ;; zenburn theme
@@ -89,7 +86,7 @@
     (custom-theme-set-faces
      'zenburn
 ;;;;; region
-     `(region ((t (:background ,zenburn-dark-purple))))
+     `(region ((t (:background ,zenburn-green-1))))
 ;;;;; anzu
      `(anzu-match-1 ((t (:foreground ,zenburn-bg :background ,zenburn-green+3))))
      `(anzu-match-2 ((t (:foreground ,zenburn-bg :background ,zenburn-yellow-1))))
