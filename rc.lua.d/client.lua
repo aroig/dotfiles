@@ -4,8 +4,6 @@
 -- Author: Abdó Roig<abdo.roig@gmail.com>                    --
 ---------------------------------------------------------------
 
-local systemd = systemd
-
 local capi = {
     mouse = mouse,
     client = client,
@@ -247,38 +245,3 @@ rules.rules = {
     --   properties = { tag = tags[1][2] } },
 }
 
-
-
--- systemd cgroup rules
-systemd.rules = {
-    -- float the dropdowns
-    { rule       = { },
-      except     = { modal = true },
-      process    = { cgroup = 'dropdown%.slice/.*$', main = true },
-      properties = { floating = true,
-                     size_hints_honor = false,
-                     ontop = true,
-                     above = true,
-                     skip_taskbar = true } },
-
-    -- float virtual machines
-    { rule       = { },
-      process    = { cgroup = 'machine%.slice/.*$', main = false },
-      properties = { floating = true },
-      callback   = function(c)
-          local x = capi.screen[awful.screen.focused()].geometry.x
-          local y = capi.screen[awful.screen.focused()].geometry.y
-          c:geometry({ x = x, y = y }) end },
-
-    -- set the geometry for side dropdowns
-
-    { rule       = { },
-      except     = { modal = true },
-      process    = { cgroup = 'dropdown%.slice/.*docs.*%.service$', main = true },
-      callback   = geometry_cb({vert="center", horiz="right",  width=0.6, height=1.0}) },
-}
-
-
------------------------------------
--- Signals                       --
------------------------------------
