@@ -17,17 +17,18 @@ stx() {
     esac
 
     # wait until X server finishes
-    while [ `pgrep Xorg` ]; do
+    while [ -e "/tmp/.X11-unix/X0" ]; do
         sleep 1
-        inotifywait -q -e close /tmp/.X11-unix/X0
+        inotifywait -qq -e close "/tmp/.X11-unix/X0"
     done
 
     # unset systemd environment
     systemctl --user unset-environment DISPLAY XDG_VTNR
-    
+
     # reset tty and reset colors
-    reset
-    set_tty_colors
+    # NOTE: I think I do not need to reset anymore
+    # reset
+    # set_tty_colors
 }
 
 klx() {
