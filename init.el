@@ -44,7 +44,7 @@ values."
      (org :variables
           org-enable-github-support t)
      (mu4e :variables
-           mu4e-enable-mode-line t)
+           mu4e-enable-mode-line nil)
      (rcirc :variables
             rcirc-spacemacs-layout-name "@rcirc"
             rcirc-spacemacs-layout-binding "i")
