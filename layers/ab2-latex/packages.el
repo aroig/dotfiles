@@ -21,7 +21,7 @@
 
         ;; do not fontify subscript and superscripts
         font-latex-fontify-script nil
-
+        font-latex-fontify-sectioning 'color
         LaTeX-biblatex-use-Biber t
         )
 
@@ -62,7 +62,7 @@
                     fill-column 90
                     use-file-dialog nil            ;; stop asking to open file when errors happen
                     compilation-read-command nil   ;; compilation: do not ask for command
-
+                    
                     )
 
               ;; auctex make commands
