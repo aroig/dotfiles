@@ -13,5 +13,5 @@ After=git-use@var-chat-emacs.service
 Type=simple
 Slice=apps.slice
 
-ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((title . "chat"))' --eval "(spacemacs/custom-perspective-@chat)"
+ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((title . "chat"))' --eval '(ab2/frame-layout "@chat")'
 KillSignal=SIGINT

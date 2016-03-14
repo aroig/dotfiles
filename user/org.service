@@ -11,7 +11,7 @@ After=git-use@wiki.service
 Type=simple
 Slice=apps.slice
 
-ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((name . "org"))' --eval "(spacemacs/custom-perspective-@wiki)"
+ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((name . "org"))' --eval '(ab2/frame-layout "@wiki")'
 KillSignal=SIGINT
 
 
