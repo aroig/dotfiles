@@ -15,6 +15,24 @@
 
 
 
+;; Projects and layouts
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; NOTE: projectile does not declare this as autoload
+(autoload 'projectile-switch-project-by-name "projectile")
+
+(defun ab2/persp-switch-project-by-name (dir)
+  (interactive "P")
+  (let* ((persp-reset-windows-on-nil-window-conf t)
+         (projectile-completion-system 'helm)
+         (projectile-switch-project-action (lambda ()))
+         (dirname (file-truename dir))
+         (project (file-name-nondirectory (directory-file-name dirname))))
+    (persp-switch project)
+    (projectile-switch-project-by-name dirname)))
+
+
+
 ;; String manipulations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
