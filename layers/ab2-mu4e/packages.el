@@ -148,6 +148,20 @@
   ;; Custom actions
   (setq mu4e-action-tags-header "X-Keywords")
 
+  ;; Kill process and timers when killing main buffer.
+  ;; NOTE: cannot use mu4e-quit because it attempts to close the buffers!
+  (add-hook 'mu4e-main-mode-hook
+            (lambda ()
+              (make-local-variable 'kill-buffer-hook)
+              (add-hook 'kill-buffer-hook
+                        (lambda ()
+                          (when mu4e~update-timer
+                            (cancel-timer mu4e~update-timer)
+                            (setq mu4e~update-timer nil))
+                          (mu4e-clear-caches)
+                          (mu4e~proc-kill)))
+              ))
+
   (add-hook 'mu4e-headers-mode-hook
             (lambda ()
               (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
