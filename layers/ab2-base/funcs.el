@@ -32,6 +32,15 @@
     (projectile-switch-project-by-name dirname)))
 
 
+(defun ab2/frame-layout (name)
+  "Start a custom layout attached to a frame. When the frame is killed, so is the layout."
+  (interactive "P")
+  (lexical-let ((layout name))
+    (funcall (spacemacs//custom-layout-func-name name))
+    (make-variable-frame-local 'delete-frame-functions)
+    (add-hook 'delete-frame-functions (lambda (arg) (persp-kill layout)))))
+
+
 
 ;; String manipulations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
