@@ -33,6 +33,14 @@ ee()  {
     fi
 }
 
+# emacs project
+ep() {
+    if [ "$1" ]; then rifle -p proj "$@"
+    else              rifle -p proj "$PWD"
+    fi
+}
+
+# open magit
 mg() {
     if [ "$1" ]; then rifle -p magit "$1"
     else              rifle -p magit "$PWD"

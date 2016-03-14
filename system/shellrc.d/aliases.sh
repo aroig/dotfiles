@@ -43,10 +43,6 @@ alias vc='vimcat'
 alias diff='diff -u -d'
 alias grep='grep --color=auto'
 
-# emacs aliases
-alias ediff='emacs-diff'
-alias egit='emacs-git'
-
 # mr
 alias mr='mr --stats --color -t'
 
