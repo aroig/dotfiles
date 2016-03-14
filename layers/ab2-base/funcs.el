@@ -20,16 +20,23 @@
 
 ;; NOTE: projectile does not declare this as autoload
 (autoload 'projectile-switch-project-by-name "projectile")
+(autoload 'projectile-root-bottom-up "projectile")
 
-(defun ab2/persp-switch-project-by-name (dir)
+(defun ab2/find-file-in-project (filename)
+  "Open file in a project."
   (interactive "P")
   (let* ((persp-reset-windows-on-nil-window-conf t)
-         (projectile-completion-system 'helm)
          (projectile-switch-project-action (lambda ()))
-         (dirname (file-truename dir))
-         (project (file-name-nondirectory (directory-file-name dirname))))
-    (persp-switch project)
-    (projectile-switch-project-by-name dirname)))
+         (path (file-truename filename))
+         (root (projectile-root-bottom-up (if (file-directory-p path)
+                                              (file-name-as-directory path)
+                                            (file-name-directory path)))))
+    (when root
+      (let ((project (file-name-nondirectory (directory-file-name root))))
+            (persp-switch project)
+            (projectile-switch-project-by-name root)
+            (find-file path)))))
+
 
 
 (defun ab2/frame-layout (name)
