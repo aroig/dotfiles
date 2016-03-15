@@ -363,8 +363,8 @@ you should place your code here."
          backup-by-copying t
          version-control t
          delete-old-versions 1  ;; neither delete nor ask about them
-         auto-save-file-name-transforms `((".*" ,(concat spacemacs-cache-directory "bak/") t))
-         backup-directory-alist `((".*" . ,(concat spacemacs-cache-directory "bak/")))
+         auto-save-file-name-transforms `((".*" ,(concat spacemacs-cache-directory "backups/") t))
+         backup-directory-alist `((".*" . ,(concat spacemacs-cache-directory "backups/")))
          bookmark-save t)
 
   ;; emacs daemon
