@@ -30,11 +30,8 @@ TODO
 
 ## frames and perspectives
 
-* bind frames to perspectives somehow, and close the perspective when closing the frame.
-
-* when starting frame in a particular layout, make sure we kill the layout on delete-frame.
-
-* make sure we quit mu4e on perspective-kill.
+* make sure we quit mu4e on perspective-kill. I kill it on buffer-kill, but that
+  doesn't seem to be enough.
 
 
 ## General
