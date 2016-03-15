@@ -152,14 +152,14 @@
   ;; NOTE: cannot use mu4e-quit because it attempts to close the buffers!
   (add-hook 'mu4e-main-mode-hook
             (lambda ()
-              (make-local-variable 'kill-buffer-hook)
               (add-hook 'kill-buffer-hook
                         (lambda ()
                           (when mu4e~update-timer
                             (cancel-timer mu4e~update-timer)
                             (setq mu4e~update-timer nil))
                           (mu4e-clear-caches)
-                          (mu4e~proc-kill)))
+                          (mu4e~proc-kill))
+                        nil 'local)
               ))
 
   (add-hook 'mu4e-headers-mode-hook
@@ -217,20 +217,9 @@
    :binding "m"
    :body
    (progn
+     (add-hook 'mu4e-main-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
      (add-hook 'mu4e-view-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
      (add-hook 'mu4e-headers-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
      (add-hook 'mu4e-compose-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
      (call-interactively 'mu4e)
-     ))
-  ;; do not save rcirc buffers
-  (spacemacs|use-package-add-hook
-   persp-mode
-   :post-config
-   (push (lambda (b) (with-current-buffer b
-                       (or (eq major-mode 'mu4e-view-mode)
-                           (eq major-mode 'mu4e-headers-mode))))
-         persp-filter-save-buffers-functions))
-
-  ;; setup a command line switch for mu4e perspective
-  (add-to-list 'command-switch-alist '("mail" . (lambda (args) (spacemacs/custom-perspective-@mu4e))))
-  )
+     )))
