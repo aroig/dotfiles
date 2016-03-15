@@ -39,13 +39,17 @@
 
 
 
+(defun ab2/frame-kill-layout (frame)
+  (let ((layout (frame-parameter frame 'ab2/frame-layout)))
+    (when layout (persp-kill layout))))
+
+(add-hook 'delete-frame-functions 'ab2/frame-kill-layout)
+
 (defun ab2/frame-layout (name)
   "Start a custom layout attached to a frame. When the frame is killed, so is the layout."
   (interactive "P")
-  (lexical-let ((layout name))
-    (funcall (spacemacs//custom-layout-func-name name))
-    (make-variable-frame-local 'delete-frame-functions)
-    (add-hook 'delete-frame-functions (lambda (arg) (persp-kill layout)))))
+  (funcall (spacemacs//custom-layout-func-name name))
+  (modify-frame-parameters (selected-frame) `((ab2/frame-layout . ,name))))
 
 
 
