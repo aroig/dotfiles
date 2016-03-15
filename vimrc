@@ -9,9 +9,9 @@
 
 " sets alternative backup and swap file locations
 set nobackup
-if isdirectory($AB2_VAR_DIR."/vim/bak")
-   let &backupdir=$AB2_VAR_DIR."/vim/bak"
-   let &directory=$AB2_VAR_DIR."/vim/bak"
+if isdirectory($AB2_VAR_DIR."/vim/backups")
+   let &backupdir=$AB2_VAR_DIR."/vim/backups"
+   let &directory=$AB2_VAR_DIR."/vim/backups"
 endif
 
 " and prevents backup and swap for sensitive files
