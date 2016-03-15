@@ -1,14 +1,18 @@
 TODO
 ====
 
-## devel
+## submit upstream
 
-* create a devel layer
+* commands for `frame-layout` and `find-file-in-project`
+
+## devel
 
 
 ## latex
 
-* make sure the compile buffer works fine + outline-minor-mode properly integrated
+* make sure the compile buffer works fine.
+
+* make sure we integrate the outline-minor-mode.
 
 
 ## org-mode
@@ -18,25 +22,19 @@ TODO
 
 ## mu4e
 
-* close the mu server when closing the mu4e perspective
-
-* fix account autodetection. Right now it does not work
 
 
 ## chat
 
-* close all chat connections when closing the chat perspective
+* close all chat connections when closing the chat perspective (mimic mu4e)
 
 
 ## frames and perspectives
 
-* make sure we quit mu4e on perspective-kill. I kill it on buffer-kill, but that
-  doesn't seem to be enough.
-
 
 ## General
 
-* setup package updates as a batch job
+* setup package updates as a batch job (pending on https://github.com/syl20bnr/spacemacs/pull/5477)
 
 * add layer for coq + proofgeneral
 
@@ -47,8 +45,6 @@ TODO
 * use theming mode and get rid of the zenburn hack
 
 * setup outline-minor-mode-prefix globally and evilify that minor mode
-
-* fix workflow in server mode
 
 * tweak zenburn colors with the commits I've got in the zenburn-theme repo.
 
