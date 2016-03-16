@@ -1,6 +1,7 @@
 
 ;; Bugfix for helm-org. This is PR https://github.com/emacs-helm/helm/pull/1429
 (with-eval-after-load "helm-org"
+
 (defun helm-org--get-candidates-in-file (filename &optional fontify nofname parents)
   (with-current-buffer (pcase filename
                          ((pred bufferp) filename)
@@ -23,7 +24,8 @@
           (widen)
           (unless parents (goto-char (point-min)))
           ;; clear cache for new version of org-get-outline-path
-          (setq org-outline-path-cache nil)
+          (and (boundp 'org-outline-path-cache)
+               (setq org-outline-path-cache nil))
           (cl-loop with width = (window-width (helm-window))
                    while (funcall search-fn)
                    for beg = (point-at-bol)
@@ -55,6 +57,7 @@
                                        (funcall match-fn  0)))
                                'helm-real-display heading)
                               . ,(point-marker))))))))
+
     )
 
 
