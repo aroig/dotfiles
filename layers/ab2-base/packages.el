@@ -19,7 +19,7 @@
 
 (ab2/regexp-filter "spacemacs-buffer\\.el" '("spacemacs-buffer.el"))
 
-(defun ab2-base/post-init-hippie-exp ()
+(defun ab2-base/post-init-hippie-ex ()
   ;; I prefer a diferent binding for yasnippet completion
   (global-set-key (kbd "M-+") 'hippie-expand)
   )
