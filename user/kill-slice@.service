@@ -8,5 +8,6 @@ Before=wmclean.target
 
 [Service]
 Type=oneshot
+Slice=worker.slice
 
 ExecStart=/usr/bin/systemctl --user stop %i.slice
