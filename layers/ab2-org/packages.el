@@ -27,7 +27,9 @@
         org-special-ctrl-a/e t               ;; Adjusts C-a C-e behaviour
         org-odd-levels-only t                ;; Only odd level stars
         org-hide-leading-stars t             ;; Hides leading stars
-        org-agenda-start-with-follow-mode t)
+        org-log-into-drawer t                ;; Log into LOGBOOK drawer
+        org-agenda-start-with-follow-mode t  ;; Enable follow-mode in agenda
+        )
 
 
   ;; All org files
@@ -269,10 +271,6 @@
 
   ;; Org ID module.
   (setq org-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
-
-  ;; Drawers
-  (setq org-drawers  '("PROPERTIES" "CLOCK" "LOGBOOK")
-        org-log-into-drawer "LOGBOOK")
 
   (setq org-todo-keywords
         '((sequence "TODO(!)" "|" "DONE(!)")            ; Todos in the external world
