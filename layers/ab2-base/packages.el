@@ -1,8 +1,17 @@
 (setq ab2-base-packages
       '(
+        uniquify
         hippie-exp
         (sensitive-mode :location local)
         ))
+
+
+(defun ab2-base/post-init-uniquify ()
+  (setq
+   ;; uniquify buffer names as <dir>/<name>
+   uniquify-buffer-name-style 'forward
+   ))
+
 
 (defun ab2-base/init-sensitive-mode ()
   (use-package sensitive-mode)
