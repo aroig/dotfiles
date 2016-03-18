@@ -87,10 +87,12 @@
 
   ;; Commonly used tags for completion
   (setq mu4e-tags-completion-list
-        '( "upc" "maths" "postdoc" "fme" "ma1" "etseib" "research" "seminar"
-           "arch" "devel" "msys2" "github" "bitbucket"
+        '( "upc" "postdoc" "fme" "ma1" "etseib" "research" "seminar"
+           "maths" "geometry" "algebra" "physics" "topology"
+           "arch" "devel" "msys2" "github" "bitbucket" "bibrain"
            "newsletter" "list" "bug"
            "friends" "family" "bit"
+           "gsoc16"
            ))
   )
 
