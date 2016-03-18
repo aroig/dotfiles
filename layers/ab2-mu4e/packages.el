@@ -86,7 +86,7 @@
           ))
 
   ;; Commonly used tags for completion
-  (setq mu4e-action-tags-completion-list
+  (setq mu4e-tags-completion-list
         '( "upc" "maths" "postdoc" "fme" "ma1" "etseib" "research" "seminar"
            "arch" "devel" "msys2" "github" "bitbucket"
            "newsletter" "list" "bug"
