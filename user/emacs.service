@@ -11,8 +11,8 @@ After=graphical.target
 Type=forking
 Slice=apps.slice
 
-
 ExecStart=/usr/bin/emacs --daemon --eval '(setq server-socket-dir "%t/emacs")'
+TimeoutStartSec=10min
 SuccessExitStatus=0 15
 
 # Kill with a SIGINT. This calls kill-emacs. No buffer saving is done.
