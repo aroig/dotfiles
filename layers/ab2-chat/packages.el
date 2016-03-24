@@ -83,11 +83,6 @@
   )
 
 
-(defun ab2-chat/init-twittering-mode ()
-  (use-package twittering-mode)
-  )
-
-
 (defun ab2-chat/post-init-twittering-mode ()
   (setq twittering-username "abroig"
         twittering-initial-timeline-spec-string

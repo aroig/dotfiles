@@ -50,6 +50,7 @@ values."
             rcirc-spacemacs-layout-name "@rcirc"
             rcirc-spacemacs-layout-binding "i")
      jabber
+     twitter
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t)
