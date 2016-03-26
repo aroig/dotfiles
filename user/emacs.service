@@ -12,11 +12,16 @@ Type=forking
 Slice=apps.slice
 
 ExecStart=/usr/bin/emacs --daemon --eval '(setq server-socket-dir "%t/emacs")'
+
 TimeoutStartSec=10min
 SuccessExitStatus=0 15
 
 # Kill with a SIGINT. This calls kill-emacs. No buffer saving is done.
 KillSignal=SIGINT
+
+# I think there is a race between killing emacs and xorg. Give it some time to
+# die before continuing.
+ExecStopPost=/usr/bin/sleep 0.5
 
 [Install]
 WantedBy=graphical.target
