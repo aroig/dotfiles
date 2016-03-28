@@ -1,7 +1,10 @@
 TODO
 ====
 
-* Attempt to fix emacs hang on shutdown. Need to debug `emacs-ask-save-quit.service`
+* Attempt to fix emacs hang on shutdown. 
+
+* Debug `emacs-ask-save-quit.service`. Need a way to query the user from a
+  frame-less emacs. I could produce a dialog with zenity, for example.
 
 * Add a proxy service for sway, that gets started and stopped from sway exec's.
 
