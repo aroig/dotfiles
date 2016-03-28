@@ -1,6 +1,8 @@
 TODO
 ====
 
+* Attempt to fix emacs hang on shutdown. Need to debug `emacs-ask-save-quit.service`
+
 * Add a proxy service for sway, that gets started and stopped from sway exec's.
 
 * use systemd-inhibit for emacs ask-save and other crytical stuff.
