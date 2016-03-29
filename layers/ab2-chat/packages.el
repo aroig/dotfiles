@@ -3,55 +3,57 @@
       '(
         rcirc
         rcirc-color
+        erc
         twittering-mode
         jabber
         persp-mode
         ))
 
+(defun ab2-chat/post-init-erc ()
+
+   )
+
 
 (defun ab2-chat/pre-init-rcirc ()
   ;; need netrc to configure credentials
   (use-package netrc)
-
   ;; configuration
-  (setq rcirc-default-nick "abtwo"
-        rcirc-default-user-name "abtwo"
-        rcirc-default-full-name ""
-        rcirc-log-directory (format "%s/chat/emacs/rcirc/" (getenv "AB2_VAR_DIR")))
+  (setq rcirc-log-directory (format "%s/chat/emacs/rcirc/" (getenv "AB2_VAR_DIR")))
 
   ;; server and authentication
-  (let ((freenode (netrc-machine (netrc-parse "~/.netrc") "chat.freenode.net"))
-        (gitter   (netrc-machine (netrc-parse "~/.netrc") "irc.gitter.im")))
+  (let ((freenode-creds (netrc-machine (netrc-parse "~/.netrc") "chat.freenode.net"))
+        (gitter-creds   (netrc-machine (netrc-parse "~/.netrc") "irc.gitter.im")))
 
     (setq rcirc-server-alist
-          `(("chat.freenode.net"
+          `((,(netrc-get freenode-creds "machine")
              :port 6697
              :encryption tls
-             :nick "abtwo"
-             :full-name "Abdó Roig"
-             ;;     :channels ("#emacs" "#python" )
+             :nick ,(netrc-get freenode-creds "login")
+             :password ,(netrc-get freenode-creds "password")
+             :full-name ,user-full-name
+             :channels ("#imapfw" "#gentoo-soc" )
              )
-            ("irc.gitter.im"
+            (,(netrc-get gitter-creds "machine")
              :port 6697
              :encryption tls
-             :user ,(netrc-get gitter "login")
-             :password ,(netrc-get gitter "password")
-             :full-name "Abdó Roig"
-             :channels ("#OfflineIMAP/imapfw")
+             :user ,(netrc-get gitter-creds "login")
+             :password ,(netrc-get gitter-creds "password")
+             :full-name ,user-full-name
+             :channels ("#OfflineIMAP/imapfw" "#syl20bnr/spacemacs")
              )
             )
 
           rcirc-authinfo
-          `(("chat.freenode.net"
+          `((,(netrc-get freenode-creds "machine")
              nickserv
-             ,(netrc-get freenode "login")
-             ,(netrc-get freenode "password")
+             ,(netrc-get freenode-creds "login")
+             ,(netrc-get freenode-creds "password")
              )
             ))
     )
 
-  ;; hooks
-  ; (add-hook 'rcirc-print-hooks 'abdo-rcirc-notify)
+    ;; hooks
+    ;; (add-hook 'rcirc-print-hooks 'abdo-rcirc-notify)
 )
 
 (defun ab2-chat/post-init-rcirc ()
@@ -78,9 +80,8 @@
                 (write-region (point-min) (point-max)
                               (concat rcirc-log-directory  (downcase target))
                               t 'quietly))))))
-
-
   )
+
 
 
 (defun ab2-chat/post-init-twittering-mode ()
@@ -199,6 +200,44 @@
   )
 
 
+(defun ab2/start-erc ()
+  (interactive)
+
+  (setq erc-autojoin-channels-alist
+        '(("freenode.net"
+           "#imapfw" "#gentoo-soc")
+
+          ("irc.gitter.im"
+           "#OfflineIMAP/imapfw" "#syl20bnr/spacemacs")))
+
+  (setq erc-prompt-for-nickserv-password nil
+        erc-autojoin-mode t
+
+        ;; TODO: these do not seem to be set.
+        erc-save-buffer-on-part nil
+        erc-save-queries-on-quit nil
+        erc-log-write-after-send t
+        erc-log-write-after-insert t
+        erc-log-channels-directory (format "%s/chat/emacs/erc/" (getenv "AB2_VAR_DIR"))
+        )
+
+  (let ((freenode-creds (netrc-machine (netrc-parse "~/.netrc") "chat.freenode.net"))
+        (gitter-creds   (netrc-machine (netrc-parse "~/.netrc") "irc.gitter.im")))
+
+    (erc-tls :server (netrc-get freenode-creds "machine")
+             :port 6697
+             :full-name user-full-name
+             :nick (netrc-get freenode-creds "login")
+             :password (netrc-get freenode-creds "password"))
+
+    (erc-tls :server (netrc-get gitter-creds "machine")
+             :port 6697
+             :full-name user-full-name
+             :nick (netrc-get gitter-creds "login")
+             :password (netrc-get gitter-creds "password"))
+    )
+  )
+
 (defun ab2-chat/post-init-persp-mode ()
   (spacemacs|define-custom-layout
    "@chat"
@@ -206,22 +245,17 @@
    :body
    (progn
      (add-hook 'rcirc-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
+     (add-hook 'erc-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
      (add-hook 'twittering-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
      (add-hook 'jabber-chat-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
      (add-hook 'jabber-browse-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
      (add-hook 'jabber-roster-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
-     (call-interactively 'rcirc)
-     (call-interactively 'twittering-mode)
+
+     (call-interactively 'twit)
      (call-interactively 'jabber-connect-all)
+     (call-interactively 'rcirc)
+     ;; (call-interactively 'ab2/start-erc)
      ))
-  ;; do not save rcirc buffers
-  (spacemacs|use-package-add-hook
-   persp-mode
-   :post-config
-   (push (lambda (b) (with-current-buffer b
-                       (or (eq major-mode 'rcirc-mode)
-                           (eq major-mode 'twittering-mode))))
-         persp-filter-save-buffers-functions))
 
   ;; setup a command line switch for mu4e perspective
   (add-to-list 'command-switch-alist '("chat" . (lambda (args) (spacemacs/custom-perspective-@chat))))
