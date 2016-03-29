@@ -26,6 +26,8 @@ TODO
 
 ## chat
 
+* open all windows int the @chat persp
+
 * close all chat connections when closing the chat perspective (mimic mu4e)
 
 * configure logging
