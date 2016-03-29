@@ -243,12 +243,20 @@
    :binding "c"
    :body
    (progn
-     (add-hook 'rcirc-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
-     (add-hook 'erc-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
-     (add-hook 'twittering-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
-     (add-hook 'jabber-chat-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
-     (add-hook 'jabber-browse-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
-     (add-hook 'jabber-roster-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
+     (defun ab2/add-chat-buffer-to-persp ()
+       (persp-add-buffer (current-buffer)
+                         (persp-get-by-name
+                          "@chat")))
+     (add-hook 'rcirc-mode-hook #'ab2/add-chat-buffer-to-persp)
+     (add-hook 'erc-mode-hook #'ab2/add-chat-buffer-to-persp)
+     (add-hook 'twittering-mode-hook #'ab2/add-chat-buffer-to-persp)
+     (add-hook 'jabber-chat-mode-hook #'ab2/add-chat-buffer-to-persp)
+     (add-hook 'jabber-browse-mode-hook #'ab2/add-chat-buffer-to-persp)
+     (add-hook 'jabber-roster-mode-hook #'ab2/add-chat-buffer-to-persp)
+
+     (add-hook 'jabber-roster-mode-hook
+               (lambda ()
+                 (add-hook 'kill-buffer-hook 'jabber-disconnect nil 'local)))
 
      (call-interactively 'twit)
      (call-interactively 'jabber-connect-all)
