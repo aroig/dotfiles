@@ -28,6 +28,10 @@ TODO
 
 * close all chat connections when closing the chat perspective (mimic mu4e)
 
+* configure logging
+
+* configure notifications
+
 
 ## frames and perspectives
 
