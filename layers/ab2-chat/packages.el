@@ -213,9 +213,8 @@
   (setq erc-prompt-for-nickserv-password nil
         erc-autojoin-mode t
 
-        ;; TODO: these do not seem to be set.
         erc-save-buffer-on-part nil
-        erc-save-queries-on-quit nil
+        erc-save-queries-on-quit t
         erc-log-write-after-send t
         erc-log-write-after-insert t
         erc-log-channels-directory (format "%s/chat/emacs/erc/" (getenv "AB2_VAR_DIR"))
@@ -253,8 +252,8 @@
 
      (call-interactively 'twit)
      (call-interactively 'jabber-connect-all)
-     (call-interactively 'rcirc)
-     ;; (call-interactively 'ab2/start-erc)
+     ;; (call-interactively 'rcirc)
+     (call-interactively 'ab2/start-erc)
      ))
 
   ;; setup a command line switch for mu4e perspective
