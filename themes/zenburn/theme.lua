@@ -90,7 +90,8 @@ theme.bg_minimize  = theme.color_bg
 
 
 -- {{{ Borders
-theme.border_width  = "1"
+theme.useless_gap   = 0
+theme.border_width  = 1
 theme.border_normal = theme.color_bg
 theme.border_focus  = theme.color_sat_red
 theme.border_marked = theme.color_sat_red

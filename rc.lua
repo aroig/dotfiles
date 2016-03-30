@@ -22,8 +22,10 @@ awful.util   = require("awful.util")
 wibox        = require("wibox")
 beautiful    = require("beautiful")
 menubar      = require("menubar")
-gears        = require("gears")
 naughty      = require("naughty")
+
+hotkeys      = require("awful.hotkeys_popup")
+
 
 -- Personal stuff
 util        = require("abdo.util")           -- Utility functions

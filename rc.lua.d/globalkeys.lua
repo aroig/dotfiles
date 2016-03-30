@@ -57,7 +57,7 @@ end
 
 globalkeys = awful.util.table.join(
     -- Machine state
-    awful.key({ modkey,           }, "m",      function() switch.machine_mode(1)     end),
+    awful.key({ modkey,           }, "m",      function() switch.machine_mode(1)     end, {description = "Switch machine mode", group = "system"}),
     awful.key({ modkey, shiftkey  }, "m",      function() switch.machine_mode(-1)    end),
 
     awful.key({ modkey,           }, "v",      function() switch.output_mode(1)      end),
@@ -85,10 +85,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "t",      function () ddtoggle('app:chat',        true) end),
 
     -- Desktop boxes
-    awful.key({ modkey,           }, "F1",     box.calendar.toggle_calendar),
-    awful.key({ modkey,           }, "F2",     box.orgtasks.toggle_todo),
-    awful.key({ modkey,           }, "F3",     box.syslog.toggle_syslog),
-    awful.key({ ctrlkey,          }, "F3",     box.userlog.toggle_userlog),
+    awful.key({ modkey,           }, "F1",     hotkeys.widget.show_help),
+    awful.key({ modkey,           }, "F2",     box.calendar.toggle_calendar),
+    awful.key({ modkey,           }, "F3",     box.orgtasks.toggle_todo),
     awful.key({ modkey,           }, "F4",     box.naughtylog.toggle_naughtylog),
 
     -- Top dropdown clients

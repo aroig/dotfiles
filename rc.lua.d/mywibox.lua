@@ -96,10 +96,12 @@ for s in screen do
       right_layout:add(myw.separator)
    end
 
+   right_layout:add(myw.keyb.icon)
+   right_layout:add(myw.keyb.keybwdg)
+   right_layout:add(myw.separator)
+
    right_layout:add(myw.clock.icon)
    right_layout:add(myw.clock.clockwdg)
-
-   -- right_layout:add(myw.keyb.icon)
 
    local middle_layout = wibox.layout.fixed.horizontal()
    middle_layout:add(myw.tasklist[s])

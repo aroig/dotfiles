@@ -583,6 +583,9 @@ myw.keyb.icon:set_markup(wiboxicon("keyboard", beautiful.color_widget) .. ' ')
 myw.keyb.icon:buttons(awful.util.table.join(
                           awful.button({ }, 1, function () osk() end)))
 
+myw.keyb.keybwdg = awful.widget.keyboardlayout()
+
+
 
 -----------------------------------
 -- Systray                       --
@@ -676,7 +679,6 @@ for s in screen do
                            awful.button({ }, 4, function () awful.layout.inc(1, nil, layouts) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1, nil, layouts) end)))
  end
-
 
 
 -----------------------------------

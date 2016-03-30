@@ -7,6 +7,7 @@
 
 -- Create a laucher widget and a main menu
 myawesomemenu = {
+   { "hotkeys", function() return false, hotkeys.widget.show_help end},
    { "manual", apps.terminal .. " -e \"man awesome\"" },
    { "edit config", apps.editor .. " " .. awesome.conffile },
    { "restart", awesome.restart },
