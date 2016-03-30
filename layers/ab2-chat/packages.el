@@ -4,6 +4,7 @@
         rcirc
         rcirc-color
         erc
+        erc-log
         twittering-mode
         jabber
         persp-mode
@@ -12,6 +13,10 @@
 (defun ab2-chat/post-init-erc ()
 
    )
+
+(defun ab2-chat/init-erc-log ()
+  (use-package erc-log)
+  )
 
 
 (defun ab2-chat/pre-init-rcirc ()
@@ -200,6 +205,7 @@
   )
 
 
+
 (defun ab2/start-erc ()
   (interactive)
 
@@ -209,6 +215,8 @@
 
           ("irc.gitter.im"
            "#OfflineIMAP/imapfw" "#syl20bnr/spacemacs")))
+
+
 
   (setq erc-prompt-for-nickserv-password nil
         erc-autojoin-mode t
