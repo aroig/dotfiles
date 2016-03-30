@@ -41,8 +41,8 @@
   (setq org-agenda-files (append abdo-org-arts-files org-agenda-files))
 
   ;; Bibrain files
-  (setq abdo-org-bbrain-files (ab2/regexp-filter "bbrain/.*\\.org$" org-all-files))
-  (setq org-agenda-files (append abdo-org-bbrain-files org-agenda-files))
+  (setq abdo-org-bibrain-files (ab2/regexp-filter "bibrain/.*\\.org$" org-all-files))
+  (setq org-agenda-files (append abdo-org-bibrain-files org-agenda-files))
 
   ;; Hardware files
   (setq abdo-org-hard-files (ab2/regexp-filter "hard/.*\\.org$" org-all-files))
@@ -96,7 +96,7 @@
         org-agenda-inhibit-startup t)
 
   (let ((devel-list     abdo-org-devel-files)
-        (bbrain-list    abdo-org-bbrain-files)
+        (bibrain-list    abdo-org-bibrain-files)
         (math-list      abdo-org-math-files)
         (paper-list     abdo-org-paper-files)
         (teach-list     abdo-org-teach-files)
@@ -132,17 +132,17 @@
             ("b" . "Bibrain")
 
             ("ba" "Agenda"      agenda ""
-             ((org-agenda-files (quote ,bbrain-list))))
+             ((org-agenda-files (quote ,bibrain-list))))
 
             ("bs" "Search"      search ""
-             ((org-agenda-files (quote ,bbrain-list))
+             ((org-agenda-files (quote ,bibrain-list))
               (org-agenda-search-view-max-outline-level 2)))
 
             ("bt" "Todo"        todo ""
-             ((org-agenda-files (quote ,bbrain-list))))
+             ((org-agenda-files (quote ,bibrain-list))))
 
             ("bg" "Tag"         tags-todo ""
-             ((org-agenda-files (quote ,bbrain-list))))
+             ((org-agenda-files (quote ,bibrain-list))))
 
 
             ;; MATHS
