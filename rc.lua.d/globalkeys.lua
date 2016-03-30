@@ -70,6 +70,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "Return", function () run('app:termite')         end),
     awful.key({ modkey, ctrlkey   }, "f",      function () run('app:thunar')          end),
     awful.key({ modkey, ctrlkey   }, "r",      function () run('app:ranger')          end),
+    awful.key({ modkey            }, "z",      myw.keyb.keybwdg.next_layout              ),
 
     awful.key({ modkey, ctrlkey   }, "b",      function () run('app:chromium')        end),
     awful.key({ modkey, metakey   }, "b",      function () run('app:firefox')         end),
@@ -123,7 +124,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey   }, "w",               prompt.wikipedia),
     awful.key({ modkey   }, "e",               prompt.mathscinet),
 
-    awful.key({ modkey   }, "z",               prompt.docs),
+    -- TODO: change binding
+    -- awful.key({ modkey   }, "z",               prompt.docs),
     awful.key({ modkey   }, "a",               prompt.lua),
     awful.key({ modkey   }, "s",               prompt.systemd),
     awful.key({ modkey   }, "x",               prompt.command),

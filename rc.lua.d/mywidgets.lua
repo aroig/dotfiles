@@ -584,7 +584,7 @@ myw.keyb.icon:buttons(awful.util.table.join(
                           awful.button({ }, 1, function () osk() end)))
 
 myw.keyb.keybwdg = awful.widget.keyboardlayout()
-
+myw.keyb.keybwdg.layout_name = function (v) return v.file end
 
 
 -----------------------------------
