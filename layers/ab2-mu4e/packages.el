@@ -219,9 +219,13 @@
    :binding "m"
    :body
    (progn
-     (add-hook 'mu4e-main-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
-     (add-hook 'mu4e-view-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
-     (add-hook 'mu4e-headers-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
-     (add-hook 'mu4e-compose-mode-hook #'(lambda () (persp-add-buffer (current-buffer))))
+
+     (defun ab2/add-mu4e-buffer-to-persp ()
+       (persp-add-buffer (current-buffer) (persp-get-by-name "@mu4e")))
+
+     (add-hook 'mu4e-main-mode-hook #'ab2/add-mu4e-buffer-to-persp)
+     (add-hook 'mu4e-view-mode-hook #'ab2/add-mu4e-buffer-to-persp)
+     (add-hook 'mu4e-headers-mode-hook #'ab2/add-mu4e-buffer-to-persp)
+     (add-hook 'mu4e-compose-mode-hook #'ab2/add-mu4e-buffer-to-persp)
      (call-interactively 'mu4e)
      )))

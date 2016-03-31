@@ -252,9 +252,8 @@
    :body
    (progn
      (defun ab2/add-chat-buffer-to-persp ()
-       (persp-add-buffer (current-buffer)
-                         (persp-get-by-name
-                          "@chat")))
+       (persp-add-buffer (current-buffer) (persp-get-by-name "@chat")))
+     
      (add-hook 'rcirc-mode-hook #'ab2/add-chat-buffer-to-persp)
      (add-hook 'erc-mode-hook #'ab2/add-chat-buffer-to-persp)
      (add-hook 'twittering-mode-hook #'ab2/add-chat-buffer-to-persp)
