@@ -26,6 +26,17 @@
 
 
 
+;; Tweak fonts
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Use good unicode symbols fallback fonts. There are buggy fonts with wrong rendering.
+(set-fontset-font "fontset-default" '(#x1d400 . #x1d7ff) "Symbola")   ; Mathematical alphanumeric symbols
+(set-fontset-font "fontset-default" '(#x1f300 . #x1f5ff) "Symbola")   ; Miscelaneous symbols and pictograms
+(set-fontset-font "fontset-default" '(#x2300 . #x23ff) "Symbola")     ; Miscelaneous technical symbols
+(set-fontset-font "fontset-default" '(#x2460 . #x24ff) "Symbola")     ; Enclosed alphanumerics
+
+
+
 ;; Some global variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -42,10 +53,8 @@
   "True when running as root.")
 
 ;; My name and email
-(setq abdo-user-full-name    "Abdó Roig-Maranges")
-(setq abdo-user-mail-address "abdo.roig@gmail.com")
-(setq abdo-name-and-mail (format "%s <%s>" abdo-user-full-name abdo-user-mail-address))
-
+(setq user-full-name    "Abdó Roig-Maranges")
+(setq user-mail-address "abdo.roig@gmail.com")
 
 
 ;; Paths
