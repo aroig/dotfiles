@@ -12,7 +12,7 @@ endif
 set showcmd                       " show partial command
 set laststatus=2                  " always display status line
 
-"set ruler                         " show cursor position
+set ruler                         " show cursor position
 
 " enable cursor line on active window
 augroup ActiveWindowCursorLine
@@ -77,7 +77,7 @@ set statusline+=%=
 
 "git status
 if ! &diff
-    set statusline+=%2*%{fugitive#head()}%*\ 
+    set statusline+=%2*%{exists('g:loaded_fugitive')?fugitive#head():''}%*\ 
 endif
 
 "line:column percent

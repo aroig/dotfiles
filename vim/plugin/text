@@ -1,0 +1,2 @@
+set textwidth=80                  " text width to wrap long lines
+set wrap lbr                      " wrap long lines between words

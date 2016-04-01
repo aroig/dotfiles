@@ -15,6 +15,7 @@ syntax on                         " Enable syntax highlighting
 set hlsearch                      " Highlight searches
 set wildmenu                      " Better autocompletion
 set showmatch                     " match parenthesis
+set nowrapscan                    " do not loop to the top on searches
 
 set ignorecase                    " case insensitive searches
 set smartcase
@@ -22,3 +23,5 @@ set smartcase
 set backspace=indent,eol,start    " enhance backspace
 set nostartofline                 " prevent some movements to go to start of line
 
+" Suffixes that get lower priority when doing tab completion for filenames.
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.png,.jpg

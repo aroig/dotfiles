@@ -4,13 +4,8 @@
 " Desc:   Global vimpager configuration                               "
 "---------------------------------------------------------------------"
 
-
-" Configuration
-" --------------------
-
-source /etc/vimrc.d/general.vim
-source /etc/vimrc.d/keymaps.vim
-source /etc/vimrc.d/ui.vim
+" add /etc/vim to the runtime path
+:set runtimepath+=/etc/vim
 
 
 " General options
@@ -29,11 +24,14 @@ autocmd BufRead,BufWinEnter * setlocal readonly nomodifiable
 
 " Vimpager options
 " --------------------
+let g:vimpager = {}
+let g:less     = {}
 
-let g:vimpager_disable_ansiesc = 1
-" let g:vimpager_scrolloff = 5
-let g:vimpager_passthrough = 0
-let g:vimpager_less_mode = 0
+let g:vimpager.ansiesc = 0
+let g:vimpager.passthrough = 0
+
+let g:less.enabled = 0
+" let g:less.scrolloff = 5
 
 " set noloadplugins
 
