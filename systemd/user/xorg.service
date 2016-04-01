@@ -1,5 +1,5 @@
 [Unit]
-Description=xorg server at display :0
+Description=xorg server
 
 # NOTE: Socket activation is broken for xorg 1.18
 # https://bugs.freedesktop.org/show_bug.cgi?id=93072
@@ -9,8 +9,11 @@ Description=xorg server at display :0
 
 Conflicts=vncserver.service weston.service weston.socket
 
-Before=graphical.target
-PartOf=compositor.target
+Conflicts=console.target
+After=console.target
+
+Requires=xserver.target
+Before=xserver.target
 
 [Service]
 Type=simple
@@ -32,7 +35,4 @@ ExecStart=/usr/bin/Xorg ${DISPLAY} -nolisten tcp -noreset -verbose 0 -ardelay 50
 #   1. It is racy. clients connecting to it too soon block.
 #   2. somehow xorg connects to its own socket and restarts itself on shutdown.
 ExecStartPost=/usr/bin/bash -c 'while ! xset q &>/dev/null; do sleep 1; done'
-
-[Install]
-RequiredBy=compositor.target
 

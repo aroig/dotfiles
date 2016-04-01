@@ -14,4 +14,3 @@ SuccessExitStatus=0 1
 
 [Install]
 Alias=dbus-ca.desrt.dconf.service
-WantedBy=wm.target

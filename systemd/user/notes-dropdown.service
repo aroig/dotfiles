@@ -1,15 +1,15 @@
 [Unit]
 Description=notes dropdown
 
-Requisite=wm.target
-After=wm.target
+Requisite=graphical.target
+After=graphical.target
 
 Requires=git-use@wiki.service
 After=git-use@wiki.service
 
 [Service]
 Type=simple
-Slice=dropdown.slice
+Slice=apps.slice
 
 ExecStart=/usr/bin/emacs -notes --title "emacs-notes"
 KillSignal=SIGINT

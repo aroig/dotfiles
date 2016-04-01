@@ -1,0 +1,10 @@
+[Unit]
+Description=xwindow server
+
+RefuseManualStart=true
+StopWhenUnneeded=true
+
+Before=graphical.target
+
+Conflicts=console.target
+After=console.target

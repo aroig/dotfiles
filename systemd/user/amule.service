@@ -2,8 +2,8 @@
 Description=amule client
 After=graphical.target
 
-Requisite=wm.target 
-After=wm.target
+Requisite=graphical.target 
+After=graphical.target
 
 Requires=amuled.service
 After=amuled.service

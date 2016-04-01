@@ -3,11 +3,11 @@ Description=awesome window manager
 
 Conflicts=openbox.service xmonad.service tint2.service
 
-Requisite=graphical.target
-After=graphical.target
+Requisite=xserver.target
+After=xserver.target
 
-Requires=wm.target
-Before=wm.target
+Requires=graphical.target
+Before=graphical.target
 
 [Service]
 Type=simple

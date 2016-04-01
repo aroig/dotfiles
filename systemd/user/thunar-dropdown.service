@@ -1,13 +1,13 @@
 [Unit]
 Description=thunar dropdown
 
-Requisite=wm.target 
-After=wm.target
+Requisite=graphical.target 
+After=graphical.target
 
 [Service]
 Type=simple
-Slice=dropdown.slice
+Slice=apps.slice
 
-ExecStart=/usr/bin/thunar
+ExecStart=/usr/bin/thunar --class=thunar-dropdown
 
 

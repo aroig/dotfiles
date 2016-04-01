@@ -1,0 +1,18 @@
+[Unit]
+Description=ask to save emacs buffers and quit
+
+ConditionPathExists=%t/emacs/server
+
+# So that emacs.service is stoped after this. The stopping order gets reversed.
+After=emacs.service
+
+Before=kill-slice@apps.service
+Before=wmclean.target
+
+[Service]
+Type=oneshot
+
+ExecStart=/usr/bin/systemd-inhibit --mode=delay --what=sleep:shutdown --who=%p --why="Manually closing emacs files" /usr/bin/emacsclient -s "%t/emacs/server" --eval '(save-buffers-kill-emacs)'
+
+[Install]
+WantedBy=wmclean.target

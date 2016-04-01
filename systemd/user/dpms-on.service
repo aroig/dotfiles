@@ -1,8 +1,8 @@
 [Unit]
 Description=dpms always powered
 
-Requisite=graphical.target
-After=graphical.target
+Requisite=xserver.target
+After=xserver.target
 
 [Service]
 Type=oneshot

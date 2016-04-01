@@ -3,11 +3,11 @@ Description=weston compositor
 
 Conflicts=vncserver.service xorg.service
 
+Conflicts=console.target
+After=console.target
+
 Requires=weston.socket
 After=weston.socket
-
-Before=graphical.target
-PartOf=compositor.target
 
 [Service]
 # Type=notify
@@ -28,7 +28,3 @@ StandardInput=tty
 # TODO: get rid of this hard-coded tty
 TTYPath=/dev/tty2
 ExecStart=/usr/bin/weston-launch
-
-[Install]
-WantedBy=compositor.target
-

@@ -14,5 +14,3 @@ Slice=daemons.slice
 
 ExecStart=/usr/bin/bitcoind
  
-[Install]
-WantedBy=multi-user.target

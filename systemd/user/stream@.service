@@ -4,9 +4,6 @@ Description=streaming client %i
 Requires=network-online.target
 After=network-online.target
 
-Requisite=audio.target
-After=audio.target
-
 Conflicts=stream-stop.service
 
 [Service]

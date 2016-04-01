@@ -1,7 +1,0 @@
-[Unit]
-Description=dropdown applications
-
-Before=slices.target
-
-[Install]
-WantedBy=wm.target

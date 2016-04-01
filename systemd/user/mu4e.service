@@ -1,16 +1,19 @@
 [Unit]
 Description=mu4e mail client
 
-Requisite=wm.target
-After=wm.target
+Requisite=graphical.target
+After=graphical.target
+
+Requires=emacs.service
+After=emacs.service
 
 Requires=git-use@mail.service
 After=git-use@mail.service
 
 [Service]
 Type=simple
-Slice=dropdown.slice
+Slice=apps.slice
 
-ExecStart=/usr/bin/emacs -mail --title "emacs-mail"
+ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((name . "mu4e"))' --eval '(ab2/frame-layout "@mu4e")'
 KillSignal=SIGINT
 

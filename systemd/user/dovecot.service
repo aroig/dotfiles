@@ -1,0 +1,10 @@
+[Unit]
+Description=dovecot testing imap server
+
+[Service]
+Type=simple
+Slice=daemons.slice
+
+ExecStartPre=/usr/bin/mkdir -p %t/dovecot
+ExecStart=/usr/bin/dovecot -F -c %h/etc/dovecot/dovecot.conf
+

@@ -1,0 +1,16 @@
+[Unit]
+Description=gvfs daemon
+
+Requires=gconf.service
+After=gconf.service
+
+
+[Service]
+Type=dbus
+BusName=org.gtk.vfs.Daemon
+Slice=wm.slice
+
+ExecStart=/usr/lib/gvfs/gvfsd
+
+[Install]
+Alias=dbus-org.gtk.vfs.Daemon.service

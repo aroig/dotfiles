@@ -2,7 +2,7 @@
 Description=laptop configuration
 AllowIsolate=true
 
-Conflicts=console.target desktop.target tablet.target vncserver.target
+Requisite=graphical.target
+After=graphical.target
 
-Requires=compositor.target
-After=compositor.target
+Conflicts=console.target desktop.target tablet.target vncserver.target

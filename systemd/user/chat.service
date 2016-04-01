@@ -3,15 +3,15 @@ Description=chat
 
 AssertPathExists=/home/%u/priv
 
-Requisite=wm.target
-After=wm.target
+Requisite=graphical.target
+After=graphical.target
 
 Requires=git-use@var-chat-emacs.service
 After=git-use@var-chat-emacs.service
 
 [Service]
 Type=simple
-Slice=dropdown.slice
+Slice=apps.slice
 
-ExecStart=/usr/bin/emacs -chat --title "emacs-chat"
+ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((name . "chat"))' --eval '(ab2/frame-layout "@chat")'
 KillSignal=SIGINT

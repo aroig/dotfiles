@@ -1,7 +1,8 @@
 [Unit]
-Description=wmquit
+Description=wmclean
 
-RefuseManualStart=yes
+# RefuseManualStart=yes
+StopWhenUnneeded=true
 
 Before=poweroff.target reboot.target suspend.target
 Before=systemd-poweroff.service systemd-reboot.service systemd-suspend.service

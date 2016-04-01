@@ -5,4 +5,11 @@ After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/home/abdo/.config/systemd/scripts/wol.sh %i
+
+ExecStart=/usr/bin/sh -c ' \
+    cat /etc/ethers |      \
+    grep "^[^# ].*" |      \
+    grep "%i" |            \
+    cut -d" " -f1 |        \
+    xargs wol              \
+'

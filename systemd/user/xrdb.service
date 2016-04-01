@@ -2,7 +2,10 @@
 Description=X resource setting
 Documentation=man:xrdb(1)
 
-After=xorg.service vncserver.service
+Requisite=xserver.target
+After=xserver.target
+
+Before=awesome.service openbox.service xmonad.service
 
 [Service]
 Type=oneshot

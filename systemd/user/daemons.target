@@ -1,7 +1,0 @@
-[Unit]
-Description=user daemons
-
-Before=user.target
-
-[Install]
-WantedBy=user.target

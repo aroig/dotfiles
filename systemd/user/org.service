@@ -1,0 +1,17 @@
+[Unit]
+Description=org-mode
+
+Requisite=graphical.target
+After=graphical.target
+
+Requires=git-use@wiki.service
+After=git-use@wiki.service
+
+[Service]
+Type=simple
+Slice=apps.slice
+
+ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((name . "org"))' --eval '(ab2/frame-layout "@wiki")'
+KillSignal=SIGINT
+
+

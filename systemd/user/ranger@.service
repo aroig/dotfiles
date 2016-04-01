@@ -1,14 +1,14 @@
 [Unit]
 Description=ranger %i
 
-Requisite=wm.target 
-After=wm.target
+Requisite=graphical.target 
+After=graphical.target
 
 [Service]
 Type=simple
 Slice=apps.slice
 KillMode=process
 
-ExecStart=/usr/bin/termite -t ranger -e ranger
+ExecStart=/usr/bin/termite --class=ranger -e ranger
 
 

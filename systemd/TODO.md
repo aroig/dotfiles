@@ -1,6 +1,15 @@
 TODO
 ====
 
+* Attempt to fix emacs hang on shutdown. 
+
+* Debug `emacs-ask-save-quit.service`. Need a way to query the user from a
+  frame-less emacs. I could produce a dialog with zenity, for example.
+
+* Add a proxy service for sway, that gets started and stopped from sway exec's.
+
+* use systemd-inhibit for emacs ask-save and other crytical stuff.
+
 * Run `wakeup.target` when waking up from sleep. Don't see an obvious way to do it.
 * Setup sway, xwayland, etc.
 
@@ -16,11 +25,7 @@ TODO
 
 * Only mount `~/priv` on certain services.
 
-* get rid of `SyslogIdentifier` on all services.
-
 * Add an `After` for all `Conflicts`, so they start and stop one after the other.
-
-* get rid of sudo's in user services
 
 * can vncserver be made socket activated, like xorg?
 
@@ -37,6 +42,7 @@ TODO
 * add notifications via jwatch:
   - emacs shutdown
   - imminent shutdown
+  - DNSSEC misses
 
 * sync units should wait until the last commit is done!
 
@@ -47,8 +53,6 @@ TODO
 * test mpv screensaver inhibition for xautolock. Setup xautolock, etc.
 
 ## Systemd issues
-
-* systemd-inhibit, systemctl poweroff, etc. can't run unprivileged outside a session
 
 * journal has a race in which short-lived processes do not get all metadata attached, like
   cgroup. This needs fixing in kernel, but seems it will not

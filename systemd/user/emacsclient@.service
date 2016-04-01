@@ -1,13 +1,15 @@
 [Unit]
 Description=emacs client %i
 
-Requisite=wm.target 
-After=wm.target
+Requisite=graphical.target 
+After=graphical.target
+
+Requires=emacs.service
+After=emacs.service
 
 [Service]
 Type=simple
 Slice=apps.slice
 
-ExecStart=/home/abdo/bin/emacs-client
-
+ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c
 

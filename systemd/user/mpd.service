@@ -12,11 +12,8 @@ After=synced.target
 
 [Service]
 Type=simple
+Slice=daemons.slice
 
 Environment=PULSE_PROP=application.icon_name=emblem-sound
 ExecStart=/usr/bin/mpd --no-daemon
 
-Slice=audio.slice
-
-[Install]
-WantedBy=audio.target

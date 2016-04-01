@@ -15,6 +15,9 @@ User Units
   
   http://lists.x.org/archives/xorg-devel/2014-February/040476.html
 
+* I attempted to push environment variables to systemd from systemd services but seems to
+  be racy. For xorg in particular, DISPLAY and XDG_VTNR need to be set externally before
+  starting the service.
 
 ## Targets and services
 * System state
@@ -29,7 +32,6 @@ User Units
   - `docked.target`: laptop is docked
 
 * Software state
-  - `user.target`: basic user session
   - `slices.target`: all slices are in place
   - `audio.target`: audio services
   - `daemons.target`: user daemons
@@ -41,13 +43,11 @@ User Units
   - `wakeup.target`: pulls any actions to be taken on timer-triggered wakeups
   - `synced.target`: pull any service that must be started after a successful sync
   - `umount.target`: conflicts with all filesystems I may have mounted
-  - `graphical.target`: pulled from the graphical server.
-  - `wm.target`: pulled from the window manager
+  - `graphical.target`: pulled from the graphical environment.
   - `wmclean.target`: pulled before quiting wm. Asks user to close emacs buffers, etc.
 
 * Window manager states
   - `console.target`: no wm, only terminal
-  - `compositor.target`: starts compositor (either xorg or weston)
   - `desktop.target`: wm in desktop mode
   - `laptop.target`: wm in laptop mode
   - `tablet.target`: wm in tablet mode

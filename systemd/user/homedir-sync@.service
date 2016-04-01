@@ -1,7 +1,7 @@
 [Unit]
-Description=sync homedir to remote %i
+Description=sync homedir to remote %I
 
-AssertPathExists=/home/%u/.mrconfig
+AssertPathExists=/home/%u/arch/sync/Makefile
 AssertPathExists=/home/%u/priv
 
 After=mount-priv.service
@@ -10,8 +10,6 @@ After=mount-priv.service
 Type=oneshot
 Slice=workers.slice
 
-WorkingDirectory=/home/%u
-ExecStart=/home/abdo/etc/mr/bin/homedir sync %i
+WorkingDirectory=/home/%u/arch/sync
+ExecStart=/usr/bin/make sync REMOTES=%I
 
-[Install]
-Alias=sync@.service
