@@ -1,1 +1,0 @@
-../scripts/colorvars.sh

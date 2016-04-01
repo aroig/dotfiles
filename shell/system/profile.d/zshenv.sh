@@ -1,0 +1,1 @@
+../shellrc.d/zshenv.sh

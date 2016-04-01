@@ -1,0 +1,100 @@
+#!/bin/bash
+
+#------------------------------------------------------------------#
+# File:     environment.sh    Environment variables                #
+# Version:                                                         #
+# Author:   Abdó Roig-Maranges <abdo.roig@gmail.com>               #
+#------------------------------------------------------------------#
+
+#------------------------------------------------------------------#
+# NOTE:                                                            #
+# In order to export the environment to the systemd --user         #
+# session this file gets parsed by a shell script. So keep it      #
+# in a clean format with lines like                                #
+# export VAR=value                                                 #
+#------------------------------------------------------------------#
+
+
+#------------------------------
+# Some software
+#------------------------------
+
+export EMACS="/usr/bin/emacs"
+export EDITOR="/usr/bin/vim"
+export ALTERNATE_EDITOR="/usr/bin/emacs"
+
+export BROWSER="/usr/bin/chromium"
+export FILEMANAGER="/usr/bin/thunar"
+export DIFFPROG="/usr/vim/vimdiff"
+export PAGER="/usr/bin/vimpager"
+export TERMCMD="/usr/bin/termite"
+export SHELL="/bin/zsh"
+
+# disable pager by default on systemd
+export SYSTEMD_PAGER="cat"
+
+
+
+#------------------------------
+# Development environment
+#------------------------------
+
+# Default C/C++ compiler
+export CC=gcc
+export CXX=g++
+
+# Mingw
+export MINGW_ROOT="/usr/x86_64-w64-mingw32"
+
+
+
+# Java development
+export JAVA_HOME="/usr/lib/jvm/default"
+
+# Android variables for the toolchain
+export ANDROID_NDK_ROOT="/opt/android-ndk"    # root for NDK (understood upstream)
+export ANDROID_SDK_ROOT="/opt/android-sdk"    # root for SDK (understood upstream)
+export ANDROID_LIBS_ROOT="/opt/android-libs"  # root for custom libs (just mine)
+
+# Android SDK wants to set this
+export ANDROID_HOME="/opt/android-sdk"
+export ANDROID_SWT="/usr/share/java"
+
+
+#------------------------------
+# Application variables
+#------------------------------
+
+# gtk
+# disable accessibility for GTK3 apps
+# https://forums.gentoo.org/viewtopic-p-7380668.html?sid=265ddf475643bf5c86fe72440cf6cbe8
+# export NO_AT_BRIDGE=1 
+
+# ranger
+export RANGER_LOAD_DEFAULT_RC=FALSE
+
+# java
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
+
+# QT5 style
+
+# use gtk style
+export QT_STYLE_OVERRIDE=gtk
+
+# use qt5ct for appearence configuration
+export QT_QPA_PLATFORMTHEME=qt5ct
+
+
+# nix uses this
+export SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt"
+
+
+
+#------------------------------
+# Paths
+#------------------------------
+
+# Python
+export PYTHONDOCS="/usr/share/docs/python/html/"
+
+

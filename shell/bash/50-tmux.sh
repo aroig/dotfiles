@@ -1,1 +1,0 @@
-../scripts/tmux.sh

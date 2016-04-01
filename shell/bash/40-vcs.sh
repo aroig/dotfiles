@@ -1,1 +1,0 @@
-../scripts/vcs.sh
