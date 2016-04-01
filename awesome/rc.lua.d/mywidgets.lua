@@ -45,8 +45,6 @@ end
 -- Convenience stuff             --
 -----------------------------------
 
-local scount = screen.count()
-
 local gradcols = {}
 local gradcols_rev = {}
 local num = #beautiful.color_widget_gradient
@@ -201,22 +199,9 @@ myw.net.icon:set_markup(wiboxicon('network', beautiful.color_widget) .. " ")
 myw.net.value = { up=-1, down=-1 }
 
 function myw.net.update()
-    local args = myw.net.src(nil)
-    local up = 0.0
-    local down = 0.0
-
-    -- loop over all interfaces except loopback
-    for k, v in pairs(args) do
-        if not string.match(k, "{lo .*}") then
-            if string.match(k, "{.* up_kb}") then
-                up = up + v
-            end
-
-            if string.match(k, "{.* down_kb}") then
-                down = down + v
-            end
-        end
-    end
+    local args = myw.net.src(nil, 'bd-net')
+    local up = args['{up_kb}'] or 0.0
+    local down = args['{down_kb}'] or 0.0
 
     if up ~= myw.net.value.up or down ~= myw.net.value.down then
 
@@ -598,6 +583,9 @@ myw.keyb.icon:set_markup(wiboxicon("keyboard", beautiful.color_widget) .. ' ')
 myw.keyb.icon:buttons(awful.util.table.join(
                           awful.button({ }, 1, function () osk() end)))
 
+myw.keyb.keybwdg = awful.widget.keyboardlayout()
+myw.keyb.keybwdg.layout_name = function (v) return v.file end
+
 
 -----------------------------------
 -- Systray                       --
@@ -622,7 +610,7 @@ myw.taglist.buttons = awful.util.table.join(
 --                    awful.button({ }, 5, awful.tag.viewprev)
 )
 
-for s = 1, screen.count() do
+for s in screen do
     myw.taglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, myw.taglist.buttons)
 end
 
@@ -670,7 +658,7 @@ myw.tasklist.buttons = awful.util.table.join(
         end)
 )
 
-for s = 1, screen.count() do
+for s in screen do
    myw.tasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, myw.tasklist.buttons)
 
 end
@@ -683,7 +671,7 @@ end
 
 myw.layoutbox = {}
 
-for s = 1, screen.count() do
+for s in screen do
    myw.layoutbox[s] = awful.widget.layoutbox(s)
    myw.layoutbox[s]:buttons(awful.util.table.join(
                            awful.button({ }, 1, function () awful.layout.inc(1, nil, layouts) end),
@@ -693,13 +681,12 @@ for s = 1, screen.count() do
  end
 
 
-
 -----------------------------------
 -- Prompt box                    --
 -----------------------------------
 
 myw.promptbox = {}
-for s = 1, screen.count() do
+for s in screen do
     myw.promptbox[s] = awful.widget.prompt()
 end
 

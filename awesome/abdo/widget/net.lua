@@ -27,33 +27,32 @@ local unit = { ["b"] = 1, ["kb"] = 1024,
 }
 
 -- {{{ Net widget type
-local function worker(format)
+local function worker(format, warg)
+    local name = warg
     local args = {}
 
     -- Get NET stats
     for line in io.lines("/proc/net/dev") do
-        -- Match wmaster0 as well as rt0 (multiple leading spaces)
-        local name = string.match(line, "^[%s]?[%s]?[%s]?[%s]?([%w]+):")
-        if name ~= nil then
+        if string.match(line, name:gsub("%-", "%%-") .. ":") then
             -- Received bytes, first value after the name
             local recv = tonumber(string.match(line, ":[%s]*([%d]+)"))
             -- Transmited bytes, 7 fields from end of the line
             local send = tonumber(string.match(line,
              "([%d]+)%s+%d+%s+%d+%s+%d+%s+%d+%s+%d+%s+%d+%s+%d$"))
 
-            helpers.uformat(args, name .. " rx", recv, unit)
-            helpers.uformat(args, name .. " tx", send, unit)
+            helpers.uformat(args, "rx", recv, unit)
+            helpers.uformat(args, "tx", send, unit)
 
             -- Operational state and carrier detection
             local sysnet = helpers.pathtotable("/sys/class/net/" .. name)
-            args["{"..name.." carrier}"] = tonumber(sysnet.carrier) or 0
+            args["{carrier}"] = tonumber(sysnet.carrier) or 0
 
             local now = os.time()
             if nets[name] == nil then
                 -- Default values on the first run
                 nets[name] = {}
-                helpers.uformat(args, name .. " down", 0, unit)
-                helpers.uformat(args, name .. " up",   0, unit)
+                helpers.uformat(args, "down", 0, unit)
+                helpers.uformat(args, "up",   0, unit)
             else -- Net stats are absolute, substract our last reading
                 local interval = now - nets[name].time
                 if interval <= 0 then interval = 1 end
@@ -61,8 +60,8 @@ local function worker(format)
                 local down = (recv - nets[name][1]) / interval
                 local up   = (send - nets[name][2]) / interval
 
-                helpers.uformat(args, name .. " down", down, unit)
-                helpers.uformat(args, name .. " up",   up,   unit)
+                helpers.uformat(args, "down", down, unit)
+                helpers.uformat(args, "up",   up,   unit)
             end
 
             nets[name].time = now

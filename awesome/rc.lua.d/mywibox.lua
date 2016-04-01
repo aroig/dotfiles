@@ -9,15 +9,6 @@ local wibox = wibox
 local host_config = host_config
 
 
-
------------------------------------
--- Convenience stuff             --
------------------------------------
-
-local scount = screen.count()
-
-
-
 -----------------------------------
 -- Wibox layout                  --
 -----------------------------------
@@ -25,7 +16,7 @@ local scount = screen.count()
 mywibox = {}
 
 -- Create a wibox for each screen and add it
-for s = 1, screen.count() do
+for s in screen do
    -- Create the wibox
    mywibox[s] = awful.wibox({ position = "top", screen = s, height=host_config.wibox_height })
    -- Add widgets to the wibox - order matters
@@ -105,10 +96,12 @@ for s = 1, screen.count() do
       right_layout:add(myw.separator)
    end
 
+   right_layout:add(myw.keyb.icon)
+   right_layout:add(myw.keyb.keybwdg)
+   right_layout:add(myw.separator)
+
    right_layout:add(myw.clock.icon)
    right_layout:add(myw.clock.clockwdg)
-
-   -- right_layout:add(myw.keyb.icon)
 
    local middle_layout = wibox.layout.fixed.horizontal()
    middle_layout:add(myw.tasklist[s])

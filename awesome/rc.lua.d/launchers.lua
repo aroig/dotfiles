@@ -53,9 +53,6 @@ for k, path in pairs(listsrc) do
     execlist[k] = pickle.load(path)
 end
 
-dropdown = { last_client = nil }
-
-
 
 
 -----------------------------------
@@ -164,6 +161,9 @@ end
 -- Client manipulations          --
 -----------------------------------
 
+-- dropdown data
+dropdown = { last_client = nil, clients = {} }
+
 function hide_client(c)
     if c then
         c.hidden = true
@@ -188,13 +188,15 @@ function show_client(c)
         -- move to the right tag
         awful.client.movetotag(awful.tag.selected(awful.screen.focused()), c)
 
-        -- raise client
+        -- unhide
         c.hidden = false
-        c:raise()
-        capi.client.focus = c
 
         -- reapply rules
-        systemd.rules_apply(c)
+        awful.rules.apply(c)
+
+        -- raise
+        c:raise()
+        capi.client.focus = c
 
         -- remember last client
         dropdown.last_client = c
@@ -219,11 +221,16 @@ function is_visible_client(c)
 end
 
 
-function is_dropdown_client(c)
-    if c == nil then return false end
+function dropdown.get_dropdown_name(c)
+    if c == nil then return nil end
 
-    -- dropdowns are the main process on a cgroup living under dropdown.slice.
-    return systemd.match_cgroup(c, {cgroup = 'dropdown%.slice/.*', main = true})
+    for n, d in pairs(dropdown.clients) do
+        if d == c then
+            return n
+        end
+    end
+
+    return nil
 end
 
 
@@ -236,19 +243,28 @@ function toggle_client(c)
 end
 
 
-function dropdown.manage_client(c)
+function dropdown.is_dropdown_client(c)
+    return dropdown.get_dropdown_name(c) ~= nil
+end
+
+
+function dropdown.manage_client(name, c)
     if c == nil then return end
 
-    if is_dropdown_client(c) then
-        dropdown.last_client = c
+    -- add client to the dropdown list
+    if dropdown.clients[name] == nil then
+        dropdown.clients[name] = c
     end
+
+    -- mark as last client
+    dropdown.last_client = c
 end
 
 
 function dropdown.focus_client(c)
     if c == nil then return end
 
-    if is_dropdown_client(c) then
+    if dropdown.is_dropdown_client(c) then
         dropdown.last_client = c
     end
 end
@@ -257,55 +273,15 @@ end
 function dropdown.unmanage_client(c)
     if c == nil then return end
 
+    -- remove from dropdown list
+    local name = dropdown.get_dropdown_name(c)
+    if name then
+        dropdown.clients[name] = nil
+    end
+
     -- forget about last client
-    if dropdown.last_client and c.window == dropdown.last_client.window then
+    if dropdown.last_client == c then
         dropdown.last_client = nil
-    end
-end
-
-
------------------------------------
--- Client cgroup manipulations   --
------------------------------------
-
--- TODO: handle launching client when none is matching
-
-function show_cgroup(rule, cmd)
-    local list = systemd.matching_clients(rule)
-    if #list > 0 then
-        for i, c in ipairs(list) do
-            show_client(c)
-        end
-    elseif cmd ~= nil then
-        run(cmd)
-    end
-end
-
-
-function hide_cgroup(rule)
-    local list = systemd.matching_clients(rule)
-    for i, c in ipairs(list) do
-        hide_client(c)
-    end
-end
-
-
-function kill_cgroup(rule)
-    local list = systemd.matching_clients(rule)
-    for i, c in ipairs(list) do
-        kill_client(c)
-    end
-end
-
-
-function toggle_cgroup(rule, cmd)
-    local list = systemd.matching_clients(rule)
-    if #list > 0 then
-        for i, c in ipairs(list) do
-            toggle_client(c)
-        end
-    elseif cmd ~= nil then
-        run(cmd)
     end
 end
 
@@ -314,8 +290,6 @@ end
 -----------------------------------
 -- Dropdown manipulations        --
 -----------------------------------
--- We put all dropdowns under dropdown.slice. This is done either on the
--- individual units or by run for the dd namespace.
 
 function ddtoggle(name, launch)
     if name == nil then return end
@@ -324,11 +298,15 @@ function ddtoggle(name, launch)
     ns, entry = name:match("^([^:]*):(.*)$")
     if ns == nil then entry = name end
 
-    local cgroup = 'dropdown%.slice/.*' .. util.pattern_escape(entry)
     local cmd = nil
     if launch then cmd = name end
 
-    toggle_cgroup({ cgroup = cgroup, main = true }, cmd)
+    if dropdown.clients[entry] then
+        toggle_client(dropdown.clients[entry])
+
+    elseif launch then
+        run(cmd)
+    end
 end
 
 function ddshow(name, launch)
@@ -338,11 +316,15 @@ function ddshow(name, launch)
     ns, entry = name:match("^([^:]*):(.*)$")
     if ns == nil then entry = name end
 
-    local cgroup = 'dropdown%.slice/.*' .. util.pattern_escape(entry)
     local cmd = nil
     if launch then cmd = name end
 
-    show_cgroup({ cgroup = cgroup, main = true }, cmd)
+    if dropdown.clients[entry] then
+        show_client(dropdown.clients[entry])
+
+    elseif launch then
+        run(cmd)
+    end
 end
 
 function ddhide(name)
@@ -352,13 +334,15 @@ function ddhide(name)
     ns, entry = name:match("^([^:]*):(.*)$")
     if ns == nil then entry = name end
 
-    local cgroup = 'dropdown%.slice/.*' .. util.pattern_escape(entry)
-    hide_cgroup({ cgroup = cgroup, main = true })
+    if dropdown.clients[entry] then
+        hide_client(dropdown.clients[entry])
+    end
 end
 
 function ddhide_all()
-    local cgroup = 'dropdown%.slice/.*'
-    hide_cgroup({ cgroup = cgroup, main = true })
+    for n, c in pairs(dropdown.clients) do
+        hide_client(c)
+    end
 end
 
 function ddshow_last()
@@ -371,14 +355,10 @@ end
 
 local function ddshow_doc(url)
     if url == nil then return end
-    local cmd = string.format("dwb -p docs %s", util.shell_escape(url))
-    local props = {scope=false,
-                   slice="dropdown"}
-    systemd.run(cmd, "docs", props)
 
-    local cgroup = 'dropdown%.slice/.*docs'
-    local list = systemd.matching_clients({ cgroup = cgroup })
-    for _, c in ipairs(list) do show_client(c) end
+    local cmd = string.format("dwb -p docs %s", util.shell_escape(url))
+    local props = {scope=false, slice="apps"}
+    systemd.run(cmd, "docs", props)
 end
 
 
@@ -392,8 +372,6 @@ box = {}
 box.naughtylog = require("abdo.box.naughtylog")  -- log naughty notifications
 box.orgtasks   = require("abdo.box.orgtasks")    -- org todo list
 box.calendar   = require("abdo.box.calendar")    -- calendar
-box.syslog     = require("abdo.box.syslog")      -- system log
-box.userlog    = require("abdo.box.userlog")     -- user log
 
 
 

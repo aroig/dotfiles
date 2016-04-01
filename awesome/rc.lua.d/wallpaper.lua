@@ -30,7 +30,7 @@ local dual = string.match(wallpapers[i], ".+-dual%.jpg") ~= nil
 if dual then
     gears.wallpaper.maximized(wallpapers[i], nil, nil)
 else
-    for s = 1, screen.count() do
+    for s in screen do
         gears.wallpaper.maximized(wallpapers[i], s, nil)
     end
 end

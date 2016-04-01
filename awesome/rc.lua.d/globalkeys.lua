@@ -16,7 +16,6 @@ local ipairs = ipairs
 local apps = apps
 local box = box
 
-
 local drag = {}
 
 function drag_bydirection(dir, c)
@@ -58,7 +57,7 @@ end
 
 globalkeys = awful.util.table.join(
     -- Machine state
-    awful.key({ modkey,           }, "m",      function() switch.machine_mode(1)     end),
+    awful.key({ modkey,           }, "m",      function() switch.machine_mode(1)     end, {description = "Switch machine mode", group = "system"}),
     awful.key({ modkey, shiftkey  }, "m",      function() switch.machine_mode(-1)    end),
 
     awful.key({ modkey,           }, "v",      function() switch.output_mode(1)      end),
@@ -71,28 +70,25 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "Return", function () run('app:termite')         end),
     awful.key({ modkey, ctrlkey   }, "f",      function () run('app:thunar')          end),
     awful.key({ modkey, ctrlkey   }, "r",      function () run('app:ranger')          end),
+    awful.key({ modkey            }, "z",      myw.keyb.keybwdg.next_layout              ),
 
     awful.key({ modkey, ctrlkey   }, "b",      function () run('app:chromium')        end),
     awful.key({ modkey, metakey   }, "b",      function () run('app:firefox')         end),
     awful.key({ modkey, ctrlkey   }, "e",      function () run('app:emacsclient')     end),
 
-    -- Dropdown clients
-    awful.key({ modkey, metakey   }, "Return", function () ddtoggle('dd:termite',      true) end),
-    awful.key({ modkey, metakey   }, "f",      function () ddtoggle('dd:thunar',       true) end),
-    awful.key({ modkey, metakey   }, "r",      function () ddtoggle('dd:ranger',       true) end),
+    awful.key({ modkey, ctrlkey   }, "w",      function () run('app:xournal')         end),
 
+    -- Dropdown clients
     awful.key({ modkey, ctrlkey   }, "i",      function () ddtoggle("app:calibre",     true) end),
     awful.key({ modkey, ctrlkey   }, "m",      function () ddtoggle("app:cantata",     true) end),
-    awful.key({ modkey, ctrlkey   }, "w",      function () ddtoggle('app:xournal',     true) end),
     awful.key({ modkey, ctrlkey   }, "o",      function () ddtoggle('app:org',         true) end),
     awful.key({ modkey, ctrlkey   }, "u",      function () ddtoggle('app:mu4e',        true) end),
     awful.key({ modkey, ctrlkey   }, "t",      function () ddtoggle('app:chat',        true) end),
 
     -- Desktop boxes
-    awful.key({ modkey,           }, "F1",     box.calendar.toggle_calendar),
-    awful.key({ modkey,           }, "F2",     box.orgtasks.toggle_todo),
-    awful.key({ modkey,           }, "F3",     box.syslog.toggle_syslog),
-    awful.key({ ctrlkey,          }, "F3",     box.userlog.toggle_userlog),
+    awful.key({ modkey,           }, "F1",     hotkeys.widget.show_help),
+    awful.key({ modkey,           }, "F2",     box.calendar.toggle_calendar),
+    awful.key({ modkey,           }, "F3",     box.orgtasks.toggle_todo),
     awful.key({ modkey,           }, "F4",     box.naughtylog.toggle_naughtylog),
 
     -- Top dropdown clients
@@ -103,10 +99,16 @@ globalkeys = awful.util.table.join(
     awful.key({          }, "XF86MyComputer",  function() ddhide_last()              end),
     awful.key({ shiftkey }, "XF86MyComputer",  function() ddshow_all()               end),
 
-    awful.key({ modkey   }, "F9",              function() ddshow("dd:journal", true) end),
-    awful.key({          }, "F9",              function() ddhide("dd:journal")       end),
-    awful.key({ modkey   }, "XF86Tools",       function() ddshow("dd:journal", true) end),
-    awful.key({          }, "XF86Tools",       function() ddhide("dd:journal")       end),
+
+    awful.key({ modkey, metakey   }, "Return", function () ddtoggle('app:termite-dropdown', true) end),
+    awful.key({ modkey, metakey   }, "f",      function () ddtoggle('app:thunar-dropdown',  true) end),
+    awful.key({ modkey, metakey   }, "r",      function () ddtoggle('app:ranger-dropdown',  true) end),
+
+
+    awful.key({ modkey   }, "F9",              function() ddshow("app:journal-dropdown",    true) end),
+    awful.key({          }, "F9",              function() ddhide("app:journal-dropdown")          end),
+    awful.key({ modkey   }, "XF86Tools",       function() ddshow("app:journal-dropdown",    true) end),
+    awful.key({          }, "XF86Tools",       function() ddhide("app:journal-dropdown")          end),
 
     awful.key({ modkey   }, "F10",             function() ddshow("dd:notes",   true) end),
     awful.key({          }, "F10",             function() ddhide("dd:notes")         end),
@@ -122,7 +124,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey   }, "w",               prompt.wikipedia),
     awful.key({ modkey   }, "e",               prompt.mathscinet),
 
-    awful.key({ modkey   }, "z",               prompt.docs),
+    -- TODO: change binding
+    -- awful.key({ modkey   }, "z",               prompt.docs),
     awful.key({ modkey   }, "a",               prompt.lua),
     awful.key({ modkey   }, "s",               prompt.systemd),
     awful.key({ modkey   }, "x",               prompt.command),
@@ -170,11 +173,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, metakey   }, "k",      function () awful.tag.viewnext(awful.util.cycle(screen.count(), awful.screen.focused() + 1)) end),
     awful.key({ modkey, metakey   }, "j",      function () awful.tag.viewprev(awful.util.cycle(screen.count(), awful.screen.focused() + 1)) end),
 
-    awful.key({ modkey, metakey, ctrlkey  }, "Up",    function () for s = 1, screen.count() do awful.tag.viewnext(s) end end),
-    awful.key({ modkey, metakey, ctrlkey  }, "Down",  function () for s = 1, screen.count() do awful.tag.viewprev(s) end end),
+    awful.key({ modkey, metakey, ctrlkey  }, "Up",    function () for s in screen do awful.tag.viewnext(s) end end),
+    awful.key({ modkey, metakey, ctrlkey  }, "Down",  function () for s in screen do awful.tag.viewprev(s) end end),
 
-    awful.key({ modkey, metakey, ctrlkey  }, "k",     function () for s = 1, screen.count() do awful.tag.viewnext(s) end end),
-    awful.key({ modkey, metakey, ctrlkey  }, "j",     function () for s = 1, screen.count() do awful.tag.viewprev(s) end end),
+    awful.key({ modkey, metakey, ctrlkey  }, "k",     function () for s in screen do awful.tag.viewnext(s) end end),
+    awful.key({ modkey, metakey, ctrlkey  }, "j",     function () for s in screen do awful.tag.viewprev(s) end end),
 
     -- Client dragging
     awful.key({ modkey, ctrlkey, shiftkey }, "Up",    function () drag_bydirection("up") end),
