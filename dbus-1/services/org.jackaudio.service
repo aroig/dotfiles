@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.jackaudio.service
+Exec=/bin/false
+SystemdService=dbus-org.jackaudio.service.service
