@@ -1,37 +1,36 @@
 # ----------------------------------------------------------------------- #
 # Abdó Roig-Maranges <abdo.roig@gmail.com>                                #
+#                                                                         #
 # Makefile to compile my dotfiles directory for github. Merges changes    #
 # from several locar repos on my machine into a single dotfiles repo      #
 # using the git merge -s subtree.                                         #
 # ----------------------------------------------------------------------- #
 
-REMOTES=awesome emacs ranger shell systemd vim zathura
+REMOTES=awesome ranger shell spacemacs systemd vim zathura
 
-SHELL := $(SHELL) -e
+# shell settings
+SHELL       := /usr/bin/bash
+.SHELLFLAGS := -e -u -c
 
-.PHONY: all merge doc $(REMOTES)
+.ONESHELL:
 
-all: merge doc
+# So we can use $$(variable) on the prerequisites, that expand at matching time.
+.SECONDEXPANSION:
+
+.PHONY: all merge $(REMOTES)
+
+all: merge
 
 merge: $(REMOTES)
 
-doc: README.html
-
 $(REMOTES): %:
-	git fetch "$@"
-	@remote="$@/master";                                  \
-	path="$@";                                            \
-	echo "subtree merging into $$path";                   \
-	if [ ! -d "$$path" ]; then                            \
-	  git merge -s ours --no-commit "$$remote";           \
-	  git read-tree --prefix="$$path" -u "$$remote";      \
-	  git commit -m "Initialize subtree at '$$path'";     \
-	fi;                                                   \
-	git merge -s recursive -X subtree="$$path"            \
-	  -m "Merge subtree '$$remote'" "$$remote"
-
-%.html: %.rst
-	rst2html $? $@
-
-clean:
-	rm -f *.html
+	@git fetch "$@"
+	remote="$@/master"
+	path="$@"
+	echo "subtree merging into '$$path'"
+	if [ ! -d "$$path" ]; then
+	    git merge -s ours --no-commit "$$remote"
+	    git read-tree --prefix="$$path" -u "$$remote"
+	    git commit -m "Initialize subtree at '$$path'"
+	fi
+	git merge -s recursive -X subtree="$$path" -m "Merge subtree '$$remote'" "$$remote"
