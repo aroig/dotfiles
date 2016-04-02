@@ -11,6 +11,9 @@ subtree`. I use [arch linux] with [awesome wm] as my window manager, and
   notification boxes and a prompt similar to emacs ido-mode, and some helper
   functions to launch applications as transient systemd services.
 
+`compton/`
+: [compton] configuration.
+
 `ranger/`
 : Configuration of [ranger] file manager. I use it in a dropdown window for
   easy access.
@@ -34,6 +37,7 @@ subtree`. I use [arch linux] with [awesome wm] as my window manager, and
 : Configuration for [zathura], a pdf/djvu viewer with vim-style bindings.
 
 [arch linux]: https://www.archlinux.org
+[compton]: https://github.com/chjj/compton
 [rsync]: http://rsync.samba.org
 [unison]: http://www.cis.upenn.edu/~bcpierce/unison
 [git]: http://git-scm.com
