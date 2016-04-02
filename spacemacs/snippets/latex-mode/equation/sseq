@@ -1,0 +1,7 @@
+# -*- coding: utf-8 -*-
+# name: spectral sequence
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: sseq
+# --
+${1:E}^{p,q}_1=${2:H^p(X_q) \Longrightarrow ${3:H^{p+q}(X)}
+

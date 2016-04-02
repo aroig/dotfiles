@@ -1,0 +1,7 @@
+# name: \begin{prp}\label{prp:?} ... \end{prp}
+# contributor: Abdo Roig-Maranges <abdo.roig@gmail.com>
+# key: prp
+# --
+\\begin{prp}\\label{prp:${1:bla}}
+  $0
+\\end{prp}

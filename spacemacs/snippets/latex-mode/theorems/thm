@@ -1,0 +1,7 @@
+# name: \begin{thm}\label{thm:?} ... \end{thm}
+# contributor: Abdo Roig-Maranges <abdo.roig@gmail.com>
+# key: thm
+# --
+\\begin{thm}\\label{thm:${1:bla}}
+  $0
+\\end{thm}

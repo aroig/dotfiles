@@ -1,0 +1,9 @@
+# -*- coding: utf-8 -*-
+# name: \begin{align}\label{eq:?} ... \end{align}
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: align
+# --
+\\begin{align}\\label{eq:${1:bla}}
+  ${2:A} &= ${3:B} \\\\
+    &= ${4:C}
+\\end{align}

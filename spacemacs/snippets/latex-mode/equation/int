@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: \int_{?} ? \, d?
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: int
+# --
+\\int_{${1:X}} ${2:f(x)}\\, d $3

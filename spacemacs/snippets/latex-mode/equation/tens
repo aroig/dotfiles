@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: ?_{i_?,\ldots,i_?}
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: tens
+# --
+${1:T}_{i_{${2:1}},\ldots,i_{${3:n}}}

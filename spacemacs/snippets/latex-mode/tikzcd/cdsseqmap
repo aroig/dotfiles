@@ -1,0 +1,9 @@
+# -*- coding: utf-8 -*-
+# name: \begin{tikzcd} ... \end{tikzcd}
+# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
+# key: cdsseq
+# --
+\\begin{tikzcd}
+   ${1:E_1^{p,q}}=${2:H^{p,q}} \\ar[Rightarrow, r] \ar[d, "f"] & ${3:H^{p+q}} \ar[d, "f"] \\\\
+   ${4:E_1^{p,q}}=${5:H^{p,q}} \\ar[Rightarrow, r] & ${6:H^{p+q}}
+\\end{tikzcd}
