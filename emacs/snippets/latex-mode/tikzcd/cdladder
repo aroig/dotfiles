@@ -1,9 +1,0 @@
-# -*- coding: utf-8 -*-
-# name: \begin{tikzcd} ... \end{tikzcd}
-# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: cdladder
-# --
-\\begin{tikzcd}[column sep=scriptsize]
-  \\cdots & ${1:A_1} \\ar[d, "f_1"] \\ar[r] & ${2:A_2} \\ar[d, "f_2"] \\ar[r] & ${3:A_3} \\ar[d, "f_3"] \\ar[r] & \\cdots \\
-  \\cdots & ${1:B_1} \\ar[r] & ${2:B_2} \\ar[r] & ${3:B_3} \\ar[r] & \\cdots \\
-\\end{tikzcd}

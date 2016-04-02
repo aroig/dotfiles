@@ -1,8 +1,0 @@
-# -*- coding: utf-8 -*-
-# name: \begin{equation}\label{eq:?} ... \end{equation}
-# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: eqn
-# --
-\\begin{equation}\\label{eq:${1:bla}}
-  $0
-\\end{equation}

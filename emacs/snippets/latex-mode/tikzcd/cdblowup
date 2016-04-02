@@ -1,9 +1,0 @@
-# -*- coding: utf-8 -*-
-# name: \begin{tikzcd} ... \end{tikzcd}
-# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: cdblowup
-# --
-\\begin{tikzcd}
-  \\wt{Y} \\ar[d, "p"] \\ar[r, "j"] & \\wt{X} \\ar[d, "q"] \\\\
-  Y \\ar[r, "i"] & X
-\\end{tikzcd}

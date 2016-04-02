@@ -1,8 +1,0 @@
-# -*- coding: utf-8 -*-
-# name: \begin{tikzcd} ... \end{tikzcd}
-# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: cdadjoint
-# --
-\\begin{tikzcd}
-  ${1:A} \\ar[r, bend left, "f"] & ${2:B} \\ar[l, bend left, "g"]
-\\end{tikzcd}

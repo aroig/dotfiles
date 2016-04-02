@@ -1,9 +1,0 @@
-# -*- coding: utf-8 -*-
-# name: \begin{tikzcd} ... \end{tikzcd}
-# contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: cdlift
-# --
-\\begin{tikzcd}
-  & ${1:A} \\ar[d, "f"] \\\\
-  ${3:C} \\ar[r] \\ar[ru, dashed] & ${2:B}
-\\end{tikzcd}
