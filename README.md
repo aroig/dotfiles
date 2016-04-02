@@ -14,6 +14,9 @@ subtree`. I use [arch linux] with [awesome wm] as my window manager, and
 `compton/`
 : [compton] configuration.
 
+`dbus-1/`
+: [dbus] configuration.
+
 `ranger/`
 : Configuration of [ranger] file manager. I use it in a dropdown window for
   easy access.
@@ -38,6 +41,7 @@ subtree`. I use [arch linux] with [awesome wm] as my window manager, and
 
 [arch linux]: https://www.archlinux.org
 [compton]: https://github.com/chjj/compton
+[dbus]: https://www.freedesktop.org/wiki/Software/dbus
 [rsync]: http://rsync.samba.org
 [unison]: http://www.cis.upenn.edu/~bcpierce/unison
 [git]: http://git-scm.com
