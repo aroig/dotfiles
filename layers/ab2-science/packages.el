@@ -1,6 +1,7 @@
 (setq ab2-science-packages
       '(
-        (proofgeneral :location (recipe :fetcher github :repo "ProofGeneral/PG"))
+        (sage-mode :location (recipe :fetcher bitbucket :repo "gvol/sage-mode" :files ("emacs/*.el")))
+        (proofgeneral :location (recipe :fetcher github :repo "ProofGeneral/PG" :files ("*/*.el")))
         company-coq
         ))
 
@@ -19,6 +20,9 @@
     (add-hook 'coq-mode-hook #'company-coq-initialize))
   )
 
+
+(defun ab2-science/init-sage-mode ()
+  (use-package sage-mode))
 
 (defun coq/init-company-coq ()
   (use-package company-coq))
