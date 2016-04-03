@@ -4,7 +4,6 @@
         rcirc
         rcirc-color
         erc
-        erc-log
         twittering-mode
         jabber
         persp-mode
@@ -13,11 +12,6 @@
 (defun ab2-chat/post-init-erc ()
 
    )
-
-(defun ab2-chat/init-erc-log ()
-  (use-package erc-log)
-  )
-
 
 (defun ab2-chat/pre-init-rcirc ()
   ;; need netrc to configure credentials
