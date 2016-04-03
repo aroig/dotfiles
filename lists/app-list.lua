@@ -39,6 +39,7 @@ return {
    pavucontrol               = "pavucontrol.service",
    qjackctl                  = "qjackctl.service",
    patchage                  = "patchage.service",
+   catia                     = "catia.service",
    qsynth                    = "qsynth",
 
    gnomedisks                = "gnome-disks",
