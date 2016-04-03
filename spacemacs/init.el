@@ -102,6 +102,8 @@ values."
      ab2-mu4e
      ab2-visual
      ab2-chat
+     ab2-science
+     ab2-audio
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
