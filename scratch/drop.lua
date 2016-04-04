@@ -102,7 +102,7 @@ function toggle(prog, vert, horiz, width, height, sticky, screen)
 
         -- Add manage signal and spawn the program
         attach_signal("manage", spawnw)
-        awful.util.spawn(prog, false)
+        awful.spawn.spawn(prog, false)
     else
         -- Get a running client
         c = dropdown[prog][screen]
