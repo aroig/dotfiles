@@ -5,6 +5,7 @@
 ---------------------------------------------------------------
 
 local wibox = wibox
+local gears = gears
 
 local host_config = host_config
 
@@ -16,7 +17,7 @@ local host_config = host_config
 mywibox = {}
 
 -- Create a wibox for each screen and add it
-for s in screen do
+gears.screen.connect_for_each_screen(function(s)
    -- Create the wibox
    mywibox[s] = awful.wibox({ position = "top", screen = s, height=host_config.wibox_height })
    -- Add widgets to the wibox - order matters
@@ -112,4 +113,4 @@ for s in screen do
    layout:set_right(right_layout)
 
    mywibox[s]:set_widget(layout)
-end
+end)
