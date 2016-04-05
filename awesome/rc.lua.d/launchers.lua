@@ -61,7 +61,7 @@ end
 
 -- Execute an external program
 function exec (cmd)
-    awful.util.spawn(cmd, false)
+    awful.spawn.spawn(cmd, false)
 end
 
 -- Execute an external program inside a shell

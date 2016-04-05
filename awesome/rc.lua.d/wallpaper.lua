@@ -8,6 +8,7 @@ local os = os
 local string = string
 local gears = gears
 local hostname = hostname
+local gears = gears
 
 local math = require("math")
 local lfs = require("lfs")
@@ -24,13 +25,15 @@ for wp in lfs.dir(wallpapers_dir) do
     end
 end
 
-local i = math.random(1, #wallpapers)
-local dual = string.match(wallpapers[i], ".+-dual%.jpg") ~= nil
+wallpaper = wallpapers[math.random(1, #wallpapers)]
+local dual = string.match(wallpaper, ".+-dual%.jpg") ~= nil
 
 if dual then
-    gears.wallpaper.maximized(wallpapers[i], nil, nil)
+    gears.screen.connect_for_each_screen(function(s)
+        gears.wallpaper.maximized(wallpaper, nil, nil)
+    end)
 else
-    for s in screen do
-        gears.wallpaper.maximized(wallpapers[i], s, nil)
-    end
+    gears.screen.connect_for_each_screen(function(s)
+        gears.wallpaper.maximized(wallpaper, s, nil)
+    end)
 end
