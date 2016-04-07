@@ -7,6 +7,11 @@
 local awful = awful
 
 local hosts = {
+    ada = {
+        thermal = {"hwmon1", {"temp1"} },
+        wibox_height = 18,
+    },
+    
     grothendieck = {
         thermal = {"hwmon1", {"temp1"} },
         wibox_height = 18,
