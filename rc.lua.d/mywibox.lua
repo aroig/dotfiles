@@ -17,7 +17,7 @@ local host_config = host_config
 mywibox = {}
 
 -- Create a wibox for each screen and add it
-gears.screen.connect_for_each_screen(function(s)
+awful.screen.connect_for_each_screen(function(s)
    -- Create the wibox
    mywibox[s] = awful.wibox({ position = "top", screen = s, height=host_config.wibox_height })
    -- Add widgets to the wibox - order matters

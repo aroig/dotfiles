@@ -610,7 +610,7 @@ myw.taglist.buttons = awful.util.table.join(
 --                    awful.button({ }, 5, awful.tag.viewprev)
 )
 
-gears.screen.connect_for_each_screen(function(s)
+awful.screen.connect_for_each_screen(function(s)
     myw.taglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, myw.taglist.buttons)
 end)
 
@@ -658,7 +658,7 @@ myw.tasklist.buttons = awful.util.table.join(
         end)
 )
 
-gears.screen.connect_for_each_screen(function(s)
+awful.screen.connect_for_each_screen(function(s)
    myw.tasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, myw.tasklist.buttons)
 end)
 
@@ -670,7 +670,7 @@ end)
 
 myw.layoutbox = {}
 
-gears.screen.connect_for_each_screen(function(s)
+awful.screen.connect_for_each_screen(function(s)
    myw.layoutbox[s] = awful.widget.layoutbox(s)
    myw.layoutbox[s]:buttons(awful.util.table.join(
                            awful.button({ }, 1, function () awful.layout.inc(1, nil, layouts) end),
@@ -685,7 +685,7 @@ gears.screen.connect_for_each_screen(function(s)
 -----------------------------------
 
 myw.promptbox = {}
-gears.screen.connect_for_each_screen(function(s)
+awful.screen.connect_for_each_screen(function(s)
     myw.promptbox[s] = awful.widget.prompt()
 end)
 
