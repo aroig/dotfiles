@@ -29,7 +29,10 @@ TODO
 
 ## completion
 
-* completion not working with snippets having special characters (e.g `eqn*`).
+* completion may not work with snippets having special characters (e.g `eqn*`).
+
+* company-mode does not complete full words.
+  https://github.com/company-mode/company-mode/issues/451
 
 
 ## chat
