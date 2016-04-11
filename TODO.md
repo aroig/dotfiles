@@ -27,6 +27,10 @@ TODO
 ## mu4e
 
 
+## completion
+
+* completion not working with snippets having special characters (e.g `eqn*`).
+
 
 ## chat
 

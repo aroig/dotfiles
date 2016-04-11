@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # name: \chapter*{...}\label{ch:?}
 # contributor: Abdó Roig-Maranges <abdo.roig@gmail.com>
-# key: chap*
+# key: chapx
 # --
 \\chapter*{$1}\\label{ch:${2:blah}}
