@@ -4,6 +4,7 @@
         reftex
         persp-mode
         compile
+        outline
         diminish
         ))
 
@@ -100,6 +101,11 @@
   (setq reftex-auto-recenter-toc t
         reftex-toc-shown nil)
   )
+
+(defun ab2-latex/init-outline ()
+  (use-package outline)
+  (spacemacs|diminish outline-minor-mode "ⓞ" "o")
+)
 
 (defun ab2-latex/post-init-diminish ()
   (spacemacs|diminish reftex-mode "ⓡ" "r")
