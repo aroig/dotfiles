@@ -7,6 +7,10 @@ TODO
 
 ## devel
 
+* Automatically close compilation window using workspaces.
+
+* Use spacemacs automatic success detection?
+
 
 ## latex
 
