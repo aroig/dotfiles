@@ -45,6 +45,7 @@ values."
      ;; ----------------------------------------------------------------
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-help-tooltip t
                       auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/")
      ;; better-defaults
      emacs-lisp
