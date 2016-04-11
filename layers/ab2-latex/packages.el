@@ -104,9 +104,9 @@
 
 (defun ab2-latex/init-outline ()
   (use-package outline)
-  (spacemacs|diminish outline-minor-mode "ⓞ" "o")
+  (spacemacs|diminish outline-minor-mode "ⓞ" " o")
 )
 
 (defun ab2-latex/post-init-diminish ()
-  (spacemacs|diminish reftex-mode "ⓡ" "r")
+  (spacemacs|diminish reftex-mode "ⓡ" " r")
   )
