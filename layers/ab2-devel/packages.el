@@ -6,7 +6,7 @@
         haskell-mode
         lua-mode
         python-mode
-        compilation
+        compile
         cc-mode
         clang-format
         ))
@@ -25,13 +25,15 @@
         pkgbuild-update-sums-on-save nil)
   )
 
-(defun ab2-devel/post-init-compilation ()
+(defun ab2-devel/init-compile ()
+  (use-package compile)
   (setq compilation-read-command nil
         compilation-auto-jump-to-first-error t
-        compilation-scroll-output 'first-error)
+        compilation-scroll-output 'first-error
+        compilation-finish-function nil)
 
   ;; When compilation  finishes
-  (add-to-list 'compilation-finish-functions 'abdo-compilation-finished)
+  (add-to-list 'compilation-finish-functions 'ab2/compilation-finished)
   )
 
 
