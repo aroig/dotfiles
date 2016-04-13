@@ -4,6 +4,8 @@ Description=check directory /home/%u/%I
 AssertPathExists=/home/%u/%I
 AssertPathExists=/home/%u/arch/sync/Makefile
 
+ConditionACPower=true
+
 [Service]
 Type=oneshot
 Slice=workers.slice
