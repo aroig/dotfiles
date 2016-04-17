@@ -14,6 +14,7 @@ gears        = require("gears")
 
 -- Standard awesome library
 awful        = require("awful")
+awful.layout = require("awful.layout")
 awful.rules  = require("awful.rules")
 awful.remote = require("awful.remote")
 awful.tag    = require("awful.tag")
@@ -104,17 +105,9 @@ layouts = {
     layout.dwindle,
     layout.tile,
     layout.fair,
---    layout.tile,
---    awful.layout.suit.max,
---    awful.layout.suit.floating,
---    awful.layout.suit.fair
---    awful.layout.suit.tile.left,
---    awful.layout.suit.tile.bottom,
---    awful.layout.suit.tile.top,
---    awful.layout.suit.max.fullscreen,
---    awful.layout.suit.fair.horizontal,
---    awful.layout.suit.spiral.dwindle,
---    awful.layout.suit.magnifier
+    -- awful.layout.suit.spiral.dwindle,
+    -- awful.layout.suit.tile,
+    -- awful.layout.suit.fair,
 }
 
 
