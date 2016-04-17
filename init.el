@@ -67,6 +67,7 @@ values."
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t)
      asciidoc
+     bibtex
      emacs-lisp
      extra-langs
      go

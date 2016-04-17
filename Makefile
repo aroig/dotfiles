@@ -1,5 +1,5 @@
 
-EMACS   := emacsclient -s "$(XDG_RUNTIME_DIR)/emacs/server"
+EMACS   := emacs --batch --load ~/devel/elisp/spacemacs/init.el 
 
 
 .PHONY: update-init update sync
@@ -13,4 +13,5 @@ sync:
 
 update:
 	$(EMACS) --eval '(configuration-layer/update-packages t)'
+	$(EMACS) --eval '(configuration-layer/sync)'
 
