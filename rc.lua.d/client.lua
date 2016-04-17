@@ -90,7 +90,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "space",  function (c) awful.client.floating.toggle()   end),
     awful.key({ modkey,           }, "t",      function (c) awful.client.floating.toggle()   end),
     awful.key({ modkey,           }, "Return", function (c) swap_to_master(c)                end),
-    awful.key({ modkey,           }, "o",      function (c) awful.client.movetoscreen(c)     end),
+    awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end),
     awful.key({ modkey, shiftkey  }, "r",      function (c) c:redraw()                       end),
     awful.key({ modkey,           }, "r",      function (c) c:raise()                        end),
     -- awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
@@ -242,6 +242,6 @@ rules.rules = {
 
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
+    --   properties = { screen = 1, tag = "2" } },
 }
 

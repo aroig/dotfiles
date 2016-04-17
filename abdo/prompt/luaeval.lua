@@ -7,7 +7,6 @@
 
 local prompt = require("abdo.prompt.prompt")
 local beautiful = require("beautiful")
-local ascreen = require("awful.screen")
 
 local theme = beautiful.get()
 local luaeval = {}

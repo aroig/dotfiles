@@ -1,4 +1,5 @@
 -------------------------------------------------------------------
+keyboard    = require("abdo.osk")            -- On-screen keyboard
 -- Drop-down applications manager for the awesome window manager
 -- Abdo.
 -- I've added two parameters for the dropdown, a name and a command.
@@ -32,8 +33,6 @@ local pairs = pairs
 local os = os
 local setmetatable = setmetatable
 
-local ascreen = require("awful.screen")
-
 local capi = {
     client = client,
     screen = screen
@@ -55,7 +54,7 @@ local function raise_client(run)
     local width, height, x, y
 
     -- move to the right tag
-    awful.client.movetotag(awful.tag.selected(run.screen), run.client)
+    run.client:move_to_tag(run.screen.selected_tag)
 
     -- if width or height values in the interval [0,1] represent a fraction of screen width or height.
     if geom.width  <= 1 then width  = screengeom.width  * geom.width
@@ -143,7 +142,7 @@ local function capture_client(dd, cmd, pid, c)
     dd.run.time     = os.time()
     dd.run.client   = c
     dd.run.visible  = false
-    dd.run.screen   = dd.screen or ascreen.focused()
+    dd.run.screen   = dd.screen or awful.screen.focused()
 
     if not dd.run.pid then
         dd.run.pid = pid
@@ -211,7 +210,7 @@ function dropdown.show(dd, cmd, screen)
 
     -- raise an existing client.
     if dd.run.client then
-        dd.run.screen = screen or dd.screen or ascreen.focused()
+        dd.run.screen = screen or dd.screen or awful.screen.focused()
         raise_client(dd.run)
     end
 end
@@ -265,7 +264,7 @@ function dropdown.on_manage(c, startup)
 
             -- dropdown clients are floaters
             c.size_hints_honor = false
-            awful.client.floating.set(c, true)
+            c.floating = true
 
             -- Client properties
             c.ontop = true

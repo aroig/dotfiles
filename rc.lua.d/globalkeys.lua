@@ -23,32 +23,28 @@ function drag_bydirection(dir, c)
     if dir == 'up' then
         if c then
             awful.tag.viewnext()
-            local t = awful.tag.selected(c.screen)
-            awful.client.movetotag(t, c)
+            c:move_to_tag(c.screen.selected_tag)
             awful.client.focus.byidx(0, c)
         end
 
     elseif dir == 'down' then
         if c then
             awful.tag.viewprev()
-            local t = awful.tag.selected(c.screen)
-            awful.client.movetotag(t, c)
+            c:move_to_tag(c.screen.selected_tag)
             awful.client.focus.byidx(0, c)
         end
 
     elseif dir == 'left' then
         if c then
             awful.screen.focus_bydirection("left")
-            local s = awful.screen.focused()
-            awful.client.movetoscreen(c, s)
+            c:move_to_screen(awful.screen.focused())
             awful.client.focus.byidx(0, c)
         end
 
     elseif dir == 'right' then
         if c then
             awful.screen.focus_bydirection("right")
-            local s = awful.screen.focused()
-            awful.client.movetoscreen(c, s)
+            c:move_to_screen(awful.screen.focused())
             awful.client.focus.byidx(0, c)
         end
     end
@@ -270,18 +266,16 @@ for i = 1, keynumber do
 
         awful.key({ modkey }, key,
                   function ()
-                      local screen = awful.screen.focused()
-                      if tags[screen][i] then
-                          awful.tag.viewonly(tags[screen][i])
+                      if tags[awful.screen.focused()][i] then
+                          tags[awful.screen.focused()][i]:viewonly()
                       end
 		          end
         ),
 
         awful.key({ modkey, ctrlkey   }, key,
                   function ()
-                      local screen = awful.screen.focused()
-                      if tags[screen][i] then
-                          awful.tag.viewtoggle(tags[screen][i])
+                      if tags[awful.screen.focused()][i] then
+                          awful.tag.viewtoggle(tags[awful.screen.focused()][i])
                       end
                   end
         ),
@@ -289,7 +283,7 @@ for i = 1, keynumber do
         awful.key({ modkey, shiftkey }, key,
                   function ()
                       if client.focus and tags[client.focus.screen][i] then
-                          awful.client.movetotag(tags[client.focus.screen][i])
+                          client.focus:move_to_tag(tags[client.focus.screen][i])
                       end
                   end
         ),
@@ -297,7 +291,7 @@ for i = 1, keynumber do
         awful.key({ modkey, ctrlkey  , shiftkey }, key,
                   function ()
                       if client.focus and tags[client.focus.screen][i] then
-                          awful.client.toggletag(tags[client.focus.screen][i])
+                          client.focus:toggle_tag(tags[client.focus.screen][i])
                       end
                   end
     ))
