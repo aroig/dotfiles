@@ -122,7 +122,7 @@ layouts = {
 tags = {}
 
 awful.screen.connect_for_each_screen(function(s)
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 }, s, layouts[1])
+    tags[s] = awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" }, s, layouts[1])
 end)
 
 
