@@ -75,6 +75,26 @@ export SCREENDIR="$XDG_RUNTIME_DIR/screen"
 export EMACS="/usr/bin/emacsclient -s $XDG_RUNTIME_DIR/emacs/server -c"
 
 
+
+#------------------------------
+# Devel
+#------------------------------
+
+# Sailfish
+export SAILFISH_SDK_ROOT="$HOME/sdk/sailfish/sdk"
+
+# Go
+export GOPATH="$HOME/usr/go"
+
+
+#------------------------------
+# Wine
+#------------------------------
+
+export WINEPREFIX="$HOME/.wine32"
+export WINEARCH=win32
+
+
 #------------------------------
 # Paths
 #------------------------------
@@ -88,21 +108,4 @@ export TERMINFO="$HOME/.terminfo:/usr/share/terminfo"
 # The path
 add_to_pathlist_left PATH "$HOME/bin"
 export PATH="$PATH"
-
-
-#------------------------------
-# Devel
-#------------------------------
-
-# Sailfish
-export SAILFISH_SDK_ROOT="$HOME/sdk/sailfish/sdk"
-
-
-#------------------------------
-# Wine
-#------------------------------
-
-export WINEPREFIX="$HOME/.wine32"
-export WINEARCH=win32
-
 
