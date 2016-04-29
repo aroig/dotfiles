@@ -30,7 +30,6 @@ hotkeys      = require("awful.hotkeys_popup")
 
 -- Personal stuff
 util        = require("abdo.util")           -- Utility functions
-layout      = require("abdo.layout")         -- My layouts
 systemd     = require("abdo.systemd")        -- systemd commands
 apps        = require("apps")                -- My preferred apps
 
@@ -100,12 +99,9 @@ beautiful.init(awful.util.getdir("config") .. "/themes/zenburn/theme.lua")
 -- Layouts
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts = {
-    layout.dwindle,
-    layout.tile,
-    layout.fair,
-    -- awful.layout.suit.spiral.dwindle,
-    -- awful.layout.suit.tile,
-    -- awful.layout.suit.fair,
+    awful.layout.suit.spiral.dwindle,
+    awful.layout.suit.tile,
+    awful.layout.suit.fair,
 }
 
 
