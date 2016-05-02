@@ -54,6 +54,8 @@ TODO
 
 ## frames and perspectives
 
+* Add `helm-find-files-in-project`. Can't add open in project as a helm action.
+  Helm does not allow action customization.
 
 ## General
 
