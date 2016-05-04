@@ -120,6 +120,7 @@ values."
                                     mu4e-maildirs-extension
                                     rainbow-delimiters
                                     smartparens
+                                    auto-complete
                                     )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of

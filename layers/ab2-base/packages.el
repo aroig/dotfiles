@@ -1,5 +1,6 @@
 (setq ab2-base-packages
       '(
+        company
         uniquify
         hippie-exp
         (sensitive-mode :location local)
@@ -33,3 +34,8 @@
   (global-set-key (kbd "M-+") 'hippie-expand)
   )
 
+(defun ab2-base/post-init-autocomplete ()
+  (setq
+   tab-always-indent t
+   company-idle-delay 1
+  ))
