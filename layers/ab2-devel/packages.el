@@ -65,7 +65,18 @@
               ))
   )
 
-(defun ab2-devel/post-init-cc-mode ()
+(defun ab2/cc-mode-config ()
+  ;; binding for clang-format
+  (define-key c++-mode-map (kbd "M-q") 'clang-format)
+  (define-key c-mode-map (kbd "M-q") 'clang-format)
+  ;; disable electric-indent. I'll use clang-format
+  ;; (electric-indent-local-mode -1)
+  (c-toggle-electric-state -1)
+  ;; Although I use clang format, this is useful while editing
+  (setq c-syntactic-indentation t)
+  (c-set-style "stroustrup"))
+
+(defun ab2-devel/pre-init-cc-mode ()
   ;; flyspell for comments
   ; (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
   ; (abdo-change-dictionary "english")      ;; I always program in english
@@ -87,25 +98,6 @@
                                  "\\|public slots\\|protected slots\\|private slots"
                                  "\\)\\>[ \t]*:"))
 
+  (add-hook 'c++-mode-hook 'ab2/cc-mode-config)
+  (add-hook 'c-mode-hook 'ab2/cc-mode-config)
   )
-
-(defun ab2-devel/post-init-clang-format ()
-  ;; we use clang-format for indentation
-  (setq c-syntactic-indentation nil)
-  ;; (c-set-style "stroustrup")
-
-  (add-hook 'c++-mode-hook
-            (lambda ()
-              ;; disable electric-indent. I'll use clang-format
-              ;; (electric-indent-local-mode -1)
-              (c-toggle-electric-state -1)
-              ))
-
-  (add-hook 'c-mode-hook
-            (lambda ()
-              ;; disable electric-indent. I'll use clang-format
-              ;; (electric-indent-local-mode -1)
-              (c-toggle-electric-state -1)
-              ))
-  )
-
