@@ -25,7 +25,7 @@
 (defun ab2/find-file-in-project (filename)
   "Open a file like find-file. If the file belongs to a project, creates
    a new persp and enables projectile mode for it."
-  (interactive "P")
+  (interactive (list (read-file-name "Find file: " nil default-directory (confirm-nonexistent-file-or-buffer))))
   ;; need the require since the projectile functions used here are not auto-loadable.
   (require 'projectile)
   (let* ((persp-reset-windows-on-nil-window-conf t)
