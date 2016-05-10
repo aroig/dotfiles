@@ -9,6 +9,7 @@
         compile
         cc-mode
         clang-format
+        editorconfig
         ))
 
 
@@ -101,3 +102,7 @@
   (add-hook 'c++-mode-hook 'ab2/cc-mode-config)
   (add-hook 'c-mode-hook 'ab2/cc-mode-config)
   )
+
+(defun ab2-devel/init-editorconfig ()
+  (use-package editorconfig)
+  (editorconfig-mode 1))
