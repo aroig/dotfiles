@@ -49,7 +49,7 @@ export MINGW_ROOT="/usr/x86_64-w64-mingw32"
 
 
 # Java development
-export JAVA_HOME="/usr/lib/jvm/default"
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 
 # Android variables for the toolchain
 export ANDROID_NDK_ROOT="/opt/android-ndk"    # root for NDK (understood upstream)
