@@ -37,5 +37,5 @@
 (defun ab2-base/post-init-autocomplete ()
   (setq
    tab-always-indent t
-   company-idle-delay 1
+   company-idle-delay 0.4
   ))
