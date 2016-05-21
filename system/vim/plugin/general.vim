@@ -25,3 +25,6 @@ set nostartofline                 " prevent some movements to go to start of lin
 
 " Suffixes that get lower priority when doing tab completion for filenames.
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.png,.jpg
+
+" exclude fugitive from editorconfig
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
