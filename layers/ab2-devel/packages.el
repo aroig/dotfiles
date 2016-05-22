@@ -10,6 +10,7 @@
         cc-mode
         clang-format
         editorconfig
+        helm-make
         ))
 
 
@@ -23,8 +24,14 @@
   (use-package pkgbuild-mode)
 
   (setq pkgbuild-initialize nil
-        pkgbuild-update-sums-on-save nil)
-  )
+        pkgbuild-update-sums-on-save nil))
+
+
+(defun ab2-devel/pre-init-helm-make ()
+  ;; run make -qp to extract list of targets from Makefile
+  (setq helm-make-list-target-method 'qp
+        helm-make-executable "make --no-print-directory"))
+
 
 (defun ab2-devel/init-compile ()
   (use-package compile)
