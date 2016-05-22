@@ -11,6 +11,7 @@
         clang-format
         editorconfig
         helm-make
+        ansi-color
         ))
 
 
@@ -33,16 +34,23 @@
         helm-make-executable "make --no-print-directory"))
 
 
+(defun ab2-devel/init-ansi-color()
+  (use-package ansi-color))
+
+
 (defun ab2-devel/init-compile ()
   (use-package compile)
   (setq compilation-read-command nil
         compilation-auto-jump-to-first-error nil
         compilation-scroll-output 'first-error
-        compilation-finish-function nil)
+        compilation-finish-function nil
+        compilation-environment '("TERM=xterm"))
+
+  ;; Filter compilation output
+  (add-hook 'compilation-filter-hook #'ab2/colorize-compilation)
 
   ;; When compilation  finishes
-  (add-to-list 'compilation-finish-functions 'ab2/compilation-finished)
-  )
+  (add-to-list 'compilation-finish-functions #'ab2/compilation-finished))
 
 
 (defun ab2-devel/post-init-haskell-mode ()
