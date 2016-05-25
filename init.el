@@ -38,21 +38,18 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
+     asm
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip t
                       auto-completion-return-key-behavior nil
+                      auto-completion-tab-key-behavior 'cycle
                       auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/")
+     finance
      git
      github
      (markdown :variables
                markdown-indent-on-enter nil)
-     finance
      (org :variables
           org-enable-github-support t)
      (mu4e :variables
@@ -110,8 +107,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(editorconfig
-                                      rainbow-mode
+   dotspacemacs-additional-packages '(rainbow-mode
                                       netrc
                                       cl
                                       dbus
