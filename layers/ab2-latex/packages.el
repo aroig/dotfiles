@@ -9,27 +9,27 @@
         ))
 
 (defun ab2-latex/post-init-compile ()
-  ;; Matches for latex compilation
-  (add-to-list 'compilation-error-regexp-alist-alist
-               '(latex-warning
-                 "^LaTeX Warning: .* on input line \\([[:digit:]]+\\)\\.$" ;; Regular expression
-                 ab2/compilation-error-latex-file                          ;; Filename
-                 1                                                         ;; Line number
-                 nil                                                       ;; Column number
-                 1))
+  (with-eval-after-load 'compile
+    ;; Matches for latex compilation
+    (add-to-list 'compilation-error-regexp-alist-alist
+                 '(latex-warning
+                   "^LaTeX Warning: .* on input line \\([[:digit:]]+\\)\\.$" ;; Regular expression
+                   ab2/compilation-error-latex-file                          ;; Filename
+                   1                                                         ;; Line number
+                   nil                                                       ;; Column number
+                   1))
 
-  (add-to-list 'compilation-error-regexp-alist-alist
-               '(latex-error
-                 "^l\\.\\([[:digit:]]+\\)[[:space:]]"  ;; Regular expression
-                 ab2/compilation-error-latex-file      ;; Filename
-                 1                                     ;; Line number
-                 nil                                   ;; Column number
-                 2                                     ;; Type (error)
-                 1))                                   ;; Highlight
+    (add-to-list 'compilation-error-regexp-alist-alist
+                 '(latex-error
+                   "^l\\.\\([[:digit:]]+\\)[[:space:]]"  ;; Regular expression
+                   ab2/compilation-error-latex-file      ;; Filename
+                   1                                     ;; Line number
+                   nil                                   ;; Column number
+                   2                                     ;; Type (error)
+                   1))                                   ;; Highlight
 
-  (add-to-list 'compilation-error-regexp-alist 'latex-error)
-  (add-to-list 'compilation-error-regexp-alist 'latex-warning)
-  )
+    (add-to-list 'compilation-error-regexp-alist 'latex-error)
+    (add-to-list 'compilation-error-regexp-alist 'latex-warning)))
 
 
 (defun ab2-latex/post-init-auctex ()

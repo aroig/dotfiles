@@ -22,7 +22,7 @@
   )
 
 (defun ab2-devel/init-pkgbuild-mode ()
-  (use-package pkgbuild-mode)
+  (use-package pkgbuild-mode :defer t)
 
   (setq pkgbuild-initialize nil
         pkgbuild-update-sums-on-save nil))
@@ -35,11 +35,11 @@
 
 
 (defun ab2-devel/init-ansi-color()
-  (use-package ansi-color))
+  (use-package ansi-color :defer t))
 
 
 (defun ab2-devel/init-compile ()
-  (use-package compile)
+  (use-package compile :defer t)
   (setq compilation-read-command nil
         compilation-auto-jump-to-first-error nil
         compilation-scroll-output 'first-error

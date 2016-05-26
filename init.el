@@ -62,8 +62,8 @@ values."
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support nil)
-     clang
-     semantic
+     ;; semantic
+     syntax-checking
      asciidoc
      bibtex
      emacs-lisp
@@ -91,10 +91,10 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      spell-checking
-     ;; syntax-checking
      ;; version-control
      windows-scripts
      ab2-base
+     ab2-clang
      ab2-devel
      ab2-latex
      ab2-org

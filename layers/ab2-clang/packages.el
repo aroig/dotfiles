@@ -1,32 +1,44 @@
 ;;; packages.el --- rtags layer for spacemacs
 
-(setq clang-packages
+(setq ab2-clang-packages
       '(rtags
         company
+        flycheck
         clang-format
         projectile
         ))
 
-(defun clang/init-clang-format ()
+(defun ab2-clang/init-clang-format ()
   (use-package clang-format))
 
-(defun clang/post-init-company ()
+(defun ab2-clang/post-init-company ()
   (push 'company-rtags company-backends-c-mode-common))
 
-(defun clang/post-init-projectile ()
+(defun ab2-clang/post-init-flycheck ()
+  (add-hook 'c-mode-common-hook
+            #'(lambda ()
+                (flycheck-select-checker 'rtags)
+                (setq-local flycheck-check-syntax-automatically nil)
+                (setq-local flycheck-highlighting-mode nil)
+                )))
+
+(defun ab2-clang/init-rtags ()
+  (use-package rtags :defer t
+    :config
+    (when (configuration-layer/package-usedp 'company) (use-package company-rtags))
+    (when (configuration-layer/package-usedp 'flycheck) (use-package flycheck-rtags))))
+
+(defun ab2-clang/post-init-projectile ()
     (add-hook 'projectile-mode-hook
               #'(lambda ()
                   (when (projectile-project-p)
-                    (clang/rtags-add-project (projectile-project-root))))))
+                    (ab2-clang/rtags-add-project (projectile-project-root))))))
 
-(defun clang/init-rtags ()
-  (use-package rtags))
-
-(defun clang/post-init-rtags ()
+(defun ab2-clang/post-init-rtags ()
   (setq rtags-completions-enabled t
         company-rtags-begin-after-member-access nil
         rtags-autostart-diagnostics t)
-  
+
   (defun use-rtags (&optional useFileManager)
     (and (rtags-executable-find "rc")
          (cond ((not (gtags-get-rootpath)) t)
