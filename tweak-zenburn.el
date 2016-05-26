@@ -87,10 +87,11 @@
      'zenburn
 ;;;;; region
      `(region ((t (:background ,zenburn-green-1))))
-;;;;; anzu
-     `(anzu-match-1 ((t (:foreground ,zenburn-bg :background ,zenburn-green+3))))
-     `(anzu-match-2 ((t (:foreground ,zenburn-bg :background ,zenburn-yellow-1))))
-     `(anzu-match-3 ((t (:foreground ,zenburn-bg :background ,zenburn-cyan))))
+;;;;; company
+     `(company-echo-common ((t (:foreground ,zenburn-red))))
+     `(company-preview ((t (:foreground ,zenburn-bg :background ,zenburn-green+2))))
+     `(company-preview-search ((t (:background ,zenburn-blue-3))))
+     `(company-template-field ((t (:foreground ,zenburn-bg :background ,zenburn-yellow-1))))
 ;;;;; eval-sexp
      `(eval-sexp-fu-flash ((t (:background ,zenburn-blue-5))))
      `(eval-sexp-fu-flash-error ((t (:foreground ,zenburn-red))))
@@ -102,6 +103,12 @@
      `(helm-source-header ((t (:weight bold :box nil :foreground ,zenburn-yellow-1 :background ,zenburn-bg-2))))
 ;;;;; hl
      `(hl-line ((t (:background ,zenburn-bg+1))))
+;;;;; persp
+     `(persp-face-lighter-buffer-not-in-persp ((t (:background ,zenburn-red :foreground ,zenburn-blue-4))))
+;;;;; rtags
+     `(rtags-errline ((t (:background ,zenburn-red))))
+     `(rtags-fixitline ((t (:background ,zenburn-orange-1))))
+     `(rtags-warnline ((t (:background ,zenburn-blue-2))))
 ;;;;; spaceline
      `(spaceline-highlight-face ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-orange+1))))
      `(spaceline-evil-emacs ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-blue-1))))
@@ -111,6 +118,9 @@
      `(spaceline-evil-replace ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-orange+1))))
      `(spaceline-evil-visual ((t (:inherit mode-line :foreground ,zenburn-bg :background ,zenburn-fg))))
 ;;;;; spacemacs
+     `(spacemacs-micro-state-header-face ((t (:foreground ,zenburn-bg :background ,zenburn-orange+1))))
+     `(spacemacs-iedit-face ((t (:background ,zenburn-red-4 :inherit 'mode-line))))
+     `(spacemacs-iedit-insert-face ((t (:background ,zenburn-red-4 :inherit 'mode-line))))
      `(spacemacs-highlight-face ((t (:foreground ,zenburn-bg :background ,zenburn-orange+1))))
      `(spacemacs-emacs-face ((t (:foreground ,zenburn-bg :background ,zenburn-blue-1))))
      `(spacemacs-insert-face ((t (:foreground ,zenburn-bg :background ,zenburn-green+1))))
@@ -125,5 +135,8 @@
      `(org-priority-level-3 ((t (:foreground ,zenburn-yellow-2))))
      `(org-priority-level-4 ((t (:foreground ,zenburn-green+1))))
      `(org-priority-level-5 ((t (:foreground ,zenburn-blue))))
+;;;;; widget
+     `(widget-button-pressed ((t (:foreground ,zenburn-red-1))))
+     `(widged-documentation ((t (:foreground ,zenburn-green+1))))
      )))
 
