@@ -23,7 +23,8 @@
                 )))
 
 (defun ab2-clang/init-rtags ()
-  (use-package rtags :defer t
+  ;; cannot use deferred with locally installed version. has no autoloads.
+  (use-package rtags
     :config
     (when (configuration-layer/package-usedp 'company) (use-package company-rtags))
     (when (configuration-layer/package-usedp 'flycheck) (use-package flycheck-rtags))))

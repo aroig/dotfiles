@@ -115,6 +115,8 @@ values."
                                       diff-hl
                                       (zenburn-theme :location (recipe :fetcher github
                                                                        :repo "bbatsov/zenburn-emacs"))
+                                      (rtags :location local)
+                                      (mu4e :location local)
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(org-bullets
