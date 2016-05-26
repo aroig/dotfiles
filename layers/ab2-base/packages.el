@@ -3,6 +3,7 @@
         company
         uniquify
         hippie-exp
+        spaceline
         (sensitive-mode :location local)
         ))
 
@@ -39,3 +40,23 @@
    tab-always-indent t
    company-idle-delay 0.4
   ))
+
+(defun ab2-base/post-init-spaceline ()
+  ;; override default version-control segment
+  (spaceline-define-segment version-control
+    "Personalized version control information"
+    (when vc-mode
+      (powerline-raw
+       (s-trim (concat
+                (replace-regexp-in-string "Git." "⎇ " vc-mode)
+                (when (buffer-file-name)
+                  (pcase (vc-state (buffer-file-name))
+                    (`up-to-date " ✓")
+                    (`edited " *")
+                    (`added " +")
+                    (`unregistered " ?")
+                    (`removed " -")
+                    (`needs-merge " X")
+                    (`needs-update " *")
+                    (`ignored " ·")
+                    (_ " ?")))))))))
