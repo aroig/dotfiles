@@ -43,6 +43,7 @@
 
 (defun ab2-base/post-init-spaceline ()
   ;; override default version-control segment
+
   (spaceline-define-segment version-control
     "Personalized version control information"
     (when vc-mode
@@ -59,4 +60,14 @@
                     (`needs-merge " X")
                     (`needs-update " *")
                     (`ignored " ·")
-                    (_ " ?")))))))))
+                    (_ " ?"))))))))
+
+    (spaceline-define-segment buffer-position
+      "The current approximate buffer position, in percent."
+      (powerline-raw
+       (replace-regexp-in-string
+        "%" "%%"
+        (downcase (substring (format-mode-line "%p") 0 3)))))
+
+    ;; disable HUD showing which part of the buffer
+    (spaceline-toggle-hud-off))
