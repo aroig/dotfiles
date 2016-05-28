@@ -1,4 +1,10 @@
 
+(setq ab2-visual-packages
+      '(
+        spaceline
+        diminish
+        ))
+
 (setq
  ;; highlighting
  transient-mark-mode t

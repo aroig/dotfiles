@@ -1,19 +1,3 @@
-(setq ab2-devel-packages
-      '(
-        magit
-        persp-mode
-        pkgbuild-mode
-        haskell-mode
-        lua-mode
-        python-mode
-        compile
-        cc-mode
-        clang-format
-        editorconfig
-        helm-make
-        ansi-color
-        ))
-
 
 (defun ab2-devel/pre-init-magit ()
   ;; Since I use git outside of emacs, do not rely on magit-auto-revert-mode.

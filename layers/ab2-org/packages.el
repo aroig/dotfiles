@@ -1,10 +1,3 @@
-(setq ab2-org-packages
- '(
-   org
-   compile
-   persp-mode
-  ))
-
 
 (defun ab2-org/pre-init-org ()
   ;; directories

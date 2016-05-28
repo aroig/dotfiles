@@ -1,10 +1,14 @@
 
+(setq ab2-mu4e-packages
+      '(
+        mu4e
+        mu4e-contrib
+        persp-mode
+        ))
+
 (defvar mu4e-tags-completion-list '()
   "List of tags to show for autocompletion")
 
-
-;; override retag action
-;; -----------------------------------------------
 
 (with-eval-after-load "mu4e"
 
@@ -61,7 +65,6 @@
 
     (mu4e-message (concat "tagging: " (mapconcat 'identity taglist ", ")))
     (mu4e-refresh-message path maildir)))
-
 )
 
 

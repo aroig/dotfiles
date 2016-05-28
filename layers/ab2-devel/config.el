@@ -1,4 +1,20 @@
 
+(setq ab2-devel-packages
+      '(
+        magit
+        persp-mode
+        pkgbuild-mode
+        haskell-mode
+        lua-mode
+        python-mode
+        compile
+        cc-mode
+        clang-format
+        editorconfig
+        helm-make
+        ansi-color
+        ))
+
 ;; compile buffer
 (defvar ab2/compile-window-state nil)
 

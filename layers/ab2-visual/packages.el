@@ -1,8 +1,3 @@
-(setq ab2-visual-packages
-      '(
-        spaceline
-        diminish
-        ))
 
 (defun ab2-visual/pre-init-spaceline ()
   (setq

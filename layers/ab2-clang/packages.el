@@ -1,12 +1,3 @@
-;;; packages.el --- rtags layer for spacemacs
-
-(setq ab2-clang-packages
-      '(rtags
-        company
-        flycheck
-        clang-format
-        projectile
-        ))
 
 (defun ab2-clang/init-clang-format ()
   (use-package clang-format))
