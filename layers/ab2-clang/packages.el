@@ -23,6 +23,8 @@
                 )))
 
 (defun ab2-clang/init-rtags ()
+  (setq rtags-use-helm t)
+
   ;; cannot use deferred with locally installed version. has no autoloads.
   (use-package rtags
     :config
