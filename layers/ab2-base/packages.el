@@ -19,8 +19,6 @@
   (add-to-list 'auto-mode-alist `(,(ab2/escape-regexp (file-truename "~/.ssh")) . sensitive-mode))
   )
 
-(ab2/regexp-filter "spacemacs-buffer\\.el" '("spacemacs-buffer.el"))
-
 (defun ab2-base/post-init-hippie-exp ()
   ;; I prefer a diferent binding for yasnippet completion
   (global-set-key (kbd "M-+") 'hippie-expand)
