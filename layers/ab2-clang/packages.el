@@ -13,14 +13,20 @@
                 (setq-local flycheck-highlighting-mode nil)
                 )))
 
-(defun ab2-clang/init-rtags ()
-  (setq rtags-use-helm t)
+(defun ab2-clang/pre-init-rtags ()
+  (setq rtags-completions-enabled t
+        rtags-use-helm t
+        company-rtags-begin-after-member-access nil
+        rtags-autostart-diagnostics nil))
 
+
+(defun ab2-clang/init-rtags ()
   ;; cannot use deferred with locally installed version. has no autoloads.
   (use-package rtags
     :config
     (when (configuration-layer/package-usedp 'company) (use-package company-rtags))
-    (when (configuration-layer/package-usedp 'flycheck) (use-package flycheck-rtags))))
+    (when (configuration-layer/package-usedp 'flycheck) (use-package flycheck-rtags))
+    ))
 
 (defun ab2-clang/post-init-projectile ()
     (add-hook 'projectile-mode-hook
@@ -28,11 +34,8 @@
                   (when (projectile-project-p)
                     (ab2-clang/rtags-add-project (projectile-project-root))))))
 
-(defun ab2-clang/post-init-rtags ()
-  (setq rtags-completions-enabled t
-        company-rtags-begin-after-member-access nil
-        rtags-autostart-diagnostics t)
 
+(defun ab2-clang/post-init-rtags ()
   (defun use-rtags (&optional useFileManager)
     (and (rtags-executable-find "rc")
          (cond ((not (gtags-get-rootpath)) t)
