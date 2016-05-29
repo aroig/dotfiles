@@ -1,9 +1,9 @@
 
 (setq ab2-clang-packages
-      '(rtags
-        company
+      '(company
         flycheck
         clang-format
         projectile
+        cc-mode
         ))
 
