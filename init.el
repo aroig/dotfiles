@@ -34,10 +34,15 @@ values."
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '( "~/.spacemacs.d/layers/")
-   ;; List of configuration layers to load. If it is the symbol `all' instead
-   ;; of a list then all discovered layers will be installed.
+   ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     ;; ----------------------------------------------------------------
+     ;; Example of useful layers you may want to use right away.
+     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
+     ;; <M-m f e R> (Emacs style) to install them.
+     ;; ----------------------------------------------------------------
+    
      asm
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
@@ -125,10 +130,14 @@ values."
                                     smartparens
                                     auto-complete
                                     )
-   ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
-   ;; are declared in a layer which is not a member of
-   ;; the list `dotspacemacs-configuration-layers'. (default t)
-   dotspacemacs-delete-orphan-packages t))
+   ;; Defines the behaviour of Spacemacs when downloading packages.
+   ;; Possible values are `used', `used-but-keep-unused' and `all'. `used' will
+   ;; download only explicitly used packages and remove any unused packages as
+   ;; well as their dependencies. `used-but-keep-unused' will download only the
+   ;; used packages but won't delete them if they become unused. `all' will
+   ;; download all the packages regardless if they are used or not and packages
+   ;; won't be deleted by Spacemacs. (default is `used')
+   dotspacemacs-download-packages 'used))
 
 (defun dotspacemacs/init ()
   "Initialization function.
