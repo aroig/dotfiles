@@ -568,7 +568,7 @@ myw.clock = {}
 myw.clock.icon = wibox.widget.textbox()
 myw.clock.icon:set_markup(wiboxicon("clock", beautiful.color_widget) .. ' ')
 
-myw.clock.clockwdg = awful.widget.textclock(colortext("%a %d %b %H:%M ", beautiful.color_widget_value))
+myw.clock.clockwdg = wibox.widget.textclock(colortext("%a %d %b %H:%M ", beautiful.color_widget_value))
 
 
 
