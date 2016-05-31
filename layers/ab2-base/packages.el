@@ -1,3 +1,12 @@
+(setq ab2-base-packages
+      '(
+        company
+        uniquify
+        hippie-exp
+        spaceline
+        (sensitive-mode :location local)
+        ))
+
 
 (defun ab2-base/post-init-uniquify ()
   (setq

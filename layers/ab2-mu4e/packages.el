@@ -1,3 +1,10 @@
+(setq ab2-mu4e-packages
+ '(
+   mu4e
+   mu4e-contrib
+   persp-mode
+  ))
+
 
 (defun ab2-mu4e/pre-init-mu4e ()
   ;; paths

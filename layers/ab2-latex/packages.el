@@ -1,3 +1,12 @@
+(setq ab2-latex-packages
+      '(
+        auctex
+        reftex
+        persp-mode
+        compile
+        outline
+        diminish
+        ))
 
 (defun ab2-latex/post-init-compile ()
   (with-eval-after-load 'compile
