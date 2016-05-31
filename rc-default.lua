@@ -1,7 +1,6 @@
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
-awful.rules = require("awful.rules")
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
@@ -89,23 +88,6 @@ local function client_menu_toggle_fn()
 end
 -- }}}
 
--- {{{ Wallpaper
-if beautiful.wallpaper then
-    awful.screen.connect_for_each_screen(function(s)
-        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
-    end)
-end
--- }}}
-
--- {{{ Tags
--- Define a tag table which hold all screen tags.
-tags = {}
-awful.screen.connect_for_each_screen(function(s)
-    -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
-end)
--- }}}
-
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 myawesomemenu = {
@@ -133,7 +115,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibox
 -- Create a textclock widget
-mytextclock = awful.widget.textclock()
+mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -184,6 +166,19 @@ mytasklist.buttons = awful.util.table.join(
                                           end))
 
 awful.screen.connect_for_each_screen(function(s)
+    -- Wallpaper
+    if beautiful.wallpaper then
+        local wallpaper = beautiful.wallpaper
+        -- If wallpaper is a function, call it with the screen
+        if type(wallpaper) == "function" then
+            wallpaper = wallpaper(s)
+        end
+        gears.wallpaper.maximized(wallpaper, s, true)
+    end
+
+    -- Each screen has its own tag table.
+    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
@@ -201,7 +196,7 @@ awful.screen.connect_for_each_screen(function(s)
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
+    mywibox[s] = awful.wibar({ position = "top", screen = s })
 
     -- Add widgets to the wibox
     mywibox[s]:setup {
@@ -431,7 +426,10 @@ awful.rules.rules = {
                      focus = awful.client.focus.filter,
                      raise = true,
                      keys = clientkeys,
-                     buttons = clientbuttons } },
+                     buttons = clientbuttons,
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+     }
+    },
 
     -- Floating clients.
     { rule_any = {
@@ -459,6 +457,11 @@ awful.rules.rules = {
         }
       }, properties = { floating = true }},
 
+    -- Add titlebars to normal clients and dialogs
+    { rule_any = {type = { "normal", "dialog" }
+      }, properties = { titlebars_enabled = true }
+    },
+
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
@@ -468,62 +471,58 @@ awful.rules.rules = {
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
-    if not awesome.startup then
-        -- Set the windows at the slave,
-        -- i.e. put it at the end of others instead of setting it master.
-        -- awful.client.setslave(c)
+    -- Set the windows at the slave,
+    -- i.e. put it at the end of others instead of setting it master.
+    -- if not awesome.startup then awful.client.setslave(c) end
 
-        -- Put windows in a smart way, only if they do not set an initial position.
-        if not c.size_hints.user_position and not c.size_hints.program_position then
-            awful.placement.no_overlap(c)
-            awful.placement.no_offscreen(c)
-        end
-    elseif not c.size_hints.user_position and not c.size_hints.program_position then
+    if awesome.startup and
+      not c.size_hints.user_position
+      and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
+end)
 
-    local titlebars_enabled = true
-    if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
-        -- buttons for the titlebar
-        local buttons = awful.util.table.join(
-            awful.button({ }, 1, function()
-                client.focus = c
-                c:raise()
-                awful.mouse.client.move(c)
-            end),
-            awful.button({ }, 3, function()
-                client.focus = c
-                c:raise()
-                awful.mouse.client.resize(c)
-            end)
-        )
+-- Add a titlebar if titlebars_enabled is set to true in the rules.
+client.connect_signal("request::titlebars", function(c)
+    -- buttons for the titlebar
+    local buttons = awful.util.table.join(
+        awful.button({ }, 1, function()
+            client.focus = c
+            c:raise()
+            awful.mouse.client.move(c)
+        end),
+        awful.button({ }, 3, function()
+            client.focus = c
+            c:raise()
+            awful.mouse.client.resize(c)
+        end)
+    )
 
-        awful.titlebar(c) : setup {
-            { -- Left
-                awful.titlebar.widget.iconwidget(c),
-                buttons = buttons,
-                layout  = wibox.layout.fixed.horizontal
+    awful.titlebar(c) : setup {
+        { -- Left
+            awful.titlebar.widget.iconwidget(c),
+            buttons = buttons,
+            layout  = wibox.layout.fixed.horizontal
+        },
+        { -- Middle
+            { -- Title
+                align  = "center",
+                widget = awful.titlebar.widget.titlewidget(c)
             },
-            { -- Middle
-                { -- Title
-                    align  = "center",
-                    widget = awful.titlebar.widget.titlewidget(c)
-                },
-                buttons = buttons,
-                layout  = wibox.layout.flex.horizontal
-            },
-            { -- Right
-                awful.titlebar.widget.floatingbutton (c),
-                awful.titlebar.widget.maximizedbutton(c),
-                awful.titlebar.widget.stickybutton   (c),
-                awful.titlebar.widget.ontopbutton    (c),
-                awful.titlebar.widget.closebutton    (c),
-                layout = wibox.layout.fixed.horizontal()
-            },
-            layout = wibox.layout.align.horizontal
-        }
-    end
+            buttons = buttons,
+            layout  = wibox.layout.flex.horizontal
+        },
+        { -- Right
+            awful.titlebar.widget.floatingbutton (c),
+            awful.titlebar.widget.maximizedbutton(c),
+            awful.titlebar.widget.stickybutton   (c),
+            awful.titlebar.widget.ontopbutton    (c),
+            awful.titlebar.widget.closebutton    (c),
+            layout = wibox.layout.fixed.horizontal()
+        },
+        layout = wibox.layout.align.horizontal
+    }
 end)
 
 -- Enable sloppy focus
