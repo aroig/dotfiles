@@ -2,6 +2,7 @@
 Description=monthly check of /home/%u/%I
 
 Requisite=housekeeping.target
+After=housekeeping.target
 
 [Timer]
 OnCalendar=monthly

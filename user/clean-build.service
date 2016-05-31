@@ -4,6 +4,7 @@ Description=clean build files
 AssertPathExists=%h/build/Makefile
 
 Requisite=housekeeping.target
+After=housekeeping.target
 
 [Service]
 Type=oneshot
