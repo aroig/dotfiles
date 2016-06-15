@@ -90,7 +90,9 @@
   (c-toggle-electric-state -1)
   ;; Although I use clang format, this is useful while editing
   (setq c-syntactic-indentation t)
-  (c-set-style "stroustrup"))
+  (c-set-style "stroustrup")
+  (c-set-offset 'access-label -2)
+  )
 
 (defun ab2-devel/pre-init-cc-mode ()
   ;; flyspell for comments
