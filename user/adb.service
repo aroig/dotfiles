@@ -3,4 +3,5 @@ Description=android debug bridge daemon
 
 [Service]
 Type=forking
+Slice=daemons.slice
 ExecStart=/opt/android-sdk/platform-tools/adb -P 5038 start-server
