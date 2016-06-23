@@ -57,8 +57,8 @@ export AB2_BAK_DIR="$AB2_HOME/bak"
 export EMACS_SOCK="$XDG_RUNTIME_DIR/emacs/server"
 
 # gpg-agent sockets. Those sockets are proxied for socket activation!
-export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
-export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent::1"
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
+export GPG_AGENT_INFO="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent::1"
 
 # mpd socket
 export MPD_HOST="$XDG_RUNTIME_DIR/mpd/mpd.socket"
