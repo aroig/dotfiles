@@ -14,5 +14,10 @@ After=sshmux@%i.service
 Type=simple
 Slice=daemons.slice
 
-ExecStart=/usr/bin/ssh -o ControlMaster=no -o ControlPath=none -o StreamLocalBindUnlink=yes -R /home/abdo/.gnupg/S.gpg-agent:/home/abdo/.gnupg/S.gpg-agent -R /home/abdo/.gnupg/S.gpg-agent.ssh:/home/abdo/.gnupg/S.gpg-agent.ssh %i -N
+ExecStart=/usr/bin/ssh -o ControlMaster=no                                     \
+                       -o ControlPath=none                                     \
+                       -o StreamLocalBindUnlink=yes                            \
+                       -R "%t/gnupg/S.gpg-agent:%t/gnupg/S.gpg-agent"          \
+                       -R "%t/gnupg/S.gpg-agent.ssh:%t/gnupg/S.gpg-agent.ssh"  \
+                       %i -N
 
