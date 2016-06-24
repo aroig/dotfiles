@@ -17,6 +17,8 @@ Type=forking
 Slice=daemons.slice
 
 ExecStartPre=/usr/bin/mkdir -p "%t/ssh"
-ExecStart=/usr/bin/ssh -M -N -f -o "ControlPersist=1h" %i
-
+ExecStart=/usr/bin/ssh -M -N -f                                        \
+                       -o "ControlPersist=1h"                          \
+                       -o "ControlPath=%t/ssh/%%r@%%h:%%p.ssh.socket"  \
+                       %i
 
