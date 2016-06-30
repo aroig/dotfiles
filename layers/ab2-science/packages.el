@@ -14,11 +14,10 @@
         proof-three-window-mode-policy 'hybrid
         proof-script-fly-past-comments t
         )
-
-  ;; TODO: Do it the spacemacs way
-  (when (fboundp 'company-coq-initialize)
-    (add-hook 'coq-mode-hook #'company-coq-initialize))
   )
+
+(defun ab2-science/init-company-coq ()
+  (add-hook 'coq-mode-hook #'company-coq-initialize))
 
 
 (defun ab2-science/init-sage-mode ()

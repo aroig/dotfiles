@@ -33,7 +33,7 @@
   (global-set-key (kbd "M-+") 'hippie-expand)
   )
 
-(defun ab2-base/post-init-autocomplete ()
+(defun ab2-base/post-init-company ()
   (setq
    tab-always-indent t
    company-idle-delay 0.4

@@ -2,7 +2,6 @@
       '(
         auctex
         reftex
-        persp-mode
         compile
         outline
         diminish

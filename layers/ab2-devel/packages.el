@@ -1,7 +1,6 @@
 (setq ab2-devel-packages
       '(
         magit
-        persp-mode
         pkgbuild-mode
         haskell-mode
         lua-mode

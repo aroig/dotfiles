@@ -2,8 +2,6 @@
 
 (setq ab2-clang-packages
       '(cc-mode
-        company
-        flycheck
         clang-format
         projectile
         ))
