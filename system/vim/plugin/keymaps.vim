@@ -3,6 +3,7 @@
 " set timeoutlen=500 ttimeoutlen=10
 set notimeout ttimeout ttimeoutlen=10
 
+" Leader key
 let mapleader=","
 
 
@@ -27,16 +28,16 @@ inoremap <C-s> <Esc>
 " clear hlsearch highlighting
 nnoremap <Leader>c :noh<cr>
 
-" diff mode
-if &diff
-    syntax off
-    nnoremap <leader>N [c
-    nnoremap <leader>n ]c
-endif
+" do not define mappings, I'll do that myself, because some of them conflict with unimpaired.
+let g:conflict_marker_enable_mappings=0
 
-" Gdiff mode
-nnoremap <leader>dh :diffget //2 \| :diffupdate<cr>
-nnoremap <leader>dl :diffget //3 \| :diffupdate<cr>
+" conflict marker bindings
+nmap <buffer>]h <Plug>(conflict-marker-next-hunk)
+nmap <buffer>[h <Plug>(conflict-marker-prev-hunk)
+nmap <buffer>c> <Plug>(conflict-marker-themselves)
+nmap <buffer>c< <Plug>(conflict-marker-ourselves)
+nmap <buffer>cn <Plug>(conflict-marker-none)
+nmap <buffer>cb <Plug>(conflict-marker-both)
 
 
 " Commands
