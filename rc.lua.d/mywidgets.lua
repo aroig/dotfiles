@@ -15,6 +15,8 @@ local wibox = wibox
 local beautiful = beautiful
 local keyboard = keyboard
 
+local capi = { awesome = awesome }
+
 local os = os
 
 local host_config = host_config
@@ -585,6 +587,7 @@ myw.keyb.icon:buttons(awful.util.table.join(
 
 myw.keyb.keybwdg = awful.widget.keyboardlayout()
 myw.keyb.keybwdg.layout_name = function (v) return v.file end
+capi.awesome.emit_signal("xkb::map_changed")
 
 
 -----------------------------------
