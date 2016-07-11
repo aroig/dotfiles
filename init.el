@@ -115,23 +115,29 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(rainbow-mode
-                                      netrc
-                                      cl
-                                      dbus
-                                      diff-hl
-                                      (zenburn-theme :location (recipe :fetcher github
-                                                                       :repo "bbatsov/zenburn-emacs"))
-                                      (rtags :location local)
-                                      (mu4e :location local)
-                                      )
-   ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(org-bullets
-                                    mu4e-maildirs-extension
-                                    rainbow-delimiters
-                                    smartparens
-                                    auto-complete
-                                    )
+   dotspacemacs-additional-packages
+   '(
+     rainbow-mode
+     netrc
+     cl
+     dbus
+     diff-hl
+     (zenburn-theme :location (recipe :fetcher github
+                                      :repo "bbatsov/zenburn-emacs"))
+     (rtags :location local)
+     (mu4e :location local)
+     )
+   ;; A list of packages that cannot be updated.
+   dotspacemacs-frozen-packages '()
+   ;; A list of packages that will not be install and loaded.
+   dotspacemacs-excluded-packages
+   '(
+     org-bullets
+     mu4e-maildirs-extension
+     rainbow-delimiters
+     smartparens
+     auto-complete
+     )
    ;; Defines the behaviour of Spacemacs when downloading packages.
    ;; Possible values are `used', `used-but-keep-unused' and `all'. `used' will
    ;; download only explicitly used packages and remove any unused packages as
@@ -178,13 +184,12 @@ values."
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
    dotspacemacs-startup-banner nil
-   ;; List of items to show in the startup buffer. If nil it is disabled.
-   ;; Possible values are: `recents' `bookmarks' `projects' `agenda' `todos'.
-   ;; (default '(recents projects))
-   dotspacemacs-startup-lists '(bookmarks projects)
-   ;; Number of recent files to show in the startup buffer. Ignored if
-   ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
-   dotspacemacs-startup-recent-list-size 5
+   ;; List of items to show in startup buffer or an association list of
+   ;; the form `(list-type . list-size)`. If nil it is disabled.
+   ;; Possible values for list-type are:
+   ;; `recents' `bookmarks' `projects' `agenda' `todos'.
+   dotspacemacs-startup-lists '((recents . 5)
+                                (projects . 7))
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
