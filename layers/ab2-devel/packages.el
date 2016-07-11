@@ -38,7 +38,7 @@
         compilation-auto-jump-to-first-error nil
         compilation-scroll-output 'first-error
         compilation-finish-function nil
-        compilation-environment '("TERM=xterm"))
+        compilation-environment '("TERM=ansi"))
 
   ;; When compilation  finishes
   (add-to-list 'compilation-finish-functions #'ab2/compilation-finished))
