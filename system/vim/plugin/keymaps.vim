@@ -39,10 +39,3 @@ nmap <buffer>c< <Plug>(conflict-marker-ourselves)
 nmap <buffer>cn <Plug>(conflict-marker-none)
 nmap <buffer>cb <Plug>(conflict-marker-both)
 
-
-" Commands
-" --------------------
-
-" get syntax group under the cursor
-command SyntaxGroup echo synIDattr(synID(line("."),col("."),1),"name")
-
