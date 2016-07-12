@@ -12,8 +12,9 @@ xkb_keymap {
     };
 
     xkb_symbols {
-        include "pc+es(cat)+us(altgr-intl):2"
-        include "+inet(evdev)"
+        include "pc+es(cat):1+us(altgr-intl):2+it:3+pl:4"
+        
+        include "inet(evdev)"
         include "terminate(ctrl_alt_bksp)"
 
         key <HYPR> { [ Hyper_L ] };
