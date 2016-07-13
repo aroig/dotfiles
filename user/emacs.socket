@@ -1,6 +1,11 @@
 [Unit]
 Description=emacs daemon socket
 
+# need a dependency on xorg. otherwise, when X quits emacs crashes.
+# emacsclient says something about a long standing GTK bug.
+Requisite=graphical.target
+After=graphical.target
+
 [Socket]
 ListenStream=%t/emacs/server
 Service=emacs-proxy.service
