@@ -1,0 +1,9 @@
+[Unit]
+Description=emacs daemon socket
+
+[Socket]
+ListenStream=%t/emacs/server
+Service=emacs-proxy.service
+
+[Install]
+WantedBy=sockets.target

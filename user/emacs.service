@@ -9,9 +9,9 @@ After=graphical.target
 
 [Service]
 Type=forking
-Slice=apps.slice
+Slice=daemons.slice
 
-ExecStart=/usr/bin/emacs --daemon --eval '(setq server-socket-dir "%t/emacs")'
+ExecStart=/usr/bin/emacs --daemon --eval '(setq server-socket-dir "%t/emacs/emacs")'
 
 TimeoutStartSec=10min
 SuccessExitStatus=0 15
