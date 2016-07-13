@@ -1,6 +1,8 @@
 [Unit]
 Description=android debug bridge daemon
 
+Requires=adb.socket
+
 [Service]
 Type=forking
 Slice=daemons.slice

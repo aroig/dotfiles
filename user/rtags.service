@@ -2,7 +2,6 @@
 Description=rtags server
 
 Requires=rtags.socket
-After=rtags.socket
 
 [Service]
 Type=simple

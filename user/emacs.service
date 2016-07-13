@@ -6,6 +6,8 @@ Description=emacs daemon
 Requisite=graphical.target
 After=graphical.target
 
+Requires=emacs.socket
+After=emacs.socket
 
 [Service]
 Type=forking

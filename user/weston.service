@@ -7,7 +7,6 @@ Conflicts=console.target
 After=console.target
 
 Requires=weston.socket
-After=weston.socket
 
 [Service]
 # Type=notify

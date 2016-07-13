@@ -2,7 +2,6 @@
 Description=music player daemon
 
 Requires=mpd.socket
-After=mpd.socket
 
 Requires=pulseaudio.service
 After=pulseaudio.service

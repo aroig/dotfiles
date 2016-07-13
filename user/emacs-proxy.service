@@ -5,7 +5,6 @@ Requires=emacs.service
 After=emacs.service
 
 Requires=emacs.socket
-After=emacs.socket
 
 [Service]
 Type=simple

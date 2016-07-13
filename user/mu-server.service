@@ -2,7 +2,6 @@
 Description=mu server
 
 Requires=mu-server.socket
-After=mu-server.socket
 
 [Service]
 Type=simple

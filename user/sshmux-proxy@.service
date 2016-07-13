@@ -5,7 +5,6 @@ Requires=sshmux@%i.service
 After=sshmux@%i.service
 
 Requires=sshmux@%i.socket
-After=sshmux@%i.socket
 
 [Service]
 Type=simple

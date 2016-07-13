@@ -2,6 +2,8 @@
 Description=Envoy agent monitor for %i
 Documentation=man:envoyd(1) man:envoy(1)
 
+Requires=envoy@%i.socket
+
 [Service]
 ExecStart=/usr/bin/envoyd -t %i
 StandardOutput=syslog
