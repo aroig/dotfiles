@@ -605,7 +605,7 @@ myw.systray = wibox.widget.systray()
 myw.taglist = {}
 
 myw.taglist.buttons = awful.util.table.join(
-    awful.button({ }, 1, awful.tag.viewonly),
+    awful.button({ }, 1, function(t) t:view_only() end),
     awful.button({ }, 3, awful.tag.viewtoggle)
 --   awful.button({ modkey }, 1, awful.client.movetotag),
 --   awful.button({ modkey }, 3, awful.client.toggletag)
@@ -632,7 +632,7 @@ myw.tasklist.buttons = awful.util.table.join(
                 c.minimized = true
             else
                 if not c:isvisible() then
-                    awful.tag.viewonly(c.first_tag)
+                    c.first_tag:view_only()
                 end
                 -- This will also un-minimize
                 -- the client, if needed

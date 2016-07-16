@@ -267,7 +267,7 @@ for i = 1, keynumber do
         awful.key({ modkey }, key,
                   function ()
                       if tags[awful.screen.focused()][i] then
-                          tags[awful.screen.focused()][i]:viewonly()
+                          tags[awful.screen.focused()][i]:view_only()
                       end
 		          end
         ),
