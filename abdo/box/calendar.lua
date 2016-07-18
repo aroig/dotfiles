@@ -15,6 +15,13 @@ local offset = 0
 local calendar = {}
 calendar.cal = nil
 
+function get_calendar(month, year)
+    f = io.popen("LANG=C; cal -m " .. month .. " " .. year)
+    local cal = f:read("*a") or ""
+    f:close()
+    return string.gsub(cal, "%s*$", "")
+end
+
 
 local function generate_calendar(offset)
    local text_color = beautiful.fg_normal or "#FFFFFF"
@@ -31,8 +38,7 @@ local function generate_calendar(offset)
       cur_month = ((cur_month-1) % 12) + 1
       cur_year = cur_year - 1
    end
-   local cal = awful.spawn.pread("LANG=C; cal -m " .. cur_month .. " " .. cur_year)
-   cal = string.gsub(cal, "%s*$", "")
+   local cal = get_calendar(cur_month, cur_year)
 
 --   cal = string.gsub(cal, "^%s*(.-)%s*$", "%1")
 --   local _, _, head, cal = string.find(cal,"(.+%d%d%d%d)%s*\n(.+)")

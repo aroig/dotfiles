@@ -5,6 +5,7 @@
 ---------------------------------------------------------------
 
 
+local string = require("string")
 local math = require("math")
 
 local util = {}
@@ -85,6 +86,14 @@ function util.debug(name, obj)
     end
 
     naughty.notify({title=string.format("Debug output: %s", name), text=str})
+end
+
+
+function util.get_hostname()
+    f = io.popen("/usr/bin/hostname")
+    local hostname = f:read("*a") or ""
+    f:close()
+    return string.gsub(hostname, "\n$", "")
 end
 
 

@@ -70,8 +70,7 @@ end
 local cfgdir = awful.util.getdir("config")
 
 -- Global
-hostname  = awful.spawn.pread("hostname"):gsub("\n", "")
-username  = awful.spawn.pread("id -nu"):gsub("\n", "")
+hostname  = util.get_hostname()
 homedir   = os.getenv("HOME")
 
 -- Modkeys
