@@ -1,8 +1,8 @@
 
-EMACS   := emacs --batch --load ~/devel/elisp/spacemacs/init.el
-
 SPACEMACS_DIR   := ~/emacs.d
 SPACEMACS_CACHE := ~/.emacs.d/.cache
+
+EMACS           := emacs --batch --load $(SPACEMACS_DIR)/init.el
 
 # shell settings
 SHELL       := /usr/bin/bash
@@ -14,8 +14,14 @@ SHELL       := /usr/bin/bash
 .SECONDEXPANSION:
 
 
-.PHONY: update-init update sync
+.PHONY: update-init update sync pull
 
+
+pull:
+	(
+		cd $(SPACEMACS_DIR)
+		git pull
+	)
 
 update-init:
 	vimdiff $(SPACEMACS_DIR)/core/templates/.spacemacs.template init.el
@@ -24,10 +30,11 @@ sync:
 	$(EMACS) --eval '(configuration-layer/sync)'
 
 update:
-	$(EMACS) --eval '(configuration-layer/update-packages t)'
-	$(EMACS) --eval '(configuration-layer/sync)'
 	(
-		cd ${SPACEMACS_CACHE}/elpa
+		cd $(SPACEMACS_CACHE)/elpa
+		git checkout master
+		$(EMACS) --eval '(configuration-layer/update-packages t)'
+		$(EMACS) --eval '(configuration-layer/sync)'
 		git add -A
 		git commit -m 'Update packages'
 	)
