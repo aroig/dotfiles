@@ -14,4 +14,8 @@ Type=simple
 Slice=apps.slice
 
 ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((name . "chat"))' --eval '(ab2/frame-layout "@chat")'
+
+# disconnect chat after closing client
+ExecStopPost=/usr/bin/emacsclient -s "%t/emacs/server" --eval '(abdo-chat-disconnect)'
+
 KillSignal=SIGINT
