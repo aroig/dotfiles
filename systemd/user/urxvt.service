@@ -3,7 +3,6 @@ Description=urxvt daemon
 Documentation=man:urxvtd(1) man:urxvt(1)
 
 Requires=urxvt.socket
-After=urxvt.socket
 
 [Service]
 Type=simple

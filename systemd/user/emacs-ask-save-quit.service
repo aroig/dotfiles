@@ -1,7 +1,8 @@
 [Unit]
 Description=ask to save emacs buffers and quit
 
-ConditionPathExists=%t/emacs/server
+# only run if emacs.service is already running
+ConditionPathExists=%t/emacs/emacs/server
 
 # So that emacs.service is stoped after this. The stopping order gets reversed.
 After=emacs.service

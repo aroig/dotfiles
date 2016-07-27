@@ -4,7 +4,6 @@ Description=xwayland server
 Conflicts=vncserver.service weston.service weston.socket xorg.service
 
 Requires=xwayland.socket
-After=xwayland.socket
 
 Requires=xserver.target
 Before=xserver.target

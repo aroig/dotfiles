@@ -1,7 +1,8 @@
 [Unit]
 Description=save emacs buffers and quit
 
-ConditionPathExists=%t/emacs/server
+# Only run if emacs.service is running
+ConditionPathExists=%t/emacs/emacs/server
 
 Before=kill-slice@apps.service
 Before=wmclean.target

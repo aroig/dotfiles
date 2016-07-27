@@ -1,8 +1,13 @@
 [Unit]
 Description=garbage collect directory /home/%u/%I
 
+Requisite=housekeeping.target
+After=housekeeping.target
+
 AssertPathExists=/home/%u/%I
 AssertPathExists=/home/%u/arch/sync/Makefile
+
+ConditionACPower=true
 
 [Service]
 Type=oneshot

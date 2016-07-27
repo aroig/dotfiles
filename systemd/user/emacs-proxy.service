@@ -1,0 +1,14 @@
+[Unit]
+Description=emacs daemon proxy
+
+Requires=emacs.service
+After=emacs.service
+
+Requires=emacs.socket
+
+[Service]
+Type=simple
+Slice=daemons.slice
+
+ExecStart=/usr/lib/systemd/systemd-socket-proxyd %t/emacs/emacs/server
+

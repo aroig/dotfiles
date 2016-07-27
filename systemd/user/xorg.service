@@ -5,7 +5,6 @@ Description=xorg server
 # https://bugs.freedesktop.org/show_bug.cgi?id=93072
 #
 # Requires=xorg.socket
-# After=xorg.socket
 
 Conflicts=vncserver.service weston.service weston.socket
 

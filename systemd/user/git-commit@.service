@@ -8,3 +8,4 @@ Type=oneshot
 Slice=workers.slice
 
 ExecStart=/home/abdo/.config/systemd/scripts/git-commit.sh "/home/%u/%I"
+TimeoutSec=10min

@@ -5,6 +5,7 @@ Conflicts=openbox.service xmonad.service tint2.service
 
 Requisite=xserver.target
 After=xserver.target
+After=xrdb.service
 
 Requires=graphical.target
 Before=graphical.target

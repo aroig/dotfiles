@@ -1,0 +1,9 @@
+[Unit]
+Description=android debug bridge socket
+
+[Socket]
+ListenStream=5037
+Service=adb-proxy.service
+
+[Install]
+WantedBy=sockets.target

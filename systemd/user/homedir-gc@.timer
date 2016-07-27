@@ -2,6 +2,7 @@
 Description=weekly garbage collection of /home/%u/%I
 
 Requisite=housekeeping.target
+After=housekeeping.target
 
 [Timer]
 OnCalendar=weekly

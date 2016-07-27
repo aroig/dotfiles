@@ -12,11 +12,15 @@ After=network-online.target
 Requires=ssh-wait-online@%i.service
 After=ssh-wait-online@%i.service
 
+Requires=sshmux@%i.socket
+
 [Service]
 Type=forking
 Slice=daemons.slice
 
 ExecStartPre=/usr/bin/mkdir -p "%t/ssh"
-ExecStart=/usr/bin/ssh -M -N -f -o "ControlPersist=1h" %i
-
+ExecStart=/usr/bin/ssh -M -N -f                                        \
+                       -o "ControlPersist=1h"                          \
+                       -o "ControlPath=%t/ssh/%%r@%%h:%%p.ssh.socket"  \
+                       %i
 

@@ -2,6 +2,7 @@
 Description=daily backup cleanup
 
 Requisite=housekeeping.target
+After=housekeeping.target
 
 [Timer]
 OnCalendar=daily

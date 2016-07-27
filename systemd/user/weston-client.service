@@ -2,7 +2,6 @@
 Description=weston compositor client at display 1
 
 Requires=weston-client.socket
-After=weston-client.socket
 
 Requisite=graphical.target
 After=graphical.target

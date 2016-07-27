@@ -1,6 +1,8 @@
 TODO
 ====
 
+* Write a generator for generating the sshmux@%i.socket files
+
 * Attempt to fix emacs hang on shutdown. 
 
 * Debug `emacs-ask-save-quit.service`. Need a way to query the user from a

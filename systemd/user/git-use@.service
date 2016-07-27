@@ -13,5 +13,5 @@ RemainAfterExit=true
 Slice=workers.slice
 
 ExecStart=/usr/bin/true
-ExecStop=/usr/bin/systemctl --user start git-commit@%i.service
-
+ExecStopPost=/usr/bin/systemctl --user start git-commit@%i.service
+TimeoutSec=10min
