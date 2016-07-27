@@ -5,6 +5,9 @@
 ;; Let's get rid of the fqdn. emacs 25 will do so eventually anyway...
 (setq system-name (car (split-string system-name "\\.")))
 
+;; relocate elpa directory
+(setq package-user-dir (concat spacemacs-cache-directory "elpa/"))
+
 ;; prevent running as root
 (when (string-equal (user-login-name) "root") (error "Emacs should not run as root!"))
 
@@ -377,9 +380,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
    ;; personal
    user-full-name    "Abdó Roig-Maranges"
    user-mail-address "abdo.roig@gmail.com"
-
-   ;; paths
-   spacemacs-cache-directory (format "%s/emacs/" (getenv "AB2_VAR_DIR"))
 
    ;; time and date
    system-time-locale "C"
