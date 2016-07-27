@@ -1,7 +1,6 @@
 (setq ab2-mu4e-packages
  '(
    mu4e
-   mu4e-contrib
    persp-mode
   ))
 
@@ -99,6 +98,7 @@
 (defun ab2-mu4e/post-init-mu4e ()
 
   (with-eval-after-load "mu4e"
+    (require 'mu4e-contrib)
     (setq mu4e-context-policy 'pick-first
           mu4e-compose-context-policy 'ask
 

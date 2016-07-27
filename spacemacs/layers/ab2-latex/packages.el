@@ -3,9 +3,33 @@
         auctex
         reftex
         compile
-        persp-mode
+        outline
         diminish
         ))
+
+(defun ab2-latex/post-init-compile ()
+  (with-eval-after-load 'compile
+    ;; Matches for latex compilation
+    (add-to-list 'compilation-error-regexp-alist-alist
+                 '(latex-warning
+                   "^LaTeX Warning: .* on input line \\([[:digit:]]+\\)\\.$" ;; Regular expression
+                   ab2/compilation-error-latex-file                          ;; Filename
+                   1                                                         ;; Line number
+                   nil                                                       ;; Column number
+                   1))
+
+    (add-to-list 'compilation-error-regexp-alist-alist
+                 '(latex-error
+                   "^l\\.\\([[:digit:]]+\\)[[:space:]]"  ;; Regular expression
+                   ab2/compilation-error-latex-file      ;; Filename
+                   1                                     ;; Line number
+                   nil                                   ;; Column number
+                   2                                     ;; Type (error)
+                   1))                                   ;; Highlight
+
+    (add-to-list 'compilation-error-regexp-alist 'latex-error)
+    (add-to-list 'compilation-error-regexp-alist 'latex-warning)))
+
 
 (defun ab2-latex/post-init-auctex ()
 
@@ -25,36 +49,6 @@
         LaTeX-biblatex-use-Biber t
         )
 
-  ;; compilation buffer
-  (use-package compile)
-
-  ;; Matches for the compilation buffer
-  (add-to-list 'compilation-error-regexp-alist-alist
-               '(latex-warning
-                 "^LaTeX Warning: .* on input line \\([[:digit:]]+\\)\\.$" ;; Regular expression
-                 ab2/compilation-error-latex-file                          ;; Filename
-                 1                                                         ;; Line number
-                 nil                                                       ;; Column number
-                 1))
-
-  (add-to-list 'compilation-error-regexp-alist-alist
-               '(latex-error
-                 "^l\\.\\([[:digit:]]+\\)[[:space:]]"  ;; Regular expression
-                 ab2/compilation-error-latex-file      ;; Filename
-                 1                                     ;; Line number
-                 nil                                   ;; Column number
-                 2                                     ;; Type (error)
-                 1))                                   ;; Highlight
-
-  ;; latex compilation mode
-  (setq latex-compilation-error-regexp-alist '(latex-error latex-warning))
-
-  (define-compilation-mode latex-compilation-mode "Latex Compilation"
-    "Compilation mode for latex"
-    (set (make-local-variable 'compilation-error-regexp-alist)
-         latex-compilation-error-regexp-alist)
-    (add-to-list 'compilation-finish-functions 'ab2/compilation-finished))
-
   ;; hooks
   (add-hook 'LaTeX-mode-hook
             (lambda ()
@@ -62,7 +56,7 @@
                     fill-column 90
                     use-file-dialog nil            ;; stop asking to open file when errors happen
                     compilation-read-command nil   ;; compilation: do not ask for command
-                    
+
                     )
 
               ;; auctex make commands
@@ -104,12 +98,14 @@
 
 (defun ab2-latex/post-init-reftex()
   (setq reftex-auto-recenter-toc t
-        reftex-toc-shown nil
-        )
+        reftex-toc-shown nil)
   )
 
+(defun ab2-latex/init-outline ()
+  (use-package outline)
+  (spacemacs|diminish outline-minor-mode "ⓞ" " o")
+)
 
 (defun ab2-latex/post-init-diminish ()
-  (spacemacs|diminish reftex-mode "ⓡ" "r")
-
+  (spacemacs|diminish reftex-mode "ⓡ" " r")
   )

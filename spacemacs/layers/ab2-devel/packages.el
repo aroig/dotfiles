@@ -1,14 +1,15 @@
 (setq ab2-devel-packages
       '(
         magit
-        persp-mode
         pkgbuild-mode
         haskell-mode
         lua-mode
         python-mode
-        compilation
+        compile
         cc-mode
         clang-format
+        editorconfig
+        helm-make
         ))
 
 
@@ -19,20 +20,28 @@
   )
 
 (defun ab2-devel/init-pkgbuild-mode ()
-  (use-package pkgbuild-mode)
+  (use-package pkgbuild-mode :defer t)
 
   (setq pkgbuild-initialize nil
-        pkgbuild-update-sums-on-save nil)
-  )
+        pkgbuild-update-sums-on-save nil))
 
-(defun ab2-devel/post-init-compilation ()
+
+(defun ab2-devel/pre-init-helm-make ()
+  ;; run make -qp to extract list of targets from Makefile
+  (setq helm-make-list-target-method 'qp
+        helm-make-executable "make --no-print-directory"))
+
+
+(defun ab2-devel/init-compile ()
+  (use-package compile :defer t)
   (setq compilation-read-command nil
-        compilation-auto-jump-to-first-error t
-        compilation-scroll-output 'first-error)
+        compilation-auto-jump-to-first-error nil
+        compilation-scroll-output 'first-error
+        compilation-finish-function nil
+        compilation-environment '("TERM=ansi"))
 
   ;; When compilation  finishes
-  (add-to-list 'compilation-finish-functions 'abdo-compilation-finished)
-  )
+  (add-to-list 'compilation-finish-functions #'ab2/compilation-finished))
 
 
 (defun ab2-devel/post-init-haskell-mode ()
@@ -63,7 +72,20 @@
               ))
   )
 
-(defun ab2-devel/post-init-cc-mode ()
+(defun ab2/cc-mode-config ()
+  ;; binding for clang-format
+  (define-key c++-mode-map (kbd "M-q") 'clang-format)
+  (define-key c-mode-map (kbd "M-q") 'clang-format)
+  ;; disable electric-indent. I'll use clang-format
+  ;; (electric-indent-local-mode -1)
+  (c-toggle-electric-state -1)
+  ;; Although I use clang format, this is useful while editing
+  (setq c-syntactic-indentation t)
+  (c-set-style "stroustrup")
+  (c-set-offset 'access-label -2)
+  )
+
+(defun ab2-devel/pre-init-cc-mode ()
   ;; flyspell for comments
   ; (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
   ; (abdo-change-dictionary "english")      ;; I always program in english
@@ -85,25 +107,10 @@
                                  "\\|public slots\\|protected slots\\|private slots"
                                  "\\)\\>[ \t]*:"))
 
+  (add-hook 'c++-mode-hook 'ab2/cc-mode-config)
+  (add-hook 'c-mode-hook 'ab2/cc-mode-config)
   )
 
-(defun ab2-devel/post-init-clang-format ()
-  ;; we use clang-format for indentation
-  (setq c-syntactic-indentation nil)
-  ;; (c-set-style "stroustrup")
-
-  (add-hook 'c++-mode-hook
-            (lambda ()
-              ;; disable electric-indent. I'll use clang-format
-              ;; (electric-indent-local-mode -1)
-              (c-toggle-electric-state -1)
-              ))
-
-  (add-hook 'c-mode-hook
-            (lambda ()
-              ;; disable electric-indent. I'll use clang-format
-              ;; (electric-indent-local-mode -1)
-              (c-toggle-electric-state -1)
-              ))
-  )
-
+(defun ab2-devel/init-editorconfig ()
+  (use-package editorconfig)
+  (editorconfig-mode 1))

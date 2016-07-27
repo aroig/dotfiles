@@ -2,7 +2,6 @@
 (setq ab2-chat-packages
       '(
         rcirc
-        rcirc-color
         erc
         twittering-mode
         jabber
@@ -80,7 +79,6 @@
                               (concat rcirc-log-directory  (downcase target))
                               t 'quietly))))))
   )
-
 
 
 (defun ab2-chat/post-init-twittering-mode ()

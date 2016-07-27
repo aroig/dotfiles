@@ -7,6 +7,10 @@ TODO
 
 ## devel
 
+* Automatically close compilation window using workspaces.
+
+* Use spacemacs automatic success detection?
+
 
 ## latex
 
@@ -15,6 +19,12 @@ TODO
 * make sure we integrate the outline-minor-mode.
 
 
+## compilation
+
+* make per-mode `error-regexp-alist` variable. Need to use a `:filter-args`
+  advice that changes the compilation mode to something set in a buffer-local
+  variable. Then do whatever you want in a compilation-mode hook.
+
 ## org-mode
 
 * make sure all mobile and calendar stuff still works
@@ -22,6 +32,13 @@ TODO
 
 ## mu4e
 
+
+## completion
+
+* completion may not work with snippets having special characters (e.g `eqn*`).
+
+* company-mode does not complete full words.
+  https://github.com/company-mode/company-mode/issues/451
 
 
 ## chat
@@ -37,6 +54,8 @@ TODO
 
 ## frames and perspectives
 
+* Add `helm-find-files-in-project`. Can't add open in project as a helm action.
+  Helm does not allow action customization.
 
 ## General
 
