@@ -49,7 +49,7 @@
 
 (defun ab2/frame-layout (name)
   "Start a custom layout attached to a frame. When the frame is killed, so is the layout."
-  (interactive "P")
+  (interactive "sLayout name: ")
   (funcall (spacemacs//custom-layout-func-name name))
   (modify-frame-parameters (selected-frame) `((ab2/frame-layout . ,name))))
 
