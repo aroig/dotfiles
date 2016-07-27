@@ -36,7 +36,7 @@ values."
    ;; If non-nil layers with lazy install support are lazy installed.
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '( (concat dotspacemacs-directory "layers/"))
+   dotspacemacs-configuration-layer-path '( "~/.spacemacs.d/layers/")
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
@@ -52,7 +52,7 @@ values."
                       auto-completion-enable-help-tooltip t
                       auto-completion-return-key-behavior nil
                       auto-completion-tab-key-behavior 'cycle
-                      auto-completion-private-snippets-directory (concat dotspacemacs-directory "snippets/"))
+                      auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/")
      (colors          :variables
                       color-colorize-identifiers nil)
      finance
