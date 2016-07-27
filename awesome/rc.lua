@@ -14,6 +14,7 @@ gears        = require("gears")
 
 -- Standard awesome library
 awful        = require("awful")
+awful.layout = require("awful.layout")
 awful.rules  = require("awful.rules")
 awful.remote = require("awful.remote")
 awful.tag    = require("awful.tag")
@@ -29,11 +30,8 @@ hotkeys      = require("awful.hotkeys_popup")
 
 -- Personal stuff
 util        = require("abdo.util")           -- Utility functions
-layout      = require("abdo.layout")         -- My layouts
 systemd     = require("abdo.systemd")        -- systemd commands
 apps        = require("apps")                -- My preferred apps
-revelation  = require("abdo.revelation")     -- Tweaked expose
-keyboard    = require("abdo.osk")            -- On-screen keyboard
 
 
 -----------------------------------
@@ -72,8 +70,7 @@ end
 local cfgdir = awful.util.getdir("config")
 
 -- Global
-hostname  = awful.spawn.pread("hostname"):gsub("\n", "")
-username  = awful.spawn.pread("id -nu"):gsub("\n", "")
+hostname  = util.get_hostname()
 homedir   = os.getenv("HOME")
 
 -- Modkeys
@@ -101,28 +98,18 @@ beautiful.init(awful.util.getdir("config") .. "/themes/zenburn/theme.lua")
 -- Layouts
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts = {
-    layout.dwindle,
-    layout.tile,
-    layout.fair,
---    layout.tile,
---    awful.layout.suit.max,
---    awful.layout.suit.floating,
---    awful.layout.suit.fair
---    awful.layout.suit.tile.left,
---    awful.layout.suit.tile.bottom,
---    awful.layout.suit.tile.top,
---    awful.layout.suit.max.fullscreen,
---    awful.layout.suit.fair.horizontal,
---    awful.layout.suit.spiral.dwindle,
---    awful.layout.suit.magnifier
+    awful.layout.suit.spiral.dwindle,
+    awful.layout.suit.tile,
+    awful.layout.suit.fair,
+    awful.layout.suit.floating,
 }
 
 
 -- Tags
 tags = {}
 
-gears.screen.connect_for_each_screen(function(s)
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 }, s, layouts[1])
+awful.screen.connect_for_each_screen(function(s)
+    tags[s] = awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" }, s, layouts[1])
 end)
 
 

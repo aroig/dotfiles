@@ -29,11 +29,11 @@ wallpaper = wallpapers[math.random(1, #wallpapers)]
 local dual = string.match(wallpaper, ".+-dual%.jpg") ~= nil
 
 if dual then
-    gears.screen.connect_for_each_screen(function(s)
+    awful.screen.connect_for_each_screen(function(s)
         gears.wallpaper.maximized(wallpaper, nil, nil)
     end)
 else
-    gears.screen.connect_for_each_screen(function(s)
+    awful.screen.connect_for_each_screen(function(s)
         gears.wallpaper.maximized(wallpaper, s, nil)
     end)
 end

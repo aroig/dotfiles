@@ -71,7 +71,7 @@ function toggle(prog, vert, horiz, width, height, sticky, screen)
             dropdown[prog][screen] = c
 
             -- Scratchdrop clients are floaters
-            awful.client.floating.set(c, true)
+            c.floating = true
 
             -- Client geometry and placement
             local screengeom = capi.screen[screen].workarea
@@ -109,7 +109,7 @@ function toggle(prog, vert, horiz, width, height, sticky, screen)
 
         -- Switch the client to the current workspace
         if c:isvisible() == false then c.hidden = true
-            awful.client.movetotag(awful.tag.selected(screen), c)
+            c:move_to_tag(screen.selected_tag)
         end
 
         -- Focus and raise if hidden

@@ -186,7 +186,7 @@ end
 function show_client(c)
     if c then
         -- move to the right tag
-        awful.client.movetotag(awful.tag.selected(awful.screen.focused()), c)
+        c:move_to_tag(awful.screen.focused().selected_tag)
 
         -- unhide
         c.hidden = false
@@ -209,7 +209,7 @@ function is_visible_client(c)
     if c.hidden then return false end
 
     local ctags = c:tags()
-    local tag = awful.tag.selected(awful.screen.focused())
+    local tag = awful.screen.focused().selected_tag
 
     for i, t in pairs(ctags) do
         if t == tag then

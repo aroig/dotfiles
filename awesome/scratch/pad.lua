@@ -61,7 +61,8 @@ function pad.set(c, width, height, sticky, screen)
 
     local function setscratch(c)
         -- Scratchpad is floating and has no titlebar
-        awful.client.floating.set(c, true); awful.titlebar.remove(c)
+        c.floating = true
+        awful.titlebar.remove(c)
 
         -- Scratchpad client properties
         toggleprop(c, {ontop=true, above=true, task=true, stick=sticky})
@@ -120,7 +121,7 @@ function pad.toggle(screen)
         -- If it's visible on another tag hide it,
         if c:isvisible() == false then c.hidden = true
             -- and move it to the current worskpace
-            awful.client.movetotag(awful.tag.selected(screen), c)
+            c:move_to_tag(screen.selected_tag)
         end
 
         -- Focus and raise if it's hidden,

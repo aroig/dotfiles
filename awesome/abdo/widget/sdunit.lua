@@ -7,11 +7,19 @@
 local io = { open = io.open }
 local awful = awful
 local string = string
+
 -- }}}
 
 sdunit = {}
 
-local uid = awful.spawn.pread("id -u"):gsub("\n", "")
+function get_uid()
+    f = io.popen("/usr/bin/id -u")
+    local hostname = f:read("*a") or ""
+    f:close()
+    return string.gsub(hostname, "\n$", "")
+end
+
+local uid = get_uid()
 local cgpath = '/sys/fs/cgroup/systemd'
 
 local function worker(format, args)

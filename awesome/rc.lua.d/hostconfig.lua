@@ -5,8 +5,14 @@
 ---------------------------------------------------------------
 
 local awful = awful
+local util  = util
 
 local hosts = {
+    ada = {
+        thermal = {"hwmon1", {"temp1"} },
+        wibox_height = 18,
+    },
+
     grothendieck = {
         thermal = {"hwmon1", {"temp1"} },
         wibox_height = 18,
@@ -28,6 +34,6 @@ local hosts = {
     }
 }
 
-local hostname  = awful.spawn.pread("hostname"):gsub("\n", "")
+local hostname  = util.get_hostname()
 
 host_config = hosts[hostname] or host['default']
