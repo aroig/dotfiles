@@ -29,7 +29,7 @@
              :nick ,(netrc-get freenode-creds "login")
              :password ,(netrc-get freenode-creds "password")
              :full-name ,user-full-name
-             :channels ("#imapfw" "#gentoo-soc" )
+             :channels ()
              )
             (,(netrc-get gitter-creds "machine")
              :port 6697
@@ -37,7 +37,7 @@
              :user ,(netrc-get gitter-creds "login")
              :password ,(netrc-get gitter-creds "password")
              :full-name ,user-full-name
-             :channels ("#OfflineIMAP/imapfw" "#syl20bnr/spacemacs")
+             :channels ("#syl20bnr/spacemacs")
              )
             )
 
@@ -202,11 +202,10 @@
   (interactive)
 
   (setq erc-autojoin-channels-alist
-        '(("freenode.net"
-           "#imapfw" "#gentoo-soc")
+        '(("freenode.net")
 
           ("irc.gitter.im"
-           "#OfflineIMAP/imapfw" "#syl20bnr/spacemacs")))
+           "#syl20bnr/spacemacs")))
 
 
 
@@ -245,7 +244,7 @@
    (progn
      (defun ab2/add-chat-buffer-to-persp ()
        (persp-add-buffer (current-buffer) (persp-get-by-name "@chat")))
-     
+
      (add-hook 'rcirc-mode-hook #'ab2/add-chat-buffer-to-persp)
      (add-hook 'erc-mode-hook #'ab2/add-chat-buffer-to-persp)
      (add-hook 'twittering-mode-hook #'ab2/add-chat-buffer-to-persp)
