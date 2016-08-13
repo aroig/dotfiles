@@ -10,6 +10,7 @@
         clang-format
         editorconfig
         helm-make
+        glsl-mode
         ))
 
 
@@ -114,3 +115,14 @@
 (defun ab2-devel/init-editorconfig ()
   (use-package editorconfig)
   (editorconfig-mode 1))
+
+
+(defun ab2-devel/init-glsl-mode ()
+  (use-package glsl-mode)
+  (add-to-list 'auto-mode-alist '("\\.glsl\\'" . glsl-mode))
+  (add-to-list 'auto-mode-alist '("\\.vert\\'" . glsl-mode))
+  (add-to-list 'auto-mode-alist '("\\.tesc\\'" . glsl-mode))
+  (add-to-list 'auto-mode-alist '("\\.tesce\\'" . glsl-mode))
+  (add-to-list 'auto-mode-alist '("\\.frag\\'" . glsl-mode))
+  (add-to-list 'auto-mode-alist '("\\.geom\\'" . glsl-mode))
+  (add-to-list 'auto-mode-alist '("\\.comp\\'" . glsl-mode)))
