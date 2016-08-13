@@ -119,6 +119,8 @@
 
 (defun ab2-devel/init-glsl-mode ()
   (use-package glsl-mode)
+  (add-hook 'glsl-mode-hook 'ab2/cc-mode-config)
+
   (add-to-list 'auto-mode-alist '("\\.glsl\\'" . glsl-mode))
   (add-to-list 'auto-mode-alist '("\\.vert\\'" . glsl-mode))
   (add-to-list 'auto-mode-alist '("\\.tesc\\'" . glsl-mode))
