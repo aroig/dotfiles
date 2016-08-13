@@ -7,6 +7,8 @@ TODO
 
 ## devel
 
+* Exclude `glsl-mode` from flycheck
+
 * Automatically close compilation window using workspaces.
 
 * Use spacemacs automatic success detection?
