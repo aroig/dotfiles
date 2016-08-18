@@ -52,7 +52,8 @@ values."
                       auto-completion-enable-help-tooltip t
                       auto-completion-return-key-behavior nil
                       auto-completion-tab-key-behavior 'cycle
-                      auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/")
+                      auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
+                      helm-mini-default-sources '(helm-source-buffers-list))
      (colors          :variables
                       color-colorize-identifiers nil)
      finance
@@ -274,7 +275,7 @@ values."
    dotspacemacs-helm-resize nil
    ;; if non nil, the helm header is hidden when there is only one source.
    ;; (default nil)
-   dotspacemacs-helm-no-header nil
+   dotspacemacs-helm-no-header t
    ;; define the position to display `helm', options are `bottom', `top',
    ;; `left', or `right'. (default 'bottom)
    dotspacemacs-helm-position 'bottom
