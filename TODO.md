@@ -29,6 +29,8 @@ TODO
 
 ## org-mode
 
+* only add org-mode buffers to wiki perspective if frame or file are right.
+
 * make sure all mobile and calendar stuff still works
 
 
