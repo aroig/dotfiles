@@ -433,15 +433,15 @@
     :binding "w"
     :body
     (progn
-      ;; TODO: only add to @wiki persp if buffers are on the correct frame and
-      ;; visit a path under ~/wiki.
       (defun ab2/add-org-buffer-to-persp ()
-        (let ((buf (current-buffer))
-              (file (buffer-file-name))
-              (odre (format "^%s" (regexp-quote org-directory))))
-          (when (string-match odre file)
-            (persp-add-buffer buf (persp-get-by-name "@wiki")))))
+        (let* ((buf (current-buffer))
+               (file (buffer-file-name buf))
+               (wikidir-re (format "^%s" (regexp-quote org-directory))))
+          (when (or (not file) (string-match wikidir-re file))
+            (persp-add-buffer buf (persp-get-by-name "@wiki") nil))))
+
       (add-hook 'org-mode-hook #'ab2/add-org-buffer-to-persp)
+      (add-hook 'org-agenda-mode-hook #'ab2/add-org-buffer-to-persp)
 
       (find-file abdo-org-main-file)
       ))
