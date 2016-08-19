@@ -435,10 +435,11 @@
     (progn
       (defun ab2/add-org-buffer-to-persp ()
         (let* ((buf (current-buffer))
+               (persp (persp-get-by-name "@wiki"))
                (file (buffer-file-name buf))
                (wikidir-re (format "^%s" (regexp-quote org-directory))))
           (when (or (not file) (string-match wikidir-re file))
-            (persp-add-buffer buf (persp-get-by-name "@wiki") nil))))
+            (persp-add-buffer buf persp nil))))
 
       (add-hook 'org-mode-hook #'ab2/add-org-buffer-to-persp)
       (add-hook 'org-agenda-mode-hook #'ab2/add-org-buffer-to-persp)

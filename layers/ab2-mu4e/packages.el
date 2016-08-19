@@ -221,11 +221,14 @@
    (progn
 
      (defun ab2/add-mu4e-buffer-to-persp ()
-       (persp-add-buffer (current-buffer) (persp-get-by-name "@mu4e")))
+       (let* ((buf (current-buffer))
+              (persp (persp-get-by-name "@mu4e")))
+         (persp-add-buffer buf persp nil)))
 
      (add-hook 'mu4e-main-mode-hook #'ab2/add-mu4e-buffer-to-persp)
      (add-hook 'mu4e-view-mode-hook #'ab2/add-mu4e-buffer-to-persp)
      (add-hook 'mu4e-headers-mode-hook #'ab2/add-mu4e-buffer-to-persp)
      (add-hook 'mu4e-compose-mode-hook #'ab2/add-mu4e-buffer-to-persp)
+     
      (call-interactively 'mu4e)
      )))

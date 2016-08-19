@@ -243,7 +243,9 @@
    :body
    (progn
      (defun ab2/add-chat-buffer-to-persp ()
-       (persp-add-buffer (current-buffer) (persp-get-by-name "@chat")))
+       (let* ((buf (current-buffer))
+              (persp (persp-get-by-name "@chat")))
+         (persp-add-buffer buf persp nil)))
 
      (add-hook 'rcirc-mode-hook #'ab2/add-chat-buffer-to-persp)
      (add-hook 'erc-mode-hook #'ab2/add-chat-buffer-to-persp)
