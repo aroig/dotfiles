@@ -13,3 +13,6 @@ Type = simple
 Slice=daemons.slice
 
 ExecStart = /usr/bin/mpdscribble -D --conf %h/etc/mpd/mpdscribble.conf
+
+[Install]
+WantedBy=mpd.service
