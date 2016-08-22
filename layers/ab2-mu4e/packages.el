@@ -61,7 +61,8 @@
   (spacemacs/set-leader-keys-for-major-mode 'mu4e-headers-mode
     "t" 'ab2/mu4e-headers-narrow-to-tag
     "n" 'mu4e-headers-search-narrow
-    "w" 'mu4e-headers-query-prev)
+    "w" 'mu4e-headers-query-prev
+    "r" 'mu4e-headers-mark-all-unread-read)
 
   ;; Bookmarks
   (setq mu4e-bookmarks
