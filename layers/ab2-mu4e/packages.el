@@ -59,39 +59,37 @@
   ;; Bookmarks
   (setq mu4e-bookmarks
         '(("flag:unread"                                          "New"                 ?n)
-          ("flag:flagged"                                         "Flagged"             ?g)
+          ("flag:flagged"                                         "Flagged"             ?+)
+
           ("tag:\\\\Inbox AND flag:unread"                        "Inbox"               ?i)
-        ; ("tag:\\\\Sent AND date:365d..now"                      "Sent"                ?s)
+          ("tag:\\\\Sent AND date:365d..now"                      "Sent"                ?o)
 
-          ("tag:research AND flag:unread"                         "Research"            ?r)
-          ("tag:teaching AND flag:unread"                         "Teaching"            ?t)
-          ("tag:upc AND flag:unread"                              "University"          ?u)
+          ("(tag:research OR tag:teaching) AND flag:unread"       "University"          ?s)
+          ("tag:bibrain AND flag:unread"                          "Bibrain"             ?b)
+
           ("tag:list AND flag:unread"                             "Lists"               ?l)
+          ("tag:reddit AND flag:unread"                           "Reddit"              ?r)
+          ("tag:mathoverflow AND flag:unread"                     "Mathoverflow"        ?v)
 
-          ("tag:arch AND flag:unread"                             "Arch"                ?a)
-          ("tag:sage AND flag:unread"                             "Sage"                ?s)
-          ("tag:systemd AND flag:unread"                          "Systemd"             ?y)
-          ("tag:org AND flag:unread"                              "Org"                 ?o)
-          ("tag:devel AND flag:unread"                            "Development"         ?d)
+          ("tag:linux AND flag:unread"                            "Linux"               ?u)
+          ("(tag:gamedev OR tag:devel) AND flag:unread"           "Development"         ?d)
+          ("tag:maths AND flag:unread"                            "Mathematics"         ?m)
 
           ("tag:watchlist AND flag:unread"                        "Watchlist"           ?w)
-          ("tag:mathoverflow AND flag:unread"                     "Mathoverflow"        ?v)
-          ("tag:maths AND flag:unread"                            "Mathematics"         ?m)
           ("tag:arxiv AND flag:unread"                            "Arxiv"               ?x)
 
           ("tag:news AND flag:unread"                             "News"                ?e)
-          ("tag:blog AND flag:unread"                             "Blogs"               ?b)
+          ("tag:blog AND flag:unread"                             "Blogs"               ?g)
           ("tag:fun AND flag:unread"                              "Fun"                 ?f)
           ))
 
   ;; Commonly used tags for completion
   (setq mu4e-tags-completion-list
-        '( "upc" "postdoc" "fme" "ma1" "etseib" "research" "seminar"
-           "maths" "geometry" "algebra" "physics" "topology"
-           "arch" "devel" "msys2" "github" "bitbucket" "bibrain"
-           "newsletter" "list" "bug"
+        '( "upc" "postdoc" "fme" "ma1" "etseib" "research" "seminar" "warsaw" "mimuw"
+           "arxiv" "maths" "geometry" "algebra" "physics" "topology"
+           "arch" "devel" "msys2" "github" "bitbucket" "bibrain" "gamedev"
+           "newsletter" "list" "bug" "reddit" "news"
            "friends" "family" "bit"
-           "gsoc16"
            ))
   )
 
