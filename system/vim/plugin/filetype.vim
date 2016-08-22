@@ -13,3 +13,9 @@ set expandtab
 " --------------------
 let g:tex_flavor = "latex"
 
+
+" Local config
+" --------------------
+
+" use tabs for git config files
+autocmd FileType gitconfig setlocal noexpandtab
