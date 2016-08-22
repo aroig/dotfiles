@@ -2,6 +2,7 @@
  '(
    mu4e
    persp-mode
+   mu4e-maildirs-extension
   ))
 
 
@@ -18,7 +19,7 @@
 
   ;; config
   (setq mu4e-change-filenames-when-moving nil
-        mu4e-get-mail-command nil
+        mu4e-get-mail-command "true"
         mu4e-compose-signature-auto-include nil
         mail-user-agent 'mu4e-user-agent
         message-kill-buffer-on-exit t
@@ -58,7 +59,7 @@
 
   ;; Bookmarks
   (setq mu4e-bookmarks
-        '(("flag:unread"                                          "New"                 ?n)
+        '(("flag:unread"                                          "Unread"              ?n)
           ("flag:flagged"                                         "Flagged"             ?+)
 
           ("tag:\\\\Inbox AND flag:unread"                        "Inbox"               ?i)
@@ -227,6 +228,15 @@
      (add-hook 'mu4e-view-mode-hook #'ab2/add-mu4e-buffer-to-persp)
      (add-hook 'mu4e-headers-mode-hook #'ab2/add-mu4e-buffer-to-persp)
      (add-hook 'mu4e-compose-mode-hook #'ab2/add-mu4e-buffer-to-persp)
-     
+
      (call-interactively 'mu4e)
      )))
+
+(defun ab2-mu4e/pre-init-mu4e-maildirs-extension ()
+  (setq mu4e-maildirs-extension-use-bookmarks t
+        mu4e-maildirs-extension-bookmark-format " (%u)"
+        mu4e-maildirs-extension-use-maildirs t
+        mu4e-maildirs-extension-maildir-format "\t%i%p %n (%u)"
+        mu4e-maildirs-extension-default-collapse-level 0
+        mu4e-maildirs-extension-toggle-maildir-key (kbd "TAB")
+  ))

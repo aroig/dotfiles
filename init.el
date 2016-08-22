@@ -137,7 +137,6 @@ values."
    dotspacemacs-excluded-packages
    '(
      org-bullets
-     mu4e-maildirs-extension
      rainbow-delimiters
      smartparens
      auto-complete
