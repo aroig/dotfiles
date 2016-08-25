@@ -36,6 +36,7 @@ return {
    skype                     = "skype",
    guvcview                  = "guvcview",
 
+   wpa_gui                   = "wpa_gui.service",
    pavucontrol               = "pavucontrol.service",
    qjackctl                  = "qjackctl.service",
    patchage                  = "patchage.service",

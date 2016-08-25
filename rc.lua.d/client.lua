@@ -156,9 +156,10 @@ rules.rules = {
 
 
     -- Floats
-    { rule_any = { class = {"Qpaeq", "qjackctl", "Unison-gtk2", "Pinentry", "Skype", "Pavucontrol", "Pidgin",
-                            "Vmpk", "Wpa_gui"} },
-      properties = { floating = true } },
+    { rule_any = { class = {"Qpaeq", "qjackctl", "Unison-gtk2", "Pinentry", "Skype",
+                            "Pavucontrol", "Pidgin", "Vmpk", "Wpa_gui"} },
+      properties = { floating = true },
+      callback   = function(c) awful.placement.centered(c) end },
 
     -- Float dialogs
     { rule_any = { name = {"Print"} },
@@ -169,7 +170,7 @@ rules.rules = {
       properties = { floating = true, focus = true } },
 
     -- Centered floats
-    { rule_any = { class = {"mpv", "MPlayer", "feh"} },
+    { rule_any = { class = {"mpv", "MPlayer", "feh", } },
       properties = { floating = true },
       callback   = function(c) awful.placement.centered(c) end },
 
