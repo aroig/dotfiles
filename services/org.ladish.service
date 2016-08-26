@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.ladish
+Exec=/bin/false
+SystemdService=dbus-org.ladish.service
