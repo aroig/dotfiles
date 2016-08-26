@@ -1,0 +1,12 @@
+[Unit]
+Description=ladish jmcore daemon
+
+[Service]
+Type=dbus
+BusName=org.ladish.jmcore
+Slice=audio.slice
+
+ExecStart=/usr/bin/jmcore
+
+[Install]
+Alias=dbus-org.ladish.jmcore.service
