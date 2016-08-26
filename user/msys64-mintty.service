@@ -15,4 +15,12 @@ Slice=apps.slice
 
 Environment=WINEPREFIX=%h/.wine64 WINEARCH=win64 WINEDEBUG=-all MSYSTEM=MSYS
 WorkingDirectory=/home/abdo/.wine64/drive_c/msys64
+
 ExecStart=/usr/bin/wine64 usr/bin/mintty.exe --exec /usr/bin/bash -l
+
+# Find main process and notify readiness
+ExecStart=/usr/bin/bash -c '                                                             \
+    wine usr/bin/mintty.exe --exec /usr/bin/bash -l;                                     \
+    pid=$(comm -12 <(pgrep mintty | sort) <(cat /sys/fs/cgroup%c/cgroup.procs | sort));  \
+    systemd-notify --pid=$pid --ready;                                                   \
+'
