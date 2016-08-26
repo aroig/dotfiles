@@ -1,11 +1,11 @@
 [Unit]
 Description=wineserver 32 bit
 
-[Service]
-Type=simple
-
 Requisite=graphical.target
 After=graphical.target
+
+[Service]
+Type=simple
 
 Slice=daemons.slice
 
@@ -13,3 +13,4 @@ Slice=daemons.slice
 # it uses the device and inode for the WINEPREFIX.
 Environment=WINEPREFIX=%h/.wine32 WINEARCH=win32
 ExecStart=/usr/bin/wineserver -d0 -p -f
+SuccessExitStatus=0 1

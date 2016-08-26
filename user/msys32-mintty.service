@@ -1,0 +1,18 @@
+[Unit]
+Description=msys32 mintty
+
+Requisite=graphical.target
+After=graphical.target
+
+Requires=wineserver32.service
+After=wineserver32.service
+
+
+[Service]
+Type=forking
+
+Slice=apps.slice
+
+Environment=WINEPREFIX=%h/.wine32 WINEARCH=win32 WINEDEBUG=-all MSYSTEM=MSYS
+WorkingDirectory=/home/abdo/.wine32/drive_c/msys32
+ExecStart=/usr/bin/wine usr/bin/mintty.exe --exec /usr/bin/bash -l
