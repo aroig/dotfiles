@@ -1,0 +1,12 @@
+[Unit]
+Description=gnome nautilus
+
+[Service]
+Type=dbus
+BusName=org.freedesktop.FileManager1
+Slice=wm.slice
+
+ExecStart=/usr/bin/nautilus --gapplication-service
+
+[Install]
+Alias=dbus-org.freedesktop.FileManager1.service
