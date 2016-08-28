@@ -1,0 +1,15 @@
+[Unit]
+Description=ethereum daemon service
+After=network.target
+
+Requires=mount-priv.service
+After=mount-priv.service
+
+Requires=synced.target
+After=synced.target
+
+[Service]
+Type=simple
+Slice=daemons.slice
+
+ExecStart=/usr/bin/geth --support-dao-fork
