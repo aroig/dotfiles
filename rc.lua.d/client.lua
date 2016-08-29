@@ -157,7 +157,7 @@ rules.rules = {
 
     -- Floats
     { rule_any = { class = {"Qpaeq", "qjackctl", "Unison-gtk2", "Pinentry", "Skype",
-                            "Pavucontrol", "Pidgin", "Vmpk", "Wpa_gui"} },
+                            "Pavucontrol", "Pidgin", "Wpa_gui"} },
       properties = { floating = true },
       callback   = function(c) awful.placement.centered(c) end },
 
@@ -166,8 +166,9 @@ rules.rules = {
       properties = { floating = true } },
 
     -- Float youtube, etc.
-    { rule_any = { instance = { "plugin-container", "exe" } },
-      properties = { floating = true, focus = true } },
+    { rule_any = { instance = { "plugin-container", "exe", 'vmpk' } },
+      properties = { floating = true, focus = true },
+      callback   = function(c) awful.placement.centered(c) end },
 
     -- Centered floats
     { rule_any = { class = {"mpv", "MPlayer", "feh", } },
