@@ -12,5 +12,5 @@ After=synced.target
 Type=simple
 Slice=daemons.slice
 
-ExecStart=/usr/bin/bitcoind
+ExecStart=/usr/bin/bitcoind -printtoconsole
  
