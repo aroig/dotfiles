@@ -5,6 +5,9 @@ After=network.target
 Requires=mount-priv.service
 After=mount-priv.service
 
+Requires=git-use@priv-wallet.service
+After=git-use@priv-wallet.service
+
 Requires=synced.target
 After=synced.target
 
