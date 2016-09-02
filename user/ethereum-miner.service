@@ -1,0 +1,20 @@
+[Unit]
+Description=ethereum daemon
+After=network.target
+
+Requires=mount-priv.service
+After=mount-priv.service
+
+Requires=synced.target
+After=synced.target
+
+Conflicts=ethereum.service
+
+[Service]
+Type=simple
+Slice=workers.slice
+
+ExecStart=/usr/bin/geth --support-dao-fork --mine
+
+# explicitly remove IPC socket
+ExecStopPost=/usr/bin/rm -f %h/.ethereum/geth.ipc
