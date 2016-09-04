@@ -170,16 +170,28 @@
                         nil 'local)
               ))
 
-  (add-hook 'mu4e-headers-mode-hook
-            (lambda ()
-              (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
-              ))
+  (with-eval-after-load "mu4e"
+    (add-to-list 'mu4e-marks
+                 '(tag
+                   :char       "t"
+                   :prompt     "tRetag"
+                   :ask-target (lambda () (read-string "Retag: "))
+                   :action     (lambda (docid msg target) (mu4e-action-retag-message msg target))))
 
-  (add-hook 'mu4e-view-mode-hook
-            (lambda ()
-              (add-to-list 'mu4e-view-actions '("tRetag message" . mu4e-action-retag-message) t)
-              (add-to-list 'mu4e-view-actions '("bView in browser" . mu4e-action-view-in-browser) t)
-              ))
+    (add-to-list 'mu4e-headers-actions
+                 '("tRetag message" . mu4e-action-retag-message))
+
+    (add-hook 'mu4e-headers-mode-hook
+              (lambda ()
+                (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
+                ))
+
+    (add-to-list 'mu4e-view-actions
+                 '("tRetag message" . mu4e-action-retag-message))
+
+    (add-to-list 'mu4e-view-actions
+                 '("bView in browser" . mu4e-action-view-in-browser))
+    )
 
     ;; smtp mail setting
   (setq send-mail-function 'message-send-mail-with-sendmail
