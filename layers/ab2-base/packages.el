@@ -19,8 +19,9 @@
   (use-package sensitive-mode)
 
   ;; disable backups for irrelevant emacs files
-  (add-to-list 'auto-mode-alist '("recentf$" . sensitive-mode))
-  (add-to-list 'auto-mode-alist '("spacemacs-buffer\\.el$" . sensitive-mode))
+  (add-to-list 'auto-mode-alist '("/recentf$" . sensitive-mode))
+  (add-to-list 'auto-mode-alist '("/ido.last$" . sensitive-mode))
+  (add-to-list 'auto-mode-alist '("/spacemacs-buffer\\.el$" . sensitive-mode))
 
   ;; disable backups for sensitive files
   (add-to-list 'auto-mode-alist '("\\.gpg$" . sensitive-mode))
