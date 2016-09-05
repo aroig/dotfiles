@@ -14,6 +14,7 @@ Type=simple
 Slice=apps.slice
 Environment=XDG_CURRENT_DESKTOP=gnome QT_AUTO_SCREEN_SCALE_FACTOR=0
 
+# ExecStart=/usr/bin/calibre-debug -g
 ExecStart=/usr/bin/calibre --with-library "${AB2_CALIBRE_DIR}"
 
 # NOTE: if we change calibre config in the database, I need to trigger a commit manually
