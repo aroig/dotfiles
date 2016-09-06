@@ -105,7 +105,7 @@
 
   (with-eval-after-load "mu4e"
     (require 'mu4e-contrib)
-    (setq mu4e-context-policy 'ask
+    (setq mu4e-context-policy 'pick-first
           mu4e-compose-context-policy 'ask
 
           mu4e-contexts
