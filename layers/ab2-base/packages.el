@@ -18,6 +18,8 @@
 (defun ab2-base/init-sensitive-mode ()
   (use-package sensitive-mode)
 
+  (spacemacs|diminish sensitive-mode "😎" "O-O¬")
+
   ;; disable backups for irrelevant emacs files
   (add-to-list 'auto-mode-alist '("/recentf$" . sensitive-mode))
   (add-to-list 'auto-mode-alist '("/ido.last$" . sensitive-mode))
