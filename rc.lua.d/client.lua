@@ -157,7 +157,7 @@ rules.rules = {
 
     -- Floats
     { rule_any = { class = {"Qpaeq", "qjackctl", "Unison-gtk2", "Pinentry", "Skype",
-                            "Pavucontrol", "Pidgin", "Wpa_gui"} },
+                            "Pavucontrol", "Pidgin", "wpa_gui"} },
       properties = { floating = true },
       callback   = function(c) awful.placement.centered(c) end },
 
@@ -182,11 +182,7 @@ rules.rules = {
     -- qemu
     { rule_any = { class = { "qemu-system-x86_64" } },
       properties = { floating = true },
-      callback   = function(c)
-          local x = capi.screen[awful.screen.focused()].geometry.x
-          local y = capi.screen[awful.screen.focused()].geometry.y
-          c:geometry({ x = x, y = y }) end
-    },
+      callback   = function(c) awful.placement.centered(c) end },
 
     -- dropdowns
     --
@@ -211,7 +207,8 @@ rules.rules = {
     },
 
     -- top dropdowns
-   { rule_any = { class = {"termite-dropdown", "journal-dropdown", "ranger-dropdown", "thunar-dropdown"} },
+    { rule_any = { class = {"termite-dropdown", "journal-dropdown", "ranger-dropdown",
+                            "thunar-dropdown"} },
       properties = { floating = true,
                      size_hints_honor = false,
                      ontop = true,
