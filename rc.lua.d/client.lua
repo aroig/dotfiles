@@ -182,7 +182,7 @@ rules.rules = {
     -- qemu
     { rule_any = { class = { "qemu-system-x86_64" } },
       properties = { floating = true },
-      callback   = function(c) awful.placement.top_left(c) end },
+      callback   = function(c) awful.placement.top_left(c, { honor_workarea = true }) end },
 
     -- dropdowns
     --
