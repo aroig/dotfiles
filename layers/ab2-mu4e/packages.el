@@ -140,6 +140,22 @@
                         (message-sendmail-extra-arguments . ("-a" "upc"))
                         ;;(mu4e-compose-signature . "")
                         ))
+
+             ,(make-mu4e-context
+               :name "mimuw"
+               :match-func (lambda (msg)
+                             (let ((email "abdo@mimuw.edu.pl"))
+                               (when msg
+                                 (or
+                                  (mu4e-message-contact-field-matches msg :to email)
+                                  (mu4e-message-contact-field-matches msg :cc email)
+                                  (mu4e-message-contact-field-matches msg :from email)
+                                  ))))
+               :vars '( (user-mail-address . "abdo@mimuw.edu.pl")
+                        (user-full-name . "Abdó Roig-Maranges")
+                        (message-sendmail-extra-arguments . ("-a" "mimuw"))
+                        ;;(mu4e-compose-signature . "")
+                        ))
              )
 
           ;; This sets `mu4e-user-mail-address-list' to the concatenation of all
