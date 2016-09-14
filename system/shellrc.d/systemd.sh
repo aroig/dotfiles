@@ -25,9 +25,9 @@ mnt()  {
     esac
 
     case "$instance" in
-          user)  systemctl --user start "$unit"               ;;        
+          user)  systemctl --user start "$unit"               ;;
         system)  sudo systemctl --system start "$unit"        ;;
-    esac    
+    esac
 }
 
 umnt() {
@@ -39,7 +39,7 @@ umnt() {
     esac
 
     case "$instance" in
-          user)  systemctl --user stop "$unit"                ;;        
+          user)  systemctl --user stop "$unit"                ;;
         system)  sudo systemctl --system stop "$unit"         ;;
     esac
 }
@@ -75,5 +75,3 @@ alias cgtop="systemd-cgtop --depth=10"
 alias reboot="systemctl reboot"
 alias poweroff="systemctl poweroff"
 alias suspend="systemctl suspend"
-
-
