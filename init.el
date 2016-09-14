@@ -70,6 +70,7 @@ values."
             rcirc-spacemacs-layout-binding "i")
      jabber
      twitter
+     search-engine
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support nil)
