@@ -2,8 +2,6 @@
 Description=offlineimap
 
 AssertPathExists=/home/%u/mail
-AssertPathExists=/home/%u/.netrc
-
 
 Requisite=synced.target
 After=synced.target
