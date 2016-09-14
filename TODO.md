@@ -47,6 +47,8 @@ TODO
 
 ## chat
 
+* get rid of netrc to obtain credentials. use calls to pass directly.
+
 * open all windows int the @chat persp
 
 * close all chat connections when closing the chat perspective (mimic mu4e)

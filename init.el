@@ -114,7 +114,8 @@ values."
      ab2-org
      ab2-mu4e
      ab2-visual
-     ab2-chat
+     ;; disabled until I get rid of netrc
+     ;;ab2-chat
      ab2-science
      ab2-audio
      )
@@ -125,7 +126,6 @@ values."
    dotspacemacs-additional-packages
    '(
      rainbow-mode
-     netrc
      cl
      dbus
      diff-hl
