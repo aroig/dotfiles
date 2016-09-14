@@ -547,6 +547,7 @@ function myw.sys.update()
     -- obtain table of mountpoints
     local mounts = {}
     local media = {}
+    local nmedia = 0
     local f = io.open("/proc/mounts", "r")
     local fsfilter = { vfat=true, btrfs=true, ext4=true, xfs=true }
     if f then
@@ -556,6 +557,7 @@ function myw.sys.update()
                 mounts[mp] = fs
                 if mp:match("/media/[^ ]+") then
                     media[mp] = fs
+                    nmedia = nmedia + 1
                 end
             end
         end
@@ -573,7 +575,7 @@ function myw.sys.update()
     end
     myw.sys.privwdg:set_markup(icon .. ' ')
 
-    if #media > 0 then
+    if nmedia > 0 then
         icon = wiboxicon("usb", beautiful.color_widget)
     else
         icon = wiboxicon("usb", beautiful.color_widget_alert)
