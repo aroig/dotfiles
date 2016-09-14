@@ -537,20 +537,48 @@ timers.fast:connect_signal("timeout", myw.bat.update)
 
 myw.sys = {}
 myw.sys.sync = require("abdo.widget.filex")
-myw.sys.priv = require("abdo.widget.filex")
+-- myw.sys.priv = require("abdo.widget.filex")
 
 myw.sys.syncwdg = wibox.widget.textbox()
 myw.sys.privwdg = wibox.widget.textbox()
+myw.sys.mediawdg = wibox.widget.textbox()
 
 function myw.sys.update()
-    local priv_state = myw.sys.priv(nil, {os.getenv("AB2_PRIV_DIR") .. "/README"})
+    -- obtain table of mountpoints
+    local mounts = {}
+    local media = {}
+    local f = io.open("/proc/mounts", "r")
+    local fsfilter = { vfat=true, btrfs=true, ext4=true, xfs=true }
+    if f then
+        for line in f:lines() do
+            local dev, mp, fs = line:match("([^ ]+) ([^ ]+) ([^ ]+)")
+            if fsfilter[fs] then
+                mounts[mp] = fs
+                if mp:match("/media/[^ ]+") then
+                    media[mp] = fs
+                end
+            end
+        end
+    end
+
+    -- obtain synced state
     local sync_state = myw.sys.sync(nil, {os.getenv("XDG_RUNTIME_DIR") .. "/synced"})
 
     local icon
-    if priv_state then icon = wiboxicon("unlocked", beautiful.color_widget)
-    else               icon = wiboxicon("locked", beautiful.color_widget_alert)
+
+    if mounts["/home/abdo/priv"] then
+        icon = wiboxicon("unlocked", beautiful.color_widget)
+    else
+        icon = wiboxicon("locked", beautiful.color_widget_alert)
     end
     myw.sys.privwdg:set_markup(icon .. ' ')
+
+    if #media > 0 then
+        icon = wiboxicon("usb", beautiful.color_widget)
+    else
+        icon = wiboxicon("usb", beautiful.color_widget_alert)
+    end
+    myw.sys.mediawdg:set_markup(icon .. ' ')
 
     if sync_state then icon = wiboxicon('sync', beautiful.color_widget)
     else               icon = wiboxicon('sync', beautiful.color_widget_alert)
@@ -558,7 +586,7 @@ function myw.sys.update()
     myw.sys.syncwdg:set_markup(icon .. ' ')
 end
 
-timers.normal:connect_signal("timeout", myw.sys.update)
+timers.fast:connect_signal("timeout", myw.sys.update)
 
 
 

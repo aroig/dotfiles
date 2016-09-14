@@ -39,6 +39,7 @@ awful.screen.connect_for_each_screen(function(s)
 
    right_layout:add(myw.sys.syncwdg)
    right_layout:add(myw.sys.privwdg)
+   right_layout:add(myw.sys.mediawdg)
 
    right_layout:add(myw.separator)
 
