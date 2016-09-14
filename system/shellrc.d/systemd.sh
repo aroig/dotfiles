@@ -20,28 +20,20 @@ mnt()  {
     local unit
     local arg="$(systemd-escape -p "$1")"
     case "$1" in
-        priv)    instance="user";   unit="mount-priv.service" ;;
-        *)       instance="system"; unit="media-$arg.mount"   ;;
+        priv)    unit="home-abdo-priv.mount" ;;
+        *)       unit="media-$arg.mount"     ;;
     esac
-
-    case "$instance" in
-          user)  systemctl --user start "$unit"               ;;
-        system)  sudo systemctl --system start "$unit"        ;;
-    esac
+    sudo systemctl --system start "$unit"
 }
 
 umnt() {
     local unit
     local arg="$(systemd-escape -p "$1")"
     case "$1" in
-        priv)    instance="user";   unit="mount-priv.service" ;;
-        *)       instance="system"; unit="media-$arg.mount"   ;;
+        priv)    unit="home-abdo-priv.mount" ;;
+        *)       unit="media-$arg.mount"     ;;
     esac
-
-    case "$instance" in
-          user)  systemctl --user stop "$unit"                ;;
-        system)  sudo systemctl --system stop "$unit"         ;;
-    esac
+    sudo systemctl --system stop "$unit"
 }
 
 # print active target list
