@@ -4,7 +4,6 @@ Description=sync google contacts
 AssertPathExists=/home/%u/mail
 AssertPathExists=/home/%u/priv
 
-After=mount-priv.service
 
 Requisite=synced.target
 After=synced.target
