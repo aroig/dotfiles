@@ -94,8 +94,6 @@ return {
    poweroff                  = "poweroff.target",
    reboot                    = "reboot.target",
 
-   priv                      = "mount-priv.service",
-
    hi                        = "sync-hi.service",
    bye                       = "sync-bye.service",
    byez                      = "sync-byez.service",
