@@ -107,6 +107,7 @@ values."
      ;; version-control
      windows-scripts
      ab2-base
+     ab2-lang
      ab2-clang
      ab2-devel
      ab2-latex
