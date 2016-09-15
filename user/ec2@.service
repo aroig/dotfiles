@@ -13,5 +13,6 @@ ExecStartPost=/usr/bin/sh -c '                                         \
     done                                                               \
 '
 
+# TODO: this should not wait synchronously for the vm to stop
 ExecStop=/home/abdo/bin/vmctl stop %I
 
