@@ -4,8 +4,8 @@ Description=i3lock screen locker
 Requisite=graphical.target
 After=graphical.target
 
-Requires=prelock.target
-After=prelock.target
+Requires=lock-pre.target
+After=lock-pre.target
 
 # so that when lock.target stops, i3lock goes down
 PartOf=lock.target
