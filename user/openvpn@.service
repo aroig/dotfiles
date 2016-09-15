@@ -1,0 +1,21 @@
+[Unit]
+Description=OpenVPN connection to %I
+
+After=ec2@%i.service
+
+[Service]
+
+# TODO: After --wait PR is merged, make it Type=simple, and synchronously wait
+# for the system service to terminate.
+Type=oneshot
+ExecStart=/usr/bin/sudo systemctl --system start openvpn@%i.service
+
+# NOTE: we wait until routes are established
+ExecStartPost=/usr/bin/sh -c '                           \
+    while true; do                                       \
+        ( ip route | grep -q "dev vpn-%i" ) && break;    \
+        sleep 1;                                         \
+    done                                                 \
+'
+
+ExecStop=/usr/bin/sudo systemctl --system stop openvpn@%i.service
