@@ -106,16 +106,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey   }, "XF86Tools",       function() ddshow("app:journal-dropdown",    true) end),
     awful.key({          }, "XF86Tools",       function() ddhide("app:journal-dropdown")          end),
 
-    awful.key({ modkey   }, "F10",             function() ddshow("dd:notes",   true) end),
-    awful.key({          }, "F10",             function() ddhide("dd:notes")         end),
-    awful.key({ modkey   }, "XF86Search",      function() ddshow("dd:notes",   true) end),
-    awful.key({          }, "XF86Search",      function() ddhide("dd:notes")         end),
-
-    awful.key({ modkey   }, "F11",             function() ddshow("dd:docs",    true) end),
-    awful.key({          }, "F11",             function() ddhide("dd:docs");         end),
-    awful.key({ modkey   }, "XF86LaunchA",     function() ddshow("dd:docs",    true) end),
-    awful.key({          }, "XF86LaunchA",     function() ddhide("dd:docs");         end),
-
     -- Prompts
     awful.key({ modkey   }, "w",               prompt.wikipedia),
     awful.key({ modkey   }, "e",               prompt.mathscinet),

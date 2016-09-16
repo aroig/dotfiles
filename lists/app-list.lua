@@ -22,7 +22,6 @@ return {
    calibre                   = "calibre.service",
    mu4e                      = "mu4e.service",
    chat                      = "chat.service",
-   notes                     = "notes.service",
    xournal                   = "xournal.service",
    goldendict                = "goldendict.service",
 

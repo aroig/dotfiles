@@ -12,7 +12,6 @@ return {
    -- top dropdowns
    termite               = "termite-dropdown.service",
    thunar                = "thunar-dropdown.service",
-   notes                 = "notes-dropdown.service",
    ranger                = "ranger-dropdown.service",
 
    octave                = "tm:octave",
@@ -40,7 +39,6 @@ return {
    sysupgrade            = "sysupgrade.service",
 
    -- side dropdowns
-   docs                  = "dwb -p docs",
    gmpc                  = "gmpc.service",
    chat                  = "chat.service",
    xournal               = "xournal.service",
