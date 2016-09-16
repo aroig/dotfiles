@@ -383,7 +383,8 @@ values."
    (set-fontset-font "fontset-default" '(#x2300 . #x23ff)   "Symbola")   ; Miscelaneous technical symbols
    (set-fontset-font "fontset-default" '(#x2460 . #x24ff)   "Symbola")   ; Enclosed alphanumerics
    (set-fontset-font "fontset-default" '(#x2600 . #x26ff)   "Symbola")   ; Miscelaneous symbols
-
+   (set-fontset-font "fontset-default" '(#x27c0 . #x27ef)   "Symbola")   ; Misc mathematical symbols-A
+   (set-fontset-font "fontset-default" '(#x2980 . #x29ff)   "Symbola")   ; Misc mathematical symbols-B
    (set-fontset-font "fontset-default" '(#x1f600 . #x1f6ff) "Symbola")   ; Emoticons
 
    )
