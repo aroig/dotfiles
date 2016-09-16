@@ -30,30 +30,6 @@ alias rm='printf >&2 "\e[31mError\e[0m: rm disabled for interactive use.\nUse tr
 
 
 #------------------------------
-# Other System management stuff
-#------------------------------
-
-# homedir synchronization
-hh() {
-    local syncdir="~/arch/sync"
-    local cmd=("$1")
-    shift
-
-    while getopts ":r:d:" opt; do
-        case $opt in
-            r) cmd+="REMOTES=$OPTARG" ;;
-            d) cmd+="DIRS=$OPTARG" ;;
-            *) echo "Unknown argument." >&2;;
-        esac
-    done
-    shift $((OPTIND-1))
-
-    make --no-print-directory --warn-undefined-variables -C "$syncdir" "${cmd[@]}" "$@"
-}
-
-
-
-#------------------------------
 # Auxiliar functions
 #------------------------------
 

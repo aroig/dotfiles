@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+
+syncdir="~/arch/sync"
+cmd=("$1")
+shift
+
+while getopts ":r:d:" opt; do
+    case $opt in
+        r) cmd+="REMOTES=$OPTARG" ;;
+        d) cmd+="DIRS=$OPTARG" ;;
+        *) echo "Unknown argument." >&2;;
+    esac
+done
+shift $((OPTIND-1))
+
+make --no-print-directory --warn-undefined-variables -C "$syncdir" "${cmd[@]}" "$@"
+
