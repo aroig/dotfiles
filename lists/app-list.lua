@@ -5,6 +5,7 @@ return {
    ["termite-dropdown"]      = "termite-dropdown.service",
    ["thunar-dropdown"]       = "thunar-dropdown.service",
    ["ranger-dropdown"]       = "ranger-dropdown.service",
+   ["vifm-dropdown"]         = "vifm-dropdown.service",
    ["journal-dropdown"]      = "journal-dropdown.service",
 
    -- systemd units
@@ -14,6 +15,7 @@ return {
    thunar                    = "thunar@.service",
    termite                   = "termite@.service",
    ranger                    = "ranger@.service",
+   vifm                      = "vifm@.service",
    emacsclient               = "emacsclient@.service",
    cantata                   = "cantata.service",
    gmpc                      = "gmpc.service",

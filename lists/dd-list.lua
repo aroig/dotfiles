@@ -13,6 +13,7 @@ return {
    termite               = "termite-dropdown.service",
    thunar                = "thunar-dropdown.service",
    ranger                = "ranger-dropdown.service",
+   vifm                  = "vifm-dropdown.service",
 
    octave                = "tm:octave",
    sage                  = "tm:sage",
