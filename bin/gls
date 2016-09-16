@@ -2,6 +2,7 @@
 
 source "/etc/shellrc.d/git-prompt.sh"
 source "/etc/shellrc.d/vcs.sh"
+source "/etc/shellrc.d/prompt.sh"
 
 abdo_git_dirinfo() {
     local dir="$(realpath $1)"
