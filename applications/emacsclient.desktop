@@ -2,7 +2,7 @@
 Name=Emacs Client
 GenericName=Text Editor
 Comment=Edit text
-Exec=rifle -p emacs %F
+Exec=emacsclient -s /run/user/1000/emacs/server -c %F
 Icon=emacs
 Type=Application
 Terminal=false
