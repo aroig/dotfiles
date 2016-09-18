@@ -13,7 +13,7 @@
 
 
 # file openers
-op()  {
+op() {
     xdg-open "$@" &> /dev/null &!
 }
 
@@ -28,22 +28,22 @@ vi()  {
 
 # emacs
 ee()  {
-    if [ "$1" ]; then rifle -p emacs "$@"
-    else              rifle -p emacs "$PWD"
+    if [ "$1" ]; then sdrun $EMACS "$@"
+    else              sdrun $EMACS "$PWD"
     fi
 }
 
 # emacs project
 ep() {
-    if [ "$1" ]; then rifle -p proj "$@"
-    else              rifle -p proj "$PWD"
+    if [ "$1" ]; then sdrun $EMACS -e "(ab2/find-file-in-project \"$1\")"
+    else              sdrun $EMACS -e "(ab2/find-file-in-project \"$1\")"
     fi
 }
 
 # open magit
 mg() {
-    if [ "$1" ]; then rifle -p magit "$1"
-    else              rifle -p magit "$PWD"
+    if [ "$1" ]; then sdrun $EMACS -e "(abdo-vcs-main \"$1\")"
+    else              sdrun $EMACS -e "(abdo-vcs-main \"$PWD\")"
     fi
 }
 
@@ -69,25 +69,26 @@ cl() {
 
 # new terminal
 tm()  {
-    if [ "$1" ]; then rifle -p terminal "$1"
-    else              rifle -p terminal "$PWD"
+    if [ "$1" ]; then sdrun $TERMCMD -d "$1"
+    else              sdrun $TERMCMD -d "$PWD"
     fi
 }
 
 # ranger session
 rg()  {
-    if [ "$1" ]; then rifle -p ranger "$1"
-    else              rifle -p ranger "$PWD"
+    if [ "$1" ]; then sdrun $TERMCMD -e ranger -d "$1"
+    else              sdrun $TERMCMD -e ranger -d "$PWD"
     fi
 }
 
 # open file manager
 fm()  {
-    if [ "$1" ]; then rifle -p filemanager "$1"
-    else              rifle -p filemanager "$PWD"
+    if [ "$1" ]; then sdrun $TERMCMD -e vifm -d "$1"
+    else              sdrun $TERMCMD -e vifm -d "$1"
     fi
 }
 
+# TODO: open vifm dropdown
 
 # These commands open awesome dropdown clients
 rgd() {
