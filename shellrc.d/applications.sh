@@ -28,22 +28,22 @@ vi()  {
 
 # emacs
 ee()  {
-    if [ "$1" ]; then sdrun $EMACS "$@"
-    else              sdrun $EMACS "$PWD"
+    if [ "$1" ]; then eval sdrun $EMACS "$@"
+    else              eval sdrun $EMACS "$PWD"
     fi
 }
 
 # emacs project
 ep() {
-    if [ "$1" ]; then sdrun $EMACS -e "(ab2/find-file-in-project \"$1\")"
-    else              sdrun $EMACS -e "(ab2/find-file-in-project \"$1\")"
+    if [ "$1" ]; then eval sdrun $EMACS -e "(ab2/find-file-in-project \"$1\")"
+    else              eval sdrun $EMACS -e "(ab2/find-file-in-project \"$PWD\")"
     fi
 }
 
 # open magit
 mg() {
-    if [ "$1" ]; then sdrun $EMACS -e "(abdo-vcs-main \"$1\")"
-    else              sdrun $EMACS -e "(abdo-vcs-main \"$PWD\")"
+    if [ "$1" ]; then eval sdrun $EMACS -e "(abdo-vcs-main \"$1\")"
+    else              eval sdrun $EMACS -e "(abdo-vcs-main \"$PWD\")"
     fi
 }
 
@@ -69,22 +69,22 @@ cl() {
 
 # new terminal
 tm()  {
-    if [ "$1" ]; then sdrun $TERMCMD -d "$1"
-    else              sdrun $TERMCMD -d "$PWD"
+    if [ "$1" ]; then eval sdrun $TERMCMD -d "$1"
+    else              eval sdrun $TERMCMD -d "$PWD"
     fi
 }
 
 # ranger session
 rg()  {
-    if [ "$1" ]; then sdrun $TERMCMD -e ranger -d "$1"
-    else              sdrun $TERMCMD -e ranger -d "$PWD"
+    if [ "$1" ]; then eval sdrun $TERMCMD -e ranger -d "$1"
+    else              eval sdrun $TERMCMD -e ranger -d "$PWD"
     fi
 }
 
 # open file manager
 fm()  {
-    if [ "$1" ]; then sdrun $TERMCMD -e vifm -d "$1"
-    else              sdrun $TERMCMD -e vifm -d "$1"
+    if [ "$1" ]; then eval sdrun $TERMCMD -e vifm -d "$1"
+    else              eval sdrun $TERMCMD -e vifm -d "$1"
     fi
 }
 
