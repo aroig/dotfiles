@@ -447,7 +447,10 @@ you should place your code here."
 
   ;; all questions y-or-n
   (defalias 'yes-or-no-p 'y-or-n-p)
-  )
+
+  ;; extra mode associations
+  (add-to-list 'auto-mode-alist '("vi.*rc\\'" . vimrc-mode))
+)
 
 ;; hack to patch zenburn theme with my modifications
 (load-file (concat dotspacemacs-directory "tweak-zenburn.el"))
