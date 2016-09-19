@@ -2,9 +2,6 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
-;; Let's get rid of the fqdn. emacs 25 will do so eventually anyway...
-(setq system-name (car (split-string system-name "\\.")))
-
 ;; relocate elpa directory
 (setq package-user-dir (concat spacemacs-cache-directory "elpa/"))
 
