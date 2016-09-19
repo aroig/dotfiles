@@ -35,7 +35,7 @@ set novimhelp
 " Use KiB, MiB, ... instead of KB, MB, ...
 set noiec
 
-set timefmt=%m/%d\ %H:%M
+set timefmt=%y-%m-%d\ %H:%M
 
 " Selected color scheme
 colorscheme abdo
