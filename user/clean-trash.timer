@@ -1,0 +1,14 @@
+[Unit]
+Description=daily trash cleanup
+
+Requisite=housekeeping.target
+After=housekeeping.target
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=12h
+Persistent=true
+Unit=clean-trash.service
+
+[Install]
+WantedBy=housekeeping.target
