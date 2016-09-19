@@ -1,5 +1,10 @@
 " vim: filetype=vifm :
 
+" General Settings
+" --------------------------------------
+set trash
+set trashdir=~/var/trash/
+
 
 " Marks
 " --------------------------------------
@@ -8,6 +13,13 @@
 
 mark b ~/bin/
 mark h ~/
+
+
+
+" Local Settings
+" --------------------------------------
+
+autocmd DirEnter ~/down set sort=-mtime
 
 
 

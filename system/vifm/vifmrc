@@ -3,7 +3,6 @@
 " General Settings
 " --------------------------------------
 set vicmd=vim
-set trash
 set history=100
 set undolevels=100
 set nofollowlinks
