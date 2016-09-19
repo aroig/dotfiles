@@ -4,6 +4,7 @@
 " --------------------------------------
 set trash
 set trashdir=~/var/trash/
+set confirm=permdelete
 
 
 " Marks
