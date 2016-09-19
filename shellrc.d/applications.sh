@@ -23,27 +23,31 @@ rf()  {
 
 # terminal editor
 vi()  {
-    $EDITOR "$@";
+    eval "local CMD=($EDITOR)"
+    ${CMD[@]} "$@";
 }
 
 # emacs
 ee()  {
-    if [ "$1" ]; then eval sdrun $EMACS "$@"
-    else              eval sdrun $EMACS "$PWD"
+    eval "local CMD=($EMACS)"
+    if [ "$1" ]; then sdrun ${CMD[@]} "$@"
+    else              sdrun ${CMD[@]} "$PWD"
     fi
 }
 
 # emacs project
 ep() {
-    if [ "$1" ]; then eval sdrun $EMACS -e "(ab2/find-file-in-project \"$1\")"
-    else              eval sdrun $EMACS -e "(ab2/find-file-in-project \"$PWD\")"
+    eval "local CMD=($EMACS)"
+    if [ "$1" ]; then sdrun ${CMD[@]} -e "(ab2/find-file-in-project \"$1\")"
+    else              sdrun ${CMD[@]} -e "(ab2/find-file-in-project \"$PWD\")"
     fi
 }
 
 # open magit
 mg() {
-    if [ "$1" ]; then eval sdrun $EMACS -e "(abdo-vcs-main \"$1\")"
-    else              eval sdrun $EMACS -e "(abdo-vcs-main \"$PWD\")"
+    eval "local CMD=($EMACS)"
+    if [ "$1" ]; then eval sdrun ${CMD[@]} -e "(abdo-vcs-main \"$1\")"
+    else              eval sdrun ${CMD[@]} -e "(abdo-vcs-main \"$PWD\")"
     fi
 }
 
@@ -69,22 +73,25 @@ cl() {
 
 # new terminal
 tm()  {
-    if [ "$1" ]; then eval sdrun $TERMCMD -d "$1"
-    else              eval sdrun $TERMCMD -d "$PWD"
+    eval "local CMD=($TERMCMD)"
+    if [ "$1" ]; then eval sdrun ${CMD[@]} -d "$1"
+    else              eval sdrun ${CMD[@]} -d "$PWD"
     fi
 }
 
 # ranger session
 rg()  {
-    if [ "$1" ]; then eval sdrun $TERMCMD -e ranger -d "$1"
-    else              eval sdrun $TERMCMD -e ranger -d "$PWD"
+    eval "local CMD=($TERMCMD)"
+    if [ "$1" ]; then eval sdrun ${CMD[@]} -e ranger -d "$1"
+    else              eval sdrun ${CMD[@]} -e ranger -d "$PWD"
     fi
 }
 
 # open file manager
 fm()  {
-    if [ "$1" ]; then eval sdrun $TERMCMD -e vifm -d "$1"
-    else              eval sdrun $TERMCMD -e vifm -d "$1"
+    eval "local CMD=($TERMCMD)"
+    if [ "$1" ]; then eval sdrun ${CMD[@]} -e vifm -d "$1"
+    else              eval sdrun ${CMD[@]} -e vifm -d "$1"
     fi
 }
 
