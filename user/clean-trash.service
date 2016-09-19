@@ -8,4 +8,4 @@ After=housekeeping.target
 Type=oneshot
 Slice=workers.slice
 
-ExecStart=/usr/bin/find "%h/var/trash/" -type f -ctime +30 -mindepth 1 -print -delete
+ExecStart=/usr/bin/find "%h/var/trash/" -ctime +30 -mindepth 1 -exec rm -Rf {} +
