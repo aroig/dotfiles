@@ -219,6 +219,9 @@
   ;; use shr wrapper from mu4e-contrib
   (setq mu4e-html2text-command 'mu4e-shr2text)
 
+  ;; Do not use proportional fonts
+  (setq shr-use-fonts nil)
+
   ;; (setq mu4e-html2text-command 'html2text)
   ;; (setq mu4e-html2text-command "html2text")
   ;; (setq mu4e-html2text-command "html2text -utf8 -width 80")
