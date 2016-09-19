@@ -450,7 +450,8 @@ you should place your code here."
 
   ;; extra mode associations
   (add-to-list 'auto-mode-alist '("vi.*rc\\'" . vimrc-mode))
-)
+  (add-to-list 'auto-mode-alist '("\\.vifm\\'" . vimrc-mode))
+  )
 
 ;; hack to patch zenburn theme with my modifications
 (load-file (concat dotspacemacs-directory "tweak-zenburn.el"))
