@@ -177,7 +177,10 @@ fileviewer *.docx, docx2txt.pl %f -
 fileviewer .*/,*/ tree -C %f
 
 " Syntax highlighting in preview
-fileviewer <text/*,*/xml> vimcat %c
+fileviewer <text/*> highlight -O ansi %c
+
+" NOTE: vimcat seems to break the terminal and hangs. I don't know what is going on
+fileviewer <text/*,*/xml> (vimcat -o - %c)
 
 " Displaying pictures in terminal
 " fileviewer *.jpg,*.png shellpic %c
