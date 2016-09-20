@@ -91,7 +91,7 @@ rg()  {
 fm()  {
     eval "local CMD=($TERMCMD)"
     if [ "$1" ]; then eval sdrun ${CMD[@]} -e vifm -d "$1"
-    else              eval sdrun ${CMD[@]} -e vifm -d "$1"
+    else              eval sdrun ${CMD[@]} -e vifm -d "$PWD"
     fi
 }
 
