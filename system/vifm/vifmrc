@@ -35,7 +35,7 @@ set novimhelp
 " Use KiB, MiB, ... instead of KB, MB, ...
 set noiec
 
-set timefmt=%y-%m-%d\ %H:%M
+set timefmt=%Y-%m-%d\ %H:%M
 
 " Selected color scheme
 colorscheme abdo
@@ -55,7 +55,7 @@ set incsearch
 set scrolloff=4
 
 " Set custom status line look
-set statusline="  %t%= %A %10u:%-7g %15s %20d  "
+set statusline=" %A %u:%g | %t%= %15s %20d  "
 
 
 
@@ -129,30 +129,25 @@ command! reload :write | restart
 " You can also add %CLEAR if you want to clear screen before running FUSE
 " program.
 
-" Pdf
-filextype *.pdf zathura %c
+" Pdf, PS, djvu
+filextype *.pdf,*.ps,*.eps,*.ps.gz,*.djvu zathura %c &
 fileviewer *.pdf pdftotext -nopgbrk %c -
 
-" PostScript
-filextype *.ps,*.eps,*.ps.gz zathura %c
+" Media
+filextype <audio/*,video/*> mpv %c &
+fileviewer <audio/*,video/*> mediainfo %c
 
-" Djvu
-filextype *.djvu zathura %c
+" fileviewer <video/*> ffprobe -pretty %c 2>&1
+" fileviewer *.mp3 mp3info %c
+" fileviewer *.flac soxi %c
 
-" Audio
-filextype *.wav,*.mp3,*.flac,*.ogg,*.m4a,*.wma,*.ape,*.ac3
-        \ mpv %c
-fileviewer *.mp3 mp3info
-fileviewer *.flac soxi
-
-" Video
-filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv,*.m2v,*.mov,*.webm,*.ts,*.m4v
-        \ mpv %c,
-fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv,*.m2v,*.mov,*.webm,*.ts,*.m4v
-         \ ffprobe -pretty %c 2>&1
+" Image
+filextype <image/*> feh %f &
+fileviewer <image/*> exiftool %c
+" fileviewer <image/*> convert -identify %f -verbose /dev/null
 
 " Web
-filextype *.xhtml,*.html,*.htm chromium %f
+filextype *.xhtml,*.html,*.htm chromium %f &
 
 " Object
 filetype *.o nm %f | less
@@ -160,10 +155,6 @@ filetype *.o nm %f | less
 " Man page
 filetype *.[1-8] man ./%c
 fileviewer *.[1-8] man ./%c | col -b
-
-" Image
-filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm feh
-fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm convert -identify %f -verbose /dev/null
 
 " MD5
 filetype *.md5 md5sum -c %f
@@ -183,10 +174,10 @@ fileviewer *.doc catdoc %c
 fileviewer *.docx, docx2txt.pl %f -
 
 " Directories
-fileviewer .*/,*/ tree %f
+fileviewer .*/,*/ tree -C %f
 
 " Syntax highlighting in preview
-fileviewer * vimcat %c
+fileviewer <text/*,*/xml> vimcat %c
 
 " Displaying pictures in terminal
 " fileviewer *.jpg,*.png shellpic %c
@@ -198,6 +189,8 @@ fileviewer * vimcat %c
 " for unknown file types.
 filetype * xdg-open
 
+" Do nothing if no fileviewer match
+fileviewer * false
 
 
 " Key bindings
