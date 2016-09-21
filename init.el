@@ -437,7 +437,11 @@ you should place your code here."
          delete-old-versions 1  ;; neither delete nor ask about them
          auto-save-file-name-transforms `((".*" ,(concat spacemacs-cache-directory "backups/") t))
          backup-directory-alist `((".*" . ,(concat spacemacs-cache-directory "backups/")))
-         bookmark-save t)
+         bookmark-save t
+         ;; this stats all files on recentf, triggering tramp and automounts
+         recentf-auto-cleanup 'never
+         save-place-forget-unreadable-files nil
+         )
 
   ;; emacs daemon
   (setq server-raise-frame nil)                 ;; don't raise frames when switching buffers
