@@ -16,10 +16,7 @@ set slowfs=curlftpfs
 
 " What should be saved automatically between vifm runs
 " Like in previous versions of vifm
-" set vifminfo=options,filetypes,commands,bookmarks,dhistory,state,cs
-" Like in vi
-set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
-    \phistory,fhistory,dirstack,registers,bookmarks
+set vifminfo=options,filetypes,commands,bookmarks,state,cs
 
 set norunexec
 set fusehome=/media
