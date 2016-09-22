@@ -6,8 +6,8 @@ shift
 
 while getopts ":r:d:" opt; do
     case $opt in
-        r) cmd+="REMOTES=$OPTARG" ;;
-        d) cmd+="DIRS=$OPTARG" ;;
+        r) cmd+=("REMOTES=$OPTARG") ;;
+        d) cmd+=("DIRS=$OPTARG") ;;
         *) echo "Unknown argument." >&2;;
     esac
 done
