@@ -24,8 +24,8 @@ mark s ~/src
 " Local Settings
 " --------------------------------------
 
-autocmd DirEnter ~/down set sort=-mtime
-autocmd DirEnter ~/maths/papers set sort=-name
+autocmd DirEnter ~/down setlocal sort=-mtime
+autocmd DirEnter ~/maths/papers setlocal sort=-name
 
 
 " Commands
