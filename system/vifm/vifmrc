@@ -54,6 +54,8 @@ set scrolloff=4
 " Set custom status line look
 set statusline=" %A %u:%g | %t%= %15s %20d  "
 
+" do not show ../
+set dotdirs=
 
 
 " Panels
