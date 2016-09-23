@@ -155,8 +155,13 @@ rules.rules = {
                      focus = false } },
 
 
+    -- Priority
+    { rule_any = { class = {"Pinentry"} },
+      properties = { floating = true },
+      callback = function(c) awful.placement.centered(c); c:raise() end },
+
     -- Floats
-    { rule_any = { class = {"Qpaeq", "qjackctl", "Unison-gtk2", "Pinentry", "Skype",
+    { rule_any = { class = {"Qpaeq", "qjackctl", "Unison-gtk2", "Skype",
                             "Pavucontrol", "Pidgin", "wpa_gui"} },
       properties = { floating = true },
       callback   = function(c) awful.placement.centered(c) end },
