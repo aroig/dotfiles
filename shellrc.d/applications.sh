@@ -46,8 +46,8 @@ ep() {
 # open magit
 mg() {
     eval "local CMD=($EMACS)"
-    if [ "$1" ]; then eval sdrun ${CMD[@]} -e "(abdo-vcs-main \"$1\")"
-    else              eval sdrun ${CMD[@]} -e "(abdo-vcs-main \"$PWD\")"
+    if [ "$1" ]; then sdrun ${CMD[@]} -e "(abdo-vcs-main \"$1\")"
+    else              sdrun ${CMD[@]} -e "(abdo-vcs-main \"$PWD\")"
     fi
 }
 
@@ -74,36 +74,27 @@ cl() {
 # new terminal
 tm()  {
     eval "local CMD=($TERMCMD)"
-    if [ "$1" ]; then eval sdrun ${CMD[@]} -d "$1"
-    else              eval sdrun ${CMD[@]} -d "$PWD"
+    if [ "$1" ]; then sdrun ${CMD[@]} -d "$1"
+    else              sdrun ${CMD[@]} -d "$PWD"
     fi
 }
 
 # ranger session
 rg()  {
     eval "local CMD=($TERMCMD)"
-    if [ "$1" ]; then eval sdrun ${CMD[@]} -e ranger -d "$1"
-    else              eval sdrun ${CMD[@]} -e ranger -d "$PWD"
+    if [ "$1" ]; then sdrun ${CMD[@]} -e ranger -d "$1"
+    else              sdrun ${CMD[@]} -e ranger -d "$PWD"
     fi
 }
 
-# open file manager
-fm()  {
-    eval "local CMD=($TERMCMD)"
-    if [ "$1" ]; then eval sdrun ${CMD[@]} -e vifm -d "$1"
-    else              eval sdrun ${CMD[@]} -e vifm -d "$PWD"
+# vifm as an awesome dropdown
+fm() {
+    echo "ddshow('app:vifm-dropdown', true)" | awesome-client
+    if [ "$1" ]; then local dir=$(realpath "$1")
+    else              local dir=$(realpath "$PWD")
     fi
+    # TODO: remove this once vifm is socket-activated
+    sleep 0.5
+    vifm --remote -c "cd '$dir'"
 }
-
-# TODO: open vifm dropdown
-
-# These commands open awesome dropdown clients
-rgd() {
-    echo "ddclient.ranger:newtab('$PWD')"   | awesome-client
-}
-
-tmd() {
-    echo "ddclient.terminal:newtab('$PWD')" | awesome-client
-}
-
 
