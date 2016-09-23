@@ -55,7 +55,7 @@ set scrolloff=4
 set statusline=" %A %u:%g | %t%= %15s %20d  "
 
 " do not show ../
-set dotdirs=
+set dotdirs=-nonrootparent
 
 
 " Panels
