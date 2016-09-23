@@ -12,16 +12,20 @@ set confirm=permdelete
 
 " :mark mark /full/directory/path [filename]
 
-mark b ~/bin/
 mark h ~/
-
+mark v ~/vids
+mark p ~/maths/papers
+mark m /media
+mark b ~/bibrain
+mark d ~/devel
+mark s ~/src
 
 
 " Local Settings
 " --------------------------------------
 
 autocmd DirEnter ~/down set sort=-mtime
-
+autocmd DirEnter ~/maths/papers set sort=-name
 
 
 " Commands
@@ -38,6 +42,8 @@ autocmd DirEnter ~/down set sort=-mtime
 " %d the current directory name.
 " %D the other window directory name.
 " %m run the command in a menu window
+
+
 
 command! df df -h %m 2> /dev/null
 command! diff vim -d %f %F
