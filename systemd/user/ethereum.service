@@ -1,5 +1,5 @@
 [Unit]
-Description=bitcoin daemon service
+Description=ethereum daemon
 After=network.target
 
 
@@ -13,5 +13,7 @@ After=synced.target
 Type=simple
 Slice=daemons.slice
 
-ExecStart=/usr/bin/bitcoind -printtoconsole -prune=10000
- 
+ExecStart=/usr/bin/geth --support-dao-fork
+
+# explicitly remove IPC socket
+ExecStopPost=/usr/bin/rm -f %h/.ethereum/geth.ipc

@@ -13,6 +13,10 @@ After=sshmux@%i.service
 [Service]
 Type=simple
 Slice=daemons.slice
+ExecStartPre=/usr/bin/ssh -o ControlMaster=no                                  \
+                          -o ControlPath=none                                  \
+                          %i                                                   \
+                          mkdir -p %t/gnupg
 
 ExecStart=/usr/bin/ssh -o ControlMaster=no                                     \
                        -o ControlPath=none                                     \

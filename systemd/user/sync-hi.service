@@ -4,8 +4,6 @@ Description=initial homedir sync
 Wants=journal-show.service
 After=journal-show.service
 
-Requires=mount-priv.service
-After=mount-priv.service
 
 Requires=homedir-sync@skynet.service
 After=homedir-sync@skynet.service

@@ -4,7 +4,6 @@ Description=sync homedir to remote %I
 AssertPathExists=/home/%u/arch/sync/Makefile
 AssertPathExists=/home/%u/priv
 
-After=mount-priv.service
 
 [Service]
 Type=oneshot

@@ -1,0 +1,16 @@
+[Unit]
+Description=wineserver 32 bit
+
+Requisite=graphical.target
+After=graphical.target
+
+[Service]
+Type=simple
+
+Slice=daemons.slice
+
+# NOTE: wine puts the socket on /tmp/.wine-<uid>/server-<device>-<inode> where
+# it uses the device and inode for the WINEPREFIX.
+Environment=WINEPREFIX=%h/.wine32 WINEARCH=win32
+ExecStart=/usr/bin/wineserver -d0 -p -f
+SuccessExitStatus=0 1

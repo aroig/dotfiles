@@ -1,8 +1,6 @@
 [Unit]
 Description=fetch contacts
 
-Requires=mount-priv.service
-After=mount-priv.service
 
 # stopping of git-use@mail propagates to this target
 PartOf=git-use@mail.service

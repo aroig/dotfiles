@@ -8,7 +8,7 @@ Requires=sshmux@%i.socket
 
 [Service]
 Type=simple
+Slice=daemons.slice
 
-ExecStart=/usr/lib/systemd/systemd-socket-proxyd %t/ssh/%i.ssh.socket
-
-
+NonBlocking=true
+ExecStart=/usr/lib/systemd/systemd-socket-proxyd %t/ssh/ssh/%u@%i.home.local.socket

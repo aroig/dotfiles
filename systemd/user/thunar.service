@@ -1,0 +1,12 @@
+[Unit]
+Description=thunar daemon
+
+[Service]
+Type=dbus
+BusName=org.xfce.Thunar
+Slice=wm.slice
+
+ExecStart=/usr/bin/Thunar --daemon
+
+[Install]
+Alias=dbus-org.xfce.Thunar.service dbus-org.xfce.FileManager.service

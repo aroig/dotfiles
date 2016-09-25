@@ -1,0 +1,12 @@
+[Unit]
+Description=ladish daemon
+
+[Service]
+Type=dbus
+BusName=org.ladish
+Slice=audio.slice
+
+ExecStart=/usr/bin/ladishd
+
+[Install]
+Alias=dbus-org.ladish.service

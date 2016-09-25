@@ -7,5 +7,6 @@ Type=oneshot
 RemainAfterExit=yes
 
 StandardOutput=null
-ExecStart=/home/abdo/bin/emacs-run -q -s chat.service -k chat '(abdo-chat-away)'
-ExecStop=/home/abdo/bin/emacs-run -q -s chat.service -k chat '(abdo-chat-back)'
+
+ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" --eval '(abdo-chat-away)'
+ExecStop=/usr/bin/emacsclient -s "%t/emacs/server" --eval '(abdo-chat-back)'

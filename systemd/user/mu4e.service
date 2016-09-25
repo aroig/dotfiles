@@ -14,6 +14,12 @@ After=git-use@mail.service
 Type=simple
 Slice=apps.slice
 
+StandardOutput=null
+
 ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((name . "mu4e"))' --eval '(ab2/frame-layout "@mu4e")'
+
+# make sure we quit mu4e and the mu server is stopped.
+ExecStopPost=/usr/bin/emacsclient -s "%t/emacs/server" --eval '(let ((mu4e-confirm-quit nil)) (mu4e-quit))'
+
 KillSignal=SIGINT
 

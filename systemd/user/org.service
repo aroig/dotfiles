@@ -11,7 +11,10 @@ After=git-use@wiki.service
 Type=simple
 Slice=apps.slice
 
+StandardOutput=null
+
 ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((name . "org"))' --eval '(ab2/frame-layout "@wiki")'
+
 KillSignal=SIGINT
 
 

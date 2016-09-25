@@ -1,0 +1,21 @@
+[Unit]
+Description=ethereum daemon
+After=network.target
+
+
+Requires=git-use@priv-wallet.service
+After=git-use@priv-wallet.service
+
+Requires=synced.target
+After=synced.target
+
+Conflicts=ethereum.service
+
+[Service]
+Type=simple
+Slice=workers.slice
+
+ExecStart=/usr/bin/geth --support-dao-fork --mine --minerthreads 2 --autodag --metrics
+
+# explicitly remove IPC socket
+ExecStopPost=/usr/bin/rm -f %h/.ethereum/geth.ipc

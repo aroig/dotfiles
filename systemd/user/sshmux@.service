@@ -18,9 +18,8 @@ Requires=sshmux@%i.socket
 Type=forking
 Slice=daemons.slice
 
-ExecStartPre=/usr/bin/mkdir -p "%t/ssh"
+ExecStartPre=/usr/bin/mkdir -p "%t/ssh/ssh"
 ExecStart=/usr/bin/ssh -M -N -f                                        \
                        -o "ControlPersist=1h"                          \
-                       -o "ControlPath=%t/ssh/%%r@%%h:%%p.ssh.socket"  \
+                       -o "ControlPath=%t/ssh/ssh/%%r@%%h.socket"      \
                        %i
-

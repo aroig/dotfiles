@@ -11,8 +11,8 @@ Slice=daemons.slice
 
 ExecStart=/usr/bin/sh -c '                            \
     while true; do                                    \
-        ssh -v  %i true 2>&1 |                        \
+        ssh -v -o "ControlPath=none" %i true 2>&1 |   \
         grep -q "Connection established" && break;    \
-        sleep 10;                                     \
+        sleep 1;                                      \
     done                                              \
 '
