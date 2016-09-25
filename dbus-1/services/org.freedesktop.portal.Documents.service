@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.freedesktop.portal.Documents
+Exec=/bin/false
+SystemdService=xdg-document-portal.service
