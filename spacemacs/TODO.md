@@ -7,6 +7,8 @@ TODO
 
 ## devel
 
+* Exclude `glsl-mode` from flycheck
+
 * Automatically close compilation window using workspaces.
 
 * Use spacemacs automatic success detection?
@@ -27,6 +29,8 @@ TODO
 
 ## org-mode
 
+* only add org-mode buffers to wiki perspective if frame or file are right.
+
 * make sure all mobile and calendar stuff still works
 
 
@@ -42,6 +46,8 @@ TODO
 
 
 ## chat
+
+* get rid of netrc to obtain credentials. use calls to pass directly.
 
 * open all windows int the @chat persp
 

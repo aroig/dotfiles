@@ -76,13 +76,23 @@
   ;; binding for clang-format
   (define-key c++-mode-map (kbd "M-q") 'clang-format)
   (define-key c-mode-map (kbd "M-q") 'clang-format)
+
   ;; disable electric-indent. I'll use clang-format
   ;; (electric-indent-local-mode -1)
   (c-toggle-electric-state -1)
+
+  ;; setup tab-always-indent locally
+  (make-local-variable 'c-tab-always-indent)
+  (setq c-tab-always-indent t)
+
   ;; Although I use clang format, this is useful while editing
   (setq c-syntactic-indentation t)
-  (c-set-style "stroustrup")
+
+  ;; Base C++ style
+  ;; (c-set-style "stroustrup")
+  (c-add-style "google" ab2/google-c-style t)
   (c-set-offset 'access-label -2)
+
   )
 
 (defun ab2-devel/pre-init-cc-mode ()
@@ -114,3 +124,4 @@
 (defun ab2-devel/init-editorconfig ()
   (use-package editorconfig)
   (editorconfig-mode 1))
+

@@ -2,8 +2,8 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
-;; Let's get rid of the fqdn. emacs 25 will do so eventually anyway...
-(setq system-name (car (split-string system-name "\\.")))
+;; relocate elpa directory
+(setq package-user-dir (concat spacemacs-cache-directory "elpa/"))
 
 ;; prevent running as root
 (when (string-equal (user-login-name) "root") (error "Emacs should not run as root!"))
@@ -33,7 +33,7 @@ values."
    ;; If non-nil layers with lazy install support are lazy installed.
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '( "~/.spacemacs.d/layers/")
+   dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
@@ -49,7 +49,8 @@ values."
                       auto-completion-enable-help-tooltip t
                       auto-completion-return-key-behavior nil
                       auto-completion-tab-key-behavior 'cycle
-                      auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/")
+                      auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
+                      helm-mini-default-sources '(helm-source-buffers-list))
      (colors          :variables
                       color-colorize-identifiers nil)
      finance
@@ -66,6 +67,7 @@ values."
             rcirc-spacemacs-layout-binding "i")
      jabber
      twitter
+     search-engine
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support nil)
@@ -87,6 +89,7 @@ values."
      python
      restclient
      ruby
+     shaders
      shell-scripts
      sql
      systemd
@@ -101,13 +104,15 @@ values."
      ;; version-control
      windows-scripts
      ab2-base
+     ab2-lang
      ab2-clang
      ab2-devel
      ab2-latex
      ab2-org
      ab2-mu4e
      ab2-visual
-     ab2-chat
+     ;; disabled until I get rid of netrc
+     ;;ab2-chat
      ab2-science
      ab2-audio
      )
@@ -118,7 +123,6 @@ values."
    dotspacemacs-additional-packages
    '(
      rainbow-mode
-     netrc
      cl
      dbus
      diff-hl
@@ -133,19 +137,18 @@ values."
    dotspacemacs-excluded-packages
    '(
      org-bullets
-     mu4e-maildirs-extension
      rainbow-delimiters
      smartparens
      auto-complete
      )
-   ;; Defines the behaviour of Spacemacs when downloading packages.
-   ;; Possible values are `used', `used-but-keep-unused' and `all'. `used' will
-   ;; download only explicitly used packages and remove any unused packages as
-   ;; well as their dependencies. `used-but-keep-unused' will download only the
-   ;; used packages but won't delete them if they become unused. `all' will
-   ;; download all the packages regardless if they are used or not and packages
-   ;; won't be deleted by Spacemacs. (default is `used')
-   dotspacemacs-download-packages 'used))
+   ;; Defines the behaviour of Spacemacs when installing packages.
+   ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
+   ;; `used-only' installs only explicitly used packages and uninstall any
+   ;; unused packages as well as their unused dependencies.
+   ;; `used-but-keep-unused' installs only the used packages but won't uninstall
+   ;; them if they become unused. `all' installs *all* packages supported by
+   ;; Spacemacs and never uninstall them. (default is `used-only')
+   dotspacemacs-install-packages 'used-but-keep-unused))
 
 (defun dotspacemacs/init ()
   "Initialization function.
@@ -166,8 +169,14 @@ values."
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
-   ;; when the current branch is not `develop'. (default t)
+   ;; when the current branch is not `develop'. Note that checking for
+   ;; new versions works via git commands, thus it calls GitHub services
+   ;; whenever you start Emacs. (default nil)
    dotspacemacs-check-for-update nil
+   ;; If non-nil, a form that evaluates to a package directory. For example, to
+   ;; use different package directories for different Emacs versions, set this
+   ;; to `emacs-version'.
+   dotspacemacs-elpa-subdirectory nil
    ;; One of `vim', `emacs' or `hybrid'.
    ;; `hybrid' is like `vim' except that `insert state' is replaced by the
    ;; `hybrid state' with `emacs' key bindings. The value can also be a list
@@ -185,11 +194,15 @@ values."
    ;; If the value is nil then no banner is displayed. (default 'official)
    dotspacemacs-startup-banner nil
    ;; List of items to show in startup buffer or an association list of
-   ;; the form `(list-type . list-size)`. If nil it is disabled.
+   ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
    ;; `recents' `bookmarks' `projects' `agenda' `todos'.
+   ;; List sizes may be nil, in which case
+   ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
                                 (projects . 7))
+   ;; True if the home buffer should respond to resize events.
+   dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
@@ -271,10 +284,15 @@ values."
    dotspacemacs-helm-resize nil
    ;; if non nil, the helm header is hidden when there is only one source.
    ;; (default nil)
-   dotspacemacs-helm-no-header nil
+   dotspacemacs-helm-no-header t
    ;; define the position to display `helm', options are `bottom', `top',
    ;; `left', or `right'. (default 'bottom)
    dotspacemacs-helm-position 'bottom
+   ;; Controls fuzzy matching in helm. If set to `always', force fuzzy matching
+   ;; in all non-asynchronous sources. If set to `source', preserve individual
+   ;; source settings. Else, disable fuzzy matching in all sources.
+   ;; (default 'always)
+   dotspacemacs-helm-use-fuzzy 'always
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
    dotspacemacs-enable-paste-transient-state nil
@@ -336,7 +354,7 @@ values."
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
    dotspacemacs-highlight-delimiters 'all
-   ;; If non nil advises quit functions to keep server open when quitting.
+   ;; If non nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
    dotspacemacs-persistent-server nil
    ;; List of search tool executable names. Spacemacs uses the first installed
@@ -362,6 +380,10 @@ values."
    (set-fontset-font "fontset-default" '(#x2300 . #x23ff)   "Symbola")   ; Miscelaneous technical symbols
    (set-fontset-font "fontset-default" '(#x2460 . #x24ff)   "Symbola")   ; Enclosed alphanumerics
    (set-fontset-font "fontset-default" '(#x2600 . #x26ff)   "Symbola")   ; Miscelaneous symbols
+   (set-fontset-font "fontset-default" '(#x27c0 . #x27ef)   "Symbola")   ; Misc mathematical symbols-A
+   (set-fontset-font "fontset-default" '(#x2980 . #x29ff)   "Symbola")   ; Misc mathematical symbols-B
+   (set-fontset-font "fontset-default" '(#x1f600 . #x1f6ff) "Symbola")   ; Emoticons
+
    )
   )
 
@@ -377,9 +399,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
    ;; personal
    user-full-name    "Abdó Roig-Maranges"
    user-mail-address "abdo.roig@gmail.com"
-
-   ;; paths
-   spacemacs-cache-directory (format "%s/emacs/" (getenv "AB2_VAR_DIR"))
 
    ;; time and date
    system-time-locale "C"
@@ -418,7 +437,11 @@ you should place your code here."
          delete-old-versions 1  ;; neither delete nor ask about them
          auto-save-file-name-transforms `((".*" ,(concat spacemacs-cache-directory "backups/") t))
          backup-directory-alist `((".*" . ,(concat spacemacs-cache-directory "backups/")))
-         bookmark-save t)
+         bookmark-save t
+         ;; this stats all files on recentf, triggering tramp and automounts
+         recentf-auto-cleanup 'never
+         save-place-forget-unreadable-files nil
+         )
 
   ;; emacs daemon
   (setq server-raise-frame nil)                 ;; don't raise frames when switching buffers
@@ -428,6 +451,10 @@ you should place your code here."
 
   ;; all questions y-or-n
   (defalias 'yes-or-no-p 'y-or-n-p)
+
+  ;; extra mode associations
+  (add-to-list 'auto-mode-alist '("vi.*rc\\'" . vimrc-mode))
+  (add-to-list 'auto-mode-alist '("\\.vifm\\'" . vimrc-mode))
   )
 
 ;; hack to patch zenburn theme with my modifications

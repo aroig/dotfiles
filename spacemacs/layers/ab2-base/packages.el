@@ -18,15 +18,24 @@
 (defun ab2-base/init-sensitive-mode ()
   (use-package sensitive-mode)
 
-  ;; disable backups for irrelevant emacs files
-  (add-to-list 'auto-mode-alist '("recentf$" . sensitive-mode))
-  (add-to-list 'auto-mode-alist '("spacemacs-buffer\\.el$" . sensitive-mode))
+  (spacemacs|diminish sensitive-mode "😎" "O-O¬")
 
-  ;; disable backups for sensitive files
-  (add-to-list 'auto-mode-alist '("\\.gpg$" . sensitive-mode))
-  (add-to-list 'auto-mode-alist `(,(ab2/escape-regexp (getenv "AB2_PRIV_DIR")) . sensitive-mode))
-  (add-to-list 'auto-mode-alist `(,(ab2/escape-regexp (file-truename "~/.ssh")) . sensitive-mode))
-  )
+  ;; disable backups for internal emacs files, or files containing sensitive
+  ;; information
+  (setq ab2/sensitive-mode-regex-list `("/recentf$"
+                                        "/ido.last$"
+                                        "/spacemacs-buffer\\.el$"
+                                        "\\.gpg$"
+                                        ,(ab2/escape-regexp (getenv "AB2_PRIV_DIR"))
+                                        ,(ab2/escape-regexp (file-truename "~/.ssh"))))
+
+  ;; enable sensitive-mode
+  (add-hook 'find-file-hook (lambda ()
+                              (when buffer-file-name
+                                (let* ((name (file-name-sans-versions buffer-file-name))
+                                       (remote-id (file-remote-p buffer-file-name)))
+                                  (dolist (regex ab2/sensitive-mode-regex-list)
+                                    (when (string-match regex name) (sensitive-mode))))))))
 
 (defun ab2-base/post-init-hippie-exp ()
   ;; I prefer a diferent binding for yasnippet completion

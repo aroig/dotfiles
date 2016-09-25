@@ -2,6 +2,7 @@
  '(
    mu4e
    persp-mode
+   mu4e-maildirs-extension
   ))
 
 
@@ -18,7 +19,7 @@
 
   ;; config
   (setq mu4e-change-filenames-when-moving nil
-        mu4e-get-mail-command nil
+        mu4e-get-mail-command "true"
         mu4e-compose-signature-auto-include nil
         mail-user-agent 'mu4e-user-agent
         message-kill-buffer-on-exit t
@@ -56,42 +57,47 @@
            ("/Trash"       . ?t)
            ("/All Mail"    . ?a)))
 
+  ;; entries under SPC m
+  (spacemacs/set-leader-keys-for-major-mode 'mu4e-headers-mode
+    "t" 'ab2/mu4e-headers-narrow-to-tag
+    "n" 'mu4e-headers-search-narrow
+    "w" 'mu4e-headers-query-prev
+    "r" 'mu4e-headers-mark-all-unread-read)
+
   ;; Bookmarks
   (setq mu4e-bookmarks
-        '(("flag:unread"                                          "New"                 ?n)
-          ("flag:flagged"                                         "Flagged"             ?g)
+        '(("flag:unread"                                          "Unread"              ?n)
+          ("flag:flagged"                                         "Flagged"             ?+)
+
           ("tag:\\\\Inbox AND flag:unread"                        "Inbox"               ?i)
-        ; ("tag:\\\\Sent AND date:365d..now"                      "Sent"                ?s)
+          ("tag:\\\\Sent AND date:365d..now"                      "Sent"                ?o)
 
-          ("tag:research AND flag:unread"                         "Research"            ?r)
-          ("tag:teaching AND flag:unread"                         "Teaching"            ?t)
-          ("tag:upc AND flag:unread"                              "University"          ?u)
+          ("(tag:research OR tag:teaching) AND flag:unread"       "University"          ?s)
+          ("tag:bibrain AND flag:unread"                          "Bibrain"             ?b)
+
           ("tag:list AND flag:unread"                             "Lists"               ?l)
+          ("tag:reddit AND flag:unread"                           "Reddit"              ?r)
+          ("tag:mathoverflow AND flag:unread"                     "Mathoverflow"        ?v)
 
-          ("tag:arch AND flag:unread"                             "Arch"                ?a)
-          ("tag:sage AND flag:unread"                             "Sage"                ?s)
-          ("tag:systemd AND flag:unread"                          "Systemd"             ?y)
-          ("tag:org AND flag:unread"                              "Org"                 ?o)
-          ("tag:devel AND flag:unread"                            "Development"         ?d)
+          ("tag:linux AND flag:unread"                            "Linux"               ?u)
+          ("(tag:gamedev OR tag:devel) AND flag:unread"           "Development"         ?d)
+          ("tag:maths AND flag:unread"                            "Mathematics"         ?m)
 
           ("tag:watchlist AND flag:unread"                        "Watchlist"           ?w)
-          ("tag:mathoverflow AND flag:unread"                     "Mathoverflow"        ?v)
-          ("tag:maths AND flag:unread"                            "Mathematics"         ?m)
           ("tag:arxiv AND flag:unread"                            "Arxiv"               ?x)
 
           ("tag:news AND flag:unread"                             "News"                ?e)
-          ("tag:blog AND flag:unread"                             "Blogs"               ?b)
+          ("tag:blog AND flag:unread"                             "Blogs"               ?g)
           ("tag:fun AND flag:unread"                              "Fun"                 ?f)
           ))
 
   ;; Commonly used tags for completion
   (setq mu4e-tags-completion-list
-        '( "upc" "postdoc" "fme" "ma1" "etseib" "research" "seminar"
-           "maths" "geometry" "algebra" "physics" "topology"
-           "arch" "devel" "msys2" "github" "bitbucket" "bibrain"
-           "newsletter" "list" "bug"
+        '( "upc" "postdoc" "fme" "ma1" "etseib" "research" "seminar" "warsaw" "mimuw"
+           "arxiv" "maths" "geometry" "algebra" "physics" "topology"
+           "arch" "devel" "msys2" "github" "bitbucket" "bibrain" "gamedev"
+           "newsletter" "list" "bug" "reddit" "news"
            "friends" "family" "bit"
-           "gsoc16"
            ))
   )
 
@@ -134,6 +140,22 @@
                         (message-sendmail-extra-arguments . ("-a" "upc"))
                         ;;(mu4e-compose-signature . "")
                         ))
+
+             ,(make-mu4e-context
+               :name "mimuw"
+               :match-func (lambda (msg)
+                             (let ((email "abdo@mimuw.edu.pl"))
+                               (when msg
+                                 (or
+                                  (mu4e-message-contact-field-matches msg :to email)
+                                  (mu4e-message-contact-field-matches msg :cc email)
+                                  (mu4e-message-contact-field-matches msg :from email)
+                                  ))))
+               :vars '( (user-mail-address . "abdo@mimuw.edu.pl")
+                        (user-full-name . "Abdó Roig-Maranges")
+                        (message-sendmail-extra-arguments . ("-a" "mimuw"))
+                        ;;(mu4e-compose-signature . "")
+                        ))
              )
 
           ;; This sets `mu4e-user-mail-address-list' to the concatenation of all
@@ -164,16 +186,28 @@
                         nil 'local)
               ))
 
-  (add-hook 'mu4e-headers-mode-hook
-            (lambda ()
-              (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
-              ))
+  (with-eval-after-load "mu4e"
+    (add-to-list 'mu4e-marks
+                 '(tag
+                   :char       "t"
+                   :prompt     "tRetag"
+                   :ask-target (lambda () (read-string "Retag: "))
+                   :action     (lambda (docid msg target) (mu4e-action-retag-message msg target))))
 
-  (add-hook 'mu4e-view-mode-hook
-            (lambda ()
-              (add-to-list 'mu4e-view-actions '("tRetag message" . mu4e-action-retag-message) t)
-              (add-to-list 'mu4e-view-actions '("bView in browser" . mu4e-action-view-in-browser) t)
-              ))
+    (add-to-list 'mu4e-headers-actions
+                 '("tRetag message" . mu4e-action-retag-message))
+
+    (add-hook 'mu4e-headers-mode-hook
+              (lambda ()
+                (add-to-list 'mu4e-headers-actions '("tRetag message" . mu4e-action-retag-message) t)
+                ))
+
+    (add-to-list 'mu4e-view-actions
+                 '("tRetag message" . mu4e-action-retag-message))
+
+    (add-to-list 'mu4e-view-actions
+                 '("bView in browser" . mu4e-action-view-in-browser))
+    )
 
     ;; smtp mail setting
   (setq send-mail-function 'message-send-mail-with-sendmail
@@ -184,6 +218,9 @@
 
   ;; use shr wrapper from mu4e-contrib
   (setq mu4e-html2text-command 'mu4e-shr2text)
+
+  ;; Do not use proportional fonts
+  (setq shr-use-fonts nil)
 
   ;; (setq mu4e-html2text-command 'html2text)
   ;; (setq mu4e-html2text-command "html2text")
@@ -221,11 +258,23 @@
    (progn
 
      (defun ab2/add-mu4e-buffer-to-persp ()
-       (persp-add-buffer (current-buffer) (persp-get-by-name "@mu4e")))
+       (let* ((buf (current-buffer))
+              (persp (persp-get-by-name "@mu4e")))
+         (persp-add-buffer buf persp nil)))
 
      (add-hook 'mu4e-main-mode-hook #'ab2/add-mu4e-buffer-to-persp)
      (add-hook 'mu4e-view-mode-hook #'ab2/add-mu4e-buffer-to-persp)
      (add-hook 'mu4e-headers-mode-hook #'ab2/add-mu4e-buffer-to-persp)
      (add-hook 'mu4e-compose-mode-hook #'ab2/add-mu4e-buffer-to-persp)
+
      (call-interactively 'mu4e)
      )))
+
+(defun ab2-mu4e/pre-init-mu4e-maildirs-extension ()
+  (setq mu4e-maildirs-extension-use-bookmarks t
+        mu4e-maildirs-extension-bookmark-format " (%u)"
+        mu4e-maildirs-extension-use-maildirs t
+        mu4e-maildirs-extension-maildir-format "\t%i%p %n (%u)"
+        mu4e-maildirs-extension-default-collapse-level 0
+        mu4e-maildirs-extension-toggle-maildir-key (kbd "TAB")
+  ))
