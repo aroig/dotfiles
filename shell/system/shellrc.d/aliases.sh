@@ -71,7 +71,6 @@ alias ckc='cookiecutter'
 alias ggr='git --no-pager grep'
 alias gan="git annex"
 alias glg='git log'
-alias gls="abdo_git_ls"
 
 # python
 alias ipy='ipython'

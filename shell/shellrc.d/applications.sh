@@ -13,7 +13,7 @@
 
 
 # file openers
-op()  {
+op() {
     xdg-open "$@" &> /dev/null &!
 }
 
@@ -23,27 +23,31 @@ rf()  {
 
 # terminal editor
 vi()  {
-    $EDITOR "$@";
+    eval "local CMD=($EDITOR)"
+    ${CMD[@]} "$@";
 }
 
 # emacs
 ee()  {
-    if [ "$1" ]; then rifle -p emacs "$@"
-    else              rifle -p emacs "$PWD"
+    eval "local CMD=($EMACS)"
+    if [ "$1" ]; then sdrun ${CMD[@]} "$@"
+    else              sdrun ${CMD[@]} "$PWD"
     fi
 }
 
 # emacs project
 ep() {
-    if [ "$1" ]; then rifle -p proj "$@"
-    else              rifle -p proj "$PWD"
+    eval "local CMD=($EMACS)"
+    if [ "$1" ]; then sdrun ${CMD[@]} -e "(ab2/find-file-in-project \"$1\")"
+    else              sdrun ${CMD[@]} -e "(ab2/find-file-in-project \"$PWD\")"
     fi
 }
 
 # open magit
 mg() {
-    if [ "$1" ]; then rifle -p magit "$1"
-    else              rifle -p magit "$PWD"
+    eval "local CMD=($EMACS)"
+    if [ "$1" ]; then sdrun ${CMD[@]} -e "(abdo-vcs-main \"$1\")"
+    else              sdrun ${CMD[@]} -e "(abdo-vcs-main \"$PWD\")"
     fi
 }
 
@@ -69,33 +73,28 @@ cl() {
 
 # new terminal
 tm()  {
-    if [ "$1" ]; then rifle -p terminal "$1"
-    else              rifle -p terminal "$PWD"
+    eval "local CMD=($TERMCMD)"
+    if [ "$1" ]; then sdrun ${CMD[@]} -d "$1"
+    else              sdrun ${CMD[@]} -d "$PWD"
     fi
 }
 
 # ranger session
 rg()  {
-    if [ "$1" ]; then rifle -p ranger "$1"
-    else              rifle -p ranger "$PWD"
+    eval "local CMD=($TERMCMD)"
+    if [ "$1" ]; then sdrun ${CMD[@]} -e ranger -d "$1"
+    else              sdrun ${CMD[@]} -e ranger -d "$PWD"
     fi
 }
 
-# open file manager
-fm()  {
-    if [ "$1" ]; then rifle -p filemanager "$1"
-    else              rifle -p filemanager "$PWD"
+# vifm as an awesome dropdown
+fm() {
+    echo "ddshow('app:vifm-dropdown', true)" | awesome-client
+    if [ "$1" ]; then local dir=$(realpath "$1")
+    else              local dir=$(realpath "$PWD")
     fi
+    # TODO: remove this once vifm is socket-activated
+    sleep 0.5
+    vifm --remote -c "cd '$dir'"
 }
-
-
-# These commands open awesome dropdown clients
-rgd() {
-    echo "ddclient.ranger:newtab('$PWD')"   | awesome-client
-}
-
-tmd() {
-    echo "ddclient.terminal:newtab('$PWD')" | awesome-client
-}
-
 
