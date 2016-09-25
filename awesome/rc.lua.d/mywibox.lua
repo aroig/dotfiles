@@ -23,8 +23,6 @@ awful.screen.connect_for_each_screen(function(s)
    -- Add widgets to the wibox - order matters
 
 
-   local layout = wibox.layout.align.horizontal()
-
    -- Left widgets
    local left_layout = wibox.layout.fixed.horizontal()
 
@@ -41,6 +39,7 @@ awful.screen.connect_for_each_screen(function(s)
 
    right_layout:add(myw.sys.syncwdg)
    right_layout:add(myw.sys.privwdg)
+   right_layout:add(myw.sys.mediawdg)
 
    right_layout:add(myw.separator)
 
@@ -108,9 +107,6 @@ awful.screen.connect_for_each_screen(function(s)
    middle_layout:add(myw.tasklist[s])
 
    -- Put it all together
-   layout:set_left(left_layout)
-   layout:set_middle(middle_layout)
-   layout:set_right(right_layout)
-
+   local layout = wibox.layout.align.horizontal(left_layout, middle_layout, right_layout)
    mywibox[s]:set_widget(layout)
 end)

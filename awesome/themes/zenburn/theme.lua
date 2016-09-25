@@ -172,6 +172,8 @@ theme.wibox.tablet     = "&#xf10a;"
 theme.wibox.mobile     = "&#xf10b;"
 theme.wibox.keyboard   = "&#xf11c;"
 
+theme.wibox.usb        = "&#xf287;"
+
 theme.wibox.power      = "&#xf0e7;"
 theme.wibox.cable      = "&#xf1e6;"   -- unicode: "&#x1f50c;"
 theme.wibox.battery    = "&#x1f50b;"  -- unicode symbol

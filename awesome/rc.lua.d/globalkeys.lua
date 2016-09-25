@@ -64,8 +64,7 @@ globalkeys = awful.util.table.join(
 
     -- Applications started from instantiated units
     awful.key({ modkey, ctrlkey   }, "Return", function () run('app:termite')         end),
-    awful.key({ modkey, ctrlkey   }, "f",      function () run('app:thunar')          end),
-    awful.key({ modkey, ctrlkey   }, "r",      function () run('app:ranger')          end),
+    awful.key({ modkey, ctrlkey   }, "f",      function () run('app:vifm')            end),
     awful.key({ modkey            }, "z",      myw.keyb.keybwdg.next_layout              ),
 
     awful.key({ modkey, ctrlkey   }, "b",      function () run('app:chromium')        end),
@@ -97,24 +96,12 @@ globalkeys = awful.util.table.join(
 
 
     awful.key({ modkey, metakey   }, "Return", function () ddtoggle('app:termite-dropdown', true) end),
-    awful.key({ modkey, metakey   }, "f",      function () ddtoggle('app:thunar-dropdown',  true) end),
-    awful.key({ modkey, metakey   }, "r",      function () ddtoggle('app:ranger-dropdown',  true) end),
-
+    awful.key({ modkey, metakey   }, "f",      function () ddtoggle('app:vifm-dropdown',    true) end),
 
     awful.key({ modkey   }, "F9",              function() ddshow("app:journal-dropdown",    true) end),
     awful.key({          }, "F9",              function() ddhide("app:journal-dropdown")          end),
     awful.key({ modkey   }, "XF86Tools",       function() ddshow("app:journal-dropdown",    true) end),
     awful.key({          }, "XF86Tools",       function() ddhide("app:journal-dropdown")          end),
-
-    awful.key({ modkey   }, "F10",             function() ddshow("dd:notes",   true) end),
-    awful.key({          }, "F10",             function() ddhide("dd:notes")         end),
-    awful.key({ modkey   }, "XF86Search",      function() ddshow("dd:notes",   true) end),
-    awful.key({          }, "XF86Search",      function() ddhide("dd:notes")         end),
-
-    awful.key({ modkey   }, "F11",             function() ddshow("dd:docs",    true) end),
-    awful.key({          }, "F11",             function() ddhide("dd:docs");         end),
-    awful.key({ modkey   }, "XF86LaunchA",     function() ddshow("dd:docs",    true) end),
-    awful.key({          }, "XF86LaunchA",     function() ddhide("dd:docs");         end),
 
     -- Prompts
     awful.key({ modkey   }, "w",               prompt.wikipedia),

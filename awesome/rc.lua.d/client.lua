@@ -155,21 +155,28 @@ rules.rules = {
                      focus = false } },
 
 
+    -- Priority
+    { rule_any = { class = {"Pinentry"} },
+      properties = { floating = true },
+      callback = function(c) awful.placement.centered(c); c:raise() end },
+
     -- Floats
-    { rule_any = { class = {"Qpaeq", "qjackctl", "Unison-gtk2", "Pinentry", "Skype", "Pavucontrol", "Pidgin",
-                            "Vmpk", "Wpa_gui"} },
-      properties = { floating = true } },
+    { rule_any = { class = {"Qpaeq", "qjackctl", "Unison-gtk2", "Skype",
+                            "Pavucontrol", "Pidgin", "wpa_gui"} },
+      properties = { floating = true },
+      callback   = function(c) awful.placement.centered(c) end },
 
     -- Float dialogs
     { rule_any = { name = {"Print"} },
       properties = { floating = true } },
 
     -- Float youtube, etc.
-    { rule_any = { instance = { "plugin-container", "exe" } },
-      properties = { floating = true, focus = true } },
+    { rule_any = { instance = { "plugin-container", "exe", 'vmpk' } },
+      properties = { floating = true, focus = true },
+      callback   = function(c) awful.placement.centered(c) end },
 
     -- Centered floats
-    { rule_any = { class = {"mpv", "MPlayer", "feh"} },
+    { rule_any = { class = {"mpv", "MPlayer", "feh", } },
       properties = { floating = true },
       callback   = function(c) awful.placement.centered(c) end },
 
@@ -180,11 +187,7 @@ rules.rules = {
     -- qemu
     { rule_any = { class = { "qemu-system-x86_64" } },
       properties = { floating = true },
-      callback   = function(c)
-          local x = capi.screen[awful.screen.focused()].geometry.x
-          local y = capi.screen[awful.screen.focused()].geometry.y
-          c:geometry({ x = x, y = y }) end
-    },
+      callback   = function(c) awful.placement.top_left(c, { honor_workarea = true }) end },
 
     -- dropdowns
     --
@@ -209,7 +212,8 @@ rules.rules = {
     },
 
     -- top dropdowns
-   { rule_any = { class = {"termite-dropdown", "journal-dropdown", "ranger-dropdown", "thunar-dropdown"} },
+    { rule_any = { class = {"termite-dropdown", "journal-dropdown", "ranger-dropdown",
+                            "thunar-dropdown", "vifm-dropdown"} },
       properties = { floating = true,
                      size_hints_honor = false,
                      ontop = true,

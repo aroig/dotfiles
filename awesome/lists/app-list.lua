@@ -5,6 +5,7 @@ return {
    ["termite-dropdown"]      = "termite-dropdown.service",
    ["thunar-dropdown"]       = "thunar-dropdown.service",
    ["ranger-dropdown"]       = "ranger-dropdown.service",
+   ["vifm-dropdown"]         = "vifm-dropdown.service",
    ["journal-dropdown"]      = "journal-dropdown.service",
 
    -- systemd units
@@ -14,6 +15,7 @@ return {
    thunar                    = "thunar@.service",
    termite                   = "termite@.service",
    ranger                    = "ranger@.service",
+   vifm                      = "vifm@.service",
    emacsclient               = "emacsclient@.service",
    cantata                   = "cantata.service",
    gmpc                      = "gmpc.service",
@@ -22,7 +24,6 @@ return {
    calibre                   = "calibre.service",
    mu4e                      = "mu4e.service",
    chat                      = "chat.service",
-   notes                     = "notes.service",
    xournal                   = "xournal.service",
    goldendict                = "goldendict.service",
 
@@ -36,6 +37,7 @@ return {
    skype                     = "skype",
    guvcview                  = "guvcview",
 
+   wpa_gui                   = "wpa_gui.service",
    pavucontrol               = "pavucontrol.service",
    qjackctl                  = "qjackctl.service",
    patchage                  = "patchage.service",
@@ -92,8 +94,6 @@ return {
    suspend                   = "suspend.target",
    poweroff                  = "poweroff.target",
    reboot                    = "reboot.target",
-
-   priv                      = "mount-priv.service",
 
    hi                        = "sync-hi.service",
    bye                       = "sync-bye.service",
