@@ -1,7 +1,7 @@
 [Unit]
 Description=proxy to android debug bridge daemon
 
-Requires=adb.service
+BindsTo=adb.service
 After=adb.service
 
 Requires=adb.socket

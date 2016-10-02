@@ -1,7 +1,7 @@
 [Unit]
 Description=emacs daemon proxy
 
-Requires=emacs.service
+BindsTo=emacs.service
 After=emacs.service
 
 Requires=emacs.socket
