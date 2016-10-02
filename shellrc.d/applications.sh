@@ -17,10 +17,6 @@ op() {
     xdg-open "$@" &> /dev/null &!
 }
 
-rf()  {
-    rifle "$@"
-}
-
 # terminal editor
 vi()  {
     eval "local CMD=($EDITOR)"
@@ -52,28 +48,33 @@ et()  {
 }
 
 # open magit
-mg() {
+eg() {
     eval "local CMD=($EMACS)"
     if [ "$1" ]; then sdrun ${CMD[@]} -e "(abdo-vcs-main \"$1\")"
     else              sdrun ${CMD[@]} -e "(abdo-vcs-main \"$PWD\")"
     fi
 }
 
-# open tmux session
-tx() {
+# open new tmux session
+xx() {
     if [ "$TMUX" ]; then   tmux new-window
-    else                   tmux_session default
+    else
+        local session="default"
+        systemctl --user start tmux.service
+        tmux -S "$XDG_RUNTIME_DIR/tmux/default" \
+             new-session -t "$session" -s "$session-$$" \; \
+             set destroy-unattached on\; "$@"
     fi
 }
 
 # detach from tmux
-dt() {
+xd() {
     if [ "$TMUX" ]; then   tmux detach-client
     fi
 }
 
 # if inside tmux close window and detach, otherwise just exit
-cl() {
+xc() {
     if [ "$TMUX" ]; then   tmux unlink-window -k\; detach-client
     else                   exit 0
     fi
@@ -93,6 +94,10 @@ rg()  {
     if [ "$1" ]; then sdrun ${CMD[@]} -e ranger -d "$1"
     else              sdrun ${CMD[@]} -e ranger -d "$PWD"
     fi
+}
+
+rf()  {
+    rifle "$@"
 }
 
 # vifm as an awesome dropdown
