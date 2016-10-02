@@ -43,6 +43,14 @@ ep() {
     fi
 }
 
+# emacs on the tty
+et()  {
+    eval "local CMD=(${EMACS/-c/-tty})"
+    if [ "$1" ]; then ${CMD[@]} "$@"
+    else              ${CMD[@]} "$PWD"
+    fi
+}
+
 # open magit
 mg() {
     eval "local CMD=($EMACS)"
