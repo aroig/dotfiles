@@ -9,4 +9,5 @@ After=xrandr-dual.service xrandr-mirror.service xrandr-single.service
 
 [Service]
 Type=oneshot
+Slice=wm.slice
 ExecStart=/home/abdo/.config/systemd/scripts/yoga.sh tablet %i
