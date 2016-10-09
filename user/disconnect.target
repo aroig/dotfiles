@@ -5,4 +5,4 @@ Before=sleep.target shutdown.target
 
 [Install]
 WantedBy=sleep.target
-WantedBy=shutdown.target
+WantedBy=exit.target
