@@ -1,6 +1,7 @@
 [Unit]
 Description=close active network services
 
+DefaultDependencies=no
 Before=sleep.target shutdown.target
 
 [Install]

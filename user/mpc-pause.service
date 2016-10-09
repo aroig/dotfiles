@@ -2,6 +2,7 @@
 Description=run mpc pause
 ConditionPathExists=%t/mpd/mpd.pid
 
+DefaultDependencies=no
 Before=sleep.target shutdown.target
 
 [Service]
