@@ -7,7 +7,6 @@
         python-mode
         compile
         cc-mode
-        clang-format
         editorconfig
         helm-make
         ))

@@ -18,3 +18,4 @@
                   (ab2-clang/rtags-add-project (projectile-project-root)))
                 )))
 
+(defun ab2-clang/post-init-projectile () )
