@@ -13,3 +13,4 @@ Type=forking
 # ExecStartPre=/usr/bin/mkdir -p %t/x11vnc
 
 ExecStart=/usr/bin/x11vnc -nopw -forever -ncache 10 -display ${DISPLAY} -rfbport 5900 -bg
+SuccessExitStatus=0 2
