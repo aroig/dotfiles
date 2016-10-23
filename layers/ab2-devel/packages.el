@@ -9,6 +9,7 @@
         cc-mode
         editorconfig
         helm-make
+        cmake-mode
         ))
 
 
@@ -124,3 +125,5 @@
   (use-package editorconfig)
   (editorconfig-mode 1))
 
+(defun ab2-devel/post-init-cmake-mode ()
+  (setq cmake-tab-width 4))
