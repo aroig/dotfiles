@@ -2,6 +2,11 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+;; Change .cache directory.
+;; TODO: This is not quite enough, as auto-save and some other stuff uses the
+;; old spacemacs-cache-directory.
+(setq spacemacs-cache-directory (concat (getenv "HOME") "/var/spacemacs/"))
+
 ;; relocate elpa directory
 (setq package-user-dir (concat spacemacs-cache-directory "elpa/"))
 
