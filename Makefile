@@ -1,6 +1,6 @@
 
 SPACEMACS_DIR   := ~/.emacs.d
-SPACEMACS_CACHE := ~/.emacs.d/.cache
+SPACEMACS_CACHE := ~/var/spacemacs
 
 EMACS           := emacs --batch --load $(SPACEMACS_DIR)/init.el
 
