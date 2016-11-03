@@ -178,7 +178,7 @@ fileviewer .*/,*/ tree -C %f
 " Syntax highlighting in preview
 fileviewer <text/*> highlight -O ansi %c
 
-" NOTE: vimcat seems to break the terminal and hangs. I don't know what is going on
+" TODO: vimcat seems to break the terminal and hangs. I don't know what is going on
 fileviewer <text/*,*/xml> (vimcat -o - %c)
 
 " Displaying pictures in terminal
@@ -210,10 +210,8 @@ nnoremap S :sort<cr>
 nnoremap w :view<cr>
 vnoremap w :view<cr>gv
 
-" Open file in existing instance of gvim
-nnoremap o :!gvim --remote-tab-silent %f<cr>
-" Open file in new instance of gvim
-nnoremap O :!gvim %f<cr>
+" Open file in existing instance of vim
+nnoremap o :!vim %f<cr>
 
 " Open file in the background using its default program
 nnoremap gb :file &<cr>l
@@ -230,7 +228,7 @@ nnoremap cc cw<c-u>
 nnoremap A cw<c-w>
 
 " Open console in current directory
-nnoremap ,t :!xterm &<cr>
+nnoremap ,t :!termite &<cr>
 
 " Open vim to edit vifmrc and apply settings after returning to vifm
 nnoremap ,c :write | execute ':!vim $MYVIFMRC' | restart<cr>
