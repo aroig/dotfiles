@@ -129,11 +129,11 @@ command! reload :write | restart
 " program.
 
 " Pdf, PS, djvu
-filextype *.pdf,*.ps,*.eps,*.ps.gz,*.djvu zathura %c &
+filextype *.pdf,*.ps,*.eps,*.ps.gz,*.djvu sdrun zathura %c &
 fileviewer *.pdf pdftotext -nopgbrk %c -
 
 " Media
-filextype <audio/*,video/*> mpv %c &
+filextype <audio/*,video/*> sdrun mpv %c &
 fileviewer <audio/*,video/*> mediainfo %c
 
 " fileviewer <video/*> ffprobe -pretty %c 2>&1
@@ -141,12 +141,12 @@ fileviewer <audio/*,video/*> mediainfo %c
 " fileviewer *.flac soxi %c
 
 " Image
-filextype <image/*> feh %f &
+filextype <image/*> sdrun feh %f &
 fileviewer <image/*> exiftool %c
 " fileviewer <image/*> convert -identify %f -verbose /dev/null
 
 " Web
-filextype *.xhtml,*.html,*.htm chromium %f &
+filextype *.xhtml,*.html,*.htm sdrun chromium %f &
 
 " Object
 filetype *.o nm %f | less
@@ -168,7 +168,7 @@ fileviewer *.7z,*.ace,*.ar,*.arc,*.bz2,*.cab,*.cpio,*.cpt,*.deb,*.dgc,*.dmg,*.gz
            \ als %f
 
 " Office files
-filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx libreoffice %f &
+filextype *.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx sdrun libreoffice %f &
 fileviewer *.doc catdoc %c
 fileviewer *.docx, docx2txt.pl %f -
 
@@ -179,7 +179,7 @@ fileviewer .*/,*/ tree -C %f
 fileviewer <text/*> highlight -O ansi %c
 
 " TODO: vimcat seems to break the terminal and hangs. I don't know what is going on
-fileviewer <text/*,*/xml> (vimcat -o - %c)
+" fileviewer <text/*,*/xml> (vimcat -o - %c)
 
 " Displaying pictures in terminal
 " fileviewer *.jpg,*.png shellpic %c
