@@ -14,7 +14,7 @@
 
 # file openers
 op() {
-    xdg-open "$@" &> /dev/null &!
+    xdg-open $(realpath "$@") &> /dev/null &!
 }
 
 # terminal editor
