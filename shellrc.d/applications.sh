@@ -14,44 +14,44 @@
 
 # file openers
 op() {
-    xdg-open $(realpath "$@") &> /dev/null &!
+    realpath -z "$@" | xargs -r -0 xdg-open
 }
 
 # terminal editor
 vi()  {
     eval "local CMD=($EDITOR)"
-    ${CMD[@]} "$@";
+    "${CMD[@]}" "$@";
 }
 
 # emacs
 ee()  {
     eval "local CMD=($EMACS)"
-    if [ "$1" ]; then sdrun ${CMD[@]} "$@"
-    else              sdrun ${CMD[@]} "$PWD"
+    if [ "$1" ]; then sdrun "${CMD[@]}" "$@"
+    else              sdrun "${CMD[@]}" "$PWD"
     fi
 }
 
 # emacs project
 ep() {
     eval "local CMD=($EMACS)"
-    if [ "$1" ]; then sdrun ${CMD[@]} -e "(ab2/find-file-in-project \"$1\")"
-    else              sdrun ${CMD[@]} -e "(ab2/find-file-in-project \"$PWD\")"
+    if [ "$1" ]; then sdrun "${CMD[@]}" -e "(ab2/find-file-in-project \"$1\")"
+    else              sdrun "${CMD[@]}" -e "(ab2/find-file-in-project \"$PWD\")"
     fi
 }
 
 # emacs on the tty
 et()  {
     eval "local CMD=(${EMACS/-c/-tty})"
-    if [ "$1" ]; then ${CMD[@]} "$@"
-    else              ${CMD[@]} "$PWD"
+    if [ "$1" ]; then "${CMD[@]}" "$@"
+    else              "${CMD[@]}" "$PWD"
     fi
 }
 
 # open magit
 eg() {
     eval "local CMD=($EMACS)"
-    if [ "$1" ]; then sdrun ${CMD[@]} -e "(abdo-vcs-main \"$1\")"
-    else              sdrun ${CMD[@]} -e "(abdo-vcs-main \"$PWD\")"
+    if [ "$1" ]; then sdrun "${CMD[@]}" -e "(abdo-vcs-main \"$1\")"
+    else              sdrun "${CMD[@]}" -e "(abdo-vcs-main \"$PWD\")"
     fi
 }
 
@@ -83,16 +83,16 @@ xc() {
 # new terminal
 tm()  {
     eval "local CMD=($TERMCMD)"
-    if [ "$1" ]; then sdrun ${CMD[@]} -d "$1"
-    else              sdrun ${CMD[@]} -d "$PWD"
+    if [ "$1" ]; then sdrun "${CMD[@]}" -d "$1"
+    else              sdrun "${CMD[@]}" -d "$PWD"
     fi
 }
 
 # ranger session
 rg()  {
     eval "local CMD=($TERMCMD)"
-    if [ "$1" ]; then sdrun ${CMD[@]} -e ranger -d "$1"
-    else              sdrun ${CMD[@]} -e ranger -d "$PWD"
+    if [ "$1" ]; then sdrun "${CMD[@]}" -e ranger -d "$1"
+    else              sdrun "${CMD[@]}" -e ranger -d "$PWD"
     fi
 }
 
