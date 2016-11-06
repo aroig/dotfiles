@@ -73,10 +73,6 @@
   )
 
 (defun ab2/cc-mode-config ()
-  ;; binding for clang-format
-  (define-key c++-mode-map (kbd "M-q") 'clang-format)
-  (define-key c-mode-map (kbd "M-q") 'clang-format)
-
   ;; disable electric-indent. I'll use clang-format
   ;; (electric-indent-local-mode -1)
   (c-toggle-electric-state -1)

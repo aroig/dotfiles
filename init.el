@@ -75,7 +75,7 @@ values."
      search-engine
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
-            c-c++-enable-clang-support nil)
+            c-c++-enable-clang-support t)
      ;; semantic
      syntax-checking
      asciidoc
