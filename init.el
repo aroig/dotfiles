@@ -48,7 +48,7 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
 
-     asm
+     helm
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip t
@@ -81,6 +81,7 @@ values."
      asciidoc
      bibtex
      emacs-lisp
+     asm
      extra-langs
      go
      haskell
@@ -138,7 +139,7 @@ values."
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
-   ;; A list of packages that will not be install and loaded.
+   ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages
    '(
      org-bullets
@@ -202,7 +203,7 @@ values."
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
-   ;; `recents' `bookmarks' `projects' `agenda' `todos'.
+   ;; `recents' `bookmarks' `projects' `agenda' `todos'."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
@@ -312,6 +313,12 @@ values."
    ;; right; if there is insufficient space it displays it at the bottom.
    ;; (default 'bottom)
    dotspacemacs-which-key-position 'bottom
+   ;; Control where `switch-to-buffer' displays the buffer. If nil,
+   ;; `switch-to-buffer' displays the buffer in the current window even if
+   ;; another same-purpose window is available. If non nil, `switch-to-buffer'
+   ;; displays the buffer in a same-purpose window even if the buffer can be
+   ;; displayed in the current window. (default nil)
+   dotspacemacs-switch-to-buffer-prefers-purpose nil
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
@@ -391,9 +398,7 @@ values."
    (set-fontset-font "fontset-default" '(#x27c0 . #x27ef)   "Symbola")   ; Misc mathematical symbols-A
    (set-fontset-font "fontset-default" '(#x2980 . #x29ff)   "Symbola")   ; Misc mathematical symbols-B
    (set-fontset-font "fontset-default" '(#x1f600 . #x1f6ff) "Symbola")   ; Emoticons
-
-   )
-  )
+  ))
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
