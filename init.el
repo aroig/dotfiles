@@ -91,6 +91,7 @@ values."
      javascript
      latex
      lua
+     coq
      octave
      python
      restclient
