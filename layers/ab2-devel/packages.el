@@ -96,15 +96,6 @@
   ; (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
   ; (abdo-change-dictionary "english")      ;; I always program in english
 
-  ;; use rtags needs a daemon running!
-  ;; (require 'rtags)
-
-  ;; enable rtags bindings with C-cr prefix. I can't use H-r due to rtags limitations.
-  ;; (rtags-enable-standard-keybindings)
-
-  ;; Delete trailing whitespaces before save
-  ;; (trailing-whitespace-mode)
-
   ;; extra QT Keywords
   (setq c-protection-key (concat "\\<\\(public\\|public slot\\|protected"
                                  "\\|protected slot\\|private\\|private slot"
@@ -113,9 +104,15 @@
                                  "\\|public slots\\|protected slots\\|private slots"
                                  "\\)\\>[ \t]*:"))
 
-  (add-hook 'c++-mode-hook 'ab2/cc-mode-config)
-  (add-hook 'c-mode-hook 'ab2/cc-mode-config)
-  )
+  (add-hook 'c-mode-common-hook 'ab2/cc-mode-config)
+
+  (when ab2-devel/enable-rtags
+    (add-hook 'c-mode-common-hook
+              #'(lambda ()
+                  (projectile-mode)
+                  (when (and ab2-devel/enable-rtags (projectile-project-p))
+                    (ab2-devel/rtags-add-project (projectile-project-root)))
+                  ))))
 
 (defun ab2-devel/init-editorconfig ()
   (use-package editorconfig)
