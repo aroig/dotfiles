@@ -123,7 +123,8 @@
 
 (defun ab2-devel/init-editorconfig ()
   (use-package editorconfig)
-  (editorconfig-mode 1))
+  (editorconfig-mode 1)
+  (spacemacs|diminish editorconfig-mode "ⓔ" " e"))
 
 (defun ab2-devel/post-init-cmake-mode ()
   (setq cmake-tab-width 4))
