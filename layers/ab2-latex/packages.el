@@ -71,11 +71,6 @@
               ;; fontify \& just like &
               (add-to-list 'font-latex-match-warning-keywords '("\&"))
 
-              ;; add align environment
-              (add-to-list 'LaTeX-environment-list '("align", LaTeX-env-label))
-              (add-to-list 'font-latex-math-environments "align")
-              (add-to-list 'font-latex-math-environments "align*")
-
               ;; Disable fill inside some environments
               (add-to-list 'LaTeX-indent-environment-list '("tikzpicture"))
               (add-to-list 'LaTeX-indent-environment-list '("tikzcd"))
