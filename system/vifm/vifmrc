@@ -133,7 +133,7 @@ filextype *.pdf,*.ps,*.eps,*.ps.gz,*.djvu sdrun zathura %c &
 fileviewer *.pdf pdftotext -nopgbrk %c -
 
 " Media
-filextype <audio/*,video/*> sdrun mpv %c &
+filextype <audio/*,video/*> sdrun mpv --force-window --really-quiet %c &
 fileviewer <audio/*,video/*> mediainfo %c
 
 " fileviewer <video/*> ffprobe -pretty %c 2>&1
