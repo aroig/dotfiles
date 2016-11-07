@@ -85,11 +85,9 @@
               ))
 
   (add-hook 'LaTeX-mode-hook 'outline-minor-mode)
-
   (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
-
   (add-hook 'LaTeX-mode-hook 'auto-fill-mode)
-  )
+  (add-hook 'LaTeX-mode-hook 'prettify-symbols-mode))
 
 (defun ab2-latex/post-init-reftex()
   (setq reftex-auto-recenter-toc t
