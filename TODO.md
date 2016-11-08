@@ -9,9 +9,10 @@ TODO
 
 * Exclude `glsl-mode` from flycheck
 
-* Automatically close compilation window using workspaces.
-
 * Use spacemacs automatic success detection?
+
+* rtags layer triggers rtags daemon activation on emacs startup. I should fix
+  that.
 
 
 ## latex
