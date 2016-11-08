@@ -6,7 +6,7 @@ stx() {
     # export environment to systemd
     export DISPLAY=:0
     systemctl --user import-environment DISPLAY XDG_VTNR
-    
+
     # start the desktop according to the device
     local chassis=$(hostnamectl status | awk '/Chassis/{print $2}')
     case "$chassis" in
@@ -16,19 +16,15 @@ stx() {
         *)       systemctl --user start desktop.target ;;
     esac
 
-    # wait until X server finishes
-    while [ -e "/tmp/.X11-unix/X0" ]; do
-        sleep 1
-        inotifywait -qq -e close "/tmp/.X11-unix/X0"
-    done
+    # wait synchronously until the xorg server stops
+    systemctl --user start --wait xorg.service
 
     # unset systemd environment
     systemctl --user unset-environment DISPLAY XDG_VTNR
 
     # reset tty and reset colors
-    # NOTE: I think I do not need to reset anymore
-    # reset
-    # set_tty_colors
+    reset
+    set_tty_colors
 }
 
 klx() {
