@@ -2,8 +2,6 @@
 ;; compile buffer
 (defvar ab2/compile-window-state nil)
 
-(defvar ab2-devel/enable-rtags t)
-
 (defconst ab2/google-c-style
   `((c-recognize-knr-p . nil)
     (c-enable-xemacs-performance-kludge-p . t) ; speed up indentation in XEmacs

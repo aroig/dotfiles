@@ -104,15 +104,7 @@
                                  "\\|public slots\\|protected slots\\|private slots"
                                  "\\)\\>[ \t]*:"))
 
-  (add-hook 'c-mode-common-hook 'ab2/cc-mode-config)
-
-  (when ab2-devel/enable-rtags
-    (add-hook 'c-mode-common-hook
-              #'(lambda ()
-                  (projectile-mode)
-                  (when (and ab2-devel/enable-rtags (projectile-project-p))
-                    (ab2-devel/rtags-add-project (projectile-project-root)))
-                  ))))
+  (add-hook 'c-mode-common-hook 'ab2/cc-mode-config))
 
 (defun ab2-devel/init-editorconfig ()
   (use-package editorconfig)
