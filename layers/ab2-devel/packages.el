@@ -10,6 +10,9 @@
         editorconfig
         helm-make
         cmake-mode
+        irony
+        (company-irony :toggle (configuration-layer/package-usedp 'company))
+        (flycheck-irony :toggle (configuration-layer/package-usedp 'flycheck))
         ))
 
 
@@ -113,3 +116,30 @@
 
 (defun ab2-devel/post-init-cmake-mode ()
   (setq cmake-tab-width 4))
+
+
+(defun ab2-devel/init-irony ()
+  (use-package irony-mode
+    :defer t
+    :init
+    (progn
+      (add-hook 'c-mode-hook 'irony-mode)
+      (add-hook 'c++-mode-hook 'irony-mode)
+      (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+      (spacemacs|diminish irony-mode "Ⓘ" " I"))))
+
+
+(defun ab2-devel/init-company-irony ()
+  (use-package company-irony
+    :defer t
+    :init
+    (progn
+      (push 'company-irony company-backends-c-mode-common)
+      (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands))))
+
+
+(defun ab2-devel/init-flycheck-irony ()
+  (use-package flycheck-irony
+    :defer t
+    :init
+    (progn (add-hook 'irony-mode-hook 'flycheck-irony-setup))))
