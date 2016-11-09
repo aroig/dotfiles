@@ -123,6 +123,7 @@
     :defer t
     :init
     (progn
+      (setq irony-server-install-prefix "/usr")
       (add-hook 'c-mode-hook 'irony-mode)
       (add-hook 'c++-mode-hook 'irony-mode)
       (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
