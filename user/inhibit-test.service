@@ -1,11 +1,5 @@
 [Unit]
-Description=use git repo at /home/%u/%I
-
-StopWhenUnneeded=true
-ConditionPathExists=/home/%u/%I/.git
-
-Requisite=synced.target
-After=synced.target
+Description=Test shutdown inhibit
 
 [Service]
 Type=oneshot
@@ -17,7 +11,7 @@ ExecStopPost=/usr/bin/systemd-inhibit                 \
     --mode=block                                      \
     --what=sleep:shutdown                             \
     --who=%p                                          \
-    --why="Commiting changes in %I"                   \
-    /home/abdo/.config/systemd/scripts/git-commit.sh "/home/%u/%I"
+    --why="Test inhibition"                           \
+    sleep 20
 
 TimeoutSec=10min
