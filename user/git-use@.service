@@ -12,7 +12,8 @@ Type=oneshot
 RemainAfterExit=true
 Slice=workers.slice
 
-ExecStart=/usr/bin/true
+ExecStart=/home/abdo/.config/systemd/scripts/git-is-clean.sh "/home/%u/%I"
+
 ExecStopPost=/usr/bin/systemd-inhibit                 \
     --mode=block                                      \
     --what=sleep:shutdown                             \
