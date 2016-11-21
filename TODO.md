@@ -1,10 +1,6 @@
 TODO
 ====
 
-* Fix mess with `housekeeping.target`. Its deps are started even with no AC. I
-  need to check the AC condition on the individual services, I guess, and forget
-  about the `Requires`.
-
 * Write a generator for generating the sshmux@%i.socket files
 
 * Attempt to fix emacs hang on shutdown. 

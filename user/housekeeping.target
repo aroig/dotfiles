@@ -2,4 +2,6 @@
 Description=houskeeping timers
 
 ConditionACPower=yes
-Requisite=synced.target
+
+[Install]
+WantedBy=udev-ac.target
