@@ -427,6 +427,10 @@
   )
 
 
+(defun ab2-org/post-init-org ()
+  (spacemacs|diminish orgtbl-mode "Ⓣ" " t"))
+
+
 (defun ab2-org/post-init-persp-mode ()
   (spacemacs|define-custom-layout
       "@wiki"
