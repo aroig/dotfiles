@@ -9,6 +9,7 @@ AssertPathExists=/home/%u/priv
 Type=oneshot
 Slice=workers.slice
 
+Nice=19
 WorkingDirectory=/home/%u/arch/sync
 ExecStart=/usr/bin/make sync REMOTES=%I
 
