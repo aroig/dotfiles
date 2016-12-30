@@ -7,10 +7,7 @@ After=machine@%i.service
 
 Type=simple
 
-# start system service and wait for it
-ExecStartPre=/usr/bin/sudo systemctl --system start openvpn-client@%i.service
-
-# synchronously wait until that service stops
+# Start openvpn and synchronously wait until it stops
 ExecStart=/usr/bin/sudo systemctl --system start --wait openvpn-client@%i.service
 
 ExecStop=/usr/bin/sudo systemctl --system stop openvpn-client@%i.service
