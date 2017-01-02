@@ -111,3 +111,13 @@ fm() {
     vifm --remote -c "cd '$dir'"
 }
 
+# OTP keys
+totp() {
+    local priv_otp="${HOME}/priv/etc/otp"
+    if [ -f "${priv_otp}/$1" ]; then
+        oathtool -b "$(cat ${priv_otp}/$1)"
+    else
+        echo "Available services:"
+        ls "${priv_otp}/"
+    fi
+}

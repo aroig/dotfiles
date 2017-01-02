@@ -29,6 +29,7 @@ alias trash='gvfs-trash'
 alias rm='printf >&2 "\e[31mError\e[0m: rm disabled for interactive use.\nUse trash instead.\n"; false'
 
 
+
 #------------------------------
 # Auxiliar functions
 #------------------------------
