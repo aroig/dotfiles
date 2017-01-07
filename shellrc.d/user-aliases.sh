@@ -17,6 +17,9 @@ alias nspawn='systemd-nspawn -b -n -D'
 # System
 #------------------------------
 
+alias scgls="systemd-cgls --all --full /system.slice"
+alias ucgls="systemd-cgls -all --full /user.slice/user-\$(id -u).slice"
+
 alias cgls="sdls cgroups"
 alias unls="sdls units"
 
