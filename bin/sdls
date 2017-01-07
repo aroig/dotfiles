@@ -111,7 +111,7 @@ try:
         cgls(args)
 
     elif cmd == 'units':
-        unit_types=['service', 'target', 'mount', 'automount', 'path', 'socket', 'busname', 'snapshot', 'swap', 'timer', 'slice', 'scope']
+        unit_types=['service', 'target', 'mount', 'automount', 'path', 'socket', 'busname', 'swap', 'timer', 'slice', 'scope']
         unitls(args, unit_types)
 
 
