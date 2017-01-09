@@ -3,12 +3,11 @@
 !! not using fontconfig (like emacs)
 !!---------------------------------
 ! NOTE: Xft seems to not understand less than hintfull
-! NOTE2: We now let infinality handle this!
-! Xft.antialias: 1
-! Xft.hinting: 0
-! Xft.autohint: 0
-! Xft.hintstyle: hintfull
-! Xft.rgba: none
+Xft.antialias: 1
+Xft.hinting: 1
+Xft.autohint: 1
+Xft.hintstyle: hintfull
+Xft.rgba: rgb
 
 ! awesome seems to want to use this.
 Xft.dpi: 96
