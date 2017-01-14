@@ -166,7 +166,9 @@
                 (mapcar (lambda (context)
                           (when (mu4e-context-vars context)
                             (cdr (assq 'user-mail-address (mu4e-context-vars context)))))
-                        mu4e-contexts))))
+                        mu4e-contexts)))
+
+    (spacemacs|diminish mml-mode "Ⓜ" " M"))
 
 
   ;; Custom actions

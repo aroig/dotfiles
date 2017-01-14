@@ -1,6 +1,6 @@
 
 SPACEMACS_DIR   := ~/.emacs.d
-SPACEMACS_CACHE := ~/.emacs.d/.cache
+SPACEMACS_CACHE := ~/var/spacemacs
 
 EMACS           := emacs --batch --load $(SPACEMACS_DIR)/init.el
 
@@ -17,13 +17,6 @@ FORCE:
 
 .PHONY: update-init update sync pull
 
-$(SPACEMACS_DIR)/.git/FETCH_HEAD: FORCE
-	@(
-		cd $(SPACEMACS_DIR)
-		git pull
-	)
-
-
 pull: $(SPACEMACS_DIR)/.git/FETCH_HEAD
 
 update-init:
@@ -32,7 +25,7 @@ update-init:
 sync:
 	@$(EMACS) --eval '(configuration-layer/sync)'
 
-update: $(SPACEMACS_DIR)/.git/FETCH_HEAD
+update:
 	@(
 		cd $(SPACEMACS_CACHE)/elpa
 		git checkout master

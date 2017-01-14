@@ -7,9 +7,12 @@
         python-mode
         compile
         cc-mode
-        clang-format
         editorconfig
         helm-make
+        cmake-mode
+        irony
+        (company-irony :toggle (configuration-layer/package-usedp 'company))
+        (flycheck-irony :toggle (configuration-layer/package-usedp 'flycheck))
         ))
 
 
@@ -73,10 +76,6 @@
   )
 
 (defun ab2/cc-mode-config ()
-  ;; binding for clang-format
-  (define-key c++-mode-map (kbd "M-q") 'clang-format)
-  (define-key c-mode-map (kbd "M-q") 'clang-format)
-
   ;; disable electric-indent. I'll use clang-format
   ;; (electric-indent-local-mode -1)
   (c-toggle-electric-state -1)
@@ -100,15 +99,6 @@
   ; (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
   ; (abdo-change-dictionary "english")      ;; I always program in english
 
-  ;; use rtags needs a daemon running!
-  ;; (require 'rtags)
-
-  ;; enable rtags bindings with C-cr prefix. I can't use H-r due to rtags limitations.
-  ;; (rtags-enable-standard-keybindings)
-
-  ;; Delete trailing whitespaces before save
-  ;; (trailing-whitespace-mode)
-
   ;; extra QT Keywords
   (setq c-protection-key (concat "\\<\\(public\\|public slot\\|protected"
                                  "\\|protected slot\\|private\\|private slot"
@@ -117,11 +107,40 @@
                                  "\\|public slots\\|protected slots\\|private slots"
                                  "\\)\\>[ \t]*:"))
 
-  (add-hook 'c++-mode-hook 'ab2/cc-mode-config)
-  (add-hook 'c-mode-hook 'ab2/cc-mode-config)
-  )
+  (add-hook 'c-mode-common-hook 'ab2/cc-mode-config))
 
 (defun ab2-devel/init-editorconfig ()
   (use-package editorconfig)
-  (editorconfig-mode 1))
+  (editorconfig-mode 1)
+  (spacemacs|diminish editorconfig-mode "ⓔ" " e"))
 
+(defun ab2-devel/post-init-cmake-mode ()
+  (setq cmake-tab-width 4))
+
+
+(defun ab2-devel/init-irony ()
+  (use-package irony-mode
+    :defer t
+    :init
+    (progn
+      (setq irony-server-install-prefix "/usr")
+      (add-hook 'c-mode-hook 'irony-mode)
+      (add-hook 'c++-mode-hook 'irony-mode)
+      (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+      (spacemacs|diminish irony-mode "Ⓘ" " I"))))
+
+
+(defun ab2-devel/init-company-irony ()
+  (use-package company-irony
+    :defer t
+    :init
+    (progn
+      (push 'company-irony company-backends-c-mode-common)
+      (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands))))
+
+
+(defun ab2-devel/init-flycheck-irony ()
+  (use-package flycheck-irony
+    :defer t
+    :init
+    (progn (add-hook 'irony-mode-hook 'flycheck-irony-setup))))
