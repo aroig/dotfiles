@@ -134,9 +134,9 @@ theme.wibox = {}
 theme.wibox.check      = "&#xf00c;"
 theme.wibox.cross      = "&#xf00d;"
 
-theme.wibox.memory     = "&#xf145;"   -- ticket: &#xf145;
+theme.wibox.memory     = "&#xf2db;"    -- microchip: %@xf2db;  ticket: &#xf145;
 theme.wibox.cpu        = "&#xf085;"    -- cog: &#xf013;   cogs: &#xf085;
-theme.wibox.temp       = "&#xf041;"    -- fire: "&#xf06d;"
+theme.wibox.temp       = "&#xf2c7;"    -- thermomenter: &#f2c7; map-marker: &#xf041;  fire: "&#xf06d;"
 theme.wibox.disk       = "&#xf0a0;"    -- stack: &#xf1c0;
 theme.wibox.gauge      = "&#xf0e4;"
 theme.wibox.network    = "&#xf0e8;"
