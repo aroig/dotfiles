@@ -19,6 +19,7 @@ mark m /media
 mark b ~/bibrain
 mark d ~/devel
 mark s ~/src
+mark w ~/down
 
 
 " Local Settings
