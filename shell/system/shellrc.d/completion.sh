@@ -6,12 +6,12 @@
 #------------------------------------------------------------------#
 
 if [ "$ZSH_VERSION" ]; then
-    
+
     # add completions to fpath
     fpath=($HOME/.zsh/completions $fpath)
 
     # enable completion
-    zmodload zsh/complist 
+    zmodload zsh/complist
     autoload -U compinit
     compinit -u
 
@@ -36,11 +36,11 @@ if [ "$ZSH_VERSION" ]; then
     # copy a completions from oldcmd to newcmd
     # compdef newcmd=oldcmd
     compdef mk=make
-    
-    compdef jctl=journalctl
+
+    # compdef jctl=journalctl
 
     # zstyle ':completion::*:expand:*' tag-order all-expansions
-    
+
 fi
 
 

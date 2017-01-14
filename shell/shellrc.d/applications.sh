@@ -14,58 +14,67 @@
 
 # file openers
 op() {
-    xdg-open "$@" &> /dev/null &!
-}
-
-rf()  {
-    rifle "$@"
+    realpath -z "$@" | xargs -r -0 xdg-open
 }
 
 # terminal editor
 vi()  {
     eval "local CMD=($EDITOR)"
-    ${CMD[@]} "$@";
+    "${CMD[@]}" "$@";
 }
 
 # emacs
 ee()  {
     eval "local CMD=($EMACS)"
-    if [ "$1" ]; then sdrun ${CMD[@]} "$@"
-    else              sdrun ${CMD[@]} "$PWD"
+    if [ "$1" ]; then sdrun "${CMD[@]}" "$@"
+    else              sdrun "${CMD[@]}" "$PWD"
     fi
 }
 
 # emacs project
 ep() {
     eval "local CMD=($EMACS)"
-    if [ "$1" ]; then sdrun ${CMD[@]} -e "(ab2/find-file-in-project \"$1\")"
-    else              sdrun ${CMD[@]} -e "(ab2/find-file-in-project \"$PWD\")"
+    if [ "$1" ]; then sdrun "${CMD[@]}" -e "(ab2/find-file-in-project \"$1\")"
+    else              sdrun "${CMD[@]}" -e "(ab2/find-file-in-project \"$PWD\")"
+    fi
+}
+
+# emacs on the tty
+et()  {
+    eval "local CMD=(${EMACS/-c/-tty})"
+    if [ "$1" ]; then "${CMD[@]}" "$@"
+    else              "${CMD[@]}" "$PWD"
     fi
 }
 
 # open magit
-mg() {
+eg() {
     eval "local CMD=($EMACS)"
-    if [ "$1" ]; then sdrun ${CMD[@]} -e "(abdo-vcs-main \"$1\")"
-    else              sdrun ${CMD[@]} -e "(abdo-vcs-main \"$PWD\")"
+    if [ "$1" ]; then sdrun "${CMD[@]}" -e "(abdo-vcs-main \"$1\")"
+    else              sdrun "${CMD[@]}" -e "(abdo-vcs-main \"$PWD\")"
     fi
 }
 
-# open tmux session
-tx() {
+# open new tmux session
+xx() {
     if [ "$TMUX" ]; then   tmux new-window
-    else                   tmux_session default
+    else
+        local session="default"
+        systemctl --user start tmux.service
+        tmux -S "$XDG_RUNTIME_DIR/tmux/default" \
+             new-session -t "$session" -s "$session-$$" \; \
+             set destroy-unattached on\; "$@"
     fi
 }
 
 # detach from tmux
-dt() {
+xd() {
     if [ "$TMUX" ]; then   tmux detach-client
     fi
 }
 
 # if inside tmux close window and detach, otherwise just exit
-cl() {
+xc() {
     if [ "$TMUX" ]; then   tmux unlink-window -k\; detach-client
     else                   exit 0
     fi
@@ -74,17 +83,21 @@ cl() {
 # new terminal
 tm()  {
     eval "local CMD=($TERMCMD)"
-    if [ "$1" ]; then sdrun ${CMD[@]} -d "$1"
-    else              sdrun ${CMD[@]} -d "$PWD"
+    if [ "$1" ]; then sdrun "${CMD[@]}" -d "$1"
+    else              sdrun "${CMD[@]}" -d "$PWD"
     fi
 }
 
 # ranger session
 rg()  {
     eval "local CMD=($TERMCMD)"
-    if [ "$1" ]; then sdrun ${CMD[@]} -e ranger -d "$1"
-    else              sdrun ${CMD[@]} -e ranger -d "$PWD"
+    if [ "$1" ]; then sdrun "${CMD[@]}" -e ranger -d "$1"
+    else              sdrun "${CMD[@]}" -e ranger -d "$PWD"
     fi
+}
+
+rf()  {
+    rifle "$@"
 }
 
 # vifm as an awesome dropdown
@@ -98,3 +111,13 @@ fm() {
     vifm --remote -c "cd '$dir'"
 }
 
+# OTP keys
+totp() {
+    local priv_otp="${HOME}/priv/etc/otp"
+    if [ -f "${priv_otp}/$1" ]; then
+        oathtool -b "$(cat ${priv_otp}/$1)"
+    else
+        echo "Available services:"
+        ls "${priv_otp}/"
+    fi
+}

@@ -15,7 +15,7 @@ alias ll='ls++ --potsf'
 alias lt='tree -C'
 
 # filesystem stuff
-alias df='dfc'
+alias df='dfc -p /dev,tmpf'
 alias dul='cdu -dLh -i'
 alias du='cdu -dh -i'
 
