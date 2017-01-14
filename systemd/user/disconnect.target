@@ -1,8 +1,0 @@
-[Unit]
-Description=close active network services
-
-Before=sleep.target shutdown.target
-
-[Install]
-WantedBy=sleep.target
-WantedBy=shutdown.target

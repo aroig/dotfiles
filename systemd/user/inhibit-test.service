@@ -1,0 +1,17 @@
+[Unit]
+Description=Test shutdown inhibit
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+Slice=workers.slice
+
+ExecStart=/usr/bin/true
+ExecStopPost=/usr/bin/systemd-inhibit                 \
+    --mode=block                                      \
+    --what=sleep:shutdown                             \
+    --who=%p                                          \
+    --why="Test inhibition"                           \
+    sleep 20
+
+TimeoutSec=10min

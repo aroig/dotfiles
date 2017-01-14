@@ -1,7 +1,7 @@
 [Unit]
 Description=ssh connection proxy for %i
 
-Requires=sshmux@%i.service
+BindsTo=sshmux@%i.service
 After=sshmux@%i.service
 
 Requires=sshmux@%i.socket

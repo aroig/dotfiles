@@ -12,7 +12,7 @@ available_index() {
     # TODO: We avoid failed units too, since systemd-run does not start a transient unit if
     # exists and is already failed. We should fix systemd and get rid of the failed test.
     for index in $(seq 0 1000); do
-        unit="$basename$index.service" 
+        unit="$basename$index.service"
         if systemctl --user is-active "$unit" > /dev/null ||
            systemctl --user is-failed "$unit" > /dev/null; then
             continue;
@@ -20,7 +20,7 @@ available_index() {
         echo "$index"
         return 0
     done
-    
+
     echo "Can't find a transient unit name available"
     exit 1
 }
@@ -48,20 +48,20 @@ shift $((OPTIND-1))
 
 case "$1" in
     *@.service)
-        transient='0'        
+        transient='0'
         basename="${1%\.*}"
         index=`available_index "$basename"`
         [ ! "$unit" ] && unit="$basename$index"
         [ ! "$desc" ] && desc="$basename $index"
         ;;
-    
+
     *.service)
         transient='0'
         basename="${1%\.*}"
         [ ! "$unit" ] && unit="$basename"
         [ ! "$desc" ] && desc="$basename"
         ;;
-    
+
     *)
         transient='1'
         workingdir=`pwd`
@@ -74,14 +74,8 @@ esac
 
 if [ "$transient" = "1" ]; then
     # NOTE: we need to escape % on the command, otherwise systemd gets confused
-    systemd-run --user --slice="$slice" --unit="$unit" -p "WorkingDirectory=$workingdir" --description="$desc" "${@//%/%%}"
-    
+    systemd-run -q --user --slice="$slice" --unit="$unit" -p "WorkingDirectory=$workingdir" --description="$desc" "${@//%/%%}"
+
 else
     systemctl --user start "$unit"
 fi
-
-
-
-
-
-

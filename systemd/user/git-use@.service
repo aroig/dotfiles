@@ -12,6 +12,13 @@ Type=oneshot
 RemainAfterExit=true
 Slice=workers.slice
 
-ExecStart=/usr/bin/true
-ExecStopPost=/usr/bin/systemctl --user start git-commit@%i.service
+ExecStart=/home/abdo/.config/systemd/scripts/git-is-clean.sh "/home/%u/%I"
+
+ExecStopPost=/usr/bin/systemd-inhibit                 \
+    --mode=block                                      \
+    --what=sleep:shutdown                             \
+    --who=%p                                          \
+    --why="Commiting changes in %I"                   \
+    /home/abdo/.config/systemd/scripts/git-commit.sh "/home/%u/%I"
+
 TimeoutSec=10min

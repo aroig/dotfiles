@@ -21,7 +21,7 @@ ExecStartPre=/usr/bin/ssh -o ControlMaster=no                                  \
 ExecStart=/usr/bin/ssh -o ControlMaster=no                                     \
                        -o ControlPath=none                                     \
                        -o StreamLocalBindUnlink=yes                            \
-                       -R "%t/gnupg/S.gpg-agent:%t/gnupg/S.gpg-agent"          \
+                       -R "%t/gnupg/S.gpg-agent:%t/gnupg/S.gpg-agent.extra"    \
                        -R "%t/gnupg/S.gpg-agent.ssh:%t/gnupg/S.gpg-agent.ssh"  \
                        %i -N
 
