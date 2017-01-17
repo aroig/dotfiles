@@ -1,5 +1,6 @@
 (setq ab2-base-packages
       '(
+        evil
         company
         uniquify
         hippie-exp
@@ -7,6 +8,11 @@
         (sensitive-mode :location local)
         ))
 
+
+(defun ab2-base/post-init-evil ()
+  ;; Attempt to fix undo problems in emacs 25.1
+  ;; https://github.com/syl20bnr/spacemacs/issues/6203
+  (setq evil-in-single-undo t))
 
 (defun ab2-base/post-init-uniquify ()
   (setq
