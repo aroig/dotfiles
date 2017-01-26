@@ -76,12 +76,7 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 # java
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
 
-# QT5 style
-
-# use gtk style
-export QT_STYLE_OVERRIDE=gtk
-
-# use qt5ct for appearence configuration
+# QT5: use qt5ct for appearence configuration
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 
