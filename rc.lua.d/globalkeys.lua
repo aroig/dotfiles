@@ -75,7 +75,7 @@ globalkeys = awful.util.table.join(
 
     -- Dropdown clients
     awful.key({ modkey, ctrlkey   }, "i",      function () ddtoggle("app:calibre",     true) end),
-    awful.key({ modkey, ctrlkey   }, "m",      function () ddtoggle("app:cantata",     true) end),
+    awful.key({ modkey, ctrlkey   }, "m",      function () ddtoggle("app:musicplayer", true) end),
     awful.key({ modkey, ctrlkey   }, "o",      function () ddtoggle('app:org',         true) end),
     awful.key({ modkey, ctrlkey   }, "u",      function () ddtoggle('app:mu4e',        true) end),
     awful.key({ modkey, ctrlkey   }, "t",      function () ddtoggle('app:chat',        true) end),

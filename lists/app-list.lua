@@ -17,8 +17,7 @@ return {
    ranger                    = "ranger@.service",
    vifm                      = "vifm@.service",
    emacsclient               = "emacsclient@.service",
-   cantata                   = "cantata.service",
-   gmpc                      = "gmpc.service",
+   musicplayer               = "musicplayer.service",
 
    org                       = "org.service",
    calibre                   = "calibre.service",
