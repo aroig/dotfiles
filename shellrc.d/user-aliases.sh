@@ -27,10 +27,15 @@ alias unls="sdls units"
 alias cmctl="connmanctl"
 alias udctl="udisksctl"
 
-# trash alias and disable rm
-alias trash='gvfs-trash'
+# disable rm and implement a trash
 alias rm='printf >&2 "\e[31mError\e[0m: rm disabled for interactive use.\nUse trash instead.\n"; false'
 
+trash() {
+    prefix=$(date +%s)
+    for f in "$@"; do
+        mv -n -T "$f" "${AB2_TRASH_DIR}/${prefix}_$f"
+    done
+}
 
 
 #------------------------------

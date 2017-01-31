@@ -47,7 +47,7 @@ export AB2_BUILD_DIR="$AB2_HOME/build"
 export AB2_REPOS_DIR="$AB2_HOME/repos"
 export AB2_TMP_DIR="$AB2_HOME/tmp"
 export AB2_BAK_DIR="$AB2_HOME/bak"
-
+export AB2_TRASH_DIR="$AB2_HOME/var/trash"
 
 
 #------------------------------
