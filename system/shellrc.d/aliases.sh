@@ -11,7 +11,7 @@
 
 # ls
 alias ls='ls --human-readable --color=auto --quoting-style=literal -F'
-alias ll='ls++ --potsf'
+alias ll='ls --human-readable --color=auto --quoting-style=literal -F -l'
 alias lt='tree -C'
 
 # filesystem stuff
