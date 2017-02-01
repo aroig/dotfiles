@@ -2,9 +2,9 @@
 Description=OpenVPN connection to %I
 
 After=machine@%i.service
+Before=sshmux@%i.service
 
 [Service]
-
 Type=simple
 
 # Start openvpn
@@ -12,6 +12,9 @@ ExecStartPre=/usr/bin/sudo systemctl --system start openvpn-client@%i.service
 
 # Synchronously wait until it stops
 ExecStart=/usr/bin/sudo systemctl --system start --wait openvpn-client@%i.service
+
+# TODO: Wait until hostname is resolvable
+ExecStartPost=/usr/bin/sleep 5
 
 # Stop it
 ExecStop=/usr/bin/sudo systemctl --system stop openvpn-client@%i.service

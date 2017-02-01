@@ -12,7 +12,8 @@ After=network-online.target
 Requires=ssh-wait-online@%i.service
 After=ssh-wait-online@%i.service
 
-Requires=sshmux@%i.socket
+# Socket activation not working
+# Requires=sshmux@%i.socket
 
 [Service]
 Type=forking
