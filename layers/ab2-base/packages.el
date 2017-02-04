@@ -78,9 +78,11 @@
     (spaceline-define-segment buffer-position
       "The current approximate buffer position, in percent."
       (powerline-raw
-       (replace-regexp-in-string
-        "%" "%%"
+       (replace-regexp-in-string "%" "%%"
         (downcase (substring (format-mode-line "%p") 0 3)))))
 
     ;; disable HUD showing which part of the buffer
-    (spaceline-toggle-hud-off))
+    (spaceline-toggle-hud-off)
+
+    ;; disable buffer size indication
+    (spaceline-toggle-buffer-size-off))
