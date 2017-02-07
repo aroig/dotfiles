@@ -31,7 +31,7 @@ update:
 		git checkout master
 		$(EMACS) --eval '(configuration-layer/update-packages t)'
 		$(EMACS) --eval '(configuration-layer/sync)'
-		if [ -n "$(git status --porcelain)" ]; then
+		if [ -n "$$(git status --porcelain)" ]; then
 			git add -A
 			git commit -m 'Update packages'
 		fi
