@@ -133,8 +133,6 @@ values."
      cl
      dbus
      diff-hl
-     (zenburn-theme :location (recipe :fetcher github
-                                      :repo "bbatsov/zenburn-emacs"))
      (rtags :location local)
      (mu4e :location local)
      )
@@ -472,16 +470,6 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("vi.*rc\\'" . vimrc-mode))
   (add-to-list 'auto-mode-alist '("\\.vifm\\'" . vimrc-mode))
   )
-
-;; hack to patch zenburn theme with my modifications
-(load-file (concat dotspacemacs-directory "tweak-zenburn.el"))
-
-;; hook up our zenburn tweaks after theme loading and before spacemacs own additions
-(advice-add 'spacemacs/post-theme-init :before  #'ab2/zenburn-pre-tweak)
-
-;; hook up our zenburn tweaks after theme loading and before spacemacs own additions
-(advice-add 'spacemacs/post-theme-init :after  #'ab2/zenburn-post-tweak)
-
 
 
 ;; Do not write anything past this comment. This is where Emacs will
