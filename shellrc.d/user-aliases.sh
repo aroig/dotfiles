@@ -37,7 +37,7 @@ alias rm='printf >&2 "\e[31mError\e[0m: rm disabled for interactive use.\nUse tr
 trash() {
     prefix=$(date +%s)
     for f in "$@"; do
-        mv -n -T "$f" "${AB2_TRASH_DIR}/${prefix}_$f"
+        mv -n -T "$f" "${AB2_TRASH_DIR}/${prefix}_$(basename "$f")"
     done
 }
 
