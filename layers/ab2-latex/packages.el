@@ -5,7 +5,6 @@
         compile
         outline
         diminish
-        (calibre-mode :location local)
         ))
 
 (defun ab2-latex/post-init-compile ()
@@ -100,9 +99,3 @@
 
 (defun ab2-latex/post-init-diminish ()
   (spacemacs|diminish reftex-mode "ⓡ" " r"))
-
-(defun ab2-latex/init-calibre-mode ()
-  (use-package calibre-mode)
-  (setq sql-sqlite-program "/usr/bin/sqlite3"
-        calibre-root-dir (getenv "AB2_CALIBRE_DIR")
-        calibre-db (concat calibre-root-dir "/metadata.db")))
