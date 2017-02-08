@@ -29,15 +29,14 @@
     (add-to-list
      'theming-modifications
      `(zenburn
-       ;; Fringe color
+       ;; Fringe and region
        (fringe :foreground ,zenburn-fg :background ,zenburn-bg)
+       (region :background ,zenburn-green-1)
        ;; Flat boxes in the modeline
        (mode-line :foreground ,zenburn-green+1 :background ,zenburn-bg-05 :box (:color ,zenburn-fg-1))
        (mode-line-inactive :foreground ,zenburn-green+1 :background ,zenburn-bg-05 :box (:color ,zenburn-fg-1))
        (mode-line-highlight :box (:color ,zenburn-fg))
-       ;; Region highlighting
-       (region :background ,zenburn-green-1)
-       ;; company
+       ;; Company
        (company-echo-common :foreground ,zenburn-red)
        (company-preview :foreground ,zenburn-bg :background ,zenburn-green+2)
        (company-preview-search :background ,zenburn-blue-3)
@@ -53,6 +52,8 @@
        (helm-source-header :weight bold :box nil :foreground ,zenburn-yellow-1 :background ,zenburn-bg-2)
        ;; hl
        (hl-line :background ,zenburn-bg+1)
+       ;; mu4e
+       (mu4e-unread-face :Foreground ,zenburn-orange :weight bold)
        ;; persp
        (persp-face-lighter-buffer-not-in-persp :background ,zenburn-red :foreground ,zenburn-blue-4)
        ;; rtags
