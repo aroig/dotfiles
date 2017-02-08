@@ -54,6 +54,13 @@
        (helm-source-header :weight bold :box nil :foreground ,zenburn-yellow-1 :background ,zenburn-bg-2)
        ;; hl
        (hl-line :background ,zenburn-bg+1)
+       ;; markdown
+       (markdown-header-face-1 :inherit 'outline-1 :weight bold)
+       (markdown-header-face-2 :inherit 'outline-2 :weight bold)
+       (markdown-header-face-3 :inherit 'outline-3 :weight bold)
+       (markdown-header-face-4 :inherit 'outline-4 :weight bold)
+       (markdown-header-face-5 :inherit 'outline-5 :weight bold)
+       (markdown-header-face-6 :inherit 'outline-6 :weight bold)
        ;; mu4e
        (mu4e-unread-face :foreground ,zenburn-orange :weight bold)
        ;; persp
