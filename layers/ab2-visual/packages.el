@@ -3,7 +3,6 @@
         spaceline
         diminish
         theming
-        (zenburn-theme :location (recipe :fetcher github :repo "bbatsov/zenburn-emacs"))
         ))
 
 (defun ab2-visual/pre-init-spaceline ()
@@ -22,10 +21,13 @@
   (spacemacs|diminish isearch-mode "/" "/")
   )
 
-(defun ab2-visual/init-zenburn-theme ()
-  (use-package zenburn-theme)
+(defun ab2-visual/pre-init-theming ()
+  (setq
+   theming-headings-inherit-from-default 'all
+   theming-headings-same-size 'all
+   theming-modifications '())
 
-  (zenburn-with-color-variables
+  (ab2-visual/with-zenburn-color-variables
     (add-to-list
      'theming-modifications
      `(zenburn
@@ -53,7 +55,7 @@
        ;; hl
        (hl-line :background ,zenburn-bg+1)
        ;; mu4e
-       (mu4e-unread-face :Foreground ,zenburn-orange :weight bold)
+       (mu4e-unread-face :foreground ,zenburn-orange :weight bold)
        ;; persp
        (persp-face-lighter-buffer-not-in-persp :background ,zenburn-red :foreground ,zenburn-blue-4)
        ;; rtags
@@ -90,9 +92,3 @@
        (widget-button-pressed :foreground ,zenburn-red-1)
        (widged-documentation :foreground ,zenburn-green+1)
        ))))
-
-(defun ab2-visual/pre-init-theming ()
-  (setq
-   theming-headings-inherit-from-default 'all
-   theming-headings-same-size 'all
-   ))
