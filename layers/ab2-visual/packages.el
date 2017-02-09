@@ -62,7 +62,7 @@
        (markdown-header-face-5 :inherit 'outline-5 :weight bold)
        (markdown-header-face-6 :inherit 'outline-6 :weight bold)
        ;; mu4e
-       (mu4e-unread-face :foreground ,zenburn-orange :weight bold)
+       (mu4e-unread-face :foreground ,zenburn-orange+1 :weight bold)
        ;; persp
        (persp-face-lighter-buffer-not-in-persp :background ,zenburn-red :foreground ,zenburn-blue-4)
        ;; rtags
