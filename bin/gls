@@ -1,47 +1,48 @@
-#!/usr/bin/zsh
+#!/usr/bin/bash
 
 source "/etc/shellrc.d/git-prompt.sh"
 source "/etc/shellrc.d/vcs.sh"
 source "/etc/shellrc.d/prompt.sh"
 
-abdo_git_dirinfo() {
-    local dir="$(realpath $1)"
+abdo_vcs_dirinfo() {
+    local dir=$(realpath "$1")
+    local dirname=$(realpath --relative-to=. "$dir")
+    local vcs_status git_status annex_status
+
     (
-        cd $dir;
+        cd "$dir";
         local vcs=$(abdo_get_vcs "$dir")
         if [ "$vcs" ]; then
-            # NOTE: this is zsh specific
-            # The -P tells print to format it as a prompt
-            print -P " $(abdo_prompt_vcs "%s")" | tr -d '\n'
+            vcs_status=$(abdo_prompt_vcs "%s")
+
+            if [[ "$vcs" =~ ^(git|annex)$ ]]; then
+                git_status=$(git --no-pager log -n 1 \
+                                 --pretty="format:%C(blue)%ad%C(reset) %C(green)%an%C(reset). %s" \
+                                 --date="format:%Y-%m-%d %H:%M")
+            fi
 
             # too slow
             # if [ "$vcs" = "annex" ]; then
-            #    print -P " $(abdo_prompt_annex)" | tr -d '\n'
+            #     annex_status=$(abdo_prompt_annex)
             # fi
 
-            if [[ "$vcs" =~ "git|annex" ]]; then
-                printf "  "
-                git --no-pager log -n 1 --pretty="format:%C(blue)%ad%C(reset) %C(green)%an%C(reset). %s" --date="format:%Y-%m-%d %H:%M"
-            fi
+            printf "\e[1;34m%-14s\e[0m %s - %s\n" "${dirname}" "${vcs_status@P}" "${git_status}"
         fi
     )
 }
 
 # do a ls with additional git status details.
 if [ -n "$1" ]; then
-    list=$@
+    list=("$@")
 else
-    list="."
+    list=(".")
 fi
 
-for arg in $list; do
+for arg in "${list[@]}"; do
     if [ -d "$arg" ]; then
         find "$arg" -mindepth 1 -maxdepth 1 -type d -not -path '*/\.*' | \
-        while read dir; do
-            dirname=${dir#$arg/}
-            printf "\e[1;34m%15s\e[0m" "$dirname"
-            abdo_git_dirinfo "$dir"
-            echo ""
+        while read -r dir; do
+            abdo_vcs_dirinfo "$dir"
         done
     fi
 done
