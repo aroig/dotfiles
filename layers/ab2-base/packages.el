@@ -5,7 +5,6 @@
         uniquify
         hippie-exp
         (sensitive-mode :location local)
-        persp-mode
         ))
 
 
@@ -53,6 +52,3 @@
    tab-always-indent t
    company-idle-delay 0.4
   ))
-
-(defun ab2-base/post-init-persp-mode ()
-  (spacemacs|diminish persp-mode "" ""))
