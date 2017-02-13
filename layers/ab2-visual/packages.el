@@ -5,18 +5,62 @@
         theming
         ))
 
-(defun ab2-visual/pre-init-spaceline ()
-  (setq
-   spaceline-buffer-size-p nil
-   spaceline-line-column t
-   ))
+(defun ab2-visual/post-init-spaceline ()
+  ;; override default version-control segment
+
+  ;; Override major mode segment
+  (spaceline-define-segment major-mode
+    "The name of the major mode."
+    (downcase (powerline-major-mode)))
+
+  ;; Override version-control segment
+  (spaceline-define-segment version-control
+    "Personalized version control information"
+    (when vc-mode
+      (powerline-raw
+       (s-trim (concat
+                (replace-regexp-in-string "Git." "⎇ " vc-mode)
+                (when (buffer-file-name)
+                  (pcase (vc-state (buffer-file-name))
+                    (`up-to-date " ✓")
+                    (`edited " *")
+                    (`added " +")
+                    (`unregistered " ?")
+                    (`removed " -")
+                    (`needs-merge " X")
+                    (`needs-update " *")
+                    (`ignored " ·")
+                    (_ " ?"))))))))
+
+  ;; Override buffer-position segment
+  (spaceline-define-segment buffer-position
+    "The current approximate buffer position, in percent."
+    (powerline-raw
+     (replace-regexp-in-string
+      "%" "%%" (downcase (substring (format-mode-line "%p") 0 3)))))
+
+  ;; Override buffer-encoding-abbrev segment
+  (spaceline-define-segment buffer-encoding-abbrev
+    "The line ending convention used in the buffer."
+    (let ((buf-coding (format "%s" buffer-file-coding-system)))
+      (when (string-match "\\(dos\\|unix\\|mac\\)" buf-coding)
+        (let ((buf-newline (match-string 1 buf-coding)))
+          (cond
+           ((string= buf-newline "dos") (powerline-raw "w"))
+           ((string= buf-newline "unix") (powerline-raw "u"))
+           ((string= buf-newline "mac") (powerine-raw "m")))))))
+
+  ;; Disable some segments
+  (spaceline-toggle-buffer-size-off)
+  (spaceline-toggle-new-version-off)
+  (spaceline-toggle-hud-off)
+  (spaceline-toggle-line-column-on))
 
 (defun ab2-visual/post-init-diminish ()
-
   ;; diminish some more modes.
   ;; NOTE: I do not follow the convention that the letter corresponds with the key binding
   (spacemacs|diminish server-buffer-clients "ⓥ" "v")
-  (spacemacs|diminish binary-overwrite-mode "Ⓞb" "O")
+  (spacemacs|diminish binary-overwrite-mode "Ⓞb" "Ob")
   (spacemacs|diminish overwrite-mode "Ⓞ" "O")
   (spacemacs|diminish isearch-mode "/" "/")
   )

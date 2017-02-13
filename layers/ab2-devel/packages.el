@@ -13,6 +13,7 @@
         irony
         (company-irony :toggle (configuration-layer/package-usedp 'company))
         (flycheck-irony :toggle (configuration-layer/package-usedp 'flycheck))
+        elisp-slime-nav
         ))
 
 
@@ -144,3 +145,6 @@
     :defer t
     :init
     (progn (add-hook 'irony-mode-hook 'flycheck-irony-setup))))
+
+(defun ab2-devel/pre-init-elisp-slime-nav ()
+  (spacemacs|diminish elisp-slime-nav-mode "" ""))
