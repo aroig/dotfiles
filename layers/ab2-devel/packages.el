@@ -23,9 +23,7 @@
 
   )
 
-(defun ab2-devel/init-pkgbuild-mode ()
-  (use-package pkgbuild-mode :defer t)
-
+(defun ab2-devel/post-init-pkgbuild-mode ()
   (setq pkgbuild-initialize nil
         pkgbuild-update-sums-on-save nil))
 
