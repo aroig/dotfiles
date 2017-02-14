@@ -16,3 +16,7 @@ if test -d /etc/shellrc.d/; then
     done
     unset scr
 fi
+
+[[ $DISPLAY ]] && shopt -s checkwinsize
+
+[ -r /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion
