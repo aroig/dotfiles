@@ -9,4 +9,5 @@ Type=oneshot
 Slice=workers.slice
 
 ExecStart=/usr/bin/find "%h/var/emacs/backups/" -type f -ctime +90 -mindepth 1 -print -delete
+ExecStart=/usr/bin/find "%h/var/spacemacs/backups/" -type f -ctime +90 -mindepth 1 -print -delete
 ExecStart=/usr/bin/find "%h/var/vim/backups/" -type f -ctime +90 -mindepth 1 -print -delete
