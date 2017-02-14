@@ -27,7 +27,7 @@
 
   ;; disable backups for internal emacs files, or files containing sensitive
   ;; information
-  (setq ab2/sensitive-mode-regex-list `("/recentf$"
+  (setq ab2/sensitive-mode-regex-list `("/spacemacs/recentf.*$"
                                         "/ido.last$"
                                         "/spacemacs-buffer\\.el$"
                                         "\\.gpg$"
