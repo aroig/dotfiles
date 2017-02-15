@@ -100,6 +100,11 @@
        (hl-line :background ,zenburn-bg+1)
        ;; latex
        (font-latex-script-char-face :inherit font-latex-math-face)
+       (font-latex-sectioning-1-face :inherit 'outline-1 :weight bold)
+       (font-latex-sectioning-2-face :inherit 'outline-2 :weight bold)
+       (font-latex-sectioning-3-face :inherit 'outline-3 :weight bold)
+       (font-latex-sectioning-4-face :inherit 'outline-4 :weight bold)
+       (font-latex-sectioning-5-face :inherit 'outline-5 :weight bold)
        ;; markdown
        (markdown-header-face-1 :inherit 'outline-1 :weight bold)
        (markdown-header-face-2 :inherit 'outline-2 :weight bold)

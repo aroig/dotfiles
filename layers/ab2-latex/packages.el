@@ -46,7 +46,7 @@
 
         ;; do not fontify subscript and superscripts
         font-latex-fontify-script nil
-        font-latex-fontify-sectioning 'color
+        ;; font-latex-fontify-sectioning 'color
         LaTeX-biblatex-use-Biber t)
 
   ;; hooks
