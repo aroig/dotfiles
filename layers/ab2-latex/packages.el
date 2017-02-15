@@ -36,6 +36,7 @@
   (setq TeX-auto-save nil
         TeX-auto-local ".auto/"
         TeX-parse-self t
+        TeX-PDF-mode t
 
         ;; to support draftools active comments
         LaTeX-syntactic-comments nil

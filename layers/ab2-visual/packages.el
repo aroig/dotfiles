@@ -98,6 +98,8 @@
        (helm-source-header :weight bold :box nil :foreground ,zenburn-yellow-1 :background ,zenburn-bg-2)
        ;; hl
        (hl-line :background ,zenburn-bg+1)
+       ;; latex
+       (font-latex-script-char-face :inherit font-latex-math-face)
        ;; markdown
        (markdown-header-face-1 :inherit 'outline-1 :weight bold)
        (markdown-header-face-2 :inherit 'outline-2 :weight bold)
