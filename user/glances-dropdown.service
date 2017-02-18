@@ -1,0 +1,12 @@
+[Unit]
+Description=glances monitor dropdown
+
+Requisite=graphical.target
+After=graphical.target
+
+[Service]
+Type=simple
+Slice=apps.slice
+
+ExecStart=/usr/bin/termite --class=glances-dropdown -e "/usr/bin/glances"
+
