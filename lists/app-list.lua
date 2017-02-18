@@ -7,6 +7,7 @@ return {
    ["ranger-dropdown"]       = "ranger-dropdown.service",
    ["vifm-dropdown"]         = "vifm-dropdown.service",
    ["journal-dropdown"]      = "journal-dropdown.service",
+   ["glances-dropdown"]      = "glances-dropdown.service",
 
    -- systemd units
    dwb                       = "dwb@.service",

@@ -230,6 +230,22 @@ rules.rules = {
       end
    },
 
+    -- tall top dropdowns
+    { rule_any = { class = { "glances-dropdown"} },
+      properties = { floating = true,
+                     size_hints_honor = false,
+                     ontop = true,
+                     above = true,
+                     skip_taskbar = true },
+      callback = function(c)
+          if not c.modal then
+              local name = c['class']
+              dropdown.manage_client(name, c)
+              set_geometry(c, {vert="top", horiz="center", width=1.0, height=0.8} )
+          end
+      end
+    },
+
    -- half-screen dropdowns
    { rule_any = { class = { "musicplayer" }  },
       properties = { floating = true,

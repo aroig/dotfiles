@@ -97,6 +97,7 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey, metakey   }, "Return", function () ddtoggle('app:termite-dropdown', true) end),
     awful.key({ modkey, metakey   }, "f",      function () ddtoggle('app:vifm-dropdown',    true) end),
+    awful.key({ modkey, metakey   }, "g",      function () ddtoggle('app:glances-dropdown', true) end),
 
     awful.key({ modkey   }, "F9",              function() ddshow("app:journal-dropdown",    true) end),
     awful.key({          }, "F9",              function() ddhide("app:journal-dropdown")          end),
