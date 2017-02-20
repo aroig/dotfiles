@@ -13,9 +13,8 @@ source /etc/vimpagerrc
 " --------------------
 
 " Enable mouse to scroll, select, etc
-set mouse=a
-set ttymouse=xterm2
-
-
-
+if !has('nvim')
+    set mouse=a
+    set ttymouse=xterm2
+endif
 
