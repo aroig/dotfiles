@@ -25,7 +25,7 @@ export ALTERNATE_EDITOR="/usr/bin/emacs"
 
 export BROWSER="/usr/bin/chromium"
 export FILEMANAGER="/usr/bin/vifm"
-export DIFFPROG="/usr/vim/vimdiff"
+export DIFFPROG="$EDITOR -d"
 export PAGER="/usr/bin/vimpager"
 export TERMCMD="/usr/bin/termite"
 export SHELL="/bin/zsh"
