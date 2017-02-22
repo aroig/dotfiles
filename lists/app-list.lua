@@ -7,7 +7,6 @@ return {
    ["ranger-dropdown"]       = "ranger-dropdown.service",
    ["vifm-dropdown"]         = "vifm-dropdown.service",
    ["journal-dropdown"]      = "journal-dropdown.service",
-   ["glances-dropdown"]      = "glances-dropdown.service",
 
    -- systemd units
    dwb                       = "dwb@.service",
@@ -19,6 +18,7 @@ return {
    vifm                      = "vifm@.service",
    emacsclient               = "emacsclient@.service",
    musicplayer               = "musicplayer.service",
+   glances                   = "glances.service",
 
    org                       = "org.service",
    calibre                   = "calibre.service",

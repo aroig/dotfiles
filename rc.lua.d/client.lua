@@ -231,7 +231,7 @@ rules.rules = {
    },
 
     -- tall top dropdowns
-    { rule_any = { class = { "glances-dropdown"} },
+    { rule_any = { class = { "glances"} },
       properties = { floating = true,
                      size_hints_honor = false,
                      ontop = true,

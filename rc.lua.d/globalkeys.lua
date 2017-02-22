@@ -79,6 +79,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey   }, "o",      function () ddtoggle('app:org',         true) end),
     awful.key({ modkey, ctrlkey   }, "u",      function () ddtoggle('app:mu4e',        true) end),
     awful.key({ modkey, ctrlkey   }, "t",      function () ddtoggle('app:chat',        true) end),
+    awful.key({ modkey, ctrlkey   }, "g",      function () ddtoggle('app:glances',     true) end),
 
     -- Desktop boxes
     awful.key({ modkey,           }, "F1",     hotkeys.widget.show_help),
@@ -97,7 +98,6 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey, metakey   }, "Return", function () ddtoggle('app:termite-dropdown', true) end),
     awful.key({ modkey, metakey   }, "f",      function () ddtoggle('app:vifm-dropdown',    true) end),
-    awful.key({ modkey, metakey   }, "g",      function () ddtoggle('app:glances-dropdown', true) end),
 
     awful.key({ modkey   }, "F9",              function() ddshow("app:journal-dropdown",    true) end),
     awful.key({          }, "F9",              function() ddhide("app:journal-dropdown")          end),
