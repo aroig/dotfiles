@@ -8,5 +8,5 @@ After=graphical.target
 Type=simple
 Slice=apps.slice
 
-ExecStart=/usr/bin/termite --class=glances-dropdown -e "/usr/bin/glances"
+ExecStart=/usr/bin/termite --class=glances -e "/usr/bin/glances"
 
