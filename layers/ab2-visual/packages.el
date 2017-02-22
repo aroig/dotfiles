@@ -87,6 +87,16 @@
        (company-preview :foreground ,zenburn-bg :background ,zenburn-green+2)
        (company-preview-search :background ,zenburn-blue-3)
        (company-template-field :foreground ,zenburn-bg :background ,zenburn-yellow-1)
+       ;; diff
+       (diff-added :background ,zenburn-dark-green :foreground ,zenburn-fg)
+       (diff-changed :background ,zenburn-dark-yellow :foreground ,zenburn-fg)
+       (diff-removed :background ,zenburn-dark-red :foreground ,zenburn-fg)
+       (diff-refine-added :background ,zenburn-green-1 :foreground ,zenburn-fg)
+       (diff-refine-change :backgroun ,zenburn-yellow-2 :foreground ,zenburn-fg)
+       (diff-refine-removed :background ,zenburn-red-4 :foreground ,zenburn-fg)
+       (diff-context :background ,zenburn-bg :foreground ,zenburn-fg)
+       (diff-header :background ,zenburn-bg+2 :foreground ,zenburn-fg)
+       (diff-file-header :background ,zenburn-bg+2 :foreground ,zenburn-fg :weight bold)
        ;; eval-sexp
        (eval-sexp-fu-flash :background ,zenburn-blue-5)
        (eval-sexp-fu-flash-error :foreground ,zenburn-red)
@@ -120,6 +130,14 @@
        (rtags-errline :background ,zenburn-red)
        (rtags-fixitline :background ,zenburn-orange-1)
        (rtags-warnline :background ,zenburn-blue-2)
+       ;; smerge
+       (smerge-base :inherit diff-context)
+       (smerge-markers :inherit diff-file-header)
+       (smerge-mine :inherit diff-added)
+       (smerge-other :inherit diff-removed)
+       (smerge-refined-added :inherit diff-refine-added)
+       (smerge-refined-changed :inherit diff-refine-changed)
+       (smerge-refined-removed :inherit diff-refine-removed)
        ;; spaceline
        (spaceline-highlight-face :inherit mode-line :foreground ,zenburn-bg :background ,zenburn-orange+1)
        (spaceline-evil-emacs :inherit mode-line :foreground ,zenburn-bg :background ,zenburn-blue-1)

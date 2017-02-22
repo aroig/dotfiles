@@ -532,10 +532,10 @@ you should place your code here."
         ("zenburn-sat-purple"        . "#9B30FF")  ;; purple1
 
         ;; dark colors
-        ("zenburn-dark-brown"        . "#533319")
-        ("zenburn-dark-green"        . "#2D5842")
-        ("zenburn-dark-red"          . "#681313")
-        ("zenburn-dark-blue"         . "#2F4276")
+        ("zenburn-dark-green"        . "#2F502F")
+        ("zenburn-dark-red"          . "#502F2F")
+        ("zenburn-dark-yellow"       . "#40402F")
+        ("zenburn-dark-blue"         . "#2F2F60")
         ))
 
 
