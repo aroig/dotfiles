@@ -10,6 +10,7 @@ Type=dbus
 BusName=org.gtk.vfs.Daemon
 Slice=wm.slice
 
+Environment=GVFS_DISABLE_FUSE=1
 ExecStart=/usr/lib/gvfs/gvfsd
 
 [Install]
