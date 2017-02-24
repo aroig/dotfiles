@@ -11,7 +11,7 @@
 
 # ls
 alias ls='ls --human-readable --color=auto --quoting-style=literal -F'
-alias ll='ls++ --potsf'
+alias ll='ls --human-readable --color=auto --quoting-style=literal -F -l'
 alias lt='tree -C'
 
 # filesystem stuff
@@ -37,7 +37,7 @@ alias rsy='rsync -avz --progress --delete'
 alias rnm='/usr/bin/vendor_perl/rename'
 
 # file viewing
-alias vi='vim'
+alias vi="$EDITOR"
 alias vp='vimpager'
 alias vc='vimcat'
 alias diff='diff -u -d'

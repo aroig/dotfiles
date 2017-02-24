@@ -20,12 +20,12 @@
 #------------------------------
 
 export EMACS="/usr/bin/emacs"
-export EDITOR="/usr/bin/vim"
+export EDITOR="/usr/bin/nvim"
 export ALTERNATE_EDITOR="/usr/bin/emacs"
 
 export BROWSER="/usr/bin/chromium"
 export FILEMANAGER="/usr/bin/vifm"
-export DIFFPROG="/usr/vim/vimdiff"
+export DIFFPROG="$EDITOR -d"
 export PAGER="/usr/bin/vimpager"
 export TERMCMD="/usr/bin/termite"
 export SHELL="/bin/zsh"
@@ -76,12 +76,7 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 # java
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
 
-# QT5 style
-
-# use gtk style
-export QT_STYLE_OVERRIDE=gtk
-
-# use qt5ct for appearence configuration
+# QT5: use qt5ct for appearence configuration
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 

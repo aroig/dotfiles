@@ -84,6 +84,23 @@ print_color_test() {
     echo ""
 }
 
+ls-colorize() {
+    local sedrules=()
+    local escape=$(printf "\e")
+    for r in $(echo "${LS_COLORS}" | tr ':' ' '); do
+        local pattern="${r%=*}"
+        local color="${r#*=}"
+
+        # Only match against *.xxx things
+        local pattern2="${pattern#*.}"
+        if [ ! "${pattern}" = "${pattern2}" ]; then
+            rule="s/\b\([a-zA-Z0-9.:@~/_\\-]*\.${pattern2}\)\b/${escape}[${color}m\1${escape}[0m/g"
+            sedrules+=("$rule")
+        fi
+    done
+    sed "${sedrules[@]/#/-e }"
+}
+
 # print_color_test
 
 

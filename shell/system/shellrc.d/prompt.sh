@@ -79,7 +79,7 @@ abdo_prompt_userhost() {
         host=$HOST
     else
         user=$(id -u -n)
-        host=$(hostname -s)
+        host=$(hostname)
     fi
 
     acol=$(abdo_prompt_shell_color)

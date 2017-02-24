@@ -17,20 +17,29 @@ alias nspawn='systemd-nspawn -b -n -D'
 # System
 #------------------------------
 
-alias scgls="systemd-cgls --all --full /system.slice"
-alias ucgls="systemd-cgls -all --full /user.slice/user-\$(id -u).slice"
+scgls() {
+    systemd-cgls --all --full /system.slice | ls-colorize
+}
 
-alias cgls="sdls cgroups"
+ucgls() {
+    systemd-cgls -all --full /user.slice/user-$(id -u).slice | ls-colorize
+}
+
 alias unls="sdls units"
 
 # other system tools
 alias cmctl="connmanctl"
 alias udctl="udisksctl"
 
-# trash alias and disable rm
-alias trash='gvfs-trash'
+# disable rm and implement a trash
 alias rm='printf >&2 "\e[31mError\e[0m: rm disabled for interactive use.\nUse trash instead.\n"; false'
 
+trash() {
+    prefix=$(date +%s)
+    for f in "$@"; do
+        mv -n -T "$f" "${AB2_TRASH_DIR}/${prefix}_$(basename "$f")"
+    done
+}
 
 
 #------------------------------
