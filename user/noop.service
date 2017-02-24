@@ -1,0 +1,6 @@
+[Unit]
+Description=noop
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/true
