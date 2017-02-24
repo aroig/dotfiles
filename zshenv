@@ -51,6 +51,17 @@ export AB2_TRASH_DIR="$AB2_HOME/var/trash"
 
 
 #------------------------------
+# Desktop
+#------------------------------
+
+# Disable GVFS madness. It triggers my automounts constantly.
+# It may be fixed in gvfs 1.31, but anyway, I do not use it.
+# https://developer.gnome.org/gio/stable/running-gio-apps.html
+export GIO_USE_VFS="local"
+export GIO_USE_VOLUME_MONITOR="unix"
+
+
+#------------------------------
 # Sockets
 #------------------------------
 
