@@ -273,7 +273,7 @@
      )))
 
 (defun ab2-mu4e/pre-init-mu4e-maildirs-extension ()
-  (setq mu4e-maildirs-extension-use-bookmarks t
+  (setq mu4e-maildirs-extension-use-bookmarks nil
         mu4e-maildirs-extension-bookmark-format " (%u)"
         mu4e-maildirs-extension-use-maildirs t
         mu4e-maildirs-extension-maildir-format "\t%i%p %n (%u)"

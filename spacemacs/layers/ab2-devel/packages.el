@@ -8,6 +8,7 @@
         compile
         cc-mode
         editorconfig
+        smerge-mode
         helm-make
         cmake-mode
         irony
@@ -22,9 +23,7 @@
 
   )
 
-(defun ab2-devel/init-pkgbuild-mode ()
-  (use-package pkgbuild-mode :defer t)
-
+(defun ab2-devel/post-init-pkgbuild-mode ()
   (setq pkgbuild-initialize nil
         pkgbuild-update-sums-on-save nil))
 
@@ -113,6 +112,12 @@
   (use-package editorconfig)
   (editorconfig-mode 1)
   (spacemacs|diminish editorconfig-mode "ⓔ" " e"))
+
+
+(defun ab2-devel/init-smerge-mode ()
+  (use-package smerge-mode)
+  (spacemacs|diminish smerge-mode "Ⓜ" " M"))
+
 
 (defun ab2-devel/post-init-cmake-mode ()
   (setq cmake-tab-width 4))

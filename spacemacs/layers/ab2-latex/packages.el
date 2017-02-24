@@ -36,6 +36,7 @@
   (setq TeX-auto-save nil
         TeX-auto-local ".auto/"
         TeX-parse-self t
+        TeX-PDF-mode t
 
         ;; to support draftools active comments
         LaTeX-syntactic-comments nil
@@ -45,7 +46,7 @@
 
         ;; do not fontify subscript and superscripts
         font-latex-fontify-script nil
-        font-latex-fontify-sectioning 'color
+        ;; font-latex-fontify-sectioning 'color
         LaTeX-biblatex-use-Biber t)
 
   ;; hooks
