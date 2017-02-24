@@ -129,6 +129,91 @@ myw.slash:set_markup(colortext("/ "))
 
 
 -----------------------------------
+-- System                        --
+-----------------------------------
+
+myw.sys = {}
+myw.sys.sync = require("abdo.widget.filex")
+-- myw.sys.priv = require("abdo.widget.filex")
+
+myw.sys.syncwdg = wibox.widget.textbox()
+myw.sys.privwdg = wibox.widget.textbox()
+myw.sys.mediawdg = wibox.widget.textbox()
+myw.sys.workerwdg = wibox.widget.textbox()
+
+function myw.sys.update()
+    -- obtain table of mountpoints
+    local mounts = {}
+    local media = {}
+    local nmedia = 0
+    local f = io.open("/proc/mounts", "r")
+    local fsfilter = { vfat=true, btrfs=true, ext4=true, xfs=true }
+    if f then
+        for line in f:lines() do
+            local dev, mp, fs = line:match("([^ ]+) ([^ ]+) ([^ ]+)")
+            if fsfilter[fs] then
+                mounts[mp] = fs
+                if mp:match("/media/[^ ]+") then
+                    media[mp] = fs
+                    nmedia = nmedia + 1
+                end
+            end
+        end
+    end
+
+    -- obtain synced state
+    local sync_state = myw.sys.sync(nil, {os.getenv("XDG_RUNTIME_DIR") .. "/synced"})
+
+    -- check whether the workers.slice cgroup is populated
+    local user_cgroup = os.getenv("SYSTEMD_USER_CGROUP")
+    local f
+    if user_cgroup then
+        local workers_cgroup_events = user_cgroup .. "/workers.slice/cgroup.events"
+        f = io.open(workers_cgroup_events, 'r')
+    end
+    local have_workers = false
+    if f then
+        for line in f:lines() do
+            if line:match("populated 1") then
+                have_workers = true
+            end
+        end
+    end
+
+    local icon
+
+    if have_workers then
+        icon = wiboxicon("worker", beautiful.color_widget)
+    else
+        icon = wiboxicon("worker", beautiful.color_widget_alert)
+    end
+    myw.sys.workerwdg:set_markup(icon .. ' ')
+
+    if mounts["/home/abdo/priv"] then
+        icon = wiboxicon("unlocked", beautiful.color_widget)
+    else
+        icon = wiboxicon("locked", beautiful.color_widget_alert)
+    end
+    myw.sys.privwdg:set_markup(icon .. ' ')
+
+    if nmedia > 0 then
+        icon = wiboxicon("usb", beautiful.color_widget)
+    else
+        icon = wiboxicon("usb", beautiful.color_widget_alert)
+    end
+    myw.sys.mediawdg:set_markup(icon .. ' ')
+
+    if sync_state then icon = wiboxicon('sync', beautiful.color_widget)
+    else               icon = wiboxicon('sync', beautiful.color_widget_alert)
+    end
+    myw.sys.syncwdg:set_markup(icon .. ' ')
+end
+
+timers.fast:connect_signal("timeout", myw.sys.update)
+
+
+
+-----------------------------------
 -- Hardware                      --
 -----------------------------------
 
@@ -528,67 +613,6 @@ myw.bat.pcicon:buttons(myw.bat.rtwidget:buttons())
 myw.bat.rticon:buttons(myw.bat.rtwidget:buttons())
 
 timers.fast:connect_signal("timeout", myw.bat.update)
-
-
-
------------------------------------
--- System                        --
------------------------------------
-
-myw.sys = {}
-myw.sys.sync = require("abdo.widget.filex")
--- myw.sys.priv = require("abdo.widget.filex")
-
-myw.sys.syncwdg = wibox.widget.textbox()
-myw.sys.privwdg = wibox.widget.textbox()
-myw.sys.mediawdg = wibox.widget.textbox()
-
-function myw.sys.update()
-    -- obtain table of mountpoints
-    local mounts = {}
-    local media = {}
-    local nmedia = 0
-    local f = io.open("/proc/mounts", "r")
-    local fsfilter = { vfat=true, btrfs=true, ext4=true, xfs=true }
-    if f then
-        for line in f:lines() do
-            local dev, mp, fs = line:match("([^ ]+) ([^ ]+) ([^ ]+)")
-            if fsfilter[fs] then
-                mounts[mp] = fs
-                if mp:match("/media/[^ ]+") then
-                    media[mp] = fs
-                    nmedia = nmedia + 1
-                end
-            end
-        end
-    end
-
-    -- obtain synced state
-    local sync_state = myw.sys.sync(nil, {os.getenv("XDG_RUNTIME_DIR") .. "/synced"})
-
-    local icon
-
-    if mounts["/home/abdo/priv"] then
-        icon = wiboxicon("unlocked", beautiful.color_widget)
-    else
-        icon = wiboxicon("locked", beautiful.color_widget_alert)
-    end
-    myw.sys.privwdg:set_markup(icon .. ' ')
-
-    if nmedia > 0 then
-        icon = wiboxicon("usb", beautiful.color_widget)
-    else
-        icon = wiboxicon("usb", beautiful.color_widget_alert)
-    end
-    myw.sys.mediawdg:set_markup(icon .. ' ')
-
-    if sync_state then icon = wiboxicon('sync', beautiful.color_widget)
-    else               icon = wiboxicon('sync', beautiful.color_widget_alert)
-    end
-    myw.sys.syncwdg:set_markup(icon .. ' ')
-end
-
-timers.fast:connect_signal("timeout", myw.sys.update)
 
 
 

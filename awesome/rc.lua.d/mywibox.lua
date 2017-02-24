@@ -38,6 +38,7 @@ awful.screen.connect_for_each_screen(function(s)
    local right_layout = wibox.layout.fixed.horizontal()
 
    right_layout:add(myw.sys.syncwdg)
+   right_layout:add(myw.sys.workerwdg)
    right_layout:add(myw.sys.privwdg)
    right_layout:add(myw.sys.mediawdg)
 

@@ -36,4 +36,4 @@ local hosts = {
 
 local hostname  = util.get_hostname()
 
-host_config = hosts[hostname] or host['default']
+host_config = hosts[hostname] or hosts['default']
