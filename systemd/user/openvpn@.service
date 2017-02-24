@@ -1,13 +1,26 @@
 [Unit]
 Description=OpenVPN connection to %I
 
+Conflicts=disconnect.target
 After=machine@%i.service
+Before=sshmux@%i.service
 
 [Service]
-
 Type=simple
 
-# Start openvpn and synchronously wait until it stops
+# Start openvpn
+ExecStartPre=/usr/bin/sudo systemctl --system start openvpn-client@%i.service
+
+# Synchronously wait until it stops
 ExecStart=/usr/bin/sudo systemctl --system start --wait openvpn-client@%i.service
 
+# Wait until hostname is resolvable
+ExecStartPost=/usr/bin/sh -c '                     \
+    while true; do                                 \
+        ping -q -c 1 %i  >/dev/null 2>&1 && break; \
+        sleep 1;                                   \
+    done                                           \
+'
+
+# Stop it
 ExecStop=/usr/bin/sudo systemctl --system stop openvpn-client@%i.service

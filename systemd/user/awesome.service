@@ -14,6 +14,9 @@ Before=graphical.target
 Type=simple
 Slice=wm.slice
 
+# We configure the user cgroup, so the wibar notifications can use it for things
+Environment=SYSTEMD_USER_CGROUP=/sys/fs/cgroup/user.slice/user-%U.slice/user@%U.service
+
 ExecStart=/usr/bin/awesome
 KillSignal=SIGINT
 TimeoutSec=15

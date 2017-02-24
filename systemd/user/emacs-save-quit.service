@@ -12,7 +12,7 @@ After=emacs.service
 
 [Service]
 Type=oneshot
-Slice=worker.slice
+Slice=workers.slice
 
 ExecStart=/usr/bin/systemd-inhibit --mode=delay --what=sleep:shutdown --who=%p --why="Saving emacs buffers" /usr/bin/emacsclient -s "%t/emacs/server" --eval '(progn (save-some-buffers t)(kill-emacs))'
 

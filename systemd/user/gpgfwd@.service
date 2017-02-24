@@ -5,9 +5,6 @@ AssertHost=!%i
 
 Conflicts=disconnect.target
 
-Requires=gpg-agent.service
-After=gpg-agent.service
-
 After=sshmux@%i.service
 
 [Service]
