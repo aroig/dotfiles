@@ -17,12 +17,6 @@ op() {
     realpath -z "$@" | xargs -r -0 xdg-open
 }
 
-# terminal editor
-vi()  {
-    eval "local CMD=($EDITOR)"
-    "${CMD[@]}" "$@";
-}
-
 # emacs
 ee()  {
     eval "local CMD=($EMACS)"
