@@ -20,7 +20,7 @@
 #------------------------------
 
 export EMACS="/usr/bin/emacs"
-export EDITOR="/usr/bin/nvim"
+export EDITOR="/usr/bin/vim"
 export ALTERNATE_EDITOR="/usr/bin/emacs"
 
 export BROWSER="/usr/bin/chromium"
