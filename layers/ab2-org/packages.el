@@ -2,6 +2,7 @@
  '(
    org
    persp-mode
+   calfw
   ))
 
 
@@ -109,145 +110,24 @@
 
     ;; agenda custom commands
     (setq org-agenda-custom-commands
-          `(
-            ;; DEVELOPMENT
-            ("d" . "Development")
+          (nconc
+           '(("c" "Calendar" ab2/calfw-calendar ""))
 
-            ("da" "Agenda"      agenda ""
-             ((org-agenda-files (quote ,devel-list))))
+           (ab2/agenda-topic-commands "d" "Development" devel-list)
 
-            ("ds" "Search"      search ""
-             ((org-agenda-files (quote ,devel-list))
-              (org-agenda-search-view-max-outline-level 2)))
+           (ab2/agenda-topic-commands "b" "Bibrain" bibrain-list)
 
-            ("dt" "Todo"        todo ""
-             ((org-agenda-files (quote ,devel-list))))
+           (ab2/agenda-topic-commands "h" "Maths" math-list)
+           (ab2/agenda-tree-commands "h" "i" "Ideas" 3 ideas-list)
+           (ab2/agenda-tree-commands "h" "n" "Notes" 3 notes-list)
+           (ab2/agenda-tree-commands "h" "j" "Journal" 4 mathlog-list)
 
-            ("dg" "Tag"         tags-todo ""
-             ((org-agenda-files (quote ,devel-list))))
+           (ab2/agenda-topic-commands "r" "Papers" paper-list)
 
+           (ab2/agenda-topic-commands "e" "Teaching" teach-list)
 
-            ;; BIBRAIN
-            ("b" . "Bibrain")
-
-            ("ba" "Agenda"      agenda ""
-             ((org-agenda-files (quote ,bibrain-list))))
-
-            ("bs" "Search"      search ""
-             ((org-agenda-files (quote ,bibrain-list))
-              (org-agenda-search-view-max-outline-level 2)))
-
-            ("bt" "Todo"        todo ""
-             ((org-agenda-files (quote ,bibrain-list))))
-
-            ("bg" "Tag"         tags-todo ""
-             ((org-agenda-files (quote ,bibrain-list))))
-
-
-            ;; MATHS
-            ("h" . "Maths")
-
-            ("ha" "Agenda"         agenda ""
-             ((org-agenda-files (quote ,math-list))))
-
-            ("hs" "Search"         search ""
-             ((org-agenda-files (quote ,math-list))
-              (org-agenda-search-view-max-outline-level 2)))
-
-            ("ht" "Todo"           todo ""
-             ((org-agenda-files (quote ,math-list))))
-
-            ("hg" "Tag"            tags-todo ""
-             ((org-agenda-files (quote ,math-list))))
-
-            ("hi" "Ideas"          tags "+LEVEL=3"
-             ((org-agenda-files (quote ,ideas-list))
-              (org-agenda-prefix-format "")))
-
-            ("hI" "Search ideas"   search ""
-             ((org-agenda-files (quote ,ideas-list))
-              (org-agenda-search-view-max-outline-level 3)
-              (org-agenda-prefix-format "")))
-
-            ("hn" "Notes"          tags "+LEVEL=3"
-             ((org-agenda-files (quote ,notes-list))
-              (org-agenda-prefix-format "")))
-
-            ("hN" "Search notes"   search ""
-             ((org-agenda-files (quote ,notes-list))
-              (org-agenda-search-view-max-outline-level 3)
-              (org-agenda-prefix-format "")))
-
-            ("hj" "Journal"        tags "+LEVEL=4"
-             ((org-agenda-files (quote ,mathlog-list))
-              (org-agenda-prefix-format "")))
-
-            ("hJ" "Search journal" search ""
-             ((org-agenda-files (quote ,mathlog-list))
-              (org-agenda-search-view-max-outline-level 4)
-              (org-agenda-prefix-format "")))
-
-
-            ;; PAPERS
-            ("r" . "Papers")
-
-            ("ra" "Agenda"      agenda ""
-             ((org-agenda-files (quote ,paper-list))))
-
-            ("rs" "Search"      search ""
-             ((org-agenda-files (quote ,paper-list))
-              (org-agenda-search-view-max-outline-level 2)))
-
-            ("rt" "Todo"        tags-todo ""
-             ((org-agenda-files (quote ,paper-list))))
-
-            ("rg" "Tag"         tags ""
-             ((org-agenda-files (quote ,paper-list))))
-
-
-            ;; TEACHING
-            ("c" . "Teaching")
-
-            ("ca" "Agenda"          agenda ""
-             ((org-agenda-files (quote ,(append teach-list)))))
-
-            ("cs" "Search"          search ""
-             ((org-agenda-files (quote ,(append teach-list)))
-              (org-agenda-search-view-max-outline-level 2)))
-
-            ("ct" "Todo"            tags-todo ""
-             ((org-agenda-files (quote ,(append teach-list)))))
-
-            ("ct" "Tag"             tags ""
-             ((org-agenda-files (quote ,(append teach-list)))))
-
-
-            ;; PERSONAL
-            ("p" . "Personal")
-
-            ("pa" "Agenda"         agenda ""
-             ((org-agenda-files (quote ,perso-list))))
-
-            ("ps" "Search"         search ""
-             ((org-agenda-files (quote ,perso-list))
-              (org-agenda-search-view-max-outline-level 2)))
-
-            ("pt" "Todo"           tags-todo ""
-             ((org-agenda-files (quote ,perso-list))))
-
-            ("pt" "Tag"            tags ""
-             ((org-agenda-files (quote ,perso-list))))
-
-            ("pj" "Journal"        tags "+LEVEL=4"
-             ((org-agenda-files (quote ,persolog-list))
-              (org-agenda-prefix-format "")))
-
-            ("pJ" "Search journal" search ""
-             ((org-agenda-files (quote ,persolog-list))
-              (org-agenda-search-view-max-outline-level 4)
-              (org-agenda-prefix-format "")))
-
-            )))
+           (ab2/agenda-topic-commands "p" "Personal" perso-list)
+           (ab2/agenda-tree-commands "p" "j" "Journal" 4 persolog-list))))
 
   ;; Priority faces
   (defface org-priority-level-1 '((t :inherit default)) "Org priority level 1")
@@ -456,3 +336,15 @@
   )
 
 
+(defun ab2-org/init-calfw ()
+  ;; Source: https://github.com/syl20bnr/spacemacs/pull/8372
+
+  (setq cfw:org-overwrite-default-keybinding t)
+
+  (use-package calfw
+    ; :init
+    ; (evil-set-initial-state 'cfw:calendar-mode 'normal)
+    )
+
+  (use-package calfw-org)
+  )
