@@ -13,7 +13,7 @@ After=synced.target
 Type=simple
 Slice=daemons.slice
 
-ExecStart=/usr/bin/geth --support-dao-fork
+ExecStart=/usr/bin/geth
 
 # explicitly remove IPC socket
 ExecStopPost=/usr/bin/rm -f %h/.ethereum/geth.ipc
