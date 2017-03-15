@@ -83,9 +83,9 @@
         (mode-line-inactive :foreground ,zenburn-green+1 :background ,zenburn-bg-05 :box (:color ,zenburn-fg-1))
         (mode-line-highlight :box (:color ,zenburn-fg))
         ;; success / warning / error
-        (success :foreground ,zenburn-green+2)
-        (warning :foreground ,zenburn-yellow-1)
-        (error :foreground ,zenburn-red)
+        (success :foreground ,zenburn-green+2 :weight bold)
+        (warning :foreground ,zenburn-yellow-1 :weight bold)
+        (error :foreground ,zenburn-red :weight bold)
         ;; fonts
         (variable-pitch :inherit default :font-family nil)
         ;; cfw
@@ -173,15 +173,15 @@
         (org-priority-level-4 :foreground ,zenburn-green+1)
         (org-priority-level-5 :foreground ,zenburn-blue)
         ;; vc
-        (vc-conflict-state :inherit error)
-        (vc-edited-state :inherit warning)
-        (vc-locally-added-state :inherit warning)
-        (vc-locked-state :inherit warning)
-        (vc-missing-state :inherit warning)
-        (vc-needs-update-state :inherit warning)
-        (vc-removed-state :inherit warning)
-        (vc-state-base :inherit default)
-        (vc-up-to-date-state :inherit success)
+        (vc-conflict-state :inherit error :weight normal)
+        (vc-edited-state :inherit warning :weight normal)
+        (vc-locally-added-state :inherit warning :weight normal)
+        (vc-locked-state :inherit warning :weight normal)
+        (vc-missing-state :inherit warning :weight normal)
+        (vc-needs-update-state :inherit warning :weight normal)
+        (vc-removed-state :inherit warning :weight normal)
+        (vc-state-base :inherit default :weight normal)
+        (vc-up-to-date-state :inherit success :weight normal)
         ;; widget
         (widget-button-pressed :foreground ,zenburn-red-1)
         (widged-documentation :foreground ,zenburn-green+1)
