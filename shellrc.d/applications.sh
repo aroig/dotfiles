@@ -82,18 +82,6 @@ tm()  {
     fi
 }
 
-# ranger session
-rg()  {
-    eval "local CMD=($TERMCMD)"
-    if [ "$1" ]; then sdrun "${CMD[@]}" -e ranger -d "$1"
-    else              sdrun "${CMD[@]}" -e ranger -d "$PWD"
-    fi
-}
-
-rf()  {
-    rifle "$@"
-}
-
 # vifm as an awesome dropdown
 fm() {
     echo "ddshow('app:vifm-dropdown', true)" | awesome-client

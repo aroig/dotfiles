@@ -70,9 +70,6 @@ export ANDROID_SWT="/usr/share/java"
 # https://forums.gentoo.org/viewtopic-p-7380668.html?sid=265ddf475643bf5c86fe72440cf6cbe8
 # export NO_AT_BRIDGE=1 
 
-# ranger
-export RANGER_LOAD_DEFAULT_RC=FALSE
-
 # java
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
 
