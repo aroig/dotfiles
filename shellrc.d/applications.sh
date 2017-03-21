@@ -77,8 +77,8 @@ xc() {
 # new terminal
 tm()  {
     eval "local CMD=($TERMCMD)"
-    if [ "$1" ]; then sdrun "${CMD[@]}" -d "$1"
-    else              sdrun "${CMD[@]}" -d "$PWD"
+    if [ "$1" ]; then sdrun "${CMD[@]}" -e "$SHELL -l" -d "$1"
+    else              sdrun "${CMD[@]}" -e "$SHELL -l" -d "$PWD"
     fi
 }
 
