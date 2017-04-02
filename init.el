@@ -110,7 +110,7 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      spell-checking
-     ;; version-control
+     version-control
      windows-scripts
      ab2-base
      ab2-lang

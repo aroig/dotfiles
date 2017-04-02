@@ -110,6 +110,12 @@
         (eval-sexp-fu-flash-error :foreground ,zenburn-red)
         ;; evil
         (evil-search-highlight-persist-highlight-face :inherit region)
+        ;; git-gutter-+
+        (git-gutter+-added :inherit diff-added)
+        (git-gutter+-deleted :inherit diff-removed)
+        (git-gutter+-modified :inherit diff-changed)
+        (git-gutter+-separator :foreground ,zenburn-blue-2)
+        (git-gutter+-unchanged :inherit diff-changed)
         ;; helm
         (helm-header-line-left-margin :foreground ,zenburn-bg :background ,zenburn-yellow-1)
         (helm-resume-need-update :foreground ,zenburn-bg :background ,zenburn-red-1)
