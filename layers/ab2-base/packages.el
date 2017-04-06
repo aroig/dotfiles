@@ -5,6 +5,7 @@
         uniquify
         hippie-exp
         (sensitive-mode :location local)
+        persp-mode
         ))
 
 
@@ -52,3 +53,7 @@
    tab-always-indent t
    company-idle-delay 0.4
   ))
+
+(defun ab2-base/post-init-persp-mode ()
+  ;; Do not mess with the initial buffer
+  (setq persp-is-ibc-as-f-supported nil))
