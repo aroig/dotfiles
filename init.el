@@ -97,7 +97,7 @@ values."
      python
      restclient
      ruby
-     shaders
+     gpu
      shell-scripts
      sql
      systemd
