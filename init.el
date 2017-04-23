@@ -75,8 +75,7 @@ values."
      search-engine
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
-            c-c++-enable-clang-support t
-            c-c++-enable-rtags-support t)
+            c-c++-enable-clang-support t)
      ;; semantic
      syntax-checking
      asciidoc
@@ -134,7 +133,6 @@ values."
      cl
      dbus
      diff-hl
-     (rtags :location local)
      (mu4e :location local)
      )
    ;; A list of packages that cannot be updated.
