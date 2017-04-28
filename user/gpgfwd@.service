@@ -10,10 +10,12 @@ After=sshmux@%i.service
 [Service]
 Type=simple
 Slice=daemons.slice
+# NOTE: If the perms of this are not right, GPG on the remote will silently use
+# ~/.gnupg instead.
 ExecStartPre=/usr/bin/ssh -o ControlMaster=no                                  \
                           -o ControlPath=none                                  \
                           %i                                                   \
-                          mkdir -p %t/gnupg
+                          mkdir -m 700 -p %t/gnupg
 
 ExecStart=/usr/bin/ssh -o ControlMaster=no                                     \
                        -o ControlPath=none                                     \
