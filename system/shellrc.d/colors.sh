@@ -87,7 +87,7 @@ print_color_test() {
 ls-colorize() {
     local sedrules=()
     local escape=$(printf "\e")
-    for r in $(echo "${LS_COLORS}" | tr ':' ' '); do
+    for r in $(printf "%s" "${LS_COLORS}" | tr ':' ' '); do
         local pattern="${r%=*}"
         local color="${r#*=}"
 
@@ -98,7 +98,7 @@ ls-colorize() {
             sedrules+=("$rule")
         fi
     done
-    sed "${sedrules[@]/#/-e }"
+    sed $(printf "-e %s " "${sedrules[@]}")
 }
 
 # print_color_test
