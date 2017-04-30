@@ -1,4 +1,4 @@
 [D-BUS Service]
 Name=org.a11y.Bus
 Exec=/bin/false
-SystemdService=dbus-org.a11y.Bus.service
+SystemdService=at-spi-dbus-bus.service
