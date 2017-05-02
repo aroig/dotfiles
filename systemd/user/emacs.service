@@ -15,6 +15,8 @@ Slice=daemons.slice
 
 ExecStart=/usr/bin/emacs --daemon --eval '(setq server-socket-dir "%t/emacs/emacs")'
 
+ExecReload=/usr/bin/emacsclient -s "%t/emacs/server" --eval '(dotspacemacs/sync-configuration-layers)'
+
 TimeoutStartSec=10min
 SuccessExitStatus=0 15
 

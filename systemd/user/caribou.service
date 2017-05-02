@@ -1,9 +1,6 @@
 [Unit]
 Description=onscreen keyboard
 
-Requires=at-spi-bus.service
-After=at-spi-bus.service
-
 Requisite=graphical.target
 After=graphical.target
 
