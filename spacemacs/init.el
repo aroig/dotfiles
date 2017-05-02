@@ -75,8 +75,7 @@ values."
      search-engine
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
-            c-c++-enable-clang-support t
-            c-c++-enable-rtags-support t)
+            c-c++-enable-clang-support t)
      ;; semantic
      syntax-checking
      asciidoc
@@ -97,7 +96,7 @@ values."
      python
      restclient
      ruby
-     shaders
+     gpu
      shell-scripts
      sql
      systemd
@@ -110,7 +109,7 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      spell-checking
-     ;; version-control
+     version-control
      windows-scripts
      ab2-base
      ab2-lang
@@ -134,7 +133,6 @@ values."
      cl
      dbus
      diff-hl
-     (rtags :location local)
      (mu4e :location local)
      )
    ;; A list of packages that cannot be updated.
@@ -267,7 +265,7 @@ values."
    ;; If non-nil the default layout name is displayed in the mode-line.
    ;; (default nil)
    dotspacemacs-display-default-layout nil
-   ;; If non-nil then the last auto saved layouts are resume automatically upon
+   ;; If non-nil then the last auto saved layouts are resumed automatically upon
    ;; start. (default nil)
    dotspacemacs-auto-resume-layouts nil
    ;; Size (in MB) above which spacemacs will prompt to open the large file
@@ -384,7 +382,7 @@ values."
    dotspacemacs-default-package-repository nil
    ;; Delete whitespace while saving buffer. Possible values are `all'
    ;; to aggressively delete empty line and long sequences of whitespace,
-   ;; `trailing' to delete only the whitespace at end of lines, `changed'to
+   ;; `trailing' to delete only the whitespace at end of lines, `changed' to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil

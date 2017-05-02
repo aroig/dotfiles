@@ -82,6 +82,7 @@
           ("tag:linux AND flag:unread"                            "Linux"               ?u)
           ("(tag:gamedev OR tag:devel) AND flag:unread"           "Development"         ?d)
           ("tag:maths AND flag:unread"                            "Mathematics"         ?m)
+          ("tag:crypto AND flag:unread"                           "Crypto"              ?c)
 
           ("tag:watchlist AND flag:unread"                        "Watchlist"           ?w)
           ("tag:arxiv AND flag:unread"                            "Arxiv"               ?x)
