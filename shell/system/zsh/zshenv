@@ -20,7 +20,7 @@
 #------------------------------
 
 export EMACS="/usr/bin/emacs"
-export EDITOR="/usr/bin/nvim"
+export EDITOR="/usr/bin/vim"
 export ALTERNATE_EDITOR="/usr/bin/emacs"
 
 export BROWSER="/usr/bin/chromium"
@@ -69,9 +69,6 @@ export ANDROID_SWT="/usr/share/java"
 # disable accessibility for GTK3 apps
 # https://forums.gentoo.org/viewtopic-p-7380668.html?sid=265ddf475643bf5c86fe72440cf6cbe8
 # export NO_AT_BRIDGE=1 
-
-# ranger
-export RANGER_LOAD_DEFAULT_RC=FALSE
 
 # java
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'

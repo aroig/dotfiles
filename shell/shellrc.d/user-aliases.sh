@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 #------------------------------
 # Machine aliases
 #------------------------------
@@ -17,12 +19,29 @@ alias nspawn='systemd-nspawn -b -n -D'
 # System
 #------------------------------
 
+cgls-colorize() {
+    local sedrules=()
+    local escape=$(printf "\e")
+    for r in $(printf "%s" "${SYSTEMD_COLORS}" | tr ':' ' '); do
+        local pattern="${r%=*}"
+        local color="${r##*=}"
+
+        # Only match against =*.xxx things
+        local pattern2="${pattern#=\*.}"
+        if [ ! "${pattern}" = "${pattern2}" ]; then
+            rule="s/─\b\([a-zA-Z0-9.:@~/_\\-]*\.${pattern2}\)\b/─${escape}[${color}m\1${escape}[0m/g"
+            sedrules+=("$rule")
+        fi
+    done
+    sed $(printf "-e %s " "${sedrules[@]}")
+}
+
 scgls() {
-    systemd-cgls --all --full /system.slice | ls-colorize
+    systemd-cgls --all --full /system.slice | cgls-colorize
 }
 
 ucgls() {
-    systemd-cgls -all --full /user.slice/user-$(id -u).slice | ls-colorize
+    systemd-cgls -all --full /user.slice/user-$(id -u).slice | cgls-colorize
 }
 
 alias unls="sdls units"
