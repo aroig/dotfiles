@@ -1,5 +1,5 @@
 [Unit]
-Description=ssh master connection for %i
+Description=ssh master connection to %i
 
 Conflicts=disconnect.target
 
@@ -20,4 +20,5 @@ ExecStartPre=/usr/bin/mkdir -p "%t/ssh/ssh"
 ExecStart=/usr/bin/ssh -M -N -f                                        \
                        -o "ControlPersist=1h"                          \
                        -o "ControlPath=%t/ssh/ssh/%%r@%%h.socket"      \
+                       -o "ProxyCommand=none"                          \
                        %i
