@@ -1,7 +1,6 @@
 (setq ab2-mu4e-packages
  '(
    mu4e
-   persp-mode
    mu4e-maildirs-extension
   ))
 
@@ -251,27 +250,6 @@
   ;; (ad-activate 'mu4e-view-message-text)
 
 )
-
-
-(defun ab2-mu4e/post-init-persp-mode ()
-  (spacemacs|define-custom-layout
-   "@mu4e"
-   :binding "m"
-   :body
-   (progn
-
-     (defun ab2/add-mu4e-buffer-to-persp ()
-       (let* ((buf (current-buffer))
-              (persp (persp-get-by-name "@mu4e")))
-         (persp-add-buffer buf persp nil)))
-
-     (add-hook 'mu4e-main-mode-hook #'ab2/add-mu4e-buffer-to-persp)
-     (add-hook 'mu4e-view-mode-hook #'ab2/add-mu4e-buffer-to-persp)
-     (add-hook 'mu4e-headers-mode-hook #'ab2/add-mu4e-buffer-to-persp)
-     (add-hook 'mu4e-compose-mode-hook #'ab2/add-mu4e-buffer-to-persp)
-
-     (call-interactively 'mu4e)
-     )))
 
 (defun ab2-mu4e/pre-init-mu4e-maildirs-extension ()
   (setq mu4e-maildirs-extension-use-bookmarks nil
