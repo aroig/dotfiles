@@ -9,9 +9,12 @@ Type=oneshot
 RemainAfterExit=true
 Slice=daemons.slice
 
-ExecStart=/usr/bin/sh -c '                                          \
-    while true; do                                                  \
-        ssh -o "ControlPath=none" %i true >/dev/null 2>&1 && break; \
-        sleep 1;                                                    \
-    done                                                            \
+ExecStart=/usr/bin/sh -c '                        \
+    while true; do                                \
+          ssh -o ControlPath=none                 \
+              -o ConnectTimeout=5                 \
+              -o ConnectionAttempts=1             \
+              %i true >/dev/null 2>&1 && break;   \
+        sleep 1;                                  \
+    done                                          \
 '
