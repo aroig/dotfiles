@@ -11,7 +11,8 @@ Slice=daemons.slice
 
 ExecStart=/usr/bin/sh -c '                        \
     while true; do                                \
-          ssh -o ControlPath=none                 \
+          ssh -o ControlMaster=no                 \
+              -o ControlPath=none                 \
               -o ConnectTimeout=5                 \
               -o ConnectionAttempts=1             \
               %i true >/dev/null 2>&1 && break;   \
