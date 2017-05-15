@@ -129,6 +129,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
+     meson-mode
      rainbow-mode
      cl
      dbus
