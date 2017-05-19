@@ -7,7 +7,6 @@
         python-mode
         compile
         cc-mode
-        editorconfig
         helm-make
         cmake-mode
         irony
@@ -106,11 +105,6 @@
                                  "\\)\\>[ \t]*:"))
 
   (add-hook 'c-mode-common-hook 'ab2/cc-mode-config))
-
-(defun ab2-devel/init-editorconfig ()
-  (use-package editorconfig)
-  (editorconfig-mode 1)
-  (spacemacs|diminish editorconfig-mode "ⓔ" " e"))
 
 
 (defun ab2-devel/post-init-cmake-mode ()
