@@ -83,3 +83,7 @@ TODO
 * get rid of all my custom scripts to run emacs, etc.
 
 
+## Bugs
+
+* If package A depends on package B, and we request B to be installed as local,
+  when the elpa dependency of A to B kicks in, forces a download of B.

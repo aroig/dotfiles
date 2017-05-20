@@ -134,6 +134,7 @@ values."
      cl
      dbus
      diff-hl
+     (irony :location local)
      (mu4e :location local)
      )
    ;; A list of packages that cannot be updated.

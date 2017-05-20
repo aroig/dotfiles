@@ -10,6 +10,9 @@
         helm-make
         cmake-mode
         (irony :location local)
+        ;; NOTE: those two trigger irony package download, despite being marked
+        ;; local. We cannot make those two local because they depend on company
+        ;; etc. Oh well.
         (company-irony :toggle (configuration-layer/package-usedp 'company))
         (flycheck-irony :toggle (configuration-layer/package-usedp 'flycheck))
         ))
