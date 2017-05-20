@@ -9,7 +9,7 @@
         cc-mode
         helm-make
         cmake-mode
-        irony
+        (irony :location local)
         (company-irony :toggle (configuration-layer/package-usedp 'company))
         (flycheck-irony :toggle (configuration-layer/package-usedp 'flycheck))
         ))
