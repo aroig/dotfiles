@@ -15,7 +15,7 @@ SHELL       := /usr/bin/bash
 
 FORCE:
 
-.PHONY: update-init update sync pull
+.PHONY: update-init update sync pull clean-elpa
 
 pull: $(SPACEMACS_DIR)/.git/FETCH_HEAD
 
@@ -37,3 +37,8 @@ update:
 		fi
 	)
 
+clean-elpa:
+	@(
+		cd $(SPACEMACS_CACHE)/elpa
+		git ls-files -z | xargs -0 rm -f
+	)
