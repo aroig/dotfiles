@@ -142,12 +142,13 @@ values."
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages
    '(
-     org-bullets
-     rainbow-delimiters
-     smartparens
+     org-bullets         ;; ugly
+     rainbow-delimiters  ;; ugly
+     smartparens         ;; annoying
      auto-complete
-     window-purpose
+     window-purpose      ;; annoying
      spacemacs-purpose-popwin
+     mu4e-alert          ;; broke compatibility
      )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
