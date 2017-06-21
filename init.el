@@ -82,7 +82,7 @@ values."
      bibtex
      emacs-lisp
      asm
-     extra-langs
+     major-modes
      go
      haskell
      html
