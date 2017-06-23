@@ -120,6 +120,10 @@
     :init
     (progn
       (setq irony-server-install-prefix "/usr")
+
+      ;; NOTE: Attempt to run irony-server in a systemd unit. It does not work
+      ;; because irony.el quotes the thing. grrrr!!
+      ; (setq irony--server-executable "systemd-run --user --scope -q --unit=irony /usr/bin/irony-server")
       (add-hook 'c-mode-hook 'irony-mode)
       (add-hook 'c++-mode-hook 'irony-mode)
       (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
