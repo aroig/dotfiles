@@ -9,12 +9,13 @@
         cc-mode
         helm-make
         cmake-mode
-        (irony :location local)
+        ycmd
+        ; (irony :location local)
         ;; NOTE: those two trigger irony package download, despite being marked
         ;; local. We cannot make those two local because they depend on company
         ;; etc. Oh well.
-        (company-irony :toggle (configuration-layer/package-usedp 'company))
-        (flycheck-irony :toggle (configuration-layer/package-usedp 'flycheck))
+        ; (company-irony :depends company)
+        ; (flycheck-irony :depends flycheck)
         ))
 
 
@@ -113,6 +114,12 @@
 (defun ab2-devel/post-init-cmake-mode ()
   (setq cmake-tab-width 4))
 
+(defun ab2-devel/pre-init-ycmd ()
+  (setq ycmd-server-command `(,(file-truename (concat dotspacemacs-directory "bin/ycmd")))
+        ycmd-force-semantic-completion t
+        ycmd-extra-conf-whitelist (file-truename (concat user-emacs-directory "layers"))
+        )
+  (spacemacs|diminish ycmd-mode "Ⓒ" " C"))
 
 (defun ab2-devel/init-irony ()
   (use-package irony-mode

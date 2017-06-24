@@ -75,6 +75,7 @@ This function should only modify configuration layer settings."
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t)
+     ycmd
      ;; semantic
      syntax-checking
      asciidoc
@@ -133,7 +134,6 @@ This function should only modify configuration layer settings."
      cl
      dbus
      diff-hl
-     (irony :location local)
      (mu4e :location local)
      )
    ;; A list of packages that cannot be updated.
@@ -144,7 +144,7 @@ This function should only modify configuration layer settings."
      org-bullets         ;; ugly
      rainbow-delimiters  ;; ugly
      smartparens         ;; annoying
-     auto-complete
+     ; auto-complete
      window-purpose      ;; annoying
      spacemacs-purpose-popwin
      mu4e-alert          ;; broke compatibility
@@ -562,7 +562,6 @@ before packages are loaded."
         ("zenburn-dark-blue"         . "#2F2F60")
         ))
 
-
-
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+
