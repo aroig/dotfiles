@@ -3,7 +3,7 @@
 # Start mu in a systemd scope. stdin and stdout will still be attached and emacs
 # will be happy launching this.
 
-exec systemd-run  --user  --quiet       \
+exec systemd-run --user --quiet         \
      --scope                            \
      --unit=emacs-mu                    \
      --slice=daemons.slice              \
