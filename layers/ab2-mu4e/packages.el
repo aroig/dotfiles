@@ -9,7 +9,8 @@
   ;; paths
   (setq mu4e-mu-home (format "%s/.mu" (getenv "HOME"))
         mu4e-maildir (format "%s/mail" (getenv "HOME"))
-        mu4e-attachment-dir  (format "%s/down" (getenv "HOME")))
+        mu4e-attachment-dir  (format "%s/down" (getenv "HOME"))
+        mu4e-mu-binary (concat dotspacemacs-directory "bin/mu"))
 
   ;; folders
   (setq mu4e-drafts-folder "/Drafts"

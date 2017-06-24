@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+# Start irony-server in a systemd scope. stdin and stdout will still be attached
+# and emacs will be happy launching this.
+
+exec systemd-run  --user  --quiet       \
+     --scope                            \
+     --unit=emacs-irony                 \
+     --slice=daemons.slice              \
+     --property=Requires=emacs.service  \
+     /usr/bin/irony-server "$@"
