@@ -14,8 +14,8 @@
         ;; NOTE: those two trigger irony package download, despite being marked
         ;; local. We cannot make those two local because they depend on company
         ;; etc. Oh well.
-        ; (company-irony :depends company)
-        ; (flycheck-irony :depends flycheck)
+        ; (company-irony :requires company)
+        ; (flycheck-irony :requires flycheck)
         ))
 
 
