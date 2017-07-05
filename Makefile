@@ -23,14 +23,14 @@ update-init:
 	@vimdiff $(SPACEMACS_DIR)/core/templates/.spacemacs.template init.el
 
 sync:
-	@$(EMACS) --eval '(configuration-layer/sync)'
+	@$(EMACS) --eval '(configuration-layer/load)'
 
 update:
 	@(
 		cd $(SPACEMACS_CACHE)/elpa
 		git checkout master
 		$(EMACS) --eval '(configuration-layer/update-packages t)'
-		$(EMACS) --eval '(configuration-layer/sync)'
+		$(EMACS) --eval '(configuration-layer/load)'
 		if [ -n "$$(git status --porcelain)" ]; then
 			git add -A
 			git commit -m 'Update packages'
