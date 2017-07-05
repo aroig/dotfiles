@@ -26,8 +26,8 @@ cgls-colorize() {
         local pattern="${r%=*}"
         local color="${r##*=}"
 
-        # Only match against =*.xxx things
-        local pattern2="${pattern#=\*.}"
+        # Only match against *.xxx things
+        local pattern2="${pattern#\*.}"
         if [ ! "${pattern}" = "${pattern2}" ]; then
             rule="s/─\b\([a-zA-Z0-9.:@~/_\\-]*\.${pattern2}\)\b/─${escape}[${color}m\1${escape}[0m/g"
             sedrules+=("$rule")
