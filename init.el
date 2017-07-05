@@ -75,7 +75,8 @@ This function should only modify configuration layer settings."
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t)
-     ycmd
+     ;; NOTE: ycmd sucks up memory like crazy
+     ;; ycmd
      ;; semantic
      syntax-checking
      asciidoc
@@ -135,6 +136,7 @@ This function should only modify configuration layer settings."
      dbus
      diff-hl
      (mu4e :location local)
+     (irony :location local)
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()

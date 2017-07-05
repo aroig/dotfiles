@@ -9,13 +9,10 @@
         cc-mode
         helm-make
         cmake-mode
-        ycmd
-        ; (irony :location local)
-        ;; NOTE: those two trigger irony package download, despite being marked
-        ;; local. We cannot make those two local because they depend on company
-        ;; etc. Oh well.
-        ; (company-irony :requires company)
-        ; (flycheck-irony :requires flycheck)
+        ; ycmd
+        (irony :location local)
+        (company-irony :requires company)
+        (flycheck-irony :requires flycheck)
         ))
 
 
