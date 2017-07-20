@@ -37,12 +37,17 @@ cgls-colorize() {
 }
 
 scgls() {
-    systemd-cgls --all --full /system.slice | cgls-colorize
+    systemd-cgls --all --full "/system.slice" | cgls-colorize
 }
 
 ucgls() {
-    systemd-cgls -all --full /user.slice/user-$(id -u).slice | cgls-colorize
+    systemd-cgls -all --full "/user.slice/user-$(id -u).slice" | cgls-colorize
 }
+
+mcgls() {
+    systemd-cgls -all --full "/machine.slice" | cgls-colorize
+}
+
 
 alias unls="sdls units"
 
