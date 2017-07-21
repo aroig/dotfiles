@@ -18,4 +18,4 @@ Type=oneshot
 ExecStart=/home/abdo/.config/systemd/scripts/bamboo.sh
 
 [Install]
-WantedBy=udev-bamboo.target
+WantedBy=sys-subsystem-input-devices-bamboo.device
