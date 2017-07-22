@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.gtk.GLib.PACRunner
-Exec=/bin/false
-SystemdService=dbus-org.gtk.GLib.PACRunner.service

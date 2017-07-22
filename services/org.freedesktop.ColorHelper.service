@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.freedesktop.ColorHelper
-Exec=/bin/false
-SystemdService=colord-session.service

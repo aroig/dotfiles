@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.gtk.vfs.Metadata
-Exec=/bin/false
-SystemdService=dbus-org.gtk.vfs.Metadata.service
