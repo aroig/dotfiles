@@ -11,6 +11,8 @@ After=xorg.service
 BindsTo=awesome.service
 After=awesome.service
 
+Conflicts=tint2.service
+
 [Install]
 WantedBy=desktop.target
 WantedBy=laptop.target
