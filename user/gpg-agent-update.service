@@ -1,0 +1,29 @@
+[Unit]
+Description=refresh gpg-agent environment
+
+Requires=gpg-agent.service
+After=gpg-agent.service
+
+After=graphical.target console.target
+
+[Service]
+Type=oneshot
+
+# We need this so that we pass ttytype to the agent.
+Environment=TERM=linux
+
+# update gpg-agent with the tty of the active session on seat0
+# TODO: what to do on sessions over ssh with no seat?
+ExecStart=/usr/bin/sh -c '                                                                 \
+    SEAT=seat0;                                                                            \
+    SESSION="$(loginctl show-seat seat0 | sed -n "s/ActiveSession=\\(.*\\)/\\1/p")";       \
+    if [ ! "$$SESSION" ]; then printf "Seat $$SEAT has no active seassion\n"; exit 0; fi;  \
+    TTY="$(loginctl show-session "$$SESSION" | sed -n "s|TTY=\\(.*\\)|/dev/\\1|p")";       \
+    if [ ! "$$TTY" ]; then printf "Active session $$SESSION has no tty\n"; exit 0; fi;     \
+    printf "Setting GPG_TTY=$$TTY\n";                                                      \
+    GPG_TTY="$$TTY" gpg-connect-agent updatestartuptty /bye;                               \
+'
+ 
+[Install]
+WantedBy=console.target
+WantedBy=graphical.target
