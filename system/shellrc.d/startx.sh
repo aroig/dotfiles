@@ -5,7 +5,8 @@
 stx() {
     # export environment to systemd
     export DISPLAY=:0
-    systemctl --user import-environment DISPLAY XDG_VTNR
+    export XAUTHORITY="$XDG_RUNTIME_DIR/xorg/Xauthority"
+    systemctl --user import-environment DISPLAY XDG_VTNR XAUTHORITY
 
     # start the desktop according to the device
     local chassis=$(hostnamectl status | awk '/Chassis/{print $2}')
@@ -20,7 +21,10 @@ stx() {
     systemctl --user start --wait xorg.service
 
     # unset systemd environment
-    systemctl --user unset-environment DISPLAY XDG_VTNR
+    systemctl --user unset-environment DISPLAY XDG_VTNR XAUTHORITY
+
+    # unset exported variables
+    unset DISPLAY XAUTHORITY
 
     # reset tty and reset colors
     reset
