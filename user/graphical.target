@@ -1,8 +1,0 @@
-[Unit]
-Description=graphical environment
-
-RefuseManualStart=true
-StopWhenUnneeded=true
-
-Conflicts=console.target
-After=console.target

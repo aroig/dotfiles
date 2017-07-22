@@ -6,8 +6,8 @@ Conflicts=awesome.service openbox.service xmonad.service tint2.service
 BindsTo=sway.service
 After=sway.service
 
-Requires=graphical.target
-Before=graphical.target
+Requires=graphical-session.target
+Before=graphical-session.target
 
 [Service]
 Type=oneshot

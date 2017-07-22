@@ -5,7 +5,7 @@ Requisite=xserver.target
 After=xserver.target
 
 After=compton.service
-Before=graphical.target
+Before=graphical-session.target
 
 [Service]
 Type=simple

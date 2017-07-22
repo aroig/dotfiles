@@ -3,8 +3,8 @@ Description=weston compositor client at display 1
 
 Requires=weston-client.socket
 
-Requisite=graphical.target
-After=graphical.target
+Requisite=graphical-session.target
+After=graphical-session.target
 
 [Service]
 # Type=notify

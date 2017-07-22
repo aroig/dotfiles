@@ -14,4 +14,4 @@ ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources
 ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources.d/%H
 
 [Install]
-WantedBy=graphical.target
+WantedBy=graphical-session.target

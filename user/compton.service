@@ -4,7 +4,7 @@ Description=compton X compositor
 Requisite=xorg.service
 After=xorg.service
 
-Before=graphical.target
+Before=graphical-session.target
 
 # NOTE: compton should be started after awesome, otherwise funny things happen to the wallpaper...
 After=awesome.service openbox.service xmonad.service

@@ -1,8 +1,8 @@
 [Unit]
 Description=Plank dock
 
-Requisite=graphical.target
-After=graphical.target
+Requisite=graphical-session.target
+After=graphical-session.target
 
 PartOf=tablet.target
 

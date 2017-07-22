@@ -4,7 +4,7 @@ Description=refresh gpg-agent environment
 Requires=gpg-agent.service
 After=gpg-agent.service
 
-After=graphical.target console.target
+After=graphical-session.target console.target
 
 [Service]
 Type=oneshot
@@ -26,4 +26,4 @@ ExecStart=/usr/bin/sh -c '                                                      
  
 [Install]
 WantedBy=console.target
-WantedBy=graphical.target
+WantedBy=graphical-session.target

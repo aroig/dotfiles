@@ -2,8 +2,8 @@
 Description=vncserver configuration
 AllowIsolate=true
 
-Requisite=graphical.target
-After=graphical.target
+Requisite=graphical-session.target
+After=graphical-session.target
 
 Conflicts=console.target laptop.target tablet.target presentation.target desktop.target
 
