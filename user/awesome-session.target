@@ -1,5 +1,6 @@
 [Unit]
 Description=awesome wm session
+AllowIsolate=true
 
 BindsTo=graphical-session.target
 Before=graphical-session.target
