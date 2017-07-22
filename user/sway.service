@@ -11,8 +11,3 @@ ExecStart=/usr/bin/sway -c "%h/.config/sway/host/%H"
 KillSignal=SIGINT
 TimeoutSec=15
 
-[Install]
-WantedBy=desktop.target
-WantedBy=laptop.target
-WantedBy=tablet.target
-WantedBy=vncserver.target
