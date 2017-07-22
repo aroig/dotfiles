@@ -7,7 +7,7 @@ After=xorg.service
 Before=graphical-session.target
 
 # NOTE: compton should be started after awesome, otherwise funny things happen to the wallpaper...
-After=awesome.service openbox.service xmonad.service
+After=awesome.service openbox.service
 
 [Service]
 Type=simple

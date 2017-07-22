@@ -1,7 +1,7 @@
 [Unit]
 Description=proxy service to sway window manager
 
-Conflicts=awesome.service openbox.service xmonad.service tint2.service
+Conflicts=awesome.service openbox.service
 
 BindsTo=sway.service
 After=sway.service

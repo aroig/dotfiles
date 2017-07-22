@@ -1,7 +1,7 @@
 [Unit]
 Description=openbox window manager
 
-Conflicts=awesome.service xmonad.service
+Conflicts=awesome.service
 
 Requisite=xserver.target
 After=xserver.target xrdb.service

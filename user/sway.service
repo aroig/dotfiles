@@ -1,7 +1,7 @@
 [Unit]
 Description=sway window manager
 
-Conflicts=openbox.service xmonad.service tint2.service awesome.service
+Conflicts=openbox.service awesome.service
 
 [Service]
 Type=simple
