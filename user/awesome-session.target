@@ -1,0 +1,17 @@
+[Unit]
+Description=awesome wm session
+
+BindsTo=graphical-session.target
+Before=graphical-session.target
+
+BindsTo=xorg.service
+After=xorg.service
+
+BindsTo=awesome.service
+After=awesome.service
+
+[Install]
+WantedBy=desktop.target
+WantedBy=laptop.target
+WantedBy=tablet.target
+WantedBy=vncserver.target

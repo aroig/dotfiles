@@ -7,9 +7,6 @@ Requisite=xserver.target
 After=xserver.target
 After=xrdb.service
 
-Requires=graphical-session.target
-Before=graphical-session.target
-
 [Service]
 Type=simple
 Slice=wm.slice
@@ -21,8 +18,3 @@ ExecStart=/usr/bin/awesome
 KillSignal=SIGINT
 TimeoutSec=15
 
-[Install]
-WantedBy=desktop.target
-WantedBy=laptop.target
-WantedBy=tablet.target
-WantedBy=vncserver.target
