@@ -7,6 +7,9 @@ Requisite=synced.target
 
 [Socket]
 ListenStream=%t/mpd/mpd.socket
+SocketMode=0600
+DirectoryMode=0700
+Service=mpd.service
 
 [Install]
 WantedBy=synced.target

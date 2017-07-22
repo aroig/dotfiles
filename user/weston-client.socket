@@ -3,6 +3,7 @@ Description=socket for weston client at display 1
 
 [Socket]
 ListenStream=%t/wayland-1
+SocketMode=0600
 
 [Install]
 WantedBy=sockets.target

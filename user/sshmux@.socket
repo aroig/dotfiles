@@ -8,6 +8,8 @@ Description=ssh socket for %i
 [Socket]
 ListenStream=%t/ssh/%u@%i.home.local.socket
 Service=sshmux-proxy@%i.service
+SocketMode=0600
+DirectoryMode=0700
 
 [Install]
 WantedBy=sockets.target

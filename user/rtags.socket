@@ -3,6 +3,8 @@ Description=rtags server socket
 
 [Socket]
 ListenStream=%h/.rdm
+SocketMode=0600
+Service=rtags.service
 
 [Install]
 WantedBy=sockets.target
