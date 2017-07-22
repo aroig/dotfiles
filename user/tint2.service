@@ -1,8 +1,8 @@
 [Unit]
 Description=tint2 panel
 
-Requisite=graphical-session.target
-After=graphical-session.target
+Requisite=xserver.target
+After=xserver.target xrdb.service
 
 [Service]
 Type=simple

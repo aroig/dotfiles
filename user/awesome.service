@@ -4,8 +4,7 @@ Description=awesome window manager
 Conflicts=openbox.service xmonad.service tint2.service
 
 Requisite=xserver.target
-After=xserver.target
-After=xrdb.service
+After=xserver.target xrdb.service
 
 [Service]
 Type=simple

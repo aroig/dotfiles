@@ -5,8 +5,6 @@ Documentation=man:xrdb(1)
 Requisite=xserver.target
 After=xserver.target
 
-Before=awesome.service openbox.service xmonad.service
-
 [Service]
 Type=oneshot
 
