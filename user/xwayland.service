@@ -5,7 +5,7 @@ Conflicts=vncserver.service weston.service weston.socket xorg.service
 
 Requires=xwayland.socket
 
-Requires=xserver.target
+BindsTo=xserver.target
 Before=xserver.target
 
 

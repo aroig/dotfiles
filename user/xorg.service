@@ -11,7 +11,7 @@ Conflicts=vncserver.service weston.service weston.socket
 Conflicts=console.target
 After=console.target
 
-Requires=xserver.target
+BindsTo=xserver.target
 Before=xserver.target
 
 [Service]
