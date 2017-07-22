@@ -12,7 +12,14 @@ Before=xserver.target
 [Service]
 Type=forking
 
-ExecStart=/usr/bin/vncserver :0 -nolisten tcp -localhost -nevershared -geometry 800x600 -depth 24
+ExecStart=/usr/bin/vncserver  \
+    ${DISPLAY}                \
+    -nolisten tcp             \
+    -localhost                \
+    -nevershared              \
+    -geometry 800x600         \
+    -depth 24
 
-[Install]
-WantedBy=vncserver.target
+# NOTE: There is no reliable way to get startup notifications.
+ExecStartPost=/usr/bin/bash -c 'while ! xset q &>/dev/null; do sleep 1; done'
+

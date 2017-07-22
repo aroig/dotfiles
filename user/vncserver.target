@@ -1,9 +1,0 @@
-[Unit]
-Description=vncserver configuration
-AllowIsolate=true
-
-Requisite=graphical-session.target
-After=graphical-session.target
-
-Conflicts=console.target laptop.target tablet.target presentation.target desktop.target
-
