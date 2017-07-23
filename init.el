@@ -105,7 +105,6 @@ This function should only modify configuration layer settings."
      vimscript
      yaml
      fasd
-     makepkg
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
