@@ -4,6 +4,9 @@ source "/etc/shellrc.d/git-prompt.sh"
 source "/etc/shellrc.d/vcs.sh"
 source "/etc/shellrc.d/prompt.sh"
 
+blue="$(tput bold)$(tput setaf 4)"
+reset="$(tput sgr0)"
+
 abdo_vcs_dirinfo() {
     local dir=$(realpath "$1")
     local dirname=$(realpath --relative-to=. "$dir")
@@ -14,6 +17,7 @@ abdo_vcs_dirinfo() {
         local vcs=$(abdo_get_vcs "$dir")
         if [ "$vcs" ]; then
             vcs_status=$(abdo_prompt_vcs "%s")
+            vcs_status="${vcs_status@P}"
 
             if [[ "$vcs" =~ ^(git|annex)$ ]]; then
                 git_status=$(git --no-pager log -n 1 \
@@ -26,7 +30,11 @@ abdo_vcs_dirinfo() {
             #     annex_status=$(abdo_prompt_annex)
             # fi
 
-            printf "\e[1;34m%-14s\e[0m %s - %s\n" "${dirname}" "${vcs_status@P}" "${git_status}"
+            local vcs_status_stripped=$(printf "%s" "${vcs_status}" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g")
+            (( left_len = 35 - "${#dirname}" - "${#vcs_status_stripped}" ))
+            local align_space=$(printf " %.0s" $(seq 1 "$left_len"))
+
+            printf "%s %s- %s\n" "${vcs_status} ${blue}${dirname}${reset}" "${align_space}" "${git_status}"
         fi
     )
 }

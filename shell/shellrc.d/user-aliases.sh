@@ -26,8 +26,8 @@ cgls-colorize() {
         local pattern="${r%=*}"
         local color="${r##*=}"
 
-        # Only match against =*.xxx things
-        local pattern2="${pattern#=\*.}"
+        # Only match against *.xxx things
+        local pattern2="${pattern#\*.}"
         if [ ! "${pattern}" = "${pattern2}" ]; then
             rule="s/─\b\([a-zA-Z0-9.:@~/_\\-]*\.${pattern2}\)\b/─${escape}[${color}m\1${escape}[0m/g"
             sedrules+=("$rule")
@@ -37,12 +37,17 @@ cgls-colorize() {
 }
 
 scgls() {
-    systemd-cgls --all --full /system.slice | cgls-colorize
+    systemd-cgls --all --full "/system.slice" | cgls-colorize
 }
 
 ucgls() {
-    systemd-cgls -all --full /user.slice/user-$(id -u).slice | cgls-colorize
+    systemd-cgls -all --full "/user.slice/user-$(id -u).slice" | cgls-colorize
 }
+
+mcgls() {
+    systemd-cgls -all --full "/machine.slice" | cgls-colorize
+}
+
 
 alias unls="sdls units"
 
@@ -59,6 +64,9 @@ trash() {
         mv -n -T "$f" "${AB2_TRASH_DIR}/${prefix}_$(basename "$f")"
     done
 }
+
+alias stx="start-desktop"
+alias klx="systemctl --user start console.target"
 
 
 #------------------------------
