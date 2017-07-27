@@ -65,6 +65,9 @@ trash() {
     done
 }
 
+alias stx="start-desktop"
+alias klx="systemctl --user start console.target"
+
 
 #------------------------------
 # Auxiliar functions
