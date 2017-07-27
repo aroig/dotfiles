@@ -7,12 +7,12 @@
         python-mode
         compile
         cc-mode
-        editorconfig
         helm-make
         cmake-mode
-        irony
-        (company-irony :toggle (configuration-layer/package-usedp 'company))
-        (flycheck-irony :toggle (configuration-layer/package-usedp 'flycheck))
+        ; ycmd
+        (irony :location local)
+        (company-irony :requires company)
+        (flycheck-irony :requires flycheck)
         ))
 
 
@@ -107,15 +107,16 @@
 
   (add-hook 'c-mode-common-hook 'ab2/cc-mode-config))
 
-(defun ab2-devel/init-editorconfig ()
-  (use-package editorconfig)
-  (editorconfig-mode 1)
-  (spacemacs|diminish editorconfig-mode "ⓔ" " e"))
-
 
 (defun ab2-devel/post-init-cmake-mode ()
   (setq cmake-tab-width 4))
 
+(defun ab2-devel/pre-init-ycmd ()
+  (setq ycmd-server-command `(,(file-truename (concat dotspacemacs-directory "bin/ycmd")))
+        ycmd-force-semantic-completion t
+        ycmd-extra-conf-whitelist (file-truename (concat user-emacs-directory "layers"))
+        )
+  (spacemacs|diminish ycmd-mode "Ⓒ" " C"))
 
 (defun ab2-devel/init-irony ()
   (use-package irony-mode
@@ -123,6 +124,7 @@
     :init
     (progn
       (setq irony-server-install-prefix "/usr")
+      (setq irony--server-executable (concat dotspacemacs-directory "bin/irony-server"))
       (add-hook 'c-mode-hook 'irony-mode)
       (add-hook 'c++-mode-hook 'irony-mode)
       (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
