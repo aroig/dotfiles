@@ -10,8 +10,3 @@ After=xorg.service
 
 BindsTo=gnome-session.service
 After=gnome-session.service
-
-# Requires=gnome-settings-daemon.service
-# After=gnome-settings-daemon.service
-
-Conflicts=tint2.service
