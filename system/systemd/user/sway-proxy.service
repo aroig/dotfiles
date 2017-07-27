@@ -1,0 +1,17 @@
+[Unit]
+Description=proxy service to sway window manager
+
+Conflicts=awesome.service openbox.service
+
+BindsTo=sway.service
+After=sway.service
+
+Requires=graphical-session.target
+Before=graphical-session.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+Slice=wm.slice
+
+ExecStart=/usr/bin/true

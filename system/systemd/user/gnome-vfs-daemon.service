@@ -1,0 +1,12 @@
+[Unit]
+Description=gnome vfs daemon
+
+[Service]
+Type=dbus
+BusName=org.gnome.GnomeVFS.Daemon
+Slice=wm.slice
+
+ExecStart=/usr/lib/gnome-vfs-2.0/gnome-vfs-daemon
+
+[Install]
+Alias=dbus-org.gnome.GnomeVFS.Daemon.service

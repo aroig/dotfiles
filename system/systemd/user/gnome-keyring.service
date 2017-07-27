@@ -1,0 +1,12 @@
+[Unit]
+Description=gnome keyring
+
+[Service]
+Type=dbus
+BusName=org.freedesktop.secrets
+Slice=wm.slice
+
+ExecStart=/usr/bin/gnome-keyring-daemon --start --foreground --components=secrets
+
+[Install]
+Alias=dbus-org.freedesktop.secrets.service

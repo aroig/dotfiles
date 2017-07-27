@@ -1,0 +1,12 @@
+[Unit]
+Description=gnome desktop session
+AllowIsolate=true
+
+BindsTo=graphical-session.target
+Before=graphical-session.target
+
+BindsTo=xorg.service
+After=xorg.service
+
+BindsTo=gnome-session.service
+After=gnome-session.service

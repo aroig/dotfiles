@@ -1,0 +1,14 @@
+[Unit]
+Description=sway window manager
+
+Conflicts=openbox.service awesome.service
+
+[Service]
+Type=simple
+Slice=wm.slice
+
+Environment=XDG_SESSION_TYPE=wayland
+ExecStart=/usr/bin/sway -c "%h/.config/sway/host/%H"
+KillSignal=SIGINT
+TimeoutSec=15
+
