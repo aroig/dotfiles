@@ -2,4 +2,4 @@
 Description=presentation configuration
 AllowIsolate=true
 
-Conflicts=console.target desktop.target vncserver.target
+Conflicts=console.target desktop.target

@@ -11,10 +11,6 @@ After=xorg.service
 BindsTo=awesome.service
 After=awesome.service
 
-Conflicts=tint2.service
+Wants=compton.service redshift.service
 
-[Install]
-WantedBy=desktop.target
-WantedBy=laptop.target
-WantedBy=tablet.target
-WantedBy=vncserver.target
+Conflicts=tint2.service

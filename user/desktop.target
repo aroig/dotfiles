@@ -5,5 +5,5 @@ AllowIsolate=true
 Requisite=graphical-session.target
 After=graphical-session.target
 
-Conflicts=console.target laptop.target tablet.target vncserver.target
-After=console.target laptop.target tablet.target vncserver.target
+Conflicts=console.target laptop.target tablet.target
+After=console.target laptop.target tablet.target

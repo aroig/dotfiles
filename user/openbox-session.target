@@ -13,9 +13,3 @@ After=openbox.service
 
 Requires=tint2.service
 After=tint2.service
-
-[Install]
-WantedBy=desktop.target
-WantedBy=laptop.target
-WantedBy=tablet.target
-WantedBy=vncserver.target
