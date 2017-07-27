@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Export environment to systemd
 export DISPLAY=:0
