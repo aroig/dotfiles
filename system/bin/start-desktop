@@ -2,7 +2,7 @@
 set -e
 
 # Export environment to systemd
-export DISPLAY=:0
+export DISPLAY=:${XDG_VTNR}
 export XAUTHORITY="$XDG_RUNTIME_DIR/xorg/Xauthority"
 systemctl --user import-environment DISPLAY XDG_VTNR XAUTHORITY
 
