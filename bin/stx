@@ -33,4 +33,6 @@ unset DISPLAY XAUTHORITY
 
 # Reset tty and colors
 reset
-set_tty_colors
+
+# NOTE: we abuse /etc/issue to change the tty colors.
+cat /etc/issue | sed -e 's/\\\\/\\/g' -e 's/\\[a-z].*$//g'
