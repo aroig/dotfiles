@@ -3,12 +3,20 @@
 #------------------------------
 
 stx() {
-    # export environment to systemd
+    # Export environment to systemd
     export DISPLAY=:0
     export XAUTHORITY="$XDG_RUNTIME_DIR/xorg/Xauthority"
     systemctl --user import-environment DISPLAY XDG_VTNR XAUTHORITY
 
-    # start the desktop according to the device
+    # Start desktop session
+    local session="${1:-default}"
+    if [ -z "$session" ]; then
+        printf "No graphical session given\n"
+        return 1
+    fi
+    systemctl --user start "${session}-session.target"
+
+    # Start device configuration target
     local chassis=$(hostnamectl status | awk '/Chassis/{print $2}')
     case "$chassis" in
         tablet)  systemctl --user start tablet.target ;;
@@ -17,16 +25,15 @@ stx() {
         *)       systemctl --user start desktop.target ;;
     esac
 
-    # wait synchronously until the xorg server stops
+    # Wait synchronously until the xorg server stops
+    # TODO: handle wayland sessions here too
     systemctl --user start --wait xorg.service
 
-    # unset systemd environment
+    # Unset environment
     systemctl --user unset-environment DISPLAY XDG_VTNR XAUTHORITY
-
-    # unset exported variables
     unset DISPLAY XAUTHORITY
 
-    # reset tty and reset colors
+    # Reset tty and colors
     reset
     set_tty_colors
 }
