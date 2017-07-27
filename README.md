@@ -14,8 +14,7 @@ subtree`. I use [arch linux] with [awesome] as my window manager, and
 
 * `dbus-1/`: [dbus] configuration.
 
-* `ranger/`: Configuration of [ranger] file manager. I use it in a dropdown
-  window for easy access.
+* `desktop/`: desktop environment configuration.
 
 * `shell/`: Shell related config files. This includes [zsh] configuration, with
   some personal aliases, a customized prompt, etc.
