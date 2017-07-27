@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.ayatana.bamf
-Exec=/bin/false
-SystemdService=dbus-org.ayatana.bamf.service

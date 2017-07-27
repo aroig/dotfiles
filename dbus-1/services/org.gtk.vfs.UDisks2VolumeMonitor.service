@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.gtk.vfs.UDisks2VolumeMonitor
-Exec=/bin/false
-SystemdService=dbus-org.gtk.vfs.UDisks2VolumeMonitor.service
