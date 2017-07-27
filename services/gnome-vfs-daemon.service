@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.gnome.GnomeVFS.Daemon
-Exec=/bin/false
-SystemdService=dbus-org.gnome.GnomeVFS.Daemon.service
