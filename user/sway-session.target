@@ -1,9 +1,0 @@
-[Unit]
-Description=sway wm session
-AllowIsolate=true
-
-BindsTo=graphical-session.target
-Before=graphical-session.target
-
-BindsTo=sway.service
-After=sway.service

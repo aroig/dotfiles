@@ -3,7 +3,8 @@ Description=X resource setting
 Documentation=man:xrdb(1)
 
 Requisite=xserver.target
-After=xserver.target
+Before=xserver.target
+After=xorg.service xwayland.service x11vnc.service vncserver.service
 
 [Service]
 Type=oneshot

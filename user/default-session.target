@@ -1,1 +1,1 @@
-awesome-session.target
+/etc/systemd/user/awesome-session.target

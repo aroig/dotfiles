@@ -1,9 +1,0 @@
-[Unit]
-Description=tint2 panel
-
-Requisite=xserver.target
-After=xserver.target xrdb.service
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/tint2
