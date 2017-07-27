@@ -32,12 +32,6 @@ set notification-error-bg   "#2f2f2f"
 set notification-warning-fg "#f0dfaf"
 set notification-warning-bg "#2f2f2f"
 
-set tabbar-fg               "#dcdccc"
-set tabbar-bg               "#1f1f1f"
-
-set tabbar-focus-fg         "#ff8f35"
-set tabbar-focus-bg         "#1f1f1f"
-
 set statusbar-fg            "#e0cf9f"
 set statusbar-bg            "#1f1f1f"
 
