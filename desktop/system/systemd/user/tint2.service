@@ -1,0 +1,9 @@
+[Unit]
+Description=tint2 panel
+
+Requisite=xserver.target
+After=xserver.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/tint2

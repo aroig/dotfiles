@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+ <mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+   <mime-type type="text/x-sage">
+   <comment>A sage script</comment>
+   <sub-class-of type="application/x-executable"/>
+   <sub-class-of type="text/plain"/>
+   <glob pattern="*.sage"/>
+  </mime-type>
+ </mime-info>

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Termite
+Comment=Terminal
+Exec=sdrun termite@.service
+Icon=utilities-terminal
+Type=Application
+Categories=GTK;System;TerminalEmulator;
+StartupNotify=true

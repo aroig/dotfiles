@@ -1,0 +1,15 @@
+[Unit]
+Description=openbox window manager
+
+Conflicts=awesome.service
+
+Requisite=xserver.target
+After=xserver.target
+
+[Service]
+Type=simple
+Slice=wm.slice
+
+ExecStart=/usr/bin/openbox
+KillSignal=SIGINT
+TimeoutSec=15

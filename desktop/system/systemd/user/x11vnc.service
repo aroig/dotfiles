@@ -1,0 +1,25 @@
+[Unit]
+Description=x11vnc server at display :0
+
+Requisite=xorg.service
+After=xorg.service
+
+[Service]
+Type=forking
+
+# TODO: when I get a vncviewer that supports unix sockets, use this;
+#    -rfbport 0            \
+#    -unixsock %t/x11vnc/x11vnc.S
+#
+# ExecStartPre=/usr/bin/mkdir -p -m 700 %t/x11vnc
+
+ExecStart=/usr/bin/x11vnc \
+    -bg                   \
+    -nopw                 \
+    -noxdamage            \
+    -forever              \
+    -ncache 10            \
+    -display ${DISPLAY}   \
+    -rfbport 5900
+
+SuccessExitStatus=0 2

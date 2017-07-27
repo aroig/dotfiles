@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=uzbl
+Comment=Minimal webkit browser 
+Exec=sdrun uzbl-tabbed %u
+Icon=uzbl
+Terminal=false
+Type=Application
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;

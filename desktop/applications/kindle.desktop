@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Kindle
+Comment=Kindle for pc
+Exec=wine start /ProgIDOpen Amazon.Kindle.content %f
+Icon=0914_Kindle.0
+Terminal=false
+Type=Application
+MimeType=application/x-wine-extension-azw;application/x-mobipocket-ebook;application/x-topaz-ebook;
+NoDisplay=true
+StartupNotify=true
+

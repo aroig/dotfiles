@@ -1,0 +1,17 @@
+[Unit]
+Description=onscreen keyboard
+
+Requisite=graphical-session.target
+After=graphical-session.target
+
+Requires=caribou-antler.service
+After=caribou-antler.service
+
+PartOf=tablet.target
+
+[Service]
+Type=simple
+Slice=wm.slice
+
+ExecStart=/usr/lib/caribou/caribou
+

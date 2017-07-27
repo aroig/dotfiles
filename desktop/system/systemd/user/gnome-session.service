@@ -1,0 +1,15 @@
+[Unit]
+Description=gnome session manager
+
+Conflicts=openbox.service awesome.service
+
+Requisite=xserver.target
+After=xserver.target
+
+[Service]
+# Environment=XDG_SESSION_TYPE=wayland
+# Environment=DESKTOP_SESSION=gnome
+Environment=XDG_SESSION_TYPE=x11
+
+BusName=org.gnome.SessionManager
+ExecStart=/usr/bin/gnome-session -a /dev/null
