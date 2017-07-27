@@ -3,8 +3,8 @@ Description=show journal dropdown
 StopWhenUnneeded=true
 
 # TODO: We should depend on awesome, in fact.
-Requisite=graphical.target
-After=graphical.target
+Requisite=graphical-session.target
+After=graphical-session.target
 
 [Service]
 Type=oneshot

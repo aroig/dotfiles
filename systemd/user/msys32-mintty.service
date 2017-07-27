@@ -1,8 +1,8 @@
 [Unit]
 Description=msys32 mintty
 
-Requisite=graphical.target
-After=graphical.target
+Requisite=graphical-session.target
+After=graphical-session.target
 
 Requires=wineserver32.service
 After=wineserver32.service

@@ -1,8 +1,8 @@
 [Unit]
 Description=mu4e mail client
 
-Requisite=graphical.target
-After=graphical.target
+Requisite=graphical-session.target
+After=graphical-session.target
 
 Requires=emacs.service
 After=emacs.service
@@ -16,7 +16,7 @@ Slice=apps.slice
 
 StandardOutput=null
 
-ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((name . "mu4e"))' --eval '(ab2/frame-layout "@mu4e")'
+ExecStart=/usr/bin/emacsclient -s "%t/emacs/server" -c --frame-parameters='((name . "mu4e"))' --eval '(ab2/frame-layout "@Mu4e")'
 
 # make sure we quit mu4e and the mu server is stopped.
 ExecStopPost=/usr/bin/emacsclient -s "%t/emacs/server" --eval '(let ((mu4e-confirm-quit nil)) (mu4e-quit))'

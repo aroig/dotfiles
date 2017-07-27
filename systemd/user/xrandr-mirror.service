@@ -6,7 +6,7 @@ Conflicts=xrandr-single.service xrandr-dual.service
 Requisite=xorg.service
 After=xorg.service
 Before=compton.service
-Before=graphical.target
+Before=graphical-session.target
 
 [Service]
 Type=oneshot

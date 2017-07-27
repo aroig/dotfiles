@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bash
 
 # TODO: properly quote "$@" to pass as single argument
 cmd="$@"

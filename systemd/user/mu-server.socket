@@ -3,6 +3,7 @@ Description=socket for mu server
 
 [Socket]
 ListenStream=%t/mu/mu.socket
+SocketMode=0600
 
 [Install]
 WantedBy=sockets.target

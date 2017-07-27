@@ -1,9 +1,15 @@
 [Unit]
 Description=ssh socket for %i
 
+# NOTE: socket activation works, if the clients use ssh -O proxy. Otherwise ssh
+# passes file descriptors over the socket, and sshmux-proxy@.service does not
+# like it, I think.
+
 [Socket]
 ListenStream=%t/ssh/%u@%i.home.local.socket
 Service=sshmux-proxy@%i.service
+SocketMode=0600
+DirectoryMode=0700
 
 [Install]
 WantedBy=sockets.target

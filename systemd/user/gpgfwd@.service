@@ -5,6 +5,12 @@ AssertHost=!%i
 
 Conflicts=disconnect.target
 
+Requires=network-online.target
+After=network-online.target
+
+# Requires=ssh-wait-online@%i.service
+# After=ssh-wait-online@%i.service
+
 After=sshmux@%i.service
 
 [Service]

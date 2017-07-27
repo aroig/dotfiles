@@ -1,8 +1,8 @@
 [Unit]
 Description=i3lock screen locker
 
-Requisite=graphical.target
-After=graphical.target
+Requisite=graphical-session.target
+After=graphical-session.target
 
 Requires=lock-pre.target
 After=lock-pre.target

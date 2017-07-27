@@ -3,6 +3,8 @@ Description=emacs daemon socket
 
 [Socket]
 ListenStream=%t/emacs/server
+SocketMode=0600
+DirectoryMode=0700
 Service=emacs-proxy.service
 
 [Install]

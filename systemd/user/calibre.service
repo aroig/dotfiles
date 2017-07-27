@@ -1,9 +1,9 @@
 [Unit]
 Description=calibre
-After=graphical.target
+After=graphical-session.target
 
-Requisite=graphical.target 
-After=graphical.target
+Requisite=graphical-session.target 
+After=graphical-session.target
 
 Requires=git-use@lib.service
 After=git-use@lib.service

@@ -1,13 +1,13 @@
 [Unit]
-Description=ssh master connection for %i
+Description=ssh master connection to %i
 
 Conflicts=disconnect.target
 
 Requires=network-online.target
 After=network-online.target
 
-Requires=ssh-wait-online@%i.service
-After=ssh-wait-online@%i.service
+# Requires=ssh-wait-online@%i.service
+# After=ssh-wait-online@%i.service
 
 # Socket activation not working
 # Requires=sshmux@%i.socket
@@ -20,4 +20,5 @@ ExecStartPre=/usr/bin/mkdir -p "%t/ssh/ssh"
 ExecStart=/usr/bin/ssh -M -N -f                                        \
                        -o "ControlPersist=1h"                          \
                        -o "ControlPath=%t/ssh/ssh/%%r@%%h.socket"      \
+                       -o "ProxyCommand=none"                          \
                        %i

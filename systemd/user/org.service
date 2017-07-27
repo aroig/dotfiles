@@ -1,8 +1,8 @@
 [Unit]
 Description=org-mode
 
-Requisite=graphical.target
-After=graphical.target
+Requisite=graphical-session.target
+After=graphical-session.target
 
 Requires=git-use@wiki.service
 After=git-use@wiki.service

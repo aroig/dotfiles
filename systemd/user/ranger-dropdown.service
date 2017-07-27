@@ -1,8 +1,8 @@
 [Unit]
 Description=ranger dropdown
 
-Requisite=graphical.target 
-After=graphical.target
+Requisite=graphical-session.target 
+After=graphical-session.target
 
 [Service]
 Type=simple

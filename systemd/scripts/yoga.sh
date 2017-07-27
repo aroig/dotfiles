@@ -4,13 +4,13 @@
 
 
 SCREEN_DEVICES=("eDP1")
-WACOM_DEVICES=("Wacom ISDv4 EC Pen stylus" "Wacom ISDv4 EC Pen eraser")
+WACOM_DEVICES=("Wacom ISDv4 EC Pen")
 TOUCH_DEVICES=("ELAN Touchscreen")
 POINT_DEVICES=("SynPS/2 Synaptics TouchPad" "TPPS/2 IBM TrackPoint")
 
 
 
-# Enable/disable laptop input devices 
+# Enable/disable laptop input devices
 yoga_tablet() {
     cmd="$1"
     case "$cmd" in
@@ -19,7 +19,7 @@ yoga_tablet() {
             point_arg=0
             wacom_arg=1
             ;;
-        
+
         wacom)
             touch_arg=1
             point_arg=0
@@ -56,46 +56,46 @@ yoga_tablet() {
 
 # Rotate Screen together with input devices
 yoga_rotate() {
-    angle="$1"       
+    angle="$1"
     case "$angle" in
         0)
             xrandr_arg="normal"
-            wacom_arg="none"
+            wacom_arg="1 0 0 0 1 0 0 0 1"
             touch_arg="1 0 0 0 1 0 0 0 1"
             ;;
 
         90)
             xrandr_arg="left"
-            wacom_arg="ccw"
+            wacom_arg="0 -1 1 1 0 0 0 0 1"
             touch_arg="0 -1 1 1 0 0 0 0 1"
             ;;
 
         180)
             xrandr_arg="inverted"
-            wacom_arg="half"
+            wacom_arg="-1 0 1 0 -1 1 0 0 1"
             touch_arg="-1 0 1 0 -1 1 0 0 1"
             ;;
 
         270)
             xrandr_arg="right"
-            wacom_arg="cw"
+            wacom_arg="0 1 0 -1 0 1 0 0 1"
             touch_arg="0 1 0 -1 0 1 0 0 1"
             ;;
 
         *)
             echo "Unknown angle '$angle'"
             exit 1
-            ;;       
+            ;;
     esac
 
     # adjust monitor orientation
     for device in "${SCREEN_DEVICES[@]}"; do
 	    xrandr --output "$device" --rotate $xrandr_arg
     done
-        
+
     # adjust wacom devices
     for device in "${WACOM_DEVICES[@]}"; do
-        xsetwacom set "$device" rotate $wacom_arg
+        xinput set-prop "$device" "Coordinate Transformation Matrix" $wacom_arg
     done
 
     # adjust touchscreen
@@ -129,4 +129,3 @@ case "$cmd" in
         exit 1
         ;;
 esac
-

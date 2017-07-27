@@ -4,8 +4,8 @@ Description=bamboo tablet setup
 # The settings are tuned to grothendieck
 ConditionHost=grothendieck
 
-Requisite=graphical.target
-After=graphical.target
+Requisite=graphical-session.target
+After=graphical-session.target
 
 # RefuseManualStart=yes
 
@@ -18,4 +18,4 @@ Type=oneshot
 ExecStart=/home/abdo/.config/systemd/scripts/bamboo.sh
 
 [Install]
-WantedBy=udev-bamboo.target
+WantedBy=sys-subsystem-input-devices-bamboo.device
