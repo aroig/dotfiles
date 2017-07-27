@@ -53,9 +53,6 @@ end
 
 globalkeys = awful.util.table.join(
     -- Machine state
-    awful.key({ modkey,           }, "m",      function() switch.machine_mode(1)     end, {description = "Switch machine mode", group = "system"}),
-    awful.key({ modkey, shiftkey  }, "m",      function() switch.machine_mode(-1)    end),
-
     awful.key({ modkey,           }, "v",      function() switch.output_mode(1)      end),
     awful.key({ modkey, shiftkey  }, "v",      function() switch.output_mode(-1)     end),
 
