@@ -2,7 +2,7 @@
 Description=desktop configuration
 AllowIsolate=true
 
-Requisite=graphical-session.target
+PartOf=graphical-session.target
 After=graphical-session.target
 
 Conflicts=console.target laptop.target tablet.target

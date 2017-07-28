@@ -1,7 +1,7 @@
 [Unit]
 Description=redshift
 
-Requisite=xserver.target
+PartOf=xserver.target
 After=xserver.target
 
 After=compton.service

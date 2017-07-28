@@ -3,7 +3,7 @@ Description=awesome window manager
 
 Conflicts=openbox.service
 
-Requisite=xserver.target
+PartOf=xserver.target
 After=xserver.target
 
 [Service]

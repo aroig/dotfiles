@@ -3,7 +3,7 @@ Description=temporarily inhibit autolock
 
 StopWhenUnneeded=true
 
-Requisite=graphical-session.target
+PartOf=graphical-session.target
 After=graphical-session.target
 
 Requisite=xautolock.service

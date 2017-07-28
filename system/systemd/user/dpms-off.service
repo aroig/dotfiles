@@ -1,7 +1,7 @@
 [Unit]
 Description=dpms power down
 
-Requisite=xserver.target
+PartOf=xserver.target
 After=xserver.target
 
 [Service]

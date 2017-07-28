@@ -1,7 +1,7 @@
 [Unit]
 Description=tint2 panel
 
-Requisite=xserver.target
+PartOf=xserver.target
 After=xserver.target
 
 [Service]
