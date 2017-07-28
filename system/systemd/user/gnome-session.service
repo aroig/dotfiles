@@ -6,6 +6,9 @@ Conflicts=openbox.service awesome.service
 PartOf=xserver.target
 After=xserver.target
 
+BindsTo=graphical-session.target
+Before=graphical-session.target
+
 [Service]
 # Environment=XDG_SESSION_TYPE=wayland
 # Environment=DESKTOP_SESSION=gnome

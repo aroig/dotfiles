@@ -2,9 +2,6 @@
 Description=openbox wm session
 AllowIsolate=true
 
-BindsTo=graphical-session.target
-Before=graphical-session.target
-
 BindsTo=xorg.service
 After=xorg.service
 

@@ -3,6 +3,9 @@ Description=sway window manager
 
 Conflicts=openbox.service awesome.service
 
+BindsTo=graphical-session.target
+Before=graphical-session.target
+
 [Service]
 Type=simple
 Slice=wm.slice

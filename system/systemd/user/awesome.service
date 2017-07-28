@@ -6,6 +6,9 @@ Conflicts=openbox.service
 PartOf=xserver.target
 After=xserver.target
 
+BindsTo=graphical-session.target
+Before=graphical-session.target
+
 [Service]
 Type=simple
 Slice=wm.slice
