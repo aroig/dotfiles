@@ -9,8 +9,8 @@ After=xorg.service xwayland.service x11vnc.service vncserver.service
 [Service]
 Type=oneshot
 
-ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources
-ExecStart=/usr/bin/xrdb -merge %h/.config/systemd/conf/Xresources.d/%H
+ExecStart=/usr/bin/xrdb -merge %h/etc/xorg/Xresources
+ExecStart=/usr/bin/xrdb -merge %h/etc/xorg/Xresources.d/%H
 
 [Install]
 WantedBy=graphical-session.target
