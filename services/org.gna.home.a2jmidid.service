@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.gna.home.a2jmidid
-Exec=/bin/false
-# Exec=/usr/bin/a2jmidid dbus

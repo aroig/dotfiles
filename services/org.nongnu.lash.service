@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.nongnu.LASH
-Exec=/bin/false
-SystemdService=dbus-org.nongnu.LASH.service
