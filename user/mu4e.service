@@ -1,7 +1,7 @@
 [Unit]
 Description=mu4e mail client
 
-Requisite=graphical-session.target
+PartOf=graphical-session.target
 After=graphical-session.target
 
 Requires=emacs.service

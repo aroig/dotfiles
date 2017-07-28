@@ -1,7 +1,7 @@
 [Unit]
 Description=jack patch bay and ladish client
 
-Requisite=graphical-session.target
+PartOf=graphical-session.target
 After=graphical-session.target
 
 Requires=jack.service

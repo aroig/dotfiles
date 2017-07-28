@@ -2,7 +2,7 @@
 Description=amule client
 After=graphical-session.target
 
-Requisite=graphical-session.target 
+PartOf=graphical-session.target 
 After=graphical-session.target
 
 Requires=amuled.service

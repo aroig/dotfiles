@@ -3,7 +3,7 @@ Description=chat
 
 AssertPathExists=/home/%u/priv
 
-Requisite=graphical-session.target
+PartOf=graphical-session.target
 After=graphical-session.target
 
 Requires=git-use@var-chat-emacs.service

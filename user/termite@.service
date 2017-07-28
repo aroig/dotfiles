@@ -1,7 +1,7 @@
 [Unit]
 Description=termite %i
 
-Requisite=graphical-session.target 
+PartOf=graphical-session.target 
 After=graphical-session.target
 
 [Service]

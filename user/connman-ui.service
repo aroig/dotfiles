@@ -3,7 +3,7 @@ Description=connman UI
 
 ConditionHost=galois
 
-Requisite=graphical-session.target
+PartOf=graphical-session.target
 After=graphical-session.target
 
 [Service]

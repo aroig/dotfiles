@@ -1,7 +1,7 @@
 [Unit]
 Description=glances monitor dropdown
 
-Requisite=graphical-session.target
+PartOf=graphical-session.target
 After=graphical-session.target
 
 [Service]
