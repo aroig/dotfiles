@@ -49,8 +49,7 @@ ExecStart=/usr/bin/Xorg       \
     "vt${XDG_VTNR}"
 
 # NOTE: There is no reliable way to get startup notifications.
-#   1. It is racy. clients connecting to it too soon block.
-#   2. Cannot use socket activation because somehow xorg connects to its own socket and
-#      restarts itself on shutdown.
+#   1. It is racy. clients connecting to it too soon block or fail.
+#   2. Socket activation does not avoid the race.
 ExecStartPost=/usr/bin/bash -c 'while ! xset q &>/dev/null; do sleep 1; done'
 
