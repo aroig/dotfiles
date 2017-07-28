@@ -1,0 +1,5 @@
+[Unit]
+Description=lock screen
+
+BindsTo=i3lock.service
+After=i3lock.service

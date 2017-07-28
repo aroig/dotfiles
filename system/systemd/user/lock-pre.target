@@ -1,0 +1,8 @@
+[Unit]
+Description=preparing to lock screen
+
+After=chat-away.service dpms-off.service mpc-pause.service stream-stop.service disconnect.target
+
+DefaultDependencies=no
+RefuseManualStart=yes
+StopWhenUnneeded=yes
