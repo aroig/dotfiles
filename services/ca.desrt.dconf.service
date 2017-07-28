@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=ca.desrt.dconf
+Exec=/bin/false
+SystemdService=dbus-ca.desrt.dconf.service
