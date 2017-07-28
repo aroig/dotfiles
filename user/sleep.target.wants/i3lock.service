@@ -1,1 +1,1 @@
-../i3lock.service
+/etc/systemd/user/i3lock.service
