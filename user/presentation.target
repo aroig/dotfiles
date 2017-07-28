@@ -2,4 +2,6 @@
 Description=presentation configuration
 AllowIsolate=true
 
+Wants=laptop.target
+
 Conflicts=console.target desktop.target
