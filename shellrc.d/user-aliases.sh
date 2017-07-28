@@ -41,7 +41,7 @@ scgls() {
 }
 
 ucgls() {
-    systemd-cgls -all --full "/user.slice/user-$(id -u).slice" | cgls-colorize
+    systemd-cgls -all --full "/user.slice" | cgls-colorize
 }
 
 mcgls() {
