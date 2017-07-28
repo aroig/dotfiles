@@ -7,3 +7,5 @@ After=xorg.service
 
 BindsTo=gnome-session.service
 After=gnome-session.service
+
+Wants=xrdb.service

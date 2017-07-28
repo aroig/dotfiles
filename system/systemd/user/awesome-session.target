@@ -8,6 +8,6 @@ After=xorg.service
 BindsTo=awesome.service
 After=awesome.service
 
-Wants=compton.service redshift.service
+Wants=compton.service redshift.service xrdb.service
 
 Conflicts=tint2.service

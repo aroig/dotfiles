@@ -4,7 +4,7 @@ Description=openbox window manager
 Conflicts=awesome.service
 
 # Need these because this service is ordered before graphical-session
-After=xorg.service vncserver.service
+After=xorg.service vncserver.service xrdb.service
 
 BindsTo=graphical-session.target
 Before=graphical-session.target
