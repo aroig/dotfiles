@@ -1,5 +1,0 @@
-enable caribou-antler.service
-enable dconf.service
-enable gconf.service
-enable gnome-keyring.service
-enable xfconfd.service
