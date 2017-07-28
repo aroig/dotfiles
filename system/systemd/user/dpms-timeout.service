@@ -1,0 +1,9 @@
+[Unit]
+Description=dpms timed poweroff
+
+Requisite=xserver.target
+After=xserver.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/xset dpms 300 600 900

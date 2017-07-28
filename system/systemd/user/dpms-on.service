@@ -1,0 +1,10 @@
+[Unit]
+Description=dpms always powered
+
+Requisite=xserver.target
+After=xserver.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/xset dpms 0 0 0
+ExecStart=/usr/bin/xset dpms force on
