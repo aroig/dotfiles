@@ -1,8 +1,8 @@
 [Unit]
 Description=dpms timed poweroff
 
-PartOf=xserver.target
-After=xserver.target
+PartOf=graphical-session.target
+After=graphical-session.target
 
 [Service]
 Type=oneshot

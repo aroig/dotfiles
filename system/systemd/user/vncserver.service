@@ -6,8 +6,8 @@ Conflicts=xorg.service weston.service weston.socket
 Conflicts=console.target
 After=console.target
 
-BindsTo=xserver.target
-Before=xserver.target
+PartOf=graphical-session.target
+Before=graphical-session.target
 
 [Service]
 Type=forking
