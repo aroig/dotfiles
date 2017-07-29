@@ -29,7 +29,7 @@ SuccessExitStatus=0 1
 # Setup Xauthority file
 ExecStartPre=/usr/bin/sh -c '                          \
     mkdir -p -m 700 "%t/xorg";                         \
-    echo "" > %t/xorg/Xauthority;                      \
+    touch %t/xorg/Xauthority;                          \
     HOST=$(hostname);                                  \
     COOKIE=$(xxd -l 16 -p /dev/urandom);               \
     echo "add $${HOST}/unix${DISPLAY} . $${COOKIE}" |  \
