@@ -19,7 +19,7 @@ Type=simple
 
 Slice=wm.slice
 
-# NOTE: something like this would be needed if I manage to run xorg unprivileged
+# NOTE: something like this may be needed if I manage to run xorg unprivileged
 # StandardError=tty
 # TTYPath=/dev/tty2
 # TTYReset=yes
@@ -38,14 +38,16 @@ ExecStartPre=/usr/bin/sh -c '                          \
 
 # NOTE: need to launch X session at the same tty, otherwise it becomes inactive
 # NOTE: we could set the keyboard rate delay and rate frequency with: xset r rate 500 40
-ExecStart=/usr/bin/Xorg       \
-    ${DISPLAY}                \
-    -auth %t/xorg/Xauthority  \
-    -nolisten tcp             \
-    -noreset                  \
-    -verbose 0                \
-    -ardelay 500              \
-    -arinterval 25            \
+# NOTE: we use the Xorg.wrap setuid binary, because otherwise Xorg refuses to run outside
+#       the session
+ExecStart=/usr/lib/xorg-server/Xorg.wrap \
+    ${DISPLAY}                           \
+    -auth %t/xorg/Xauthority             \
+    -nolisten tcp                        \
+    -noreset                             \
+    -verbose 0                           \
+    -ardelay 500                         \
+    -arinterval 25                       \
     "vt${XDG_VTNR}"
 
 # NOTE: There is no reliable way to get startup notifications.
