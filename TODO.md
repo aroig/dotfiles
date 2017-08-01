@@ -1,6 +1,10 @@
 TODO
 ====
 
+* Make `systemd --user` notify ready state when reaching `basic.target` instead
+  of waiting to become idle. Without this long-running jobs started as deps of
+  `default.target` can make the login timeout.
+
 * Write a generator for generating the sshmux@%i.socket files
 
 * Attempt to fix emacs hang on shutdown. 
