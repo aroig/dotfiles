@@ -4,7 +4,7 @@ set -e
 # Export environment to systemd
 export DISPLAY=:${XDG_VTNR}
 export XAUTHORITY="$XDG_RUNTIME_DIR/xorg/Xauthority"
-systemctl --user import-environment DISPLAY XDG_VTNR XAUTHORITY
+systemctl --user import-environment DISPLAY XDG_VTNR XDG_SEAT XDG_SESSION_ID XAUTHORITY
 
 # Start desktop session
 session="${1:-default}"
@@ -28,7 +28,7 @@ esac
 systemctl --user start --wait xorg.service
 
 # Unset environment
-systemctl --user unset-environment DISPLAY XDG_VTNR XAUTHORITY
+systemctl --user unset-environment DISPLAY XDG_VTNR XDG_SEAT XDG_SESSION_ID XAUTHORITY
 unset DISPLAY XAUTHORITY
 
 # Reset tty and colors
