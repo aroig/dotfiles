@@ -1,0 +1,26 @@
+[Unit]
+Description=trigger power supply targets
+
+[Service]
+# NOTE: we do not want to delay unit startup until the job is done, because
+# systemd --user will not report ready until idle, and long housekeeping tasks
+# (which are oneshot) may trigger pam timeouts (which are very short).
+#
+# So we make this a simple service, and add a delay before triggering the
+# power-xxx targets. The right solution would be to do it synchronously with
+# Type=oneshot, and make systemd report ready upon reaching basic.target. This
+# has been discussed, but never implemented.
+#
+# https://lists.freedesktop.org/archives/systemd-devel/2014-October/024590.html
+
+Type=simple
+
+ExecStart=/usr/bin/sh -c '                              \
+    sleep 30;                                           \
+    units=(power-ac.target power-battery.target);       \
+    for u in "$${units[@]}"; do                         \
+        if systemctl is-active -q "$$u"; then           \
+            systemctl --user start "$$u";               \
+        fi                                              \
+    done                                                \
+'

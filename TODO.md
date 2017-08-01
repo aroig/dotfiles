@@ -5,6 +5,9 @@ TODO
   of waiting to become idle. Without this long-running jobs started as deps of
   `default.target` can make the login timeout.
 
+* Once systemd notifies ready on `basic.target`, convert power-update.service to
+  oneshot.
+
 * Write a generator for generating the sshmux@%i.socket files
 
 * Attempt to fix emacs hang on shutdown. 
