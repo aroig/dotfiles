@@ -1,9 +1,6 @@
 [Unit]
 Description=pulseaudio sink for r2d2
 
-Requisite=pulseaudio.service
-After=pulseaudio.service
-
 [Service]
 Type=oneshot
 

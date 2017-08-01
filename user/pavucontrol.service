@@ -4,9 +4,6 @@ Description=pulseaudio mixer
 PartOf=graphical-session.target
 After=graphical-session.target
 
-Requisite=pulseaudio.service
-After=pulseaudio.service
-
 [Service]
 Type=simple
 Slice=apps.slice
