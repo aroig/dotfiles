@@ -1,8 +1,7 @@
 [Unit]
 Description=clean tmp files
 
-Requisite=housekeeping.target
-After=housekeeping.target
+PartOf=housekeeping.target
 
 [Service]
 Type=oneshot

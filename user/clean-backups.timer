@@ -1,8 +1,7 @@
 [Unit]
 Description=daily backup cleanup
 
-Requisite=housekeeping.target
-After=housekeeping.target
+PartOf=housekeeping.target
 
 [Timer]
 OnCalendar=daily

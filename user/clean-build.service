@@ -1,10 +1,9 @@
 [Unit]
 Description=clean build files
 
-AssertPathExists=%h/build/Makefile
+PartOf=housekeeping.target
 
-Requisite=housekeeping.target
-After=housekeeping.target
+AssertPathExists=%h/build/Makefile
 
 [Service]
 Type=oneshot

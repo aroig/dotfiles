@@ -1,8 +1,7 @@
 [Unit]
 Description=daily tmp cleanup
 
-Requisite=housekeeping.target
-After=housekeeping.target
+PartOf=housekeeping.target
 
 [Timer]
 OnCalendar=daily

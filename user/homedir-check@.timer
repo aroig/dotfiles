@@ -1,8 +1,7 @@
 [Unit]
 Description=monthly check of /home/%u/%I
 
-Requisite=housekeeping.target
-After=housekeeping.target
+PartOf=housekeeping.target
 
 [Timer]
 OnCalendar=monthly
