@@ -71,4 +71,4 @@ unset DISPLAY XAUTHORITY WAYLAND_DISPLAY
 reset
 
 # NOTE: we abuse /etc/issue to change the tty colors.
-cat /etc/issue | sed -e 's/\\\\/\\/g' -e 's/\\[a-z].*$//g'
+sed -e 's/\\\\/\\/g' -e 's/\\[a-z].*$//g' /etc/issue
