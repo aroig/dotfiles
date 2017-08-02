@@ -25,5 +25,7 @@ TODO
         #6  0x00007f0f46f10837 in wlc_cleanup () at /home/abdo/build/packages/x86_64-arch-linux/devel/wlc-dev/build/x86_64-arch-linux/src/wlc/src/wlc.c:160
         #7  0x000000895cd2326e in main ()
 
+* I need a way to set the display of the xwayland server. right now it is hard-coded by wlc.
+
 * sway fails a lot of dbus calls to logind. I'm not sure what is going on.
 
