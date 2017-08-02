@@ -39,10 +39,6 @@ ENVIRONMENT_VARIABLES=(
     XDG_SESSION_ID
     XAUTHORITY
     WAYLAND_DISPLAY
-    XKB_DEFAULT_LAYOUT
-    XKB_DEFAULT_MODEL
-    XKB_DEFAULT_VARIANT
-
     GDK_BACKEND
     CLUTTER_BACKEND
     QT_QPA_PLATFORM
@@ -53,10 +49,6 @@ for item in "${WAYLAND_SESSIONS[@]}"; do
         export WAYLAND_DISPLAY="wayland-${XDG_VTNR}"
     fi
 done
-
-export XKB_DEFAULT_LAYOUT=es,us,it
-export XKB_DEFAULT_MODEL=pc105
-export XKB_DEFAULT_VARIANT=cat,,
 
 # NOTE: sway hangs if DISPLAY is set.
 if [ -z "${WAYLAND_DISPLAY}" ]; then

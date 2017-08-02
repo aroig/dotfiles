@@ -10,7 +10,19 @@ Before=graphical-session.target
 Type=simple
 Slice=wm.slice
 
-ExecStart=/usr/bin/sway
+# Setup XKB config
+Environment=XKB_DEFAULT_LAYOUT=es,us,it
+Environment=XKB_DEFAULT_MODEL=pc105
+Environment=XKB_DEFAULT_VARIANT=cat,,
+
+Environment=WLC_REPEAT_DELAY=500
+Environment=WLC_REPEAT_RATE=25
+Environment=WLC_XWAYLAND=0
+
+# NOTE: we need to unset DISPLAY, otherwise wlc tries to run as X client and
+# deadlocks. It is not enough to set DISPLAY="", it needs to be unset.
+ExecStart=/usr/bin/sh -c 'unset DISPLAY; exec /usr/bin/sway'
+
 KillSignal=SIGINT
 TimeoutSec=15
 
