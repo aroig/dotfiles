@@ -38,7 +38,4 @@ update:
 	)
 
 clean-elpa:
-	@(
-		cd $(SPACEMACS_CACHE)/elpa
-		git ls-files -z | xargs -0 rm -f
-	)
+	@find $(SPACEMACS_CACHE)/elpa -maxdepth 1 -mindepth 1 -not -name '\.*' -print0 | xargs -0 rm -Rf
