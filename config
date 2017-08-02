@@ -17,14 +17,9 @@ font pango:Ubuntu Mono 10
 # focus follow mouse
 focus_follows_mouse yes
 
-# move mouse when changing outputs
+# Move mouse when changing outputs
 mouse_warping output
 
-# gaps around views
-gaps 2
-for_window [class="termite-dropdown"] floating enable; move scratchpad
-
-#
 # Status Bar:
 #
 # bar {
@@ -37,14 +32,6 @@ for_window [class="termite-dropdown"] floating enable; move scratchpad
 #     }
 # }
 
-### Output configuration
-#
-# Default wallpaper
-output * bg ~/.config/sway/wallpaper/milkyway.jpg fill
-#
-# Example output configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-
+# Include config files
 include ~/.config/sway/config.d/*.conf
 include ~/.config/sway/host.d/`hostname`.conf
