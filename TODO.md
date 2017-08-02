@@ -5,3 +5,10 @@ TODO
   from XDG_SESSION_ID, or alternatively the seat from XDG_SEAT. This way we will
   be able to run within a systemd user service.
 
+
+## sway
+
+* force sway to use the given WAYLAND_DISPLAY
+
+* setup xwayland socket activation
+
