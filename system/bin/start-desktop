@@ -32,19 +32,44 @@ fi
 
 WAYLAND_SESSIONS=('sway')
 
+ENVIRONMENT_VARIABLES=(
+    DISPLAY
+    XDG_VTNR
+    XDG_SEAT
+    XDG_SESSION_ID
+    XAUTHORITY
+    WAYLAND_DISPLAY
+    XKB_DEFAULT_LAYOUT
+    XKB_DEFAULT_MODEL
+    XKB_DEFAULT_VARIANT
+
+    GDK_BACKEND
+    CLUTTER_BACKEND
+    QT_QPA_PLATFORM
+)
+
 for item in "${WAYLAND_SESSIONS[@]}"; do
     if [ "$item" = "$session" ]; then
         export WAYLAND_DISPLAY="wayland-${XDG_VTNR}"
     fi
 done
 
+export XKB_DEFAULT_LAYOUT=es,us,it
+export XKB_DEFAULT_MODEL=pc105
+export XKB_DEFAULT_VARIANT=cat,,
+
 # NOTE: sway hangs if DISPLAY is set.
 if [ -z "${WAYLAND_DISPLAY}" ]; then
     export DISPLAY=:${XDG_VTNR}
     export XAUTHORITY="$XDG_RUNTIME_DIR/xorg/Xauthority"
+
+else
+    export GDK_BACKEND=wayland
+    export CLUTTER_BACKEND=wayland
+    export QT_QPA_PKATFORM=wayland-egl
 fi
 
-systemctl --user import-environment DISPLAY XDG_VTNR XDG_SEAT XDG_SESSION_ID XAUTHORITY WAYLAND_DISPLAY
+systemctl --user import-environment "${ENVIRONMENT_VARIABLES[@]}"
 
 # Start desktop session
 systemctl --user start "${session}-session.target"
@@ -66,8 +91,8 @@ else
 fi
 
 # Unset environment
-systemctl --user unset-environment DISPLAY XDG_VTNR XDG_SEAT XDG_SESSION_ID XAUTHORITY WAYLAND_DISPLAY
-unset DISPLAY XAUTHORITY WAYLAND_DISPLAY
+systemctl --user unset-environment "${ENVIRONMENT_VARIABLES[@]}"
+unset "${ENVIRONMENT_VARIABLES[@]}"
 
 # Reset tty and colors
 reset
