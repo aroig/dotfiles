@@ -10,7 +10,7 @@ Before=graphical-session.target
 Type=simple
 Slice=wm.slice
 
-ExecStart=/usr/bin/sway -c "%h/.config/sway/host/%H"
+ExecStart=/usr/bin/sway
 KillSignal=SIGINT
 TimeoutSec=15
 
