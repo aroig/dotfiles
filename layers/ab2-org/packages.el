@@ -2,7 +2,7 @@
  '(
    org
    persp-mode
-   calfw
+   ; calfw
   ))
 
 
@@ -336,6 +336,7 @@
   )
 
 
+;; NOTE: This is half done
 (defun ab2-org/init-calfw ()
   ;; Source: https://github.com/syl20bnr/spacemacs/pull/8372
 
