@@ -32,15 +32,17 @@ fi
 
 WAYLAND_SESSIONS=('sway')
 
-# Export environment to systemd
-export DISPLAY=:${XDG_VTNR}
-export XAUTHORITY="$XDG_RUNTIME_DIR/xorg/Xauthority"
-
 for item in "${WAYLAND_SESSIONS[@]}"; do
     if [ "$item" = "$session" ]; then
         export WAYLAND_DISPLAY="wayland-${XDG_VTNR}"
     fi
 done
+
+# NOTE: sway hangs if DISPLAY is set.
+if [ -z "${WAYLAND_DISPLAY}" ]; then
+    export DISPLAY=:${XDG_VTNR}
+    export XAUTHORITY="$XDG_RUNTIME_DIR/xorg/Xauthority"
+fi
 
 systemctl --user import-environment DISPLAY XDG_VTNR XDG_SEAT XDG_SESSION_ID XAUTHORITY WAYLAND_DISPLAY
 
@@ -48,13 +50,13 @@ systemctl --user import-environment DISPLAY XDG_VTNR XDG_SEAT XDG_SESSION_ID XAU
 systemctl --user start "${session}-session.target"
 
 # Start device configuration target
-chassis=$(hostnamectl status | awk '/Chassis/{print $2}')
-case "$chassis" in
-    tablet)  systemctl --user start tablet.target ;;
-    laptop)  systemctl --user start laptop.target ;;
-    desktop) systemctl --user start desktop.target ;;
-    *)       systemctl --user start desktop.target ;;
-esac
+# chassis=$(hostnamectl status | awk '/Chassis/{print $2}')
+# case "$chassis" in
+#     tablet)  systemctl --user start tablet.target ;;
+#     laptop)  systemctl --user start laptop.target ;;
+#     desktop) systemctl --user start desktop.target ;;
+#     *)       systemctl --user start desktop.target ;;
+# esac
 
 # Wait synchronously until the xorg server stops
 if [ -n "$WAYLAND_DISPLAY" ]; then
