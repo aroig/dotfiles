@@ -12,3 +12,7 @@ TODO
 
 * setup xwayland socket activation
 
+* sway segfaults on exit if `WLC_XWAYLAND=0` is set
+
+* sway fails a lot of dbus calls to logind
+
