@@ -50,12 +50,10 @@ for item in "${WAYLAND_SESSIONS[@]}"; do
     fi
 done
 
-# NOTE: sway hangs if DISPLAY is set.
-if [ -z "${WAYLAND_DISPLAY}" ]; then
-    export DISPLAY=:${XDG_VTNR}
-    export XAUTHORITY="$XDG_RUNTIME_DIR/xorg/Xauthority"
+export DISPLAY=:${XDG_VTNR}
+export XAUTHORITY="$XDG_RUNTIME_DIR/xorg/Xauthority"
 
-else
+if [ -n "${WAYLAND_DISPLAY}" ]; then
     export GDK_BACKEND=wayland
     export CLUTTER_BACKEND=wayland
     export QT_QPA_PKATFORM=wayland-egl

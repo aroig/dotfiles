@@ -19,9 +19,13 @@ Environment=WLC_REPEAT_DELAY=500
 Environment=WLC_REPEAT_RATE=25
 Environment=WLC_XWAYLAND=0
 
-# NOTE: we need to unset DISPLAY, otherwise wlc tries to run as X client and
-# deadlocks. It is not enough to set DISPLAY="", it needs to be unset.
-ExecStart=/usr/bin/sh -c 'unset DISPLAY; exec /usr/bin/sway'
+# NOTE: we need to unset DISPLAY and WAYLAND_DISPLAY, otherwise wlc tries to
+# connect to itself deadlocks. It is not enough to set DISPLAY="", it needs to be unset.
+ExecStart=/usr/bin/sh -c '                 \
+    export WLC_DISPLAY="$WAYLAND_DISPLAY"; \
+    unset DISPLAY WAYLAND_DISPLAY;         \
+    exec /usr/bin/sway                     \
+'
 
 KillSignal=SIGINT
 TimeoutSec=15
