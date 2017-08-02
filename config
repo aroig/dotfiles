@@ -1,9 +1,8 @@
 # 
 # Modiifier keys
 
-set $mod Mod4  # logo key
-set $alt Mod1  # Alt key
-
+set $mod Mod4
+set $alt Mod1
 
 #
 # Preferred applications
