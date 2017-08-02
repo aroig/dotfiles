@@ -27,15 +27,16 @@ for_window [class="termite-dropdown"] floating enable; move scratchpad
 #
 # Status Bar:
 #
-bar {
-    status_command i3status
-    position top
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
+# bar {
+#     status_command i3status
+#     position top
+#     colors {
+#         statusline #ffffff
+#         background #323232
+#         inactive_workspace #32323200 #32323200 #5c5c5c
+#     }
+# }
+
 ### Output configuration
 #
 # Default wallpaper
@@ -45,5 +46,5 @@ output * bg ~/.config/sway/wallpaper/milkyway.jpg fill
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 
-include ~/.config/sway/config.d/*
+include ~/.config/sway/config.d/*.conf
 include ~/.config/sway/host.d/`hostname`.conf
