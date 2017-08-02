@@ -50,13 +50,15 @@ for item in "${WAYLAND_SESSIONS[@]}"; do
     fi
 done
 
-export DISPLAY=:${XDG_VTNR}
-export XAUTHORITY="$XDG_RUNTIME_DIR/xorg/Xauthority"
-
 if [ -n "${WAYLAND_DISPLAY}" ]; then
     export GDK_BACKEND=wayland
     export CLUTTER_BACKEND=wayland
     export QT_QPA_PKATFORM=wayland-egl
+    export DISPLAY=:0
+    
+else
+    export DISPLAY=:${XDG_VTNR}
+    export XAUTHORITY="$XDG_RUNTIME_DIR/xorg/Xauthority"
 fi
 
 systemctl --user import-environment "${ENVIRONMENT_VARIABLES[@]}"
