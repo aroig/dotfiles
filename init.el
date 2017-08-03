@@ -85,6 +85,7 @@ This function should only modify configuration layer settings."
      asm
      major-modes
      go
+     rust
      haskell
      html
      ipython-notebook
