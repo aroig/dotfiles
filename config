@@ -3,10 +3,8 @@
 set $mod Mod4
 set $alt Mod1
 set $ctl Control
-
-# Font
-font pango:Ubuntu Mono 10
-  
+ 
 # Include config files
+include ~/.config/sway/theme.d/zenburn.conf
 include ~/.config/sway/config.d/*.conf
 include ~/.config/sway/host.d/`hostname`.conf
