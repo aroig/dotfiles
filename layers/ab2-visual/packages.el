@@ -59,10 +59,10 @@
 (defun ab2-visual/post-init-diminish ()
   ;; diminish some more modes.
   ;; NOTE: I do not follow the convention that the letter corresponds with the key binding
-  (spacemacs|diminish server-buffer-clients "ⓥ" "v")
-  (spacemacs|diminish binary-overwrite-mode "Ⓞb" "Ob")
-  (spacemacs|diminish overwrite-mode "Ⓞ" "O")
-  (spacemacs|diminish isearch-mode "/" "/")
+  (spacemacs|diminish server-buffer-clients "ⓥ" " v")
+  (spacemacs|diminish binary-overwrite-mode "Ⓞb" " Ob")
+  (spacemacs|diminish overwrite-mode "Ⓞ" " O")
+  (spacemacs|diminish isearch-mode "/" " /")
   )
 
 ;; NOTE: when changing this, run (spacemacs/update-theme)

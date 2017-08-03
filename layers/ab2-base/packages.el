@@ -6,6 +6,7 @@
         hippie-exp
         (sensitive-mode :location local)
         persp-mode
+        mmm-mode
         ))
 
 
@@ -24,7 +25,7 @@
 (defun ab2-base/init-sensitive-mode ()
   (use-package sensitive-mode)
 
-  (spacemacs|diminish sensitive-mode "😎" "O-O¬")
+  (spacemacs|diminish sensitive-mode "😎" " O-O¬")
 
   ;; Disable backups files containing sensitive information
   ;; NOTE: We cannot use the auto-mode-alist because it only choses *one* major mode.
@@ -60,3 +61,7 @@
 (defun ab2-base/post-init-persp-mode ()
   ;; Do not mess with the initial buffer
   (setq persp-is-ibc-as-f-supported nil))
+
+(defun ab2-base/post-init-mmm-mode ()
+  (spacemacs|diminish mmm-mode "Ⓜ" " M")
+  )
