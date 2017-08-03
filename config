@@ -1,25 +1,12 @@
-# 
-# Modiifier keys
 
+# Modiifier keys
 set $mod Mod4
 set $alt Mod1
+set $ctl Control
 
-#
-# Preferred applications
-set $term termite
-set $menu dmenu_run
-
-#
 # Font
 font pango:Ubuntu Mono 10
-
   
-# focus follow mouse
-focus_follows_mouse yes
-
-# Move mouse when changing outputs
-mouse_warping output
-
 # Include config files
 include ~/.config/sway/config.d/*.conf
 include ~/.config/sway/host.d/`hostname`.conf
