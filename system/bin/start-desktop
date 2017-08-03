@@ -39,9 +39,9 @@ ENVIRONMENT_VARIABLES=(
     XDG_SESSION_ID
     XAUTHORITY
     WAYLAND_DISPLAY
-    GDK_BACKEND
-    CLUTTER_BACKEND
-    QT_QPA_PLATFORM
+    # GDK_BACKEND
+    # CLUTTER_BACKEND
+    # QT_QPA_PLATFORM
 )
 
 for item in "${WAYLAND_SESSIONS[@]}"; do
@@ -51,11 +51,11 @@ for item in "${WAYLAND_SESSIONS[@]}"; do
 done
 
 if [ -n "${WAYLAND_DISPLAY}" ]; then
-    export GDK_BACKEND=wayland
-    export CLUTTER_BACKEND=wayland
-    export QT_QPA_PKATFORM=wayland-egl
+    # export GDK_BACKEND=wayland
+    # export CLUTTER_BACKEND=wayland
+    # export QT_QPA_PKATFORM=wayland-egl
     export DISPLAY=:0
-    
+
 else
     export DISPLAY=:${XDG_VTNR}
     export XAUTHORITY="$XDG_RUNTIME_DIR/xorg/Xauthority"
