@@ -16,6 +16,7 @@ TODO
 
 * Fix swaylock
 
+* Configure dunst as notification daemon
 
 ## Potential blockers
   - dropdown thing
