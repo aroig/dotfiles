@@ -8,7 +8,7 @@ After=graphical-session.target
 Type=simple
 Slice=apps.slice
 
-ExecStart=/usr/bin/termite --class=musicplayer -e "/usr/bin/ncmpcpp -h %t/mpd/mpd.socket"
+ExecStart=/usr/bin/termite --title=musicplayer -e "/usr/bin/ncmpcpp -h %t/mpd/mpd.socket"
 
 [Install]
 Alias=musicplayer.service

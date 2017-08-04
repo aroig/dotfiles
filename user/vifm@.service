@@ -9,6 +9,6 @@ Type=simple
 Slice=apps.slice
 KillMode=process
 
-ExecStart=/usr/bin/termite --class=vifm -e vifm
+ExecStart=/usr/bin/termite --title=vifm -e vifm
 
 
