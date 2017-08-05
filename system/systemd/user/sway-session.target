@@ -4,3 +4,5 @@ AllowIsolate=true
 
 BindsTo=sway.service
 After=sway.service
+
+Wants=dunst.service xrdb.service
