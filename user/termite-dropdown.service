@@ -10,7 +10,7 @@ Slice=apps.slice
 KillMode=process
 
 # NOTE: we want login shell, so /etc/profile.d/* is executed.
-ExecStart=/usr/bin/termite --title=termite-dropdown -e "/usr/bin/zsh -l"
+ExecStart=/usr/bin/termite --name=termite-dropdown -e "/usr/bin/zsh -l"
 
 
 

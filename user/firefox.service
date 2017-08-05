@@ -1,5 +1,5 @@
 [Unit]
-Description=vifm dropdown
+Description=firefox
 
 PartOf=graphical-session.target 
 After=graphical-session.target
@@ -8,5 +8,7 @@ After=graphical-session.target
 Type=simple
 Slice=apps.slice
 
-ExecStart=/usr/bin/termite --name=vifm-dropdown -e vifm
+ExecStart=/usr/bin/firefox
+StandardOutput=null
+
 
