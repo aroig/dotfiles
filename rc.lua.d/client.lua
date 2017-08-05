@@ -214,7 +214,7 @@ rules.rules = {
     },
 
     -- top dropdowns
-    { rule_any = { name = { "termite-dropdown", "journal-dropdown", "vifm-dropdown"} },
+    { rule_any = { instance = { "termite-dropdown", "journal-dropdown", "vifm-dropdown"} },
       properties = { floating = true,
                      size_hints_honor = false,
                      ontop = true,
@@ -222,7 +222,7 @@ rules.rules = {
                      skip_taskbar = true },
       callback = function(c)
           if not c.modal then
-              local name = c['name']
+              local name = c['instance']
               dropdown.manage_client(name, c)
               set_geometry(c, {vert="top", horiz="center", width=1.0, height=0.4} )
           end
@@ -230,7 +230,7 @@ rules.rules = {
     },
 
     -- tall top dropdowns
-    { rule_any = { name = { "glances"} },
+    { rule_any = { instance = { "glances"} },
       properties = { floating = true,
                      size_hints_honor = false,
                      ontop = true,
@@ -238,7 +238,7 @@ rules.rules = {
                      skip_taskbar = true },
       callback = function(c)
           if not c.modal then
-              local name = c['name']
+              local name = c['instance']
               dropdown.manage_client(name, c)
               set_geometry(c, {vert="top", horiz="center", width=1.0, height=0.8} )
           end
@@ -246,7 +246,7 @@ rules.rules = {
     },
 
    -- half-screen dropdowns
-   { rule_any = { name = { "musicplayer" }  },
+   { rule_any = { instance = { "musicplayer" }  },
       properties = { floating = true,
                      size_hints_honor = false,
                      ontop = true,
@@ -254,7 +254,7 @@ rules.rules = {
                      skip_taskbar = true },
       callback = function(c)
           if not c.modal then
-              local name = c['name']
+              local name = c['instance']
               dropdown.manage_client(name, c)
               set_geometry(c, {vert="center", horiz="right", width=0.6, height=1.0} )
           end
