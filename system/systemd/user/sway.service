@@ -18,6 +18,8 @@ Environment=XKB_DEFAULT_VARIANT=cat,,
 Environment=WLC_REPEAT_DELAY=500
 Environment=WLC_REPEAT_RATE=35
 
+RuntimeDirectory=sway
+
 # NOTE: This segfaults on exit.
 # Environment=WLC_XWAYLAND=0
 
