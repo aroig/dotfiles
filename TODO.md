@@ -7,9 +7,6 @@ TODO
   - resize them on start
   - stash them on the scratchpad
 
-* Use dedicated spaces for certain full-screen windows, with back-and-forth
-  switching: calibre, mail, etc.
-
 * Implement statusbar with all I need.
 
 * Fix dbus errors on vt switching
