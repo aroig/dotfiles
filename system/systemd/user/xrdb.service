@@ -7,7 +7,7 @@ ConditionPathExists=%h/etc/xorg
 PartOf=graphical-session.target
 Before=graphical-session.target
 
-After=xorg.service xwayland.service vncserver.service
+After=xorg.service xwayland.service vncserver.service sway.service
 
 [Service]
 Type=oneshot

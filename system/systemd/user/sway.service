@@ -16,7 +16,7 @@ Environment=XKB_DEFAULT_MODEL=pc105
 Environment=XKB_DEFAULT_VARIANT=cat,,
 
 Environment=WLC_REPEAT_DELAY=500
-Environment=WLC_REPEAT_RATE=25
+Environment=WLC_REPEAT_RATE=35
 
 # NOTE: This segfaults on exit.
 # Environment=WLC_XWAYLAND=0
@@ -28,6 +28,9 @@ ExecStart=/usr/bin/sh -c '                 \
     unset DISPLAY WAYLAND_DISPLAY;         \
     exec /usr/bin/sway                     \
 '
+
+# TODO: Ideally I would want to have Xwayland socket-activated, and do not have to do this here.
+ExecStartPost=/usr/bin/bash -c 'while ! xset q &>/dev/null; do sleep 1; done'
 
 KillSignal=SIGINT
 TimeoutSec=15
