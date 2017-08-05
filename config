@@ -3,8 +3,14 @@
 set $mod Mod4
 set $alt Mod1
 set $ctl Control
- 
-# Include config files
+
+# Theme
 include ~/.config/sway/theme.d/zenburn.conf
+
+# Commands
+set $dmenu dmenu -fn "$font" -nb "$color_bg" -nf "$color_fg" -sb "$color_bg" -sf "$color_active"
+set $yesorno printf "yes\nno\n" | $dmenu | echo
+
+# Include config files
 include ~/.config/sway/config.d/*.conf
 include ~/.config/sway/host.d/`hostname`.conf
