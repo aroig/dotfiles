@@ -90,7 +90,7 @@ return {
 
    -- system state
    quit                      = "wmquit.target",
-   lock                      = "lock.target",
+   lock                      = "awesome-lock.target",
    suspend                   = "suspend.target",
    poweroff                  = "poweroff.target",
    reboot                    = "reboot.target",
