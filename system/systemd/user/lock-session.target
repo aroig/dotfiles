@@ -1,0 +1,8 @@
+[Unit]
+Description=lock session
+
+After=disconnect.target
+
+DefaultDependencies=no
+RefuseManualStart=yes
+StopWhenUnneeded=yes

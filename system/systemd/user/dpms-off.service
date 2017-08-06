@@ -4,6 +4,8 @@ Description=dpms power down
 PartOf=graphical-session.target
 After=graphical-session.target
 
+Before=lock-session.target
+
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/xset dpms force off
