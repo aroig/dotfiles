@@ -2,6 +2,8 @@
 Description=chat away state
 ConditionPathExists=%t/emacs/chat
 
+Before=lock-session.target
+
 [Service]
 Type=oneshot
 RemainAfterExit=yes

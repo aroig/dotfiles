@@ -3,7 +3,7 @@ Description=run mpc pause
 ConditionPathExists=%t/mpd/mpd.pid
 
 DefaultDependencies=no
-Before=sleep.target shutdown.target
+Before=sleep.target shutdown.target lock-session.target
 
 [Service]
 Type=oneshot
