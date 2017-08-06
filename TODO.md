@@ -11,8 +11,6 @@ TODO
 
 * Fix dbus errors on vt switching
 
-* Fix swaylock
-
 * Configure dunst as notification daemon
 
 ## Potential blockers
