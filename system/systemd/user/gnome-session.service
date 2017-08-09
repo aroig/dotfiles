@@ -1,7 +1,7 @@
 [Unit]
 Description=gnome session manager
 
-Conflicts=openbox.service awesome.service
+Conflicts=openbox.service awesome.service sway.service
 
 # Need these because this service is ordered before graphical-session
 After=xorg.service vncserver.service
