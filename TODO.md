@@ -34,6 +34,16 @@ TODO
   - active keyboard layout
   - time
 
+### j4status
+  - extend systemd input plugin to the user instance
+  - fix pkgbuild `--sysconfdir=/etc` thing
+  - fix assertion thing
+  - keyboard layout?
+
+## Notifications
+### eventd
+  - extend journald plugin to have richer matching syntax.
+
 ## Minor
 
 * icon fonts for statusbar
