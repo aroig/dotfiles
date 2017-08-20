@@ -66,3 +66,7 @@ TODO
 * journal has a race in which short-lived processes do not get all metadata attached, like
   cgroup. This needs fixing in kernel, but seems it will not
   happen. http://comments.gmane.org/gmane.linux.kernel/1551621
+
+* preset-all does not handle templated units. 
+
+* cannot add DefaultInstance on a templated unit via dropins.
