@@ -550,7 +550,8 @@ myw.bat.pcwidget = wibox.widget.textbox()
 myw.bat.rticon = wibox.widget.textbox()
 myw.bat.rtwidget = wibox.widget.textbox()
 
-myw.bat.tooltip = awful.tooltip({ objects = {myw.bat.pcwidget, myw.bat.rtwidget, myw.bat.pcicon, myw.bat.rticon}})
+myw.bat.tooltip = awful.tooltip({
+        objects = {myw.bat.pcwidget, myw.bat.rtwidget, myw.bat.pcicon, myw.bat.rticon}})
 
 myw.bat.percent = -1
 myw.bat.rate = -1
@@ -677,7 +678,7 @@ end)
 
 myw.tasklist = {}
 
-myw.tasklist.buttons = awful.util.table.join(
+myw.tasklist.buttons = gears.table.join(
     awful.button({ }, 1,
         function (c)
             if c == client.focus then
@@ -714,7 +715,10 @@ myw.tasklist.buttons = awful.util.table.join(
 )
 
 awful.screen.connect_for_each_screen(function(s)
-   myw.tasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, myw.tasklist.buttons)
+        myw.tasklist[s] = awful.widget.tasklist(s,
+                                                awful.widget.tasklist.filter.currenttags,
+                                                myw.tasklist.buttons,
+                                                { tasklist_disable_icon = true } )
 end)
 
 
