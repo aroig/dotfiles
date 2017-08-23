@@ -97,8 +97,9 @@ dofile(cfgdir .. "/rc.lua.d/mywibox.lua")     -- Wibox config
 dofile(cfgdir .. "/rc.lua.d/mymenu.lua")      -- Menus
 dofile(cfgdir .. "/rc.lua.d/layouts.lua")     -- Layouts
 dofile(cfgdir .. "/rc.lua.d/tags.lua")        -- Tags
-dofile(cfgdir .. "/rc.lua.d/globalkeys.lua")  -- Globak keys
-dofile(cfgdir .. "/rc.lua.d/client.lua")      -- Client rules
+dofile(cfgdir .. "/rc.lua.d/globalkeys.lua")  -- Global keys
+dofile(cfgdir .. "/rc.lua.d/client.lua")      -- Client keys
+dofile(cfgdir .. "/rc.lua.d/rules.lua")       -- Client rules
 dofile(cfgdir .. "/rc.lua.d/signals.lua")     -- Signals
 
 
