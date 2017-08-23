@@ -250,35 +250,43 @@ for i = 1, keynumber do
         globalkeys,
 
         awful.key({ modkey }, key,
-                  function ()
-                      if tags[awful.screen.focused()][i] then
-                          tags[awful.screen.focused()][i]:view_only()
-                      end
-		          end
+            function ()
+                local tag = awful.screen.focused().tags[i]
+                if tag then
+                    tag:view_only()
+                end
+            end
         ),
 
-        awful.key({ modkey, ctrlkey   }, key,
-                  function ()
-                      if tags[awful.screen.focused()][i] then
-                          awful.tag.viewtoggle(tags[awful.screen.focused()][i])
-                      end
-                  end
+        awful.key({ modkey, ctrlkey }, key,
+            function ()
+                local tag = awful.screen.focused().tags[i]
+                if tag then
+                    awful.tag.viewtoggle(tag)
+                end
+            end
         ),
 
         awful.key({ modkey, shiftkey }, key,
-                  function ()
-                      if client.focus and tags[client.focus.screen][i] then
-                          client.focus:move_to_tag(tags[client.focus.screen][i])
-                      end
-                  end
+            function ()
+                if client.focus then
+                    local tag = client.focus.screen.tags[i]
+                    if tag then
+                        client.focus:move_to_tag(tag)
+                    end
+                end
+            end
         ),
 
-        awful.key({ modkey, ctrlkey  , shiftkey }, key,
-                  function ()
-                      if client.focus and tags[client.focus.screen][i] then
-                          client.focus:toggle_tag(tags[client.focus.screen][i])
-                      end
-                  end
+        awful.key({ modkey, ctrlkey, shiftkey }, key,
+            function ()
+                if client.focus then
+                    local tag = client.focus.screen.tags[i]
+                    if tag then
+                        client.focus:toggle_tag(tag)
+                    end
+                end
+            end
     ))
 end
 
