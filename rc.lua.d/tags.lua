@@ -84,7 +84,14 @@ globalkeys = gears.table.join(
         { description = "New numeric tag", group = "tag" }),
 
     awful.key({ modkey, ctrlkey, shiftkey }, "n",     function () new_numeric_tag(focused_screen()) end,
-        { description = "New numeric tag", group = "tag" })
+        { description = "New numeric tag", group = "tag" }),
+
+    -- Screen cycling by direction
+    awful.key({ modkey, ctrlkey   }, "Left",   function () awful.screen.focus_bydirection("left") end),
+    awful.key({ modkey, ctrlkey   }, "Right",  function () awful.screen.focus_bydirection("right") end),
+
+    awful.key({ modkey, ctrlkey   }, "h",      function () awful.screen.focus_bydirection("left") end),
+    awful.key({ modkey, ctrlkey   }, "l",      function () awful.screen.focus_bydirection("right") end)
 )
 
 for i = 0, numtags do

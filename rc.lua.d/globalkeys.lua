@@ -136,13 +136,6 @@ globalkeys = gears.table.join(
     awful.key({ modkey, shiftkey  }, "h",      function () awful.client.swap.global_bydirection("left") end),
     awful.key({ modkey, shiftkey  }, "l",      function () awful.client.swap.global_bydirection("right") end),
 
-    -- Screen cycling by direction
-    awful.key({ modkey, ctrlkey   }, "Left",   function () awful.screen.focus_bydirection("left") end),
-    awful.key({ modkey, ctrlkey   }, "Right",  function () awful.screen.focus_bydirection("right") end),
-
-    awful.key({ modkey, ctrlkey   }, "h",      function () awful.screen.focus_bydirection("left") end),
-    awful.key({ modkey, ctrlkey   }, "l",      function () awful.screen.focus_bydirection("right") end),
-
     -- Client dragging
     awful.key({ modkey, ctrlkey, shiftkey }, "Up",    function () drag_bydirection("up") end),
     awful.key({ modkey, ctrlkey, shiftkey }, "Down",  function () drag_bydirection("down") end),
