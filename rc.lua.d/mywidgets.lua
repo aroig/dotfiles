@@ -732,10 +732,10 @@ myw.layoutbox = {}
 awful.screen.connect_for_each_screen(function(s)
    myw.layoutbox[s] = awful.widget.layoutbox(s)
    myw.layoutbox[s]:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc(1, nil, layouts) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1, nil, layouts) end),
-                           awful.button({ }, 4, function () awful.layout.inc(1, nil, layouts) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1, nil, layouts) end)))
+                           awful.button({ }, 1, function () awful.layout.inc(1) end),
+                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
+                           awful.button({ }, 4, function () awful.layout.inc(1) end),
+                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
  end)
 
 
