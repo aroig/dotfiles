@@ -60,7 +60,9 @@
 
 (defun ab2-base/post-init-persp-mode ()
   ;; Do not mess with the initial buffer
-  (setq persp-is-ibc-as-f-supported nil))
+  (setq persp-is-ibc-as-f-supported nil
+        persp-kill-foreign-buffer-behaviour 'kill
+        ))
 
 (defun ab2-base/post-init-mmm-mode ()
   (spacemacs|diminish mmm-mode "Ⓜ" " M")
