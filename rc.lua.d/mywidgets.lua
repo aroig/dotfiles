@@ -398,7 +398,7 @@ function myw.mail.update()
     myw.mail.tooltip.textbox:set_text(table.concat(mail, '\n'))
 end
 
-myw.mail.icon:buttons(awful.util.table.join(awful.button({ }, 1,
+myw.mail.icon:buttons(gears.table.join(awful.button({ }, 1,
     function () exec(apps.mail) end)))
 
 myw.mail.inwdg:buttons(myw.mail.icon:buttons())
@@ -486,7 +486,7 @@ function myw.mpd.update()
     myw.mpd.current = args
 end
 
-myw.mpd.icon:buttons(awful.util.table.join( awful.button({ }, 1,
+myw.mpd.icon:buttons(gears.table.join( awful.button({ }, 1,
                       function () myw.mpd.notify_song(myw.mpd.current) end)))
 myw.mpd.stateicon:buttons(myw.mpd.icon:buttons())
 
@@ -530,7 +530,7 @@ function myw.vol.update()
     end
 end
 
-myw.vol.widget:buttons(awful.util.table.join(awful.button({ }, 1,
+myw.vol.widget:buttons(gears.table.join(awful.button({ }, 1,
     function () exec("pavucontrol") end)))
 myw.vol.icon:buttons(myw.vol.widget:buttons())
 
@@ -605,7 +605,7 @@ function myw.bat.update()
     myw.bat.time = args.time
 end
 
-myw.bat.rtwidget:buttons(awful.util.table.join(awful.button({ }, 1,
+myw.bat.rtwidget:buttons(gears.table.join(awful.button({ }, 1,
     function () exec("gnome-power-statistics") end)))
 myw.bat.pcwidget:buttons(myw.bat.rtwidget:buttons())
 myw.bat.pcicon:buttons(myw.bat.rtwidget:buttons())
@@ -635,7 +635,7 @@ myw.keyb = {}
 myw.keyb.icon = wibox.widget.textbox()
 myw.keyb.icon:set_markup(wiboxicon("keyboard", beautiful.color_widget))
 
-myw.keyb.icon:buttons(awful.util.table.join(
+myw.keyb.icon:buttons(gears.table.join(
                           awful.button({ }, 1, function () osk() end)))
 
 myw.keyb.keybwdg = awful.widget.keyboardlayout()
@@ -657,7 +657,7 @@ myw.systray = wibox.widget.systray()
 
 myw.taglist = {}
 
-myw.taglist.buttons = awful.util.table.join(
+myw.taglist.buttons = gears.table.join(
     awful.button({ }, 1, function(t) t:view_only() end),
     awful.button({ }, 3, awful.tag.viewtoggle)
 --   awful.button({ modkey }, 1, awful.client.movetotag),
@@ -731,7 +731,7 @@ myw.layoutbox = {}
 
 awful.screen.connect_for_each_screen(function(s)
    myw.layoutbox[s] = awful.widget.layoutbox(s)
-   myw.layoutbox[s]:buttons(awful.util.table.join(
+   myw.layoutbox[s]:buttons(gears.table.join(
                            awful.button({ }, 1, function () awful.layout.inc(1) end),
                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
                            awful.button({ }, 4, function () awful.layout.inc(1) end),

@@ -79,8 +79,8 @@ end
 -- Client bindings and buttons   --
 -----------------------------------
 
-clientkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "f",
+clientkeys = gears.table.join(
+    awful.key({ modkey }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
             c:raise()
@@ -104,7 +104,7 @@ clientkeys = awful.util.table.join(
 )
 
 -- Client buttons
-clientbuttons = awful.util.table.join(
+clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
     awful.button({ modkey }, 3, awful.mouse.client.resize))

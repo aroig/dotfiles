@@ -89,16 +89,19 @@ awful.screen.connect_for_each_screen(function(s)
    right_layout:add(myw.separator)
 
    -- Battery block
-   if util.file_exists("/sys/class/power_supply/BAT0/status") then
-      right_layout:add(myw.bat.pcicon)
-      right_layout:add(myw.bat.pcwidget)
-      right_layout:add(myw.spacer)
+   local f=io.open("/sys/class/power_supply/BAT0/status", "r")
+   if f~=nil then
+       io.close(f)
 
-      right_layout:add(myw.bat.rticon)
-      right_layout:add(myw.bat.rtwidget)
-      right_layout:add(myw.spacer)
+       right_layout:add(myw.bat.pcicon)
+       right_layout:add(myw.bat.pcwidget)
+       right_layout:add(myw.spacer)
 
-      right_layout:add(myw.separator)
+       right_layout:add(myw.bat.rticon)
+       right_layout:add(myw.bat.rtwidget)
+       right_layout:add(myw.spacer)
+
+       right_layout:add(myw.separator)
    end
 
    -- Audio block

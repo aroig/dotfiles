@@ -1,14 +1,10 @@
 
-require("awful.client")
-util = require("abdo.util")
-
 -- Signal function to execute when a new client appears.
-
 
 local function add_titlebars(c)
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- buttons for the titlebar
-        local buttons = awful.util.table.join(
+        local buttons = gears.table.join(
                 awful.button({ }, 1, function()
                     client.focus = c
                     c:raise()
