@@ -11,11 +11,12 @@ TODO
 
 * Fix dbus errors on vt switching
 
-* Configure dunst as notification daemon
+* Configure notification daemon
 
 ## Potential blockers
   - dropdown thing
   - keyboard layout switching
+  - emacs hangs
 
 ## Status
   - synced state
@@ -39,10 +40,14 @@ TODO
   - fix pkgbuild `--sysconfdir=/etc` thing
   - fix assertion thing
   - keyboard layout?
+  - report memory usage from /proc/meminfo
 
 ## Notifications
 ### eventd
   - extend journald plugin to have richer matching syntax.
+
+## Applications
+  - emacs sometimes hangs. Need to investigate
 
 ## Minor
 
