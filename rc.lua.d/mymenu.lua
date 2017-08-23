@@ -7,11 +7,11 @@
 
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-   { "hotkeys", function() return false, hotkeys.widget.show_help end},
+   { "hotkeys", function() return false, hotkeys.show_help end},
    { "manual", apps.terminal .. " -e \"man awesome\"" },
    { "edit config", apps.editor .. " " .. awesome.conffile },
    { "restart", awesome.restart },
-   { "quit", awesome.quit }
+   { "quit", function() awesome.quit() end }
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },

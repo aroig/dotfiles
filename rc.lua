@@ -10,9 +10,9 @@
 -- Standard lua stuff
 string       = require("string")
 lfs          = require("lfs")
-gears        = require("gears")
 
 -- Standard awesome library
+gears        = require("gears")
 awful        = require("awful")
 awful.layout = require("awful.layout")
 awful.rules  = require("awful.rules")
