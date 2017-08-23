@@ -156,6 +156,17 @@ rules.rules = {
       properties = { floating = true,
                      focus = false } },
 
+    { rule_any = { instance = { "chromium", "firefox" } },
+      properties = { new_tag = "web",
+                     switchtotag = true } },
+
+    { rule_any = { instance = { "journal" } },
+      properties = { new_tag = "log",
+                     switchtotag = true } },
+
+    { rule_any = { instance = { "glances" } },
+      properties = { new_tag = "top",
+                     switchtotag = true } },
 
     -- Priority
     { rule_any = { class = {"Pinentry"} },
