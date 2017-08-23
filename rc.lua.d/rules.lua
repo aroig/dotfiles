@@ -37,6 +37,7 @@ local function set_geometry(c, geom)
 end
 
 
+
 -----------------------------------
 -- Signal handlers               --
 -----------------------------------
@@ -62,148 +63,138 @@ capi.client.connect_signal("focus",
 -----------------------------------
 
 -- awful rules
-rules.rules = {
-    -- All clients will match this rule.
-    { rule = { }, except_any = { class = {"Tint2", "Plank"} },
-      properties = { border_width = 1,
-                     border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
-                     raise=true,
-                     keys = clientkeys,
-                     buttons = clientbuttons,
-                     screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
-                     maximized_vertical   = false,
-                     maximized_horizontal = false,
-                     size_hints_honor = false } },
+clientrules = gears.table.join(
+    clientrules,
 
-    -- Panels or docks
-    { rule_any = { class = { "Tint2", "Plank"} },
-      properties = { floating = true,
-                     focus = false } },
+    {
+        -- All clients will match this rule.
+        { rule = { }, except_any = { class = {"Tint2", "Plank"} },
+          properties = { border_width = 1,
+                         border_color = beautiful.border_normal,
+                         focus = awful.client.focus.filter,
+                         raise=true,
+                         screen = awful.screen.preferred,
+                         placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+                         maximized_vertical   = false,
+                         maximized_horizontal = false,
+                         size_hints_honor = false } },
 
-    { rule_any = { instance = { "chromium", "firefox" } },
-      properties = { new_tag = "web",
-                     switchtotag = true } },
+        -- Panels or docks
+        { rule_any = { class = { "Tint2", "Plank"} },
+          properties = { floating = true,
+                         focus = false } },
 
-    { rule_any = { instance = { "journal" } },
-      properties = { new_tag = "log",
-                     switchtotag = true } },
+        -- Priority
+        { rule_any = { class = {"Pinentry"} },
+          properties = { floating = true,
+                         ontop = true,
+                         focus = true,
+                         placement = awful.placement.centered } },
 
-    { rule_any = { instance = { "glances" } },
-      properties = { new_tag = "top",
-                     switchtotag = true } },
+        -- Floats
+        { rule_any = { class = {"Qpaeq", "qjackctl", "Unison-gtk2", "Skype",
+                                "Pavucontrol", "Pidgin", "wpa_gui"} },
+          properties = { floating = true,
+                         placement = awful.placement.centered } },
 
-    -- Priority
-    { rule_any = { class = {"Pinentry"} },
-      properties = { floating = true,
-                     ontop = true,
-                     focus = true,
-                     placement = awful.placement.centered } },
+        -- Float dialogs
+        { rule_any = { name = {"Print"} },
+          properties = { floating = true } },
 
-    -- Floats
-    { rule_any = { class = {"Qpaeq", "qjackctl", "Unison-gtk2", "Skype",
-                            "Pavucontrol", "Pidgin", "wpa_gui"} },
-      properties = { floating = true,
-                     placement = awful.placement.centered } },
+        -- Float youtube, etc.
+        { rule_any = { instance = { "plugin-container", "exe", 'vmpk' } },
+          properties = { floating = true,
+                         focus = true,
+                         placement = awful.placement.centered } },
 
-    -- Float dialogs
-    { rule_any = { name = {"Print"} },
-      properties = { floating = true } },
+        -- Centered floats
+        { rule_any = { class = {"mpv", "MPlayer", "feh", } },
+          properties = { floating = true,
+                         placement = awful.placement.centered } },
 
-    -- Float youtube, etc.
-    { rule_any = { instance = { "plugin-container", "exe", 'vmpk' } },
-      properties = { floating = true,
-                     focus = true,
-                     placement = awful.placement.centered } },
+        -- Fixed screen
+        { rule_any = { class = {"Xournal", "Skype" } },
+          properties = { screen = 1 } },
 
-    -- Centered floats
-    { rule_any = { class = {"mpv", "MPlayer", "feh", } },
-      properties = { floating = true,
-                     placement = awful.placement.centered } },
+        -- qemu
+        { rule_any = { class = { "qemu-system-x86_64" } },
+          properties = { floating = true,
+                         placement = awful.placement.top_left,
+                         honor_workarea = true } },
 
-    -- Fixed screen
-    { rule_any = { class = {"Xournal", "Skype" } },
-      properties = { screen = 1 } },
+        -- dropdowns
+        --
+        -- NOTE: we match by instance (which I can set on emacs), then use this instance as
+        -- name for the dropdown. This name is used when calling ddtoggle("app:name"), and
+        -- must coincide with the name configured in the apps list.
 
-    -- qemu
-    { rule_any = { class = { "qemu-system-x86_64" } },
-      properties = { floating = true,
-                     placement = awful.placement.top_left,
-                     honor_workarea = true } },
-
-    -- dropdowns
-    --
-    -- NOTE: we match by instance (which I can set on emacs), then use this instance as
-    -- name for the dropdown. This name is used when calling ddtoggle("app:name"), and
-    -- must coincide with the name configured in the apps list.
-
-    -- full-screen dropdowns
-    { rule_any = { instance = {"mu4e", "org", "chat", "calibre-gui"} },
-      properties = { floating = true,
-                     size_hints_honor = false,
-                     ontop = true,
-                     above = true,
-                     skip_taskbar = true },
-      callback = function(c)
-          if not c.modal then
-              local name = string.gsub(c['instance'], "-gui", "")
-              dropdown.manage_client(name, c)
-              set_geometry(c, {vert="center", horiz="center", width=1.0, height=1.0} )
+        -- full-screen dropdowns
+        { rule_any = { instance = {"mu4e", "org", "chat", "calibre-gui"} },
+          properties = { floating = true,
+                         size_hints_honor = false,
+                         ontop = true,
+                         above = true,
+                         skip_taskbar = true },
+          callback = function(c)
+              if not c.modal then
+                  local name = string.gsub(c['instance'], "-gui", "")
+                  dropdown.manage_client(name, c)
+                  set_geometry(c, {vert="center", horiz="center", width=1.0, height=1.0} )
+              end
           end
-      end
-    },
+        },
 
-    -- top dropdowns
-    { rule_any = { instance = { "termite-dropdown", "journal-dropdown", "vifm-dropdown"} },
-      properties = { floating = true,
-                     size_hints_honor = false,
-                     ontop = true,
-                     above = true,
-                     skip_taskbar = true },
-      callback = function(c)
-          if not c.modal then
-              local name = c['instance']
-              dropdown.manage_client(name, c)
-              set_geometry(c, {vert="top", horiz="center", width=1.0, height=0.4} )
+        -- top dropdowns
+        { rule_any = { instance = { "termite-dropdown", "journal-dropdown", "vifm-dropdown"} },
+          properties = { floating = true,
+                         size_hints_honor = false,
+                         ontop = true,
+                         above = true,
+                         skip_taskbar = true },
+          callback = function(c)
+              if not c.modal then
+                  local name = c['instance']
+                  dropdown.manage_client(name, c)
+                  set_geometry(c, {vert="top", horiz="center", width=1.0, height=0.4} )
+              end
           end
-      end
-    },
+        },
 
-    -- tall top dropdowns
-    { rule_any = { instance = { "glances"} },
-      properties = { floating = true,
-                     size_hints_honor = false,
-                     ontop = true,
-                     above = true,
-                     skip_taskbar = true },
-      callback = function(c)
-          if not c.modal then
-              local name = c['instance']
-              dropdown.manage_client(name, c)
-              set_geometry(c, {vert="top", horiz="center", width=1.0, height=0.8} )
+        -- tall top dropdowns
+        { rule_any = { instance = { "glances"} },
+          properties = { floating = true,
+                         size_hints_honor = false,
+                         ontop = true,
+                         above = true,
+                         skip_taskbar = true },
+          callback = function(c)
+              if not c.modal then
+                  local name = c['instance']
+                  dropdown.manage_client(name, c)
+                  set_geometry(c, {vert="top", horiz="center", width=1.0, height=0.8} )
+              end
           end
-      end
-    },
+        },
 
-   -- half-screen dropdowns
-   { rule_any = { instance = { "musicplayer" }  },
-      properties = { floating = true,
-                     size_hints_honor = false,
-                     ontop = true,
-                     above = true,
-                     skip_taskbar = true },
-      callback = function(c)
-          if not c.modal then
-              local name = c['instance']
-              dropdown.manage_client(name, c)
-              set_geometry(c, {vert="center", horiz="right", width=0.6, height=1.0} )
+        -- half-screen dropdowns
+        { rule_any = { instance = { "musicplayer" }  },
+          properties = { floating = true,
+                         size_hints_honor = false,
+                         ontop = true,
+                         above = true,
+                         skip_taskbar = true },
+          callback = function(c)
+              if not c.modal then
+                  local name = c['instance']
+                  dropdown.manage_client(name, c)
+                  set_geometry(c, {vert="center", horiz="right", width=0.6, height=1.0} )
+              end
           end
-      end
-   },
+        },
 
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
-}
+        -- Set Firefox to always map on tags number 2 of screen 1.
+        -- { rule = { class = "Firefox" },
+        --   properties = { screen = 1, tag = "2" } },
+    }
+)
 

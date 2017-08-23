@@ -83,6 +83,9 @@ beautiful.init(awful.util.getdir("config") .. "/themes/zenburn/theme.lua")
 -- Key bindings
 globalkeys = {}
 
+-- Client rules
+clientrules = {}
+
 
 -----------------------------------
 -- Sourcing stuff                --
@@ -105,3 +108,6 @@ dofile(cfgdir .. "/rc.lua.d/signals.lua")     -- Signals
 
 -- Set key bindings
 root.keys(globalkeys)
+
+-- Set client rules
+awful.rules.rules = clientrules
