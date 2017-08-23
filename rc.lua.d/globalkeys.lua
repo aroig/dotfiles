@@ -51,7 +51,9 @@ function drag_bydirection(dir, c)
 end
 
 
-globalkeys = awful.util.table.join(
+globalkeys = gears.table.join(
+    globalkeys,
+
     -- Machine state
     awful.key({ modkey,           }, "v",      function() switch.output_mode(1)      end),
     awful.key({ modkey, shiftkey  }, "v",      function() switch.output_mode(-1)     end),
@@ -246,7 +248,7 @@ local key
 -- Client move by tag number
 for i = 1, keynumber do
     key = string.format("%d", (i % 10))
-    globalkeys = awful.util.table.join(
+    globalkeys = gears.table.join(
         globalkeys,
 
         awful.key({ modkey }, key,
@@ -291,5 +293,3 @@ for i = 1, keynumber do
 end
 
 
--- Set keys
-root.keys(globalkeys)

@@ -14,17 +14,10 @@ lfs          = require("lfs")
 -- Standard awesome library
 gears        = require("gears")
 awful        = require("awful")
-awful.layout = require("awful.layout")
-awful.rules  = require("awful.rules")
-awful.remote = require("awful.remote")
-awful.tag    = require("awful.tag")
-awful.util   = require("awful.util")
-
 wibox        = require("wibox")
 beautiful    = require("beautiful")
 menubar      = require("menubar")
 naughty      = require("naughty")
-
 hotkeys      = require("awful.hotkeys_popup")
 
 
@@ -74,10 +67,10 @@ hostname  = util.get_hostname()
 homedir   = os.getenv("HOME")
 
 -- Modkeys
-modkey   = "Mod4"
-metakey  = "Mod1"
-ctrlkey  = "Control"
-shiftkey = "Shift"
+modkey    = "Mod4"
+metakey   = "Mod1"
+ctrlkey   = "Control"
+shiftkey  = "Shift"
 
 
 -----------------------------------
@@ -90,26 +83,8 @@ require("awful.autofocus")
 -- Load theme
 beautiful.init(awful.util.getdir("config") .. "/themes/zenburn/theme.lua")
 
-
------------------------------------
--- Layouts and tags              --
------------------------------------
-
--- Layouts
--- Table of layouts to cover with awful.layout.inc, order matters.
-awful.layout.layouts = {
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.tile,
-    awful.layout.suit.fair,
-    awful.layout.suit.floating,
-}
-
-
--- Tags
-awful.screen.connect_for_each_screen(function(s)
-        awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" },
-            s, awful.layout.layouts[1])
-end)
+-- Key bindings
+globalkeys = {}
 
 
 -----------------------------------
@@ -123,6 +98,12 @@ dofile(cfgdir .. "/rc.lua.d/naughty.lua")     -- Notifications
 dofile(cfgdir .. "/rc.lua.d/mywidgets.lua")   -- Widgets config
 dofile(cfgdir .. "/rc.lua.d/mywibox.lua")     -- Wibox config
 dofile(cfgdir .. "/rc.lua.d/mymenu.lua")      -- Menus
+dofile(cfgdir .. "/rc.lua.d/layouts.lua")     -- Layouts
+dofile(cfgdir .. "/rc.lua.d/tags.lua")        -- Tags
 dofile(cfgdir .. "/rc.lua.d/globalkeys.lua")  -- Globak keys
 dofile(cfgdir .. "/rc.lua.d/client.lua")      -- Client rules
 dofile(cfgdir .. "/rc.lua.d/signals.lua")     -- Signals
+
+
+-- Set key bindings
+root.keys(globalkeys)
