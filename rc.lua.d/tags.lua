@@ -18,9 +18,7 @@ local function new_numeric_tag(s)
     for i = 0, 20 do
         name = string.format("%d", i)
         if not awful.tag.find_by_name(s, name) then
-            tag = awful.tag.add(name, { screen=s, layout = awful.layout.layouts[1], volatile=true })
-            tag:view_only()
-            break
+            return awful.tag.add(name, { screen=s, layout = awful.layout.layouts[1], volatile=true })
         end
     end
 end
@@ -56,17 +54,17 @@ end
 globalkeys = gears.table.join(
     globalkeys,
 
-    awful.key({ modkey, ctrlkey   }, "Up",     function () awful.tag.viewnext() end,
-        { description = "Next tag", group = "tag" }),
+    awful.key({ modkey, ctrlkey   }, "Up",     function () awful.tag.viewnext(focused_screen()) end,
+        { description = "Next tag on focused screen", group = "tag" }),
 
-    awful.key({ modkey, ctrlkey   }, "Down",   function () awful.tag.viewprev() end,
-        { description = "Previous tag", group = "tag" }),
+    awful.key({ modkey, ctrlkey   }, "Down",   function () awful.tag.viewprev(focused_screen()) end,
+        { description = "Previous tag on focused screen", group = "tag" }),
 
-    awful.key({ modkey, ctrlkey   }, "k",      function () awful.tag.viewnext() end,
-        { description = "Next tag", group = "tag" }),
+    awful.key({ modkey, ctrlkey   }, "k",      function () awful.tag.viewnext(focused_screen()) end,
+        { description = "Next tag on focused screen", group = "tag" }),
 
-    awful.key({ modkey, ctrlkey   }, "j",      function () awful.tag.viewprev() end,
-        { description = "Previous tag", group = "tag" }),
+    awful.key({ modkey, ctrlkey   }, "j",      function () awful.tag.viewprev(focused_screen()) end,
+        { description = "Previous tag on focused screen", group = "tag" }),
 
     awful.key({ modkey, metakey   }, "Up",     function () awful.tag.viewnext(next_screen()) end),
     awful.key({ modkey, metakey   }, "Down",   function () awful.tag.viewprev(next_screen()) end),
@@ -80,11 +78,29 @@ globalkeys = gears.table.join(
     awful.key({ modkey, metakey, ctrlkey  }, "k",     function () for s in screen do awful.tag.viewnext(s) end end),
     awful.key({ modkey, metakey, ctrlkey  }, "j",     function () for s in screen do awful.tag.viewprev(s) end end),
 
-    awful.key({ modkey, ctrlkey   }, "n",      function () new_numeric_tag(focused_screen()) end,
-        { description = "New numeric tag", group = "tag" }),
+    awful.key({ modkey, ctrlkey   }, "n",
+        function ()
+            local tag = new_numeric_tag(focused_screen())
+            tag:view_only()
+        end,
+        { description = "New tag on focused screen", group = "tag" }),
 
-    awful.key({ modkey, ctrlkey, shiftkey }, "n",     function () new_numeric_tag(focused_screen()) end,
-        { description = "New numeric tag", group = "tag" }),
+    awful.key({ modkey, altkey    }, "n",
+        function ()
+            local tag = new_numeric_tag(next_screen())
+            tag:view_only()
+        end,
+        { description = "New tag on next screen", group = "tag" }),
+
+    awful.key({ modkey, ctrlkey, shiftkey }, "n",
+        function ()
+            if client.focus then
+                local tag = new_numeric_tag(focused_screen())
+                client.focus:move_to_tag(tag)
+                tag:view_only()
+            end
+        end,
+        { description = "Move to new tag", group = "tag" }),
 
     -- Screen cycling by direction
     awful.key({ modkey, ctrlkey   }, "Left",   function () awful.screen.focus_bydirection("left") end),
@@ -112,6 +128,7 @@ for i = 0, numtags do
                 if client.focus then
                     local tag = get_tag(focused_screen(), i)
                     client.focus:move_to_tag(tag)
+                    tag:view_only()
                 end
             end,
             { description = "Move to tag " .. key, group = "tag" }
