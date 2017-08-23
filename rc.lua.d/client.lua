@@ -159,14 +159,16 @@ rules.rules = {
 
     -- Priority
     { rule_any = { class = {"Pinentry"} },
-      properties = { floating = true },
-      callback = function(c) awful.placement.centered(c); c:raise() end },
+      properties = { floating = true,
+                     ontop = true,
+                     focus = true,
+                     placement = awful.placement.centered } },
 
     -- Floats
     { rule_any = { class = {"Qpaeq", "qjackctl", "Unison-gtk2", "Skype",
                             "Pavucontrol", "Pidgin", "wpa_gui"} },
-      properties = { floating = true },
-      callback   = function(c) awful.placement.centered(c) end },
+      properties = { floating = true,
+                     placement = awful.placement.centered } },
 
     -- Float dialogs
     { rule_any = { name = {"Print"} },
@@ -174,22 +176,24 @@ rules.rules = {
 
     -- Float youtube, etc.
     { rule_any = { instance = { "plugin-container", "exe", 'vmpk' } },
-      properties = { floating = true, focus = true },
-      callback   = function(c) awful.placement.centered(c) end },
+      properties = { floating = true,
+                     focus = true,
+                     placement = awful.placement.centered } },
 
     -- Centered floats
     { rule_any = { class = {"mpv", "MPlayer", "feh", } },
-      properties = { floating = true },
-      callback   = function(c) awful.placement.centered(c) end },
+      properties = { floating = true,
+                     placement = awful.placement.centered } },
 
     -- Fixed screen
-    { rule = { class = "Xournal" },         properties = { screen = 1 } },
-    { rule = { class = "Skype" },           properties = { screen = 1 } },
+    { rule_any = { class = {"Xournal", "Skype" } },
+      properties = { screen = 1 } },
 
     -- qemu
     { rule_any = { class = { "qemu-system-x86_64" } },
-      properties = { floating = true },
-      callback   = function(c) awful.placement.top_left(c, { honor_workarea = true }) end },
+      properties = { floating = true,
+                     placement = awful.placement.top_left,
+                     honor_workarea = true } },
 
     -- dropdowns
     --
