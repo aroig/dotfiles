@@ -105,8 +105,6 @@ globalkeys = gears.table.join(
               end),
 
     awful.key({ modkey,           }, "u",   function () awful.client.urgent.jumpto() end),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-
 
     -- Client cycling by index
     awful.key({ modkey,           }, "Tab", function () awful.client.focus.byidx( 1) end),

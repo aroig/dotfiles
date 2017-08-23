@@ -4,7 +4,7 @@ local capi = {
 }
 
 -- Variables
-local numtags = 4
+local numtags = 9
 local maxtags = 30
 
 local persistent_tags = {}
@@ -120,6 +120,10 @@ globalkeys = gears.table.join(
         end,
         { description = "Move to new tag", group = "tag" }),
 
+    -- Previous tag
+    awful.key({ modkey,           }, "p",
+        function () awful.tag.history.restore(focused_screen()) end),
+
     -- Screen cycling by direction
     awful.key({ modkey, ctrlkey   }, "Left",   function () awful.screen.focus_bydirection("left") end),
     awful.key({ modkey, ctrlkey   }, "Right",  function () awful.screen.focus_bydirection("right") end),
@@ -160,8 +164,8 @@ clientrules = gears.table.join(
     clientrules,
 
     {
-        { rule_any = { instance = { "chromium", "firefox" } },
-          callback = function(c) place_in_tag(c, "web") end },
+        -- { rule_any = { instance = { "chromium", "firefox" } },
+        --   callback = function(c) place_in_tag(c, "web") end },
 
         { rule_any = { instance = { "journal$" } },
           callback = function(c) place_in_tag(c, "log") end },
