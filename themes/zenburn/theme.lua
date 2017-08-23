@@ -22,7 +22,7 @@ theme.confdir = util.getdir("config") .. "/themes/zenburn"
 -- basic awesome fonts
 theme.font         = "terminal 12"
 theme.font_mono    = "terminal 12"
-theme.font_symbol  = "desktop-symbols 11"
+theme.font_symbol  = "desktop-symbols 10"
 
 theme.font_naughty = "terminal 14"
 theme.font_box     = "terminal 12"

@@ -143,25 +143,6 @@ globalkeys = gears.table.join(
     awful.key({ modkey, ctrlkey   }, "h",      function () awful.screen.focus_bydirection("left") end),
     awful.key({ modkey, ctrlkey   }, "l",      function () awful.screen.focus_bydirection("right") end),
 
-    -- Tag Cycling by direction
-    awful.key({ modkey, ctrlkey   }, "Up",     function () awful.tag.viewnext() end),
-    awful.key({ modkey, ctrlkey   }, "Down",   function () awful.tag.viewprev() end),
-
-    awful.key({ modkey, ctrlkey   }, "k",      function () awful.tag.viewnext() end),
-    awful.key({ modkey, ctrlkey   }, "j",      function () awful.tag.viewprev() end),
-
-    awful.key({ modkey, metakey   }, "Up",     function () awful.tag.viewnext(awful.util.cycle(screen.count(), awful.screen.focused().index + 1)) end),
-    awful.key({ modkey, metakey   }, "Down",   function () awful.tag.viewprev(awful.util.cycle(screen.count(), awful.screen.focused().index + 1)) end),
-
-    awful.key({ modkey, metakey   }, "k",      function () awful.tag.viewnext(awful.util.cycle(screen.count(), awful.screen.focused().index + 1)) end),
-    awful.key({ modkey, metakey   }, "j",      function () awful.tag.viewprev(awful.util.cycle(screen.count(), awful.screen.focused().index + 1)) end),
-
-    awful.key({ modkey, metakey, ctrlkey  }, "Up",    function () for s in screen do awful.tag.viewnext(s) end end),
-    awful.key({ modkey, metakey, ctrlkey  }, "Down",  function () for s in screen do awful.tag.viewprev(s) end end),
-
-    awful.key({ modkey, metakey, ctrlkey  }, "k",     function () for s in screen do awful.tag.viewnext(s) end end),
-    awful.key({ modkey, metakey, ctrlkey  }, "j",     function () for s in screen do awful.tag.viewprev(s) end end),
-
     -- Client dragging
     awful.key({ modkey, ctrlkey, shiftkey }, "Up",    function () drag_bydirection("up") end),
     awful.key({ modkey, ctrlkey, shiftkey }, "Down",  function () drag_bydirection("down") end),
@@ -196,18 +177,6 @@ globalkeys = gears.table.join(
                   awful.client.focus.history.previous()
                   if client.focus then client.focus:raise() end
               end),
-
-    -- Layout cycling
-    awful.key({ modkey,           }, "space", function () awful.layout.inc(1) end),
-    awful.key({ modkey, shiftkey  }, "space", function () awful.layout.inc(-1) end),
-
-    -- Layout manipulation
-    awful.key({ modkey,           }, "+",     function () awful.tag.incmwfact( 0.05)    end),
-    awful.key({ modkey,           }, "-",     function () awful.tag.incmwfact(-0.05)    end),
-    awful.key({ modkey, shiftkey  }, "-",     function () awful.tag.incnmaster( 1)      end),
-    awful.key({ modkey, shiftkey  }, "+",     function () awful.tag.incnmaster(-1)      end),
-    awful.key({ modkey, ctrlkey   }, "-",     function () awful.tag.incncol( 1)         end),
-    awful.key({ modkey, ctrlkey   }, "+",     function () awful.tag.incncol(-1)         end),
 
     -- System stuff
     awful.key({ metakey, ctrlkey          }, "l",   function () run('app:lock')                        end),
