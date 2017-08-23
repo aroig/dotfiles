@@ -4,7 +4,7 @@ local capi = {
 }
 
 -- Variables
-numtags = 9
+local numtags = 9
 
 -- Tags
 awful.screen.connect_for_each_screen(function(s)
@@ -12,7 +12,7 @@ awful.screen.connect_for_each_screen(function(s)
             s, awful.layout.layouts[1])
 end)
 
-function new_numeric_tag(s)
+local function new_numeric_tag(s)
     local s = s or awful.screen.focused()
 
     for i = 0, 20 do
@@ -25,7 +25,7 @@ function new_numeric_tag(s)
     end
 end
 
-function get_tag(s, name)
+local function get_tag(s, name)
     local s = (s and capi.screen[s]) or awful.screen.focused()
 
     tag = awful.tag.find_by_name(s, name)
@@ -35,18 +35,18 @@ function get_tag(s, name)
     return tag
 end
 
-function delete_tag(t)
+local function delete_tag(t)
     local t = t or awful.screen.focused().selected_tag
     if t then
         t:delete()
     end
 end
 
-function focused_screen()
+local function focused_screen()
     return awful.screen.focused()
 end
 
-function next_screen()
+local function next_screen()
     s = awful.util.cycle(screen.count(), awful.screen.focused().index + 1)
     return capi.screen[s]
 end
