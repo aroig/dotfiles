@@ -19,7 +19,7 @@ mywibox = {}
 -- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(function(s)
    -- Create the wibox
-   mywibox[s] = awful.wibar({ position = "top", screen = s, height=host_config.wibox_height })
+   mywibox[s] = awful.wibar({ position = "top", screen = s, height=18 })
    -- Add widgets to the wibox - order matters
 
 

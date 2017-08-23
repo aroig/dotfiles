@@ -23,13 +23,11 @@ local capi = {
 
 local apps = apps
 
-local util      = require("abdo.util")
 local pickle    = require("abdo.pickle")           -- some crude pickling routines
 local luaeval   = require("abdo.prompt.luaeval")   -- evaluation of lua code
 local promptl   = require("abdo.prompt.list")      -- user choice from a list
 local idoprompt = require("abdo.prompt.idoprompt")
 local systemd   = require("abdo.systemd")
-
 
 
 -----------------------------------
@@ -69,6 +67,12 @@ function shexec (cmd)
     awful.spawn.with_shell(cmd)
 end
 
+function shell_escape(s)
+    local ret = tostring(s) or ''
+    ret = ret:gsub('\\', '\\\\')
+    ret = ret:gsub('"', '\\"')
+    return '"' .. ret .. '"'
+end
 
 
 -----------------------------------
@@ -356,7 +360,7 @@ end
 local function ddshow_doc(url)
     if url == nil then return end
 
-    local cmd = string.format("dwb -p docs %s", util.shell_escape(url))
+    local cmd = string.format("dwb -p docs %s", shell_escape(url))
     local props = {scope=false, slice="apps"}
     systemd.run(cmd, "docs", props)
 end

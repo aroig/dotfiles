@@ -20,11 +20,8 @@ menubar      = require("menubar")
 naughty      = require("naughty")
 hotkeys      = require("awful.hotkeys_popup")
 
-
 -- Personal stuff
-util        = require("abdo.util")           -- Utility functions
-systemd     = require("abdo.systemd")        -- systemd commands
-apps        = require("apps")                -- My preferred apps
+apps         = require("apps")
 
 
 -----------------------------------
@@ -63,7 +60,7 @@ end
 local cfgdir = awful.util.getdir("config")
 
 -- Global
-hostname  = util.get_hostname()
+hostname  = io.popen("hostname"):read()
 homedir   = os.getenv("HOME")
 
 -- Modkeys
