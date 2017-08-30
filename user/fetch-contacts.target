@@ -6,5 +6,5 @@ Description=fetch contacts
 PartOf=git-use@mail.service
 Before=git-use@mail.service
 
-Requires=goobook.service
-Before=goobook.service
+Requires=fetch-contacts.service
+Before=fetch-contacts.service

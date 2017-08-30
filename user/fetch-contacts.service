@@ -18,5 +18,4 @@ After=network-online.target
 Type=oneshot
 Slice=workers.slice
 
-ExecStart=/usr/bin/sh -c "/usr/bin/goobook dump_contacts > %h/mail/contacts/contacts.xml"
-ExecStart=/usr/bin/sh -c "/usr/bin/goobook dump_groups > %h/mail/contacts/groups.xml"
+ExecStart=/usr/bin/make -C %h/mail fetch-contacts
