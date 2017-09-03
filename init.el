@@ -102,6 +102,7 @@ This function should only modify configuration layer settings."
      shell-scripts
      sql
      systemd
+     terraform
      theming
      vimscript
      yaml
