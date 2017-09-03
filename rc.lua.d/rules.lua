@@ -85,15 +85,15 @@ clientrules = gears.table.join(
                          focus = false } },
 
         -- Priority
-        { rule_any = { class = {"Pinentry"} },
+        { rule_any = { instance = {"pinentry"} },
           properties = { floating = true,
                          ontop = true,
                          focus = true,
                          placement = awful.placement.centered } },
 
         -- Floats
-        { rule_any = { class = {"Qpaeq", "qjackctl", "Unison-gtk2", "Skype",
-                                "Pavucontrol", "Pidgin", "wpa_gui"} },
+        -- NOTE: For some reason wpa_gui does not let us center it.
+        { rule_any = { instance = {"pavucontrol", "wpa_gui"} },
           properties = { floating = true,
                          placement = awful.placement.centered } },
 
