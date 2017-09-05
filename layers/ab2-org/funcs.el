@@ -160,6 +160,7 @@
   (require 'ox-icalendar)
   (abdo-org-icalendar-export-setup)
 
+  (abdo-org-export-icalendar-agenda abdo-org-work-files   "work.ics")
   (abdo-org-export-icalendar-agenda abdo-org-perso-files  "personal.ics")
   (abdo-org-export-icalendar-agenda abdo-org-math-files   "maths.ics")
   (abdo-org-export-icalendar-agenda abdo-org-paper-files  "papers.ics")

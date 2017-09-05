@@ -67,6 +67,10 @@
   (setq abdo-org-perso-files (ab2/regexp-filter "perso/.*\\.org$" org-all-files))
   (setq org-agenda-files (append abdo-org-perso-files org-agenda-files))
 
+  ;; Work files
+  (setq abdo-org-work-files (ab2/regexp-filter "work/.*\\.org$" org-all-files))
+  (setq org-agenda-files (append abdo-org-work-files org-agenda-files))
+
   ;; Teaching files
   (setq abdo-org-teach-files (ab2/regexp-filter "teach/.*\\.org$" org-all-files))
   (setq org-agenda-files (append abdo-org-teach-files org-agenda-files))
@@ -96,9 +100,10 @@
         org-agenda-inhibit-startup t)
 
   (let ((devel-list     abdo-org-devel-files)
-        (bibrain-list    abdo-org-bibrain-files)
+        (bibrain-list   abdo-org-bibrain-files)
         (math-list      abdo-org-math-files)
         (paper-list     abdo-org-paper-files)
+        (work-list      abdo-org-work-files)
         (teach-list     abdo-org-teach-files)
         (perso-list     abdo-org-perso-files)
 
@@ -125,6 +130,7 @@
            (ab2/agenda-topic-commands "r" "Papers" paper-list)
 
            (ab2/agenda-topic-commands "e" "Teaching" teach-list)
+           (ab2/agenda-topic-commands "w" "Work" work-list)
 
            (ab2/agenda-topic-commands "p" "Personal" perso-list)
            (ab2/agenda-tree-commands "p" "j" "Journal" 4 persolog-list))))
