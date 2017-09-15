@@ -12,7 +12,7 @@ ExecStart=/usr/bin/sudo systemctl --system start wireguard@%i.service
 ExecStartPost=/usr/bin/sh -c 'while ! ( ifconfig -s | grep -q wg-%i ); do sleep 1; done'
 
 # TODO: Cannot do this because systemd leaves the interface in configuring
-# state. systemd 234 will allow to bypass the configuring state.
+# state. systemd 235 will allow to bypass the configuring state.
 #
 # ExecStartPost=/usr/lib/systemd/systemd-networkd-wait-online --quiet --timeout=30 --interface=wg-%I
 
