@@ -1,7 +1,8 @@
 [Unit]
-Description=OpenVPN connection to %I
+Description=OpenVPN connection to %i
 
 Conflicts=disconnect.target
+Conflicts=disconnect@%i.target
 
 After=machine@%i.service
 Before=sshmux@%i.service

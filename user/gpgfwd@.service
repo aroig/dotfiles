@@ -4,6 +4,7 @@ Description=forward gpg-agent to %i
 AssertHost=!%i
 
 Conflicts=disconnect.target
+Conflicts=disconnect@%i.target
 
 Requires=network-online.target
 After=network-online.target
