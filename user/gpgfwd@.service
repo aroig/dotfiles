@@ -29,12 +29,21 @@ SuccessExitStatus=0 255
 # NOTE: If the perms on the remote gnupg/ are not right, GPG on the remote will
 # silently use ~/.gnupg instead.
 
+# Establish master connection
 ExecStart=/usr/bin/ssh -N -f                                                       \
                        -o ControlMaster=yes                                        \
                        -o ControlPath=%t/ssh-gpgfwd/%%r@%%h.socket                 \
                        -o ProxyCommand=none                                        \
+                       %i
+
+# Create directories
+ExecStartPost=/usr/bin/ssh                                                         \
+                       -o ControlMaster=no                                         \
+                       -o ControlPath=%t/ssh-gpgfwd/%%r@%%h.socket                 \
+                       -o ProxyCommand=none                                        \
                        %i mkdir -m 700 -p %t/gnupg
 
+# Setup socket redirections
 ExecStartPost=/usr/bin/ssh -O forward                                              \
                        -o ControlMaster=no                                         \
                        -o ControlPath=%t/ssh-gpgfwd/%%r@%%h.socket                 \
