@@ -17,9 +17,11 @@ After=network-online.target
 Type=forking
 Slice=daemons.slice
 
-ExecStartPre=/usr/bin/mkdir -p "%t/ssh/ssh"
+RuntimeDirectory=ssh-sshmux
+RuntimeDirectoryMode=700
+
 ExecStart=/usr/bin/ssh -M -N -f                                        \
                        -o "ControlPersist=1h"                          \
-                       -o "ControlPath=%t/ssh/ssh/%%r@%%h.socket"      \
+                       -o "ControlPath=%t/ssh-sshmux/%%r@%%h.socket"   \
                        -o "ProxyCommand=none"                          \
                        %i

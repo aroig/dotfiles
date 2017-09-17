@@ -11,4 +11,4 @@ Type=simple
 Slice=daemons.slice
 
 NonBlocking=true
-ExecStart=/usr/lib/systemd/systemd-socket-proxyd %t/ssh/ssh/%u@%i.home.abdoroig.net.socket
+ExecStart=/usr/lib/systemd/systemd-socket-proxyd %t/ssh-sshmux/%u@%i.home.abdoroig.net.socket
