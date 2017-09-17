@@ -13,12 +13,6 @@
 ;; prevent running as root
 (when (string-equal (user-login-name) "root") (error "Emacs should not run as root!"))
 
-;; Workaround bug until 25.3 arrives
-;; http://lists.gnu.org/archive/html/info-gnu/2017-09/msg00006.html
-(eval-after-load "enriched"
-  '(defun enriched-decode-display-prop (start end &optional param)
-     (list start end)))
-
 (defun dotspacemacs/layers ()
   "Layer configuration:
 This function should only modify configuration layer settings."
