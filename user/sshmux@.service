@@ -20,6 +20,8 @@ Slice=daemons.slice
 RuntimeDirectory=ssh-sshmux
 RuntimeDirectoryMode=700
 
+SuccessExitStatus=0 255
+
 ExecStart=/usr/bin/ssh -M -N -f                                        \
                        -o "ControlPersist=1h"                          \
                        -o "ControlPath=%t/ssh-sshmux/%%r@%%h.socket"   \
