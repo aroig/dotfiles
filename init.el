@@ -152,6 +152,8 @@ This function should only modify configuration layer settings."
      spacemacs-purpose-popwin
      mu4e-alert          ;; broke compatibility
      mu4e-maildirs-extension ;; too slow
+     company-irony
+     flycheck-irony
      )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
