@@ -344,11 +344,11 @@
 (defun ab2/agenda-tree-commands (leading key description depth file-list)
   `(
     (,(format "%s%s" leading key) ,(format "%s" description) tags ,(format "+LEVEL=%d" depth)
-     ((org-agenda-files ,file-list)
+     ((org-agenda-files (quote ,file-list))
       (org-agenda-prefix-format "")))
 
     (,(format "%s%s" leading (upcase key)) ,(format "Search %s" description) search ""
-     ((org-agenda-files ,file-list)
+     ((org-agenda-files (quote ,file-list))
       (org-agenda-search-view-max-outline-level ,depth)
       (org-agenda-prefix-format "")))))
 
@@ -357,20 +357,20 @@
   `(
     (,leading . ,description)
 
-    (,(format "%sc" leading) "Calendar" ab2/calfw-calendar ""
-     ((org-agenda-files ,file-list)))
+    ; (,(format "%sc" leading) "Calendar" ab2/calfw-calendar ""
+    ;  ((org-agenda-files (quote ,file-list))))
 
     (,(format "%sa" leading) "Agenda" agenda ""
-     ((org-agenda-files ,file-list)))
+     ((org-agenda-files (quote ,file-list))))
 
     (,(format "%ss" leading) "Search" search ""
-     ((org-agenda-files ,file-list)
+     ((org-agenda-files (quote ,file-list))
       (org-agenda-search-view-max-outline-level 2)))
 
     (,(format "%st" leading) "Todo" todo ""
-     ((org-agenda-files ,file-list)))
+     ((org-agenda-files (quote ,file-list))))
 
     (,(format "%sg" leading) "Tag" tags-todo ""
-     ((org-agenda-files ,file-list)))))
+     ((org-agenda-files (quote ,file-list))))))
 
 

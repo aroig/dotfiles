@@ -116,10 +116,9 @@
     ;; agenda custom commands
     (setq org-agenda-custom-commands
           (nconc
-           '(("c" "Calendar" ab2/calfw-calendar ""))
+           ; '(("c" "Calendar" ab2/calfw-calendar ""))
 
            (ab2/agenda-topic-commands "d" "Development" devel-list)
-
            (ab2/agenda-topic-commands "b" "Bibrain" bibrain-list)
 
            (ab2/agenda-topic-commands "h" "Maths" math-list)
