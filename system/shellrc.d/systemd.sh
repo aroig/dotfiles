@@ -62,6 +62,8 @@ alias lock='systemctl --user start lock.target'
 
 # monitoring
 alias cgtop="systemd-cgtop --depth=10"
+alias scgtop="systemd-cgtop --depth=10 /system.slice/"
+alias ucgtop="systemd-cgtop --depth=10 /user.slice/user-$(id -u).slice/"
 
 # power management
 alias reboot="systemctl reboot"
