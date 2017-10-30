@@ -3,4 +3,6 @@
 if [ "$BASH_VERSION" ]; then
     # extended globbing
     shopt -s extglob
+    shopt -s globstar
+    shopt -s nullglob
 fi
