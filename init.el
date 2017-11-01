@@ -151,6 +151,7 @@ This function should only modify configuration layer settings."
      mu4e-maildirs-extension ;; too slow
      company-irony
      flycheck-irony
+     wolfram-mode        ;; kept being reinstalled
      )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
