@@ -7,9 +7,6 @@
 ;; old spacemacs-cache-directory.
 (setq spacemacs-cache-directory (concat (getenv "HOME") "/var/spacemacs/"))
 
-;; relocate elpa directory
-(setq package-user-dir (concat spacemacs-cache-directory "elpa/"))
-
 ;; prevent running as root
 (when (string-equal (user-login-name) "root") (error "Emacs should not run as root!"))
 
@@ -193,7 +190,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil, a form that evaluates to a package directory. For example, to
    ;; use different package directories for different Emacs versions, set this
    ;; to `emacs-version'. (default 'emacs-version)
-   dotspacemacs-elpa-subdirectory nil
+   dotspacemacs-elpa-subdirectory 'emacs-version
    ;; One of `vim', `emacs' or `hybrid'.
    ;; `hybrid' is like `vim' except that `insert state' is replaced by the
    ;; `hybrid state' with `emacs' key bindings. The value can also be a list

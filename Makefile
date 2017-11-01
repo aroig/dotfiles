@@ -15,12 +15,16 @@ SHELL       := /usr/bin/bash
 
 FORCE:
 
-.PHONY: update-init update sync pull clean-elpa
+.PHONY: update-init update sync pull setup clean-elpa
 
 pull: $(SPACEMACS_DIR)/.git/FETCH_HEAD
 
 update-init:
 	@vimdiff $(SPACEMACS_DIR)/core/templates/.spacemacs.template init.el
+
+setup:
+	@ln -sfvT $(SPACEMACS_CACHE) $(SPACEMACS_DIR)/.cache
+	ln -sfvT $(SPACEMACS_CACHE)/elpa $(SPACEMACS_DIR)/elpa
 
 sync:
 	@$(EMACS) --eval '(configuration-layer/load)'
