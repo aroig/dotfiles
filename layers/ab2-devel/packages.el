@@ -88,9 +88,7 @@
   ;; Base C++ style
   ;; (c-set-style "stroustrup")
   (c-add-style "google" ab2/google-c-style t)
-  (c-set-offset 'access-label -2)
-
-  )
+  (c-set-offset 'access-label -2))
 
 (defun ab2-devel/pre-init-cc-mode ()
   ;; flyspell for comments
