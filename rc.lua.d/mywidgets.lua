@@ -189,7 +189,7 @@ function myw.sys.update()
     end
     myw.sys.workerwdg:set_markup(icon)
 
-    if mounts["/home/abdo/priv"] then
+    if mounts["/home/abdo/priv/mnt"] then
         icon = wiboxicon("unlocked", beautiful.color_widget)
     else
         icon = wiboxicon("locked", beautiful.color_widget_alert)
