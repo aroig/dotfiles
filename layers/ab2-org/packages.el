@@ -6,7 +6,7 @@
   ))
 
 
-(defun ab2-org/pre-init-org ()
+(defun ab2-org/post-init-org ()
   ;; directories
   (let ((wiki-dir (getenv "AB2_WIKI_DIR")))
     (setq
@@ -309,10 +309,7 @@
   ;; Just a little darker than background.
   ;; For some reason, I can't set this on the emacs theme
   (custom-set-faces `(org-hide ((t (:foreground "#1f1f1f")))))
-  )
 
-
-(defun ab2-org/post-init-org ()
   (spacemacs|diminish orgtbl-mode "Ⓣ" " t"))
 
 
