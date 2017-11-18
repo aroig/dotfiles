@@ -20,8 +20,8 @@ mnt()  {
     local unit
     local arg="$(systemd-escape -p "$1")"
     case "$1" in
-        priv)    unit="home-abdo-priv.mount" ;;
-        *)       unit="media-$arg.mount"     ;;
+        priv)    unit="home-abdo-priv-mnt.mount" ;;
+        *)       unit="media-$arg.mount"         ;;
     esac
     sudo systemctl --system start "$unit"
 }
@@ -30,8 +30,8 @@ umnt() {
     local unit
     local arg="$(systemd-escape -p "$1")"
     case "$1" in
-        priv)    unit="home-abdo-priv.mount" ;;
-        *)       unit="media-$arg.mount"     ;;
+        priv)    unit="home-abdo-priv-mnt.mount" ;;
+        *)       unit="media-$arg.mount"         ;;
     esac
     sudo systemctl --system stop "$unit"
 }
