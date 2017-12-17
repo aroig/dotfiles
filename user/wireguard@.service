@@ -5,7 +5,7 @@ Description=wireguard VPN for %i
 Type=oneshot
 RemainAfterExit=true
 
-# Start openvpn
+# Start wireguard
 ExecStart=/usr/bin/sudo systemctl --system start wireguard@%i.service
 
 # Wait until the interface is up
