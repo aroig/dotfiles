@@ -7,13 +7,12 @@ After=network-online.target
 [Service]
 Type=oneshot
 
-ExecStart=/usr/bin/sh -c '                                          \
-    user=$$(id -nu);                                                \
-    host=$$(hostname -s);                                           \
-    subject="[$${host}] Journal notification";                      \
-    journal=$$(journalctl -n10 -b -q --priority=3                   \
-               SYSLOG_IDENTIFIER=systemd);                          \
-    message="Journal:\n$${journal}\n";                              \
-    echo -e "Journal:\n$${journal}\n" | mail -s "$${subject}" "%u"; \
-    sleep 5
+Environment=ACCOUNT=gmailcomp
+
+ExecStart=/usr/bin/sh -c '                                      \
+    subject="[%H] Journal notification";                        \
+    journal=$$(journalctl -n40 -b -q);                          \
+    echo -e "Subject: $${subject}\n\nJournal:\n$${journal}\n" | \
+        msmtp -C /dev/null -a ${ACCOUNT} -- "%u";               \
+    sleep 5                                                     \
 '
