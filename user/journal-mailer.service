@@ -1,9 +1,19 @@
 [Unit]
-Description=monitor journal
+Description=email journal tail
 
 Requires=network-online.target
 After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/home/abdo/.config/systemd/scripts/journal-mailer.sh
+
+ExecStart=/usr/bin/sh -c '                                          \
+    user=$$(id -nu);                                                \
+    host=$$(hostname -s);                                           \
+    subject="[$${host}] Journal notification";                      \
+    journal=$$(journalctl -n10 -b -q --priority=3                   \
+               SYSLOG_IDENTIFIER=systemd);                          \
+    message="Journal:\n$${journal}\n";                              \
+    echo -e "Journal:\n$${journal}\n" | mail -s "$${subject}" "%u"; \
+    sleep 5
+'
