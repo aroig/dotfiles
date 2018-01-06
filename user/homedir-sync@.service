@@ -2,7 +2,7 @@
 Description=sync homedir to remote %I
 
 AssertPathExists=/home/%u/arch/sync/Makefile
-AssertPathExists=/home/%u/priv
+AssertPathExists=/home/%u/priv/mnt
 
 [Service]
 Type=oneshot

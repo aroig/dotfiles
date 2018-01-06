@@ -4,9 +4,16 @@ Description=final homedir sync and poweroff
 Requires=sync-bye.service
 After=sync-bye.service
 
-
 [Service]
 Type=oneshot
-# TODO: notify halt
-ExecStart=/usr/bin/sleep 10
+
+Environment=ICON=64x64/apps/system-shutdown.svg
+Environment=TIMEOUT=10
+
+ExecStart=/usr/bin/notify-send -u normal                       \
+                               -i "${ICON_THEME}/${ICON}"      \
+                               "Shutdown"                      \
+                               "Shutting down system in ${TIMEOUT} seconds"
+
+ExecStart=/usr/bin/sleep "${TIMEOUT}"
 ExecStart=/usr/bin/systemctl --user --no-block start poweroff.target
