@@ -10,5 +10,5 @@ Slice=workers.slice
 
 Nice=19
 WorkingDirectory=/home/%u/arch/sync
-ExecStart=/usr/bin/make sync REMOTES=%I
+ExecStart=/usr/bin/make sync TERSE=1 COLOR=0 REMOTES=%I
 
