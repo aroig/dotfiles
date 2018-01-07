@@ -186,8 +186,7 @@ theme.wibox.calendar   = "&#xf133;"
 
 
 -- system icons path. I should autodetect it or something
-local icon_theme            = "Numix"
-local icon_path             = "/usr/share/icons/" .. icon_theme .. "/64/"
+local icon_path             = os.getenv("ICON_THEME") .. "/64x64/"
 
 -- {{{ Naughty icons
 theme.naughty = {}
