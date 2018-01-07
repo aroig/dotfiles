@@ -17,4 +17,4 @@ Slice=workers.slice
 
 Nice=19
 WorkingDirectory=/home/%u/arch/sync
-ExecStart=/usr/bin/make sync TERSE=1 COLOR=0 REMOTES=skynet,babel
+ExecStart=/usr/bin/make --no-print-directory --warn-undefined-variables sync TERSE=1 COLOR=0 REMOTES=skynet,babel
