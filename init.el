@@ -100,6 +100,8 @@ This function should only modify configuration layer settings."
      sql
      systemd
      terraform
+     vagrant
+     docker
      theming
      vimscript
      yaml
