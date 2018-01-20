@@ -62,7 +62,9 @@ This function should only modify configuration layer settings."
      (org :variables
           org-enable-github-support t)
      (mu4e :variables
-           mu4e-enable-mode-line nil)
+           mu4e-enable-mode-line nil
+           mu4e-use-maildirs-extension nil
+           mu4e-enable-async-operations nil)
      (rcirc :variables
             rcirc-spacemacs-layout-name "@rcirc"
             rcirc-spacemacs-layout-binding "i")
