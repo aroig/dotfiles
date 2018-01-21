@@ -238,7 +238,8 @@ It should only modify the values of Spacemacs settings."
    ;; are spaceline themes. `vanilla' is default Emacs mode-line. `custom' is a
    ;; user defined themes, refer to the DOCUMENTATION.org for more info on how
    ;; to create your own spaceline theme.. (default 'spacemacs)
-   dotspacemacs-mode-line-theme 'spacemacs
+   dotspacemacs-mode-line-theme '(spacemacs :separator nil
+                                            :separator-scale 1.35)
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
@@ -248,8 +249,7 @@ It should only modify the values of Spacemacs settings."
                                :size ,(cond ((string= system-name "galois") 17)
                                            (t 15))
                                :weight normal
-                               :width normal
-                               :powerline-scale 1.35)
+                               :width normal)
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands `M-x' (after pressing on the leader key).
