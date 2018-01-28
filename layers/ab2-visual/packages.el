@@ -71,7 +71,7 @@
    theming-headings-inherit-from-default 'all
    theming-headings-same-size 'all)
 
-  (ab2-visual/with-zenburn-color-variables
+  (zenburn-with-color-variables
     (setq
      theming-modifications
      `((zenburn
