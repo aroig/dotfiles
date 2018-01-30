@@ -77,6 +77,8 @@ This function should only modify configuration layer settings."
      ;; NOTE: ycmd sucks up memory like crazy
      ;; ycmd
      ;; semantic
+     (cmake :variables
+            cmake-enable-cmake-ide-support nil)
      syntax-checking
      asciidoc
      bibtex
