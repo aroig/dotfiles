@@ -77,6 +77,8 @@
           ("tag:watchlist AND flag:unread"                        "Watchlist"           ?w)
           ("tag:arxiv AND flag:unread"                            "Arxiv"               ?x)
 
+          ("tag:newsletter AND flag:unread"                       "Newsletter"          ?t)
+          ("tag:shopping AND flag:unread"                         "Shopping"            ?p)
           ("tag:news AND flag:unread"                             "News"                ?e)
           ("tag:blog AND flag:unread"                             "Blogs"               ?g)
           ("tag:fun AND flag:unread"                              "Fun"                 ?f)
