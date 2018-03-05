@@ -23,7 +23,8 @@
 
 
 (defun ab2-base/init-sensitive-mode ()
-  (use-package sensitive-mode)
+  (use-package sensitive-mode
+    :demand t)
 
   (spacemacs|diminish sensitive-mode "😎" " O-O¬")
 
