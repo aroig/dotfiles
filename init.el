@@ -157,8 +157,6 @@ This function should only modify configuration layer settings."
      rainbow-delimiters  ;; ugly
      smartparens         ;; annoying
      ; auto-complete
-     window-purpose      ;; annoying
-     spacemacs-purpose-popwin
      mu4e-alert          ;; broke compatibility
      mu4e-maildirs-extension ;; too slow
      company-irony
