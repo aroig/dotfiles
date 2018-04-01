@@ -7,4 +7,4 @@ PartOf=housekeeping.target
 Type=oneshot
 Slice=workers.slice
 
-ExecStart=/usr/bin/find "%h/var/trash/" -ctime +30 -mindepth 1 -maxdepth 1 -exec rm -Rf {} +
+ExecStart=/usr/bin/find "%h/var/trash/" -ctime +30 -mindepth 1 -maxdepth 1 -exec rm -Rf -v {} +
