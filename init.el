@@ -113,6 +113,7 @@ This function should only modify configuration layer settings."
      theming
      vimscript
      yaml
+     protobuf
      fasd
      ;; (shell :variables
      ;;        shell-default-height 30
