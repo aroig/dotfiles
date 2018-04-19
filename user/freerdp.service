@@ -1,0 +1,22 @@
+[Unit]
+Description=remote desktop at work
+After=graphical-session.target
+
+PartOf=graphical-session.target 
+After=graphical-session.target
+
+[Service]
+Type=simple
+
+Slice=apps.slice
+ExecStart=/usr/bin/bash -c '                 \
+    cat %h/priv/etc/freerdp/windows10.pwd |  \
+    xfreerdp                                 \
+        /from-stdin                          \
+        /size:1280x1024                      \
+        /u:abdo                              \
+        /v:windows10.virt.abdoroig.net       \
+        +clipboard                           \
+'
+
+
