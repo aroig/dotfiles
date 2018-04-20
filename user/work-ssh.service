@@ -1,0 +1,8 @@
+[Unit]
+Description=ssh tunnel to work
+
+[Service]
+Type=simple
+
+Slice=apps.slice
+ExecStart=/usr/bin/ssh -N -L 13389:localhost:13389 quark

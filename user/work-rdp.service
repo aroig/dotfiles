@@ -1,0 +1,26 @@
+[Unit]
+Description=remote desktop at work
+After=graphical-session.target
+
+PartOf=graphical-session.target 
+After=graphical-session.target
+
+Requires=work-ssh.service
+After=work-ssh.service
+
+[Service]
+Type=simple
+
+Slice=apps.slice
+ExecStart=/usr/bin/bash -c '                 \
+    cat %h/priv/etc/freerdp/pcabdo.pwd |     \
+    xfreerdp                                 \
+        /from-stdin                          \
+        /cert-ignore                         \
+        /size:1280x1024                      \
+        /u:abdo                              \
+        /v:localhost:13389                   \
+        +clipboard                           \
+'
+
+
