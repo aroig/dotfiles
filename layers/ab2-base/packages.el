@@ -3,7 +3,7 @@
         evil
         company
         uniquify
-        hippie-exp
+        yasnippet
         (sensitive-mode :location local)
         persp-mode
         mmm-mode
@@ -48,16 +48,17 @@
   (add-to-list 'auto-mode-alist `(,(concat (ab2/escape-regexp spacemacs-cache-directory) ".*$") . sensitive-mode))
   )
 
-(defun ab2-base/post-init-hippie-exp ()
+(defun ab2-base/post-init-yasnippet ()
   ;; I prefer a diferent binding for yasnippet completion
-  (global-set-key (kbd "M-+") 'hippie-expand)
-  )
+  (global-set-key (kbd "M-+") 'yas-expand))
 
 (defun ab2-base/post-init-company ()
   (setq
    tab-always-indent t
-   company-idle-delay 0.4
-  ))
+   company-idle-delay nil
+   )
+  ;; Company auto-completion
+  (global-set-key (kbd "C-+") 'company-complete-common))
 
 (defun ab2-base/post-init-persp-mode ()
   ;; Do not mess with the initial buffer
