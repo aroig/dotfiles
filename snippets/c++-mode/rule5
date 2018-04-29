@@ -1,0 +1,12 @@
+# name: rule5 ...
+# key: rule5
+# --
+${1:Name}(const $1& ${2:x}) = default;
+
+$1($1&& $2) = default;
+
+$1& operator=(const $1& $2) = default;
+
+$1& operator= ($1&& $2) = default;
+
+~$1() = default;
