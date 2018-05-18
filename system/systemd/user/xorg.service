@@ -40,7 +40,7 @@ ExecStartPre=/usr/bin/sh -c '                          \
 # NOTE: we could set the keyboard rate delay and rate frequency with: xset r rate 500 40
 # NOTE: we use the Xorg.wrap setuid binary, because otherwise Xorg refuses to run outside
 #       the session
-ExecStart=/usr/lib/xorg-server/Xorg.wrap \
+ExecStart=/usr/lib/Xorg.wrap             \
     ${DISPLAY}                           \
     -auth %t/xorg/Xauthority             \
     -nolisten tcp                        \
