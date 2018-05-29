@@ -5,7 +5,7 @@ Description=emacs daemon socket
 ListenStream=%t/emacs/server
 SocketMode=0600
 DirectoryMode=0700
-Service=emacs-proxy.service
+Service=emacs.service
 
 [Install]
 WantedBy=sockets.target

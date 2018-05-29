@@ -10,10 +10,10 @@ Requires=emacs.socket
 After=emacs.socket
 
 [Service]
-Type=forking
+Type=simple
 Slice=daemons.slice
 
-ExecStart=/usr/bin/emacs --daemon --eval '(setq server-socket-dir "%t/emacs/emacs")'
+ExecStart=/usr/bin/emacs --fg-daemon
 
 ExecReload=/usr/bin/emacsclient -s "%t/emacs/server" --eval '(dotspacemacs/sync-configuration-layers)'
 
