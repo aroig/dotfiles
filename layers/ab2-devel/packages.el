@@ -58,6 +58,7 @@
   (add-hook 'lua-mode-hook
             (lambda ()
               (setq lua-indent-level 4)
+              (editorconfig-apply)
               ))
   )
 
@@ -70,25 +71,10 @@
 
               ;;  (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
               ;;  (abdo-change-dictionary "english")      ;; I always program in english
+
+              (editorconfig-apply)
               ))
   )
-
-(defun ab2/cc-mode-config ()
-  ;; disable electric-indent. I'll use clang-format
-  ;; (electric-indent-local-mode -1)
-  (c-toggle-electric-state -1)
-
-  ;; setup tab-always-indent locally
-  (make-local-variable 'c-tab-always-indent)
-  (setq c-tab-always-indent t)
-
-  ;; Although I use clang format, this is useful while editing
-  (setq c-syntactic-indentation t)
-
-  ;; Base C++ style
-  ;; (c-set-style "stroustrup")
-  (c-add-style "google" ab2/google-c-style t)
-  (c-set-offset 'access-label -2))
 
 (defun ab2-devel/pre-init-cc-mode ()
   ;; flyspell for comments
@@ -103,11 +89,33 @@
                                  "\\|public slots\\|protected slots\\|private slots"
                                  "\\)\\>[ \t]*:"))
 
-  (add-hook 'c-mode-common-hook 'ab2/cc-mode-config))
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              ;; disable electric-indent. I'll use clang-format
+              ;; (electric-indent-local-mode -1)
+              (c-toggle-electric-state -1)
+
+              ;; setup tab-always-indent locally
+              (make-local-variable 'c-tab-always-indent)
+              (setq c-tab-always-indent t)
+
+              ;; Although I use clang format, this is useful while editing
+              (setq c-syntactic-indentation t)
+
+              ;; Base C++ style
+              ;; (c-set-style "stroustrup")
+              (c-add-style "google" ab2/google-c-style t)
+              (c-set-offset 'access-label -2)
+
+              ;; Apply editorconfig settings
+              (editorconfig-apply))))
 
 
 (defun ab2-devel/post-init-cmake-mode ()
-  (setq cmake-tab-width 4))
+  (add-hook 'cmake-mode-hook
+            (lambda ()
+              (setq cmake-tab-width 4)
+              (editorconfig-apply))))
 
 (defun ab2-devel/pre-init-ycmd ()
   (setq ycmd-server-command `(,(file-truename (concat dotspacemacs-directory "bin/ycmd")))
