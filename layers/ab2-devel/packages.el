@@ -34,8 +34,7 @@
         helm-make-executable "make --no-print-directory"))
 
 
-(defun ab2-devel/init-compile ()
-  (use-package compile :defer t)
+(defun ab2-devel/post-init-compile ()
   (setq compilation-read-command nil
         compilation-auto-jump-to-first-error nil
         compilation-scroll-output 'first-error
