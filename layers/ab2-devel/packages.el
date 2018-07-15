@@ -9,6 +9,7 @@
         cc-mode
         helm-make
         cmake-mode
+        projectile
         ; ycmd
         (irony :location local)
         (company-irony :requires company)
@@ -151,3 +152,6 @@
     :defer t
     :init
     (progn (add-hook 'irony-mode-hook 'flycheck-irony-setup))))
+
+(defun ab2-devel/post-init-projectile()
+  (setq projectile-track-known-projects-automatically nil))
