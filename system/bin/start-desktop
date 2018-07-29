@@ -72,7 +72,7 @@ start_wayland_session () {
     local session="$1"
 
     case "$session" in
-        sway) /usr/bin/sway ;;
+        sway) /usr/bin/sway 2>&1 | systemd-cat -t sway ;;
     esac
 
     # Unset environment
