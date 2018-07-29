@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+
 # NOTE: This script requires the following:
 #
 # For xorg sessions:
@@ -11,26 +12,10 @@ set -e
 # - $session.service
 # - $session-session.target
 
-# Check that we have a session
-session="${1:-default}"
-if [ -z "$session" ]; then
-    printf "No graphical session given\n"
-    exit 1
-fi
-
-# Check that we have a VT
-if [ -z "${XDG_VTNR}" ]; then
-    printf "XDG_VTNR variable is not set. Desktop sessions must be launched from a physical tty\n"
-    exit 1
-fi
-
-# Check that we have a runtime directory
-if [ -z "${XDG_RUNTIME_DIR}" ]; then
-    pritnf "XDG_RUNTIME_DIR variable not set\n"
-    exit 1
-fi
 
 WAYLAND_SESSIONS=('sway')
+
+XORG_SESSIONS=('awesome' 'default')
 
 ENVIRONMENT_VARIABLES=(
     DISPLAY
@@ -44,42 +29,93 @@ ENVIRONMENT_VARIABLES=(
     # QT_QPA_PLATFORM
 )
 
-for item in "${WAYLAND_SESSIONS[@]}"; do
-    if [ "$item" = "$session" ]; then
-        export WAYLAND_DISPLAY="wayland-${XDG_VTNR}"
-    fi
-done
 
-if [ -n "${WAYLAND_DISPLAY}" ]; then
+start_xorg_session () {
+    local session="$1"
+
+    export DISPLAY=:${XDG_VTNR}
+    export XAUTHORITY="$XDG_RUNTIME_DIR/xorg/Xauthority"
+
+    systemctl --user import-environment "${ENVIRONMENT_VARIABLES[@]}"
+
+    # Start desktop session
+    systemctl --user start "${session}-session.target"
+
+    # Start device configuration target
+    # chassis=$(hostnamectl status | awk '/Chassis/{print $2}')
+    # case "$chassis" in
+    #     tablet)  systemctl --user start tablet.target ;;
+    #     laptop)  systemctl --user start laptop.target ;;
+    #     desktop) systemctl --user start desktop.target ;;
+    #     *)       systemctl --user start desktop.target ;;
+    # esac
+
+    # Wait synchronously until the xorg server stops
+    systemctl --user start --wait xorg.service
+}
+
+
+start_wayland_session () {
+    local session="$1"
+
     # export GDK_BACKEND=wayland
     # export CLUTTER_BACKEND=wayland
     # export QT_QPA_PKATFORM=wayland-egl
     export DISPLAY=:0
 
-else
-    export DISPLAY=:${XDG_VTNR}
-    export XAUTHORITY="$XDG_RUNTIME_DIR/xorg/Xauthority"
+    # export WAYLAND_DISPLAY="wayland-${XDG_VTNR}"
+
+    systemctl --user import-environment "${ENVIRONMENT_VARIABLES[@]}"
+
+    # Start desktop session
+    systemctl --user start "${session}-session.target"
+
+    # Wait synchronously until the xorg server stops
+    systemctl --user start --wait "$session.service"
+}
+
+
+start_session () {
+    local session="$1"
+
+    for item in "${WAYLAND_SESSIONS[@]}"; do
+        if [ "$item" = "$session" ]; then
+            start_wayland_session "$session"
+            return
+        fi
+    done
+
+    for item in "${XORG_SESSIONS[@]}"; do
+        if [ "$item" = "$session" ]; then
+            start_xorg_session "$session"
+            return
+        fi
+    done
+}
+
+
+# Check that we have a session
+session="${1:-default}"
+if [ -z "$session" ]; then
+    printf "No graphical session given\\n"
+    exit 1
 fi
 
-systemctl --user import-environment "${ENVIRONMENT_VARIABLES[@]}"
+# Check that we have a VT
+if [ -z "${XDG_VTNR}" ]; then
+    printf "XDG_VTNR variable is not set. Desktop sessions must be launched from a physical tty\\n"
+    exit 1
+fi
 
-# Start desktop session
-systemctl --user start "${session}-session.target"
+# Check that we have a runtime directory
+if [ -z "${XDG_RUNTIME_DIR}" ]; then
+    pritnf "XDG_RUNTIME_DIR variable not set\\n"
+    exit 1
+fi
 
-# Start device configuration target
-# chassis=$(hostnamectl status | awk '/Chassis/{print $2}')
-# case "$chassis" in
-#     tablet)  systemctl --user start tablet.target ;;
-#     laptop)  systemctl --user start laptop.target ;;
-#     desktop) systemctl --user start desktop.target ;;
-#     *)       systemctl --user start desktop.target ;;
-# esac
-
-# Wait synchronously until the xorg server stops
-if [ -n "$WAYLAND_DISPLAY" ]; then
-    systemctl --user start --wait "$session.service"
-else
-    systemctl --user start --wait xorg.service
+if ! start_session "$session"; then
+    printf "Cannot start session: %s\\n" "$session"
+    exit 1
 fi
 
 # Unset environment
