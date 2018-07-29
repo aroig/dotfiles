@@ -9,14 +9,8 @@ TODO
 
 * Implement statusbar with all I need.
 
-* Fix dbus errors on vt switching
-
-* Configure notification daemon
-
 ## Potential blockers
   - dropdown thing
-  - keyboard layout switching
-  - emacs hangs
 
 ## Status
   - synced state
