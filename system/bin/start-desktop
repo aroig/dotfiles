@@ -30,6 +30,15 @@ ENVIRONMENT_VARIABLES=(
 )
 
 
+reset_tty () {
+    # Reset tty and colors
+    reset
+
+    # NOTE: we abuse /etc/issue to change the tty colors.
+    sed -e 's/\\\\/\\/g' -e 's/\\[a-z].*$//g' /etc/issue
+}
+
+
 start_xorg_session () {
     local session="$1"
 
@@ -52,26 +61,22 @@ start_xorg_session () {
 
     # Wait synchronously until the xorg server stops
     systemctl --user start --wait xorg.service
+
+    # Unset environment
+    systemctl --user unset-environment "${ENVIRONMENT_VARIABLES[@]}"
+    unset DISPLAY XAUTHORITY
 }
 
 
 start_wayland_session () {
     local session="$1"
 
-    # export GDK_BACKEND=wayland
-    # export CLUTTER_BACKEND=wayland
-    # export QT_QPA_PKATFORM=wayland-egl
-    export DISPLAY=:0
+    case "$session" in
+        sway) /usr/bin/sway ;;
+    esac
 
-    # export WAYLAND_DISPLAY="wayland-${XDG_VTNR}"
-
-    systemctl --user import-environment "${ENVIRONMENT_VARIABLES[@]}"
-
-    # Start desktop session
-    systemctl --user start "${session}-session.target"
-
-    # Wait synchronously until the xorg server stops
-    systemctl --user start --wait "$session.service"
+    # Unset environment
+    systemctl --user unset-environment "${ENVIRONMENT_VARIABLES[@]}"
 }
 
 
@@ -118,12 +123,5 @@ if ! start_session "$session"; then
     exit 1
 fi
 
-# Unset environment
-systemctl --user unset-environment "${ENVIRONMENT_VARIABLES[@]}"
-unset "${ENVIRONMENT_VARIABLES[@]}"
+reset_tty
 
-# Reset tty and colors
-reset
-
-# NOTE: we abuse /etc/issue to change the tty colors.
-sed -e 's/\\\\/\\/g' -e 's/\\[a-z].*$//g' /etc/issue
