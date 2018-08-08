@@ -1,10 +1,13 @@
 [Unit]
 Description=gnome session manager
 
-Conflicts=openbox.service awesome.service
+Conflicts=openbox.service awesome.service sway.service
 
-Requisite=xserver.target
-After=xserver.target
+# Need these because this service is ordered before graphical-session
+After=xorg.service vncserver.service
+
+BindsTo=graphical-session.target
+Before=graphical-session.target
 
 [Service]
 # Environment=XDG_SESSION_TYPE=wayland

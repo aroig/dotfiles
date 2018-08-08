@@ -1,0 +1,13 @@
+[Unit]
+Description=swaylock screen locker
+
+PartOf=graphical-session.target
+After=graphical-session.target
+
+BindsTo=lock-session.target
+After=lock-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/swaylock --color=000000
+

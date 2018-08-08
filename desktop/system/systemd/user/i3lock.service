@@ -1,0 +1,13 @@
+[Unit]
+Description=i3lock screen locker
+
+PartOf=graphical-session.target
+After=graphical-session.target
+
+BindsTo=lock-session.target
+After=lock-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/i3lock --nofork --color=000000
+

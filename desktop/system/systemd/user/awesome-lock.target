@@ -1,0 +1,6 @@
+[Unit]
+Description=awesome wm session lock
+
+BindsTo=i3lock.service
+After=i3lock.service
+

@@ -11,15 +11,15 @@ Conflicts=vncserver.service weston.service weston.socket
 Conflicts=console.target
 After=console.target
 
-BindsTo=xserver.target
-Before=xserver.target
+PartOf=graphical-session.target
+Before=graphical-session.target
 
 [Service]
 Type=simple
 
 Slice=wm.slice
 
-# NOTE: something like this would be needed if I manage to run xorg unprivileged
+# NOTE: something like this may be needed if I manage to run xorg unprivileged
 # StandardError=tty
 # TTYPath=/dev/tty2
 # TTYReset=yes
@@ -29,7 +29,7 @@ SuccessExitStatus=0 1
 # Setup Xauthority file
 ExecStartPre=/usr/bin/sh -c '                          \
     mkdir -p -m 700 "%t/xorg";                         \
-    echo "" > %t/xorg/Xauthority;                      \
+    touch %t/xorg/Xauthority;                          \
     HOST=$(hostname);                                  \
     COOKIE=$(xxd -l 16 -p /dev/urandom);               \
     echo "add $${HOST}/unix${DISPLAY} . $${COOKIE}" |  \
@@ -38,19 +38,20 @@ ExecStartPre=/usr/bin/sh -c '                          \
 
 # NOTE: need to launch X session at the same tty, otherwise it becomes inactive
 # NOTE: we could set the keyboard rate delay and rate frequency with: xset r rate 500 40
-ExecStart=/usr/bin/Xorg       \
-    ${DISPLAY}                \
-    -auth %t/xorg/Xauthority  \
-    -nolisten tcp             \
-    -noreset                  \
-    -verbose 0                \
-    -ardelay 500              \
-    -arinterval 25            \
+# NOTE: we use the Xorg.wrap setuid binary, because otherwise Xorg refuses to run outside
+#       the session
+ExecStart=/usr/lib/Xorg.wrap             \
+    ${DISPLAY}                           \
+    -auth %t/xorg/Xauthority             \
+    -nolisten tcp                        \
+    -noreset                             \
+    -verbose 0                           \
+    -ardelay 500                         \
+    -arinterval 25                       \
     "vt${XDG_VTNR}"
 
 # NOTE: There is no reliable way to get startup notifications.
-#   1. It is racy. clients connecting to it too soon block.
-#   2. Cannot use socket activation because somehow xorg connects to its own socket and
-#      restarts itself on shutdown.
+#   1. It is racy. clients connecting to it too soon block or fail.
+#   2. Socket activation does not avoid the race.
 ExecStartPost=/usr/bin/bash -c 'while ! xset q &>/dev/null; do sleep 1; done'
 

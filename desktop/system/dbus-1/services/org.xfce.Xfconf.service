@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.xfce.Xfconf
-Exec=/bin/false
-SystemdService=dbus-org.xfce.Xfconf.service

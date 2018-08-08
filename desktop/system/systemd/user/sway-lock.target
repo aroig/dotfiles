@@ -1,0 +1,6 @@
+[Unit]
+Description=sway wm session lock
+
+BindsTo=swaylock.service
+After=swaylock.service
+

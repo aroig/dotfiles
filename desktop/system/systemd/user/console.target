@@ -2,3 +2,5 @@
 Description=console configuration
 AllowIsolate=true
 
+Conflicts=graphical-session.target
+Before=graphical-session.target

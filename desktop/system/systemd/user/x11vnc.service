@@ -4,6 +4,9 @@ Description=x11vnc server at display :0
 Requisite=xorg.service
 After=xorg.service
 
+PartOf=graphical-session.target
+After=graphical-session.target
+
 [Service]
 Type=forking
 

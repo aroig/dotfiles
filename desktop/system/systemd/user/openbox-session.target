@@ -2,14 +2,10 @@
 Description=openbox wm session
 AllowIsolate=true
 
-BindsTo=graphical-session.target
-Before=graphical-session.target
-
 BindsTo=xorg.service
 After=xorg.service
 
 BindsTo=openbox.service
 After=openbox.service
 
-Requires=tint2.service
-After=tint2.service
+Wants=tint2.service xrdb.service

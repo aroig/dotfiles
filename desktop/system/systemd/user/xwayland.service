@@ -5,9 +5,11 @@ Conflicts=vncserver.service weston.service weston.socket xorg.service
 
 Requires=xwayland.socket
 
-BindsTo=xserver.target
-Before=xserver.target
+Conflicts=console.target
+After=console.target
 
+PartOf=graphical-session.target
+Before=graphical-session.target
 
 [Service]
 # Type=notify

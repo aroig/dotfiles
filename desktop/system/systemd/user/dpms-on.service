@@ -1,0 +1,10 @@
+[Unit]
+Description=dpms always powered
+
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/xset dpms 0 0 0
+ExecStart=/usr/bin/xset dpms force on

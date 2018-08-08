@@ -1,0 +1,12 @@
+[Unit]
+Description=Xephyr server at display :10
+
+Requires=xephyr.socket
+
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/Xephyr -ac -br -noreset -screen 1024x768 :10
+
