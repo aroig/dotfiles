@@ -51,13 +51,13 @@ eg() {
 
 # open new tmux session
 xx() {
-    if [ "$TMUX" ]; then   tmux new-window
+    if [ "$TMUX" ]; then
+        tmux new-window -c "${PWD}"
     else
-        local session="default"
         systemctl --user start tmux.service
         tmux -S "$XDG_RUNTIME_DIR/tmux/default" \
-             new-session -t "$session" -s "$session-$$" \; \
-             set destroy-unattached on\; "$@"
+             new-session  -A -c "${PWD}" -s "$session-$$" \; \
+             set destroy-unattached off \; "$@"
     fi
 }
 
@@ -69,7 +69,7 @@ xd() {
 
 # if inside tmux close window and detach, otherwise just exit
 xc() {
-    if [ "$TMUX" ]; then   tmux unlink-window -k\; detach-client
+    if [ "$TMUX" ]; then   tmux unlink-window -k \; detach-client
     else                   exit 0
     fi
 }

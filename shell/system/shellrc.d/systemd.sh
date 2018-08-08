@@ -20,8 +20,8 @@ mnt()  {
     local unit
     local arg="$(systemd-escape -p "$1")"
     case "$1" in
-        priv)    unit="home-abdo-priv.mount" ;;
-        *)       unit="media-$arg.mount"     ;;
+        priv)    unit="home-abdo-priv-mnt.mount" ;;
+        *)       unit="media-$arg.mount"         ;;
     esac
     sudo systemctl --system start "$unit"
 }
@@ -30,8 +30,8 @@ umnt() {
     local unit
     local arg="$(systemd-escape -p "$1")"
     case "$1" in
-        priv)    unit="home-abdo-priv.mount" ;;
-        *)       unit="media-$arg.mount"     ;;
+        priv)    unit="home-abdo-priv-mnt.mount" ;;
+        *)       unit="media-$arg.mount"         ;;
     esac
     sudo systemctl --system stop "$unit"
 }
@@ -62,6 +62,8 @@ alias lock='systemctl --user start lock.target'
 
 # monitoring
 alias cgtop="systemd-cgtop --depth=10"
+alias scgtop="systemd-cgtop --depth=10 /system.slice/"
+alias ucgtop="systemd-cgtop --depth=10 /user.slice/user-$(id -u).slice/"
 
 # power management
 alias reboot="systemctl reboot"

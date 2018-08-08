@@ -50,6 +50,7 @@ export AB2_BAK_DIR="$AB2_HOME/bak"
 export AB2_TRASH_DIR="$AB2_HOME/var/trash"
 
 
+
 #------------------------------
 # Desktop
 #------------------------------
@@ -59,6 +60,10 @@ export AB2_TRASH_DIR="$AB2_HOME/var/trash"
 # https://developer.gnome.org/gio/stable/running-gio-apps.html
 export GIO_USE_VFS="local"
 export GIO_USE_VOLUME_MONITOR="unix"
+
+# Icon theme
+export ICON_THEME="/usr/share/icons/Papirus-Dark"
+
 
 
 #------------------------------
