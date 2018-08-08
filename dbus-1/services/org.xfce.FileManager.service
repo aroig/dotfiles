@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.xfce.FileManager
-Exec=/bin/false
-SystemdService=dbus-org.xfce.FileManager.service

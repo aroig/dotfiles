@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.freedesktop.FileManager1
-Exec=/bin/false
-SystemdService=dbus-org.freedesktop.FileManager1.service

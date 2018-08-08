@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.ladish.jmcore
-Exec=/bin/false
-SystemdService=dbus-org.ladish.jmcore.service

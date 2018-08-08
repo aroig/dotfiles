@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.xfce.Thunar
-Exec=/bin/false
-SystemdService=dbus-org.xfce.Thunar.service
