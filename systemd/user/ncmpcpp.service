@@ -1,14 +1,14 @@
 [Unit]
 Description=ncmpcpp mpd client
 
-Requisite=graphical-session.target
+PartOf=graphical-session.target
 After=graphical-session.target
 
 [Service]
 Type=simple
 Slice=apps.slice
 
-ExecStart=/usr/bin/termite --class=musicplayer -e "/usr/bin/ncmpcpp -h %t/mpd/mpd.socket"
+ExecStart=/usr/bin/termite --name=musicplayer -e "/usr/bin/ncmpcpp"
 
 [Install]
 Alias=musicplayer.service

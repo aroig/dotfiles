@@ -10,9 +10,8 @@ Requisite=synced.target
 After=synced.target
 
 [Service]
-Type=simple
+Type=notify
 Slice=daemons.slice
 
 Environment=PULSE_PROP=application.icon_name=emblem-sound
 ExecStart=/usr/bin/mpd --no-daemon
-

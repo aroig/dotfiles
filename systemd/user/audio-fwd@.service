@@ -1,9 +1,6 @@
 [Unit]
 Description=forward audio to %i
 
-Requisite=pulseaudio.service
-After=pulseaudio.service
-
 [Service]
 Type=oneshot
 Slice=audio.slice

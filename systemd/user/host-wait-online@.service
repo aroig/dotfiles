@@ -9,9 +9,4 @@ Type=oneshot
 RemainAfterExit=true
 Slice=daemons.slice
 
-ExecStart=/usr/bin/sh -c '                         \
-    while true; do                                 \
-        ping -q -c 1 %i  >/dev/null 2>&1 && break; \
-        sleep 10;                                  \
-    done                                           \
-'
+ExecStart=/usr/bin/sh -c 'while ! ping -q -c 1 %i >/dev/null 2>&1; do sleep 5; done'

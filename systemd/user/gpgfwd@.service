@@ -4,6 +4,7 @@ Description=forward gpg-agent to %i
 AssertHost=!%i
 
 Conflicts=disconnect.target
+Conflicts=disconnect@%i.target
 
 Requires=network-online.target
 After=network-online.target
@@ -11,22 +12,44 @@ After=network-online.target
 # Requires=ssh-wait-online@%i.service
 # After=ssh-wait-online@%i.service
 
+Requires=sshmux@%i.service
 After=sshmux@%i.service
 
 [Service]
-Type=simple
+Type=forking
 Slice=daemons.slice
-# NOTE: If the perms of this are not right, GPG on the remote will silently use
-# ~/.gnupg instead.
-ExecStartPre=/usr/bin/ssh -o ControlMaster=no                                  \
-                          -o ControlPath=none                                  \
-                          %i                                                   \
-                          mkdir -m 700 -p %t/gnupg
 
-ExecStart=/usr/bin/ssh -o ControlMaster=no                                     \
-                       -o ControlPath=none                                     \
-                       -o StreamLocalBindUnlink=yes                            \
-                       -R "%t/gnupg/S.gpg-agent:%t/gnupg/S.gpg-agent.extra"    \
-                       -R "%t/gnupg/S.gpg-agent.ssh:%t/gnupg/S.gpg-agent.ssh"  \
-                       %i -N
+RuntimeDirectory=ssh-gpgfwd
+RuntimeDirectoryMode=700
 
+SuccessExitStatus=0 255
+
+# NOTE: We establish a single master connection, to create the remote dirs, and
+# redirect the sockets. This way a single session is created on the remote.
+#
+# NOTE: If the perms on the remote gnupg/ are not right, GPG on the remote will
+# silently use ~/.gnupg instead.
+
+# Establish master connection
+ExecStart=/usr/bin/ssh -N -f                                                       \
+                       -o ControlMaster=yes                                        \
+                       -o ControlPath=%t/ssh-gpgfwd/%%r@%%h.socket                 \
+                       -o ProxyCommand=none                                        \
+                       %i
+
+# Create directories
+ExecStartPost=/usr/bin/ssh                                                         \
+                       -o ControlMaster=no                                         \
+                       -o ControlPath=%t/ssh-gpgfwd/%%r@%%h.socket                 \
+                       -o ProxyCommand=none                                        \
+                       %i mkdir -m 700 -p %t/gnupg
+
+# Setup socket redirections
+ExecStartPost=/usr/bin/ssh -O forward                                              \
+                       -o ControlMaster=no                                         \
+                       -o ControlPath=%t/ssh-gpgfwd/%%r@%%h.socket                 \
+                       -o ProxyCommand=none                                        \
+                       -o StreamLocalBindUnlink=yes                                \
+                       -R "%t/gnupg/S.gpg-agent:%t/gnupg/S.gpg-agent.extra"        \
+                       -R "%t/gnupg/S.gpg-agent.ssh:%t/gnupg/S.gpg-agent.ssh"      \
+                       %i

@@ -1,12 +1,14 @@
 [Unit]
 Description=monthly check of /home/%u/%I
 
-Requisite=housekeeping.target
-After=housekeeping.target
+PartOf=housekeeping.target
 
 [Timer]
 OnCalendar=monthly
-RandomizedDelaySec=1m
+
+RandomizedDelaySec=1M
+AccuracySec=1ms
+
 Persistent=true
 Unit=homedir-check@%i.service
 

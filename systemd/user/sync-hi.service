@@ -1,20 +1,19 @@
 [Unit]
 Description=initial homedir sync
 
+AssertPathExists=/home/%u/arch/sync/Makefile
+AssertPathExists=/home/%u/priv/mnt
+
 Wants=journal-show.service
 After=journal-show.service
 
-
-Requires=homedir-sync@skynet.service
-After=homedir-sync@skynet.service
-
-Requires=homedir-sync@babel.service
-After=homedir-sync@babel.service
-
 OnFailure=journal-mailer.service
-
 
 [Service]
 Type=oneshot
+Slice=workers.slice
 
-ExecStart=/usr/bin/true
+Nice=19
+WorkingDirectory=/home/%u/arch/sync
+ExecStart=/usr/bin/make --no-print-directory --warn-undefined-variables sync TERSE=1 COLOR=0 REMOTES=skynet,babel
+ExecStart=/usr/bin/systemctl --user start synced.target

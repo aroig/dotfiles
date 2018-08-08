@@ -1,6 +1,8 @@
 [Unit]
 Description=stop stream player
 
+Before=sleep.target shutdown.target lock-session.target
+
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/systemctl --user stop stream@*.service

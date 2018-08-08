@@ -1,11 +1,8 @@
 [Unit]
 Description=pulseaudio mixer
 
-Requisite=graphical-session.target
+PartOf=graphical-session.target
 After=graphical-session.target
-
-Requisite=pulseaudio.service
-After=pulseaudio.service
 
 [Service]
 Type=simple

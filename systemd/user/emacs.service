@@ -3,17 +3,17 @@ Description=emacs daemon
 
 # need a dependency on xorg. otherwise, when X quits emacs crashes.
 # emacsclient says something about a long standing GTK bug.
-Requisite=graphical-session.target
+PartOf=graphical-session.target
 After=graphical-session.target
 
 Requires=emacs.socket
 After=emacs.socket
 
 [Service]
-Type=forking
+Type=simple
 Slice=daemons.slice
 
-ExecStart=/usr/bin/emacs --daemon --eval '(setq server-socket-dir "%t/emacs/emacs")'
+ExecStart=/usr/bin/emacs --fg-daemon
 
 ExecReload=/usr/bin/emacsclient -s "%t/emacs/server" --eval '(dotspacemacs/sync-configuration-layers)'
 

@@ -6,7 +6,7 @@ Description=ssh socket for %i
 # like it, I think.
 
 [Socket]
-ListenStream=%t/ssh/%u@%i.home.local.socket
+ListenStream=%t/ssh/%u@%i.home.abdoroig.net.socket
 Service=sshmux-proxy@%i.service
 SocketMode=0600
 DirectoryMode=0700

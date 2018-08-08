@@ -27,15 +27,8 @@ User Units
   - `wmquit.target`: quit window manager, taking care to settle stuff
 
 * Hardware state
-  - `ac.target`: using AC power
-  - `battery.target`: using battery power
-  - `docked.target`: laptop is docked
-
-* Software state
-  - `slices.target`: all slices are in place
-  - `audio.target`: audio services
-  - `daemons.target`: user daemons
-  - `network-online.target`: network is reachable
+  - `power-ac.target`: using AC power
+  - `power-battery.target`: using battery power
 
 * Hooks
   - `shutdown.target`: pulls any automatic action that needs to be taken before shutdown
@@ -43,7 +36,7 @@ User Units
   - `wakeup.target`: pulls any actions to be taken on timer-triggered wakeups
   - `synced.target`: pull any service that must be started after a successful sync
   - `umount.target`: conflicts with all filesystems I may have mounted
-  - `graphical.target`: pulled from the graphical environment.
+  - `graphical-session.target`: pulled from the graphical environment.
   - `wmclean.target`: pulled before quiting wm. Asks user to close emacs buffers, etc.
 
 * Window manager states
@@ -51,7 +44,6 @@ User Units
   - `desktop.target`: wm in desktop mode
   - `laptop.target`: wm in laptop mode
   - `tablet.target`: wm in tablet mode
-  - `vncserver.target`: wm in a vnc server
   - `lock.target`: wm is locked
 
 * Sync services
@@ -60,10 +52,6 @@ User Units
   - `sync-byeh.service`: synchronize and halt the system
   - `sync-byez.service`: synchronize and suspend the system
   - `sync-fake.service`: enter synced state without any syncing
-
-* Audio
-  - `audio.target`: audio daemons
-  - `jack.target`: jack daemons
 
 * Fetching
   - `fetch.target`

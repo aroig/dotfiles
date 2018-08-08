@@ -1,7 +1,7 @@
 [Unit]
 Description=org-mode
 
-Requisite=graphical-session.target
+PartOf=graphical-session.target
 After=graphical-session.target
 
 Requires=git-use@wiki.service

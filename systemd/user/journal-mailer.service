@@ -1,9 +1,0 @@
-[Unit]
-Description=monitor journal
-
-Requires=network-online.target
-After=network-online.target
-
-[Service]
-Type=oneshot
-ExecStart=/home/abdo/.config/systemd/scripts/journal-mailer.sh

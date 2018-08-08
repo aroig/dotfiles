@@ -1,11 +1,10 @@
 [Unit]
 Description=clean backup files
 
-Requisite=housekeeping.target
-After=housekeeping.target
+PartOf=housekeeping.target
 
 [Service]
 Type=oneshot
 Slice=workers.slice
 
-ExecStart=/usr/bin/find "%h/var/trash/" -ctime +30 -mindepth 1 -exec rm -Rf {} +
+ExecStart=/usr/bin/find "%h/var/trash/" -ctime +30 -mindepth 1 -maxdepth 1 -exec rm -Rf -v {} +

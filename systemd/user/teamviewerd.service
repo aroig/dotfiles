@@ -1,0 +1,13 @@
+[Unit]
+Description=teamviewer daemon
+StopWhenUnneeded=true
+
+[Service]
+Type=simple
+
+Slice=apps.slice
+
+ExecStart=/usr/bin/sudo systemctl --system --wait start teamviewerd.service
+ExecStop=/usr/bin/sudo systemctl --system stop teamviewerd.service
+ExecStopPost=/usr/bin/sleep 2
+

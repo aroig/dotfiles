@@ -1,7 +1,7 @@
 [Unit]
 Description=gmpc mpd client
 
-Requisite=graphical-session.target
+PartOf=graphical-session.target
 After=graphical-session.target
 
 Requires=mpd.service

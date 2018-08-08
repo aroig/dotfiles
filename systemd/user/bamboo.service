@@ -4,7 +4,7 @@ Description=bamboo tablet setup
 # The settings are tuned to grothendieck
 ConditionHost=grothendieck
 
-Requisite=graphical-session.target
+PartOf=graphical-session.target
 After=graphical-session.target
 
 # RefuseManualStart=yes

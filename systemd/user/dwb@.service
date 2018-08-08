@@ -1,7 +1,7 @@
 [Unit]
 Description=dwb %i
 
-Requisite=graphical-session.target 
+PartOf=graphical-session.target 
 After=graphical-session.target
 
 Requires=git-use@priv-var-dwb-default.service

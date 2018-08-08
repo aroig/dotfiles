@@ -1,7 +1,7 @@
 [Unit]
 Description=vifm %i
 
-Requisite=graphical-session.target 
+PartOf=graphical-session.target 
 After=graphical-session.target
 
 [Service]
@@ -9,6 +9,6 @@ Type=simple
 Slice=apps.slice
 KillMode=process
 
-ExecStart=/usr/bin/termite --class=vifm -e vifm
+ExecStart=/usr/bin/termite --name=vifm -e vifm
 
 

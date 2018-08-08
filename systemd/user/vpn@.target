@@ -1,5 +1,0 @@
-[Unit]
-Description=vpn connection to %i
-
-Requires=openvpn@%i.service
-After=openvpn@%i.service

@@ -1,7 +1,7 @@
 [Unit]
 Description=wpa_supplicant GUI
 
-Requisite=graphical-session.target
+PartOf=graphical-session.target
 After=graphical-session.target
 
 [Service]

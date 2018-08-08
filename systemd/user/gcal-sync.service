@@ -4,10 +4,12 @@ Description=sync google calendar
 AssertPathExists=/home/%u/wiki
 AssertPathExists=/home/%u/priv
 
-
 # gcal accesses and changes ~/wiki
 Requisite=synced.target
 After=synced.target
+
+Requires=git-use@mail.service
+After=git-use@mail.service
 
 Requires=network-online.target
 After=network-online.target

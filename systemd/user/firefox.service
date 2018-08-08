@@ -1,0 +1,14 @@
+[Unit]
+Description=firefox
+
+PartOf=graphical-session.target 
+After=graphical-session.target
+
+[Service]
+Type=simple
+Slice=apps.slice
+
+ExecStart=/usr/bin/firefox
+StandardOutput=null
+
+

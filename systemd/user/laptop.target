@@ -1,8 +1,0 @@
-[Unit]
-Description=laptop configuration
-AllowIsolate=true
-
-Requisite=graphical-session.target
-After=graphical-session.target
-
-Conflicts=console.target desktop.target tablet.target
