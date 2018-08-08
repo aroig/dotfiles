@@ -10,28 +10,18 @@
 -- Standard lua stuff
 string       = require("string")
 lfs          = require("lfs")
-gears        = require("gears")
 
 -- Standard awesome library
+gears        = require("gears")
 awful        = require("awful")
-awful.layout = require("awful.layout")
-awful.rules  = require("awful.rules")
-awful.remote = require("awful.remote")
-awful.tag    = require("awful.tag")
-awful.util   = require("awful.util")
-
 wibox        = require("wibox")
 beautiful    = require("beautiful")
 menubar      = require("menubar")
 naughty      = require("naughty")
-
 hotkeys      = require("awful.hotkeys_popup")
 
-
 -- Personal stuff
-util        = require("abdo.util")           -- Utility functions
-systemd     = require("abdo.systemd")        -- systemd commands
-apps        = require("apps")                -- My preferred apps
+apps         = require("apps")
 
 
 -----------------------------------
@@ -70,14 +60,14 @@ end
 local cfgdir = awful.util.getdir("config")
 
 -- Global
-hostname  = util.get_hostname()
+hostname  = io.popen("hostname"):read()
 homedir   = os.getenv("HOME")
 
 -- Modkeys
-modkey   = "Mod4"
-metakey  = "Mod1"
-ctrlkey  = "Control"
-shiftkey = "Shift"
+modkey    = "Mod4"
+metakey   = "Mod1"
+ctrlkey   = "Control"
+shiftkey  = "Shift"
 
 
 -----------------------------------
@@ -90,27 +80,11 @@ require("awful.autofocus")
 -- Load theme
 beautiful.init(awful.util.getdir("config") .. "/themes/zenburn/theme.lua")
 
+-- Key bindings
+globalkeys = {}
 
------------------------------------
--- Layouts and tags              --
------------------------------------
-
--- Layouts
--- Table of layouts to cover with awful.layout.inc, order matters.
-layouts = {
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.tile,
-    awful.layout.suit.fair,
-    awful.layout.suit.floating,
-}
-
-
--- Tags
-tags = {}
-
-awful.screen.connect_for_each_screen(function(s)
-    tags[s] = awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" }, s, layouts[1])
-end)
+-- Client rules
+clientrules = {}
 
 
 -----------------------------------
@@ -124,6 +98,16 @@ dofile(cfgdir .. "/rc.lua.d/naughty.lua")     -- Notifications
 dofile(cfgdir .. "/rc.lua.d/mywidgets.lua")   -- Widgets config
 dofile(cfgdir .. "/rc.lua.d/mywibox.lua")     -- Wibox config
 dofile(cfgdir .. "/rc.lua.d/mymenu.lua")      -- Menus
-dofile(cfgdir .. "/rc.lua.d/globalkeys.lua")  -- Globak keys
-dofile(cfgdir .. "/rc.lua.d/client.lua")      -- Client rules
+dofile(cfgdir .. "/rc.lua.d/layouts.lua")     -- Layouts
+dofile(cfgdir .. "/rc.lua.d/tags.lua")        -- Tags
+dofile(cfgdir .. "/rc.lua.d/globalkeys.lua")  -- Global keys
+dofile(cfgdir .. "/rc.lua.d/client.lua")      -- Client keys
+dofile(cfgdir .. "/rc.lua.d/rules.lua")       -- Client rules
 dofile(cfgdir .. "/rc.lua.d/signals.lua")     -- Signals
+
+
+-- Set key bindings
+root.keys(globalkeys)
+
+-- Set client rules
+awful.rules.rules = clientrules

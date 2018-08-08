@@ -69,7 +69,7 @@ local function prompt_text_with_cursor(args)
         text_end = util.escape(text:sub(args.cursor_pos + 1))
     end
 
-    ret = _prompt .. text_start .. "<span background=\"" .. util.color_strip_alpha(args.cursor_color) .. "\" foreground=\"" .. util.color_strip_alpha(args.text_color) .. "\" underline=\"" .. underline .. "\">" .. char .. "</span>" .. text_end .. spacer
+    ret = _prompt .. text_start .. "<span background=\"" .. args.cursor_color .. "\" foreground=\"" .. args.text_color .. "\" underline=\"" .. underline .. "\">" .. char .. "</span>" .. text_end .. spacer
     return ret
 end
 

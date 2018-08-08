@@ -118,13 +118,13 @@ end
 -----------------------------------
 
 myw.spacer = wibox.widget.textbox()
-myw.spacer:set_markup(colortext("  "))
+myw.spacer:set_markup(colortext(" "))
 
 myw.separator = wibox.widget.textbox()
-myw.separator:set_markup(colortext(" |  "))
+myw.separator:set_markup(colortext("| "))
 
 myw.slash = wibox.widget.textbox()
-myw.slash:set_markup(colortext("/ "))
+myw.slash:set_markup(colortext("/"))
 
 
 
@@ -187,26 +187,26 @@ function myw.sys.update()
     else
         icon = wiboxicon("worker", beautiful.color_widget_alert)
     end
-    myw.sys.workerwdg:set_markup(icon .. ' ')
+    myw.sys.workerwdg:set_markup(icon)
 
-    if mounts["/home/abdo/priv"] then
+    if mounts["/home/abdo/priv/mnt"] then
         icon = wiboxicon("unlocked", beautiful.color_widget)
     else
         icon = wiboxicon("locked", beautiful.color_widget_alert)
     end
-    myw.sys.privwdg:set_markup(icon .. ' ')
+    myw.sys.privwdg:set_markup(icon)
 
     if nmedia > 0 then
         icon = wiboxicon("usb", beautiful.color_widget)
     else
         icon = wiboxicon("usb", beautiful.color_widget_alert)
     end
-    myw.sys.mediawdg:set_markup(icon .. ' ')
+    myw.sys.mediawdg:set_markup(icon)
 
     if sync_state then icon = wiboxicon('sync', beautiful.color_widget)
     else               icon = wiboxicon('sync', beautiful.color_widget_alert)
     end
-    myw.sys.syncwdg:set_markup(icon .. ' ')
+    myw.sys.syncwdg:set_markup(icon)
 end
 
 timers.fast:connect_signal("timeout", myw.sys.update)
@@ -220,13 +220,13 @@ timers.fast:connect_signal("timeout", myw.sys.update)
 myw.hdw = {}
 
 myw.hdw.cpuicon = wibox.widget.textbox()
-myw.hdw.cpuicon:set_markup(wiboxicon('cpu', beautiful.color_widget) .. " ")
+myw.hdw.cpuicon:set_markup(wiboxicon('cpu', beautiful.color_widget))
 
 myw.hdw.memicon = wibox.widget.textbox()
-myw.hdw.memicon:set_markup(wiboxicon('memory', beautiful.color_widget) .. " ")
+myw.hdw.memicon:set_markup(wiboxicon('memory', beautiful.color_widget))
 
 myw.hdw.tempicon = wibox.widget.textbox()
-myw.hdw.tempicon:set_markup(wiboxicon('temp', beautiful.color_widget) .. " ")
+myw.hdw.tempicon:set_markup(wiboxicon('temp', beautiful.color_widget))
 
 myw.hdw.cpu  = require("abdo.widget.cpu")
 myw.hdw.mem  = require("abdo.widget.mem")
@@ -244,7 +244,7 @@ function myw.hdw.update()
     local args = myw.hdw.cpu(nil)
     if args and args[1] and args[1] ~= myw.hdw.cpuval then
         local color = wiboxcolor(0, 100, args[1])
-        local text = colortext(string.format("%s%% ", args[1]), color)
+        local text = colortext(string.format("%s%%", args[1]), color)
         myw.hdw.cpuval = args[1]
         myw.hdw.cpuwdg:set_markup(text)
     end
@@ -252,7 +252,7 @@ function myw.hdw.update()
     local args = myw.hdw.temp(nil, host_config['thermal'])
     if args and args.temp and args.temp ~= myw.hdw.tempval then
         local color = wiboxcolor(35, 70, args.temp)
-        local text = colortext(string.format("%sºC ", args.temp), color)
+        local text = colortext(string.format("%sºC", args.temp), color)
         myw.hdw.tempval = args.temp
         myw.hdw.tempwdg:set_markup(text)
     end
@@ -260,7 +260,7 @@ function myw.hdw.update()
     local args = myw.hdw.mem(nil)
     if args and args[1] and args[1] ~= myw.hdw.memval then
         local color = wiboxcolor(0, 100, args[1])
-        local text = colortext(string.format("%s%% ", args[1]), color)
+        local text = colortext(string.format("%s%%", args[1]), color)
         myw.hdw.memval = args[1]
         myw.hdw.memwdg:set_markup(text)
     end
@@ -281,7 +281,7 @@ myw.net.dwdg = wibox.widget.textbox()
 myw.net.uwdg = wibox.widget.textbox()
 
 myw.net.icon = wibox.widget.textbox()
-myw.net.icon:set_markup(wiboxicon('network', beautiful.color_widget) .. " ")
+myw.net.icon:set_markup(wiboxicon('network', beautiful.color_widget))
 
 myw.net.value = { up=-1, down=-1 }
 
@@ -298,8 +298,8 @@ function myw.net.update()
         local downcolor = wiboxcolor(0, 1700, down)
         local downtxt = colortext(string.format('%.0f', down), downcolor)
 
-        myw.net.dwdg:set_markup(downtxt .. ' ')
-        myw.net.uwdg:set_markup(uptxt .. ' ')
+        myw.net.dwdg:set_markup(downtxt)
+        myw.net.uwdg:set_markup(uptxt)
     end
     myw.net.value.up = up
     myw.net.value.down = down
@@ -366,8 +366,8 @@ function myw.mail.update()
 
         local text = colortext(string.format("%d", num), color)
 
-        myw.mail.icon:set_markup(icon .. ' ')
-        myw.mail.inwdg:set_markup(text .. ' ')
+        myw.mail.icon:set_markup(icon)
+        myw.mail.inwdg:set_markup(text)
         myw.mail.num_inbox = num
     end
 
@@ -391,14 +391,14 @@ function myw.mail.update()
 
         local text = colortext(string.format("%d", num), color)
 
-        myw.mail.outwdg:set_markup(text .. ' ')
+        myw.mail.outwdg:set_markup(text)
         myw.mail.num_queue = num
     end
 
     myw.mail.tooltip.textbox:set_text(table.concat(mail, '\n'))
 end
 
-myw.mail.icon:buttons(awful.util.table.join(awful.button({ }, 1,
+myw.mail.icon:buttons(gears.table.join(awful.button({ }, 1,
     function () exec(apps.mail) end)))
 
 myw.mail.inwdg:buttons(myw.mail.icon:buttons())
@@ -439,7 +439,7 @@ myw.mpd.src  = require("abdo.widget.mpd")
 myw.mpd.path = os.getenv("AB2_MUSIC_DIR")
 
 myw.mpd.icon = wibox.widget.textbox()
-myw.mpd.icon:set_markup(wiboxicon('music', beautiful.color_widget) .. ' ')
+myw.mpd.icon:set_markup(wiboxicon('music', beautiful.color_widget))
 
 
 myw.mpd.stateicon = wibox.widget.textbox()
@@ -479,14 +479,14 @@ function myw.mpd.update()
         end
 
         if myw.mpd.current['{state}'] ~= args['{state}'] then
-            myw.mpd.stateicon:set_markup(icon .. ' ')
+            myw.mpd.stateicon:set_markup(icon)
         end
     end
 
     myw.mpd.current = args
 end
 
-myw.mpd.icon:buttons(awful.util.table.join( awful.button({ }, 1,
+myw.mpd.icon:buttons(gears.table.join( awful.button({ }, 1,
                       function () myw.mpd.notify_song(myw.mpd.current) end)))
 myw.mpd.stateicon:buttons(myw.mpd.icon:buttons())
 
@@ -516,7 +516,7 @@ function myw.vol.update()
             icon = wiboxicon("speaker", beautiful.color_widget)
         end
 
-        myw.vol.icon:set_markup(icon .. ' ')
+        myw.vol.icon:set_markup(icon)
         if args.port then
             myw.vol.port_value = args.port
         end
@@ -524,13 +524,13 @@ function myw.vol.update()
 
     if args.vol ~= myw.vol.vol_value then
         local color = wiboxcolor(0, 100, args.vol)
-        local text = colortext(string.format("%s%% ", args.vol), color)
+        local text = colortext(string.format("%s%%", args.vol), color)
         myw.vol.widget:set_markup(text)
         myw.vol.vol_value = args.vol
     end
 end
 
-myw.vol.widget:buttons(awful.util.table.join(awful.button({ }, 1,
+myw.vol.widget:buttons(gears.table.join(awful.button({ }, 1,
     function () exec("pavucontrol") end)))
 myw.vol.icon:buttons(myw.vol.widget:buttons())
 
@@ -550,7 +550,8 @@ myw.bat.pcwidget = wibox.widget.textbox()
 myw.bat.rticon = wibox.widget.textbox()
 myw.bat.rtwidget = wibox.widget.textbox()
 
-myw.bat.tooltip = awful.tooltip({ objects = {myw.bat.pcwidget, myw.bat.rtwidget, myw.bat.pcicon, myw.bat.rticon}})
+myw.bat.tooltip = awful.tooltip({
+        objects = {myw.bat.pcwidget, myw.bat.rtwidget, myw.bat.pcicon, myw.bat.rticon}})
 
 myw.bat.percent = -1
 myw.bat.rate = -1
@@ -564,9 +565,7 @@ function myw.bat.update()
     if args.rate ~= myw.bat.rate then
         local color_rate = beautiful.color_widget
 
-        if args.state == 'charging' then
-            color_rate = wiboxcolor(-40, 0, args.rate)
-        else
+        if args.state ~= 'charging' then
             color_rate = wiboxcolor(7, 30, args.rate)
         end
 
@@ -575,7 +574,7 @@ function myw.bat.update()
     end
 
     if args.percent ~= myw.bat.percent or args.state ~= myw.bat.state then
-        local color_percent = wiboxcolor(-100, 0, args.percent)
+        local color_percent = wiboxcolor(-100, 0, -args.percent)
 
         local battery_state = {
             full        = " ",
@@ -606,7 +605,7 @@ function myw.bat.update()
     myw.bat.time = args.time
 end
 
-myw.bat.rtwidget:buttons(awful.util.table.join(awful.button({ }, 1,
+myw.bat.rtwidget:buttons(gears.table.join(awful.button({ }, 1,
     function () exec("gnome-power-statistics") end)))
 myw.bat.pcwidget:buttons(myw.bat.rtwidget:buttons())
 myw.bat.pcicon:buttons(myw.bat.rtwidget:buttons())
@@ -622,9 +621,9 @@ timers.fast:connect_signal("timeout", myw.bat.update)
 
 myw.clock = {}
 myw.clock.icon = wibox.widget.textbox()
-myw.clock.icon:set_markup(wiboxicon("clock", beautiful.color_widget) .. ' ')
+myw.clock.icon:set_markup(wiboxicon("clock", beautiful.color_widget))
 
-myw.clock.clockwdg = wibox.widget.textclock(colortext("%a %d %b %H:%M ", beautiful.color_widget_value))
+myw.clock.clockwdg = wibox.widget.textclock(colortext("%a %d %b %H:%M", beautiful.color_widget_value))
 
 
 
@@ -634,9 +633,9 @@ myw.clock.clockwdg = wibox.widget.textclock(colortext("%a %d %b %H:%M ", beautif
 
 myw.keyb = {}
 myw.keyb.icon = wibox.widget.textbox()
-myw.keyb.icon:set_markup(wiboxicon("keyboard", beautiful.color_widget) .. ' ')
+myw.keyb.icon:set_markup(wiboxicon("keyboard", beautiful.color_widget))
 
-myw.keyb.icon:buttons(awful.util.table.join(
+myw.keyb.icon:buttons(gears.table.join(
                           awful.button({ }, 1, function () osk() end)))
 
 myw.keyb.keybwdg = awful.widget.keyboardlayout()
@@ -658,7 +657,7 @@ myw.systray = wibox.widget.systray()
 
 myw.taglist = {}
 
-myw.taglist.buttons = awful.util.table.join(
+myw.taglist.buttons = gears.table.join(
     awful.button({ }, 1, function(t) t:view_only() end),
     awful.button({ }, 3, awful.tag.viewtoggle)
 --   awful.button({ modkey }, 1, awful.client.movetotag),
@@ -679,7 +678,7 @@ end)
 
 myw.tasklist = {}
 
-myw.tasklist.buttons = awful.util.table.join(
+myw.tasklist.buttons = gears.table.join(
     awful.button({ }, 1,
         function (c)
             if c == client.focus then
@@ -716,7 +715,10 @@ myw.tasklist.buttons = awful.util.table.join(
 )
 
 awful.screen.connect_for_each_screen(function(s)
-   myw.tasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, myw.tasklist.buttons)
+        myw.tasklist[s] = awful.widget.tasklist(s,
+                                                awful.widget.tasklist.filter.currenttags,
+                                                myw.tasklist.buttons,
+                                                { tasklist_disable_icon = true } )
 end)
 
 
@@ -729,11 +731,11 @@ myw.layoutbox = {}
 
 awful.screen.connect_for_each_screen(function(s)
    myw.layoutbox[s] = awful.widget.layoutbox(s)
-   myw.layoutbox[s]:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc(1, nil, layouts) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1, nil, layouts) end),
-                           awful.button({ }, 4, function () awful.layout.inc(1, nil, layouts) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1, nil, layouts) end)))
+   myw.layoutbox[s]:buttons(gears.table.join(
+                           awful.button({ }, 1, function () awful.layout.inc(1) end),
+                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
+                           awful.button({ }, 4, function () awful.layout.inc(1) end),
+                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
  end)
 
 

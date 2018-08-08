@@ -20,11 +20,11 @@ theme.confdir = util.getdir("config") .. "/themes/zenburn"
 -- fontconfig on a per-host basis.
 
 -- basic awesome fonts
-theme.font         = "desktop 11"
-theme.font_mono    = "terminal 11"
-theme.font_symbol  = "desktop-symbols 11"
+theme.font         = "terminal 12"
+theme.font_mono    = "terminal 12"
+theme.font_symbol  = "desktop-symbols 10"
 
-theme.font_naughty = "desktop 14"
+theme.font_naughty = "terminal 14"
 theme.font_box     = "terminal 12"
 -- }}}
 
@@ -186,8 +186,7 @@ theme.wibox.calendar   = "&#xf133;"
 
 
 -- system icons path. I should autodetect it or something
-local icon_theme            = "Numix"
-local icon_path             = "/usr/share/icons/" .. icon_theme .. "/64/"
+local icon_path             = os.getenv("ICON_THEME") .. "/64x64/"
 
 -- {{{ Naughty icons
 theme.naughty = {}
