@@ -17,16 +17,6 @@
         mu4e-sent-folder   "/All Mail"
         mu4e-trash-folder  "/Trash")
 
-  ;; config
-  (setq mu4e-change-filenames-when-moving nil
-        mu4e-get-mail-command "true"
-        mu4e-compose-signature-auto-include nil
-        mail-user-agent 'mu4e-user-agent
-        message-kill-buffer-on-exit t
-        mu4e-sent-message-behaviour 'sent
-        mu4e-use-fancy-chars nil
-        )
-
   ;; headers view
   (setq mu4e-headers-results-limit 500
         mu4e-headers-show-threads t
@@ -87,6 +77,8 @@
           ("tag:watchlist AND flag:unread"                        "Watchlist"           ?w)
           ("tag:arxiv AND flag:unread"                            "Arxiv"               ?x)
 
+          ("tag:newsletter AND flag:unread"                       "Newsletter"          ?t)
+          ("tag:shopping AND flag:unread"                         "Shopping"            ?p)
           ("tag:news AND flag:unread"                             "News"                ?e)
           ("tag:blog AND flag:unread"                             "Blogs"               ?g)
           ("tag:fun AND flag:unread"                              "Fun"                 ?f)
@@ -103,6 +95,14 @@
   )
 
 (defun ab2-mu4e/post-init-mu4e ()
+  ;; config
+  (setq mu4e-change-filenames-when-moving nil
+        mu4e-get-mail-command "true"
+        mu4e-compose-signature-auto-include nil
+        mail-user-agent 'mu4e-user-agent
+        message-kill-buffer-on-exit t
+        mu4e-sent-message-behaviour 'sent
+        mu4e-use-fancy-chars nil)
 
   (with-eval-after-load "mu4e"
     (require 'mu4e-contrib)
