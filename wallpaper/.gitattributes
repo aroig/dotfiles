@@ -1,3 +1,0 @@
-milkyway.jpg filter=lfs diff=lfs merge=lfs -text
-sunrise.jpg filter=lfs diff=lfs merge=lfs -text
-sunrise2.jpg filter=lfs diff=lfs merge=lfs -text
