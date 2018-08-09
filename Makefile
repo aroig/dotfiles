@@ -6,7 +6,7 @@
 # using the git merge -s subtree.                                         #
 # ----------------------------------------------------------------------- #
 
-REMOTES=awesome compton dbus-1 desktop shell spacemacs systemd vim vifm zathura
+REMOTES=awesome compton desktop shell spacemacs systemd vim vifm zathura sway
 
 # shell settings
 SHELL       := /usr/bin/bash
