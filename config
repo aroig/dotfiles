@@ -1,1 +1,50 @@
-host/grothendieck/config
+# 
+# Modiifier keys
+
+set $mod Mod4  # logo key
+set $alt Mod1  # Alt key
+
+
+#
+# Preferred applications
+set $term termite
+set $menu dmenu_run
+
+#
+# Font
+font pango:Ubuntu Mono 10
+
+  
+# focus follow mouse
+focus_follows_mouse yes
+
+# move mouse when changing outputs
+mouse_warping output
+
+# gaps around views
+gaps 2
+for_window [class="termite-dropdown"] floating enable; move scratchpad
+
+#
+# Status Bar:
+#
+bar {
+    status_command i3status
+    position top
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
+### Output configuration
+#
+# Default wallpaper
+output * bg ~/.config/sway/wallpaper/milkyway.jpg fill
+#
+# Example output configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+
+include ~/.config/sway/config.d/*
+include ~/.config/sway/host.d/`hostname`.conf
