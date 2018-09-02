@@ -15,7 +15,7 @@ set -e
 
 WAYLAND_SESSIONS=('sway')
 
-XORG_SESSIONS=('awesome' 'default')
+XORG_SESSIONS=('awesome' 'gnome' 'default')
 
 ENVIRONMENT_VARIABLES=(
     DISPLAY
