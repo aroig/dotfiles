@@ -16,10 +16,11 @@ mark h ~/
 mark v ~/vids
 mark p ~/maths/papers
 mark m /media
-mark b ~/bibrain
+mark b ~/work/bibrain
 mark d ~/devel
 mark s ~/src
-mark w ~/down
+mark n ~/down
+mark r ~/work/scaledrobotics
 
 
 " Local Settings
