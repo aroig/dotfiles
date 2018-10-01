@@ -51,13 +51,14 @@ eg() {
 
 # open new tmux session
 xx() {
+    local session="default"
     if [ "$TMUX" ]; then
         tmux new-window -c "${PWD}"
     else
         systemctl --user start tmux.service
         tmux -S "$XDG_RUNTIME_DIR/tmux/default" \
-             new-session  -A -c "${PWD}" -s "$session-$$" \; \
-             set destroy-unattached off \; "$@"
+             new-session -A -t "$session" -c "${PWD}" -s "$session-$$" \; \
+             set destroy-unattached on \; "$@"
     fi
 }
 
