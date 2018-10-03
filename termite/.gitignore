@@ -1,0 +1,7 @@
+\#*\#
+*~
+*.pyc
+*.bak
+__pycache__
+pids/*
+conf.d/upgrades.sh
