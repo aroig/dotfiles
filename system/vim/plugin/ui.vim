@@ -76,9 +76,9 @@ endif
 set statusline+=%=
 
 "git status
-if ! &diff
-    set statusline+=%2*%{exists('g:loaded_fugitive')?fugitive#head():''}%*\ 
-endif
+" if ! &diff
+"     set statusline+=%2*%{FugitiveStatusline()}%*\ 
+" endif
 
 "line:column percent
 set statusline+=\|\ %l:%-2c\ %P\                             
@@ -86,4 +86,4 @@ set statusline+=\|\ %l:%-2c\ %P\
 "file encoding, file format
 if ! &diff
     set statusline+=\|\ %{strlen(&fenc)?&fenc:'none'}\ %{&ff}\ 
-endif
+    endif
