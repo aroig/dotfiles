@@ -8,7 +8,7 @@ set $ctl Control
 include ~/.config/sway/theme.d/zenburn.conf
 
 # Commands
-set $dmenu dmenu -fn "$font" -nb "$color_bg" -nf "$color_fg" -sb "$color_bg" -sf "$color_active"
+set $dmenu dmenu -fn "$dmenu_font" -nb "$color_bg" -nf "$color_fg" -sb "$color_bg" -sf "$color_active"
 set $yesorno printf "yes\nno\n" | $dmenu | echo
 
 # Include config files
