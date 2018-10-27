@@ -6,6 +6,8 @@ After=graphical-session.target
 
 [Service]
 Type=dbus
+Slice=wm.slice
+
 BusName=org.freedesktop.Notifications
 ExecStart=/usr/bin/dunst
 
