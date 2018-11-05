@@ -4,9 +4,6 @@ Description=initial homedir sync
 AssertPathExists=/home/%u/arch/sync/Makefile
 AssertPathExists=/home/%u/priv/mnt
 
-Wants=journal-show.service
-After=journal-show.service
-
 OnFailure=journal-mailer.service
 
 [Service]
