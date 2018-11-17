@@ -79,10 +79,8 @@ This function should only modify configuration layer settings."
      search-engine
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
-            c-c++-enable-clang-support t)
-     ;; NOTE: ycmd sucks up memory like crazy
-     ;; ycmd
-     ;; semantic
+            c-c++-backend 'lsp-ccls)
+     lsp
      (cmake :variables
             cmake-enable-cmake-ide-support nil)
      syntax-checking
@@ -102,7 +100,8 @@ This function should only modify configuration layer settings."
      lua
      coq
      octave
-     python
+     (python :variables
+             python-backend 'lsp)
      restclient
      ruby
      gpu
@@ -663,3 +662,4 @@ before packages are loaded."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+
