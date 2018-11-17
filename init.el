@@ -79,7 +79,8 @@ This function should only modify configuration layer settings."
      search-engine
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
-            c-c++-backend 'lsp-ccls)
+            c-c++-backend 'lsp-ccls
+            c-c++-lsp-cache-dir "/home/abdo/build/ccls")
      (lsp :variables
           lsp-ui-sideline-enable nil
           lsp-ui-doc-enable nil)
