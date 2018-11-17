@@ -80,7 +80,9 @@ This function should only modify configuration layer settings."
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-backend 'lsp-ccls)
-     lsp
+     (lsp :variables
+          lsp-ui-sideline-enable nil
+          lsp-ui-doc-enable nil)
      (cmake :variables
             cmake-enable-cmake-ide-support nil)
      syntax-checking
@@ -147,7 +149,6 @@ This function should only modify configuration layer settings."
      dbus
      diff-hl
      (mu4e :location local)
-     (irony :location local)
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -161,8 +162,6 @@ This function should only modify configuration layer settings."
      ; auto-complete
      mu4e-alert          ;; broke compatibility
      mu4e-maildirs-extension ;; too slow
-     company-irony
-     flycheck-irony
      wolfram-mode        ;; kept being reinstalled
      recentf-mode        ;; do not use it and annoying recentf buffer
      )
