@@ -10,10 +10,6 @@
         helm-make
         cmake-mode
         projectile
-        ; ycmd
-        (irony :location local)
-        (company-irony :requires company)
-        (flycheck-irony :requires flycheck)
         ))
 
 
@@ -116,41 +112,6 @@
             (lambda ()
               (setq cmake-tab-width 4)
               (editorconfig-apply))))
-
-(defun ab2-devel/pre-init-ycmd ()
-  (setq ycmd-server-command `(,(file-truename (concat dotspacemacs-directory "bin/ycmd")))
-        ycmd-force-semantic-completion t
-        ycmd-extra-conf-whitelist (file-truename (concat user-emacs-directory "layers"))
-        )
-  (spacemacs|diminish ycmd-mode "Ⓒ" " C"))
-
-(defun ab2-devel/init-irony ()
-  (use-package irony-mode
-    :defer t
-    :init
-    (progn
-      (setq irony-server-install-prefix "/usr")
-      (setq irony--server-executable (concat dotspacemacs-directory "bin/irony-server"))
-      (add-hook 'c-mode-hook 'irony-mode)
-      (add-hook 'c++-mode-hook 'irony-mode)
-      (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-      (spacemacs|diminish irony-mode "Ⓘ" " I"))))
-
-
-(defun ab2-devel/init-company-irony ()
-  (use-package company-irony
-    :defer t
-    :init
-    (progn
-      (push 'company-irony company-backends-c-mode-common)
-      (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands))))
-
-
-(defun ab2-devel/init-flycheck-irony ()
-  (use-package flycheck-irony
-    :defer t
-    :init
-    (progn (add-hook 'irony-mode-hook 'flycheck-irony-setup))))
 
 (defun ab2-devel/post-init-projectile()
   (setq projectile-track-known-projects-automatically nil))
