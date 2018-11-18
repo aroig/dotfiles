@@ -30,6 +30,10 @@ default_project() {
 
 PROJECT=$(realpath "$1")
 
+# Debug:
+# cat > ~/blah-init.txt
+# echo "$PROJECT" > ~/blah-proj.txt
+
 if [ ! -d "${PROJECT}" ]; then
     return 0
 fi
