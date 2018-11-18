@@ -65,7 +65,7 @@ trash() {
     done
 }
 
-alias stx="start-desktop sway"
+alias stx="start-desktop "
 alias klx="systemctl --user start console.target"
 
 
