@@ -87,7 +87,7 @@ This function should only modify configuration layer settings."
                   :compilationDatabaseCommand "/home/abdo/.spacemacs.d/bin/get-compdb"))
      (lsp :variables
           lsp-ui-sideline-enable nil
-          lsp-ui-doc-enable nil)
+          lsp-ui-doc-enable t)
      (cmake :variables
             cmake-enable-cmake-ide-support nil)
      syntax-checking
