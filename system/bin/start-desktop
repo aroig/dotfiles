@@ -15,7 +15,7 @@ set -e
 
 WAYLAND_SESSIONS=('sway')
 
-XORG_SESSIONS=('awesome' 'gnome' 'default')
+XORG_SESSIONS=('awesome' 'gnome')
 
 ENVIRONMENT_VARIABLES=(
     DISPLAY
@@ -100,7 +100,7 @@ start_session () {
 
 
 # Check that we have a session
-session="${1:-default}"
+session="${1}"
 if [ -z "$session" ]; then
     printf "No graphical session given\\n"
     exit 1
