@@ -81,7 +81,10 @@ This function should only modify configuration layer settings."
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-adopt-subprojects t
             c-c++-backend 'lsp-ccls
-            c-c++-lsp-cache-dir "/home/abdo/build/ccls")
+            c-c++-lsp-cache-dir "/home/abdo/build/ccls"
+            c-c++-lsp-extra-init-params '(
+                  :cacheFormat "msgpack"
+                  :compilationDatabaseCommand "/home/abdo/.spacemacs.d/bin/get-compdb"))
      (lsp :variables
           lsp-ui-sideline-enable nil
           lsp-ui-doc-enable nil)
@@ -663,4 +666,5 @@ before packages are loaded."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+
 

@@ -1,0 +1,46 @@
+#!/bin/bash
+
+scaledrobotics_project() {
+    local project="$1"
+    local package="${project##*/}"
+    local profile=$(sed -n 's/active:\s*\(.*\)/\1/p' "$SR_WORKSPACE/.catkin_tools/profiles/profiles.yaml")
+    local builddir="${SR_WORKSPACE}/build/${profile}/${package}"
+
+    if [ -f "${builddir}/compile_commands.json" ]; then
+        cat "${builddir}/compile_commands.json" | sed                         \
+            -e "s|/home/abdo/code/workspace|$SR_WORKSPACE|g"                  \
+            -e "s|/opt/ros/$SR_ROSDISTRO|$SR_ROSROOT/opt/ros/$SR_ROSDISTRO|g" \
+            -e "s|/usr/local|$SR_ROSROOT/usr/local|g"                         \
+            -e "s|/usr/include|$SR_ROSROOT/usr/include|g"                     \
+            -e "s|/usr/lib|$SR_ROSROOT/usr/lib|g"                             \
+            -e "s|/usr/src|$SR_ROSROOT/usr/src|g"                             \
+            -e "s|/usr/bin|$SR_ROSROOT/usr/bin|g" 
+    fi  
+}   
+
+compiledb_project() {
+    local project="$1"
+    cat "$project/compile_commands.json"
+}   
+
+default_project() {
+    local project="$1"
+}
+
+
+PROJECT=$(realpath "$1")
+
+if [ ! -d "${PROJECT}" ]; then
+    return 0
+fi
+
+if [ "${PROJECT##$SR_WORKSPACE}" != "${PROJECT}" ]; then
+    scaledrobotics_project "$PROJECT"
+
+elif [ -f "${PROJECT}/compile_commands.json" ]; then
+    compiledb_project "$PROJECT"
+
+else
+    default_project "$PROJECT"
+fi  
+
