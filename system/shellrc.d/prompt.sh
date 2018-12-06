@@ -94,6 +94,7 @@ abdo_prompt_userhost() {
 
     case "$host" in
 	    grothendieck) hcol="${fg[yellow]}"       ;;
+        riemann)      hcol="${fg_bold[yellow]}"  ;;
         galois)       hcol="${fg_bold[red]}"     ;;
         skynet)       hcol="${fg_bold[cyan]}"    ;;
         quark)        hcol="${fg_bold[blue]}"    ;;
