@@ -304,7 +304,8 @@ It should only modify the values of Spacemacs settings."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font `("monospace"
                                :size ,(cond ((string= system-name "galois") 17)
-                                           (t 15))
+                                            ((string= system-name "riemann") 17)
+                                            (t 15))
                                :weight normal
                                :width normal)
 
