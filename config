@@ -10,10 +10,12 @@ set $swaycfg ~/.config/sway
 # Theme
 include $swaycfg/theme.d/zenburn.conf
 
+# Host specific
+include $swaycfg/host.d/`hostname`.conf
+
 # Commands
-set $dmenu dmenu -fn "$dmenu_font" -nb "$color_bg" -nf "$color_fg" -sb "$color_bg" -sf "$color_active"
+set $dmenu dmenu -fn "$font-$font_size" -nb "$color_bg" -nf "$color_fg" -sb "$color_bg" -sf "$color_active"
 set $yesorno printf "yes\nno\n" | $dmenu | echo
 
 # Include config files
 include $swaycfg/config.d/*.conf
-include $swaycfg/host.d/`hostname`.conf
