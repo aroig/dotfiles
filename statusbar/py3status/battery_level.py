@@ -121,6 +121,7 @@ class Py3status:
     threshold_bad = 10
     threshold_degraded = 30
     threshold_full = 100
+    thresholds = [(0, "bad"), (20, "degraded"), (50, "good")]
 
     class Meta:
         deprecated = {
@@ -408,6 +409,9 @@ class Py3status:
                                                       (len(self.blocks) - 1))))]
 
     def _update_full_text(self):
+        self.py3.threshold_get_color(self.percent_charged, "percent")
+        self.py3.threshold_get_color(self.rate, "rate")
+
         self.full_text = self.py3.safe_format(
             self.format,
             dict(ascii_bar=self.ascii_bar,
