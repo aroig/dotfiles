@@ -1,47 +1,15 @@
 TODO
 ====
 
-## Priority
-
-* Implement dropdown windows.
-  - resize them on start
-  - stash them on the scratchpad
-
-* Implement statusbar with all I need.
-
-## Potential blockers
-  - dropdown thing
-
 ## Status
-  - synced state
-  - workers
-  - priv
-  - media
-  - cpu
-  - temp
-  - memory
-  - network
-  - email?
-  - battery
-  - power
-  - music
-  - volume
-  - active keyboard layout
-  - time
-
-### j4status
-  - extend systemd input plugin to the user instance
-  - fix pkgbuild `--sysconfdir=/etc` thing
-  - fix assertion thing
-  - keyboard layout?
-  - report memory usage from /proc/meminfo
+  - Implement pulseaudio state with python-pulse-control, and avoid pactl calls
+  - Implement nvidia state with python-nvidia-ml and avoid nvidia-smi calls
 
 ## Notifications
 ### eventd
   - extend journald plugin to have richer matching syntax.
 
 ## Applications
-  - emacs sometimes hangs. Need to investigate
 
 ## Minor
 
