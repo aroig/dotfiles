@@ -50,8 +50,8 @@ This function should only modify configuration layer settings."
 
      ivy
      (auto-completion :variables
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-snippets-in-popup nil
+                      auto-completion-enable-help-tooltip 'manual
                       auto-completion-return-key-behavior nil
                       auto-completion-tab-key-behavior 'cycle
                       auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
@@ -90,7 +90,8 @@ This function should only modify configuration layer settings."
           lsp-ui-doc-enable t)
      (cmake :variables
             cmake-enable-cmake-ide-support nil)
-     syntax-checking
+     (syntax-checking :variables
+                      syntax-checking-enable-tooltip nil)
      asciidoc
      bibtex
      emacs-lisp
