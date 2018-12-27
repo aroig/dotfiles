@@ -77,6 +77,10 @@
   ; (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
   ; (abdo-change-dictionary "english")      ;; I always program in english
 
+  ;; do not auto-indent on paste
+  (add-to-list 'spacemacs-indent-sensitive-modes 'c-mode)
+  (add-to-list 'spacemacs-indent-sensitive-modes 'c++-mode)
+
   ;; extra QT Keywords
   (setq c-protection-key (concat "\\<\\(public\\|public slot\\|protected"
                                  "\\|protected slot\\|private\\|private slot"
