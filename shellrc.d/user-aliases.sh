@@ -33,7 +33,7 @@ cgls-colorize() {
             sedrules+=("$rule")
         fi
     done
-    sed $(printf "-e %s " "${sedrules[@]}")
+    sed $(printf -- "-e %s " "${sedrules[@]}")
 }
 
 scgls() {
