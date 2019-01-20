@@ -1,0 +1,11 @@
+[Unit]
+Description=journal syslog terminal
+
+PartOf=graphical-session.target 
+After=graphical-session.target
+
+[Service]
+Type=simple
+Slice=apps.slice
+
+ExecStart=/usr/bin/termite --name=top-dropdown -e "glances"
