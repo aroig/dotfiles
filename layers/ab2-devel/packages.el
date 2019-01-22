@@ -100,7 +100,7 @@
               (setq c-tab-always-indent t)
 
               ;; Although I use clang format, this is useful while editing
-              (setq c-syntactic-indentation t)
+              (setq c-syntactic-indentation nil)
 
               ;; Base C++ style
               ;; (c-set-style "stroustrup")
