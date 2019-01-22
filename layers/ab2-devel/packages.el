@@ -10,6 +10,7 @@
         helm-make
         cmake-mode
         projectile
+        lsp-mode
         ))
 
 
@@ -81,6 +82,12 @@
   (add-to-list 'spacemacs-indent-sensitive-modes 'c-mode)
   (add-to-list 'spacemacs-indent-sensitive-modes 'c++-mode)
 
+  ;; settings
+  (setq
+    c-tab-always-indent t
+    c-syntactic-indentation nil
+    c-electric-flag nil)
+
   ;; extra QT Keywords
   (setq c-protection-key (concat "\\<\\(public\\|public slot\\|protected"
                                  "\\|protected slot\\|private\\|private slot"
@@ -91,24 +98,19 @@
 
   (add-hook 'c-mode-common-hook
             (lambda ()
-              ;; disable electric-indent. I'll use clang-format
-              ;; (electric-indent-local-mode -1)
-              (c-toggle-electric-state -1)
-
-              ;; setup tab-always-indent locally
-              (make-local-variable 'c-tab-always-indent)
-              (setq c-tab-always-indent t)
-
-              ;; Although I use clang format, this is useful while editing
-              (setq c-syntactic-indentation nil)
-
               ;; Base C++ style
               ;; (c-set-style "stroustrup")
               (c-add-style "google" ab2/google-c-style t)
               (c-set-offset 'access-label -2)
 
+              ;; Disable electric indent
+              (setq c-electric-flag nil)
+
               ;; Apply editorconfig settings
               (editorconfig-apply))))
+
+(defun ab2-devel/post-init-lsp-mode ()
+  (setq lsp-restart 'ignore))
 
 
 (defun ab2-devel/post-init-cmake-mode ()
