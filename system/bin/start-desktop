@@ -71,9 +71,13 @@ start_xorg_session () {
 start_wayland_session () {
     local session="$1"
 
-    case "$session" in
-        sway) /usr/bin/sway --unsupported-gpu 2>&1 | systemd-cat -t sway ;;
-    esac
+    systemctl --user import-environment "${ENVIRONMENT_VARIABLES[@]}"
+
+    # Start desktop session
+    systemctl --user start "${session}-session.target"
+
+    # Wait synchronously until the compositor stops
+    systemctl --user start --wait "$session.service"
 
     # Unset environment
     systemctl --user unset-environment "${ENVIRONMENT_VARIABLES[@]}"
