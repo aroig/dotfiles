@@ -2,4 +2,7 @@
 Description=sway wm session
 AllowIsolate=true
 
+BindsTo=sway.service
+After=sway.service
+
 Wants=mako.service xrdb.service
