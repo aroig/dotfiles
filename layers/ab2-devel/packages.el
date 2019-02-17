@@ -110,7 +110,8 @@
               (editorconfig-apply))))
 
 (defun ab2-devel/post-init-lsp-mode ()
-  (setq lsp-restart 'ignore))
+  (setq lsp-restart 'ignore)
+  (spacemacs|diminish lsp-mode "Ⓛ" " L"))
 
 
 (defun ab2-devel/post-init-cmake-mode ()
