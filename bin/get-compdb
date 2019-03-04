@@ -3,8 +3,8 @@
 scaledrobotics_project() {
     local project="$1"
     local package="${project##*/}"
-    local profile=$(sed -n 's/active:\s*\(.*\)/\1/p' "$SR_WORKSPACE/.catkin_tools/profiles/profiles.yaml")
-    local builddir="${SR_WORKSPACE}/build/${profile}/${package}"
+    local profile=$(sed -n 's/active:\s*\(.*\)/\1/p' "$SR_BUILDDIR/../.catkin_tools/profiles/profiles.yaml")
+    local builddir="${SR_BUILDDIR}/${profile}/${package}"
 
     if [ -f "${builddir}/compile_commands.json" ]; then
         cat "${builddir}/compile_commands.json" | sed                         \
