@@ -11,7 +11,7 @@
 
 # ls
 alias ls='ls --human-readable --color=auto --quoting-style=literal -F'
-alias ll='exa -l -g -h --time-style=default --git'
+alias ll='exa -l -g --time-style=default --git'
 alias lt='tree -C'
 
 # filesystem stuff
