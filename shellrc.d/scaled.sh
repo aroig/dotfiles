@@ -8,5 +8,5 @@ export SR_ROSROOT="/var/lib/machines/ros-$SR_ROSDISTRO"
 ros() {
     local distro="${1-$SR_ROSDISTRO}"
     sudo machinectl start "ros-$distro"
-    sudo machinectl shell "ros-$distro"
+    sudo machinectl shell --uid 1000 "ros-$distro"
 }
