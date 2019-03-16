@@ -7,7 +7,10 @@ export SR_ROSROOT="/var/lib/machines/ros-$SR_ROSDISTRO"
 
 ros() {
     local distro="${1-$SR_ROSDISTRO}"
-    sudo machinectl start "ros-$distro"
-    sleep 4
-    sudo machinectl shell --uid 1000 "ros-$distro"
+    local machine="ros-$distro"
+    if ! machinectl show $machine | grep -q State=running >/dev/null 2>&1; then
+        sudo machinectl start "$machine"
+        sleep 4
+    fi
+    sudo machinectl shell --uid 1000 "$machine"
 }
