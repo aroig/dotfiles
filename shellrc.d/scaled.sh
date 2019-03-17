@@ -8,7 +8,7 @@ export SR_ROSROOT="/var/lib/machines/ros-$SR_ROSDISTRO"
 ros() {
     local distro="${1-$SR_ROSDISTRO}"
     local machine="ros-$distro"
-    if ! machinectl show $machine | grep -q State=running >/dev/null 2>&1; then
+    if ! machinectl show $machine 2>/dev/null | grep -q State=running; then
         sudo machinectl start "$machine"
         sleep 4
     fi
