@@ -14,7 +14,7 @@ scaledrobotics_project() {
             -e "s|/usr/include|$SR_ROSROOT/usr/include|g"                     \
             -e "s|/usr/lib|$SR_ROSROOT/usr/lib|g"                             \
             -e "s|/usr/src|$SR_ROSROOT/usr/src|g"                             \
-            -e "s|/usr/bin|$SR_ROSROOT/usr/bin|g" 
+            -e "s|/usr/bin|$SR_ROSROOT/usr/bin|g"
     fi
 }
 
@@ -27,7 +27,6 @@ default_project() {
     local project="$1"
 }
 
-
 PROJECT=$(realpath "$1")
 
 # Debug:
@@ -35,7 +34,7 @@ PROJECT=$(realpath "$1")
 # echo "$PROJECT" > ~/blah-proj.txt
 
 if [ ! -d "${PROJECT}" ]; then
-    return 0
+    exit 0
 fi
 
 if [ "${PROJECT##$SR_WORKSPACE}" != "${PROJECT}" ]; then
