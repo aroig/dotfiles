@@ -15,13 +15,13 @@ scaledrobotics_project() {
             -e "s|/usr/lib|$SR_ROSROOT/usr/lib|g"                             \
             -e "s|/usr/src|$SR_ROSROOT/usr/src|g"                             \
             -e "s|/usr/bin|$SR_ROSROOT/usr/bin|g" 
-    fi  
-}   
+    fi
+}
 
 compiledb_project() {
     local project="$1"
     cat "$project/compile_commands.json"
-}   
+}
 
 default_project() {
     local project="$1"
@@ -46,5 +46,5 @@ elif [ -f "${PROJECT}/compile_commands.json" ]; then
 
 else
     default_project "$PROJECT"
-fi  
+fi
 
