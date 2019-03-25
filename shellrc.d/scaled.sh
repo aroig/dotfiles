@@ -14,3 +14,10 @@ ros() {
     fi
     sudo machinectl shell --uid 1000 "$machine"
 }
+
+rcd() {
+    local repo="$1"
+    local gitdir=$(find "$SR_WORKSPACE/src" -path "*/$repo/.git" | head -1)
+    cd "${gitdir%.git}"
+}
+
