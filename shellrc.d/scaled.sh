@@ -3,16 +3,35 @@
 export SR_ROSDISTRO="melodic"
 export SR_WORKSPACE="$HOME/work/scaled/code/workspace"
 export SR_BUILDDIR="$HOME/build/scaled/home/$SR_ROSDISTRO/code/workspace/build"
-export SR_ROSROOT="/var/lib/machines/ros-$SR_ROSDISTRO"
+export SR_ROSROOT="/var/lib/machines/$SR_ROSNAME"
+export SR_ROSMACHINE="ros-$SR_ROSDISTRO"
+export SR_ROSUSER="abdo"
 
-ros() {
-    local distro="${1-$SR_ROSDISTRO}"
-    local machine="ros-$distro"
-    if ! machinectl show $machine 2>/dev/null | grep -q State=running; then
-        sudo machinectl start "$machine"
+sr_ros_run() {
+    local reldir=$(realpath --relative-to "$SR_WORKSPACE" .)
+    local guestdir="/home/$SR_ROSUSER/code/workspace/$reldir"
+
+    sudo systemd-run --pipe --wait        \
+         --machine "$SR_ROSMACHINE"       \
+         --uid "$SR_ROSUSER"              \
+         --working-directory "$guestdir"  \
+         /bin/bash -c "$*"
+}
+
+sr_ros_start() {
+    if ! machinectl show "$SR_ROSMACHINE" 2>/dev/null | grep -q State=running; then
+        sudo machinectl start "$SR_ROSMACHINE"
         sleep 4
     fi
-    sudo machinectl shell --uid 1000 "$machine"
+}
+
+sr_ros_shell() {
+    sudo machinectl shell --uid "$SR_ROSUSER" "$SR_ROSMACHINE"
+}
+
+ros() {
+    sr_ros_start
+    sr_ros_shell
 }
 
 rcd() {
@@ -21,3 +40,14 @@ rcd() {
     cd "${gitdir%.git}"
 }
 
+rr() {
+    sr_ros_run "source ~/.bashrc; rosrun $*"
+}
+
+ck() {
+    sr_ros_run "source ~/.bashrc; catkin $*"
+}
+
+ckb() {
+    ck build --this
+}
