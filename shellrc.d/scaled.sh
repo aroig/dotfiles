@@ -29,6 +29,19 @@ sr_ros_shell() {
     sudo machinectl shell --uid "$SR_ROSUSER" "$SR_ROSMACHINE"
 }
 
+sr_catkin_package() {
+    local d=$(pwd)
+    while [ -n "$d" ]; do
+        if [ -e "$d/package.xml" ]; then
+            printf "%s" "$(basename "$d")"
+            return
+        else
+            d="${d%/*}"
+        fi
+    done
+    return 1
+}
+
 ros() {
     sr_ros_start
     sr_ros_shell
@@ -44,6 +57,11 @@ rr() {
     sr_ros_run "source ~/.bashrc; rosrun $*"
 }
 
+rrh() {
+    local pkg=$(sr_catkin_package)
+    rr "$pkg" "$@"
+}
+
 ck() {
     sr_ros_run "source ~/.bashrc; catkin $*"
 }
@@ -51,3 +69,4 @@ ck() {
 ckb() {
     ck build --this
 }
+
