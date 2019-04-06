@@ -12,7 +12,7 @@ sr_ros_run() {
     local guestdir="/home/$SR_ROSUSER/code/workspace/$reldir"
 
     sudo systemd-run                      \
-         --pipe --wait --collect          \
+         --pty --wait --collect           \
          --machine "$SR_ROSMACHINE"       \
          --uid "$SR_ROSUSER"              \
          --working-directory "$guestdir"  \
