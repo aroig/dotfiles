@@ -11,7 +11,8 @@ sr_ros_run() {
     local reldir=$(realpath --relative-to "$SR_WORKSPACE" .)
     local guestdir="/home/$SR_ROSUSER/code/workspace/$reldir"
 
-    sudo systemd-run --pipe --wait        \
+    sudo systemd-run                      \
+         --pipe --wait --collect          \
          --machine "$SR_ROSMACHINE"       \
          --uid "$SR_ROSUSER"              \
          --working-directory "$guestdir"  \
