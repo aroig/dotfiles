@@ -7,9 +7,14 @@ export SR_ROSROOT="/var/lib/machines/$SR_ROSNAME"
 export SR_ROSMACHINE="ros-$SR_ROSDISTRO"
 export SR_ROSUSER="abdo"
 
-sr_ros_run() {
-    local reldir=$(realpath --relative-to "$SR_WORKSPACE" .)
+sr_workspace_in_ros() {
+    local reldir=$(realpath --relative-to "$SR_WORKSPACE" "$1")
     local guestdir="/home/$SR_ROSUSER/code/workspace/$reldir"
+    printf "%s" "$guestdir"
+}
+
+sr_ros_run() {
+    local guestdir=$(sr_workspace_in_ros .)
 
     sudo systemd-run                      \
          --pty --wait --collect           \
@@ -27,7 +32,11 @@ sr_ros_start() {
 }
 
 sr_ros_shell() {
-    sudo machinectl shell --uid "$SR_ROSUSER" "$SR_ROSMACHINE"
+    local wdir="${1-/home/$SR_ROSUSER}"
+    sudo machinectl shell           \
+        --uid "$SR_ROSUSER"         \
+        --working-directory "$wdir" \
+        "$SR_ROSMACHINE"
 }
 
 sr_catkin_package() {
@@ -46,6 +55,10 @@ sr_catkin_package() {
 ros() {
     sr_ros_start
     sr_ros_shell
+}
+
+rosh() {
+    sr_ros_run "bash --login"
 }
 
 rcd() {
