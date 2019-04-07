@@ -32,10 +32,8 @@ sr_ros_start() {
 }
 
 sr_ros_shell() {
-    local wdir="${1-/home/$SR_ROSUSER}"
     sudo machinectl shell           \
         --uid "$SR_ROSUSER"         \
-        --working-directory "$wdir" \
         "$SR_ROSMACHINE"
 }
 
