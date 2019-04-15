@@ -2,20 +2,32 @@
 # Scaled Robotics code
 export SR_ROSDISTRO="melodic"
 export SR_WORKSPACE="$HOME/work/scaled/code/workspace"
+export SR_DATA="$HOME/data/scaled"
 export SR_BUILDDIR="$HOME/build/scaled/home/$SR_ROSDISTRO/code/workspace/build"
 export SR_ROSROOT="/var/lib/machines/$SR_ROSNAME"
 export SR_ROSMACHINE="ros-$SR_ROSDISTRO"
 export SR_ROSUSER="abdo"
 
-sr_workspace_in_ros() {
+sr_ros_path() {
     local reldir=$(realpath --relative-to "$SR_WORKSPACE" "$1")
-    local guestdir="/home/$SR_ROSUSER/code/workspace/$reldir"
-    printf "%s" "$guestdir"
+    if [ "${reldir##..}" = "${reldir}" ]; then
+        local guestdir="/home/$SR_ROSUSER/code/workspace/$reldir"
+        printf "%s" "$guestdir"
+        return
+    fi
+
+    reldir=$(realpath --relative-to "$SR_DATA" "$1")
+    if [ "${reldir##..}" = "${reldir}" ]; then
+        local guestdir="/data/$reldir"
+        printf "%s" "$guestdir"
+        return
+    fi
+
+    printf "%s" "$1"
 }
 
 sr_ros_run() {
-    local guestdir=$(sr_workspace_in_ros .)
-
+    local guestdir=$(sr_ros_path .)
     sudo systemd-run                      \
          --pty --wait --collect           \
          --machine "$SR_ROSMACHINE"       \
