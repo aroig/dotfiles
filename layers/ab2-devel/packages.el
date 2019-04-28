@@ -84,9 +84,13 @@
 
   ;; settings
   (setq
+    c-c++-enable-auto-newline nil
     c-tab-always-indent t
     c-syntactic-indentation nil
-    c-electric-flag nil)
+    c-electric-flag nil
+    c-auto-newline nil
+    lsp-enable-on-type-formatting nil
+  )
 
   ;; extra QT Keywords
   (setq c-protection-key (concat "\\<\\(public\\|public slot\\|protected"
@@ -103,11 +107,12 @@
               (c-add-style "google" ab2/google-c-style t)
               (c-set-offset 'access-label -2)
 
+              ;; Apply editorconfig settings
+              (editorconfig-apply)
+
               ;; Disable electric indent
               (setq c-electric-flag nil)
-
-              ;; Apply editorconfig settings
-              (editorconfig-apply))))
+              )))
 
 (defun ab2-devel/post-init-lsp-mode ()
   (setq lsp-restart 'ignore)
