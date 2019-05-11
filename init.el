@@ -87,6 +87,7 @@ This function should only modify configuration layer settings."
      (lsp :variables
           lsp-ui-sideline-enable nil
           lsp-ui-doc-enable t)
+     dap
      (cmake :variables
             cmake-enable-cmake-ide-support nil)
      (syntax-checking :variables
