@@ -610,7 +610,10 @@ before packages are loaded."
   ;; extra mode associations
   (add-to-list 'auto-mode-alist '("vi.*rc\\'" . vimrc-mode))
   (add-to-list 'auto-mode-alist '("\\.vifm\\'" . vimrc-mode))
-  )
+
+  ;; ROS
+  (add-to-list 'auto-mode-alist '("\\.launch\\'" . xml-mode))
+)
 
 
 ;; Tweak zenburn colors
