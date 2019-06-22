@@ -123,5 +123,6 @@ export TERMINFO="$HOME/.terminfo:/usr/share/terminfo"
 
 # The path
 add_to_pathlist_left PATH "$HOME/bin"
+add_to_pathlist_left PATH "$HOME/.local/bin"
 export PATH="$PATH"
 
