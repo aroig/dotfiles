@@ -1,0 +1,12 @@
+[Unit]
+Description=Wayland status bar
+
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/waybar
+
+[Install]
+WantedBy=sway-session.target
