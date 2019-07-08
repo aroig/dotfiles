@@ -63,6 +63,12 @@ abdo_prompt_nix() {
 }
 
 
+abdo_prompt_virtualenv() {
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        echo "[${_cb}${fg_bold[blue]}${_ce}${VIRTUAL_ENV##*/}${fx[reset]}${_ce}] "
+    fi
+}
+
 abdo_prompt_shell_color() {
     if [[ -n "$ZSH_VERSION" ]]; then    echo "${fg[white]}"
     elif [[ -n "$BASH_VERSION" ]]; then echo "${fg[cyan]}"
@@ -151,7 +157,7 @@ abdo_prompt_directory() {
 
 abdo_prompt_main () {
     local prompt_pre prompt_post
-    prompt_pre="$(abdo_prompt_tmux)$(abdo_prompt_nix)$(abdo_prompt_userhost)"
+    prompt_pre="$(abdo_prompt_tmux)$(abdo_prompt_nix)$(abdo_prompt_virtualenv)$(abdo_prompt_userhost)"
     prompt_post="$(abdo_prompt_vcs)$(abdo_prompt_directory)$(abdo_prompt_symbol)"
     echo -n "${prompt_pre}${prompt_post} "
 }
