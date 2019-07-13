@@ -4,13 +4,18 @@ set $mod Mod4
 set $alt Mod1
 set $ctl Control
 
+# Paths
+set $swaycfg ~/.config/sway
+
 # Theme
-include ~/.config/sway/theme.d/zenburn.conf
+include $swaycfg/theme.d/zenburn.conf
+
+# Host specific
+include $swaycfg/host.d/`hostname`.conf
 
 # Commands
-set $dmenu dmenu -fn "$font" -nb "$color_bg" -nf "$color_fg" -sb "$color_bg" -sf "$color_active"
+set $dmenu dmenu -fn "$font-$font_size" -nb "$color_bg" -nf "$color_fg" -sb "$color_bg" -sf "$color_active"
 set $yesorno printf "yes\nno\n" | $dmenu | echo
 
 # Include config files
-include ~/.config/sway/config.d/*.conf
-include ~/.config/sway/host.d/`hostname`.conf
+include $swaycfg/config.d/*.conf
