@@ -8,7 +8,7 @@ After=graphical-session.target
 Type=simple
 Slice=apps.slice
 
-ExecStart=/usr/bin/chromium --profile-directory=Default
+ExecStart=/usr/bin/chromium --new-window --class=chromium-%I --user-data-dir=%h/var/chromium/%I
 StandardOutput=null
 
 

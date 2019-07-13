@@ -8,4 +8,4 @@ Type=oneshot
 Slice=workers.slice
 
 # NOTE: Do not use environment variables here. If they are empty, it can mess things up royally.
-ExecStart=/usr/bin/find "%h/tmp/" -mtime +90 -mindepth 1 -maxdepth 1 -exec rm -Rf -v {} +
+ExecStart=/usr/bin/find "%h/tmp/" -mtime +90 -mindepth 1 -maxdepth 1 -print -exec rm -Rf {} +

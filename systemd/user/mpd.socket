@@ -1,10 +1,6 @@
 [Unit]
 Description=Music Player Daemon socket
 
-# NOTE: Do not add After dependencies here to avoid a dependency cycle on shutdown:
-# synced.target > basic.target > sockets.target > mpd.socket > synced.target
-Requisite=synced.target
-
 [Socket]
 ListenStream=%t/mpd/mpd.socket
 SocketMode=0600
