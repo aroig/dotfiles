@@ -85,12 +85,14 @@ tm()  {
 
 # vifm as an awesome dropdown
 fm() {
-    echo "ddshow('app:vifm-dropdown', true)" | awesome-client
+    sdrun vifm-dropdown.service
+    # TODO: remove this once vifm is socket-activated
+    sleep 0.5
+
     if [ "$1" ]; then local dir=$(realpath "$1")
     else              local dir=$(realpath "$PWD")
     fi
-    # TODO: remove this once vifm is socket-activated
-    sleep 0.5
+
     vifm --remote -c "cd '$dir'"
 }
 

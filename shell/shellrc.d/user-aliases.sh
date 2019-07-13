@@ -33,7 +33,7 @@ cgls-colorize() {
             sedrules+=("$rule")
         fi
     done
-    sed $(printf "-e %s " "${sedrules[@]}")
+    sed $(printf -- "-e %s " "${sedrules[@]}")
 }
 
 scgls() {
@@ -65,7 +65,7 @@ trash() {
     done
 }
 
-alias stx="start-desktop"
+alias stx="start-desktop "
 alias klx="systemctl --user start console.target"
 
 
