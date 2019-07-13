@@ -10,10 +10,7 @@
         helm-make
         cmake-mode
         projectile
-        ; ycmd
-        (irony :location local)
-        (company-irony :requires company)
-        (flycheck-irony :requires flycheck)
+        lsp-mode
         ))
 
 
@@ -81,6 +78,20 @@
   ; (flyspell-prog-mode)                    ;; Enable flyspell on C/C++ comments
   ; (abdo-change-dictionary "english")      ;; I always program in english
 
+  ;; do not auto-indent on paste
+  (add-to-list 'spacemacs-indent-sensitive-modes 'c-mode)
+  (add-to-list 'spacemacs-indent-sensitive-modes 'c++-mode)
+
+  ;; settings
+  (setq
+    c-c++-enable-auto-newline nil
+    c-tab-always-indent t
+    c-syntactic-indentation nil
+    c-electric-flag nil
+    c-auto-newline nil
+    lsp-enable-on-type-formatting nil
+  )
+
   ;; extra QT Keywords
   (setq c-protection-key (concat "\\<\\(public\\|public slot\\|protected"
                                  "\\|protected slot\\|private\\|private slot"
@@ -91,24 +102,21 @@
 
   (add-hook 'c-mode-common-hook
             (lambda ()
-              ;; disable electric-indent. I'll use clang-format
-              ;; (electric-indent-local-mode -1)
-              (c-toggle-electric-state -1)
-
-              ;; setup tab-always-indent locally
-              (make-local-variable 'c-tab-always-indent)
-              (setq c-tab-always-indent t)
-
-              ;; Although I use clang format, this is useful while editing
-              (setq c-syntactic-indentation t)
-
               ;; Base C++ style
               ;; (c-set-style "stroustrup")
               (c-add-style "google" ab2/google-c-style t)
               (c-set-offset 'access-label -2)
 
               ;; Apply editorconfig settings
-              (editorconfig-apply))))
+              (editorconfig-apply)
+
+              ;; Disable electric indent
+              (setq c-electric-flag nil)
+              )))
+
+(defun ab2-devel/post-init-lsp-mode ()
+  (setq lsp-restart 'ignore)
+  (spacemacs|diminish lsp-mode "Ⓛ" " L"))
 
 
 (defun ab2-devel/post-init-cmake-mode ()
@@ -116,41 +124,6 @@
             (lambda ()
               (setq cmake-tab-width 4)
               (editorconfig-apply))))
-
-(defun ab2-devel/pre-init-ycmd ()
-  (setq ycmd-server-command `(,(file-truename (concat dotspacemacs-directory "bin/ycmd")))
-        ycmd-force-semantic-completion t
-        ycmd-extra-conf-whitelist (file-truename (concat user-emacs-directory "layers"))
-        )
-  (spacemacs|diminish ycmd-mode "Ⓒ" " C"))
-
-(defun ab2-devel/init-irony ()
-  (use-package irony-mode
-    :defer t
-    :init
-    (progn
-      (setq irony-server-install-prefix "/usr")
-      (setq irony--server-executable (concat dotspacemacs-directory "bin/irony-server"))
-      (add-hook 'c-mode-hook 'irony-mode)
-      (add-hook 'c++-mode-hook 'irony-mode)
-      (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-      (spacemacs|diminish irony-mode "Ⓘ" " I"))))
-
-
-(defun ab2-devel/init-company-irony ()
-  (use-package company-irony
-    :defer t
-    :init
-    (progn
-      (push 'company-irony company-backends-c-mode-common)
-      (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands))))
-
-
-(defun ab2-devel/init-flycheck-irony ()
-  (use-package flycheck-irony
-    :defer t
-    :init
-    (progn (add-hook 'irony-mode-hook 'flycheck-irony-setup))))
 
 (defun ab2-devel/post-init-projectile()
   (setq projectile-track-known-projects-automatically nil))

@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;; -*- mode: emacs-lisp; lexical-bindings: t -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -50,8 +50,8 @@ This function should only modify configuration layer settings."
 
      ivy
      (auto-completion :variables
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-snippets-in-popup nil
+                      auto-completion-enable-help-tooltip 'manual
                       auto-completion-return-key-behavior nil
                       auto-completion-tab-key-behavior 'cycle
                       auto-completion-private-snippets-directory "~/.spacemacs.d/snippets/"
@@ -68,7 +68,9 @@ This function should only modify configuration layer settings."
      (mu4e :variables
            mu4e-enable-mode-line nil
            mu4e-use-maildirs-extension nil
-           mu4e-enable-async-operations nil)
+           mu4e-enable-async-operations nil
+           mu4e-decryption-policy nil
+     )
      (rcirc :variables
             rcirc-spacemacs-layout-name "@rcirc"
             rcirc-spacemacs-layout-binding "i")
@@ -77,13 +79,19 @@ This function should only modify configuration layer settings."
      search-engine
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
-            c-c++-enable-clang-support t)
-     ;; NOTE: ycmd sucks up memory like crazy
-     ;; ycmd
-     ;; semantic
+            c-c++-adopt-subprojects t
+            c-c++-backend 'lsp-ccls
+            c-c++-lsp-cache-dir "/home/abdo/build/ccls"
+            c-c++-lsp-initialization-options '(
+                  :compilationDatabaseCommand "/home/abdo/.spacemacs.d/bin/get-compdb"))
+     (lsp :variables
+          lsp-ui-sideline-enable nil
+          lsp-ui-doc-enable t)
+     dap
      (cmake :variables
             cmake-enable-cmake-ide-support nil)
-     syntax-checking
+     (syntax-checking :variables
+                      syntax-checking-enable-tooltip nil)
      asciidoc
      bibtex
      emacs-lisp
@@ -100,7 +108,8 @@ This function should only modify configuration layer settings."
      lua
      coq
      octave
-     python
+     (python :variables
+             python-backend 'lsp)
      restclient
      ruby
      gpu
@@ -138,6 +147,9 @@ This function should only modify configuration layer settings."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
+   ;; To use a local version of a package, use the `:location' property:
+   ;; '(your-package :location "~/path/to/your-package/")
+   ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages
    '(
      meson-mode
@@ -146,7 +158,6 @@ This function should only modify configuration layer settings."
      dbus
      diff-hl
      (mu4e :location local)
-     (irony :location local)
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -160,8 +171,6 @@ This function should only modify configuration layer settings."
      ; auto-complete
      mu4e-alert          ;; broke compatibility
      mu4e-maildirs-extension ;; too slow
-     company-irony
-     flycheck-irony
      wolfram-mode        ;; kept being reinstalled
      recentf-mode        ;; do not use it and annoying recentf buffer
      )
@@ -269,6 +278,11 @@ It should only modify the values of Spacemacs settings."
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
 
+   ;; Default major mode for a new empty buffer. Possible values are mode
+   ;; names such as `text-mode'; and `nil' to use Fundamental mode.
+   ;; (default `text-mode')
+   dotspacemacs-new-empty-buffer-major-mode 'text-mode
+
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
 
@@ -283,11 +297,11 @@ It should only modify the values of Spacemacs settings."
                          spacemacs-dark)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
-   ;; `all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
-   ;; are spaceline themes. `vanilla' is default Emacs mode-line. `custom' is a
-   ;; user defined themes, refer to the DOCUMENTATION.org for more info on how
-   ;; to create your own spaceline theme. Value can be a symbol or list with\
-   ;; additional properties.
+   ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
+   ;; first three are spaceline themes. `doom' is the doom-emacs mode-line.
+   ;; `vanilla' is default Emacs mode-line. `custom' is a user defined themes,
+   ;; refer to the DOCUMENTATION.org for more info on how to create your own
+   ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
    dotspacemacs-mode-line-theme '(spacemacs :separator nil :separator-scale 1.35)
 
@@ -295,11 +309,11 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
 
-   ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
-   ;; quickly tweak the mode-line size to make separators look not too crappy.
+   ;; Default font or prioritized list of fonts.
    dotspacemacs-default-font `("monospace"
                                :size ,(cond ((string= system-name "galois") 17)
-                                           (t 15))
+                                            ((string= system-name "riemann") 16)
+                                            (t 15))
                                :weight normal
                                :width normal)
 
@@ -362,9 +376,9 @@ It should only modify the values of Spacemacs settings."
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 0
 
-   ;; If non-nil, the paste transient-state is enabled. While enabled, pressing
-   ;; `p' several times cycles through the elements in the `kill-ring'.
-   ;; (default nil)
+   ;; If non-nil, the paste transient-state is enabled. While enabled, after you
+   ;; paste something, pressing `C-j' and `C-k' several times cycles through the
+   ;; elements in the `kill-ring'. (default nil)
    dotspacemacs-enable-paste-transient-state t
 
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
@@ -402,6 +416,11 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil) (Emacs 24.4+ only)
    dotspacemacs-maximized-at-startup nil
 
+   ;; If non-nil the frame is undecorated when Emacs starts up. Combine this
+   ;; variable with `dotspacemacs-maximized-at-startup' in OSX to obtain
+   ;; borderless fullscreen. (default nil)
+   dotspacemacs-undecorated-at-startup nil
+
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -418,7 +437,9 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil show the color guide hint for transient state keys. (default t)
    dotspacemacs-show-transient-state-color-guide t
 
-   ;; If non-nil unicode symbols are displayed in the mode line. (default t)
+   ;; If non-nil unicode symbols are displayed in the mode line.
+   ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
+   ;; the value to quoted `display-graphic-p'. (default t)
    dotspacemacs-mode-line-unicode-symbols t
 
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
@@ -427,10 +448,14 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-smooth-scrolling t
 
    ;; Control line numbers activation.
-   ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
-   ;; `text-mode' derivatives. If set to `relative', line numbers are relative.
+   ;; If set to `t', `relative' or `visual' then line numbers are enabled in all
+   ;; `prog-mode' and `text-mode' derivatives. If set to `relative', line
+   ;; numbers are relative. If set to `visual', line numbers are also relative,
+   ;; but lines are only visual lines are counted. For example, folded lines
+   ;; will not be counted and wrapped lines are counted as multiple lines.
    ;; This variable can also be set to a property list for finer control:
    ;; '(:relative nil
+   ;;   :visual nil
    ;;   :disabled-for-modes dired-mode
    ;;                       doc-view-mode
    ;;                       markdown-mode
@@ -438,6 +463,7 @@ It should only modify the values of Spacemacs settings."
    ;;                       pdf-view-mode
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
+   ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
    dotspacemacs-line-numbers nil
 
@@ -462,6 +488,13 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
    dotspacemacs-enable-server nil
+
+   ;; Set the emacs server socket location.
+   ;; If nil, uses whatever the Emacs default is, otherwise a directory path
+   ;; like \"~/.emacs.d/server\". It has no effect if
+   ;; `dotspacemacs-enable-server' is nil.
+   ;; (default nil)
+   dotspacemacs-server-socket-dir nil
 
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
@@ -524,13 +557,20 @@ It should only modify the values of Spacemacs settings."
    (set-fontset-font "fontset-default" '(#x1f600 . #x1f6ff) "Symbola")   ; Emoticons
   ))
 
+(defun dotspacemacs/user-env ()
+  "Environment variables setup.
+This function defines the environment variables for your Emacs session. By
+default it calls `spacemacs/load-spacemacs-env' which loads the environment
+variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
+See the header of this file for more information."
+  (spacemacs/load-spacemacs-env))
+
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
 This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-
   (setq-default
    ;; personal
    user-full-name    "Abdó Roig-Maranges"
@@ -556,6 +596,13 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; TODO
   (setq abdo-personal-dicts-path (format "%s/usr/dict/aspell/" (getenv "HOME")))
 
+  )
+
+(defun dotspacemacs/user-load ()
+  "Library to load while dumping.
+This function is called only while dumping Spacemacs configuration. You can
+`require' or `load' the libraries of your choice that will be included in the
+dump."
   )
 
 (defun dotspacemacs/user-config ()
@@ -591,7 +638,10 @@ before packages are loaded."
   ;; extra mode associations
   (add-to-list 'auto-mode-alist '("vi.*rc\\'" . vimrc-mode))
   (add-to-list 'auto-mode-alist '("\\.vifm\\'" . vimrc-mode))
-  )
+
+  ;; ROS
+  (add-to-list 'auto-mode-alist '("\\.launch\\'" . xml-mode))
+)
 
 
 ;; Tweak zenburn colors
@@ -661,3 +711,5 @@ before packages are loaded."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+
+
