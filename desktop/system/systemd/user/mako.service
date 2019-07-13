@@ -1,13 +1,16 @@
 [Unit]
-Description=Dunst notification daemon
-Documentation=man:dunst(1)
+Description=Mako notification daemon
+Documentation=man:mako(1)
+
 PartOf=graphical-session.target
 After=graphical-session.target
 
 [Service]
 Type=dbus
+Slice=wm.slice
+
 BusName=org.freedesktop.Notifications
-ExecStart=/usr/bin/dunst
+ExecStart=/usr/bin/mako
 
 [Install]
 WantedBy=default.target

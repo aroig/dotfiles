@@ -1,0 +1,17 @@
+[Unit]
+Description=sway compositor
+Conflicts=vncserver.service weston.service weston.socket xorg.service
+
+Conflicts=console.target
+After=console.target
+
+BindsTo=graphical-session.target
+Before=graphical-session.target
+
+[Service]
+Type=simple
+
+Slice=wm.slice
+RuntimeDirectory=sway
+ExecStart=/usr/bin/sway --unsupported-gpu
+

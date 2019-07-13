@@ -15,7 +15,7 @@ set -e
 
 WAYLAND_SESSIONS=('sway')
 
-XORG_SESSIONS=('awesome' 'gnome' 'default')
+XORG_SESSIONS=('awesome' 'gnome')
 
 ENVIRONMENT_VARIABLES=(
     DISPLAY
@@ -71,9 +71,13 @@ start_xorg_session () {
 start_wayland_session () {
     local session="$1"
 
-    case "$session" in
-        sway) /usr/bin/sway 2>&1 | systemd-cat -t sway ;;
-    esac
+    systemctl --user import-environment "${ENVIRONMENT_VARIABLES[@]}"
+
+    # Start desktop session
+    systemctl --user start "${session}-session.target"
+
+    # Wait synchronously until the compositor stops
+    systemctl --user start --wait "$session.service"
 
     # Unset environment
     systemctl --user unset-environment "${ENVIRONMENT_VARIABLES[@]}"
@@ -100,7 +104,7 @@ start_session () {
 
 
 # Check that we have a session
-session="${1:-default}"
+session="${1}"
 if [ -z "$session" ]; then
     printf "No graphical session given\\n"
     exit 1

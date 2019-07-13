@@ -31,6 +31,7 @@ application/epub+zip=ebook-viewer.desktop;
 application/pdf=zathura.desktop;
 application/postscript=zathura.desktop;
 image/vnd.djvu=zathura.desktop;
+image/vnd.djvu+multipage=zathura.desktop;
 
 audio/mpeg=mpv.desktop;
 video/quicktime=mpv.desktop;
