@@ -27,7 +27,7 @@ local function worker(format, warg)
                            crit = data[n .. "_crit"] and tonumber(data[n .. "_crit"]) / 1000,
                            label = data[n .. "_label"] or "<unknown>"}
             table.insert(all_values.sensors, value)
-            if all_values.temp < value.temp then
+            if all_values.temp and value.temp and all_values.temp < value.temp then
                 all_values.temp = value.temp
             end
         end
